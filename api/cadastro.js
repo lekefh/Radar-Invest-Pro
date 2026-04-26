@@ -109,11 +109,11 @@ module.exports = async function handler(req, res) {
       html,
     });
 
-    // Notificação interna
+    // Notificação interna (direto para Gmail, evita loop ImprovMX)
     await transporter.sendMail({
       from: `"Radar Invest Pro Site" <${process.env.GMAIL_USER}>`,
-      to: 'contato@radarinvestpro.com.br',
-      subject: `Novo lead — ${email}`,
+      to: process.env.GMAIL_USER,
+      subject: `📡 Novo lead — ${email}`,
       text: `Novo cadastro de interesse:\n\nE-mail: ${email}\nData: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Cuiaba' })}`,
     });
 
