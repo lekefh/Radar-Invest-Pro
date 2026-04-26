@@ -705,6 +705,29 @@
 
   document.querySelectorAll('.feat-card.destaque').forEach(el => barObs.observe(el));
 
+  // ── Ticker ao vivo (brapi.dev) ────────────────────────────────────────────
+  (async function atualizarTicker() {
+    const tickers = 'PETR4,VALE3,ITUB4,WEGE3,BBAS3,SUZB3,B3SA3,PSSA3,VULC3,EGIE3';
+    try {
+      const res  = await fetch(`https://brapi.dev/api/quote/${tickers}`);
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data.results?.length) return;
+
+      const fmt    = n => n.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const fmtPct = n => Math.abs(n).toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
+      const itens = data.results.map(q => {
+        const pct   = q.regularMarketChangePercent ?? 0;
+        const sinal = pct >= 0 ? '▲+' : '▼-';
+        const cls   = pct >= 0 ? 'up' : 'dn';
+        return `<span class="ticker-item"><span class="sym">${q.symbol}</span>R$${fmt(q.regularMarketPrice)} <span class="${cls}">${sinal}${fmtPct(pct)}%</span></span>`;
+      });
+
+      document.querySelector('.ticker-inner').innerHTML = [...itens, ...itens].join('');
+    } catch { /* mantém valores estáticos */ }
+  })();
+
   // ── Form submit ───────────────────────────────────────────────────────────
   const form   = document.getElementById('cta-form');
   const status = document.getElementById('form-status');
