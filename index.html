@@ -4,442 +4,214 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Radar Invest Pro — Análise como Gestores de Fundo</title>
-  <meta name="description" content="Democratizando a análise de ações da forma correta — DCF, fundamentos e peso de carteira como os grandes gestores de fundo fazem." />
+  <meta name="description" content="Democratizamos a análise de ações da B3 com DCF, fundamentos e peso correto de carteira — as mesmas ferramentas que grandes gestores de fundo utilizam." />
+  <meta name="keywords" content="análise de ações B3, DCF valuation, análise fundamentalista, carteira de investimentos, gestores de fundo" />
+  <meta name="author" content="Radar Invest Pro" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://radarinvestpro.com.br/" />
+  <meta property="og:title"       content="Radar Invest Pro — Análise como Gestores de Fundo" />
+  <meta property="og:description" content="DCF, fundamentos e peso correto de carteira — as ferramentas dos grandes gestores, agora para o investidor individual." />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23050d1a'/><circle cx='16' cy='16' r='4' fill='%23e8a020'/><circle cx='16' cy='16' r='8' fill='none' stroke='%23e8a020' stroke-width='1.5' opacity='.6'/><circle cx='16' cy='16' r='13' fill='none' stroke='%23e8a020' stroke-width='1' opacity='.3'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    :root {
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
       --navy:    #050d1a;
-      --navy2:   #0b1628;
-      --navy3:   #111f38;
+      --navy2:   #081120;
+      --navy3:   #0d1a2e;
       --gold:    #e8a020;
       --gold2:   #f5c55a;
-      --green:   #00c896;
+      --gold3:   #c47d10;
+      --green:   #00d4a0;
       --red:     #ef4444;
-      --text:    #e2e8f0;
-      --muted:   #7a91b0;
-      --border:  rgba(255,255,255,0.07);
+      --text:    #e8edf5;
+      --muted:   #6b84a8;
+      --border:  rgba(255,255,255,0.06);
     }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--text);overflow-x:hidden}
 
-    html { scroll-behavior: smooth; }
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal-left.visible{opacity:1;transform:none}
+    .reveal-scale{opacity:0;transform:scale(.92);transition:opacity .6s ease,transform .6s ease}
+    .reveal-scale.visible{opacity:1;transform:scale(1)}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--navy);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    /* ── TICKER TAPE ── */
-    .ticker-wrap {
-      background: var(--navy2);
-      border-bottom: 1px solid var(--border);
-      padding: 8px 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .ticker-inner {
-      display: inline-block;
-      animation: ticker 40s linear infinite;
-    }
-    .ticker-item {
-      display: inline-block;
-      padding: 0 28px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.5px;
-    }
-    .ticker-item .sym { color: var(--text); font-weight: 600; margin-right: 6px; }
-    .ticker-item .up  { color: var(--green); }
-    .ticker-item .dn  { color: var(--red); }
-    @keyframes ticker {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
+    /* ── TICKER ── */
+    .ticker-wrap{background:var(--navy2);border-bottom:1px solid var(--border);padding:9px 0;overflow:hidden;white-space:nowrap}
+    .ticker-inner{display:inline-block;animation:ticker 45s linear infinite}
+    .ticker-item{display:inline-block;padding:0 32px;font-size:11.5px;font-weight:500;letter-spacing:.4px;color:var(--muted)}
+    .ticker-item .sym{color:var(--text);font-weight:700;margin-right:6px}
+    .ticker-item .up{color:var(--green)}
+    .ticker-item .dn{color:var(--red)}
+    @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
     /* ── NAV ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 60px;
-      background: rgba(5, 13, 26, 0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px; font-weight: 700;
-      color: #fff;
-      text-decoration: none;
-    }
-    .nav-logo .radar-icon {
-      width: 32px; height: 32px;
-      border: 2px solid var(--gold);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .nav-logo .radar-icon::after {
-      content: '';
-      width: 10px; height: 10px;
-      background: var(--gold);
-      border-radius: 50%;
-    }
-    .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      color: var(--muted); font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: color .2s;
-    }
-    .nav-links a:hover { color: #fff; }
-    .nav-cta {
-      background: var(--gold); color: #000;
-      font-weight: 700; font-size: 13px;
-      padding: 10px 22px; border-radius: 6px;
-      text-decoration: none; transition: background .2s;
-    }
-    .nav-cta:hover { background: var(--gold2); }
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 60px;height:64px;background:rgba(5,13,26,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-icon{width:34px;height:34px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative}
+    .logo-icon::before{content:'';position:absolute;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--gold);opacity:.4}
+    .logo-icon::after{content:'';width:8px;height:8px;background:var(--gold);border-radius:50%}
+    .logo-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:-.3px}
+    .logo-name span{color:var(--gold)}
+    .nav-links{display:flex;gap:32px;list-style:none}
+    .nav-links a{color:var(--muted);font-size:14px;font-weight:500;text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:#fff}
+    .nav-cta{background:var(--gold);color:#000;font-weight:700;font-size:13px;padding:9px 22px;border-radius:6px;text-decoration:none;transition:all .2s;letter-spacing:.2px}
+    .nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
 
     /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 92vh;
-      display: flex; align-items: center;
-      padding: 80px 60px;
-      overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(232,160,32,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 80% at 10% 80%, rgba(0,200,150,0.04) 0%, transparent 60%);
-    }
-    .grid-bg {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .hero-content { position: relative; z-index: 2; max-width: 680px; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(232,160,32,0.12);
-      border: 1px solid rgba(232,160,32,0.3);
-      border-radius: 100px;
-      padding: 6px 16px; margin-bottom: 32px;
-      font-size: 12px; font-weight: 600;
-      color: var(--gold); letter-spacing: 0.8px;
-      text-transform: uppercase;
-    }
-    .hero-badge::before {
-      content: ''; width: 6px; height: 6px;
-      background: var(--gold); border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: .4; transform: scale(1.3); }
-    }
-    h1 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(40px, 5.5vw, 72px);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -1.5px;
-      margin-bottom: 24px;
-    }
-    h1 .brand { color: var(--gold); display: block; }
-    h1 .sub   { color: #fff; }
-    .hero-desc {
-      font-size: 18px; line-height: 1.7;
-      color: var(--muted); max-width: 560px;
-      margin-bottom: 40px;
-    }
-    .hero-desc strong { color: var(--text); }
-    .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--gold); color: #000;
-      font-weight: 700; font-size: 15px;
-      padding: 14px 32px; border-radius: 8px;
-      text-decoration: none; transition: all .2s;
-      border: none; cursor: pointer;
-    }
-    .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text); font-size: 15px; font-weight: 500;
-      padding: 14px 28px; border-radius: 8px;
-      text-decoration: none; transition: all .2s;
-    }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
+    .hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 60px 60px;position:relative;overflow:hidden}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:56px 56px}
+    .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(232,160,32,.07) 0%,transparent 70%)}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.25);border-radius:100px;padding:6px 18px;margin-bottom:32px;font-size:12px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;position:relative}
+    .hero-badge::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.4)}}
 
-    /* ── CHART MOCKUP ── */
-    .hero-visual {
-      position: absolute; right: -20px; top: 50%;
-      transform: translateY(-50%);
-      width: 520px; z-index: 1;
-      opacity: 0.85;
-    }
-    .chart-card {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-    }
-    .chart-header {
-      display: flex; justify-content: space-between;
-      align-items: flex-start; margin-bottom: 20px;
-    }
-    .chart-ticker { font-size: 13px; color: var(--muted); margin-bottom: 2px; }
-    .chart-price  { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; }
-    .chart-upside {
-      background: rgba(0,200,150,0.12);
-      border: 1px solid rgba(0,200,150,0.3);
-      border-radius: 6px; padding: 6px 12px;
-      font-size: 12px; font-weight: 700; color: var(--green);
-    }
-    svg.chart { width: 100%; height: 120px; }
-    .metrics-row {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 12px; margin-top: 20px;
-    }
-    .metric {
-      background: var(--navy3); border-radius: 10px;
-      padding: 12px; text-align: center;
-    }
-    .metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 4px; }
-    .metric-value { font-size: 16px; font-weight: 700; color: var(--gold); }
+    /* NOME GIGANTE */
+    .hero-brand{font-family:'Space Grotesk',sans-serif;font-size:clamp(52px,8vw,110px);font-weight:700;line-height:1;letter-spacing:-3px;margin-bottom:12px;position:relative}
+    .hero-brand .radar{color:var(--text)}
+    .hero-brand .invest{color:var(--gold);display:block}
+    .hero-brand .pro{color:var(--text);opacity:.5;font-size:.45em;letter-spacing:4px;text-transform:uppercase;font-weight:400;display:block;margin-top:8px}
+    .hero-line{width:80px;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto 28px}
+    .hero-mission{font-size:clamp(17px,2.2vw,22px);line-height:1.65;color:var(--muted);max-width:680px;margin:0 auto 44px;font-weight:300}
+    .hero-mission strong{color:var(--text);font-weight:600}
+    .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+    .btn-primary{background:var(--gold);color:#000;font-weight:700;font-size:15px;padding:15px 36px;border-radius:8px;text-decoration:none;transition:all .2s;border:none;cursor:pointer;letter-spacing:.2px}
+    .btn-primary:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,160,32,.3)}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.15);color:var(--text);font-size:15px;font-weight:500;padding:15px 32px;border-radius:8px;text-decoration:none;transition:all .2s;cursor:pointer}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04)}
 
-    .dcf-card {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px;
-      margin-top: 12px;
-    }
-    .dcf-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; }
-    .dcf-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .dcf-label  { font-size: 12px; color: var(--muted); width: 70px; flex-shrink: 0; }
-    .dcf-bar    { flex: 1; height: 8px; background: var(--navy3); border-radius: 4px; overflow: hidden; }
-    .dcf-fill   { height: 100%; border-radius: 4px; }
-    .dcf-val    { font-size: 12px; font-weight: 600; width: 52px; text-align: right; }
+    /* Cards flutuantes no hero */
+    .hero-cards{display:flex;gap:14px;justify-content:center;margin-top:56px;flex-wrap:wrap;position:relative}
+    .mini-card{background:var(--navy3);border:1px solid var(--border);border-radius:12px;padding:16px 22px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:10px}
+    .mini-card .icon{font-size:20px}
+    .mini-card strong{color:var(--text);display:block;font-size:14px;font-weight:600}
 
     /* ── STATS ── */
-    .stats {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      display: grid; grid-template-columns: repeat(4,1fr);
-      background: var(--navy2);
-    }
-    .stat {
-      padding: 40px 48px;
-      border-right: 1px solid var(--border);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 42px; font-weight: 700;
-      color: var(--gold); line-height: 1;
-      margin-bottom: 8px;
-    }
-    .stat-label { font-size: 14px; color: var(--muted); }
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--navy2)}
+    .stat{padding:44px 40px;border-right:1px solid var(--border);text-align:center}
+    .stat:last-child{border-right:none}
+    .stat-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:700;color:var(--gold);line-height:1;margin-bottom:8px}
+    .stat-label{font-size:14px;color:var(--muted);line-height:1.5}
 
-    /* ── SECTIONS ── */
-    section { padding: 100px 60px; }
-    .section-tag {
-      font-size: 11px; font-weight: 700;
-      color: var(--gold); letter-spacing: 1.5px;
-      text-transform: uppercase; margin-bottom: 16px;
-    }
-    h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(28px, 3.5vw, 46px);
-      font-weight: 700; line-height: 1.15;
-      letter-spacing: -.5px; margin-bottom: 20px;
-    }
-    .lead {
-      font-size: 17px; color: var(--muted);
-      line-height: 1.7; max-width: 580px;
-    }
+    /* ── SEÇÃO MISSÃO (destaque central) ── */
+    .mission{padding:100px 60px;background:var(--navy2);position:relative;overflow:hidden}
+    .mission::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(232,160,32,.04),transparent 70%);pointer-events:none}
+    .mission-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+    .mission-left .tag{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px}
+    .mission-left h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,3.5vw,48px);font-weight:700;line-height:1.15;letter-spacing:-.5px;margin-bottom:24px}
+    .mission-left h2 em{color:var(--gold);font-style:normal}
+    .mission-statement{font-size:18px;line-height:1.8;color:var(--muted);border-left:3px solid var(--gold);padding-left:24px;margin-bottom:32px;font-weight:300}
+    .mission-statement strong{color:var(--text);font-weight:600}
+    .mission-pillars{display:flex;flex-direction:column;gap:18px}
+    .pillar{display:flex;align-items:flex-start;gap:16px}
+    .pillar-num{width:36px;height:36px;border-radius:8px;background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.2);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--gold);flex-shrink:0}
+    .pillar h4{font-size:15px;font-weight:700;margin-bottom:4px}
+    .pillar p{font-size:13px;color:var(--muted);line-height:1.6}
 
-    /* ── MISSÃO ── */
-    .mission { background: var(--navy2); }
-    .mission-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
-    }
-    .mission-quote {
-      border-left: 3px solid var(--gold);
-      padding-left: 28px;
-      font-size: 22px; line-height: 1.6;
-      color: var(--text); font-style: italic;
-      font-weight: 300;
-    }
-    .mission-quote strong { color: var(--gold); font-style: normal; font-weight: 700; }
-    .mission-points { display: flex; flex-direction: column; gap: 20px; }
-    .mission-point {
-      display: flex; gap: 16px; align-items: flex-start;
-    }
-    .mission-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: rgba(232,160,32,0.1);
-      border: 1px solid rgba(232,160,32,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-    .mission-point h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .mission-point p  { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    /* Comparativo gestor vs. individual */
+    .compare-box{background:var(--navy3);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+    .compare-hdr{display:grid;grid-template-columns:1fr 1fr 1fr;background:rgba(0,0,0,.3);padding:14px 20px;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+    .compare-hdr span:not(:first-child){text-align:center}
+    .compare-row{display:grid;grid-template-columns:1fr 1fr 1fr;padding:14px 20px;border-top:1px solid var(--border);font-size:13px}
+    .compare-row:nth-child(even){background:rgba(255,255,255,.02)}
+    .compare-row .item{color:var(--muted)}
+    .compare-row .gestor{text-align:center;color:var(--green);font-weight:600}
+    .compare-row .individual{text-align:center;color:var(--red)}
+    .compare-row .radar-col{text-align:center;color:var(--gold);font-weight:600}
+    .compare-hdr .radar-h{text-align:center;color:var(--gold)}
 
     /* ── FEATURES ── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 24px; margin-top: 60px;
-    }
-    .feature-card {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 16px; padding: 32px;
-      transition: border-color .3s, transform .3s;
-    }
-    .feature-card:hover {
-      border-color: rgba(232,160,32,0.3);
-      transform: translateY(-4px);
-    }
-    .feature-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: rgba(232,160,32,0.08);
-      border: 1px solid rgba(232,160,32,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; margin-bottom: 20px;
-    }
-    .feature-card h3 {
-      font-size: 18px; font-weight: 700;
-      margin-bottom: 10px; color: #fff;
-    }
-    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-    .feature-tag {
-      display: inline-block; margin-top: 16px;
-      font-size: 11px; font-weight: 700; letter-spacing: .6px;
-      color: var(--gold); text-transform: uppercase;
-    }
+    .features{padding:100px 60px;max-width:1400px;margin:0 auto}
+    .sec-header{text-align:center;margin-bottom:64px}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+    .sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;line-height:1.15;letter-spacing:-.4px;margin-bottom:16px}
+    .sec-lead{font-size:17px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.7}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .feat-card{background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:32px;transition:all .3s;position:relative;overflow:hidden}
+    .feat-card::after{content:'';position:absolute;inset:0;border-radius:14px;border:1px solid rgba(232,160,32,0);transition:border-color .3s}
+    .feat-card:hover{transform:translateY(-5px);background:var(--navy3)}
+    .feat-card:hover::after{border-color:rgba(232,160,32,.25)}
+    .feat-icon{font-size:28px;margin-bottom:18px;display:block}
+    .feat-card h3{font-size:17px;font-weight:700;margin-bottom:10px}
+    .feat-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+    .feat-tag{display:inline-block;margin-top:16px;font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--gold);text-transform:uppercase}
 
-    /* ── COMO FUNCIONA ── */
-    .how { background: var(--navy2); }
-    .steps {
-      display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 0; margin-top: 60px; position: relative;
-    }
-    .steps::before {
-      content: '';
-      position: absolute; top: 28px; left: 10%;
-      width: 80%; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .step { text-align: center; padding: 0 20px; position: relative; }
-    .step-num {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--navy);
-      border: 2px solid var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px; font-weight: 700; color: var(--gold);
-      position: relative; z-index: 2;
-    }
-    .step h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
-    .step p   { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    /* DESTAQUE DCF */
+    .feat-card.destaque{grid-column:span 3;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:linear-gradient(135deg,var(--navy3) 0%,rgba(17,31,56,.8) 100%);border-color:rgba(232,160,32,.15)}
+    .feat-card.destaque .feat-visual{background:var(--navy2);border:1px solid var(--border);border-radius:12px;padding:20px}
+    .dcf-scenario{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .dcf-scenario:last-child{margin-bottom:0}
+    .dcf-label{font-size:12px;color:var(--muted);width:70px;flex-shrink:0}
+    .dcf-bar{flex:1;height:10px;background:rgba(255,255,255,.05);border-radius:5px;overflow:hidden}
+    .dcf-fill{height:100%;border-radius:5px;transition:width 1.5s ease}
+    .dcf-val{font-size:13px;font-weight:700;width:60px;text-align:right}
 
-    /* ── DIFERENCIAIS ── */
-    .diff-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 24px; margin-top: 60px;
-    }
-    .diff-card {
-      background: var(--navy2);
-      border: 1px solid var(--border);
-      border-radius: 12px; padding: 28px 32px;
-      display: flex; gap: 20px;
-    }
-    .diff-check {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(0,200,150,0.12);
-      border: 1px solid rgba(0,200,150,0.3);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--green); font-size: 14px; flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .diff-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-    .diff-card p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    /* ── METODOLOGIA ── */
+    .metodo{padding:100px 60px;background:var(--navy2)}
+    .metodo-inner{max-width:1200px;margin:0 auto}
+    .metodo-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;position:relative}
+    .metodo-steps::before{content:'';position:absolute;top:28px;left:12.5%;width:75%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+    .step-item{text-align:center;padding:0 16px;position:relative}
+    .step-num{width:56px;height:56px;border-radius:50%;background:var(--navy);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--gold);position:relative;z-index:2}
+    .step-item h4{font-size:15px;font-weight:700;margin-bottom:8px}
+    .step-item p{font-size:13px;color:var(--muted);line-height:1.6}
+
+    /* ── SETORES ── */
+    .setores{padding:80px 60px;max-width:1200px;margin:0 auto}
+    .setores-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:48px}
+    .setor-pill{background:var(--navy2);border:1px solid var(--border);border-radius:100px;padding:10px 18px;text-align:center;font-size:12.5px;font-weight:500;color:var(--muted);transition:all .2s;cursor:default}
+    .setor-pill:hover{border-color:rgba(232,160,32,.3);color:var(--gold);background:rgba(232,160,32,.05)}
 
     /* ── CTA ── */
-    .cta-section {
-      text-align: center;
-      background: linear-gradient(135deg, var(--navy2) 0%, var(--navy3) 100%);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .cta-section h2 { margin: 0 auto 16px; max-width: 600px; }
-    .cta-section .lead { margin: 0 auto 40px; text-align: center; }
-    .cta-form {
-      display: flex; gap: 12px; justify-content: center;
-      flex-wrap: wrap; margin-bottom: 16px;
-    }
-    .cta-input {
-      background: var(--navy);
-      border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px 20px;
-      color: #fff; font-size: 15px; width: 300px;
-      outline: none; transition: border-color .2s;
-    }
-    .cta-input:focus { border-color: rgba(232,160,32,0.5); }
-    .cta-input::placeholder { color: var(--muted); }
-    .cta-note { font-size: 12px; color: var(--muted); }
+    .cta{padding:100px 60px;text-align:center;background:var(--navy2);border-top:1px solid var(--border);position:relative;overflow:hidden}
+    .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(232,160,32,.05),transparent)}
+    .cta h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:700;letter-spacing:-.5px;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto;position:relative}
+    .cta h2 span{color:var(--gold)}
+    .cta .lead{font-size:17px;color:var(--muted);max-width:500px;margin:0 auto 44px;line-height:1.7;position:relative}
+    .cta-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:520px;margin:0 auto 14px;position:relative}
+    .cta-input{flex:1;min-width:260px;background:var(--navy3);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:14px 20px;color:#fff;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s}
+    .cta-input:focus{border-color:rgba(232,160,32,.5)}
+    .cta-input::placeholder{color:var(--muted)}
+    .cta-note{font-size:13px;color:var(--muted);position:relative}
+    .cta-success{display:none;background:rgba(0,212,160,.1);border:1px solid rgba(0,212,160,.3);border-radius:10px;padding:20px 32px;margin:0 auto;max-width:420px;color:var(--green);font-weight:600;font-size:15px}
+    #form-status{margin-top:12px;font-size:14px;color:var(--green)}
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--navy2);
-      border-top: 1px solid var(--border);
-      padding: 48px 60px;
-      display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 20px;
-    }
-    .footer-logo {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 18px; font-weight: 700; color: #fff;
-    }
-    .footer-logo span { color: var(--gold); }
-    .footer-note { font-size: 13px; color: var(--muted); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a {
-      font-size: 13px; color: var(--muted);
-      text-decoration: none; transition: color .2s;
-    }
-    .footer-links a:hover { color: var(--text); }
+    footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+    .foot-logo{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#fff}
+    .foot-logo span{color:var(--gold)}
+    .foot-info{font-size:12.5px;color:var(--muted);line-height:1.6}
+    .foot-links a{font-size:13px;color:var(--muted);text-decoration:none;margin-left:20px;transition:color .2s}
+    .foot-links a:hover{color:var(--text)}
 
     /* ── RESPONSIVO ── */
-    @media (max-width: 1100px) {
-      .hero-visual { display: none; }
-      .features-grid { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .steps::before { display: none; }
+    @media(max-width:1100px){
+      .mission-inner{grid-template-columns:1fr;gap:48px}
+      .features-grid{grid-template-columns:1fr 1fr}
+      .feat-card.destaque{grid-column:span 2}
+      .metodo-steps{grid-template-columns:1fr 1fr;gap:32px}
+      .metodo-steps::before{display:none}
+      .setores-grid{grid-template-columns:repeat(3,1fr)}
     }
-    @media (max-width: 768px) {
-      nav { padding: 16px 24px; }
-      .nav-links { display: none; }
-      section, .hero { padding: 60px 24px; }
-      .stats { grid-template-columns: 1fr 1fr; }
-      .stat { padding: 28px 24px; }
-      .mission-inner { grid-template-columns: 1fr; gap: 40px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .diff-grid { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr; }
-      footer { flex-direction: column; text-align: center; padding: 40px 24px; }
+    @media(max-width:768px){
+      nav{padding:0 20px}
+      .nav-links{display:none}
+      .hero,.mission,.features,.metodo,.setores,.cta{padding:60px 24px}
+      .stats{grid-template-columns:1fr 1fr}
+      .stat{padding:28px 20px}
+      .features-grid{grid-template-columns:1fr}
+      .feat-card.destaque{grid-column:span 1;grid-template-columns:1fr}
+      .metodo-steps{grid-template-columns:1fr}
+      footer{flex-direction:column;text-align:center;padding:40px 24px}
+      .foot-links a{margin:0 10px}
+      .setores-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
@@ -448,176 +220,181 @@
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-inner">
-    <span class="ticker-item"><span class="sym">PETR4</span> R$38,42 <span class="up">▲ +1,8%</span></span>
-    <span class="ticker-item"><span class="sym">VALE3</span> R$62,10 <span class="dn">▼ -0,9%</span></span>
-    <span class="ticker-item"><span class="sym">ITUB4</span> R$34,87 <span class="up">▲ +0,5%</span></span>
-    <span class="ticker-item"><span class="sym">WEGE3</span> R$48,20 <span class="up">▲ +2,1%</span></span>
-    <span class="ticker-item"><span class="sym">BBAS3</span> R$27,33 <span class="dn">▼ -0,3%</span></span>
-    <span class="ticker-item"><span class="sym">SUZB3</span> R$54,15 <span class="up">▲ +1,2%</span></span>
-    <span class="ticker-item"><span class="sym">RENT3</span> R$19,80 <span class="dn">▼ -1,1%</span></span>
-    <span class="ticker-item"><span class="sym">B3SA3</span> R$19,05 <span class="up">▲ +0,7%</span></span>
-    <span class="ticker-item"><span class="sym">MGLU3</span> R$8,44 <span class="dn">▼ -2,3%</span></span>
-    <span class="ticker-item"><span class="sym">PSSA3</span> R$52,10 <span class="up">▲ +0,4%</span></span>
-    <!-- duplicado para loop contínuo -->
-    <span class="ticker-item"><span class="sym">PETR4</span> R$38,42 <span class="up">▲ +1,8%</span></span>
-    <span class="ticker-item"><span class="sym">VALE3</span> R$62,10 <span class="dn">▼ -0,9%</span></span>
-    <span class="ticker-item"><span class="sym">ITUB4</span> R$34,87 <span class="up">▲ +0,5%</span></span>
-    <span class="ticker-item"><span class="sym">WEGE3</span> R$48,20 <span class="up">▲ +2,1%</span></span>
-    <span class="ticker-item"><span class="sym">BBAS3</span> R$27,33 <span class="dn">▼ -0,3%</span></span>
-    <span class="ticker-item"><span class="sym">SUZB3</span> R$54,15 <span class="up">▲ +1,2%</span></span>
-    <span class="ticker-item"><span class="sym">RENT3</span> R$19,80 <span class="dn">▼ -1,1%</span></span>
-    <span class="ticker-item"><span class="sym">B3SA3</span> R$19,05 <span class="up">▲ +0,7%</span></span>
-    <span class="ticker-item"><span class="sym">MGLU3</span> R$8,44 <span class="dn">▼ -2,3%</span></span>
-    <span class="ticker-item"><span class="sym">PSSA3</span> R$52,10 <span class="up">▲ +0,4%</span></span>
+    <span class="ticker-item"><span class="sym">PETR4</span>R$38,42 <span class="up">▲+1,8%</span></span>
+    <span class="ticker-item"><span class="sym">VALE3</span>R$62,10 <span class="dn">▼-0,9%</span></span>
+    <span class="ticker-item"><span class="sym">ITUB4</span>R$34,87 <span class="up">▲+0,5%</span></span>
+    <span class="ticker-item"><span class="sym">WEGE3</span>R$48,20 <span class="up">▲+2,1%</span></span>
+    <span class="ticker-item"><span class="sym">BBAS3</span>R$27,33 <span class="dn">▼-0,3%</span></span>
+    <span class="ticker-item"><span class="sym">SUZB3</span>R$54,15 <span class="up">▲+1,2%</span></span>
+    <span class="ticker-item"><span class="sym">B3SA3</span>R$19,05 <span class="up">▲+0,7%</span></span>
+    <span class="ticker-item"><span class="sym">PSSA3</span>R$52,10 <span class="up">▲+0,4%</span></span>
+    <span class="ticker-item"><span class="sym">VULC3</span>R$17,22 <span class="up">▲+1,1%</span></span>
+    <span class="ticker-item"><span class="sym">EGIE3</span>R$41,80 <span class="dn">▼-0,6%</span></span>
+    <span class="ticker-item"><span class="sym">PETR4</span>R$38,42 <span class="up">▲+1,8%</span></span>
+    <span class="ticker-item"><span class="sym">VALE3</span>R$62,10 <span class="dn">▼-0,9%</span></span>
+    <span class="ticker-item"><span class="sym">ITUB4</span>R$34,87 <span class="up">▲+0,5%</span></span>
+    <span class="ticker-item"><span class="sym">WEGE3</span>R$48,20 <span class="up">▲+2,1%</span></span>
+    <span class="ticker-item"><span class="sym">BBAS3</span>R$27,33 <span class="dn">▼-0,3%</span></span>
+    <span class="ticker-item"><span class="sym">SUZB3</span>R$54,15 <span class="up">▲+1,2%</span></span>
+    <span class="ticker-item"><span class="sym">B3SA3</span>R$19,05 <span class="up">▲+0,7%</span></span>
+    <span class="ticker-item"><span class="sym">PSSA3</span>R$52,10 <span class="up">▲+0,4%</span></span>
+    <span class="ticker-item"><span class="sym">VULC3</span>R$17,22 <span class="up">▲+1,1%</span></span>
+    <span class="ticker-item"><span class="sym">EGIE3</span>R$41,80 <span class="dn">▼-0,6%</span></span>
   </div>
 </div>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="radar-icon"></div>
-    Radar Invest <span>Pro</span>
+  <a href="#" class="logo">
+    <div class="logo-icon"></div>
+    <span class="logo-name">Radar Invest <span>Pro</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="#missao">Missão</a></li>
     <li><a href="#funcionalidades">Funcionalidades</a></li>
-    <li><a href="#como-funciona">Como funciona</a></li>
-    <li><a href="#diferenciais">Diferenciais</a></li>
+    <li><a href="#metodologia">Metodologia</a></li>
+    <li><a href="#setores">Setores</a></li>
   </ul>
-  <a href="#acesso" class="nav-cta">Acesso Antecipado</a>
+  <a href="#acesso" class="nav-cta">Quero acesso antecipado</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="grid-bg"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Plataforma de Análise Fundamentalista</div>
-    <h1>
-      <span class="brand">Radar Invest Pro</span>
-      <span class="sub">Analise como um<br>gestor de fundo.</span>
-    </h1>
-    <p class="hero-desc">
-      Democratizamos a análise de ações da B3 com as mesmas ferramentas que os grandes gestores usam —
-      <strong>DCF, análise fundamentalista e alocação correta de carteira</strong> —
-      agora acessíveis para o investidor individual.
-    </p>
-    <div class="hero-actions">
-      <a href="#acesso" class="btn-primary">Quero acesso antecipado</a>
-      <a href="#funcionalidades" class="btn-outline">Ver funcionalidades</a>
-    </div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-badge">📡 Plataforma de Análise Fundamentalista B3</div>
+
+  <h1 class="hero-brand">
+    <span class="radar">Radar</span>
+    <span class="invest">Invest Pro</span>
+    <span class="pro">by Alexander Faria Hurtado</span>
+  </h1>
+
+  <div class="hero-line"></div>
+
+  <p class="hero-mission">
+    Democratizamos a análise de ações da B3 da forma correta —<br>
+    com <strong>DCF, fundamentos e peso de carteira</strong><br>
+    exatamente como os <strong>grandes gestores de fundo fazem</strong>.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#acesso" class="btn-primary">Quero acesso antecipado</a>
+    <a href="#missao" class="btn-ghost">Entender a missão</a>
   </div>
 
-  <!-- CARD VISUAL -->
-  <div class="hero-visual">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-ticker">WEGE3 · Weg S.A.</div>
-          <div class="chart-price">R$ 48,20</div>
-        </div>
-        <div class="chart-upside">▲ Upside 34%</div>
-      </div>
-      <svg class="chart" viewBox="0 0 460 120" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%"   stop-color="#e8a020" stop-opacity=".25"/>
-            <stop offset="100%" stop-color="#e8a020" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path d="M0,90 C40,85 60,75 100,60 S160,30 200,25 S280,20 320,28 S400,18 460,10"
-              stroke="#e8a020" stroke-width="2" fill="none"/>
-        <path d="M0,90 C40,85 60,75 100,60 S160,30 200,25 S280,20 320,28 S400,18 460,10 L460,120 L0,120Z"
-              fill="url(#cg)"/>
-      </svg>
-      <div class="metrics-row">
-        <div class="metric">
-          <div class="metric-label">P/L</div>
-          <div class="metric-value">22,4×</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">ROIC</div>
-          <div class="metric-value">28,7%</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Mg EBITDA</div>
-          <div class="metric-value">21,3%</div>
-        </div>
-      </div>
+  <div class="hero-cards reveal">
+    <div class="mini-card">
+      <span class="icon">📊</span>
+      <div><strong>DCF com BACEN</strong>Valuation por fluxo de caixa</div>
     </div>
-    <div class="dcf-card">
-      <div class="dcf-title">Valuation DCF — Cenários</div>
-      <div class="dcf-bar-row">
-        <div class="dcf-label">Pessimista</div>
-        <div class="dcf-bar"><div class="dcf-fill" style="width:55%;background:#7a91b0;"></div></div>
-        <div class="dcf-val" style="color:#7a91b0">R$ 38</div>
-      </div>
-      <div class="dcf-bar-row">
-        <div class="dcf-label">Base</div>
-        <div class="dcf-bar"><div class="dcf-fill" style="width:75%;background:#e8a020;"></div></div>
-        <div class="dcf-val" style="color:#e8a020">R$ 52</div>
-      </div>
-      <div class="dcf-bar-row">
-        <div class="dcf-label">Otimista</div>
-        <div class="dcf-bar"><div class="dcf-fill" style="width:95%;background:#00c896;"></div></div>
-        <div class="dcf-val" style="color:#00c896">R$ 65</div>
-      </div>
+    <div class="mini-card">
+      <span class="icon">🔍</span>
+      <div><strong>13 setores</strong>Framework específico por setor</div>
+    </div>
+    <div class="mini-card">
+      <span class="icon">⚖️</span>
+      <div><strong>Peso de carteira</strong>Alocação racional por risco</div>
+    </div>
+    <div class="mini-card">
+      <span class="icon">🏛️</span>
+      <div><strong>Governança</strong>Score ESG por empresa</div>
     </div>
   </div>
 </section>
 
 <!-- STATS -->
 <div class="stats">
-  <div class="stat">
-    <div class="stat-num">100+</div>
+  <div class="stat reveal">
+    <div class="stat-num"><span class="counter" data-target="100">0</span>+</div>
     <div class="stat-label">Ações monitoradas na B3</div>
   </div>
-  <div class="stat">
-    <div class="stat-num">13</div>
-    <div class="stat-label">Setores com frameworks específicos</div>
+  <div class="stat reveal">
+    <div class="stat-num"><span class="counter" data-target="13">0</span></div>
+    <div class="stat-label">Setores com frameworks próprios</div>
   </div>
-  <div class="stat">
+  <div class="stat reveal">
+    <div class="stat-num"><span class="counter" data-target="10">0</span></div>
+    <div class="stat-label">Critérios de governança por empresa</div>
+  </div>
+  <div class="stat reveal">
     <div class="stat-num">DCF</div>
     <div class="stat-label">Valuation com premissas do BACEN</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">Focado no investidor brasileiro</div>
   </div>
 </div>
 
 <!-- MISSÃO -->
 <section class="mission" id="missao">
   <div class="mission-inner">
-    <div>
-      <div class="section-tag">Nossa Missão</div>
-      <h2>A análise certa,<br>para quem merece.</h2>
-      <blockquote class="mission-quote">
-        "O investidor individual merece as mesmas ferramentas que os
-        <strong>gestores de grandes fundos</strong> usam para tomar decisões —
-        não achismos, não ruído — <strong>análise de verdade</strong>."
-      </blockquote>
+    <div class="mission-left reveal-left">
+      <div class="tag">Nossa Missão</div>
+      <h2>O investidor individual merece <em>as mesmas ferramentas</em> que os gestores de fundo.</h2>
+      <p class="mission-statement">
+        Hoje, grandes gestores tomam decisões com <strong>DCF rigoroso, análise fundamentalista setorial e alocação racional de carteira</strong>. O investidor comum toma decisões com achismo, notícia e dica de influencer.<br><br>
+        <strong>Isso precisa mudar.</strong>
+      </p>
+      <div class="mission-pillars">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <div>
+            <h4>DCF com premissas reais</h4>
+            <p>SELIC, IPCA e câmbio do BACEN alimentam o modelo automaticamente. Nada de premissas inventadas.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <div>
+            <h4>Fundamentos por setor</h4>
+            <p>Cada setor tem seu próprio KPI crítico: NIM para bancos, SSS para varejo, RAB para utilities, C1 para mineração.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <div>
+            <h4>Peso correto na carteira</h4>
+            <p>Alocação baseada em upside, risco e correlação — não em "gut feeling" ou diversificação aleatória.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mission-points">
-      <div class="mission-point">
-        <div class="mission-icon">🎯</div>
-        <div>
-          <h4>Democratizar o acesso</h4>
-          <p>Ferramentas profissionais de valuation e análise fundamentalista acessíveis para qualquer investidor pessoa física.</p>
+
+    <div class="reveal">
+      <div class="compare-box">
+        <div class="compare-hdr">
+          <span>O que você analisa</span>
+          <span>Gestor de Fundo</span>
+          <span class="radar-h">📡 Radar Invest Pro</span>
         </div>
-      </div>
-      <div class="mission-point">
-        <div class="mission-icon">📊</div>
-        <div>
-          <h4>Metodologia de gestores</h4>
-          <p>DCF com premissas macroeconômicas reais do BACEN, análise setorial específica e peso correto de carteira baseado em risco e retorno.</p>
+        <div class="compare-row">
+          <span class="item">Valuation</span>
+          <span class="gestor">DCF multicenários</span>
+          <span class="radar-col">DCF multicenários</span>
         </div>
-      </div>
-      <div class="mission-point">
-        <div class="mission-icon">🇧🇷</div>
-        <div>
-          <h4>100% focado no Brasil</h4>
-          <p>Universo B3, dados da CVM, SELIC, IPCA e IBOV. Análise contextualizada para o mercado brasileiro — sem adaptações genéricas.</p>
+        <div class="compare-row">
+          <span class="item">Fundamentos</span>
+          <span class="gestor">KPIs por setor</span>
+          <span class="radar-col">KPIs por setor</span>
+        </div>
+        <div class="compare-row">
+          <span class="item">Governança</span>
+          <span class="gestor">Score ESG</span>
+          <span class="radar-col">Score ESG</span>
+        </div>
+        <div class="compare-row">
+          <span class="item">Carteira</span>
+          <span class="gestor">Peso por risco</span>
+          <span class="radar-col">Peso por risco</span>
+        </div>
+        <div class="compare-row">
+          <span class="item">Próx. resultado</span>
+          <span class="gestor">Estimativa own</span>
+          <span class="radar-col">Estimativa own</span>
+        </div>
+        <div class="compare-row">
+          <span class="item">Custo</span>
+          <span class="gestor">R$ milhões</span>
+          <span class="radar-col" style="color:var(--green)">Acessível</span>
         </div>
       </div>
     </div>
@@ -626,149 +403,264 @@
 
 <!-- FUNCIONALIDADES -->
 <section id="funcionalidades">
-  <div class="section-tag">Funcionalidades</div>
-  <h2>Tudo que você precisa<br>para decidir com segurança.</h2>
-  <p class="lead">Cada ferramenta foi construída com a mesma lógica que gestores de fundos de ações aplicam no dia a dia.</p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">📈</div>
-      <h3>Valuation DCF</h3>
-      <p>Fluxo de Caixa Descontado com premissas macroeconômicas automaticamente atualizadas pelo BACEN — SELIC, IPCA, câmbio e PIB.</p>
-      <span class="feature-tag">Cenários Bear / Base / Bull</span>
+  <div class="features">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Funcionalidades</div>
+      <h2 class="sec-title">Tudo que um analista profissional usa.<br>Numa plataforma para você.</h2>
+      <p class="sec-lead">Cada ferramenta foi desenhada com a mesma lógica que casas de research e gestoras aplicam no dia a dia.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔍</div>
-      <h3>Análise Fundamentalista</h3>
-      <p>Indicadores específicos por setor: ROE para bancos, SSS para varejo, RAB para utilities, lifting cost para petróleo — cada empresa pelo seu próprio métrico.</p>
-      <span class="feature-tag">13 setores cobertos</span>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">⚖️</div>
-      <h3>Peso de Carteira</h3>
-      <p>Alocação racional baseada em risco, upside e correlação entre ativos. Visualize sua exposição setorial e rebalanceie com critério.</p>
-      <span class="feature-tag">Gestão de risco real</span>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">🔔</div>
-      <h3>Alertas Inteligentes</h3>
-      <p>Notificações automáticas quando uma ação da sua carteira atingir pontos críticos de variação em relação às máximas históricas.</p>
-      <span class="feature-tag">Alertas 15% e 30%</span>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📰</div>
-      <h3>Radar de Notícias</h3>
-      <p>Agregação de notícias relevantes por empresa diretamente no painel — sem precisar garimpar em dezenas de fontes diferentes.</p>
-      <span class="feature-tag">Tempo real</span>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <h3>Estimativa de Resultados</h3>
-      <p>Projeção do próximo trimestre com metodologia específica por setor — ADTV para bolsas, IPCA para utilities, SSS para varejo.</p>
-      <span class="feature-tag">Antes do earnings</span>
+
+    <div class="features-grid">
+      <!-- DESTAQUE DCF -->
+      <div class="feat-card destaque reveal">
+        <div>
+          <span class="feat-icon">💹</span>
+          <h3 style="font-size:22px;margin-bottom:12px">Valuation DCF — Fluxo de Caixa Descontado</h3>
+          <p style="font-size:15px;margin-bottom:20px">O mesmo modelo que gestores de fundo usam para precificar empresas — com premissas macroeconômicas reais do BACEN, WACC calculado via CAPM e três cenários (Bear / Base / Bull) com tabela de sensibilidade completa.</p>
+          <span class="feat-tag">Bear · Base · Bull · Sensibilidade WACC × g</span>
+        </div>
+        <div class="feat-visual">
+          <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px;font-weight:700">Cenários DCF — WEGE3</p>
+          <div class="dcf-scenario">
+            <span class="dcf-label" style="color:var(--muted)">Pessimista</span>
+            <div class="dcf-bar"><div class="dcf-fill" style="width:0%;background:#6b84a8" data-w="55"></div></div>
+            <span class="dcf-val" style="color:#6b84a8">R$ 38</span>
+          </div>
+          <div class="dcf-scenario">
+            <span class="dcf-label" style="color:var(--gold)">Base</span>
+            <div class="dcf-bar"><div class="dcf-fill" style="width:0%;background:var(--gold)" data-w="74"></div></div>
+            <span class="dcf-val" style="color:var(--gold)">R$ 52</span>
+          </div>
+          <div class="dcf-scenario">
+            <span class="dcf-label" style="color:var(--green)">Otimista</span>
+            <div class="dcf-bar"><div class="dcf-fill" style="width:0%;background:var(--green)" data-w="95"></div></div>
+            <span class="dcf-val" style="color:var(--green)">R$ 67</span>
+          </div>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div style="text-align:center">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Cotação atual</div>
+              <div style="font-size:18px;font-weight:700;color:var(--text)">R$ 48,20</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px">Upside (base)</div>
+              <div style="font-size:18px;font-weight:700;color:var(--green)">+7,9%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-card reveal">
+        <span class="feat-icon">🔍</span>
+        <h3>Análise Fundamentalista</h3>
+        <p>Indicadores históricos com benchmarks setoriais automáticos. ROE para bancos, SSS para varejo, lifting cost para petróleo — cada empresa analisada pelo métrico certo do setor.</p>
+        <span class="feat-tag">Score 0–10 · Semáforo de qualidade</span>
+      </div>
+
+      <div class="feat-card reveal">
+        <span class="feat-icon">⚖️</span>
+        <h3>Peso de Carteira</h3>
+        <p>Alocação racional baseada em upside DCF, risco e correlação entre ativos. Visualize sua exposição setorial e rebalanceie com critério — não com emoção.</p>
+        <span class="feat-tag">Risco · Correlação · Upside</span>
+      </div>
+
+      <div class="feat-card reveal">
+        <span class="feat-icon">🏛️</span>
+        <h3>Score de Governança</h3>
+        <p>10 critérios: estrutura de controle, independência do conselho, tag along, histórico com minoritários, remuneração de longo prazo e nível de listagem na B3.</p>
+        <span class="feat-tag">10 critérios · Novo Mercado · ESG</span>
+      </div>
+
+      <div class="feat-card reveal">
+        <span class="feat-icon">📋</span>
+        <h3>Estimativa de Resultados</h3>
+        <p>Projeção do próximo trimestre antes da divulgação. Metodologia específica por setor: ADTV para bolsas, IPCA para utilities, SSS para varejo, volume para mineração.</p>
+        <span class="feat-tag">Antes do earnings · Por setor</span>
+      </div>
+
+      <div class="feat-card reveal">
+        <span class="feat-icon">🔔</span>
+        <h3>Alertas Inteligentes</h3>
+        <p>Notificações automáticas quando ações da sua carteira atingirem pontos críticos — 15% de queda (atenção) e 30% (crítico) em relação às máximas de 52 semanas.</p>
+        <span class="feat-tag">Alertas 15% e 30%</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
-<section class="how" id="como-funciona">
-  <div class="section-tag">Como funciona</div>
-  <h2>Da análise à decisão<br>em poucos passos.</h2>
-  <p class="lead">Uma plataforma pensada para quem leva investimentos a sério, sem precisar ter uma equipe de analistas.</p>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <h4>Selecione a empresa</h4>
-      <p>Escolha entre mais de 100 ações B3 organizadas por setor com dados atualizados.</p>
+<!-- METODOLOGIA -->
+<section class="metodo" id="metodologia">
+  <div class="metodo-inner">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Como funciona</div>
+      <h2 class="sec-title">Da análise à decisão em 4 passos.</h2>
+      <p class="sec-lead">O mesmo processo que um analista de fundo segue — agora acessível para qualquer investidor.</p>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <h4>Analise os fundamentos</h4>
-      <p>Visualize indicadores históricos com benchmarks setoriais automáticos e semáforo de qualidade.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <h4>Calcule o valuation</h4>
-      <p>Rode o DCF com premissas do BACEN e veja o preço justo em 3 cenários com tabela de sensibilidade.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">4</div>
-      <h4>Decida com convicção</h4>
-      <p>Compare o preço de mercado vs. o valor intrínseco e defina o peso correto na sua carteira.</p>
+    <div class="metodo-steps">
+      <div class="step-item reveal">
+        <div class="step-num">1</div>
+        <h4>Selecione a empresa</h4>
+        <p>Mais de 100 ações B3 em 13 setores. Dados atualizados automaticamente via Yahoo Finance e BACEN.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">2</div>
+        <h4>Analise os fundamentos</h4>
+        <p>Veja o histórico de 5 anos com benchmarks setoriais, score de saúde financeira e score de governança.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">3</div>
+        <h4>Calcule o valuation</h4>
+        <p>DCF com premissas do BACEN. Ajuste WACC e crescimento. Veja os 3 cenários e a sensibilidade completa.</p>
+      </div>
+      <div class="step-item reveal">
+        <div class="step-num">4</div>
+        <h4>Decida com convicção</h4>
+        <p>Compare preço vs. valor intrínseco. Defina o peso correto na carteira baseado em risco e upside real.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- DIFERENCIAIS -->
-<section id="diferenciais">
-  <div class="section-tag">Por que o Radar Invest Pro</div>
-  <h2>A diferença está<br>na metodologia.</h2>
-  <p class="lead">Não somos mais um screener de indicadores. Somos uma plataforma de análise com a mesma profundidade que grandes casas de research aplicam.</p>
-  <div class="diff-grid">
-    <div class="diff-card">
-      <div class="diff-check">✓</div>
-      <div>
-        <h4>WACC calculado com rigor acadêmico</h4>
-        <p>Taxa de desconto via CAPM com Rf NTN-B, beta setorial e ERP Brasil sem dupla contagem do risco soberano.</p>
-      </div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-check">✓</div>
-      <div>
-        <h4>Framework específico por setor</h4>
-        <p>Bancos, utilities, agro, petróleo, varejo — cada setor tem seus próprios KPIs e variáveis de impacto identificadas.</p>
-      </div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-check">✓</div>
-      <div>
-        <h4>Dados primários do BACEN e CVM</h4>
-        <p>Premissas macroeconômicas direto das fontes oficiais — SELIC, IPCA, câmbio e crescimento do PIB atualizados automaticamente.</p>
-      </div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-check">✓</div>
-      <div>
-        <h4>Estimativa antes do resultado</h4>
-        <p>Projetamos o próximo trimestre antes da divulgação para você saber o que esperar e reagir antes do mercado.</p>
-      </div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-check">✓</div>
-      <div>
-        <h4>Carteira com peso racional</h4>
-        <p>Defina sua alocação com critério — não por feeling, mas por upside, risco e correlação entre os ativos da carteira.</p>
-      </div>
-    </div>
-    <div class="diff-card">
-      <div class="diff-check">✓</div>
-      <div>
-        <h4>100% focado no mercado brasileiro</h4>
-        <p>Desenvolvido por e para investidores brasileiros. B3, Receita Federal, ANEEL, ANS — a regulação correta para cada setor.</p>
-      </div>
-    </div>
+<!-- SETORES -->
+<section class="setores" id="setores">
+  <div class="sec-header reveal">
+    <div class="sec-tag">Cobertura Setorial</div>
+    <h2 class="sec-title">Framework específico para cada setor.</h2>
+    <p class="sec-lead">Cada setor tem suas próprias variáveis críticas. Não analisamos banco como varejo.</p>
+  </div>
+  <div class="setores-grid">
+    <div class="setor-pill reveal">🏦 Bancos e Financeiras</div>
+    <div class="setor-pill reveal">🛒 Varejo</div>
+    <div class="setor-pill reveal">⚡ Energia e Saneamento</div>
+    <div class="setor-pill reveal">🌾 Agronegócio</div>
+    <div class="setor-pill reveal">⛏️ Mineração e Siderurgia</div>
+    <div class="setor-pill reveal">🏢 FIIs</div>
+    <div class="setor-pill reveal">🏥 Saúde</div>
+    <div class="setor-pill reveal">💻 Tecnologia</div>
+    <div class="setor-pill reveal">🏗️ Construção Civil</div>
+    <div class="setor-pill reveal">📡 Telecomunicações</div>
+    <div class="setor-pill reveal">🌲 Papel e Celulose</div>
+    <div class="setor-pill reveal">🛢️ Petróleo e Gás</div>
+    <div class="setor-pill reveal">🛡️ Seguradoras</div>
+    <div class="setor-pill reveal">📊 Bolsa / Exchange</div>
+    <div class="setor-pill reveal">🏭 Industriais</div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta-section" id="acesso">
-  <div class="section-tag" style="text-align:center">Acesso antecipado</div>
-  <h2>Pronto para analisar<br>como um gestor?</h2>
-  <p class="lead">Cadastre seu e-mail e seja o primeiro a saber quando o Radar Invest Pro estiver disponível.</p>
-  <div class="cta-form">
-    <input type="email" class="cta-input" placeholder="seu@email.com" />
-    <a href="#" class="btn-primary">Quero acesso</a>
-  </div>
-  <p class="cta-note">Sem spam. Apenas atualizações do lançamento.</p>
+<section class="cta" id="acesso">
+  <h2 class="reveal">Pronto para analisar<br>como um <span>gestor de fundo</span>?</h2>
+  <p class="lead reveal">Cadastre seu e-mail e seja o primeiro a receber acesso ao Radar Invest Pro quando lançarmos.</p>
+
+  <form id="cta-form" class="reveal" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="SEU_ACCESS_KEY_AQUI" />
+    <input type="hidden" name="subject" value="Novo interesse — Radar Invest Pro" />
+    <input type="hidden" name="from_name" value="Radar Invest Pro Site" />
+    <input type="hidden" name="redirect" value="false" />
+    <div class="cta-form">
+      <input type="email" name="email" class="cta-input" placeholder="seu@email.com" required />
+      <button type="submit" class="btn-primary">Quero acesso</button>
+    </div>
+  </form>
+  <div id="form-status"></div>
+  <p class="cta-note reveal">Sem spam. Apenas uma mensagem quando o acesso estiver disponível.</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Radar Invest <span>Pro</span></div>
-  <p class="footer-note">© 2026 Radar Invest Pro · Marca registrada INPI nº 943514495 · Cuiabá, MT</p>
-  <div class="footer-links">
+  <div class="foot-logo">Radar Invest <span>Pro</span></div>
+  <div class="foot-info">
+    © 2026 Radar Invest Pro · Marca registrada INPI nº 943514495<br>
+    Cuiabá, MT · Brasil
+  </div>
+  <div class="foot-links">
     <a href="mailto:contato@radarinvestpro.com.br">contato@radarinvestpro.com.br</a>
+    <a href="#">Privacidade</a>
   </div>
 </footer>
+
+<script>
+  // ── Reveal on scroll ──────────────────────────────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-scale')
+    .forEach(el => observer.observe(el));
+
+  // ── Counter animation ─────────────────────────────────────────────────────
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el     = e.target;
+      const target = parseInt(el.dataset.target);
+      const dur    = 1800;
+      const start  = performance.now();
+      const tick   = (now) => {
+        const pct = Math.min((now - start) / dur, 1);
+        const val = Math.floor(pct * pct * target); // easeIn
+        el.textContent = val;
+        if (pct < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      };
+      requestAnimationFrame(tick);
+      counterObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+  // ── DCF bars animation ────────────────────────────────────────────────────
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('.dcf-fill[data-w]').forEach(bar => {
+        setTimeout(() => bar.style.width = bar.dataset.w + '%', 300);
+      });
+      barObs.unobserve(e.target);
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.feat-card.destaque').forEach(el => barObs.observe(el));
+
+  // ── Form submit ───────────────────────────────────────────────────────────
+  const form   = document.getElementById('cta-form');
+  const status = document.getElementById('form-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    try {
+      const res  = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      const data = await res.json();
+      if (data.success) {
+        form.style.display = 'none';
+        status.innerHTML = '✅ Cadastro confirmado! Você será notificado quando o acesso abrir.';
+        status.style.color = '#00d4a0';
+        status.style.fontSize = '16px';
+        status.style.fontWeight = '600';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      status.innerHTML = '⚠️ Algo deu errado. Tente novamente ou envie para <a href="mailto:contato@radarinvestpro.com.br" style="color:var(--gold)">contato@radarinvestpro.com.br</a>';
+      status.style.color = '#f5a623';
+      btn.textContent = 'Quero acesso';
+      btn.disabled = false;
+    }
+  });
+</script>
 
 </body>
 </html>
