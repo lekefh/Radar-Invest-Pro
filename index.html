@@ -191,6 +191,30 @@
     .foot-links a{font-size:13px;color:var(--muted);text-decoration:none;margin-left:20px;transition:color .2s}
     .foot-links a:hover{color:var(--text)}
 
+    /* ── SOBRE ── */
+    .sobre{padding:100px 60px;background:var(--navy2);border-top:1px solid var(--border)}
+    .sobre-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:start}
+    .avatar-wrap{width:150px;height:150px;border-radius:50%;border:2px solid rgba(232,160,32,.4);overflow:hidden;flex-shrink:0;box-shadow:0 0 0 6px rgba(232,160,32,.07)}
+    .avatar-foto{width:100%;height:100%;object-fit:cover;object-position:center top}
+    .sobre-content .tag{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
+    .sobre-content h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:-.4px;margin-bottom:6px}
+    .sobre-cargo{font-size:14px;color:var(--muted);margin-bottom:24px;font-style:italic}
+    .sobre-historia{font-size:15px;line-height:1.85;color:var(--muted);margin-bottom:32px;max-width:660px}
+    .sobre-historia strong{color:var(--text);font-weight:600}
+    .sobre-creds{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px;max-width:660px}
+    .cred{display:flex;align-items:flex-start;gap:12px;background:var(--navy);border:1px solid var(--border);border-radius:10px;padding:14px 18px;transition:border-color .2s}
+    .cred:hover{border-color:rgba(232,160,32,.2)}
+    .cred-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+    .cred strong{display:block;font-size:13px;font-weight:600;margin-bottom:3px}
+    .cred span{font-size:12px;color:var(--muted)}
+    .btn-linkedin{display:inline-flex;align-items:center;gap:10px;background:rgba(10,102,194,.12);border:1px solid rgba(10,102,194,.3);color:#6aaad8;font-size:14px;font-weight:600;padding:12px 24px;border-radius:8px;text-decoration:none;transition:all .2s}
+    .btn-linkedin:hover{background:rgba(10,102,194,.22);border-color:rgba(10,102,194,.55);color:#8dbfe8}
+    @media(max-width:768px){
+      .sobre{padding:60px 24px}
+      .sobre-inner{grid-template-columns:1fr;gap:32px}
+      .sobre-creds{grid-template-columns:1fr}
+    }
+
     /* ── RESPONSIVO ── */
     @media(max-width:1100px){
       .mission-inner{grid-template-columns:1fr;gap:48px}
@@ -254,6 +278,7 @@
     <li><a href="#funcionalidades">Funcionalidades</a></li>
     <li><a href="#metodologia">Metodologia</a></li>
     <li><a href="#setores">Setores</a></li>
+    <li><a href="#sobre">Sobre</a></li>
   </ul>
   <a href="#acesso" class="nav-cta">Quero acesso antecipado</a>
 </nav>
@@ -268,7 +293,6 @@
   <h1 class="hero-brand">
     <span class="radar">Radar</span>
     <span class="invest">Invest Pro</span>
-    <span class="pro">by Alexander Faria Hurtado</span>
   </h1>
 
   <div class="hero-line"></div>
@@ -388,8 +412,8 @@
         </div>
         <div class="compare-row">
           <span class="item">Próx. resultado</span>
-          <span class="gestor">Estimativa own</span>
-          <span class="radar-col">Estimativa own</span>
+          <span class="gestor">Estimativa de resultados</span>
+          <span class="radar-col">Estimativa de resultados</span>
         </div>
         <div class="compare-row">
           <span class="item">Custo</span>
@@ -533,8 +557,7 @@
     <div class="setor-pill reveal">⚡ Energia e Saneamento</div>
     <div class="setor-pill reveal">🌾 Agronegócio</div>
     <div class="setor-pill reveal">⛏️ Mineração e Siderurgia</div>
-    <div class="setor-pill reveal">🏢 FIIs</div>
-    <div class="setor-pill reveal">🏥 Saúde</div>
+<div class="setor-pill reveal">🏥 Saúde</div>
     <div class="setor-pill reveal">💻 Tecnologia</div>
     <div class="setor-pill reveal">🏗️ Construção Civil</div>
     <div class="setor-pill reveal">📡 Telecomunicações</div>
@@ -543,6 +566,61 @@
     <div class="setor-pill reveal">🛡️ Seguradoras</div>
     <div class="setor-pill reveal">📊 Bolsa / Exchange</div>
     <div class="setor-pill reveal">🏭 Industriais</div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="sobre-inner">
+    <div class="avatar-wrap reveal-scale">
+      <img src="foto-alexander.jpg" alt="Alexander Faria Hurtado" class="avatar-foto" />
+    </div>
+    <div class="sobre-content reveal">
+      <div class="tag">Quem está por trás</div>
+      <h2>Alexander Faria Hurtado</h2>
+      <p class="sobre-cargo">Gestor de Contabilidade · Tribunal de Justiça de Mato Grosso · Cuiabá, MT</p>
+
+      <p class="sobre-historia">
+        Invisto em ações na B3 <strong>desde 2016</strong>. O maior obstáculo que sempre enfrentei foi o tempo: trabalho durante o dia e, quando chegava o momento de analisar uma empresa a fundo, não existia uma ferramenta que fizesse esse trabalho de forma <strong>completa e profissional</strong> — sem planilhas manuais, sem depender de dica de influencer, com a metodologia real que grandes gestores de fundo utilizam.<br><br>
+        O Radar Invest Pro nasceu dessa necessidade real. <strong>Construí a plataforma que eu mesmo precisava e não encontrei no mercado.</strong>
+      </p>
+
+      <div class="sobre-creds">
+        <div class="cred">
+          <span class="cred-icon">🎓</span>
+          <div>
+            <strong>Ciências Contábeis</strong>
+            <span>UNEMAT · 2011</span>
+          </div>
+        </div>
+        <div class="cred">
+          <span class="cred-icon">📊</span>
+          <div>
+            <strong>Pós em Finanças, Auditoria e Controladoria</strong>
+            <span>UNIC · 2016</span>
+          </div>
+        </div>
+        <div class="cred">
+          <span class="cred-icon">🏆</span>
+          <div>
+            <strong>MBA em Finanças e Análise de Ações</strong>
+            <span>EXAME · concluído</span>
+          </div>
+        </div>
+        <div class="cred">
+          <span class="cred-icon">📈</span>
+          <div>
+            <strong>Investidor em ações B3</strong>
+            <span>desde 2016 · +9 anos de mercado</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://www.linkedin.com/in/alexander-faria-hurtado-54b0b363/" target="_blank" rel="noopener" class="btn-linkedin">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Ver perfil no LinkedIn
+      </a>
+    </div>
   </div>
 </section>
 
