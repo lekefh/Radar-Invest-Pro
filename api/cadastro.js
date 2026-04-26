@@ -102,7 +102,8 @@ module.exports = async function handler(req, res) {
   try {
     // E-mail de boas-vindas para o lead
     await transporter.sendMail({
-      from: '"Radar Invest Pro" <contato@radarinvestpro.com.br>',
+      from: `"Radar Invest Pro" <${process.env.GMAIL_USER}>`,
+      replyTo: 'contato@radarinvestpro.com.br',
       to: email,
       subject: 'Bem-vindo ao Radar Invest Pro 📡',
       html,
@@ -110,7 +111,7 @@ module.exports = async function handler(req, res) {
 
     // Notificação interna
     await transporter.sendMail({
-      from: '"Radar Invest Pro Site" <contato@radarinvestpro.com.br>',
+      from: `"Radar Invest Pro Site" <${process.env.GMAIL_USER}>`,
       to: 'contato@radarinvestpro.com.br',
       subject: `Novo lead — ${email}`,
       text: `Novo cadastro de interesse:\n\nE-mail: ${email}\nData: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Cuiaba' })}`,
