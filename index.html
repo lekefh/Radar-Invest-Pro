@@ -629,13 +629,9 @@
   <h2 class="reveal">Pronto para analisar<br>como um <span>gestor de fundo</span>?</h2>
   <p class="lead reveal">Cadastre seu e-mail e seja o primeiro a receber acesso ao Radar Invest Pro quando lançarmos.</p>
 
-  <form id="cta-form" class="reveal" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="f4f6fd36-b305-4cf5-a8b0-65f8936a677e" />
-    <input type="hidden" name="subject" value="Novo interesse — Radar Invest Pro" />
-    <input type="hidden" name="from_name" value="Radar Invest Pro Site" />
-    <input type="hidden" name="redirect" value="false" />
+  <form id="cta-form" class="reveal">
     <div class="cta-form">
-      <input type="email" name="email" class="cta-input" placeholder="seu@email.com" required />
+      <input type="email" name="email" id="cta-email" class="cta-input" placeholder="seu@email.com" required />
       <button type="submit" class="btn-primary">Quero acesso</button>
     </div>
   </form>
@@ -733,20 +729,21 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type=submit]');
+    const btn   = form.querySelector('button[type=submit]');
+    const email = document.getElementById('cta-email').value;
     btn.textContent = 'Enviando...';
     btn.disabled = true;
 
     try {
-      const res  = await fetch(form.action, {
+      const res  = await fetch('/api/cadastro', {
         method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
+        body: JSON.stringify({ email }),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
       });
       const data = await res.json();
       if (data.success) {
         form.style.display = 'none';
-        status.innerHTML = '✅ Cadastro confirmado! Você será notificado quando o acesso abrir.';
+        status.innerHTML = '✅ Cadastro confirmado! Você receberá um e-mail de boas-vindas em instantes.';
         status.style.color = '#00d4a0';
         status.style.fontSize = '16px';
         status.style.fontWeight = '600';
