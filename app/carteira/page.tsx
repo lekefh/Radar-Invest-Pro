@@ -29,18 +29,18 @@ const f1 = (v: number | null | undefined) =>
   v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%'
 const fR = (v: number | null | undefined) =>
   v == null ? '—' : 'R$ ' + f2(v)
-const UA = 'Mozilla/5.0'
-
-async function buscarPreco(ticker: string): Promise<number | null> {
+/* busca via API server-side para evitar CORS do browser */
+async function buscarPrecos(tickers: string[]): Promise<Record<string, { preco: number | null; variacao: number | null }>> {
   try {
-    const r = await fetch(
-      `https://query2.finance.yahoo.com/v8/finance/chart/${ticker}.SA?interval=1d&range=2d`,
-      { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(7000) }
-    )
-    if (!r.ok) return null
+    const r = await fetch(`/api/cotacoes?tickers=${tickers.join(',')}`, {
+      signal: AbortSignal.timeout(30000)
+    })
+    if (!r.ok) return {}
     const j = await r.json()
-    return j.chart?.result?.[0]?.meta?.regularMarketPrice ?? null
-  } catch { return null }
+    const map: Record<string, { preco: number | null; variacao: number | null }> = {}
+    for (const c of j.cotacoes ?? []) map[c.ticker] = { preco: c.preco, variacao: c.variacao }
+    return map
+  } catch { return {} }
 }
 
 /* ── Modal base ──────────────────────────────────────────────────────────────── */
@@ -233,19 +233,15 @@ export default function CarteiraPage() {
     finally  { setLoading(false) }
   }, [])
 
-  /* busca cotações ao vivo */
+  /* busca cotações via API server-side (sem CORS) */
   const atualizarCotacoes = useCallback(async () => {
     if (posicoes.length === 0) return
     setAtualizando(true)
     const tickers = posicoes.map(p => p.ticker)
-    const resultados = await Promise.allSettled(tickers.map(t => buscarPreco(t)))
-    setPosicoes(prev => prev.map((p, i) => {
-      const r = resultados[i]
-      const preco_atual = r.status === 'fulfilled' ? r.value : null
-      const variacao = preco_atual && p.preco_medio
-        ? ((preco_atual - p.preco_medio) / p.preco_medio) * 100
-        : null
-      return { ...p, preco_atual, variacao }
+    const precos = await buscarPrecos(tickers)
+    setPosicoes(prev => prev.map(p => {
+      const c = precos[p.ticker]
+      return { ...p, preco_atual: c?.preco ?? null, variacao: c?.variacao ?? null }
     }))
     setAtualizando(false)
   }, [posicoes])
