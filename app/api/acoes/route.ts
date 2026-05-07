@@ -6,7 +6,8 @@ interface FundInfo {
   pvp: number | null; roe: number | null; lpa: number | null;
   divEbit: number | null; vpa: number | null; merc: number | null;
   evEbit: number | null; max52s: number | null; gov: number | null;
-  nota: number | null; atualizado: string | null;
+  govRespostas: Record<string, string>; nota: number | null;
+  atualizado: string | null;
 }
 const fundamentais = fundamentaisRaw as Record<string, FundInfo>
 const TICKERS = Object.keys(fundamentais).sort()
@@ -67,9 +68,10 @@ export async function GET() {
       divEbit: n(f.divEbit),
       merc:    n(f.merc),
       evEbit:  n(f.evEbit),
-      gov:     n(f.gov),
-      nota:    n(f.nota),
-      atualizado: f.atualizado,
+      gov:          n(f.gov),
+      govRespostas: f.govRespostas ?? {},
+      nota:         n(f.nota),
+      atualizado:   f.atualizado,
     }
   })
 
