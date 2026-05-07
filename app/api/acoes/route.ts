@@ -10,7 +10,7 @@ interface FundInfo {
   atualizado: string | null;
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fundamentais = fundamentaisRaw as Record<string, any>
+const fundamentais = fundamentaisRaw as unknown as Record<string, any>
 const TICKERS = Object.keys(fundamentais).sort()
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'

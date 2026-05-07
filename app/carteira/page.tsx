@@ -22,7 +22,7 @@ type ModalTipo = 'add' | 'edit' | 'ops' | null
 
 /* ── helpers ────────────────────────────────────────────────────────────────── */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fund = fundamentaisRaw as Record<string, any>
+const fund = fundamentaisRaw as unknown as Record<string, any>
 const f2 = (v: number | null | undefined) =>
   v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const f1 = (v: number | null | undefined) =>
