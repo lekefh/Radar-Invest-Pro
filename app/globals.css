@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy:   #050d1a;
+  --navy2:  #081120;
+  --navy3:  #0d1a2e;
+  --gold:   #e8a020;
+  --gold2:  #f5c55a;
+  --gold3:  #c47d10;
+  --green:  #00d4a0;
+  --red:    #ef4444;
+  --text:   #e8edf5;
+  --muted:  #6b84a8;
+  --border: rgba(255,255,255,0.06);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-inter), Inter, sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  overflow-x: hidden;
+}

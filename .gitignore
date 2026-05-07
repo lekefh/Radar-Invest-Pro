@@ -222,3 +222,7 @@ __marimo__/
 node_modules/
 npm-debug.log*
 next-env.d.ts
+
+# Arquivos sensíveis
+Senhas e APIs.txt
+*.docx
