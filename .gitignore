@@ -226,3 +226,6 @@ next-env.d.ts
 # Arquivos sensíveis
 Senhas e APIs.txt
 *.docx
+
+# Landing page substituída por app/page.tsx
+index.html
