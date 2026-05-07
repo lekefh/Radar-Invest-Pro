@@ -4,18 +4,18 @@
     "company": "AZZA3 — Azzas 2154",
     "nome": "Azzas 2154",
     "method": "fcff",
-    "preco_atual": null,
+    "preco_atual": 22.31999969482422,
     "bear": {
       "preco": 22.74,
-      "upside": 45.91
+      "upside": 1.9
     },
     "base": {
       "preco": 31.36,
-      "upside": 45.91
+      "upside": 40.5
     },
     "bull": {
       "preco": 42.25,
-      "upside": 45.91
+      "upside": 89.3
     },
     "upside_base_legado": 45.91,
     "wacc": 17.35,
@@ -339,14 +339,20 @@
         }
       ]
     },
-    "tir": null,
+    "tir": {
+      "nominal": 32.09,
+      "real": 25.8,
+      "vs_selic": 19.3,
+      "vs_ntnb": 18.5,
+      "veredito": "Atrativo vs. RF"
+    },
     "gordon": null,
     "graham": {
       "preco_gn": 62.75,
       "preco_formula": null,
       "eps": 4.43,
       "vpa": 39.51,
-      "upside_gn": null,
+      "upside_gn": 181.1,
       "detalhe": "EPS=R$4.43 VPA=R$39.51"
     },
     "proximo_tri": {
@@ -357,25 +363,25 @@
       "mg_ebitda": 0.1067,
       "metodologia": "YoY+2% media = R$2,513MM + R$18MM novas lojas"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
   },
   "SOJA3": {
     "ticker": "SOJA3",
     "company": "SOJA3 — Boa Safra Sementes",
     "nome": "Boa Safra Sementes",
     "method": "fcff",
-    "preco_atual": null,
+    "preco_atual": 7.02,
     "bear": {
       "preco": 4.67,
-      "upside": 27.93
+      "upside": -33.4
     },
     "base": {
       "preco": 6.58,
-      "upside": 27.93
+      "upside": -6.3
     },
     "bull": {
       "preco": 9.03,
-      "upside": 27.93
+      "upside": 28.6
     },
     "upside_base_legado": 27.93,
     "wacc": 14.73,
@@ -617,14 +623,20 @@
         }
       ]
     },
-    "tir": null,
+    "tir": {
+      "nominal": 16.36,
+      "real": 10.82,
+      "vs_selic": 4.32,
+      "vs_ntnb": 3.52,
+      "veredito": "Atrativo vs. RF"
+    },
     "gordon": null,
     "graham": {
       "preco_gn": 5.45,
       "preco_formula": null,
       "eps": 0.14,
       "vpa": 9.44,
-      "upside_gn": null,
+      "upside_gn": -22.4,
       "detalhe": "EPS=R$0.14 VPA=R$9.44"
     },
     "proximo_tri": {
@@ -635,25 +647,25 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$122MM"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
   },
   "VULC3": {
     "ticker": "VULC3",
     "company": "VULC3 — Vulcabras",
     "nome": "Vulcabras",
     "method": "fcff",
-    "preco_atual": null,
+    "preco_atual": 16.06,
     "bear": {
       "preco": 8.5,
-      "upside": -22.6
+      "upside": -47.1
     },
     "base": {
       "preco": 12.08,
-      "upside": -22.6
+      "upside": -24.8
     },
     "bull": {
       "preco": 16.7,
-      "upside": -22.6
+      "upside": 4.0
     },
     "upside_base_legado": -22.6,
     "wacc": 17.83,
@@ -904,10 +916,16 @@
         }
       ]
     },
-    "tir": null,
+    "tir": {
+      "nominal": 15.72,
+      "real": 10.21,
+      "vs_selic": 3.71,
+      "vs_ntnb": 2.91,
+      "veredito": "Atrativo vs. RF"
+    },
     "gordon": {
       "preco": 36.76,
-      "upside": null,
+      "upside": 128.9,
       "d0": 5.079,
       "d1": 5.2822,
       "detalhe": "D0=R$5.08 Ke=18.4% g=4.0%"
@@ -917,7 +935,7 @@
       "preco_formula": null,
       "eps": 3.88,
       "vpa": 7.76,
-      "upside_gn": null,
+      "upside_gn": 62.1,
       "detalhe": "EPS=R$3.88 VPA=R$7.76"
     },
     "proximo_tri": {
@@ -928,25 +946,25 @@
       "mg_ebitda": 0.2197,
       "metodologia": "YoY+-20% → média = R$609MM"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
   },
   "CYRE3": {
     "ticker": "CYRE3",
     "company": "CYRE3 — Cyrela",
     "nome": "Cyrela",
     "method": "fcff",
-    "preco_atual": null,
+    "preco_atual": 22.8700008392334,
     "bear": {
       "preco": 18.91,
-      "upside": null
+      "upside": -17.3
     },
     "base": {
       "preco": 26.96,
-      "upside": null
+      "upside": 17.9
     },
     "bull": {
       "preco": 36.73,
-      "upside": null
+      "upside": 60.6
     },
     "upside_base_legado": 17.89,
     "wacc": 17.24,
@@ -988,7 +1006,7 @@
       "preco_formula": null,
       "eps": 4.57,
       "vpa": 27.92,
-      "upside_gn": null,
+      "upside_gn": 134.3,
       "detalhe": "EPS=R$4.57 VPA=R$27.92"
     },
     "proximo_tri": {
@@ -999,7 +1017,7 @@
       "mg_ebitda": 0.2574,
       "metodologia": "YoY+16% s/ 1T24 × VGV adj +0%"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1063,7 +1081,84 @@
       "detalhe": "EPS=R$5.21 VPA=R$24.58"
     },
     "proximo_tri": null,
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
+  },
+  "GMAT3": {
+    "ticker": "GMAT3",
+    "company": "GMAT3 — Grupo Mateus",
+    "nome": "Grupo Mateus",
+    "method": "fcff",
+    "preco_atual": null,
+    "bear": {
+      "preco": 5.26,
+      "upside": null
+    },
+    "base": {
+      "preco": 7.38,
+      "upside": null
+    },
+    "bull": {
+      "preco": 10.01,
+      "upside": null
+    },
+    "upside_base_legado": 61.56,
+    "wacc": 15.12,
+    "g_terminal": 4.0,
+    "shares": 2303692568,
+    "wacc_ke": 17.82,
+    "wacc_rf": 13.62,
+    "wacc_beta": 0.7,
+    "wacc_erp": 6.0,
+    "wacc_peso_e": 70.0,
+    "wacc_peso_d": 20.9,
+    "g_receita": [
+      12.0,
+      12.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      7.3,
+      7.6,
+      8.0,
+      8.2,
+      8.4,
+      8.6,
+      8.7
+    ],
+    "historico": [],
+    "linhas_negocio": [],
+    "projecoes": [],
+    "valor_terminal": null,
+    "sensibilidade": null,
+    "tir": null,
+    "gordon": {
+      "preco": 1.87,
+      "upside": null,
+      "d0": 0.249,
+      "d1": 0.259,
+      "detalhe": "D0=R$0.25 Ke=17.8% g=4.0%"
+    },
+    "graham": {
+      "preco_gn": 9.24,
+      "preco_formula": null,
+      "eps": 0.82,
+      "vpa": 4.63,
+      "upside_gn": null,
+      "detalhe": "EPS=R$0.82 VPA=R$4.63"
+    },
+    "proximo_tri": {
+      "periodo": "1T26",
+      "receita": 8914.0,
+      "ebitda": 667.2,
+      "ll": 360.4,
+      "mg_ebitda": 0.0748,
+      "metodologia": "YoY+20% media = R$8,800MM + R$114MM novas lojas"
+    },
+    "atualizado": "07/05/2026 18:13"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -1140,7 +1235,345 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
+  },
+  "CPFL3": {
+    "ticker": "CPFL3",
+    "company": "CPFL3 — CPFL Energia",
+    "nome": "CPFL Energia",
+    "method": "fcff",
+    "preco_atual": null,
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": null
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "wacc": 12.55,
+    "g_terminal": 4.0,
+    "shares": 1152254440,
+    "wacc_ke": 15.43,
+    "wacc_rf": 12.5,
+    "wacc_beta": 0.65,
+    "wacc_erp": 4.5,
+    "wacc_peso_e": 46.4,
+    "wacc_peso_d": 53.6,
+    "g_receita": [
+      12.0,
+      12.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      30.3,
+      31.8,
+      33.4,
+      34.3,
+      35.2,
+      35.8,
+      36.4
+    ],
+    "historico": [],
+    "linhas_negocio": [],
+    "projecoes": [],
+    "valor_terminal": null,
+    "sensibilidade": null,
+    "tir": null,
+    "gordon": null,
+    "graham": null,
+    "proximo_tri": {
+      "periodo": "1T26",
+      "receita": 10580.7,
+      "ebitda": 3233.5,
+      "ll": 1399.0,
+      "mg_ebitda": 0.3056,
+      "metodologia": "YoY+4% media = R$10,581MM"
+    },
+    "atualizado": "07/05/2026 18:13"
+  },
+  "CPFE3": {
+    "ticker": "CPFE3",
+    "company": "CPFE3 — CPFL Energia",
+    "nome": "CPFL Energia",
+    "method": "fcff",
+    "preco_atual": null,
+    "bear": {
+      "preco": 54.74,
+      "upside": null
+    },
+    "base": {
+      "preco": 73.21,
+      "upside": null
+    },
+    "bull": {
+      "preco": 94.53,
+      "upside": null
+    },
+    "upside_base_legado": 51.79,
+    "wacc": 14.12,
+    "g_terminal": 4.0,
+    "shares": 1152254440,
+    "wacc_ke": 16.28,
+    "wacc_rf": 12.5,
+    "wacc_beta": 0.84,
+    "wacc_erp": 4.5,
+    "wacc_peso_e": 65.2,
+    "wacc_peso_d": 34.8,
+    "g_receita": [
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0
+    ],
+    "mg_ebitda": [
+      30.3,
+      31.8,
+      33.4,
+      34.3,
+      35.2,
+      35.8,
+      36.4
+    ],
+    "historico": [],
+    "linhas_negocio": [],
+    "projecoes": [],
+    "valor_terminal": null,
+    "sensibilidade": null,
+    "tir": null,
+    "gordon": {
+      "preco": 31.61,
+      "upside": null,
+      "d0": 3.732,
+      "d1": 3.8813,
+      "detalhe": "D0=R$3.73 Ke=16.3% g=4.0%"
+    },
+    "graham": {
+      "preco_gn": 45.72,
+      "preco_formula": null,
+      "eps": 4.76,
+      "vpa": 19.52,
+      "upside_gn": null,
+      "detalhe": "EPS=R$4.76 VPA=R$19.52"
+    },
+    "proximo_tri": {
+      "periodo": "1T26",
+      "receita": 10935.1,
+      "ebitda": 3335.2,
+      "ll": 1445.9,
+      "mg_ebitda": 0.305,
+      "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
+    },
+    "atualizado": "07/05/2026 18:13"
+  },
+  "BBSE3": {
+    "ticker": "BBSE3",
+    "company": "BBSE3 — BB Seguridade",
+    "nome": "BB Seguridade",
+    "method": "ddm",
+    "preco_atual": null,
+    "bear": {
+      "preco": 36.95,
+      "upside": null
+    },
+    "base": {
+      "preco": 39.46,
+      "upside": null
+    },
+    "bull": {
+      "preco": 42.13,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "wacc": 14.65,
+    "g_terminal": 3.5,
+    "shares": 1941400000,
+    "wacc_ke": 14.65,
+    "wacc_rf": 12.65,
+    "wacc_beta": 0.4,
+    "wacc_erp": 5.0,
+    "wacc_peso_e": 100.0,
+    "wacc_peso_d": 0.0,
+    "g_receita": [
+      2.3,
+      2.9,
+      6.6,
+      6.6,
+      6.2,
+      5.8,
+      5.0
+    ],
+    "mg_ebitda": [
+      40.0,
+      42.0,
+      44.0,
+      45.2,
+      46.4,
+      47.2,
+      48.0
+    ],
+    "historico": [],
+    "linhas_negocio": [],
+    "projecoes": [],
+    "valor_terminal": null,
+    "sensibilidade": null,
+    "tir": null,
+    "gordon": {
+      "preco": 42.05,
+      "upside": null,
+      "d0": 4.53,
+      "d1": 4.6886,
+      "detalhe": "D0=R$4.53 Ke=14.7% g=3.5%"
+    },
+    "graham": {
+      "preco_gn": 26.35,
+      "preco_formula": null,
+      "eps": 4.74,
+      "vpa": 6.51,
+      "upside_gn": null,
+      "detalhe": "EPS=R$4.74 VPA=R$6.51"
+    },
+    "proximo_tri": null,
+    "atualizado": "07/05/2026 18:13"
+  },
+  "BBAS3": {
+    "ticker": "BBAS3",
+    "company": "BBAS3 — Banco do Brasil",
+    "nome": "Banco do Brasil",
+    "method": "ddm",
+    "preco_atual": null,
+    "bear": {
+      "preco": 18.28,
+      "upside": null
+    },
+    "base": {
+      "preco": 23.72,
+      "upside": null
+    },
+    "bull": {
+      "preco": 36.17,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "wacc": 13.5,
+    "g_terminal": 3.5,
+    "shares": 5730834040,
+    "wacc_ke": 13.5,
+    "wacc_rf": 8.5,
+    "wacc_beta": 1.0,
+    "wacc_erp": 5.0,
+    "wacc_peso_e": 100.0,
+    "wacc_peso_d": 0.0,
+    "g_receita": [
+      3.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      27.6,
+      29.0,
+      30.3,
+      31.2,
+      32.0,
+      32.5,
+      33.1
+    ],
+    "historico": [],
+    "linhas_negocio": [],
+    "projecoes": [],
+    "valor_terminal": null,
+    "sensibilidade": null,
+    "tir": null,
+    "gordon": {
+      "preco": 9.39,
+      "upside": null,
+      "d0": 0.907,
+      "d1": 0.9387,
+      "detalhe": "D0=R$0.91 Ke=13.5% g=3.5%"
+    },
+    "graham": {
+      "preco_gn": 41.7,
+      "preco_formula": null,
+      "eps": 2.4,
+      "vpa": 32.2,
+      "upside_gn": null,
+      "detalhe": "EPS=R$2.40 VPA=R$32.20"
+    },
+    "proximo_tri": null,
+    "atualizado": "07/05/2026 18:13"
+  },
+  "CSAN3": {
+    "ticker": "CSAN3",
+    "company": "CSAN3 — Cosan",
+    "nome": "Cosan",
+    "method": "sotp",
+    "preco_atual": 5.25,
+    "bear": {
+      "preco": 6.91,
+      "upside": 31.6
+    },
+    "base": {
+      "preco": 9.58,
+      "upside": 82.5
+    },
+    "bull": {
+      "preco": 12.08,
+      "upside": 130.1
+    },
+    "upside_base_legado": null,
+    "wacc": 18.88,
+    "g_terminal": 5.0,
+    "shares": 3966570932,
+    "wacc_ke": 23.07,
+    "wacc_rf": 13.62,
+    "wacc_beta": 1.35,
+    "wacc_erp": 7.0,
+    "wacc_peso_e": 67.1,
+    "wacc_peso_d": 32.9,
+    "g_receita": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      50.1,
+      52.6,
+      55.1,
+      56.6,
+      58.1,
+      59.1,
+      60.1
+    ],
+    "historico": [],
+    "linhas_negocio": [],
+    "projecoes": [],
+    "valor_terminal": null,
+    "sensibilidade": null,
+    "tir": null,
+    "gordon": null,
+    "graham": null,
+    "proximo_tri": null,
+    "atualizado": "07/05/2026 18:13"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -1217,7 +1650,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,004MM"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -1288,6 +1721,6 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "07/05/2026 18:02"
+    "atualizado": "07/05/2026 18:13"
   }
 }
