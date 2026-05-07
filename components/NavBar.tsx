@@ -7,7 +7,7 @@ const LINKS = [
   { href: '/carteira',  label: '💼 Carteira'      },
   { href: '/alertas',   label: '🔔 Alertas',  soon: true },
   { href: '/noticias',  label: '📰 Notícias', soon: true },
-  { href: '/dcf',       label: '💹 DCF',      soon: true },
+  { href: '/dcf',       label: '💹 DCF' },
 ]
 
 export default function NavBar() {
