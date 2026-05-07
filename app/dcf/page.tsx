@@ -461,10 +461,10 @@ export default function DCFPage() {
         .emp-nome{font-size:11px;color:#6b84a8;margin-top:2px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
         .main{flex:1;overflow:hidden;display:flex;flex-direction:column}
         .main-hdr{padding:20px 28px 0;flex-shrink:0}
-        .tab-bar{display:flex;gap:4px;padding:0 28px;margin-top:16px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0;overflow-x:auto}
-        .tab{padding:10px 16px;font-size:12.5px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:#6b84a8;white-space:nowrap;transition:all .15s}
-        .tab:hover{color:#e8edf5}
-        .tab.ativo{color:#e8a020;border-bottom-color:#e8a020}
+        .tab-bar{display:flex;gap:2px;padding:0 28px;margin-top:16px;border-bottom:2px solid rgba(255,255,255,.08);flex-shrink:0;overflow-x:auto;background:#050d1a}
+        .tab{padding:10px 16px;font-size:12.5px;font-weight:600;cursor:pointer;border:none;background:transparent;color:#6b84a8;white-space:nowrap;transition:all .15s;border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit;outline:none}
+        .tab:hover{color:#e8edf5;background:rgba(255,255,255,.04);border-radius:6px 6px 0 0}
+        .tab.ativo{color:#e8a020;border-bottom-color:#e8a020;background:rgba(232,160,32,.06);border-radius:6px 6px 0 0}
         .content{flex:1;overflow-y:auto;padding:20px 28px 40px}
         .vazio{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#6b84a8;text-align:center}
         .btn-rel{background:#e8a020;color:#000;font-weight:700;font-size:13px;padding:10px 24px;border-radius:8px;border:none;cursor:pointer}
