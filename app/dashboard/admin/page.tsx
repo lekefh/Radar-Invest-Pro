@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
+import NavBar from '@/components/NavBar'
 
 interface Acao {
   ticker: string; nome: string; setor: string
@@ -109,10 +110,11 @@ export default function AdminPage() {
         @media(max-width:768px){.grid-cards{grid-template-columns:1fr 1fr}}
       `}</style>
 
+      <NavBar />
       <header className="hdr">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Link href="/dashboard" className="back">← Monitoramento</Link>
-          <div className="hdr-logo">Radar Invest <span>Pro</span> — Painel Admin</div>
+          <div className="hdr-logo">Painel Admin</div>
         </div>
         {ts && <span style={{ fontSize: '11px', color: '#6b84a8' }}>Dados: {ts}</span>}
       </header>

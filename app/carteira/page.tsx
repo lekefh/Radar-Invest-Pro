@@ -75,20 +75,39 @@ function FormPosicao({ posicao, onSave, onClose }: {
   const salvar = async () => {
     setErro(''); setSalvando(true)
     const body = {
-      ticker:     ticker.toUpperCase(),
-      quantidade: parseFloat(qtde.replace(',','.')),
+      ticker:      ticker.toUpperCase(),
+      quantidade:  parseFloat(qtde.replace(',','.')),
       preco_medio: parseFloat(preco.replace(',','.')),
       data_compra: data || null,
-      notas: notas || null,
+      notas:       notas || null,
     }
     if (!body.ticker || isNaN(body.quantidade) || isNaN(body.preco_medio)) {
       setErro('Ticker, quantidade e preço são obrigatórios.'); setSalvando(false); return
     }
-    const url = isEdit ? `/api/carteira/${posicao!.id}` : '/api/carteira'
+    const url    = isEdit ? `/api/carteira/${posicao!.id}` : '/api/carteira'
     const method = isEdit ? 'PUT' : 'POST'
-    const r = await fetch(url, { method, headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) })
-    if (!r.ok) { const d = await r.json(); setErro(d.error ?? 'Erro ao salvar'); setSalvando(false); return }
-    onSave(); onClose()
+    try {
+      /* timeout de 30s — Neon pode ter cold start de ~5s na 1ª requisição */
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), 30000)
+      const r = await fetch(url, {
+        method, signal: controller.signal,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      clearTimeout(timer)
+      if (!r.ok) {
+        const d = await r.json().catch(() => ({}))
+        setErro(d.error ?? `Erro ${r.status} ao salvar`)
+        setSalvando(false); return
+      }
+      onSave(); onClose()
+    } catch (err: unknown) {
+      const msg = err instanceof Error && err.name === 'AbortError'
+        ? 'Timeout — o banco demorou muito. Tente novamente.'
+        : 'Erro de conexão. Verifique e tente novamente.'
+      setErro(msg); setSalvando(false)
+    }
   }
 
   const inp: React.CSSProperties = { width:'100%',background:'#0d1a2e',border:'1px solid rgba(255,255,255,.12)',borderRadius:'7px',padding:'10px 14px',color:'#e8edf5',fontSize:'14px',outline:'none',fontFamily:'inherit',marginTop:'6px' }
