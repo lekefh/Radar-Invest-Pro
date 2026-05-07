@@ -35,8 +35,9 @@ async function buscarPreco(ticker: string): Promise<number | null> {
   try {
     const r = await fetch(
       `https://query2.finance.yahoo.com/v8/finance/chart/${ticker}.SA?interval=1d&range=2d`,
-      { headers: { 'User-Agent': UA } }
+      { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(7000) }
     )
+    if (!r.ok) return null
     const j = await r.json()
     return j.chart?.result?.[0]?.meta?.regularMarketPrice ?? null
   } catch { return null }
@@ -251,11 +252,15 @@ export default function CarteiraPage() {
 
   useEffect(() => { carregarCarteira() }, [carregarCarteira])
 
-  /* busca cotações logo após carregar as posições */
+  /* busca cotações uma vez após carregar as posições */
+  const [cotacoesCarregadas, setCotacoesCarregadas] = useState(false)
   useEffect(() => {
-    if (!loading && posicoes.length > 0 && posicoes.every(p => p.preco_atual === null))
+    if (!loading && posicoes.length > 0 && !cotacoesCarregadas) {
+      setCotacoesCarregadas(true)
       atualizarCotacoes()
-  }, [loading, posicoes, atualizarCotacoes])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, posicoes.length])
 
   const remover = async () => {
     if (!selecionado) return
