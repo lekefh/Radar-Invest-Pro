@@ -1,7 +1,8 @@
 import { neon } from '@neondatabase/serverless'
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL não configurada. Adicione no Vercel → Settings → Environment Variables.')
+/* getDb() — inicializa só quando a rota é chamada (não no build) */
+export function getDb() {
+  const url = process.env.DATABASE_URL
+  if (!url) throw new Error('DATABASE_URL não configurada. Adicione em Vercel → Settings → Environment Variables.')
+  return neon(url)
 }
-
-export const sql = neon(process.env.DATABASE_URL)

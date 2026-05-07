@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sql } from '@/lib/db'
+import { getDb } from '@/lib/db'
 
-const USER_ID = 1  // sem login ainda → usuário admin
+const USER_ID = 1
 
-/* ── GET /api/carteira — listar posições ─────────────────────────────────── */
 export async function GET() {
+  const sql = getDb()
   const rows = await sql`
     SELECT id, ticker, quantidade::float, preco_medio::float,
            data_compra, notas, excluir_calculo
@@ -15,8 +15,8 @@ export async function GET() {
   return NextResponse.json({ carteira: rows })
 }
 
-/* ── POST /api/carteira — adicionar posição ─────────────────────────────── */
 export async function POST(req: NextRequest) {
+  const sql = getDb()
   const { ticker, quantidade, preco_medio, data_compra, notas } = await req.json()
 
   if (!ticker || !quantidade || !preco_medio)
@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
     RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo
   `
 
-  /* registra movimentação de compra */
   await sql`
     INSERT INTO movimentacoes (user_id, data, ticker, tipo, quantidade, preco, valor_total)
     VALUES (${USER_ID}, ${data_compra || new Date().toISOString().slice(0,10)},

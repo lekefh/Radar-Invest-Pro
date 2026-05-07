@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sql } from '@/lib/db'
+import { getDb } from '@/lib/db'
 
 const USER_ID = 1
 
-/* ── GET /api/movimentacoes — histórico de operações ─────────────────────── */
 export async function GET(req: NextRequest) {
+  const sql = getDb()
   const { searchParams } = new URL(req.url)
   const ticker = searchParams.get('ticker')
 
@@ -28,8 +28,8 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ movimentacoes: rows })
 }
 
-/* ── POST /api/movimentacoes — registrar operação manual ─────────────────── */
 export async function POST(req: NextRequest) {
+  const sql = getDb()
   const { data, ticker, tipo, quantidade, preco, corretora, nota_num } = await req.json()
 
   if (!data || !ticker || !tipo || !quantidade || !preco)
@@ -47,8 +47,8 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ movimentacao: row }, { status: 201 })
 }
 
-/* ── DELETE /api/movimentacoes?id=X — apagar operação ───────────────────── */
 export async function DELETE(req: NextRequest) {
+  const sql = getDb()
   const id = new URL(req.url).searchParams.get('id')
   if (!id) return NextResponse.json({ error: 'id obrigatório' }, { status: 400 })
 

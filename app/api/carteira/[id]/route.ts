@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sql } from '@/lib/db'
+import { getDb } from '@/lib/db'
 
 const USER_ID = 1
 
-/* ── PUT /api/carteira/[id] — atualizar posição ─────────────────────────── */
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const sql = getDb()
   const { id } = await params
   const { quantidade, preco_medio, data_compra, notas, excluir_calculo } = await req.json()
 
@@ -24,8 +24,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   return NextResponse.json({ posicao: row })
 }
 
-/* ── DELETE /api/carteira/[id] — remover posição ────────────────────────── */
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const sql = getDb()
   const { id } = await params
 
   const [row] = await sql`
