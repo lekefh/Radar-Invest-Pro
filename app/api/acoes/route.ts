@@ -2,14 +2,15 @@ import { NextResponse } from 'next/server'
 import fundamentaisRaw from '@/lib/fundamentais.json'
 
 interface FundInfo {
-  nome: string; setor: string; dy: number | null; pl: number | null;
+  nome: string | null; setor: string | null; dy: number | null; pl: number | null;
   pvp: number | null; roe: number | null; lpa: number | null;
   divEbit: number | null; vpa: number | null; merc: number | null;
   evEbit: number | null; max52s: number | null; gov: number | null;
-  govRespostas: Record<string, string>; nota: number | null;
+  govRespostas?: Record<string, string>; nota: number | null;
   atualizado: string | null;
 }
-const fundamentais = fundamentaisRaw as Record<string, FundInfo>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fundamentais = fundamentaisRaw as Record<string, any>
 const TICKERS = Object.keys(fundamentais).sort()
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
