@@ -19,7 +19,7 @@ const fPct = (v: number | null | undefined) => v == null ? '—' : `${v > 0 ? '+
 const corUpside = (v: number | null | undefined) =>
   v == null ? '#6b84a8' : v >= 20 ? '#00d4a0' : v >= 0 ? '#FFD54F' : '#ef4444'
 
-type Aba = 'resumo' | 'historico' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri'
+type Aba = 'resumo' | 'historico' | 'linhas' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri'
 
 /* ── Componentes menores ──────────────────────────────────────────────────── */
 function Badge({ label, color }: { label: string; color: string }) {
@@ -392,6 +392,110 @@ function SecOutros({ e }: { e: any }) {
   )
 }
 
+function SecLinhasNegocio({ e }: { e: any }) {
+  const linhas: any[] = e.linhas_negocio ?? []
+  if (!linhas.length) return (
+    <p style={{ color:'#6b84a8',padding:'20px 0' }}>
+      Dados por linha de negócio não disponíveis. Adicione ao dcf_historico/{e.ticker}.json e rode export_dcf.py.
+    </p>
+  )
+
+  // pegar todos os anos disponíveis (union de todas as séries)
+  const anosSet = new Set<string>()
+  linhas.forEach(l => Object.keys(l.series || {}).forEach(a => anosSet.add(a)))
+  const anos = Array.from(anosSet).sort()
+
+  // calcular total por ano (para percentual)
+  const totais: Record<string, number> = {}
+  anos.forEach(ano => {
+    totais[ano] = linhas.reduce((s, l) => s + (l.series?.[ano] ?? 0), 0)
+  })
+
+  return (
+    <>
+      <SecTitle>Receita por Linha de Negócio (R$ MM)</SecTitle>
+      <div style={{ overflowX:'auto' }}>
+        <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'12.5px',minWidth:'500px' }}>
+          <thead>
+            <tr>
+              <th style={{ padding:'8px 14px',textAlign:'left',fontSize:'10.5px',fontWeight:700,textTransform:'uppercase' as const,letterSpacing:'.5px',color:'#6b84a8',borderBottom:'2px solid rgba(255,255,255,.08)' }}>
+                Linha de Negócio
+              </th>
+              {anos.map(a => (
+                <th key={a} style={{ padding:'8px 14px',textAlign:'right',fontSize:'10.5px',fontWeight:700,textTransform:'uppercase' as const,letterSpacing:'.5px',color:'#6b84a8',borderBottom:'2px solid rgba(255,255,255,.08)' }}>
+                  {a}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {linhas.map((l, i) => (
+              <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)' }}>
+                <td style={{ padding:'10px 14px',color:'#b8c4d4',fontWeight:500 }}>{l.label}</td>
+                {anos.map(ano => {
+                  const val = l.series?.[ano]
+                  const pct = val && totais[ano] ? (val / totais[ano]) * 100 : null
+                  return (
+                    <td key={ano} style={{ padding:'10px 14px',textAlign:'right' }}>
+                      {val != null ? (
+                        <div>
+                          <div style={{ fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>{f2(val)}</div>
+                          {pct != null && <div style={{ fontSize:'10.5px',color:'#6b84a8',marginTop:'1px' }}>{f1(pct)}%</div>}
+                        </div>
+                      ) : <span style={{ color:'#3d4f6a' }}>—</span>}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+            {/* Linha de total */}
+            <tr style={{ borderTop:'2px solid rgba(255,255,255,.08)',background:'rgba(232,160,32,.04)' }}>
+              <td style={{ padding:'10px 14px',fontWeight:700,color:'#e8a020' }}>Total</td>
+              {anos.map(ano => (
+                <td key={ano} style={{ padding:'10px 14px',textAlign:'right',fontWeight:700,color:'#e8a020',fontFamily:'var(--font-space),monospace' }}>
+                  {totais[ano] ? f2(totais[ano]) : '—'}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Barras de participação — último ano */}
+      {anos.length > 0 && (
+        <>
+          <SecTitle>Participação no Último Ano ({anos[anos.length-1]})</SecTitle>
+          <div style={{ display:'flex',flexDirection:'column',gap:'10px' }}>
+            {linhas
+              .filter(l => l.series?.[anos[anos.length-1]])
+              .sort((a, b) => (b.series?.[anos[anos.length-1]] ?? 0) - (a.series?.[anos[anos.length-1]] ?? 0))
+              .map((l, i) => {
+                const val = l.series?.[anos[anos.length-1]] ?? 0
+                const pct = totais[anos[anos.length-1]] ? (val / totais[anos[anos.length-1]]) * 100 : 0
+                const cores = ['#e8a020','#00d4a0','#3b82f6','#a855f7','#f59e0b','#ef4444','#10b981','#6366f1','#ec4899']
+                const cor = cores[i % cores.length]
+                return (
+                  <div key={i}>
+                    <div style={{ display:'flex',justifyContent:'space-between',marginBottom:'4px' }}>
+                      <span style={{ fontSize:'13px',color:'#b8c4d4' }}>{l.label}</span>
+                      <span style={{ fontSize:'13px',fontWeight:700,color:cor }}>
+                        R$ {f2(val)} MM &nbsp; {f1(pct)}%
+                      </span>
+                    </div>
+                    <div style={{ height:'8px',background:'rgba(255,255,255,.06)',borderRadius:'4px',overflow:'hidden' }}>
+                      <div style={{ height:'100%',width:`${pct}%`,background:cor,borderRadius:'4px',transition:'width .6s ease' }}/>
+                    </div>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </>
+      )}
+    </>
+  )
+}
+
 function SecProximoTri({ e }: { e: any }) {
   const t = e.proximo_tri
   if (!t) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Estimativa não disponível.</p>
@@ -435,9 +539,11 @@ export default function DCFPage() {
   const metodoBadge = (m: string) =>
     ({ fcff:'#3b82f6', ddm:'#a855f7', sotp:'#f59e0b' }[m?.toLowerCase()] ?? '#6b84a8')
 
-  const ABAS: { id: Aba; label: string }[] = [
+  const linhasNeg: any[] = emp?.linhas_negocio ?? []
+  const ABAS: { id: Aba; label: string; hidden?: boolean }[] = [
     { id:'resumo',        label:'Visão Geral'    },
     { id:'historico',     label:'Histórico'      },
+    { id:'linhas',        label:'Linhas de Negócio', hidden: linhasNeg.length === 0 },
     { id:'projecoes',     label:'Projeções DCF'  },
     { id:'sensibilidade', label:'Sensibilidade'  },
     { id:'outros',        label:'TIR / Gordon / Graham' },
@@ -534,7 +640,7 @@ export default function DCFPage() {
 
               {/* ABAS */}
               <div className="tab-bar">
-                {ABAS.map(a => (
+                {ABAS.filter(a => !a.hidden).map(a => (
                   <button key={a.id} className={`tab${aba === a.id ? ' ativo' : ''}`} onClick={() => setAba(a.id)}>
                     {a.label}
                   </button>
@@ -544,6 +650,7 @@ export default function DCFPage() {
               <div className="content">
                 {aba === 'resumo'        && <SecResumo e={emp}/>}
                 {aba === 'historico'     && <SecHistorico e={emp}/>}
+                {aba === 'linhas'        && <SecLinhasNegocio e={emp}/>}
                 {aba === 'projecoes'     && <SecProjecoes e={emp}/>}
                 {aba === 'sensibilidade' && <SecSensibilidade e={emp}/>}
                 {aba === 'outros'        && <SecOutros e={emp}/>}
