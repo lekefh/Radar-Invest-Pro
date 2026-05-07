@@ -1,0 +1,693 @@
+{
+  "AZZA3": {
+    "ticker": "AZZA3",
+    "company": "AZZA3 — Azzas 2154",
+    "nome": "Azzas 2154",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": 46.17
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": 46.17,
+    "preco_atual": null,
+    "wacc": 17.35,
+    "g_terminal": 3.5,
+    "shares": 206489813.0,
+    "wacc_ke": 20.42,
+    "wacc_rf": 13.62,
+    "wacc_beta": 1.36,
+    "wacc_erp": 5.0,
+    "g_receita": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      13.0,
+      13.6,
+      14.2,
+      14.6,
+      15.0,
+      15.3,
+      15.5
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 2531.2,
+        "ebitda_est": 270.0,
+        "ll_est": 120.3,
+        "mg_ebitda_est": 0.1067,
+        "metodologia": "YoY+2% media = R$2,513MM + R$18MM novas lojas",
+        "inputs": {
+          "sss_pct": 0.04,
+          "new_stores": 20,
+          "rec_por_loja_anual": 8.37,
+          "ramp_up_pct": 0.5,
+          "nova_loja_incremental_r$mm": 18.2
+        },
+        "saved_at": "2026-05-07T09:29:05"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "SOJA3": {
+    "ticker": "SOJA3",
+    "company": "SOJA3 — Boa Safra Sementes",
+    "nome": "Boa Safra Sementes",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": 27.57
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": 27.57,
+    "preco_atual": null,
+    "wacc": 14.73,
+    "g_terminal": 3.5,
+    "shares": 141902688.0,
+    "wacc_ke": 17.65,
+    "wacc_rf": 12.65,
+    "wacc_beta": 1.0,
+    "wacc_erp": 5.0,
+    "g_receita": [
+      9.0,
+      9.0,
+      9.0,
+      9.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      9.1,
+      9.5,
+      10.0,
+      10.2,
+      10.5,
+      10.7,
+      10.9
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 122.4,
+        "ebitda_est": 12.4,
+        "ll_est": 7.2,
+        "mg_ebitda_est": 0.1017,
+        "metodologia": "Commodity×Volume + YoY+42% media = R$122MM",
+        "inputs": {
+          "preco_bag_r$": 12807.147906976747,
+          "area_mil_ha": 298.66,
+          "yield_bags_ha": 0.8003649635036496,
+          "bags_total_mil": 239.0,
+          "bags_no_tri_mil": 11.0,
+          "fator_sazonal_tri": "5%"
+        },
+        "saved_at": "2026-05-06T23:21:18"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "VULC3": {
+    "ticker": "VULC3",
+    "company": "VULC3 — Vulcabras",
+    "nome": "Vulcabras",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": -7.8
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": -7.8,
+    "preco_atual": null,
+    "wacc": 17.83,
+    "g_terminal": 4.0,
+    "shares": 316502170.0,
+    "wacc_ke": 18.37,
+    "wacc_rf": 13.62,
+    "wacc_beta": 0.95,
+    "wacc_erp": 5.0,
+    "g_receita": [
+      13.0,
+      13.0,
+      13.0,
+      13.0,
+      13.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      21.1,
+      22.1,
+      23.2,
+      23.8,
+      24.4,
+      24.9,
+      25.3
+    ],
+    "proximo_trimestre": {
+      "2T25": {
+        "receita_est": 608.8,
+        "ebitda_est": 133.7,
+        "ll_est": 110.4,
+        "mg_ebitda_est": 0.2197,
+        "metodologia": "YoY+-20% → média = R$609MM",
+        "inputs": {},
+        "saved_at": "2026-04-12T15:40:11"
+      },
+      "1T26": {
+        "receita_est": 697.5,
+        "ebitda_est": 149.3,
+        "ll_est": 183.1,
+        "mg_ebitda_est": 0.214,
+        "metodologia": "YoY+17% media = R$698MM",
+        "inputs": {},
+        "saved_at": "2026-04-29T10:05:06"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "CYRE3": {
+    "ticker": "CYRE3",
+    "company": "CYRE3 — Cyrela",
+    "nome": "Cyrela",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": 17.68
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": 17.68,
+    "preco_atual": null,
+    "wacc": 17.24,
+    "g_terminal": 4.0,
+    "shares": 456800000.0,
+    "wacc_ke": 21.12,
+    "wacc_rf": 13.62,
+    "wacc_beta": 1.5,
+    "wacc_erp": 5.0,
+    "g_receita": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      25.6,
+      26.9,
+      28.2,
+      28.9,
+      29.7,
+      30.2,
+      30.7
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 1737.7,
+        "ebitda_est": 447.3,
+        "ll_est": 362.6,
+        "mg_ebitda_est": 0.2574,
+        "metodologia": "YoY+16% s/ 1T24 × VGV adj +0%",
+        "inputs": {
+          "backlog_receita_r$mm": 11440.0,
+          "backlog_margem_%": "36.0%",
+          "vgv_lancado_ref_r$mm": 3310.0,
+          "vgv_projetado_r$mm": 3310.0,
+          "vendas_ref_r$mm": 3330.0,
+          "vendas_projetadas_r$mm": 3330.0,
+          "mg_bruta_proj_%": "33.7%"
+        },
+        "saved_at": "2026-05-07T12:13:41"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "PSSA3": {
+    "ticker": "PSSA3",
+    "company": "PSSA3 — Porto Seguro",
+    "nome": "Porto Seguro",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": null
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "preco_atual": null,
+    "wacc": 17.8,
+    "g_terminal": 7.0,
+    "shares": 646586060.0,
+    "wacc_ke": 20.12,
+    "wacc_rf": 13.62,
+    "wacc_beta": 0.65,
+    "wacc_erp": 10.0,
+    "g_receita": [
+      12.0,
+      12.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      8.2,
+      8.7,
+      9.1,
+      9.3,
+      9.6,
+      9.7,
+      9.9
+    ],
+    "proximo_trimestre": null,
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "GMAT3": {
+    "ticker": "GMAT3",
+    "company": "GMAT3 — Grupo Mateus",
+    "nome": "Grupo Mateus",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": 68.51
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": 68.51,
+    "preco_atual": null,
+    "wacc": 15.12,
+    "g_terminal": 4.0,
+    "shares": null,
+    "wacc_ke": 17.82,
+    "wacc_rf": 13.62,
+    "wacc_beta": 0.7,
+    "wacc_erp": 6.0,
+    "g_receita": [
+      12.0,
+      12.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      7.3,
+      7.6,
+      8.0,
+      8.2,
+      8.4,
+      8.6,
+      8.7
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 8914.0,
+        "ebitda_est": 667.2,
+        "ll_est": 360.4,
+        "mg_ebitda_est": 0.0748,
+        "metodologia": "YoY+20% media = R$8,800MM + R$114MM novas lojas",
+        "inputs": {
+          "sss_pct": 0.0,
+          "new_stores": 5,
+          "rec_por_loja_anual": 202.11,
+          "ramp_up_pct": 0.5,
+          "nova_loja_incremental_r$mm": 114.0
+        },
+        "saved_at": "2026-04-27T09:48:41"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "B3SA3": {
+    "ticker": "B3SA3",
+    "company": "B3SA3 — B3 S.A.",
+    "nome": "B3 S.A.",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": -5.03
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": -5.03,
+    "preco_atual": null,
+    "wacc": 13.8,
+    "g_terminal": 4.0,
+    "shares": 5046500000.0,
+    "wacc_ke": 16.1,
+    "wacc_rf": 12.5,
+    "wacc_beta": 0.8,
+    "wacc_erp": 4.5,
+    "g_receita": [
+      12.0,
+      12.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      63.2,
+      66.3,
+      69.5,
+      71.4,
+      73.3,
+      74.5,
+      75.8
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 2577.6,
+        "ebitda_est": 1636.8,
+        "ll_est": 1164.6,
+        "mg_ebitda_est": 0.635,
+        "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%",
+        "inputs": {
+          "adtv_esperado_r$bi": 23.0,
+          "adtv_ref_r$bi": 23.5,
+          "fator_adtv": "0.98×",
+          "g_tech_yoy": "12%",
+          "receita_ref_r$mm": 2507.0
+        },
+        "saved_at": "2026-04-28T22:22:14"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "CPFL3": {
+    "ticker": "CPFL3",
+    "company": "CPFL3 — CPFL Energia",
+    "nome": "CPFL Energia",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": null
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "preco_atual": null,
+    "wacc": 12.55,
+    "g_terminal": 4.0,
+    "shares": null,
+    "wacc_ke": 15.43,
+    "wacc_rf": 12.5,
+    "wacc_beta": 0.65,
+    "wacc_erp": 4.5,
+    "g_receita": [
+      12.0,
+      12.0,
+      10.0,
+      10.0,
+      8.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      30.3,
+      31.8,
+      33.4,
+      34.3,
+      35.2,
+      35.8,
+      36.4
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 10580.7,
+        "ebitda_est": 3233.5,
+        "ll_est": 1399.0,
+        "mg_ebitda_est": 0.3056,
+        "metodologia": "YoY+4% media = R$10,581MM",
+        "inputs": {},
+        "saved_at": "2026-04-23T21:30:32"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "CPFE3": {
+    "ticker": "CPFE3",
+    "company": "CPFE3 — CPFL Energia",
+    "nome": "CPFL Energia",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": 49.11
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": 49.11,
+    "preco_atual": null,
+    "wacc": 14.12,
+    "g_terminal": 4.0,
+    "shares": null,
+    "wacc_ke": 16.28,
+    "wacc_rf": 12.5,
+    "wacc_beta": 0.84,
+    "wacc_erp": 4.5,
+    "g_receita": [
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0
+    ],
+    "mg_ebitda": [
+      30.3,
+      31.8,
+      33.4,
+      34.3,
+      35.2,
+      35.8,
+      36.4
+    ],
+    "proximo_trimestre": {
+      "1T26": {
+        "receita_est": 10935.1,
+        "ebitda_est": 3335.2,
+        "ll_est": 1445.9,
+        "mg_ebitda_est": 0.305,
+        "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24",
+        "inputs": {
+          "ipca_reajuste": "6.5%",
+          "var_volume": "1.0%",
+          "receita_ref_r$mm": 10166.0,
+          "fator_total": "1.076×"
+        },
+        "saved_at": "2026-04-28T22:07:02"
+      }
+    },
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "BBSE3": {
+    "ticker": "BBSE3",
+    "company": "BBSE3 — BB Seguridade",
+    "nome": "BB Seguridade",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": null
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "preco_atual": null,
+    "wacc": 14.65,
+    "g_terminal": 3.5,
+    "shares": null,
+    "wacc_ke": 14.65,
+    "wacc_rf": 12.65,
+    "wacc_beta": 0.4,
+    "wacc_erp": 5.0,
+    "g_receita": [
+      2.3,
+      2.9,
+      6.6,
+      6.6,
+      6.2,
+      5.8,
+      5.0
+    ],
+    "mg_ebitda": [
+      40.0,
+      42.0,
+      44.0,
+      45.2,
+      46.4,
+      47.2,
+      48.0
+    ],
+    "proximo_trimestre": null,
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "BBAS3": {
+    "ticker": "BBAS3",
+    "company": "BBAS3 — Banco do Brasil",
+    "nome": "Banco do Brasil",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": null
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "preco_atual": null,
+    "wacc": 13.5,
+    "g_terminal": 3.5,
+    "shares": null,
+    "wacc_ke": 13.5,
+    "wacc_rf": 8.5,
+    "wacc_beta": 1.0,
+    "wacc_erp": 5.0,
+    "g_receita": [
+      3.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      6.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      27.6,
+      29.0,
+      30.3,
+      31.2,
+      32.0,
+      32.5,
+      33.1
+    ],
+    "proximo_trimestre": null,
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  },
+  "CSAN3": {
+    "ticker": "CSAN3",
+    "company": "CSAN3 — Cosan",
+    "nome": "Cosan",
+    "method": "fcff",
+    "bear": {
+      "preco": null,
+      "upside": null
+    },
+    "base": {
+      "preco": null,
+      "upside": null
+    },
+    "bull": {
+      "preco": null,
+      "upside": null
+    },
+    "upside_base_legado": null,
+    "preco_atual": null,
+    "wacc": 18.88,
+    "g_terminal": 5.0,
+    "shares": null,
+    "wacc_ke": 23.07,
+    "wacc_rf": 13.62,
+    "wacc_beta": 1.35,
+    "wacc_erp": 7.0,
+    "g_receita": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "mg_ebitda": [
+      50.1,
+      52.6,
+      55.1,
+      56.6,
+      58.1,
+      59.1,
+      60.1
+    ],
+    "proximo_trimestre": null,
+    "atualizado": "Calculado no fundamento.py — rode export_dcf.py para atualizar"
+  }
+}
