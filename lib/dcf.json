@@ -363,7 +363,7 @@
       "mg_ebitda": 0.1067,
       "metodologia": "YoY+2% media = R$2,513MM + R$18MM novas lojas"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -647,7 +647,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$122MM"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -946,7 +946,7 @@
       "mg_ebitda": 0.2197,
       "metodologia": "YoY+-20% → média = R$609MM"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1017,7 +1017,7 @@
       "mg_ebitda": 0.2574,
       "metodologia": "YoY+16% s/ 1T24 × VGV adj +0%"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1081,7 +1081,7 @@
       "detalhe": "EPS=R$5.21 VPA=R$24.58"
     },
     "proximo_tri": null,
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1158,7 +1158,7 @@
       "mg_ebitda": 0.0748,
       "metodologia": "YoY+20% media = R$8,800MM + R$114MM novas lojas"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -1235,7 +1235,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "CPFL3": {
     "ticker": "CPFL3",
@@ -1299,7 +1299,7 @@
       "mg_ebitda": 0.3056,
       "metodologia": "YoY+4% media = R$10,581MM"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -1376,7 +1376,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -1446,7 +1446,7 @@
       "detalhe": "EPS=R$4.74 VPA=R$6.51"
     },
     "proximo_tri": null,
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -1516,7 +1516,7 @@
       "detalhe": "EPS=R$2.40 VPA=R$32.20"
     },
     "proximo_tri": null,
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -1573,7 +1573,7 @@
     "gordon": null,
     "graham": null,
     "proximo_tri": null,
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -1650,7 +1650,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,004MM"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:16"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -1721,6 +1721,6 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "07/05/2026 18:13"
+    "atualizado": "07/05/2026 18:17"
   }
 }
