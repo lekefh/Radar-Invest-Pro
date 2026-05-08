@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-
-const API =
-  process.env.RAILWAY_API_URL ||
-  'https://radar-invest-pro-backend-production.up.railway.app'
+import {
+  initUsersTable, findByEmail, findByUsername,
+  verifyPassword, createToken
+} from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,40 +12,55 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ erro: 'Preencha todos os campos.' }, { status: 400 })
     }
 
-    const res = await fetch(`${API}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ identificador, senha, hardware_id: 'web' }),
-    })
+    await initUsersTable()
 
-    const data = await res.json()
-    if (!res.ok) {
-      return NextResponse.json(
-        { erro: data.detail || 'Credenciais inválidas.' },
-        { status: res.status }
-      )
+    const usuario = await findByUsername(identificador)
+      ?? await findByEmail(identificador)
+
+    if (!usuario) {
+      return NextResponse.json({ erro: 'Credenciais inválidas.' }, { status: 401 })
     }
 
+    const senhaOk = await verifyPassword(senha, usuario.senha_hash)
+    if (!senhaOk) {
+      return NextResponse.json({ erro: 'Credenciais inválidas.' }, { status: 401 })
+    }
+
+    if (!usuario.ativo) {
+      const msg = usuario.email_confirmado
+        ? 'Conta aguardando aprovação.'
+        : 'Confirme seu e-mail antes de fazer login.'
+      return NextResponse.json({ erro: msg }, { status: 403 })
+    }
+
+    const token = await createToken({
+      sub:      String(usuario.id),
+      username: usuario.username,
+      nome:     usuario.nome,
+      email:    usuario.email,
+      plano:    usuario.plano,
+    })
+
     const store = await cookies()
-    store.set('radar_token', data.token, {
+    store.set('radar_token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure:   process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 60 * 60 * 24,
-      path: '/',
+      maxAge:   60 * 60 * 24 * 7,
+      path:     '/',
     })
 
     return NextResponse.json({
       ok: true,
       usuario: {
-        id:         data.id,
-        nome:       data.nome,
-        username:   data.username,
-        plano:      data.plano,
-        permissoes: data.permissoes,
+        id:       usuario.id,
+        nome:     usuario.nome,
+        username: usuario.username,
+        plano:    usuario.plano,
       },
     })
-  } catch {
+  } catch (e) {
+    console.error('[login]', e)
     return NextResponse.json({ erro: 'Erro interno.' }, { status: 500 })
   }
 }

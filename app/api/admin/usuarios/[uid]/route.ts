@@ -1,44 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getToken } from '@/lib/auth'
-
-const API =
-  process.env.RAILWAY_API_URL ||
-  'https://radar-invest-pro-backend-production.up.railway.app'
+import { getSession, updateUser, deleteUser } from '@/lib/auth'
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ uid: string }> }
 ) {
-  const token = await getToken()
-  if (!token) return NextResponse.json({ erro: 'Não autenticado.' }, { status: 401 })
-
+  const session = await getSession()
+  if (!session || session.plano !== 'analista') {
+    return NextResponse.json({ erro: 'Sem permissão.' }, { status: 403 })
+  }
   const { uid } = await params
-  const body = await req.json()
-
-  const url = new URL(`${API}/admin/usuarios/${uid}`)
-  if (body.plano !== undefined) url.searchParams.set('plano', body.plano)
-  if (body.ativo !== undefined) url.searchParams.set('ativo', String(body.ativo))
-
-  const res = await fetch(url.toString(), {
-    method: 'PATCH',
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  const data = await res.json()
-  return NextResponse.json(data, { status: res.status })
+  const { plano, ativo } = await req.json()
+  await updateUser(Number(uid), plano, ativo === 1 || ativo === true)
+  return NextResponse.json({ ok: true })
 }
 
 export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ uid: string }> }
 ) {
-  const token = await getToken()
-  if (!token) return NextResponse.json({ erro: 'Não autenticado.' }, { status: 401 })
-
+  const session = await getSession()
+  if (!session || session.plano !== 'analista') {
+    return NextResponse.json({ erro: 'Sem permissão.' }, { status: 403 })
+  }
   const { uid } = await params
-  const res = await fetch(`${API}/admin/usuarios/${uid}`, {
-    method: 'DELETE',
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  const data = await res.json()
-  return NextResponse.json(data, { status: res.status })
+  await deleteUser(Number(uid))
+  return NextResponse.json({ ok: true })
 }

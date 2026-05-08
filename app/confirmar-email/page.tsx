@@ -3,10 +3,6 @@ import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-const API =
-  process.env.NEXT_PUBLIC_RAILWAY_URL ||
-  'https://radar-invest-pro-backend-production.up.railway.app'
-
 function Conteudo() {
   const params = useSearchParams()
   const token  = params.get('token')
@@ -21,7 +17,7 @@ function Conteudo() {
       return
     }
 
-    fetch(`${API}/auth/confirmar-email?token=${encodeURIComponent(token)}`)
+    fetch(`/api/auth/confirmar?token=${encodeURIComponent(token)}`)
       .then(r => r.json())
       .then(data => {
         if (data.ok) {
