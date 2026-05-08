@@ -1,16 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getDb } from '@/lib/db'
+import { getSession } from '@/lib/auth'
 
-const USER_ID = 1
+async function getUserId(): Promise<number | null> {
+  const session = await getSession()
+  return session ? Number(session.sub) : null
+}
 
 export async function GET() {
   try {
+    const userId = await getUserId()
+    if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+
     const sql = getDb()
     const rows = await sql`
       SELECT id, ticker, quantidade::float, preco_medio::float,
              data_compra, notas, excluir_calculo
       FROM carteira
-      WHERE user_id = ${USER_ID}
+      WHERE user_id = ${userId}
       ORDER BY ticker
     `
     return NextResponse.json({ carteira: rows })
@@ -22,6 +29,9 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const userId = await getUserId()
+    if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+
     const sql = getDb()
     const body = await req.json()
     const { ticker, quantidade, preco_medio, data_compra, notas } = body
@@ -34,16 +44,9 @@ export async function POST(req: NextRequest) {
     const pm = Number(preco_medio)
     const dt = data_compra ? String(data_compra) : new Date().toISOString().slice(0, 10)
 
-    /* Garantir que usuário admin existe */
-    await sql`
-      INSERT INTO usuarios (id, nome, email, perfil)
-      VALUES (1, 'Alexander Faria Hurtado', 'alexanderfh4@gmail.com', 'admin')
-      ON CONFLICT (id) DO NOTHING
-    `
-
     const rows = await sql`
       INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_compra, notas)
-      VALUES (${USER_ID}, ${t}, ${qt}, ${pm}, ${dt}::date, ${notas ?? null})
+      VALUES (${userId}, ${t}, ${qt}, ${pm}, ${dt}::date, ${notas ?? null})
       ON CONFLICT (user_id, ticker) DO UPDATE
         SET quantidade    = EXCLUDED.quantidade,
             preco_medio   = EXCLUDED.preco_medio,
@@ -53,10 +56,9 @@ export async function POST(req: NextRequest) {
       RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo
     `
 
-    /* registra movimentação */
     await sql`
       INSERT INTO movimentacoes (user_id, data, ticker, tipo, quantidade, preco, valor_total)
-      VALUES (${USER_ID}, ${dt}::date, ${t}, 'C', ${qt}, ${pm}, ${(qt * pm).toFixed(2)}::numeric)
+      VALUES (${userId}, ${dt}::date, ${t}, 'C', ${qt}, ${pm}, ${(qt * pm).toFixed(2)}::numeric)
     `
 
     return NextResponse.json({ posicao: rows[0] }, { status: 201 })

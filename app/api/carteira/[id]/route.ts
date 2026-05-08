@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getDb } from '@/lib/db'
+import { getSession } from '@/lib/auth'
 
-const USER_ID = 1
+async function getUserId(): Promise<number | null> {
+  const session = await getSession()
+  return session ? Number(session.sub) : null
+}
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = await getUserId()
+    if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+
     const sql = getDb()
     const { id } = await params
     const body = await req.json()
@@ -18,7 +25,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         notas           = COALESCE(${notas != null ? String(notas) : null}, notas),
         excluir_calculo = COALESCE(${excluir_calculo != null ? Boolean(excluir_calculo) : null}::boolean, excluir_calculo),
         atualizado_em   = NOW()
-      WHERE id = ${Number(id)} AND user_id = ${USER_ID}
+      WHERE id = ${Number(id)} AND user_id = ${userId}
       RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo
     `
 
@@ -32,10 +39,13 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
 export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = await getUserId()
+    if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+
     const sql = getDb()
     const { id } = await params
     const rows = await sql`
-      DELETE FROM carteira WHERE id = ${Number(id)} AND user_id = ${USER_ID}
+      DELETE FROM carteira WHERE id = ${Number(id)} AND user_id = ${userId}
       RETURNING ticker
     `
     if (!rows[0]) return NextResponse.json({ error: 'Posição não encontrada' }, { status: 404 })
