@@ -2,10 +2,48 @@ import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { getSession } from '@/lib/auth'
 
-const PROMPT = `Você é um especialista em notas de corretagem brasileiras.
-Analise esta nota de corretagem e extraia TODAS as operações realizadas.
+const PROMPT = `Você é um especialista em notas de corretagem da B3 brasileira.
+Analise esta nota de corretagem e extraia TODAS as operações de compra e venda de ações.
 
-Retorne SOMENTE um JSON válido com esta estrutura (sem texto antes ou depois):
+## COMO IDENTIFICAR COMPRA OU VENDA (CRÍTICO)
+
+Na seção "Negócios realizados" existe uma coluna chamada "C/V":
+- **C** nessa coluna = COMPRA → tipo: "C"
+- **V** nessa coluna = VENDA → tipo: "V"
+
+ATENÇÃO: NÃO confunda com a coluna "D/C" (Débito/Crédito do ajuste financeiro):
+- D/C = "D" significa que o cliente pagou (Débito) — geralmente acompanha COMPRA
+- D/C = "C" significa que o cliente recebeu (Crédito) — geralmente acompanha VENDA
+- Use SEMPRE a coluna "C/V" para definir o tipo, nunca a coluna "D/C"
+
+## COMO IDENTIFICAR O TICKER
+
+A coluna "Especificação do título" mostra o nome da ação. Converta para o código B3:
+- "PETR" ou "PETROBRAS" → PETR4 (preferencial) ou PETR3 (ordinária)
+- "VALE" → VALE3
+- "ITUB" ou "ITAU" → ITUB4
+- "BBAS" ou "BRASIL" ou "BANCO DO BRASIL" → BBAS3
+- "BBDC" ou "BRADESCO" → BBDC4
+- "ABEV" ou "AMBEV" → ABEV3
+- "WEGE" ou "WEG" → WEGE3
+- "RENT" ou "LOCALIZA" → RENT3
+- "MGLU" ou "MAGAZINE LUIZA" → MGLU3
+- "VBBR" ou "VIBRA" → VBBR3
+- "PRIO" ou "PETRORIO" → PRIO3
+- "AZZA" ou "AZZAS" → AZZA3
+- "INTB" ou "INTELBRAS" → INTB3
+- "VULC" ou "VULCABRAS" → VULC3
+- "CYRE" ou "CYRELA" → CYRE3
+- "GMAT" ou "GRUPO MATEUS" → GMAT3
+- "KEPL" ou "KEPLER" → KEPL3
+- "SOJA" ou "BOA SAFRA" → SOJA3
+- "B3SA" ou "B3 S.A" → B3SA3
+- Se não encontrar na lista acima, use as 4-5 primeiras letras do nome + número da classe (3=ON, 4=PN, 11=Unit)
+- Nunca inclua sufixos como "ON", "PN", "NM", "ATZ", "F", "ED" no ticker
+
+## FORMATO DE RETORNO
+
+Retorne SOMENTE um JSON válido (sem texto antes ou depois):
 {
   "corretora": "nome da corretora",
   "data": "YYYY-MM-DD",
@@ -19,14 +57,13 @@ Retorne SOMENTE um JSON válido com esta estrutura (sem texto antes ou depois):
   ]
 }
 
-Regras:
-- tipo: "C" para compra, "V" para venda
-- ticker: apenas o código da ação (ex: PETR4, VALE3) sem sufixos
-- quantidade: número inteiro
-- preco: preço unitário com até 2 casas decimais
-- Se houver múltiplas operações, inclua todas no array
-- Se não conseguir identificar algum campo, use null
-- Ignore taxas, emolumentos e outros custos — apenas as operações de compra/venda`
+## REGRAS GERAIS
+- quantidade: número inteiro (coluna "Quantidade")
+- preco: preço unitário com até 2 casas decimais (coluna "Preço/Ajuste")
+- data: data do pregão no topo da nota (formato YYYY-MM-DD)
+- Inclua TODAS as operações de ações listadas
+- IGNORE taxas, emolumentos, corretagem, ISS e quaisquer outros custos
+- Se houver dúvida sobre o ticker, prefira deixar o melhor palpite — o usuário poderá corrigir na tela`
 
 export async function POST(req: NextRequest) {
   try {
