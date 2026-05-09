@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, useMemo, useCallback } from 'react'
+import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import fundamentaisRaw from '@/lib/fundamentais.json'
 
@@ -213,6 +214,23 @@ export default function CarteiraPage() {
   const [editando,  setEditando]  = useState<Posicao | null>(null)
   const [opsTicker, setOpsTicker] = useState<string | null>(null)
   const [selecionado, setSelecionado] = useState<number | null>(null)
+  const [plano,     setPlano]     = useState<string>('gratuito')
+  const [limiteModal, setLimiteModal] = useState(false)
+
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then(r => r.json())
+      .then(d => setPlano(d.plano ?? 'gratuito'))
+      .catch(() => {})
+  }, [])
+
+  const LIMITE_GRATUITO = 1
+  const limiteAtingido = plano === 'gratuito' && posicoes.length >= LIMITE_GRATUITO
+
+  const abrirAddPosicao = () => {
+    if (limiteAtingido) { setLimiteModal(true); return }
+    setEditando(null); setModal('add')
+  }
 
   /* busca posições do banco */
   const carregarCarteira = useCallback(async () => {
@@ -359,8 +377,9 @@ export default function CarteiraPage() {
 
         {/* BOTÕES */}
         <div className="btn-bar">
-          <button className="btn btn-add" onClick={() => { setEditando(null); setModal('add') }}>
-            + Posição
+          <button className="btn btn-add" onClick={abrirAddPosicao}
+            title={limiteAtingido ? 'Plano gratuito: máx. 1 ação. Faça upgrade para adicionar mais.' : ''}>
+            + Posição {limiteAtingido && <span style={{ fontSize: '10px', opacity: .7 }}>🔒</span>}
           </button>
           <button className="btn btn-edit" disabled={!selecionado}
             onClick={() => { if (posicaoSel) { setEditando(posicaoSel); setModal('edit') } }}>
@@ -489,6 +508,34 @@ export default function CarteiraPage() {
         </Modal>
       )}
       {opsTicker && <ModalOps ticker={opsTicker} onClose={() => setOpsTicker(null)} />}
+
+      {/* Modal: limite plano gratuito */}
+      {limiteModal && (
+        <div style={{ position:'fixed',inset:0,background:'rgba(0,0,0,.75)',zIndex:300,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px' }}
+             onClick={() => setLimiteModal(false)}>
+          <div onClick={e => e.stopPropagation()}
+               style={{ background:'#0d1a2e',border:'1px solid rgba(232,160,32,.3)',borderRadius:'16px',padding:'40px 36px',maxWidth:'440px',textAlign:'center' }}>
+            <div style={{ fontSize:'40px',marginBottom:'16px' }}>🔒</div>
+            <h3 style={{ fontSize:'20px',fontWeight:700,color:'#e8edf5',marginBottom:'12px' }}>
+              Limite do plano gratuito
+            </h3>
+            <p style={{ fontSize:'14px',color:'#6b84a8',lineHeight:1.7,marginBottom:'24px' }}>
+              O plano <strong style={{ color:'#e8edf5' }}>Gratuito</strong> permite acompanhar <strong style={{ color:'#e8a020' }}>1 ação</strong> na carteira.<br />
+              Faça upgrade para acompanhar portfólios ilimitados.
+            </p>
+            <div style={{ display:'flex',flexDirection:'column',gap:'10px' }}>
+              <a href="mailto:contato@radarinvestpro.com.br?subject=Upgrade de plano"
+                 style={{ background:'#e8a020',color:'#000',fontWeight:700,fontSize:'14px',padding:'12px 28px',borderRadius:'8px',textDecoration:'none',display:'block' }}>
+                Quero fazer upgrade
+              </a>
+              <button onClick={() => setLimiteModal(false)}
+                      style={{ background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',fontSize:'13px',padding:'10px 28px',borderRadius:'8px',cursor:'pointer' }}>
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

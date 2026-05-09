@@ -1,5 +1,6 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import dcfRaw from '@/lib/dcf.json'
 
@@ -528,11 +529,59 @@ function SecProximoTri({ e }: { e: any }) {
   )
 }
 
+/* ── Paywall plano gratuito ──────────────────────────────────────────────── */
+function PaywallDCF() {
+  return (
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <div style={{ background: '#0d1a2e', border: '1px solid rgba(232,160,32,.25)', borderRadius: '20px', padding: '52px 48px', maxWidth: '520px', textAlign: 'center' }}>
+        <div style={{ fontSize: '48px', marginBottom: '20px' }}>🔒</div>
+        <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase' as const, color: '#e8a020', marginBottom: '12px' }}>Recurso Exclusivo</div>
+        <h2 style={{ fontFamily: 'var(--font-space),Space Grotesk,sans-serif', fontSize: '26px', fontWeight: 700, color: '#e8edf5', marginBottom: '16px', lineHeight: 1.3 }}>
+          Valuation DCF disponível<br />no plano <span style={{ color: '#e8a020' }}>Essencial ou superior</span>
+        </h2>
+        <p style={{ fontSize: '15px', color: '#6b84a8', lineHeight: 1.7, marginBottom: '32px' }}>
+          O módulo DCF com cenários Bear/Base/Bull, sensibilidade WACC×g, TIR implícita e estimativa de resultados está disponível a partir do plano <strong style={{ color: '#e8edf5' }}>Essencial</strong>.
+        </p>
+        <div style={{ background: 'rgba(232,160,32,.06)', border: '1px solid rgba(232,160,32,.15)', borderRadius: '12px', padding: '20px', marginBottom: '32px' }}>
+          <div style={{ fontSize: '12px', color: '#6b84a8', marginBottom: '12px', fontWeight: 600, letterSpacing: '.5px', textTransform: 'uppercase' as const }}>O que você terá acesso</div>
+          {[
+            '📊 14 empresas B3 com valuation DCF completo',
+            '🎯 Cenários Bear / Base / Bull com upside',
+            '📈 Sensibilidade WACC × g (tabela completa)',
+            '🔮 Estimativa de resultados por trimestre',
+            '📄 Relatório PDF gerado por IA',
+          ].map(item => (
+            <div key={item} style={{ fontSize: '13.5px', color: '#a0b4cc', padding: '6px 0', textAlign: 'left' }}>{item}</div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
+          <a href="mailto:contato@radarinvestpro.com.br?subject=Upgrade de plano"
+             style={{ background: '#e8a020', color: '#000', fontWeight: 700, fontSize: '15px', padding: '14px 32px', borderRadius: '8px', textDecoration: 'none', display: 'block' }}>
+            Quero fazer upgrade
+          </a>
+          <Link href="/dashboard"
+             style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.12)', color: '#a0b4cc', fontSize: '14px', padding: '12px 32px', borderRadius: '8px', textDecoration: 'none', display: 'block' }}>
+            Voltar ao Dashboard
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── Página principal ────────────────────────────────────────────────────── */
 export default function DCFPage() {
   const [sel, setSel] = useState<string|null>(null)
   const [aba, setAba] = useState<Aba>('resumo')
   const [modalRel, setModalRel] = useState<string|null>(null)
+  const [plano, setPlano] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then(r => r.json())
+      .then(d => setPlano(d.plano ?? 'gratuito'))
+      .catch(() => setPlano('gratuito'))
+  }, [])
 
   const emp = sel ? dcfData[sel] : null
   const upSel = emp ? (emp.base?.upside ?? emp.upside_base_legado) : null
@@ -549,6 +598,16 @@ export default function DCFPage() {
     { id:'outros',        label:'TIR / Gordon / Graham' },
     { id:'tri',           label:'Próx. Trimestre' },
   ]
+
+  // Plano carregado e é gratuito → paywall
+  if (plano === 'gratuito') {
+    return (
+      <>
+        <NavBar />
+        <PaywallDCF />
+      </>
+    )
+  }
 
   return (
     <>

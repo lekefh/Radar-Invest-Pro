@@ -341,7 +341,7 @@ export default function LandingPage() {
         </ul>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Link href="/dashboard" className="nav-dash">Acessar plataforma</Link>
-          <a href="#acesso" className="nav-cta">Quero acesso antecipado</a>
+          <Link href="/cadastro" className="nav-cta">Fazer cadastro</Link>
         </div>
       </nav>
 
@@ -362,7 +362,7 @@ export default function LandingPage() {
         </p>
         <div className="hero-actions">
           <Link href="/dashboard" className="btn-dash">Acessar plataforma</Link>
-          <a href="#acesso" className="btn-primary">Quero acesso antecipado</a>
+          <Link href="/cadastro" className="btn-primary">Fazer cadastro agora</Link>
           <a href="#missao" className="btn-ghost">Entender a missão</a>
         </div>
         <div className="hero-cards reveal">
@@ -513,15 +513,12 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="cta" id="acesso">
         <h2 className="reveal">Pronto para analisar<br />como um <span>gestor de fundo</span>?</h2>
-        <p className="lead reveal">Cadastre seu e-mail e seja o primeiro a receber acesso ao Radar Invest Pro quando lançarmos.</p>
-        <form id="cta-form" className="reveal" onSubmit={handleSubmit}>
-          <div className="cta-form">
-            <input type="email" name="email" id="cta-email" className="cta-input" placeholder="seu@email.com" required />
-            <button type="submit" className="btn-primary">Quero acesso</button>
-          </div>
-        </form>
-        <div id="form-status" />
-        <p className="cta-note reveal">Sem spam. Apenas uma mensagem quando o acesso estiver disponível.</p>
+        <p className="lead reveal">A plataforma já está disponível. Crie sua conta gratuitamente e comece a analisar agora.</p>
+        <div className="reveal" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
+          <Link href="/cadastro" className="btn-primary" style={{ fontSize: '16px', padding: '16px 40px' }}>Fazer cadastro agora</Link>
+          <Link href="/dashboard" className="btn-dash" style={{ fontSize: '16px', padding: '16px 32px' }}>Acessar plataforma</Link>
+        </div>
+        <p className="cta-note reveal">Gratuito para começar. Sem cartão de crédito.</p>
       </section>
 
       {/* FOOTER */}
