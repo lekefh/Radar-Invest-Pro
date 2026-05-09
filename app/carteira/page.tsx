@@ -605,11 +605,11 @@ export default function CarteiraPage() {
                 </div>
               )}
 
-              {/* Preview das operações */}
+              {/* Preview das operações — campos editáveis */}
               {importPreview && !importando && (
                 <>
                   <div style={{ fontSize:'13px',color:'#6b84a8',marginBottom:'12px' }}>
-                    {importPreview.operacoes.length} operação(ões) identificada(s). Revise e confirme:
+                    {importPreview.operacoes.length} operação(ões) identificada(s). Revise e corrija se necessário:
                   </div>
                   <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'13px' }}>
                     <thead>
@@ -620,24 +620,69 @@ export default function CarteiraPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {importPreview.operacoes.map((op, i) => (
-                        <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.05)' }}>
-                          <td style={{ padding:'8px 10px' }}>
-                            <span style={{ background: op.tipo === 'C' ? 'rgba(0,212,160,.15)' : 'rgba(239,68,68,.15)', color: op.tipo === 'C' ? '#00d4a0' : '#ef4444', padding:'2px 8px',borderRadius:'4px',fontSize:'11px',fontWeight:700 }}>
-                              {op.tipo === 'C' ? 'COMPRA' : 'VENDA'}
-                            </span>
-                          </td>
-                          <td style={{ padding:'8px 10px',fontWeight:700,color:'#e8edf5' }}>{op.ticker}</td>
-                          <td style={{ padding:'8px 10px',color:'#e8edf5' }}>{op.quantidade}</td>
-                          <td style={{ padding:'8px 10px',color:'#e8edf5' }}>R$ {op.preco.toFixed(2)}</td>
-                          <td style={{ padding:'8px 10px',color:'#e8a020',fontWeight:600 }}>R$ {(op.preco * op.quantidade).toFixed(2)}</td>
-                          <td style={{ padding:'8px 10px',color:'#6b84a8' }}>{op.data}</td>
-                        </tr>
-                      ))}
+                      {importPreview.operacoes.map((op, i) => {
+                        const upd = (field: string, val: string | number) =>
+                          setImportPreview(prev => prev ? {
+                            ...prev,
+                            operacoes: prev.operacoes.map((o, j) =>
+                              j === i ? { ...o, [field]: val } : o
+                            )
+                          } : prev)
+                        const inputStyle = {
+                          background:'#081120', border:'1px solid rgba(255,255,255,.12)',
+                          borderRadius:'5px', color:'#e8edf5', padding:'4px 8px',
+                          fontSize:'13px', width:'100%', outline:'none',
+                        }
+                        return (
+                          <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.05)' }}>
+                            {/* Tipo */}
+                            <td style={{ padding:'6px 8px' }}>
+                              <select value={op.tipo}
+                                onChange={e => upd('tipo', e.target.value)}
+                                style={{ ...inputStyle, width:'90px' }}>
+                                <option value="C">COMPRA</option>
+                                <option value="V">VENDA</option>
+                              </select>
+                            </td>
+                            {/* Ticker — editável */}
+                            <td style={{ padding:'6px 8px' }}>
+                              <input
+                                value={op.ticker}
+                                onChange={e => upd('ticker', e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''))}
+                                style={{ ...inputStyle, width:'80px', fontWeight:700, color:'#e8a020' }}
+                                placeholder="PETR4"
+                                title="Código da ação (ex: PETR4)"
+                              />
+                            </td>
+                            {/* Quantidade */}
+                            <td style={{ padding:'6px 8px' }}>
+                              <input type="number" value={op.quantidade}
+                                onChange={e => upd('quantidade', Number(e.target.value))}
+                                style={{ ...inputStyle, width:'70px' }} min="1" />
+                            </td>
+                            {/* Preço */}
+                            <td style={{ padding:'6px 8px' }}>
+                              <input type="number" value={op.preco}
+                                onChange={e => upd('preco', Number(e.target.value))}
+                                style={{ ...inputStyle, width:'90px' }} step="0.01" min="0" />
+                            </td>
+                            {/* Total calculado */}
+                            <td style={{ padding:'6px 8px', color:'#e8a020', fontWeight:600, whiteSpace:'nowrap' }}>
+                              R$ {(op.preco * op.quantidade).toFixed(2)}
+                            </td>
+                            {/* Data */}
+                            <td style={{ padding:'6px 8px' }}>
+                              <input type="date" value={op.data}
+                                onChange={e => upd('data', e.target.value)}
+                                style={{ ...inputStyle, width:'120px', colorScheme:'dark' }} />
+                            </td>
+                          </tr>
+                        )
+                      })}
                     </tbody>
                   </table>
                   <div style={{ marginTop:'8px',fontSize:'12px',color:'#455a64' }}>
-                    * As posições serão adicionadas à sua carteira. Operações de venda reduzem a quantidade.
+                    ✏ Todos os campos são editáveis — corrija o ticker ou qualquer dado antes de confirmar.
                   </div>
                 </>
               )}
