@@ -269,16 +269,18 @@ export default function CarteiraPage() {
     let erros = 0
     for (const op of importPreview.operacoes) {
       try {
-        await fetch('/api/carteira', {
+        const r = await fetch('/api/carteira/operacao', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ticker:      op.ticker,
+            tipo:        op.tipo,        // 'C' compra ou 'V' venda
             quantidade:  op.quantidade,
-            preco_medio: op.preco,
+            preco:       op.preco,
             data_compra: op.data,
           }),
         })
+        if (!r.ok) erros++
       } catch { erros++ }
     }
     setSalvandoImport(false)
