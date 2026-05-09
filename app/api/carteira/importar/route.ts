@@ -5,16 +5,25 @@ import { getSession } from '@/lib/auth'
 const PROMPT = `Você é um especialista em notas de corretagem da B3 brasileira.
 Analise esta nota de corretagem e extraia TODAS as operações de compra e venda de ações.
 
-## COMO IDENTIFICAR COMPRA OU VENDA (CRÍTICO)
+## COMO IDENTIFICAR COMPRA OU VENDA (REGRA MAIS IMPORTANTE)
 
-Na seção "Negócios realizados" existe uma coluna chamada "C/V":
-- **C** nessa coluna = COMPRA → tipo: "C"
-- **V** nessa coluna = VENDA → tipo: "V"
+Na tabela "Negócios realizados" há uma coluna chamada "C/V" (segunda coluna após a quantidade de negócios):
+- Valor **C** nessa coluna = COMPRA → retorne tipo: "C"
+- Valor **V** nessa coluna = VENDA → retorne tipo: "V"
 
-ATENÇÃO: NÃO confunda com a coluna "D/C" (Débito/Crédito do ajuste financeiro):
-- D/C = "D" significa que o cliente pagou (Débito) — geralmente acompanha COMPRA
-- D/C = "C" significa que o cliente recebeu (Crédito) — geralmente acompanha VENDA
-- Use SEMPRE a coluna "C/V" para definir o tipo, nunca a coluna "D/C"
+Há também uma coluna "D/C" no FINAL de cada linha (Débito/Crédito financeiro). Use-a para CONFIRMAR:
+- D/C = **D** (Débito) → cliente pagou → confirma COMPRA → tipo "C"
+- D/C = **C** (Crédito) → cliente recebeu dinheiro → confirma VENDA → tipo "V"
+
+As duas colunas devem concordar. Exemplo de linha de VENDA:
+"B3 RV LISTADO | **V** | VISTA | PETRORIO ON ATZ NM | @ | 100 | 59,05 | 5.905,00 | **C**"
+→ C/V = V (Venda) + D/C = C (Crédito) = VENDA confirmada → tipo: "V"
+
+Exemplo de linha de COMPRA:
+"B3 RV LISTADO | **C** | VISTA | PETROBRAS PN | @ | 200 | 38,50 | 7.700,00 | **D**"
+→ C/V = C (Compra) + D/C = D (Débito) = COMPRA confirmada → tipo: "C"
+
+Se houver conflito entre C/V e D/C, priorize o D/C (Crédito=Venda, Débito=Compra).
 
 ## COMO IDENTIFICAR O TICKER
 
@@ -115,7 +124,7 @@ export async function POST(req: NextRequest) {
 
     const msg = await client.messages.create(
       {
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 2000,
         messages: [
           {
