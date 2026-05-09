@@ -58,10 +58,15 @@ export async function POST(req: NextRequest) {
       RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo
     `
 
-    await sql`
-      INSERT INTO movimentacoes (user_id, data, ticker, tipo, quantidade, preco, valor_total)
-      VALUES (${userId}, ${dt}::date, ${t}, 'C', ${qt}, ${pm}, ${(qt * pm).toFixed(2)}::numeric)
-    `
+    try {
+      await sql`
+        INSERT INTO movimentacoes (user_id, data, ticker, tipo, quantidade, preco, valor_total)
+        VALUES (${userId}, ${dt}::date, ${t}, 'C', ${qt}, ${pm}, ${(qt * pm).toFixed(2)}::numeric)
+      `
+    } catch (movErr) {
+      // Não falha o cadastro da posição por erro no histórico de movimentações
+      console.warn('[POST /api/carteira] movimentacoes insert warn:', movErr)
+    }
 
     return NextResponse.json({ posicao: rows[0] }, { status: 201 })
   } catch (e) {

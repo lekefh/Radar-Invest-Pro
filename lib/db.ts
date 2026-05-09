@@ -48,36 +48,35 @@ export async function ensureCarteiraTables() {
     )
   `
 
-  // 3. Corrige FK errada — remove e recria apontando para usuarios_web
-  // Verifica se existe FK na tabela carteira que NÃO aponta para usuarios_web
-  const fkInfo = await sql`
-    SELECT tc.constraint_name, ccu.table_name AS ref_table
-    FROM information_schema.table_constraints AS tc
-    JOIN information_schema.referential_constraints AS rc
-      ON tc.constraint_name = rc.constraint_name
-    JOIN information_schema.constraint_column_usage AS ccu
-      ON rc.unique_constraint_name = ccu.constraint_name
-    WHERE tc.table_name = 'carteira'
-      AND tc.constraint_type = 'FOREIGN KEY'
+  // 3. Corrige FK errada em carteira
+  const fkCarteira = await sql`
+    SELECT ccu.table_name AS ref_table
+    FROM information_schema.table_constraints tc
+    JOIN information_schema.referential_constraints rc ON tc.constraint_name = rc.constraint_name
+    JOIN information_schema.constraint_column_usage ccu ON rc.unique_constraint_name = ccu.constraint_name
+    WHERE tc.table_name = 'carteira' AND tc.constraint_type = 'FOREIGN KEY'
       AND tc.constraint_name = 'carteira_user_id_fkey'
   `
-
-  if (fkInfo.length > 0 && fkInfo[0].ref_table !== 'usuarios_web') {
-    // FK aponta para tabela errada — remove e recria
+  if (fkCarteira.length > 0 && fkCarteira[0].ref_table !== 'usuarios_web') {
     await sql`ALTER TABLE carteira DROP CONSTRAINT IF EXISTS carteira_user_id_fkey`
-    await sql`
-      ALTER TABLE carteira
-      ADD CONSTRAINT carteira_user_id_fkey
-      FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE
-    `
-  } else if (fkInfo.length === 0) {
-    // Sem FK — adiciona
-    try {
-      await sql`
-        ALTER TABLE carteira
-        ADD CONSTRAINT carteira_user_id_fkey
-        FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE
-      `
-    } catch { /* já existe com outro nome */ }
+    await sql`ALTER TABLE carteira ADD CONSTRAINT carteira_user_id_fkey FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE`
+  } else if (fkCarteira.length === 0) {
+    try { await sql`ALTER TABLE carteira ADD CONSTRAINT carteira_user_id_fkey FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE` } catch { /* já existe */ }
+  }
+
+  // 4. Corrige FK errada em movimentacoes
+  const fkMov = await sql`
+    SELECT ccu.table_name AS ref_table
+    FROM information_schema.table_constraints tc
+    JOIN information_schema.referential_constraints rc ON tc.constraint_name = rc.constraint_name
+    JOIN information_schema.constraint_column_usage ccu ON rc.unique_constraint_name = ccu.constraint_name
+    WHERE tc.table_name = 'movimentacoes' AND tc.constraint_type = 'FOREIGN KEY'
+      AND tc.constraint_name = 'movimentacoes_user_id_fkey'
+  `
+  if (fkMov.length > 0 && fkMov[0].ref_table !== 'usuarios_web') {
+    await sql`ALTER TABLE movimentacoes DROP CONSTRAINT IF EXISTS movimentacoes_user_id_fkey`
+    await sql`ALTER TABLE movimentacoes ADD CONSTRAINT movimentacoes_user_id_fkey FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE`
+  } else if (fkMov.length === 0) {
+    try { await sql`ALTER TABLE movimentacoes ADD CONSTRAINT movimentacoes_user_id_fkey FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE` } catch { /* já existe */ }
   }
 }
