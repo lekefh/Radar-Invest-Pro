@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getDb } from '@/lib/db'
+import { getDb, ensureCarteiraTables } from '@/lib/db'
 import { getSession } from '@/lib/auth'
 
 async function getUserId(): Promise<number | null> {
@@ -12,6 +12,7 @@ export async function GET() {
     const userId = await getUserId()
     if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
 
+    await ensureCarteiraTables()
     const sql = getDb()
     const rows = await sql`
       SELECT id, ticker, quantidade::float, preco_medio::float,
@@ -32,6 +33,7 @@ export async function POST(req: NextRequest) {
     const userId = await getUserId()
     if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
 
+    await ensureCarteiraTables()
     const sql = getDb()
     const body = await req.json()
     const { ticker, quantidade, preco_medio, data_compra, notas } = body
