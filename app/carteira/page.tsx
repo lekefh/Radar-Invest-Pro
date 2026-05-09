@@ -216,6 +216,15 @@ export default function CarteiraPage() {
   const [selecionado, setSelecionado] = useState<number | null>(null)
   const [plano,     setPlano]     = useState<string>('gratuito')
   const [limiteModal, setLimiteModal] = useState(false)
+  const [importModal, setImportModal] = useState(false)
+  const [importando,  setImportando]  = useState(false)
+  const [importErro,  setImportErro]  = useState('')
+  const [importPreview, setImportPreview] = useState<{
+    corretora: string | null
+    data: string | null
+    operacoes: { tipo: string; ticker: string; quantidade: number; preco: number; data: string }[]
+  } | null>(null)
+  const [salvandoImport, setSalvandoImport] = useState(false)
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -230,6 +239,53 @@ export default function CarteiraPage() {
   const abrirAddPosicao = () => {
     if (limiteAtingido) { setLimiteModal(true); return }
     setEditando(null); setModal('add')
+  }
+
+  const handleImportarNota = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImportando(true)
+    setImportErro('')
+    setImportPreview(null)
+    setImportModal(true)
+    try {
+      const fd = new FormData()
+      fd.append('nota', file)
+      const r = await fetch('/api/carteira/importar', { method: 'POST', body: fd })
+      const d = await r.json()
+      if (!r.ok) { setImportErro(d.error ?? 'Erro ao processar a nota.'); return }
+      setImportPreview(d)
+    } catch {
+      setImportErro('Erro de conexão. Tente novamente.')
+    } finally {
+      setImportando(false)
+      e.target.value = ''
+    }
+  }
+
+  const confirmarImport = async () => {
+    if (!importPreview) return
+    setSalvandoImport(true)
+    let erros = 0
+    for (const op of importPreview.operacoes) {
+      try {
+        await fetch('/api/carteira', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ticker:      op.ticker,
+            quantidade:  op.quantidade,
+            preco_medio: op.preco,
+            data_compra: op.data,
+          }),
+        })
+      } catch { erros++ }
+    }
+    setSalvandoImport(false)
+    setImportModal(false)
+    setImportPreview(null)
+    await carregarCarteira()
+    if (erros > 0) alert(`${erros} operação(ões) não foram salvas. Verifique e adicione manualmente.`)
   }
 
   /* busca posições do banco */
@@ -395,6 +451,12 @@ export default function CarteiraPage() {
           <button className="btn btn-cot" onClick={atualizarCotacoes} disabled={atualizando || loading}>
             {atualizando ? '⟳ Atualizando…' : '⟳ Cotações'}
           </button>
+          <label className="btn" style={{ background:'#1a3a5c', color:'#fff', cursor:'pointer' }}
+            title="Importar nota de corretagem (PDF ou imagem)">
+            📄 Importar Nota
+            <input type="file" accept=".pdf,image/*" style={{ display:'none' }}
+              onChange={handleImportarNota} disabled={limiteAtingido} />
+          </label>
           <button className="btn btn-ghost" onClick={() => {
             const rows = posicoes.map(p => [
               p.ticker,p.nome,p.quantidade,p.preco_medio,p.preco_atual??'',
@@ -508,6 +570,95 @@ export default function CarteiraPage() {
         </Modal>
       )}
       {opsTicker && <ModalOps ticker={opsTicker} onClose={() => setOpsTicker(null)} />}
+
+      {/* Modal: importar nota de corretagem */}
+      {importModal && (
+        <div style={{ position:'fixed',inset:0,background:'rgba(0,0,0,.8)',zIndex:300,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px' }}>
+          <div style={{ background:'#0d1a2e',border:'1px solid rgba(232,160,32,.25)',borderRadius:'16px',width:'100%',maxWidth:'600px',maxHeight:'90vh',display:'flex',flexDirection:'column' }}>
+            {/* Header */}
+            <div style={{ padding:'18px 24px',borderBottom:'1px solid rgba(255,255,255,.08)',display:'flex',alignItems:'center',justifyContent:'space-between' }}>
+              <div>
+                <div style={{ fontSize:'15px',fontWeight:700,color:'#e8edf5' }}>📄 Importar Nota de Corretagem</div>
+                {importPreview?.corretora && (
+                  <div style={{ fontSize:'12px',color:'#6b84a8',marginTop:'2px' }}>
+                    {importPreview.corretora} · {importPreview.data}
+                  </div>
+                )}
+              </div>
+              <button onClick={() => { setImportModal(false); setImportPreview(null); setImportErro('') }}
+                style={{ background:'none',border:'none',color:'#6b84a8',fontSize:'20px',cursor:'pointer' }}>×</button>
+            </div>
+
+            <div style={{ overflowY:'auto',padding:'20px 24px',flex:1 }}>
+              {/* Carregando */}
+              {importando && (
+                <div style={{ textAlign:'center',padding:'40px 0' }}>
+                  <div style={{ fontSize:'32px',marginBottom:'12px' }}>⟳</div>
+                  <div style={{ color:'#6b84a8',fontSize:'14px' }}>Lendo a nota com IA… pode levar alguns segundos.</div>
+                </div>
+              )}
+
+              {/* Erro */}
+              {importErro && !importando && (
+                <div style={{ background:'rgba(239,68,68,.1)',border:'1px solid rgba(239,68,68,.3)',borderRadius:'8px',padding:'16px',color:'#fca5a5',fontSize:'14px' }}>
+                  ⚠ {importErro}
+                </div>
+              )}
+
+              {/* Preview das operações */}
+              {importPreview && !importando && (
+                <>
+                  <div style={{ fontSize:'13px',color:'#6b84a8',marginBottom:'12px' }}>
+                    {importPreview.operacoes.length} operação(ões) identificada(s). Revise e confirme:
+                  </div>
+                  <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'13px' }}>
+                    <thead>
+                      <tr style={{ background:'#081120' }}>
+                        {['Tipo','Ticker','Qtde','Preço Unit.','Total','Data'].map(h => (
+                          <th key={h} style={{ padding:'8px 10px',textAlign:'left',color:'#6b84a8',fontWeight:700,fontSize:'11px',letterSpacing:'.5px',textTransform:'uppercase' }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {importPreview.operacoes.map((op, i) => (
+                        <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.05)' }}>
+                          <td style={{ padding:'8px 10px' }}>
+                            <span style={{ background: op.tipo === 'C' ? 'rgba(0,212,160,.15)' : 'rgba(239,68,68,.15)', color: op.tipo === 'C' ? '#00d4a0' : '#ef4444', padding:'2px 8px',borderRadius:'4px',fontSize:'11px',fontWeight:700 }}>
+                              {op.tipo === 'C' ? 'COMPRA' : 'VENDA'}
+                            </span>
+                          </td>
+                          <td style={{ padding:'8px 10px',fontWeight:700,color:'#e8edf5' }}>{op.ticker}</td>
+                          <td style={{ padding:'8px 10px',color:'#e8edf5' }}>{op.quantidade}</td>
+                          <td style={{ padding:'8px 10px',color:'#e8edf5' }}>R$ {op.preco.toFixed(2)}</td>
+                          <td style={{ padding:'8px 10px',color:'#e8a020',fontWeight:600 }}>R$ {(op.preco * op.quantidade).toFixed(2)}</td>
+                          <td style={{ padding:'8px 10px',color:'#6b84a8' }}>{op.data}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <div style={{ marginTop:'8px',fontSize:'12px',color:'#455a64' }}>
+                    * As posições serão adicionadas à sua carteira. Operações de venda reduzem a quantidade.
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Footer */}
+            {importPreview && !importando && (
+              <div style={{ padding:'16px 24px',borderTop:'1px solid rgba(255,255,255,.08)',display:'flex',gap:'10px',justifyContent:'flex-end' }}>
+                <button onClick={() => { setImportModal(false); setImportPreview(null) }}
+                  style={{ background:'transparent',border:'1px solid rgba(255,255,255,.15)',color:'#6b84a8',padding:'9px 20px',borderRadius:'7px',cursor:'pointer',fontSize:'13px',fontWeight:600 }}>
+                  Cancelar
+                </button>
+                <button onClick={confirmarImport} disabled={salvandoImport}
+                  style={{ background:'#e8a020',color:'#000',padding:'9px 24px',borderRadius:'7px',cursor:salvandoImport?'wait':'pointer',fontSize:'13px',fontWeight:700,border:'none',opacity:salvandoImport?.6:1 }}>
+                  {salvandoImport ? 'Salvando…' : `✓ Importar ${importPreview.operacoes.length} operação(ões)`}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Modal: limite plano gratuito */}
       {limiteModal && (
