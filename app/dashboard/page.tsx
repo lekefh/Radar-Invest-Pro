@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import NavBar from '@/components/NavBar'
-import { SETORES } from '@/lib/tickers'
+import { SETOR_MAP } from '@/lib/tickers'
 import fundamentaisRaw from '@/lib/fundamentais.json'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -214,10 +214,15 @@ export default function Dashboard() {
     else{setSortKey(k);setSortDir('asc')}
   }
 
+  const setoresDisponiveis = useMemo(()=>{
+    const s=new Set(acoes.map(a=>(SETOR_MAP[a.setor]??a.setor??'')).filter(Boolean))
+    return ['Todos',...[...s].sort((a,b)=>a.localeCompare(b,'pt-BR'))]
+  },[acoes])
+
   const filtradas=useMemo(()=>{
     let l=acoes
     if(busca) l=l.filter(a=>a.ticker.toLowerCase().includes(busca.toLowerCase())||a.nome.toLowerCase().includes(busca.toLowerCase()))
-    if(setor!=='Todos') l=l.filter(a=>a.setor===setor)
+    if(setor!=='Todos') l=l.filter(a=>(SETOR_MAP[a.setor]??a.setor)===setor)
     const mn=precoMin?parseFloat(precoMin.replace(',','.')):null
     const mx=precoMax?parseFloat(precoMax.replace(',','.')):null
     if(mn!=null) l=l.filter(a=>a.preco!=null&&a.preco>=mn)
@@ -243,7 +248,7 @@ export default function Dashboard() {
   const dadosEnriquecidos = useMemo(() => filtradas.map(a => ({
     ...a,
     nome: a.nome || fundamentais[a.ticker]?.nome || a.ticker,
-    setor: a.setor || fundamentais[a.ticker]?.setor || '—',
+    setor: (SETOR_MAP[a.setor] ?? SETOR_MAP[fundamentais[a.ticker]?.setor] ?? a.setor ?? fundamentais[a.ticker]?.setor) || '—',
   })), [filtradas])
 
   return (
@@ -301,7 +306,7 @@ export default function Dashboard() {
         <div className="toolbar">
           <input className="inp inp-search" placeholder="Buscar ticker ou nome…" value={busca} onChange={e=>setBusca(e.target.value)}/>
           <select className="inp inp-setor" value={setor} onChange={e=>setSetor(e.target.value)}>
-            {SETORES.map(s=><option key={s} value={s}>{s}</option>)}
+            {setoresDisponiveis.map(s=><option key={s} value={s}>{s}</option>)}
           </select>
           <input className="inp inp-preco" placeholder="Preço min" value={precoMin} onChange={e=>setPrecoMin(e.target.value)}/>
           <input className="inp inp-preco" placeholder="Preço max" value={precoMax} onChange={e=>setPrecoMax(e.target.value)}/>

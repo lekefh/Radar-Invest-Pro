@@ -60,6 +60,21 @@ export const TICKERS_INFO: Record<string, TickerInfo> = {
 
 export const TICKERS_LIST = Object.keys(TICKERS_INFO)
 
+export const SETOR_MAP: Record<string, string> = {
+  'Basic Materials':        'Materiais Básicos',
+  'Communication Services': 'Comunicação',
+  'Consumer Cyclical':      'Consumo Cíclico',
+  'Consumer Defensive':     'Consumo Não Cíclico',
+  'Energy':                 'Energia',
+  'Financial Services':     'Financeiro e Outros',
+  'Healthcare':             'Saúde',
+  'Industrials':            'Bens Industriais',
+  'Petróleo':               'Petróleo, Gás e Biocombustíveis',
+  'Real Estate':            'Real Estate',
+  'Technology':             'Tecnologia da Informação',
+  'Utilities':              'Utilidade Pública',
+}
+
 export const SETORES = [
   'Todos',
   'Financeiro e Outros',
@@ -72,4 +87,6 @@ export const SETORES = [
   'Saúde',
   'Bens Industriais',
   'Tecnologia da Informação',
+  'Comunicação',
+  'Energia',
 ]
