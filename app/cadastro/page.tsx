@@ -93,11 +93,15 @@ export default function CadastroPage() {
 
           <div>
             <label style={labelStyle}>Nome de usuário</label>
-            <input type="text" value={form.username} onChange={e => set('username', e.target.value)}
+            <input type="text" value={form.username}
+              onChange={e => set('username', e.target.value.replace(/\s/g, ''))}
               required placeholder="ex: alexanderfh4" style={inputStyle}
-              pattern="[a-z0-9_\-]{4,30}" title="4-30 chars: letras, números, _ ou -" />
-            <span style={{ fontSize: '11px', color: '#4a5d73', marginTop: '3px', display: 'block' }}>
-              4-30 caracteres · letras minúsculas, números, _ ou -
+              pattern="[a-z0-9_\-]{4,30}"
+              title="4 a 30 caracteres · apenas letras minúsculas, números, _ ou - · sem espaços" />
+            <span style={{ fontSize: '12px', color: '#8fa3bc', marginTop: '5px', display: 'block', lineHeight: '1.5' }}>
+              ⚠ Sem espaços — use apenas letras minúsculas, números, <strong>_</strong> ou <strong>-</strong>
+              <br />
+              <span style={{ color: '#4a5d73' }}>Exemplo: <em>joao_silva</em> ou <em>joao-silva2</em></span>
             </span>
           </div>
 
