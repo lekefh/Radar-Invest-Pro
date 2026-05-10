@@ -1433,9 +1433,20 @@
     "merc": 4.59,
     "evEbit": 10.35,
     "max52s": 15.13,
-    "gov": null,
-    "govRespostas": {},
-    "nota": 5.6,
+    "gov": 1.9,
+    "govRespostas": {
+      "g01": "Sim",
+      "g02": "Sim",
+      "g03": "Parcial",
+      "g04": "Sim",
+      "g05": "Sim",
+      "g06": "Sim",
+      "g07": "Sim",
+      "g08": "Nao",
+      "g09": "Sim",
+      "g10": "Sim"
+    },
+    "nota": 6.2,
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "IRBR3": {
@@ -1654,9 +1665,20 @@
     "merc": 1.4,
     "evEbit": 7.31,
     "max52s": 10.45,
-    "gov": null,
-    "govRespostas": {},
-    "nota": 6.4,
+    "gov": 2.0,
+    "govRespostas": {
+      "g01": "Sim",
+      "g02": "Sim",
+      "g03": "Sim",
+      "g04": "Sim",
+      "g05": "Sim",
+      "g06": "Sim",
+      "g07": "Sim",
+      "g08": "Nao",
+      "g09": "Sim",
+      "g10": "Sim"
+    },
+    "nota": 7.0,
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "KLBN11": {
