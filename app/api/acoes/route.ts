@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
 import fundamentaisRaw from '@/lib/fundamentais.json'
+import setoresManuaisRaw from '@/lib/setores_manuais.json'
+
+const setoresManuais = setoresManuaisRaw as Record<string, string>
 
 interface FundInfo {
   nome: string | null; setor: string | null; dy: number | null; pl: number | null;
@@ -55,7 +58,7 @@ export async function GET() {
     return {
       ticker,
       nome:    f.nome,
-      setor:   f.setor,
+      setor:   setoresManuais[ticker] ?? f.setor,
       preco,
       variacao,
       max52s,
