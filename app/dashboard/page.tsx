@@ -220,7 +220,7 @@ export default function Dashboard() {
 
   const filtradas=useMemo(()=>{
     let l=acoes
-    if(busca) l=l.filter(a=>a.ticker.toLowerCase().includes(busca.toLowerCase())||a.nome.toLowerCase().includes(busca.toLowerCase()))
+    if(busca) l=l.filter(a=>a.ticker.toLowerCase().includes(busca.toLowerCase())||(a.nome??'').toLowerCase().includes(busca.toLowerCase()))
     if(setor!=='Todos') l=l.filter(a=>a.setor===setor)
     const mn=precoMin?parseFloat(precoMin.replace(',','.')):null
     const mx=precoMax?parseFloat(precoMax.replace(',','.')):null

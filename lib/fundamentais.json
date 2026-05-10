@@ -145,7 +145,7 @@
     "atualizado": "28/04/2026 22:45 [StatusInvest]"
   },
   "AXIA3": {
-    "nome": null,
+    "nome": "Âxia Energia S.A.",
     "setor": null,
     "dy": 7.33,
     "pl": 27.56,
@@ -696,7 +696,7 @@
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "CESP6": {
-    "nome": "",
+    "nome": "Companhia Energética de São Paulo - CESP",
     "setor": "",
     "dy": null,
     "pl": 24.63,
@@ -812,7 +812,7 @@
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "CPFE3": {
-    "nome": null,
+    "nome": "CPFL Energia S.A.",
     "setor": null,
     "dy": null,
     "pl": null,
@@ -870,7 +870,7 @@
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "CSAN3": {
-    "nome": null,
+    "nome": "Cosan S.A.",
     "setor": null,
     "dy": null,
     "pl": -2.13,
@@ -986,7 +986,7 @@
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "CYRE4": {
-    "nome": null,
+    "nome": "Cyrela Brazil Realty S.A.",
     "setor": null,
     "dy": null,
     "pl": 4.95,
@@ -1584,7 +1584,7 @@
     "atualizado": "28/04/2026 22:46 [StatusInvest]"
   },
   "JBSS3": {
-    "nome": "",
+    "nome": "JBS S.A.",
     "setor": "",
     "dy": 4.18,
     "pl": 5.48,
@@ -2530,7 +2530,7 @@
     "atualizado": "28/04/2026 22:47 [StatusInvest]"
   },
   "SULA11": {
-    "nome": "",
+    "nome": "Sul América S.A.",
     "setor": "",
     "dy": null,
     "pl": 48.73,
