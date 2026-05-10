@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server'
 import fundamentaisRaw from '@/lib/fundamentais.json'
 import setoresManuaisRaw from '@/lib/setores_manuais.json'
+import dcfRaw from '@/lib/dcf.json'
 
 const setoresManuais = setoresManuaisRaw as Record<string, string>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const dcfData = dcfRaw as unknown as Record<string, any>
 
 interface FundInfo {
   nome: string | null; setor: string | null; dy: number | null; pl: number | null;
@@ -55,6 +58,15 @@ export async function GET() {
     const variacao = p?.variacao ?? null
     const varVsMax = preco != null && max52s != null ? ((preco - max52s) / max52s) * 100 : null
 
+    // DCF upside dinâmico: target base vs preço atual do Yahoo Finance
+    const dcfTargetBase = n(dcfData[ticker]?.base?.preco)
+    const dcfUpside = dcfTargetBase != null && preco != null && preco > 0
+      ? ((dcfTargetBase - preco) / preco) * 100
+      : null
+
+    // TIR Real prêmio vs NTN-B (armazenado em dcf.json)
+    const tirPremioNtnb = n(dcfData[ticker]?.tir?.vs_ntnb)
+
     return {
       ticker,
       nome:    f.nome,
@@ -76,6 +88,8 @@ export async function GET() {
       govRespostas: f.govRespostas ?? {},
       nota:         n(f.nota),
       atualizado:   f.atualizado,
+      dcfUpside,
+      tirPremioNtnb,
     }
   })
 

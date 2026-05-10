@@ -15,6 +15,7 @@ interface Acao {
   divEbit: number | null; merc: number | null; evEbit: number | null
   gov: number | null; govRespostas: Record<string, string>
   nota: number | null; atualizado: string | null
+  dcfUpside: number | null; tirPremioNtnb: number | null
 }
 type SortKey = keyof Acao
 type SortDir = 'asc' | 'desc'
@@ -131,9 +132,11 @@ function ModalDetalharNota({acao,onClose}:{acao:Acao;onClose:()=>void}) {
   const de=acao.divEbit; if(de!=null){const m=3.0;const p=de<0?3.0:de<1?3.0:de<2?2.2:de<3?1.2:de<4?0.4:0;componentes.push({label:'Dív/EBIT',pts:p,max:m,detalhe:`Dív/EBIT = ${f2(de)}x → ${f2(p)} pts`})}
   const ee=acao.evEbit; if(ee!=null&&ee>0){const m=3.0;const p=ee<6?3.0:ee<9?2.1:ee<12?1.2:ee<16?0.3:0;componentes.push({label:'EV/EBIT',pts:p,max:m,detalhe:`EV/EBIT = ${f2(ee)}x → ${f2(p)} pts`})}
   const gov=acao.gov; if(gov!=null&&gov>0){const m=3.0;const p=Math.min(gov*(3.0/2.0),3.0);componentes.push({label:'Governança',pts:p,max:m,detalhe:`GOV = ${f1(gov)}/2,0 → ${f2(p)} pts`})}
+  const up=acao.dcfUpside; if(up!=null){const m=3.0;const p=up>=40?3.0:up>=30?2.4:up>=20?1.8:up>=10?1.2:up>=5?0.6:up>=0?0.2:0;componentes.push({label:'DCF Upside',pts:p,max:m,detalhe:`Upside base = ${f1(up)}% → ${f2(p)} pts`})}
+  const tir=acao.tirPremioNtnb; if(tir!=null){const m=3.0;const p=tir>=6?3.0:tir>=5?2.5:tir>=4?2.0:tir>=3?1.5:tir>=2?1.0:tir>=1?0.5:tir>=0?0.1:tir>=-1?-0.3:-0.6;componentes.push({label:'TIR Real',pts:p,max:m,detalhe:`TIR Real +${f1(tir)}pp vs NTN-B → ${f2(p)} pts`})}
   const totalPts=componentes.reduce((s,c)=>s+c.pts,0)
   const totalMax=componentes.reduce((s,c)=>s+c.max,0)
-  const notaFinal=totalMax>0?Math.min(totalPts/totalMax*10,10):0
+  const notaFinal=totalMax>0?Math.max(0,Math.min(totalPts/totalMax*10,10)):0
   const corNota=notaFinal>=7?'#66BB6A':notaFinal>=5?'#FFD54F':'#EF9A9A'
   return (
     <Modal title={`★ Detalhar Nota — ${acao.ticker} · ${acao.nome}`} onClose={onClose}>
@@ -153,7 +156,7 @@ function ModalDetalharNota({acao,onClose}:{acao:Acao;onClose:()=>void}) {
       </div>
       {componentes.map(c=>{
         const pct=c.max>0?(c.pts/c.max)*100:0
-        const barColor=pct>=80?'#66BB6A':pct>=50?'#FFD54F':'#EF9A9A'
+        const barColor=c.pts<0?'#ef4444':pct>=80?'#66BB6A':pct>=50?'#FFD54F':'#EF9A9A'
         return (
           <div key={c.label} style={{marginBottom:'12px'}}>
             <div style={{display:'flex',justifyContent:'space-between',marginBottom:'5px'}}>
@@ -161,7 +164,7 @@ function ModalDetalharNota({acao,onClose}:{acao:Acao;onClose:()=>void}) {
               <span style={{fontSize:'12px',color:'#6b84a8'}}>{c.detalhe}</span>
             </div>
             <div style={{height:'8px',background:'rgba(255,255,255,.07)',borderRadius:'4px',overflow:'hidden'}}>
-              <div style={{height:'100%',width:`${pct}%`,background:barColor,borderRadius:'4px'}}/>
+              <div style={{height:'100%',width:`${Math.max(0,pct)}%`,background:barColor,borderRadius:'4px'}}/>
             </div>
             <div style={{display:'flex',justifyContent:'space-between',marginTop:'3px'}}>
               <span style={{fontSize:'11px',color:barColor,fontWeight:600}}>{f2(c.pts)} / {f2(c.max)} pts</span>
