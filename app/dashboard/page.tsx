@@ -36,6 +36,7 @@ const GOV_PERGUNTAS = [
   { id:'g08', cat:'Alinhamento com Minoritários',txt:'Já houve operações que prejudicaram minoritários? (Não = positivo)', inversa:true  },
   { id:'g09', cat:'Alinhamento com Minoritários',txt:'Remuneração da diretoria alinhada ao desempenho de longo prazo?',   inversa:false },
   { id:'g10', cat:'Nível de Governança na B3',  txt:'Está no Novo Mercado ou Nível 2 da B3?',                             inversa:false },
+  { id:'g11', cat:'Estabilidade de Controle', txt:'A estrutura de controle está estável (sem conflitos públicos entre controladores ou alta diretoria)?', inversa:false },
 ]
 
 function Cell({ v, suffix='', prefix='', pct=false, colorDir=0 }: {
