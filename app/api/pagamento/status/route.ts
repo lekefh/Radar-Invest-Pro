@@ -5,12 +5,12 @@ import { getDb } from '@/lib/db'
 export async function GET() {
   try {
     const session = await getSession()
-    if (!session?.id) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
+    if (!session?.sub) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
 
     const sql = getDb()
     const rows = await sql`
       SELECT plano, plano_expira, mp_subscription_id
-      FROM usuarios_web WHERE id = ${session.id}
+      FROM usuarios_web WHERE id = ${Number(session.sub)}
     `
     if (!rows[0]) return NextResponse.json({ erro: 'Usuário não encontrado' }, { status: 404 })
 

@@ -17,7 +17,7 @@ async function ensureAssinaturaCols() {
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession()
-    if (!session?.id) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
+    if (!session?.sub) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
 
     const { plano, ciclo } = await req.json()
     if (!PLANOS[plano]) return NextResponse.json({ erro: 'Plano inválido' }, { status: 400 })
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const sql = getDb()
     await ensureAssinaturaCols()
 
-    const rows = await sql`SELECT email, plano FROM usuarios_web WHERE id=${session.id}`
+    const rows = await sql`SELECT email, plano FROM usuarios_web WHERE id=${Number(session.sub)}`
     if (!rows[0]) return NextResponse.json({ erro: 'Usuário não encontrado' }, { status: 404 })
 
     const usuario = rows[0]
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
     await sql`
       UPDATE usuarios_web
       SET mp_subscription_id = ${resultado.id}
-      WHERE id = ${session.id}
+      WHERE id = ${Number(session.sub)}
     `
 
     return NextResponse.json({ init_point: resultado.init_point })

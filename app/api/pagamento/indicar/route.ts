@@ -19,12 +19,13 @@ async function ensureIndicacoesTable() {
 export async function POST(req: NextRequest) {
   try {
     const session = await getSession()
-    if (!session?.id) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
+    if (!session?.sub) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
 
+    const userId = Number(session.sub)
     const sql = getDb()
 
     // Verifica se é Pro
-    const rows = await sql`SELECT plano FROM usuarios_web WHERE id = ${session.id}`
+    const rows = await sql`SELECT plano FROM usuarios_web WHERE id = ${userId}`
     if (!rows[0] || rows[0].plano !== 'pro') {
       return NextResponse.json({ erro: 'Recurso exclusivo do plano Pro' }, { status: 403 })
     }
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
     // Limita 1 indicação por mês
     const jaIndicou = await sql`
       SELECT id FROM indicacoes_empresa
-      WHERE user_id = ${session.id}
+      WHERE user_id = ${userId}
         AND criado_em >= date_trunc('month', NOW())
     `
     if (jaIndicou.length > 0) {
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest) {
     await ensureIndicacoesTable()
     await sql`
       INSERT INTO indicacoes_empresa (user_id, ticker, nome, motivo)
-      VALUES (${session.id}, ${ticker.toUpperCase()}, ${nome || null}, ${motivo || null})
+      VALUES (${userId}, ${ticker.toUpperCase()}, ${nome || null}, ${motivo || null})
     `
 
     return NextResponse.json({ ok: true })
@@ -58,14 +59,14 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const session = await getSession()
-    if (!session?.id) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
+    if (!session?.sub) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
 
     const sql = getDb()
 
     // Verifica se já indicou este mês
     const rows = await sql`
       SELECT ticker, criado_em FROM indicacoes_empresa
-      WHERE user_id = ${session.id}
+      WHERE user_id = ${Number(session.sub)}
         AND criado_em >= date_trunc('month', NOW())
     `
     return NextResponse.json({ indicouEsteMes: rows.length > 0, indicacao: rows[0] || null })
