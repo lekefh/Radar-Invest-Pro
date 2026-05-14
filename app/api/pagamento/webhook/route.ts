@@ -13,7 +13,7 @@ function detectarPlano(valor: number): string {
 }
 
 function validarAssinatura(req: NextRequest, body: string): boolean {
-  const secret = process.env.MP_CLIENT_SECRET
+  const secret = process.env.MP_WEBHOOK_SECRET
   if (!secret) return false
 
   const xSignature = req.headers.get('x-signature') || ''
