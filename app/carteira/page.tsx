@@ -233,7 +233,7 @@ export default function CarteiraPage() {
       .catch(() => {})
   }, [])
 
-  const LIMITE_GRATUITO = 1
+  const LIMITE_GRATUITO = 2
   const limiteAtingido = plano === 'gratuito' && posicoes.length >= LIMITE_GRATUITO
 
   const abrirAddPosicao = () => {
@@ -436,7 +436,7 @@ export default function CarteiraPage() {
         {/* BOTÕES */}
         <div className="btn-bar">
           <button className="btn btn-add" onClick={abrirAddPosicao}
-            title={limiteAtingido ? 'Plano gratuito: máx. 1 ação. Faça upgrade para adicionar mais.' : ''}>
+            title={limiteAtingido ? 'Plano gratuito: máx. 2 ações. Faça upgrade para adicionar mais.' : ''}>
             + Posição {limiteAtingido && <span style={{ fontSize: '10px', opacity: .7 }}>🔒</span>}
           </button>
           <button className="btn btn-edit" disabled={!selecionado}
@@ -718,13 +718,13 @@ export default function CarteiraPage() {
               Limite do plano gratuito
             </h3>
             <p style={{ fontSize:'14px',color:'#6b84a8',lineHeight:1.7,marginBottom:'24px' }}>
-              O plano <strong style={{ color:'#e8edf5' }}>Gratuito</strong> permite acompanhar <strong style={{ color:'#e8a020' }}>1 ação</strong> na carteira.<br />
+              O plano <strong style={{ color:'#e8edf5' }}>Gratuito</strong> permite acompanhar <strong style={{ color:'#e8a020' }}>2 ações</strong> na carteira.<br />
               Faça upgrade para acompanhar portfólios ilimitados.
             </p>
             <div style={{ display:'flex',flexDirection:'column',gap:'10px' }}>
-              <a href="mailto:contato@radarinvestpro.com.br?subject=Upgrade de plano"
+              <a href="/planos"
                  style={{ background:'#e8a020',color:'#000',fontWeight:700,fontSize:'14px',padding:'12px 28px',borderRadius:'8px',textDecoration:'none',display:'block' }}>
-                Quero fazer upgrade
+                Ver planos e fazer upgrade
               </a>
               <button onClick={() => setLimiteModal(false)}
                       style={{ background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',fontSize:'13px',padding:'10px 28px',borderRadius:'8px',cursor:'pointer' }}>

@@ -555,9 +555,9 @@ function PaywallDCF() {
           ))}
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '12px' }}>
-          <a href="mailto:contato@radarinvestpro.com.br?subject=Upgrade de plano"
+          <a href="/planos"
              style={{ background: '#e8a020', color: '#000', fontWeight: 700, fontSize: '15px', padding: '14px 32px', borderRadius: '8px', textDecoration: 'none', display: 'block' }}>
-            Quero fazer upgrade
+            Ver planos e fazer upgrade
           </a>
           <Link href="/dashboard"
              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.12)', color: '#a0b4cc', fontSize: '14px', padding: '12px 32px', borderRadius: '8px', textDecoration: 'none', display: 'block' }}>
