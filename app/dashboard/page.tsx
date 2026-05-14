@@ -132,7 +132,7 @@ function ModalDetalharNota({acao,onClose}:{acao:Acao;onClose:()=>void}) {
   const pvp=acao.pvp; if(pvp!=null&&pvp>0){const m=1.5;const p=pvp<0.7?1.5:pvp<1.0?1.2:pvp<1.5?0.9:pvp<2.0?0.5:pvp<2.5?0.2:0;componentes.push({label:'P/VP',pts:p,max:m,detalhe:`P/VP = ${f2(pvp)}x → ${f2(p)} pts`})}
   const de=acao.divEbit; if(de!=null){const m=3.0;const p=de<0?3.0:de<1?3.0:de<2?2.2:de<3?1.2:de<4?0.4:0;componentes.push({label:'Dív/EBIT',pts:p,max:m,detalhe:`Dív/EBIT = ${f2(de)}x → ${f2(p)} pts`})}
   const ee=acao.evEbit; if(ee!=null&&ee>0){const m=3.0;const p=ee<6?3.0:ee<9?2.1:ee<12?1.2:ee<16?0.3:0;componentes.push({label:'EV/EBIT',pts:p,max:m,detalhe:`EV/EBIT = ${f2(ee)}x → ${f2(p)} pts`})}
-  const gov=acao.gov; if(gov!=null&&gov>0){const m=3.0;const p=Math.min(gov*(3.0/2.0),3.0);componentes.push({label:'Governança',pts:p,max:m,detalhe:`GOV = ${f1(gov)}/2,0 → ${f2(p)} pts`})}
+  const gov=acao.gov; if(gov!=null&&gov>0){const m=6.0;const p=Math.min(gov*(6.0/2.5),6.0);componentes.push({label:'Governança',pts:p,max:m,detalhe:`GOV = ${f1(gov)}/2,5 → ${f2(p)} pts`})}
   const up=acao.dcfUpside; if(up!=null){const m=3.0;const p=up>=40?3.0:up>=30?2.4:up>=20?1.8:up>=10?1.2:up>=5?0.6:up>=0?0.2:0;componentes.push({label:'DCF Upside',pts:p,max:m,detalhe:`Upside base = ${f1(up)}% → ${f2(p)} pts`})}
   const tir=acao.tirPremioNtnb; if(tir!=null){const m=3.0;const p=tir>=6?3.0:tir>=5?2.5:tir>=4?2.0:tir>=3?1.5:tir>=2?1.0:tir>=1?0.5:tir>=0?0.1:tir>=-1?-0.3:-0.6;componentes.push({label:'TIR Real',pts:p,max:m,detalhe:`TIR Real +${f1(tir)}pp vs NTN-B → ${f2(p)} pts`})}
   const totalPts=componentes.reduce((s,c)=>s+c.pts,0)
@@ -359,7 +359,7 @@ export default function Dashboard() {
                     <Th k="max52s"   label="Máx.52s"   title="Máxima 52 semanas"/>
                     <Th k="varVsMax" label="Queda%"    title="Distância vs máxima 52 semanas"/>
                     <Th k="variacao" label="Var.Dia"   title="Variação diária (%)"/>
-                    <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–2,0)"/>
+                    <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–2,5)"/>
                     <Th k="nota"     label="NOTA ★"    title="Nota fundamentalista (0–10)"/>
                   </tr>
                 </thead>
