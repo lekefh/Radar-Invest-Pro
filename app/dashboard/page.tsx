@@ -187,6 +187,69 @@ function exportarCSV(acoes:Acao[]) {
   const a=document.createElement('a');a.href=url;a.download=`radar-invest-pro-${new Date().toISOString().slice(0,10)}.csv`;a.click();URL.revokeObjectURL(url)
 }
 
+function ModalIndicarEmpresa({onClose}:{onClose:()=>void}) {
+  const [ticker,  setTicker]  = useState('')
+  const [nome,    setNome]    = useState('')
+  const [motivo,  setMotivo]  = useState('')
+  const [sending, setSending] = useState(false)
+  const [msg,     setMsg]     = useState<{ok:boolean;txt:string}|null>(null)
+
+  async function enviar() {
+    if (!ticker.trim()) { setMsg({ok:false,txt:'Informe o ticker da empresa.'}); return }
+    setSending(true); setMsg(null)
+    try {
+      const r = await fetch('/api/pagamento/indicar', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ ticker: ticker.trim(), nome: nome.trim(), motivo: motivo.trim() }),
+      })
+      const d = await r.json()
+      if (r.ok) setMsg({ok:true,  txt:`✓ ${ticker.toUpperCase()} indicada com sucesso! Analisaremos e priorizaremos no roadmap.`})
+      else      setMsg({ok:false, txt: d.erro || 'Erro ao enviar.'})
+    } catch { setMsg({ok:false,txt:'Erro de conexão. Tente novamente.'}) }
+    finally { setSending(false) }
+  }
+
+  const inp: React.CSSProperties = {
+    width:'100%', background:'#0a1628', border:'1px solid rgba(255,255,255,.12)',
+    borderRadius:8, padding:'10px 14px', color:'#e8edf5', fontSize:14,
+    outline:'none', fontFamily:'inherit', marginBottom:12,
+  }
+
+  return (
+    <Modal title="⭐ Indicar Empresa para Análise" onClose={onClose}>
+      <p style={{color:'#6b84a8',fontSize:13,marginBottom:20,lineHeight:1.6}}>
+        Como assinante Pro, você pode indicar <strong style={{color:'#e8a020'}}>1 empresa por mês</strong> para
+        priorizarmos no nosso roadmap de análise. Sua indicação vai direto para o analista.
+      </p>
+      <label style={{fontSize:12,color:'#6b84a8',display:'block',marginBottom:4,fontWeight:600,letterSpacing:.5}}>TICKER *</label>
+      <input style={{...inp, textTransform:'uppercase'}} placeholder="Ex: WEGE3" value={ticker}
+        onChange={e=>setTicker(e.target.value.toUpperCase())} maxLength={8}/>
+      <label style={{fontSize:12,color:'#6b84a8',display:'block',marginBottom:4,fontWeight:600,letterSpacing:.5}}>NOME DA EMPRESA (opcional)</label>
+      <input style={inp} placeholder="Ex: WEG S.A." value={nome} onChange={e=>setNome(e.target.value)} maxLength={80}/>
+      <label style={{fontSize:12,color:'#6b84a8',display:'block',marginBottom:4,fontWeight:600,letterSpacing:.5}}>POR QUE QUER ANALISAR? (opcional)</label>
+      <textarea style={{...inp, height:80, resize:'vertical'}} placeholder="Ex: Empresa com sólido histórico de crescimento de dividendos e boa governança…"
+        value={motivo} onChange={e=>setMotivo(e.target.value)} maxLength={400}/>
+      {msg && (
+        <div style={{padding:'10px 14px', borderRadius:8, marginBottom:12, fontSize:13, fontWeight:600,
+          background: msg.ok ? 'rgba(102,187,106,.12)' : 'rgba(239,68,68,.1)',
+          border: `1px solid ${msg.ok ? 'rgba(102,187,106,.3)' : 'rgba(239,68,68,.3)'}`,
+          color: msg.ok ? '#66BB6A' : '#f87171'}}>
+          {msg.txt}
+        </div>
+      )}
+      <div style={{display:'flex',gap:10,justifyContent:'flex-end'}}>
+        <button onClick={onClose} style={{padding:'9px 20px',borderRadius:8,background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.1)',color:'#b8c4d4',cursor:'pointer',fontSize:13}}>
+          Cancelar
+        </button>
+        <button onClick={enviar} disabled={sending||!!msg?.ok}
+          style={{padding:'9px 24px',borderRadius:8,background: msg?.ok ? '#66BB6A' : '#e8a020',border:'none',color:'#000',fontWeight:700,cursor:'pointer',fontSize:13,opacity:sending?0.7:1}}>
+          {sending ? 'Enviando…' : msg?.ok ? 'Enviado!' : 'Enviar indicação'}
+        </button>
+      </div>
+    </Modal>
+  )
+}
+
 export default function Dashboard() {
   const [acoes,    setAcoes]    = useState<Acao[]>([])
   const [loading,  setLoading]  = useState(true)
@@ -198,8 +261,10 @@ export default function Dashboard() {
   const [precoMax, setPrecoMax] = useState('')
   const [sortKey,  setSortKey]  = useState<SortKey>('ticker')
   const [sortDir,  setSortDir]  = useState<SortDir>('asc')
-  const [modalGov,  setModalGov]  = useState<Acao|null>(null)
-  const [modalNota, setModalNota] = useState<Acao|null>(null)
+  const [modalGov,     setModalGov]     = useState<Acao|null>(null)
+  const [modalNota,    setModalNota]    = useState<Acao|null>(null)
+  const [modalIndicar, setModalIndicar] = useState(false)
+  const [planoUsuario, setPlanoUsuario] = useState<string>('gratuito')
 
   const carregarDados = useCallback(()=>{
     setLoading(true); setErro('')
@@ -210,7 +275,10 @@ export default function Dashboard() {
       .finally(()=>setLoading(false))
   },[])
 
-  useEffect(()=>{carregarDados()},[carregarDados])
+  useEffect(()=>{
+    carregarDados()
+    fetch('/api/auth/me').then(r=>r.json()).then(d=>{ if(d?.plano) setPlanoUsuario(d.plano) }).catch(()=>{})
+  },[carregarDados])
 
   const toggleSort=(k:SortKey)=>{
     if(sortKey===k) setSortDir(d=>d==='asc'?'desc':'asc')
@@ -319,6 +387,12 @@ export default function Dashboard() {
           <button className="btn-act btn-gold" disabled={loading} onClick={carregarDados}>
             {loading?'⟳ …':'↻ Atualizar'}
           </button>
+          {planoUsuario==='pro' && (
+            <button className="btn-act" onClick={()=>setModalIndicar(true)}
+              style={{borderColor:'rgba(232,160,32,.35)',color:'#e8a020'}}>
+              ⭐ Indicar Empresa
+            </button>
+          )}
           {ts&&<span className="ts-label">Fund.: {ts}</span>}
         </div>
 
@@ -399,8 +473,9 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {modalGov  && <ModalGovernanca   acao={modalGov}  onClose={()=>setModalGov(null)}/>}
-      {modalNota && <ModalDetalharNota acao={modalNota} onClose={()=>setModalNota(null)}/>}
+      {modalGov     && <ModalGovernanca   acao={modalGov}  onClose={()=>setModalGov(null)}/>}
+      {modalNota    && <ModalDetalharNota acao={modalNota} onClose={()=>setModalNota(null)}/>}
+      {modalIndicar && <ModalIndicarEmpresa onClose={()=>setModalIndicar(false)}/>}
     </>
   )
 }
