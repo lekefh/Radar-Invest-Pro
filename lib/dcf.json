@@ -363,25 +363,25 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:02"
   },
   "SOJA3": {
     "ticker": "SOJA3",
     "company": "SOJA3 — Boa Safra Sementes",
     "nome": "Boa Safra Sementes",
     "method": "fcff",
-    "preco_atual": 6.48,
+    "preco_atual": 6.49,
     "bear": {
       "preco": 6.55,
-      "upside": 1.1
+      "upside": 1.0
     },
     "base": {
       "preco": 8.98,
-      "upside": 38.6
+      "upside": 38.4
     },
     "bull": {
       "preco": 12.0,
-      "upside": 85.1
+      "upside": 84.8
     },
     "upside_base_legado": 27.93,
     "wacc": 14.73,
@@ -624,10 +624,10 @@
       ]
     },
     "tir": {
-      "nominal": 24.42,
-      "real": 18.49,
-      "vs_selic": 11.99,
-      "vs_ntnb": 11.19,
+      "nominal": 24.38,
+      "real": 18.46,
+      "vs_selic": 11.96,
+      "vs_ntnb": 11.16,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -636,7 +636,7 @@
       "preco_formula": null,
       "eps": 0.14,
       "vpa": 9.44,
-      "upside_gn": -15.9,
+      "upside_gn": -16.0,
       "detalhe": "EPS=R$0.14 VPA=R$9.44"
     },
     "proximo_tri": {
@@ -647,25 +647,25 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$122MM"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:02"
   },
   "VULC3": {
     "ticker": "VULC3",
     "company": "VULC3 — Vulcabras",
     "nome": "Vulcabras",
     "method": "fcff",
-    "preco_atual": 14.83,
+    "preco_atual": 14.81,
     "bear": {
       "preco": 8.97,
-      "upside": -39.5
+      "upside": -39.4
     },
     "base": {
       "preco": 12.43,
-      "upside": -16.2
+      "upside": -16.1
     },
     "bull": {
       "preco": 16.99,
-      "upside": 14.6
+      "upside": 14.7
     },
     "upside_base_legado": -22.6,
     "wacc": 17.83,
@@ -917,10 +917,10 @@
       ]
     },
     "tir": {
-      "nominal": 17.88,
-      "real": 12.26,
-      "vs_selic": 5.76,
-      "vs_ntnb": 4.96,
+      "nominal": 17.91,
+      "real": 12.29,
+      "vs_selic": 5.79,
+      "vs_ntnb": 4.99,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -929,7 +929,7 @@
       "preco_formula": null,
       "eps": 3.88,
       "vpa": 7.76,
-      "upside_gn": 75.5,
+      "upside_gn": 75.8,
       "detalhe": "EPS=R$3.88 VPA=R$7.76"
     },
     "proximo_tri": {
@@ -940,29 +940,29 @@
       "mg_ebitda": 0.2197,
       "metodologia": "YoY+-20% → média = R$609MM"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "CYRE3": {
     "ticker": "CYRE3",
     "company": "CYRE3 — Cyrela",
     "nome": "Cyrela",
     "method": "fcff",
-    "preco_atual": 21.420000076293945,
+    "preco_atual": 21.40999984741211,
     "bear": {
-      "preco": 15.14,
-      "upside": -29.3
+      "preco": 16.22,
+      "upside": -24.3
     },
     "base": {
-      "preco": 21.61,
-      "upside": 0.9
+      "preco": 23.01,
+      "upside": 7.5
     },
     "bull": {
-      "preco": 29.36,
-      "upside": 37.1
+      "preco": 31.15,
+      "upside": 45.5
     },
-    "upside_base_legado": 0.91,
+    "upside_base_legado": 7.46,
     "wacc": 16.96,
-    "g_terminal": 4.0,
+    "g_terminal": 5.0,
     "shares": 456800000,
     "wacc_ke": 20.62,
     "wacc_rf": 13.62,
@@ -1062,7 +1062,7 @@
         "vp_fcl": 1045.5
       }
     ],
-    "valor_terminal": 6764.3,
+    "valor_terminal": 7400.3,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -1155,10 +1155,10 @@
       ]
     },
     "tir": {
-      "nominal": 26.8,
-      "real": 20.76,
-      "vs_selic": 14.26,
-      "vs_ntnb": 13.46,
+      "nominal": 27.74,
+      "real": 21.65,
+      "vs_selic": 15.15,
+      "vs_ntnb": 14.35,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -1167,7 +1167,7 @@
       "preco_formula": null,
       "eps": 4.57,
       "vpa": 27.92,
-      "upside_gn": 150.1,
+      "upside_gn": 150.3,
       "detalhe": "EPS=R$4.57 VPA=R$27.92"
     },
     "proximo_tri": {
@@ -1178,7 +1178,7 @@
       "mg_ebitda": 0.2563,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1242,7 +1242,7 @@
       "detalhe": "EPS=R$5.68 VPA=R$24.26"
     },
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1319,7 +1319,7 @@
       "mg_ebitda": 0.0748,
       "metodologia": "YoY+20% media = R$8,800MM + R$114MM novas lojas"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -1396,7 +1396,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "CPFL3": {
     "ticker": "CPFL3",
@@ -1460,7 +1460,7 @@
       "mg_ebitda": 0.3056,
       "metodologia": "YoY+4% media = R$10,581MM"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -1537,7 +1537,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -1607,7 +1607,7 @@
       "detalhe": "EPS=R$4.74 VPA=R$6.51"
     },
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -1671,7 +1671,7 @@
       "detalhe": "EPS=R$2.22 VPA=R$32.20"
     },
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -1728,7 +1728,7 @@
     "gordon": null,
     "graham": null,
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -1972,7 +1972,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -2043,6 +2043,6 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "15/05/2026 11:01"
+    "atualizado": "15/05/2026 11:03"
   }
 }
