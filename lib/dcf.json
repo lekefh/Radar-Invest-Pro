@@ -363,7 +363,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -647,7 +647,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$122MM"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -940,33 +940,33 @@
       "mg_ebitda": 0.2197,
       "metodologia": "YoY+-20% → média = R$609MM"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "CYRE3": {
     "ticker": "CYRE3",
     "company": "CYRE3 — Cyrela",
     "nome": "Cyrela",
     "method": "fcff",
-    "preco_atual": 21.440000534057617,
+    "preco_atual": 21.420000076293945,
     "bear": {
-      "preco": 14.09,
-      "upside": -34.3
+      "preco": 15.14,
+      "upside": -29.3
     },
     "base": {
-      "preco": 20.26,
-      "upside": -5.5
+      "preco": 21.61,
+      "upside": 0.9
     },
     "bull": {
-      "preco": 27.64,
-      "upside": 28.9
+      "preco": 29.36,
+      "upside": 37.1
     },
-    "upside_base_legado": -5.51,
-    "wacc": 17.5,
+    "upside_base_legado": 0.91,
+    "wacc": 16.96,
     "g_terminal": 4.0,
     "shares": 456800000,
-    "wacc_ke": 21.12,
+    "wacc_ke": 20.62,
     "wacc_rf": 13.62,
-    "wacc_beta": 1.5,
+    "wacc_beta": 1.4,
     "wacc_erp": 5.0,
     "wacc_peso_e": 56.5,
     "wacc_peso_d": 43.5,
@@ -999,7 +999,7 @@
         "nopat": 1658.7,
         "capex": 354.0,
         "fcl": 1413.0,
-        "vp_fcl": 1202.6
+        "vp_fcl": 1208.1
       },
       {
         "ano": 2028,
@@ -1009,7 +1009,7 @@
         "nopat": 1972.7,
         "capex": 375.2,
         "fcl": 1681.2,
-        "vp_fcl": 1217.7
+        "vp_fcl": 1229.0
       },
       {
         "ano": 2029,
@@ -1019,7 +1019,7 @@
         "nopat": 2223.1,
         "capex": 382.1,
         "fcl": 1905.8,
-        "vp_fcl": 1174.8
+        "vp_fcl": 1191.1
       },
       {
         "ano": 2030,
@@ -1029,7 +1029,7 @@
         "nopat": 2524.2,
         "capex": 416.5,
         "fcl": 2164.7,
-        "vp_fcl": 1135.6
+        "vp_fcl": 1156.7
       },
       {
         "ano": 2031,
@@ -1039,7 +1039,7 @@
         "nopat": 2806.4,
         "capex": 412.7,
         "fcl": 2455.8,
-        "vp_fcl": 1096.5
+        "vp_fcl": 1122.0
       },
       {
         "ano": 2032,
@@ -1049,7 +1049,7 @@
         "nopat": 3118.9,
         "capex": 419.9,
         "fcl": 2766.8,
-        "vp_fcl": 1051.3
+        "vp_fcl": 1080.8
       },
       {
         "ano": 2033,
@@ -1059,10 +1059,10 @@
         "nopat": 3465.0,
         "capex": 408.6,
         "fcl": 3130.2,
-        "vp_fcl": 1012.3
+        "vp_fcl": 1045.5
       }
     ],
-    "valor_terminal": 6287.7,
+    "valor_terminal": 6764.3,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -1155,10 +1155,10 @@
       ]
     },
     "tir": {
-      "nominal": 26.36,
-      "real": 20.35,
-      "vs_selic": 13.85,
-      "vs_ntnb": 13.05,
+      "nominal": 26.8,
+      "real": 20.76,
+      "vs_selic": 14.26,
+      "vs_ntnb": 13.46,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -1167,7 +1167,7 @@
       "preco_formula": null,
       "eps": 4.57,
       "vpa": 27.92,
-      "upside_gn": 149.9,
+      "upside_gn": 150.1,
       "detalhe": "EPS=R$4.57 VPA=R$27.92"
     },
     "proximo_tri": {
@@ -1178,7 +1178,7 @@
       "mg_ebitda": 0.2563,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1242,7 +1242,7 @@
       "detalhe": "EPS=R$5.68 VPA=R$24.26"
     },
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1319,7 +1319,7 @@
       "mg_ebitda": 0.0748,
       "metodologia": "YoY+20% media = R$8,800MM + R$114MM novas lojas"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -1396,7 +1396,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "CPFL3": {
     "ticker": "CPFL3",
@@ -1460,7 +1460,7 @@
       "mg_ebitda": 0.3056,
       "metodologia": "YoY+4% media = R$10,581MM"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -1537,7 +1537,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -1607,7 +1607,7 @@
       "detalhe": "EPS=R$4.74 VPA=R$6.51"
     },
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -1671,7 +1671,7 @@
       "detalhe": "EPS=R$2.22 VPA=R$32.20"
     },
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -1728,7 +1728,7 @@
     "gordon": null,
     "graham": null,
     "proximo_tri": null,
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -1972,7 +1972,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -2043,6 +2043,6 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "15/05/2026 11:00"
+    "atualizado": "15/05/2026 11:01"
   }
 }
