@@ -51,10 +51,39 @@ function Cell({ v, suffix='', prefix='', pct=false, colorDir=0 }: {
   </td>
 }
 
-function NotaCell({v,onClick}:{v:number|null;onClick:()=>void}) {
+function NotaCell({v,bloqueado,onClick}:{v:number|null;bloqueado:boolean;onClick:()=>void}) {
+  if (bloqueado) return (
+    <td onClick={onClick} title="Disponível no plano Essencial ou superior"
+        style={{cursor:'pointer',textAlign:'center',fontSize:'15px',color:'#6b84a8',userSelect:'none'}}>
+      *
+    </td>
+  )
   if (v==null) return <td className="muted">—</td>
   const color = v>=7?'#66BB6A':v>=5?'#FFD54F':'#EF9A9A'
   return <td style={{color,fontWeight:700,cursor:'pointer',textDecoration:'underline dotted'}} onClick={onClick} title="Ver detalhes da nota">{f1(v)}</td>
+}
+
+function ModalUpgradeNota({onClose}:{onClose:()=>void}) {
+  return (
+    <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,.75)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px'}}
+         onClick={e=>e.target===e.currentTarget&&onClose()}>
+      <div style={{background:'#0d1a2e',border:'1px solid rgba(232,160,32,.25)',borderRadius:'14px',width:'100%',maxWidth:'420px',padding:'36px 32px',textAlign:'center'}}>
+        <div style={{fontSize:'40px',marginBottom:'16px'}}>★</div>
+        <h2 style={{fontSize:'18px',fontWeight:700,color:'#e8edf5',marginBottom:'8px'}}>Nota de Qualidade bloqueada</h2>
+        <p style={{fontSize:'13px',color:'#6b84a8',lineHeight:1.7,marginBottom:'24px'}}>
+          A nota fundamentalista (0–10) com breakdown completo de P/L, ROE, DY, P/VP, Dívida e Governança está disponível no plano <strong style={{color:'#e8a020'}}>Essencial</strong> ou superior.
+        </p>
+        <div style={{display:'flex',flexDirection:'column',gap:'10px'}}>
+          <a href="/planos" style={{display:'block',background:'#e8a020',color:'#000',borderRadius:'8px',padding:'13px',fontSize:'14px',fontWeight:700,textDecoration:'none'}}>
+            Ver planos e fazer upgrade
+          </a>
+          <button onClick={onClose} style={{background:'none',border:'1px solid rgba(255,255,255,.1)',color:'#6b84a8',borderRadius:'8px',padding:'11px',fontSize:'13px',cursor:'pointer'}}>
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  )
 }
 function GovCell({v,onClick}:{v:number|null;onClick:()=>void}) {
   if (v==null) return <td className="muted" style={{cursor:'pointer'}} onClick={onClick} title="Ver governança">—</td>
@@ -262,8 +291,9 @@ export default function Dashboard() {
   const [sortKey,  setSortKey]  = useState<SortKey>('ticker')
   const [sortDir,  setSortDir]  = useState<SortDir>('asc')
   const [modalGov,     setModalGov]     = useState<Acao|null>(null)
-  const [modalNota,    setModalNota]    = useState<Acao|null>(null)
-  const [modalIndicar, setModalIndicar] = useState(false)
+  const [modalNota,        setModalNota]        = useState<Acao|null>(null)
+  const [modalUpgradeNota, setModalUpgradeNota] = useState(false)
+  const [modalIndicar,     setModalIndicar]     = useState(false)
   const [planoUsuario, setPlanoUsuario] = useState<string>('gratuito')
 
   const carregarDados = useCallback(()=>{
@@ -461,7 +491,7 @@ export default function Dashboard() {
                           <Cell v={a.varVsMax} pct colorDir={-1}/>
                           <Cell v={a.variacao} pct colorDir={1}/>
                           <GovCell  v={a.gov}  onClick={()=>setModalGov(a)}/>
-                          <NotaCell v={a.nota} onClick={()=>setModalNota(a)}/>
+                          <NotaCell v={a.nota} bloqueado={planoUsuario==='gratuito'} onClick={planoUsuario==='gratuito'?()=>setModalUpgradeNota(true):()=>setModalNota(a)}/>
                         </tr>
                       )
                     })
@@ -473,9 +503,10 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {modalGov     && <ModalGovernanca   acao={modalGov}  onClose={()=>setModalGov(null)}/>}
-      {modalNota    && <ModalDetalharNota acao={modalNota} onClose={()=>setModalNota(null)}/>}
-      {modalIndicar && <ModalIndicarEmpresa onClose={()=>setModalIndicar(false)}/>}
+      {modalGov         && <ModalGovernanca   acao={modalGov}  onClose={()=>setModalGov(null)}/>}
+      {modalNota        && <ModalDetalharNota acao={modalNota} onClose={()=>setModalNota(null)}/>}
+      {modalUpgradeNota && <ModalUpgradeNota                   onClose={()=>setModalUpgradeNota(false)}/>}
+      {modalIndicar     && <ModalIndicarEmpresa onClose={()=>setModalIndicar(false)}/>}
     </>
   )
 }
