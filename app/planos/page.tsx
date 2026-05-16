@@ -98,7 +98,7 @@ export default function PlanosPage() {
       })
       const data = await r.json()
       if (data.init_point) window.location.href = data.init_point
-      else alert('Erro ao iniciar pagamento. Tente novamente.')
+      else alert(data.erro || 'Erro ao iniciar pagamento. Tente novamente.')
     } catch {
       alert('Erro ao conectar. Tente novamente.')
     } finally {
