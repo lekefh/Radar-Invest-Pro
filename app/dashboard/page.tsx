@@ -152,24 +152,122 @@ function ModalGovernanca({acao,onClose}:{acao:Acao;onClose:()=>void}) {
   )
 }
 
+// ── Cálculo de nota com thresholds setoriais ─────────────────────────────────
+type Comp = {label:string;pts:number;max:number;detalhe:string}
+
+const SETORES_UTILIDADE = ['Utilidade Pública']
+
+function calcularNotaComponentes(acao: Acao): { componentes: Comp[]; isUtilidade: boolean; nota: number } {
+  const isUtilidade = SETORES_UTILIDADE.includes(acao.setor ?? '')
+  const componentes: Comp[] = []
+
+  // P/L — elétricas têm P/L estruturalmente mais alto (ativos de longa duração)
+  const pl = acao.pl
+  if (pl != null && pl > 0) {
+    const m = 2.5
+    const p = isUtilidade
+      ? (pl<10?2.5:pl<14?2.1:pl<18?1.6:pl<22?1.0:pl<28?0.5:0)
+      : (pl<8 ?2.5:pl<12?2.1:pl<16?1.6:pl<20?1.0:pl<25?0.5:0)
+    componentes.push({label:'P/L', pts:p, max:m, detalhe:`P/L = ${f2(pl)}x → ${f2(p)} pts`})
+  }
+
+  // ROE — WACC regulatório elétrico ~9-11%; abaixo disso destrói valor
+  const roe = acao.roe
+  if (roe != null) {
+    const m = 2.5
+    const p = isUtilidade
+      ? (roe>15?2.5:roe>11?2.1:roe>8?1.5:roe>5?0.9:roe>2?0.4:0)
+      : (roe>25?2.5:roe>18?2.1:roe>12?1.5:roe>8?0.9:roe>4?0.4:0)
+    componentes.push({label:'ROE%', pts:p, max:m, detalhe:`ROE = ${f1(roe)}% → ${f2(p)} pts`})
+  }
+
+  // DY — elétricas são fortes pagadoras; referência >6% é bom
+  const dy = acao.dy
+  if (dy != null && dy >= 0) {
+    const m = 1.5
+    const p = isUtilidade
+      ? (dy>8?1.5:dy>6?1.2:dy>4?0.9:dy>2?0.5:dy>0?0.2:0)
+      : (dy>10?1.5:dy>7?1.2:dy>5?0.9:dy>3?0.5:dy>1?0.2:0)
+    componentes.push({label:'DY%', pts:p, max:m, detalhe:`DY = ${f1(dy)}% → ${f2(p)} pts`})
+  }
+
+  // P/VP — RAB justifica P/VP até 2,5x em elétricas reguladas
+  const pvp = acao.pvp
+  if (pvp != null && pvp > 0) {
+    const m = 1.5
+    const p = isUtilidade
+      ? (pvp<1.0?1.5:pvp<1.5?1.2:pvp<2.0?0.9:pvp<2.5?0.5:pvp<3.5?0.2:0)
+      : (pvp<0.7?1.5:pvp<1.0?1.2:pvp<1.5?0.9:pvp<2.0?0.5:pvp<2.5?0.2:0)
+    componentes.push({label:'P/VP', pts:p, max:m, detalhe:`P/VP = ${f2(pvp)}x → ${f2(p)} pts`})
+  }
+
+  // Dív/EBIT — elétricas têm alta depreciação → EBIT muito menor que EBITDA
+  // Limites ajustados: Dív/EBIT 8-12x ≈ Dív/EBITDA 3-4x (aceitável no setor)
+  const de = acao.divEbit
+  if (de != null) {
+    const m = 3.0
+    const p = isUtilidade
+      ? (de<0?3.0:de<3?3.0:de<5?2.2:de<8?1.2:de<12?0.4:de<16?0.1:0)
+      : (de<0?3.0:de<1?3.0:de<2?2.2:de<3?1.2:de<4?0.4:0)
+    const obs = isUtilidade ? ' (ref. Dív/EBIT setor elétrico)' : ''
+    componentes.push({label:'Dív/EBIT', pts:p, max:m, detalhe:`Dív/EBIT = ${f2(de)}x → ${f2(p)} pts${obs}`})
+  }
+
+  // EV/EBIT — RAB elevado inflaciona EV; EV/EBITDA típico do setor: 8-15x
+  // Limites ajustados: EV/EBIT 18-35x ≈ EV/EBITDA 8-12x (razoável para elétrica)
+  const ee = acao.evEbit
+  if (ee != null && ee > 0) {
+    const m = 3.0
+    const p = isUtilidade
+      ? (ee<12?3.0:ee<18?2.1:ee<25?1.5:ee<35?0.9:ee<50?0.4:ee<65?0.1:0)
+      : (ee<6?3.0:ee<9?2.1:ee<12?1.2:ee<16?0.3:0)
+    const obs = isUtilidade ? ' (ref. EV/EBIT setor elétrico)' : ''
+    componentes.push({label:'EV/EBIT', pts:p, max:m, detalhe:`EV/EBIT = ${f2(ee)}x → ${f2(p)} pts${obs}`})
+  }
+
+  // Governança, DCF e TIR — iguais para todos os setores
+  const gov = acao.gov
+  if (gov != null && gov > 0) {
+    const m = 3.0; const p = Math.min(gov*(3.0/2.5), 3.0)
+    componentes.push({label:'Governança', pts:p, max:m, detalhe:`GOV = ${f1(gov)}/2,5 → ${f2(p)} pts`})
+  }
+  const up = acao.dcfUpside
+  if (up != null) {
+    const m = 3.0; const p = up>=40?3.0:up>=30?2.4:up>=20?1.8:up>=10?1.2:up>=5?0.6:up>=0?0.2:0
+    componentes.push({label:'DCF Upside', pts:p, max:m, detalhe:`Upside base = ${f1(up)}% → ${f2(p)} pts`})
+  }
+  const tir = acao.tirPremioNtnb
+  if (tir != null) {
+    const m = 3.0; const p = tir>=6?3.0:tir>=5?2.5:tir>=4?2.0:tir>=3?1.5:tir>=2?1.0:tir>=1?0.5:tir>=0?0.1:tir>=-1?-0.3:-0.6
+    componentes.push({label:'TIR Real', pts:p, max:m, detalhe:`TIR Real +${f1(tir)}pp vs NTN-B → ${f2(p)} pts`})
+  }
+
+  const totalPts = componentes.reduce((s,c)=>s+c.pts, 0)
+  const totalMax = componentes.reduce((s,c)=>s+c.max, 0)
+  const nota = totalMax > 0 ? Math.round((totalPts/totalMax)*100)/10 : 0
+  return { componentes, isUtilidade, nota }
+}
+
+// Retorna nota ajustada se for utilidade; null caso contrário (usa valor do JSON)
+function notaAjustada(acao: Acao): number | null {
+  if (!SETORES_UTILIDADE.includes(acao.setor ?? '')) return null
+  return calcularNotaComponentes(acao).nota
+}
+
 function ModalDetalharNota({acao,onClose}:{acao:Acao;onClose:()=>void}) {
-  type Comp={label:string;pts:number;max:number;detalhe:string}
-  const componentes:Comp[]=[]
-  const pl=acao.pl; if(pl!=null&&pl>0){const m=2.5;const p=pl<8?2.5:pl<12?2.1:pl<16?1.6:pl<20?1.0:pl<25?0.5:0;componentes.push({label:'P/L',pts:p,max:m,detalhe:`P/L = ${f2(pl)}x → ${f2(p)} pts`})}
-  const roe=acao.roe; if(roe!=null){const m=2.5;const p=roe>25?2.5:roe>18?2.1:roe>12?1.5:roe>8?0.9:roe>4?0.4:0;componentes.push({label:'ROE%',pts:p,max:m,detalhe:`ROE = ${f1(roe)}% → ${f2(p)} pts`})}
-  const dy=acao.dy; if(dy!=null&&dy>=0){const m=1.5;const p=dy>10?1.5:dy>7?1.2:dy>5?0.9:dy>3?0.5:dy>1?0.2:0;componentes.push({label:'DY%',pts:p,max:m,detalhe:`DY = ${f1(dy)}% → ${f2(p)} pts`})}
-  const pvp=acao.pvp; if(pvp!=null&&pvp>0){const m=1.5;const p=pvp<0.7?1.5:pvp<1.0?1.2:pvp<1.5?0.9:pvp<2.0?0.5:pvp<2.5?0.2:0;componentes.push({label:'P/VP',pts:p,max:m,detalhe:`P/VP = ${f2(pvp)}x → ${f2(p)} pts`})}
-  const de=acao.divEbit; if(de!=null){const m=3.0;const p=de<0?3.0:de<1?3.0:de<2?2.2:de<3?1.2:de<4?0.4:0;componentes.push({label:'Dív/EBIT',pts:p,max:m,detalhe:`Dív/EBIT = ${f2(de)}x → ${f2(p)} pts`})}
-  const ee=acao.evEbit; if(ee!=null&&ee>0){const m=3.0;const p=ee<6?3.0:ee<9?2.1:ee<12?1.2:ee<16?0.3:0;componentes.push({label:'EV/EBIT',pts:p,max:m,detalhe:`EV/EBIT = ${f2(ee)}x → ${f2(p)} pts`})}
-  const gov=acao.gov; if(gov!=null&&gov>0){const m=3.0;const p=Math.min(gov*(3.0/2.5),3.0);componentes.push({label:'Governança',pts:p,max:m,detalhe:`GOV = ${f1(gov)}/2,5 → ${f2(p)} pts`})}
-  const up=acao.dcfUpside; if(up!=null){const m=3.0;const p=up>=40?3.0:up>=30?2.4:up>=20?1.8:up>=10?1.2:up>=5?0.6:up>=0?0.2:0;componentes.push({label:'DCF Upside',pts:p,max:m,detalhe:`Upside base = ${f1(up)}% → ${f2(p)} pts`})}
-  const tir=acao.tirPremioNtnb; if(tir!=null){const m=3.0;const p=tir>=6?3.0:tir>=5?2.5:tir>=4?2.0:tir>=3?1.5:tir>=2?1.0:tir>=1?0.5:tir>=0?0.1:tir>=-1?-0.3:-0.6;componentes.push({label:'TIR Real',pts:p,max:m,detalhe:`TIR Real +${f1(tir)}pp vs NTN-B → ${f2(p)} pts`})}
-  const totalPts=componentes.reduce((s,c)=>s+c.pts,0)
-  const totalMax=componentes.reduce((s,c)=>s+c.max,0)
-  const notaDisplay=acao.nota??0
-  const corNota=notaDisplay>=7?'#66BB6A':notaDisplay>=5?'#FFD54F':'#EF9A9A'
+  const { componentes, isUtilidade, nota: notaCalc } = calcularNotaComponentes(acao)
+  const totalPts = componentes.reduce((s,c)=>s+c.pts, 0)
+  const totalMax = componentes.reduce((s,c)=>s+c.max, 0)
+  const notaDisplay = isUtilidade ? notaCalc : (acao.nota ?? 0)
+  const corNota = notaDisplay>=7?'#66BB6A':notaDisplay>=5?'#FFD54F':'#EF9A9A'
   return (
     <Modal title={`★ Detalhar Nota — ${acao.ticker} · ${acao.nome}`} onClose={onClose}>
+      {isUtilidade && (
+        <div style={{display:'flex',alignItems:'center',gap:'8px',marginBottom:'12px',padding:'8px 12px',background:'rgba(100,181,246,.08)',border:'1px solid rgba(100,181,246,.2)',borderRadius:'8px'}}>
+          <span style={{fontSize:'13px'}}>⚡</span>
+          <span style={{fontSize:'12px',color:'#90CAF9'}}>Critérios ajustados para o <strong>setor elétrico</strong> — P/L, Dív/EBIT e EV/EBIT usam referências regulatórias da ANEEL</span>
+        </div>
+      )}
       <div style={{display:'flex',alignItems:'center',gap:'20px',marginBottom:'20px',padding:'16px',background:'rgba(232,160,32,.07)',border:'1px solid rgba(232,160,32,.18)',borderRadius:'10px'}}>
         <div style={{textAlign:'center'}}>
           <div style={{fontSize:'48px',fontWeight:700,color:corNota,fontFamily:'Space Grotesk,sans-serif',lineHeight:1}}>{f1(notaDisplay)}</div>
@@ -491,7 +589,7 @@ export default function Dashboard() {
                           <Cell v={a.varVsMax} pct colorDir={-1}/>
                           <Cell v={a.variacao} pct colorDir={1}/>
                           <GovCell  v={a.gov}  onClick={()=>setModalGov(a)}/>
-                          <NotaCell v={a.nota} bloqueado={planoUsuario==='gratuito'} onClick={planoUsuario==='gratuito'?()=>setModalUpgradeNota(true):()=>setModalNota(a)}/>
+                          <NotaCell v={notaAjustada(a) ?? a.nota} bloqueado={planoUsuario==='gratuito'} onClick={planoUsuario==='gratuito'?()=>setModalUpgradeNota(true):()=>setModalNota(a)}/>
                         </tr>
                       )
                     })
