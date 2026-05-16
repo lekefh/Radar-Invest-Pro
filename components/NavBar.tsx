@@ -9,6 +9,7 @@ const LINKS = [
   { href: '/alertas',   label: '🔔 Alertas',  soon: true },
   { href: '/noticias',  label: '📰 Notícias', soon: true },
   { href: '/dcf',       label: '💹 DCF' },
+  { href: '/teses',     label: '🎯 Teses' },
 ]
 
 interface Usuario { nome: string; username: string; plano: string }
