@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
           currency_id: 'BRL',
         },
         back_url: `${baseUrl}/dashboard?plano_ativado=1`,
-        payer_email: usuario.email,
+        external_reference: String(session.sub),
         status: 'pending',
       },
     })

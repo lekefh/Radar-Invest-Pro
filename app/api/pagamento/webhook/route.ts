@@ -60,9 +60,10 @@ export async function POST(req: NextRequest) {
     const preApproval = new PreApproval(client)
     const assinatura  = await preApproval.get({ id: subscriptionId })
 
-    const status = assinatura.status        // 'authorized' | 'paused' | 'cancelled'
-    const valor  = assinatura.auto_recurring?.transaction_amount || 0
-    const email  = assinatura.payer_email   || ''
+    const status   = assinatura.status        // 'authorized' | 'paused' | 'cancelled'
+    const valor    = assinatura.auto_recurring?.transaction_amount || 0
+    const extRef   = assinatura.external_reference || ''  // ID do usuário cadastrado
+    const userId   = extRef ? Number(extRef) : null
 
     const sql = getDb()
 
@@ -76,10 +77,10 @@ export async function POST(req: NextRequest) {
         SET plano               = ${plano},
             mp_subscription_id  = ${subscriptionId},
             plano_expira        = ${expira.toISOString()}
-        WHERE LOWER(email) = LOWER(${email})
+        WHERE (${userId}::int IS NOT NULL AND id = ${userId})
            OR mp_subscription_id = ${subscriptionId}
       `
-      console.log(`[webhook] ${email} → plano=${plano} até ${expira.toDateString()}`)
+      console.log(`[webhook] userId=${userId} subscriptionId=${subscriptionId} → plano=${plano} até ${expira.toDateString()}`)
 
     } else if (status === 'cancelled' || status === 'paused') {
       await sql`
