@@ -107,9 +107,13 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ init_point: resultado.init_point })
   } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : String(e)
-    const cause = (e as { cause?: unknown })?.cause
-    console.error('[checkout] erro:', msg, cause)
-    return NextResponse.json({ erro: `Erro interno: ${msg}` }, { status: 500 })
+    try {
+      const serialized = JSON.stringify(e, Object.getOwnPropertyNames(e as object))
+      console.error('[checkout] erro completo:', serialized)
+      return NextResponse.json({ erro: `MP: ${serialized}` }, { status: 500 })
+    } catch {
+      console.error('[checkout] erro:', e)
+      return NextResponse.json({ erro: `Erro interno inesperado` }, { status: 500 })
+    }
   }
 }
