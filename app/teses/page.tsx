@@ -60,9 +60,43 @@ function getValor(e: Entrada, key: string): number|null {
 // ─── Modal de nova entrada ────────────────────────────────────────────────────
 function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()=>void; onSave: ()=>void }) {
   const [form, setForm] = useState({ trimestre:'', pld:'', gsf:'', rap:'', pmso:'', dl_ebitda:'', lucro:'', tir_real:'', observacoes:'' })
-  const [saving, setSaving] = useState(false)
+  const [saving, setSaving]     = useState(false)
+  const [urlRelease, setUrl]    = useState('')
+  const [parseando, setParseando] = useState(false)
+  const [parseMsg, setParseMsg] = useState('')
   const set = (k: string, v: string) => setForm(f=>({...f,[k]:v}))
   const num = (v: string) => v === '' ? null : parseFloat(v.replace(',','.'))
+
+  async function importarRelease() {
+    if (!urlRelease.trim()) return
+    setParseando(true)
+    setParseMsg('')
+    try {
+      const r = await fetch('/api/teses/parse', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ url: urlRelease.trim() }),
+      })
+      const d = await r.json()
+      if (!r.ok || !d.ok) { setParseMsg(d.erro || 'Erro ao processar o documento.'); return }
+
+      const novo = { ...form }
+      const dados = d.dados as Record<string, number|string|null>
+      if (dados.trimestre) novo.trimestre = String(dados.trimestre)
+      if (dados.pld       != null) novo.pld       = String(dados.pld)
+      if (dados.gsf       != null) novo.gsf       = String(dados.gsf)
+      if (dados.rap       != null) novo.rap       = String(dados.rap)
+      if (dados.pmso      != null) novo.pmso      = String(dados.pmso)
+      if (dados.dl_ebitda != null) novo.dl_ebitda = String(dados.dl_ebitda)
+      if (dados.lucro     != null) novo.lucro     = String(dados.lucro)
+      if (dados.tir_real  != null) novo.tir_real  = String(dados.tir_real)
+      setForm(novo)
+      setParseMsg(`✓ ${d.extraidos} campo(s) preenchido(s) automaticamente. Revise e ajuste se necessário.`)
+    } catch {
+      setParseMsg('Erro de conexão ao tentar ler o release.')
+    } finally {
+      setParseando(false)
+    }
+  }
 
   async function salvar() {
     if (!form.trimestre.trim()) return alert('Informe o trimestre (ex: 2T26)')
@@ -81,24 +115,59 @@ function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()
   }
 
   const campos = [
-    { key:'trimestre', label:'Trimestre', placeholder:'ex: 2T26', tipo:'text' },
-    { key:'pld',       label:'PLD médio (R$/MWh)',    placeholder:'ex: 260', tipo:'number' },
-    { key:'gsf',       label:'GSF (%)',                placeholder:'ex: 91',  tipo:'number' },
-    { key:'rap',       label:'RAP trimestral (R$ MM)', placeholder:'ex: 4200',tipo:'number' },
-    { key:'pmso',      label:'PMSO trimestral (R$ MM)',placeholder:'ex: 1500',tipo:'number' },
-    { key:'dl_ebitda', label:'DL/EBITDA (x)',          placeholder:'ex: 1.9', tipo:'number' },
-    { key:'lucro',     label:'Lucro líquido (R$ MM)',  placeholder:'ex: 3707',tipo:'number' },
-    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.2',tipo:'number' },
+    { key:'trimestre', label:'Trimestre',              placeholder:'ex: 2T26',  tipo:'text'   },
+    { key:'pld',       label:'PLD médio (R$/MWh)',      placeholder:'ex: 260',   tipo:'number' },
+    { key:'gsf',       label:'GSF (%)',                 placeholder:'ex: 91',    tipo:'number' },
+    { key:'rap',       label:'RAP trimestral (R$ MM)',  placeholder:'ex: 4200',  tipo:'number' },
+    { key:'pmso',      label:'PMSO trimestral (R$ MM)', placeholder:'ex: 1500',  tipo:'number' },
+    { key:'dl_ebitda', label:'DL/EBITDA (x)',           placeholder:'ex: 1.9',   tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',   placeholder:'ex: 3707',  tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.2',   tipo:'number' },
   ]
+
+  const inputStyle: React.CSSProperties = {
+    width:'100%', background:'#1a2632', border:'1px solid rgba(255,255,255,.1)',
+    borderRadius:'6px', padding:'9px 12px', fontSize:'13px', color:'#e0e0e0',
+    outline:'none', boxSizing:'border-box',
+  }
 
   return (
     <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,.75)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px'}}
          onClick={e=>e.target===e.currentTarget&&onClose()}>
-      <div style={{background:'#0d1a2e',border:'1px solid rgba(255,255,255,.12)',borderRadius:'14px',width:'100%',maxWidth:'480px',padding:'28px 28px',overflowY:'auto',maxHeight:'90vh'}}>
+      <div style={{background:'#0d1a2e',border:'1px solid rgba(255,255,255,.12)',borderRadius:'14px',width:'100%',maxWidth:'520px',padding:'28px',overflowY:'auto',maxHeight:'90vh'}}>
         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'20px'}}>
           <h2 style={{fontSize:'15px',fontWeight:700,color:'#e8edf5'}}>Nova entrada — {ticker}</h2>
           <button onClick={onClose} style={{background:'none',border:'none',color:'#6b84a8',fontSize:'20px',cursor:'pointer'}}>×</button>
         </div>
+
+        {/* ── Auto-preenchimento via URL ── */}
+        <div style={{background:'rgba(21,101,192,.08)',border:'1px solid rgba(21,101,192,.25)',borderRadius:'10px',padding:'14px 16px',marginBottom:'18px'}}>
+          <div style={{fontSize:'11px',color:'#90CAF9',fontWeight:700,textTransform:'uppercase',letterSpacing:'.5px',marginBottom:'8px'}}>
+            ⚡ Importar dados do release
+          </div>
+          <div style={{display:'flex',gap:'8px'}}>
+            <input
+              type="url"
+              placeholder="Cole aqui a URL do release (PDF ou Excel do RI)..."
+              value={urlRelease}
+              onChange={e=>setUrl(e.target.value)}
+              style={{...inputStyle, flex:1, fontSize:'12px'}}
+            />
+            <button onClick={importarRelease} disabled={parseando || !urlRelease.trim()}
+              style={{background:parseando?'#1a2632':'rgba(21,101,192,.7)',color:'#fff',border:'none',borderRadius:'6px',padding:'9px 14px',fontSize:'12px',fontWeight:700,cursor:parseando||!urlRelease.trim()?'not-allowed':'pointer',whiteSpace:'nowrap'}}>
+              {parseando ? '...' : 'Importar'}
+            </button>
+          </div>
+          {parseMsg && (
+            <div style={{marginTop:'8px',fontSize:'12px',color: parseMsg.startsWith('✓') ? '#66BB6A' : '#EF5350'}}>
+              {parseMsg}
+            </div>
+          )}
+          <div style={{marginTop:'6px',fontSize:'11px',color:'#4a5d73'}}>
+            Funciona com releases em PDF ou Excel do site de RI da empresa.
+          </div>
+        </div>
+
         <div style={{display:'flex',flexDirection:'column',gap:'12px'}}>
           {campos.map(c=>(
             <div key={c.key}>
@@ -106,14 +175,14 @@ function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()
               <input type={c.tipo} placeholder={c.placeholder}
                 value={(form as Record<string,string>)[c.key]}
                 onChange={e=>set(c.key,e.target.value)}
-                style={{width:'100%',background:'#1a2632',border:'1px solid rgba(255,255,255,.1)',borderRadius:'6px',padding:'9px 12px',fontSize:'13px',color:'#e0e0e0',outline:'none',boxSizing:'border-box'}}/>
+                style={inputStyle}/>
             </div>
           ))}
           <div>
             <label style={{display:'block',fontSize:'11px',color:'#6b84a8',fontWeight:600,marginBottom:'4px',textTransform:'uppercase',letterSpacing:'.5px'}}>Observações</label>
             <textarea rows={3} value={form.observacoes} onChange={e=>set('observacoes',e.target.value)}
               placeholder="Contexto do trimestre, principais eventos..."
-              style={{width:'100%',background:'#1a2632',border:'1px solid rgba(255,255,255,.1)',borderRadius:'6px',padding:'9px 12px',fontSize:'13px',color:'#e0e0e0',outline:'none',resize:'vertical',boxSizing:'border-box'}}/>
+              style={{...inputStyle, resize:'vertical'}}/>
           </div>
           <button onClick={salvar} disabled={saving}
             style={{background:saving?'#1a2632':'#1565C0',color:'#fff',border:'none',borderRadius:'8px',padding:'12px',fontSize:'14px',fontWeight:700,cursor:saving?'not-allowed':'pointer',marginTop:'4px'}}>
