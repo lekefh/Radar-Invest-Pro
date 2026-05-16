@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
 
     const status  = assinatura.status
     const valor   = assinatura.auto_recurring?.transaction_amount || 0
-    const planId  = (assinatura as Record<string, unknown>).preapproval_plan_id as string | undefined
+    const planId  = (assinatura as unknown as { preapproval_plan_id?: string }).preapproval_plan_id
 
     const sql = getDb()
 
