@@ -106,8 +106,10 @@ export async function POST(req: NextRequest) {
     `
 
     return NextResponse.json({ init_point: resultado.init_point })
-  } catch (e) {
-    console.error('[checkout] erro:', e)
-    return NextResponse.json({ erro: 'Erro interno' }, { status: 500 })
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e)
+    const cause = (e as { cause?: unknown })?.cause
+    console.error('[checkout] erro:', msg, cause)
+    return NextResponse.json({ erro: `Erro interno: ${msg}` }, { status: 500 })
   }
 }
