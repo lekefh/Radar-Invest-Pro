@@ -60,16 +60,30 @@ export async function POST(req: NextRequest) {
     const preApproval = new PreApproval(client)
     const assinatura  = await preApproval.get({ id: subscriptionId })
 
-    const status   = assinatura.status        // 'authorized' | 'paused' | 'cancelled'
-    const valor    = assinatura.auto_recurring?.transaction_amount || 0
-    const extRef   = assinatura.external_reference || ''  // ID do usuário cadastrado
-    const userId   = extRef ? Number(extRef) : null
+    const status  = assinatura.status
+    const valor   = assinatura.auto_recurring?.transaction_amount || 0
+    const planId  = (assinatura as Record<string, unknown>).preapproval_plan_id as string | undefined
 
     const sql = getDb()
 
+    // Busca userId via tabela mp_planos (external_reference do plano)
+    let userId: number | null = null
+    if (planId) {
+      try {
+        await sql`CREATE TABLE IF NOT EXISTS mp_planos (chave TEXT PRIMARY KEY, plan_id TEXT NOT NULL, init_point TEXT, criado_em TIMESTAMPTZ DEFAULT NOW())`
+        const planRows = await sql`SELECT chave FROM mp_planos WHERE plan_id = ${planId}`
+        if (planRows[0]) {
+          // chave formato: essencial_mensal_u42
+          const match = String(planRows[0].chave).match(/_u(\d+)$/)
+          if (match) userId = Number(match[1])
+        }
+      } catch (planErr) {
+        console.warn('[webhook] falha ao buscar plano:', planErr)
+      }
+    }
+
     if (status === 'authorized') {
-      const plano = detectarPlano(valor)
-      // Calcula expiração: +35 dias (buffer para próxima cobrança)
+      const plano  = detectarPlano(valor)
       const expira = new Date(Date.now() + 35 * 24 * 60 * 60 * 1000)
 
       await sql`
@@ -80,7 +94,7 @@ export async function POST(req: NextRequest) {
         WHERE (${userId}::int IS NOT NULL AND id = ${userId})
            OR mp_subscription_id = ${subscriptionId}
       `
-      console.log(`[webhook] userId=${userId} subscriptionId=${subscriptionId} → plano=${plano} até ${expira.toDateString()}`)
+      console.log(`[webhook] userId=${userId} planId=${planId} → plano=${plano} até ${expira.toDateString()}`)
 
     } else if (status === 'cancelled' || status === 'paused') {
       await sql`
