@@ -148,6 +148,41 @@ export function generateToken(): string {
   return crypto.randomBytes(32).toString('hex')
 }
 
+export async function addResetTokenColumns() {
+  const sql = db()
+  await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS reset_token TEXT`
+  await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS reset_token_expira TIMESTAMPTZ`
+}
+
+export async function findByResetToken(token: string) {
+  const sql = db()
+  const r = await sql`SELECT * FROM usuarios_web WHERE reset_token=${token}`
+  return r[0] || null
+}
+
+export async function saveResetToken(email: string, token: string, expira: Date) {
+  const sql = db()
+  await sql`
+    UPDATE usuarios_web
+    SET reset_token=${token}, reset_token_expira=${expira}
+    WHERE LOWER(email)=LOWER(${email})
+  `
+}
+
+export async function resetPassword(token: string, novaSenha: string): Promise<boolean> {
+  const user = await findByResetToken(token)
+  if (!user) return false
+  if (!user.reset_token_expira || new Date(user.reset_token_expira) < new Date()) return false
+  const sql = db()
+  const hash = await bcrypt.hash(novaSenha, 12)
+  await sql`
+    UPDATE usuarios_web
+    SET senha_hash=${hash}, reset_token=NULL, reset_token_expira=NULL
+    WHERE id=${user.id}
+  `
+  return true
+}
+
 export const RAILWAY_URL =
   process.env.RAILWAY_API_URL ||
   'https://radar-invest-pro-backend-production.up.railway.app'

@@ -114,6 +114,12 @@ function LoginForm() {
           >
             {carregando ? 'Entrando...' : 'Entrar'}
           </button>
+
+          <div style={{ textAlign: 'right', marginTop: '-4px' }}>
+            <Link href="/esqueci-senha" style={{ color: '#6b84a8', textDecoration: 'none', fontSize: '12px' }}>
+              Esqueci minha senha
+            </Link>
+          </div>
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '13px', color: '#6b84a8' }}>
