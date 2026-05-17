@@ -165,14 +165,17 @@ async function ensureTables() {
   `
   await sql`ALTER TABLE teses_entradas ADD COLUMN IF NOT EXISTS tir_real NUMERIC`
 
-  // Seed genérico: insere config para todos os tickers se ainda não existir
+  // Seed genérico: insere ou atualiza stops/metricas para todos os tickers
+  // DO UPDATE garante que mudanças no código (ex: texto de stops) sejam aplicadas
   for (const [ticker, info] of Object.entries(TICKER_SETOR)) {
     const cfg = CONFIGS_SETOR[info.setor]
     if (!cfg) continue
     await sql`
       INSERT INTO teses_config (ticker, nome, metricas, stops)
       VALUES (${ticker}, ${info.nome}, ${JSON.stringify(cfg.metricas)}, ${JSON.stringify(cfg.stops)})
-      ON CONFLICT (ticker) DO NOTHING
+      ON CONFLICT (ticker) DO UPDATE
+        SET stops   = ${JSON.stringify(cfg.stops)},
+            metricas = ${JSON.stringify(cfg.metricas)}
     `
   }
 
