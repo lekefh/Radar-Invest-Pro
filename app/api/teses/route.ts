@@ -36,7 +36,7 @@ const CONFIGS_SETOR: Record<string, {
     ],
     stops: [
       'ROE cai abaixo de 12% por 2 trimestres consecutivos',
-      'NPL >90d sobe acima de 5,5% por 1 trimestre',
+      'NPL >90d sobe acima de 5,5% por 2 trimestres consecutivos',
       'Lucro LL cai > 20% a/a por 2 trimestres consecutivos',
       'Provisão extraordinária (evento único > R$2bi)',
     ],

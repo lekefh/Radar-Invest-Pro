@@ -195,9 +195,16 @@ function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()
 }
 
 // ─── Card de tese ──────────────────────────────────────────────────────────────
-function CardTese({ config, entradas, onNovaEntrada }: { config: Config; entradas: Entrada[]; onNovaEntrada: ()=>void }) {
+function CardTese({ config, entradas, onNovaEntrada, forceExpandido }: {
+  config: Config; entradas: Entrada[]; onNovaEntrada: ()=>void; forceExpandido?: boolean
+}) {
   const ultima = entradas[0]
   const [expandido, setExpandido] = useState(true)
+
+  // Sincroniza com o toggle global quando ele muda
+  useEffect(() => {
+    if (forceExpandido !== undefined) setExpandido(forceExpandido)
+  }, [forceExpandido])
 
   // Detecta stops ativados
   const stopsAtivados: string[] = []
@@ -349,6 +356,8 @@ export default function TesesPage() {
   const [entradas, setEntradas] = useState<Entrada[]>([])
   const [loading,  setLoading]  = useState(true)
   const [modalTicker, setModalTicker] = useState<string|null>(null)
+  const [todasExpandidas, setTodasExpandidas] = useState<boolean | undefined>(undefined)
+  const [versaoToggle, setVersaoToggle] = useState(0) // força re-render do useEffect nos cards
 
   async function carregar() {
     setLoading(true)
@@ -361,7 +370,23 @@ export default function TesesPage() {
     setLoading(false)
   }
 
+  function toggleTodas() {
+    setTodasExpandidas(v => {
+      const novo = v === false ? true : false  // alterna entre retrair e expandir
+      return novo
+    })
+    setVersaoToggle(v => v + 1)
+  }
+
   useEffect(() => { carregar() }, [])
+
+  const temAlgumStop = configs.some(cfg => {
+    const ultima = entradas.filter(e=>e.ticker===cfg.ticker)[0]
+    if (!ultima) return false
+    // Verifica ROE (gsf field) < vermelho para bancos
+    const m = cfg.metricas.find((m: {key:string}) => m.key === 'gsf')
+    return m && ultima.gsf != null && (m as {sentido:string;vermelho:number}).sentido === 'maior' && ultima.gsf < (m as {vermelho:number}).vermelho
+  })
 
   return (
     <>
@@ -374,15 +399,37 @@ export default function TesesPage() {
             <div>
               <h1 style={{fontSize:'20px',fontWeight:700,color:'#e8edf5',margin:0}}>Monitoramento de Teses</h1>
               <p style={{fontSize:'13px',color:'#4a5d73',margin:'4px 0 0'}}>
-                Acompanhamento trimestral de métricas e stop de tese por empresa
+                Acompanhamento trimestral · {configs.length} empresas
+                {temAlgumStop && <span style={{color:'#EF5350',marginLeft:'8px',fontWeight:600}}>⚠ Stop ativo</span>}
               </p>
             </div>
-            <div style={{display:'flex',alignItems:'center',gap:'8px'}}>
-              <div style={{display:'flex',alignItems:'center',gap:'12px',fontSize:'12px'}}>
-                <span><span style={{color:'#66BB6A'}}>●</span> Verde — tese intacta</span>
+            <div style={{display:'flex',alignItems:'center',gap:'12px'}}>
+              {/* Legenda */}
+              <div style={{display:'flex',alignItems:'center',gap:'10px',fontSize:'12px',color:'#6b84a8'}}>
+                <span><span style={{color:'#66BB6A'}}>●</span> Tese intacta</span>
                 <span><span style={{color:'#FFD54F'}}>●</span> Atenção</span>
-                <span><span style={{color:'#EF5350'}}>●</span> Stop de tese</span>
+                <span><span style={{color:'#EF5350'}}>●</span> Stop</span>
               </div>
+              {/* Botão Retrair/Expandir Todas */}
+              <button
+                onClick={toggleTodas}
+                style={{
+                  background:'rgba(255,255,255,.05)',
+                  border:'1px solid rgba(255,255,255,.12)',
+                  borderRadius:'7px',
+                  padding:'7px 14px',
+                  fontSize:'12px',
+                  fontWeight:600,
+                  color:'#a0b4c8',
+                  cursor:'pointer',
+                  display:'flex',
+                  alignItems:'center',
+                  gap:'6px',
+                  transition:'background .15s',
+                }}
+              >
+                {todasExpandidas === false ? '▼ Expandir Todas' : '▲ Retrair Todas'}
+              </button>
             </div>
           </div>
 
@@ -391,10 +438,11 @@ export default function TesesPage() {
           ) : (
             configs.map(cfg=>(
               <CardTese
-                key={cfg.ticker}
+                key={`${cfg.ticker}-${versaoToggle}`}
                 config={cfg}
                 entradas={entradas.filter(e=>e.ticker===cfg.ticker)}
                 onNovaEntrada={()=>setModalTicker(cfg.ticker)}
+                forceExpandido={todasExpandidas}
               />
             ))
           )}
