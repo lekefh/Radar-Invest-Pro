@@ -527,6 +527,7 @@ export default function LandingPage() {
         <div className="foot-info">© 2026 Radar Invest Pro · Marca registrada INPI nº 943514495<br />Cuiabá, MT · Brasil</div>
         <div className="foot-links">
           <a href="mailto:contato@radarinvestpro.com.br">contato@radarinvestpro.com.br</a>
+          <a href="https://wa.me/5565992287632" target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <a href="#">Privacidade</a>
         </div>
       </footer>

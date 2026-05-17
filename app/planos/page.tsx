@@ -313,6 +313,8 @@ export default function PlanosPage() {
         <div style={{ fontSize: 22, marginBottom: 8 }}>🔒</div>
         Pagamento seguro via Mercado Pago · Cancele quando quiser · Sem fidelidade<br />
         Dúvidas? <a href="mailto:contato@radarinvestpro.com.br" style={{ color: '#e8a020', textDecoration: 'none' }}>contato@radarinvestpro.com.br</a>
+        {' · '}
+        <a href="https://wa.me/5565992287632" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366', textDecoration: 'none' }}>WhatsApp</a>
       </div>
     </div>
   )
