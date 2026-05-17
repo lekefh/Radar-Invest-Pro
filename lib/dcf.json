@@ -2145,7 +2145,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "16/05/2026 22:00"
+    "atualizado": "16/05/2026 22:01"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -2216,7 +2216,7 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "16/05/2026 22:00"
+    "atualizado": "16/05/2026 22:01"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -2229,12 +2229,12 @@
       "upside": -38.8
     },
     "base": {
-      "preco": 13.14,
-      "upside": -25.7
+      "preco": 15.68,
+      "upside": -11.4
     },
     "bull": {
-      "preco": 18.46,
-      "upside": 4.4
+      "preco": 20.43,
+      "upside": 15.5
     },
     "upside_base_legado": null,
     "wacc": 16.82,
@@ -2286,7 +2286,7 @@
       "detalhe": "EPS=R$2.10 VPA=R$17.01"
     },
     "proximo_tri": null,
-    "atualizado": "16/05/2026 22:00"
+    "atualizado": "16/05/2026 22:01"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -2524,6 +2524,6 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "16/05/2026 22:00"
+    "atualizado": "16/05/2026 22:01"
   }
 }
