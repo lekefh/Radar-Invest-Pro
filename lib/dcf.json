@@ -363,7 +363,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -647,7 +647,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -940,7 +940,7 @@
       "mg_ebitda": 0.2197,
       "metodologia": "YoY+-20% → média = R$609MM"
     },
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1178,7 +1178,7 @@
       "mg_ebitda": 0.2563,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1242,7 +1242,7 @@
       "detalhe": "EPS=R$5.68 VPA=R$24.26"
     },
     "proximo_tri": null,
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1486,7 +1486,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -1563,7 +1563,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "16/05/2026 21:58"
+    "atualizado": "16/05/2026 21:59"
   },
   "CPFL3": {
     "ticker": "CPFL3",
@@ -2251,9 +2251,9 @@
       10.0,
       9.0,
       8.0,
-      7.0,
-      6.0,
-      5.0
+      8.0,
+      8.0,
+      8.0
     ],
     "mg_ebitda": [
       34.0,
