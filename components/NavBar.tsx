@@ -9,7 +9,10 @@ const LINKS = [
   { href: '/alertas',   label: '🔔 Alertas',  soon: true },
   { href: '/noticias',  label: '📰 Notícias', soon: true },
   { href: '/dcf',       label: '💹 DCF' },
-  { href: '/teses',     label: '🎯 Teses' },
+]
+
+const LINKS_PRO = [
+  { href: '/teses', label: '🎯 Teses' },
 ]
 
 interface Usuario { nome: string; username: string; plano: string }
@@ -35,6 +38,7 @@ export default function NavBar() {
   }
 
   const ehAnalista = usuario?.plano === 'analista'
+  const ehPro      = usuario?.plano === 'pro' || ehAnalista
   const inicial    = usuario?.nome?.[0]?.toUpperCase() || '?'
 
   return (
@@ -49,7 +53,7 @@ export default function NavBar() {
         </span>
       </Link>
 
-      {LINKS.map(l => {
+      {[...LINKS, ...(ehPro ? LINKS_PRO : [])].map(l => {
         const ativo = path === l.href || path.startsWith(l.href + '/')
         return (
           <Link key={l.href} href={l.soon ? '#' : l.href} style={{ textDecoration: 'none' }}>

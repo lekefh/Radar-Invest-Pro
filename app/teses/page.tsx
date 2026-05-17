@@ -1,6 +1,44 @@
 'use client'
 import { useEffect, useState } from 'react'
 import NavBar from '@/components/NavBar'
+import Link from 'next/link'
+
+function PaywallTeses() {
+  return (
+    <div style={{ minHeight:'80vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'40px 24px' }}>
+      <div style={{ background:'#0d1a2e', border:'1px solid rgba(102,187,106,.25)', borderRadius:'20px', padding:'52px 48px', maxWidth:'520px', textAlign:'center' }}>
+        <div style={{ fontSize:'48px', marginBottom:'20px' }}>🎯</div>
+        <div style={{ fontSize:'11px', fontWeight:700, letterSpacing:'1.5px', textTransform:'uppercase' as const, color:'#66BB6A', marginBottom:'12px' }}>Recurso Exclusivo Pro</div>
+        <h2 style={{ fontSize:'26px', fontWeight:700, color:'#e8edf5', marginBottom:'16px', lineHeight:1.3 }}>
+          Monitoramento de Teses<br />disponível no plano <span style={{ color:'#66BB6A' }}>Pro</span>
+        </h2>
+        <p style={{ fontSize:'15px', color:'#6b84a8', lineHeight:1.7, marginBottom:'32px' }}>
+          Acompanhe trimestralmente os drivers de cada empresa, detecte stops automaticamente e importe dados direto do release de resultados.
+        </p>
+        <div style={{ background:'rgba(102,187,106,.06)', border:'1px solid rgba(102,187,106,.15)', borderRadius:'12px', padding:'20px', marginBottom:'32px' }}>
+          <div style={{ fontSize:'12px', color:'#6b84a8', marginBottom:'12px', fontWeight:600, letterSpacing:'.5px', textTransform:'uppercase' as const }}>O que você terá acesso</div>
+          {[
+            '📊 15 empresas B3 com métricas setoriais',
+            '🚦 Semáforo automático por trimestre',
+            '⚠ Alerta de stop de tese por setor',
+            '⚡ Auto-preenchimento via URL do release',
+            '📈 Histórico completo tri a tri',
+          ].map(item => (
+            <div key={item} style={{ fontSize:'13.5px', color:'#a0b4cc', padding:'6px 0', textAlign:'left' }}>{item}</div>
+          ))}
+        </div>
+        <div style={{ display:'flex', flexDirection:'column' as const, gap:'12px' }}>
+          <a href="/planos" style={{ background:'#66BB6A', color:'#000', fontWeight:700, fontSize:'15px', padding:'14px 32px', borderRadius:'8px', textDecoration:'none', display:'block' }}>
+            Ver planos e fazer upgrade
+          </a>
+          <Link href="/dashboard" style={{ background:'transparent', border:'1px solid rgba(255,255,255,.12)', color:'#a0b4cc', fontSize:'14px', padding:'12px 32px', borderRadius:'8px', textDecoration:'none', display:'block' }}>
+            Voltar ao Dashboard
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 interface Metrica {
   key: string; label: string; unidade: string
@@ -355,9 +393,17 @@ export default function TesesPage() {
   const [configs,  setConfigs]  = useState<Config[]>([])
   const [entradas, setEntradas] = useState<Entrada[]>([])
   const [loading,  setLoading]  = useState(true)
+  const [plano,    setPlano]    = useState<string|null>(null)
   const [modalTicker, setModalTicker] = useState<string|null>(null)
   const [todasExpandidas, setTodasExpandidas] = useState<boolean | undefined>(undefined)
-  const [versaoToggle, setVersaoToggle] = useState(0) // força re-render do useEffect nos cards
+  const [versaoToggle, setVersaoToggle] = useState(0)
+
+  useEffect(() => {
+    fetch('/api/auth/me')
+      .then(r => r.json())
+      .then(d => setPlano(d.plano ?? 'gratuito'))
+      .catch(() => setPlano('gratuito'))
+  }, [])
 
   async function carregar() {
     setLoading(true)
@@ -378,7 +424,10 @@ export default function TesesPage() {
     setVersaoToggle(v => v + 1)
   }
 
-  useEffect(() => { carregar() }, [])
+  useEffect(() => {
+    if (plano === 'pro' || plano === 'analista') carregar()
+    else if (plano !== null) setLoading(false)
+  }, [plano])
 
   const temAlgumStop = configs.some(cfg => {
     const ultima = entradas.filter(e=>e.ticker===cfg.ticker)[0]
@@ -387,6 +436,16 @@ export default function TesesPage() {
     const m = cfg.metricas.find((m: {key:string}) => m.key === 'gsf')
     return m && ultima.gsf != null && (m as {sentido:string;vermelho:number}).sentido === 'maior' && ultima.gsf < (m as {vermelho:number}).vermelho
   })
+
+  // Paywall: apenas Pro e Analista têm acesso
+  if (plano !== null && plano !== 'pro' && plano !== 'analista') {
+    return (
+      <>
+        <NavBar />
+        <PaywallTeses />
+      </>
+    )
+  }
 
   return (
     <>
