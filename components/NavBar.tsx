@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const LINKS = [
+const LINKS: { href: string; label: string; soon?: boolean }[] = [
   { href: '/dashboard', label: '📊 Monitoramento' },
   { href: '/carteira',  label: '💼 Carteira'      },
   { href: '/alertas',   label: '🔔 Alertas',  soon: true },
@@ -11,7 +11,7 @@ const LINKS = [
   { href: '/dcf',       label: '💹 DCF' },
 ]
 
-const LINKS_PRO = [
+const LINKS_PRO: { href: string; label: string; soon?: boolean }[] = [
   { href: '/teses', label: '🎯 Teses' },
 ]
 
