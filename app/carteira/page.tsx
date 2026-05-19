@@ -4,6 +4,7 @@ import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import fundamentaisRaw from '@/lib/fundamentais.json'
 import dcfRaw from '@/lib/dcf.json'
+import setoresManuaisRaw from '@/lib/setores_manuais.json'
 
 /* ── Tipos ─────────────────────────────────────────────────────────────────── */
 interface Posicao {
@@ -27,6 +28,7 @@ type ModalTipo = 'add' | 'edit' | 'ops' | null
 const fund = fundamentaisRaw as unknown as Record<string, any>
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dcfData = dcfRaw as unknown as Record<string, any>
+const setoresManuais = setoresManuaisRaw as Record<string, string>
 
 function calcNota(
   pl: number|null, roe: number|null, dy: number|null, pvp: number|null,
@@ -76,12 +78,13 @@ function calcNota(
 function notaParaTicker(ticker: string, precoAtual: number|null): number|null {
   const f = fund[ticker]
   if (!f) return null
+  const setor = setoresManuais[ticker] ?? f.setor ?? null
   const dcfTarget: number|null = dcfData[ticker]?.base?.preco ?? null
   const dcfUpside = dcfTarget != null && precoAtual != null && precoAtual > 0
     ? ((dcfTarget - precoAtual) / precoAtual) * 100
     : (dcfData[ticker]?.base?.upside ?? null)
   const tirPremio: number|null = dcfData[ticker]?.tir?.vs_ntnb ?? null
-  return calcNota(f.pl, f.roe, f.dy, f.pvp, f.divEbit, f.evEbit, f.gov, dcfUpside, tirPremio, f.setor) ?? f.nota ?? null
+  return calcNota(f.pl, f.roe, f.dy, f.pvp, f.divEbit, f.evEbit, f.gov, dcfUpside, tirPremio, setor) ?? f.nota ?? null
 }
 const f2 = (v: number | null | undefined) =>
   v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -358,7 +361,7 @@ export default function CarteiraPage() {
       const enriquecidas: Posicao[] = (d.carteira ?? []).map((p: Posicao) => ({
         ...p,
         nome:  fund[p.ticker]?.nome  ?? p.ticker,
-        setor: fund[p.ticker]?.setor ?? '—',
+        setor: setoresManuais[p.ticker] ?? fund[p.ticker]?.setor ?? '—',
         nota:  notaParaTicker(p.ticker, null),
         preco_atual: null,
         variacao: null,
