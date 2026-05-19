@@ -287,6 +287,7 @@ export default function CarteiraPage() {
     operacoes: { tipo: string; ticker: string; quantidade: number; preco: number; data: string }[]
   } | null>(null)
   const [salvandoImport, setSalvandoImport] = useState(false)
+  const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -433,6 +434,38 @@ export default function CarteiraPage() {
 
   const posicaoSel = posicoes.find(p => p.id === selecionado)
 
+  const toggleSort = (key: string) =>
+    setSortConfig(prev => prev?.key === key ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' })
+
+  const sortIcon = (key: string) =>
+    sortConfig?.key === key ? (sortConfig.dir === 'asc' ? ' ↑' : ' ↓') : ' ↕'
+
+  const sortedPosicoes = useMemo(() => {
+    if (!sortConfig) return posicoes
+    const { key, dir } = sortConfig
+    const total = metricas.atual || 1
+    return [...posicoes].sort((a, b) => {
+      let va: number | string = 0, vb: number | string = 0
+      const pA = a.preco_atual ?? a.preco_medio, pB = b.preco_atual ?? b.preco_medio
+      switch (key) {
+        case 'ticker':   va = a.ticker;                                       vb = b.ticker; break
+        case 'nome':     va = a.nome ?? '';                                   vb = b.nome ?? ''; break
+        case 'qtde':     va = a.quantidade;                                   vb = b.quantidade; break
+        case 'pMedio':   va = a.preco_medio;                                  vb = b.preco_medio; break
+        case 'pAtual':   va = a.preco_atual ?? -1e9;                          vb = b.preco_atual ?? -1e9; break
+        case 'resUn':    va = a.preco_atual != null ? pA - a.preco_medio : -1e9; vb = b.preco_atual != null ? pB - b.preco_medio : -1e9; break
+        case 'resTotal': va = a.preco_atual != null ? (pA - a.preco_medio) * a.quantidade : -1e9; vb = b.preco_atual != null ? (pB - b.preco_medio) * b.quantidade : -1e9; break
+        case 'resPct':   va = a.preco_atual != null && a.preco_medio > 0 ? ((pA - a.preco_medio) / a.preco_medio) * 100 : -1e9; vb = b.preco_atual != null && b.preco_medio > 0 ? ((pB - b.preco_medio) / b.preco_medio) * 100 : -1e9; break
+        case 'valorAtu': va = pA * a.quantidade;                              vb = pB * b.quantidade; break
+        case 'nota':     va = a.nota ?? -1e9;                                 vb = b.nota ?? -1e9; break
+        case 'pesoAtual':va = (pA * a.quantidade) / total * 100;             vb = (pB * b.quantidade) / total * 100; break
+        case 'pesoSug':  va = metricas.pesoSug(a.ticker, a.nota ?? null);    vb = metricas.pesoSug(b.ticker, b.nota ?? null); break
+      }
+      if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb as string) : (vb as string).localeCompare(va)
+      return dir === 'asc' ? (va as number) - (vb as number) : (vb as number) - (va as number)
+    })
+  }, [posicoes, sortConfig, metricas])
+
   const corPL = (v: number) => v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
 
   return (
@@ -549,25 +582,33 @@ export default function CarteiraPage() {
               <table>
                 <thead>
                   <tr>
-                    <th style={{textAlign:'left'}}>Ticker</th>
-                    <th style={{textAlign:'left'}}>Nome</th>
-                    <th>Qtde</th>
-                    <th>P.Médio</th>
-                    <th>P.Atual</th>
-                    <th>Res.Un</th>
-                    <th>Res.Total</th>
-                    <th>Res.%</th>
-                    <th>Valor Atu.</th>
-                    <th>Nota ★</th>
-                    <th>Peso Atual%</th>
-                    <th>Peso Sug.%</th>
-                    <th>No Cálculo</th>
+                    {([
+                      { key:'ticker',   label:'Ticker',     align:'left'  },
+                      { key:'nome',     label:'Nome',       align:'left'  },
+                      { key:'qtde',     label:'Qtde',       align:'right' },
+                      { key:'pMedio',   label:'P.Médio',    align:'right' },
+                      { key:'pAtual',   label:'P.Atual',    align:'right' },
+                      { key:'resUn',    label:'Res.Un',     align:'right' },
+                      { key:'resTotal', label:'Res.Total',  align:'right' },
+                      { key:'resPct',   label:'Res.%',      align:'right' },
+                      { key:'valorAtu', label:'Valor Atu.', align:'right' },
+                      { key:'nota',     label:'Nota ★',     align:'right' },
+                      { key:'pesoAtual',label:'Peso Atual%',align:'right' },
+                      { key:'pesoSug',  label:'Peso Sug.%', align:'right' },
+                      { key:'',         label:'No Cálculo', align:'right' },
+                    ] as { key: string; label: string; align: 'left'|'right' }[]).map(col => (
+                      <th key={col.label}
+                          style={{ textAlign: col.align, cursor: col.key ? 'pointer' : 'default', userSelect:'none' }}
+                          onClick={() => col.key && toggleSort(col.key)}>
+                        {col.label}{col.key ? sortIcon(col.key) : ''}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
                   {posicoes.length === 0
                     ? <tr><td colSpan={13} className="empty">Nenhuma posição na carteira.<br/><span style={{fontSize:'13px',color:'#6b84a8'}}>Clique em "+ Posição" para adicionar.</span></td></tr>
-                    : posicoes.map(p => {
+                    : sortedPosicoes.map(p => {
                       const excl = p.excluir_calculo
                       const pAtual = p.preco_atual ?? p.preco_medio
                       const resUn    = p.preco_atual != null ? pAtual - p.preco_medio : null
