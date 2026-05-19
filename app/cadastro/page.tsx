@@ -95,7 +95,7 @@ export default function CadastroPage() {
             <label style={labelStyle}>Nome de usuário</label>
             <input type="text" value={form.username}
               onChange={e => set('username', e.target.value.replace(/\s/g, ''))}
-              required placeholder="ex: alexanderfh4" style={inputStyle}
+              required placeholder="ex: joaosilva" style={inputStyle}
               pattern="[a-z0-9_\-]{4,30}"
               title="4 a 30 caracteres · apenas letras minúsculas, números, _ ou - · sem espaços" />
             <span style={{ fontSize: '12px', color: '#8fa3bc', marginTop: '5px', display: 'block', lineHeight: '1.5' }}>

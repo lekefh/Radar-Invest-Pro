@@ -128,7 +128,7 @@ function ModalRelatorio({ ticker, nome, onClose }: { ticker: string; nome: strin
             <div style={{ textAlign:'center',padding:'40px' }}>
               <p style={{ fontSize:'40px',marginBottom:'16px' }}>🤖</p>
               <p style={{ color:'#b8c4d4',marginBottom:'6px' }}>Relatório gerado pelo Claude com base nos dados DCF.</p>
-              <p style={{ color:'#6b84a8',fontSize:'13px',marginBottom:'28px' }}>~15-20 segundos.</p>
+              <p style={{ color:'#6b84a8',fontSize:'13px',marginBottom:'28px' }}>~30-40 segundos.</p>
               <button onClick={gerar} style={{ background:'#e8a020',color:'#000',fontWeight:700,fontSize:'14px',padding:'12px 32px',borderRadius:'8px',border:'none',cursor:'pointer' }}>
                 Gerar Relatório com IA
               </button>

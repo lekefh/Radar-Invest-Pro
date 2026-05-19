@@ -71,7 +71,7 @@ function LoginForm() {
               onChange={e => setIdentificador(e.target.value)}
               required
               autoFocus
-              placeholder="ex: alexanderfh4 ou email@..."
+              placeholder="ex: joaosilva ou email@exemplo.com"
               style={inputStyle}
             />
           </div>
