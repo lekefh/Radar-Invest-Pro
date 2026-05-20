@@ -151,18 +151,27 @@ function ModalRelatorio({ ticker, nome, onClose }: { ticker: string; nome: strin
 
 /* ── Seções da empresa ────────────────────────────────────────────────────── */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function SecResumo({ e }: { e: any }) {
-  const bear   = e.bear || {}
-  const base   = e.base || {}
-  const bull   = e.bull || {}
-  const up_base = base.upside ?? e.upside_base_legado
+function SecResumo({ e, precoLive }: { e: any; precoLive: number|null }) {
+  const bear = e.bear || {}
+  const base = e.base || {}
+  const bull = e.bull || {}
+
+  const calcUp = (target: number|null, fallback: number|null) =>
+    target != null && precoLive != null && precoLive > 0
+      ? ((target - precoLive) / precoLive) * 100
+      : fallback
+
+  const up_bear = calcUp(bear.preco, bear.upside)
+  const up_base = calcUp(base.preco, base.upside ?? e.upside_base_legado)
+  const up_bull = calcUp(bull.preco, bull.upside)
+
   return (
     <>
       <SecTitle>Cenários de Valuation</SecTitle>
       <div style={{ display:'flex',gap:'12px',marginBottom:'24px' }}>
-        <CenCard label="🔴 Pessimista (Bear)" cor="#ef4444" preco={bear.preco} upside={bear.upside}/>
+        <CenCard label="🔴 Pessimista (Bear)" cor="#ef4444" preco={bear.preco} upside={up_bear}/>
         <CenCard label="🟡 Base"              cor="#e8a020" preco={base.preco} upside={up_base}/>
-        <CenCard label="🟢 Otimista (Bull)"  cor="#00d4a0" preco={bull.preco} upside={bull.upside}/>
+        <CenCard label="🟢 Otimista (Bull)"  cor="#00d4a0" preco={bull.preco} upside={up_bull}/>
       </div>
 
       <SecTitle>Parâmetros do Modelo</SecTitle>
@@ -575,6 +584,7 @@ export default function DCFPage() {
   const [aba, setAba] = useState<Aba>('resumo')
   const [modalRel, setModalRel] = useState<string|null>(null)
   const [plano, setPlano] = useState<string | null>(null)
+  const [precos, setPrecos] = useState<Record<string, number|null>>({})
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -583,8 +593,26 @@ export default function DCFPage() {
       .catch(() => setPlano('gratuito'))
   }, [])
 
+  useEffect(() => {
+    const tickers = Object.keys(dcfData)
+    if (tickers.length === 0) return
+    fetch(`/api/cotacoes?tickers=${tickers.join(',')}`)
+      .then(r => r.json())
+      .then(d => {
+        const m: Record<string, number|null> = {}
+        for (const c of d.cotacoes ?? []) m[c.ticker] = c.preco
+        setPrecos(m)
+      })
+      .catch(() => {})
+  }, [])
+
   const emp = sel ? dcfData[sel] : null
-  const upSel = emp ? (emp.base?.upside ?? emp.upside_base_legado) : null
+  const precoLive = sel ? (precos[sel] ?? null) : null
+  const upsideLive = (target: number|null, fallback: number|null) =>
+    target != null && precoLive != null && precoLive > 0
+      ? ((target - precoLive) / precoLive) * 100
+      : fallback
+  const upSel = emp ? upsideLive(emp.base?.preco, emp.base?.upside ?? emp.upside_base_legado) : null
   const metodoBadge = (m: string) =>
     ({ fcff:'#3b82f6', ddm:'#a855f7', sotp:'#f59e0b' }[m?.toLowerCase()] ?? '#6b84a8')
 
@@ -650,7 +678,10 @@ export default function DCFPage() {
               <p>Rode <code>export_dcf.py</code> para publicar as análises.</p>
             </div>
           ) : empresas.map((e: any) => {
-            const up = e.base?.upside ?? e.upside_base_legado
+            const pLive = precos[e.ticker] ?? null
+            const up = pLive != null && e.base?.preco != null && pLive > 0
+              ? ((e.base.preco - pLive) / pLive) * 100
+              : (e.base?.upside ?? e.upside_base_legado)
             return (
               <div key={e.ticker}
                    className={`emp-item${sel === e.ticker ? ' ativo' : ''}`}
@@ -693,7 +724,13 @@ export default function DCFPage() {
                 </div>
                 <p style={{ fontSize:'14px',color:'#b8c4d4',marginTop:'4px' }}>{emp.company}</p>
                 <p style={{ fontSize:'11px',color:'#6b84a8',marginTop:'3px' }}>
-                  {emp.atualizado ?? '—'}{emp.preco_atual ? ` · Preço no cálculo: R$ ${f2(emp.preco_atual)}` : ''}
+                  {emp.atualizado ?? '—'}
+                  {emp.preco_atual ? ` · Preço no cálculo: R$ ${f2(emp.preco_atual)}` : ''}
+                  {precoLive != null && (
+                    <span style={{ color: precoLive !== emp.preco_atual ? '#e8a020' : '#6b84a8' }}>
+                      {` · Cotação atual: R$ ${f2(precoLive)}`}
+                    </span>
+                  )}
                 </p>
               </div>
 
@@ -707,7 +744,7 @@ export default function DCFPage() {
               </div>
 
               <div className="content">
-                {aba === 'resumo'        && <SecResumo e={emp}/>}
+                {aba === 'resumo'        && <SecResumo e={emp} precoLive={precoLive}/>}
                 {aba === 'historico'     && <SecHistorico e={emp}/>}
                 {aba === 'linhas'        && <SecLinhasNegocio e={emp}/>}
                 {aba === 'projecoes'     && <SecProjecoes e={emp}/>}
