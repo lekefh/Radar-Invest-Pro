@@ -364,7 +364,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:49"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -649,7 +649,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:49"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -943,7 +943,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:49"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1182,7 +1182,7 @@
       "mg_ebitda": 0.2563,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:49"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1231,6 +1231,24 @@
       9.9
     ],
     "historico": [
+      {
+        "ano": "2021",
+        "receita": 24400.0,
+        "ebitda": 1380.0,
+        "mg_ebitda": 5.7,
+        "ebit": 1380.0,
+        "fcl": 1380.0,
+        "div_liq": 0.0
+      },
+      {
+        "ano": "2022",
+        "receita": 27600.0,
+        "ebitda": 1670.0,
+        "mg_ebitda": 6.0,
+        "ebit": 1670.0,
+        "fcl": 1670.0,
+        "div_liq": 0.0
+      },
       {
         "ano": "2023",
         "receita": 31300.0,
@@ -1449,7 +1467,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:49"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1740,7 +1758,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:49"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2022,7 +2040,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2304,7 +2322,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -2353,6 +2371,24 @@
       41.0
     ],
     "historico": [
+      {
+        "ano": "2021",
+        "receita": 13575.0,
+        "ebitda": 5430.0,
+        "mg_ebitda": 40.0,
+        "ebit": 5430.0,
+        "fcl": 4072.5,
+        "div_liq": 0.0
+      },
+      {
+        "ano": "2022",
+        "receita": 14290.0,
+        "ebitda": 5716.0,
+        "mg_ebitda": 40.0,
+        "ebit": 5716.0,
+        "fcl": 4287.0,
+        "div_liq": 0.0
+      },
       {
         "ano": "2023",
         "receita": 19325.0,
@@ -2577,7 +2613,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -2868,7 +2904,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -2917,6 +2953,24 @@
       60.1
     ],
     "historico": [
+      {
+        "ano": "2021",
+        "receita": 23000.0,
+        "ebitda": 14000.0,
+        "mg_ebitda": 60.9,
+        "ebit": 12820.0,
+        "fcl": 8595.0,
+        "div_liq": 32000.0
+      },
+      {
+        "ano": "2022",
+        "receita": 35000.0,
+        "ebitda": 19000.0,
+        "mg_ebitda": 54.3,
+        "ebit": 17410.0,
+        "fcl": 11647.5,
+        "div_liq": 29000.0
+      },
       {
         "ano": "2023",
         "receita": 41073.0,
@@ -3128,7 +3182,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3446,7 +3500,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3731,7 +3785,7 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4031,7 +4085,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4325,7 +4379,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4625,6 +4679,6 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "21/05/2026 19:35"
+    "atualizado": "21/05/2026 19:50"
   }
 }
