@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 
 type Plano = 'gratuito' | 'essencial' | 'pro' | 'analista'
@@ -14,6 +14,18 @@ interface Usuario {
   criado_em:  string
 }
 
+interface Posicao {
+  id:               number
+  ticker:           string
+  quantidade:       number
+  preco_medio:      number
+  data_compra:      string | null
+  notas:            string | null
+  excluir_calculo:  boolean
+  preco_atual?:     number | null
+  variacao?:        number | null
+}
+
 const PLANOS: Plano[] = ['gratuito', 'essencial', 'pro', 'analista']
 
 const PLANO_COLOR: Record<Plano, string> = {
@@ -23,12 +35,169 @@ const PLANO_COLOR: Record<Plano, string> = {
   analista:  '#e8a020',
 }
 
+const f2 = (v: number | null | undefined) =>
+  v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+const fR = (v: number | null | undefined) => v == null ? '—' : `R$ ${f2(v)}`
+
+const corRes = (v: number | null | undefined) =>
+  v == null ? '#8a9bb5' : v > 0 ? '#66BB6A' : v < 0 ? '#ef5350' : '#8a9bb5'
+
+/* ── Modal Carteira do Usuário ──────────────────────────────────────────────── */
+function ModalCarteira({ usuario, onClose }: { usuario: Usuario; onClose: () => void }) {
+  const [posicoes, setPosicoes]     = useState<Posicao[]>([])
+  const [carregando, setCarregando] = useState(true)
+  const [atualizando, setAtualizando] = useState(false)
+  const [erro, setErro]             = useState('')
+
+  const carregar = useCallback(async () => {
+    setCarregando(true); setErro('')
+    try {
+      const r = await fetch(`/api/admin/carteira/${usuario.id}`)
+      const d = await r.json()
+      if (!r.ok) { setErro(d.erro || 'Erro ao carregar.'); return }
+      setPosicoes(d.carteira ?? [])
+    } catch { setErro('Erro de conexão.') }
+    finally   { setCarregando(false) }
+  }, [usuario.id])
+
+  useEffect(() => { carregar() }, [carregar])
+
+  async function buscarCotacoes() {
+    if (posicoes.length === 0) return
+    setAtualizando(true)
+    try {
+      const tickers = posicoes.map(p => p.ticker).join(',')
+      const r = await fetch(`/api/cotacoes?tickers=${tickers}`)
+      const d = await r.json()
+      const map: Record<string, { preco: number | null; variacao: number | null }> = {}
+      for (const c of d.cotacoes ?? []) map[c.ticker] = c
+      setPosicoes(prev => prev.map(p => ({
+        ...p,
+        preco_atual: map[p.ticker]?.preco ?? null,
+        variacao:    map[p.ticker]?.variacao ?? null,
+      })))
+    } catch { /* silencioso */ }
+    finally { setAtualizando(false) }
+  }
+
+  useEffect(() => {
+    if (!carregando && posicoes.length > 0) buscarCotacoes()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [carregando])
+
+  const ativas   = posicoes.filter(p => !p.excluir_calculo)
+  const investido = ativas.reduce((s, p) => s + p.quantidade * p.preco_medio, 0)
+  const atual     = ativas.reduce((s, p) => s + p.quantidade * (p.preco_atual ?? p.preco_medio), 0)
+  const pl        = atual - investido
+  const plPct     = investido > 0 ? (pl / investido) * 100 : 0
+
+  return (
+    <div
+      onClick={e => e.target === e.currentTarget && onClose()}
+      style={{ position:'fixed', inset:0, background:'rgba(0,0,0,.75)', zIndex:200, display:'flex', alignItems:'center', justifyContent:'center', padding:'20px' }}
+    >
+      <div style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:'14px', width:'100%', maxWidth:'900px', maxHeight:'90vh', display:'flex', flexDirection:'column' }}>
+
+        {/* Header */}
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'18px 24px', borderBottom:'1px solid rgba(255,255,255,.08)' }}>
+          <div>
+            <div style={{ display:'flex', alignItems:'center', gap:'10px' }}>
+              <span style={{ fontSize:'16px', fontWeight:700, color:'#e8edf5' }}>📊 Carteira — {usuario.nome}</span>
+              <span style={{ fontSize:'12px', color:'#6b84a8' }}>@{usuario.username}</span>
+            </div>
+            <div style={{ fontSize:'12px', color:'#3d4f6a', marginTop:'3px' }}>{usuario.email}</div>
+          </div>
+          <button onClick={onClose} style={{ background:'none', border:'none', color:'#6b84a8', fontSize:'22px', cursor:'pointer', lineHeight:1 }}>×</button>
+        </div>
+
+        {/* Resumo P&L */}
+        {!carregando && posicoes.length > 0 && (
+          <div style={{ display:'flex', gap:'24px', padding:'14px 24px', borderBottom:'1px solid rgba(255,255,255,.06)', background:'rgba(255,255,255,.02)', flexWrap:'wrap' }}>
+            <div style={{ fontSize:'13px', color:'#6b84a8' }}>Investido: <strong style={{ color:'#e8edf5' }}>{fR(investido)}</strong></div>
+            <div style={{ fontSize:'13px', color:'#6b84a8' }}>Atual: <strong style={{ color:'#e8edf5' }}>{fR(atual)}</strong></div>
+            <div style={{ fontSize:'13px', color:'#6b84a8' }}>P&L:
+              <strong style={{ color: corRes(pl), marginLeft:'6px' }}>
+                {fR(pl)} ({pl >= 0 ? '+' : ''}{f2(plPct)}%)
+              </strong>
+            </div>
+            <button
+              onClick={buscarCotacoes}
+              disabled={atualizando}
+              style={{ marginLeft:'auto', background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.1)', color:'#b8c4d4', padding:'5px 14px', borderRadius:'6px', cursor:'pointer', fontSize:'12px', fontWeight:600 }}
+            >
+              {atualizando ? '⟳ Atualizando…' : '⟳ Atualizar cotações'}
+            </button>
+          </div>
+        )}
+
+        {/* Corpo */}
+        <div style={{ overflowY:'auto', flex:1 }}>
+          {carregando && (
+            <div style={{ textAlign:'center', padding:'48px', color:'#6b84a8', fontSize:'13px' }}>Carregando carteira…</div>
+          )}
+          {!carregando && erro && (
+            <div style={{ padding:'24px', color:'#ef5350', textAlign:'center', fontSize:'13px' }}>{erro}</div>
+          )}
+          {!carregando && !erro && posicoes.length === 0 && (
+            <div style={{ textAlign:'center', padding:'48px', color:'#4a5d73', fontSize:'14px' }}>
+              Nenhuma posição na carteira deste usuário.
+            </div>
+          )}
+          {!carregando && !erro && posicoes.length > 0 && (
+            <table style={{ width:'100%', borderCollapse:'collapse', fontSize:'12.5px' }}>
+              <thead>
+                <tr style={{ borderBottom:'2px solid rgba(255,255,255,.08)' }}>
+                  {['Ticker','Qtde','P.Médio','P.Atual','Res.Un','Res.Total','Res.%','Valor Atu.','Excluído'].map(h => (
+                    <th key={h} style={{ padding:'10px 14px', textAlign: h === 'Ticker' ? 'left' : 'right', fontSize:'10.5px', fontWeight:700, letterSpacing:'.5px', textTransform:'uppercase', color:'#4a5d73', whiteSpace:'nowrap' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {posicoes.map((p, i) => {
+                  const pA      = p.preco_atual ?? null
+                  const resUn   = pA != null ? pA - p.preco_medio : null
+                  const resTotal= pA != null ? (pA - p.preco_medio) * p.quantidade : null
+                  const resPct  = pA != null && p.preco_medio > 0 ? ((pA - p.preco_medio) / p.preco_medio) * 100 : null
+                  const valorAtu= pA != null ? pA * p.quantidade : p.preco_medio * p.quantidade
+                  return (
+                    <tr key={p.id} style={{ borderBottom: i < posicoes.length - 1 ? '1px solid rgba(255,255,255,.04)' : 'none', opacity: p.excluir_calculo ? .5 : 1 }}>
+                      <td style={{ padding:'10px 14px', fontWeight:700, color:'#e8a020', fontFamily:'monospace', whiteSpace:'nowrap' }}>
+                        {p.ticker}
+                        {p.excluir_calculo && <span style={{ fontSize:'9px', background:'rgba(255,255,255,.08)', color:'#6b84a8', borderRadius:'3px', padding:'1px 5px', marginLeft:'5px', fontFamily:'sans-serif' }}>excluído</span>}
+                      </td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color:'#e8edf5' }}>{f2(p.quantidade)}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color:'#e8edf5' }}>{fR(p.preco_medio)}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color: pA ? '#e8edf5' : '#4a5d73' }}>{pA ? fR(pA) : atualizando ? '…' : '—'}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color: corRes(resUn) }}>{resUn != null ? fR(resUn) : '—'}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color: corRes(resTotal) }}>{resTotal != null ? fR(resTotal) : '—'}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color: corRes(resPct) }}>{resPct != null ? `${resPct >= 0 ? '+' : ''}${f2(resPct)}%` : '—'}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color:'#e8edf5', fontWeight:600 }}>{fR(valorAtu)}</td>
+                      <td style={{ padding:'10px 14px', textAlign:'right', color: p.excluir_calculo ? '#ef5350' : '#4a5d73' }}>{p.excluir_calculo ? 'Sim' : 'Não'}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        <div style={{ padding:'12px 24px', borderTop:'1px solid rgba(255,255,255,.06)', fontSize:'12px', color:'#3d4f6a' }}>
+          {posicoes.length} posição(ões) · {posicoes.filter(p => p.excluir_calculo).length} excluída(s) do cálculo
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ── Página Admin ───────────────────────────────────────────────────────────── */
 export default function AdminUsuariosPage() {
   const router = useRouter()
-  const [usuarios, setUsuarios]   = useState<Usuario[]>([])
+  const [usuarios, setUsuarios]     = useState<Usuario[]>([])
   const [carregando, setCarregando] = useState(true)
-  const [erro, setErro]           = useState('')
-  const [acao, setAcao]           = useState<Record<number, string>>({})
+  const [erro, setErro]             = useState('')
+  const [acao, setAcao]             = useState<Record<number, string>>({})
+  const [carteiraUser, setCarteiraUser] = useState<Usuario | null>(null)
 
   useEffect(() => { carregar() }, [])
 
@@ -78,7 +247,7 @@ export default function AdminUsuariosPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#050d1a', padding: '32px 24px' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
           <h1 style={{ color: '#fff', fontSize: '20px', fontWeight: 700, margin: 0 }}>
             👥 Gestão de Usuários
@@ -147,7 +316,14 @@ export default function AdminUsuariosPage() {
                       {u.criado_em?.slice(0, 10) || '—'}
                     </td>
                     <td style={{ ...tdStyle, whiteSpace: 'nowrap' }}>
-                      <div style={{ display: 'flex', gap: '6px' }}>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <button
+                          onClick={() => setCarteiraUser(u)}
+                          style={{ ...btnStyle, background: 'rgba(232,160,32,.12)', color: '#e8a020', border: '1px solid rgba(232,160,32,.25)' }}
+                          title={`Ver carteira de ${u.nome}`}
+                        >
+                          📊 Carteira
+                        </button>
                         <button
                           onClick={() => toggleAtivo(u.id, u.ativo)}
                           disabled={!!acao[u.id]}
@@ -181,6 +357,10 @@ export default function AdminUsuariosPage() {
           {usuarios.length} usuário(s) · Plano altera imediatamente · Para ativar e-mails não confirmados, use &quot;Ativar&quot;
         </div>
       </div>
+
+      {carteiraUser && (
+        <ModalCarteira usuario={carteiraUser} onClose={() => setCarteiraUser(null)} />
+      )}
     </div>
   )
 }
