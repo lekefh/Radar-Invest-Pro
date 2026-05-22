@@ -364,7 +364,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -649,7 +649,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -943,7 +943,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1182,7 +1182,7 @@
       "mg_ebitda": 0.2563,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1467,7 +1467,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1758,7 +1758,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2040,7 +2040,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2322,7 +2322,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -2613,7 +2613,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -2904,7 +2904,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3182,7 +3182,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:48"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3500,7 +3500,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:49"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3785,7 +3785,7 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:49"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4085,7 +4085,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:49"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4379,7 +4379,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:49"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4388,24 +4388,24 @@
     "method": "fcff",
     "preco_atual": 38.13999938964844,
     "bear": {
-      "preco": -5.0,
-      "upside": null
+      "preco": 9.33,
+      "upside": -75.5
     },
     "base": {
-      "preco": 10.95,
-      "upside": -71.3
+      "preco": 16.25,
+      "upside": -57.4
     },
     "bull": {
-      "preco": 30.81,
-      "upside": -19.2
+      "preco": 23.96,
+      "upside": -37.2
     },
-    "upside_base_legado": -71.28,
-    "wacc": 14.58,
+    "upside_base_legado": -57.4,
+    "wacc": 14.0,
     "g_terminal": 4.0,
     "shares": 1251886000,
-    "wacc_ke": 18.15,
+    "wacc_ke": 17.0,
     "wacc_rf": 13.0,
-    "wacc_beta": 1.03,
+    "wacc_beta": 0.8,
     "wacc_erp": 5.0,
     "wacc_peso_e": 50.4,
     "wacc_peso_d": 49.6,
@@ -4491,9 +4491,9 @@
         "ebitda": 15974.6,
         "ebit": 14351.2,
         "nopat": 10476.4,
-        "capex": 11688.8,
-        "fcl": -284.7,
-        "vp_fcl": -248.5
+        "capex": 9740.6,
+        "fcl": 1663.4,
+        "vp_fcl": 1459.1
       },
       {
         "ano": 2028,
@@ -4501,9 +4501,9 @@
         "ebitda": 18429.3,
         "ebit": 16643.5,
         "nopat": 12149.8,
-        "capex": 11429.0,
-        "fcl": 1857.2,
-        "vp_fcl": 1414.6
+        "capex": 10714.7,
+        "fcl": 2571.5,
+        "vp_fcl": 1978.7
       },
       {
         "ano": 2029,
@@ -4513,7 +4513,7 @@
         "nopat": 13925.3,
         "capex": 11756.9,
         "fcl": 3472.0,
-        "vp_fcl": 2308.1
+        "vp_fcl": 2343.5
       },
       {
         "ano": 2030,
@@ -4523,7 +4523,7 @@
         "nopat": 15530.4,
         "capex": 10679.3,
         "fcl": 6330.4,
-        "vp_fcl": 3672.8
+        "vp_fcl": 3748.1
       },
       {
         "ano": 2031,
@@ -4533,7 +4533,7 @@
         "nopat": 17077.3,
         "capex": 9987.3,
         "fcl": 8750.8,
-        "vp_fcl": 4431.0
+        "vp_fcl": 4544.9
       },
       {
         "ano": 2032,
@@ -4543,7 +4543,7 @@
         "nopat": 18624.1,
         "capex": 9627.3,
         "fcl": 10773.8,
-        "vp_fcl": 4761.2
+        "vp_fcl": 4908.4
       },
       {
         "ano": 2033,
@@ -4553,11 +4553,11 @@
         "nopat": 19734.5,
         "capex": 9511.8,
         "fcl": 12340.7,
-        "vp_fcl": 4759.7
+        "vp_fcl": 4931.8
       }
     ],
     "projecoes_indicativas": false,
-    "valor_terminal": 39612.7,
+    "valor_terminal": 43425.8,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -4570,98 +4570,98 @@
         {
           "wacc": 10.0,
           "valores": [
-            37.88,
-            46.29,
-            57.51,
-            73.21,
-            96.77
+            39.76,
+            48.18,
+            59.39,
+            75.1,
+            98.65
           ]
         },
         {
           "wacc": 11.0,
           "valores": [
-            27.87,
-            34.07,
-            42.04,
-            52.66,
-            67.54
+            29.74,
+            35.93,
+            43.9,
+            54.53,
+            69.4
           ]
         },
         {
           "wacc": 12.0,
           "valores": [
-            19.92,
-            24.62,
-            30.49,
-            38.04,
-            48.11
+            21.76,
+            26.46,
+            32.33,
+            39.88,
+            49.95
           ]
         },
         {
           "wacc": 13.0,
           "valores": [
-            13.45,
-            17.1,
-            21.55,
-            27.12,
-            34.28
+            15.28,
+            18.92,
+            23.38,
+            28.94,
+            36.1
           ]
         },
         {
           "wacc": 13.5,
           "valores": [
-            10.66,
-            13.89,
-            17.81,
-            22.64,
-            28.76
+            12.47,
+            15.71,
+            19.62,
+            24.45,
+            30.58
           ]
         },
         {
           "wacc": 14.0,
           "valores": [
-            8.11,
-            10.99,
-            14.44,
-            18.67,
-            23.95
+            9.91,
+            12.79,
+            16.25,
+            20.47,
+            25.75
           ]
         },
         {
           "wacc": 15.0,
           "valores": [
-            3.62,
-            5.93,
-            8.66,
-            11.94,
-            15.95
+            5.4,
+            7.71,
+            10.45,
+            13.73,
+            17.74
           ]
         },
         {
           "wacc": 16.0,
           "valores": [
-            -0.2,
-            1.68,
-            3.87,
-            6.47,
-            9.58
+            1.56,
+            3.44,
+            5.64,
+            8.24,
+            11.35
           ]
         }
       ]
     },
     "tir": {
-      "nominal": 19.02,
-      "real": 13.35,
-      "vs_selic": 6.85,
-      "vs_ntnb": 6.05,
+      "nominal": 20.56,
+      "real": 14.82,
+      "vs_selic": 8.32,
+      "vs_ntnb": 7.52,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": {
-      "preco": 11.63,
-      "upside": -69.5,
+      "preco": 12.66,
+      "upside": -66.8,
       "d0": 1.583,
       "d1": 1.6463,
-      "detalhe": "D0=R$1.58 Ke=18.1% g=4.0%"
+      "detalhe": "D0=R$1.58 Ke=17.0% g=4.0%"
     },
     "graham": {
       "preco_gn": 20.81,
@@ -4679,6 +4679,6 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "21/05/2026 21:05"
+    "atualizado": "21/05/2026 21:49"
   }
 }
