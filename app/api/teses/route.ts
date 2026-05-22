@@ -113,6 +113,26 @@ const CONFIGS_SETOR: Record<string, {
       'Distratos > 15% das vendas por 2 trimestres',
     ],
   },
+
+  celulose: {
+    // SUZB3 — Driver #1: Preço BHKP (USD/t) × câmbio. Driver #2: Volume (kt). Driver #3: Custo caixa.
+    // Campos reutilizados: pld=BHKP USD/t | gsf=Vol.Celulose kt | rap=Receita | pmso=Custo Caixa | dl_ebitda=DL/EBITDA
+    metricas: [
+      { key: 'pld',       label: 'BHKP (USD/t)',         unidade: 'USD/t',  verde: 620,  vermelho: 520,  sentido: 'maior' },
+      { key: 'gsf',       label: 'Vol. Celulose (kt)',   unidade: 'kt',     verde: 3000, vermelho: 2500, sentido: 'maior' },
+      { key: 'rap',       label: 'Receita líquida',      unidade: 'R$ MM',  verde: 12000,vermelho: 9000, sentido: 'maior' },
+      { key: 'pmso',      label: 'Custo Caixa (R$/t)',   unidade: 'R$/t',   verde: 830,  vermelho: 950,  sentido: 'menor' },
+      { key: 'dl_ebitda', label: 'DL/EBITDA',            unidade: 'x',      verde: 3.0,  vermelho: 4.0,  sentido: 'menor' },
+      { key: 'lucro',     label: 'EBITDA Ajustado',      unidade: 'R$ MM',  verde: 5500, vermelho: 3500, sentido: 'maior' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',   unidade: 'p.p.',   verde: 3.0,  vermelho: 0.0,  sentido: 'maior' },
+    ],
+    stops: [
+      'BHKP < USD 500/t por 2 trimestres consecutivos (tese de recuperação destruída)',
+      'Custo caixa > R$950/t por 2 trimestres (perde vantagem competitiva global)',
+      'DL/EBITDA > 4,0x por 1 trimestre (risco de liquidez — dívida em USD)',
+      'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
+    ],
+  },
 }
 
 // Mapa ticker → setor (baseado em COMPANIES do dcf.py)
@@ -132,6 +152,8 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'CSAN3':  { nome: 'Cosan S.A.',                  setor: 'varejo'     },
   'INTB3':  { nome: 'Intelbras S.A.',              setor: 'varejo'     },
   'KEPL3':  { nome: 'Kepler Weber S.A.',           setor: 'varejo'     },
+  'SUZB3':  { nome: 'Suzano S.A.',                 setor: 'celulose'   },
+  'EQTL3':  { nome: 'Equatorial Energia S.A.',     setor: 'energia'    },
 }
 
 async function ensureTables() {
@@ -176,6 +198,28 @@ async function ensureTables() {
       ON CONFLICT (ticker) DO UPDATE
         SET stops   = ${JSON.stringify(cfg.stops)},
             metricas = ${JSON.stringify(cfg.metricas)}
+    `
+  }
+
+  // Seed entrada inicial SUZB3 1T26
+  const suzb3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='SUZB3' AND trimestre='1T26'`
+  if (!suzb3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('SUZB3','1T26',
+        562, 2835, 10968, 802, 3.3, 4580, null,
+        'BHKP USD 562/t (estável vs 4T25). Volume 2.835kt (+7% a/a, Cerrado pleno). Receita R$10.968MM (-5.1% a/a). EBITDA R$4.580MM (Mg 41.8%). Custo caixa R$802/t (mínima histórica). DL/EBITDA 3.3x. Lucro R$4.310MM (-32% a/a por variação cambial). Tese: recuperação do ciclo BHKP → USD 600+ gatilha re-rating. Fonte: Release 1T26 Suzano mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial EQTL3 1T26
+  const eqtl3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='EQTL3' AND trimestre='1T26'`
+  if (!eqtl3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('EQTL3','1T26',
+        null, null, 12750, 2580, 2.7, 2880, null,
+        'Receita R$12.750MM (+12% a/a). EBITDA R$2.880MM (+11.3% a/a). CapEx R$2.580MM. DL/EBITDA 2.7x (confortável). LL adj R$359MM (-23.6% por CDI alto). 14.6M consumidores. Fonte: Release 1T26 Equatorial Energia mai/2026.')
     `
   }
 

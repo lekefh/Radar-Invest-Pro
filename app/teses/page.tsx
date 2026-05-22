@@ -96,7 +96,81 @@ function getValor(e: Entrada, key: string): number|null {
 }
 
 // ─── Modal de nova entrada ────────────────────────────────────────────────────
-function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()=>void; onSave: ()=>void }) {
+// Labels dinâmicos por setor para o modal de entrada
+const CAMPOS_SETOR: Record<string, { key: string; label: string; placeholder: string; tipo: string }[]> = {
+  energia:    [
+    { key:'trimestre', label:'Trimestre',              placeholder:'ex: 2T26',  tipo:'text'   },
+    { key:'pld',       label:'PLD médio (R$/MWh)',      placeholder:'ex: 260',   tipo:'number' },
+    { key:'gsf',       label:'GSF (%)',                 placeholder:'ex: 91',    tipo:'number' },
+    { key:'rap',       label:'RAP trimestral (R$ MM)',  placeholder:'ex: 4200',  tipo:'number' },
+    { key:'pmso',      label:'PMSO trimestral (R$ MM)', placeholder:'ex: 1500',  tipo:'number' },
+    { key:'dl_ebitda', label:'DL/EBITDA (x)',           placeholder:'ex: 1.9',   tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',   placeholder:'ex: 3707',  tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.2',   tipo:'number' },
+  ],
+  celulose:   [
+    { key:'trimestre', label:'Trimestre',                placeholder:'ex: 2T26',   tipo:'text'   },
+    { key:'pld',       label:'BHKP realizado (USD/t)',   placeholder:'ex: 562',    tipo:'number' },
+    { key:'gsf',       label:'Vol. Celulose vendido (kt)',placeholder:'ex: 2835',   tipo:'number' },
+    { key:'rap',       label:'Receita líquida (R$ MM)',  placeholder:'ex: 10968',  tipo:'number' },
+    { key:'pmso',      label:'Custo Caixa (R$/t)',       placeholder:'ex: 802',    tipo:'number' },
+    { key:'dl_ebitda', label:'DL/EBITDA (x)',            placeholder:'ex: 3.3',    tipo:'number' },
+    { key:'lucro',     label:'EBITDA Ajustado (R$ MM)',  placeholder:'ex: 4580',   tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 2.5',    tipo:'number' },
+  ],
+  banco:      [
+    { key:'trimestre', label:'Trimestre',               placeholder:'ex: 2T26',   tipo:'text'   },
+    { key:'gsf',       label:'ROE / ROAE (%)',           placeholder:'ex: 17.5',   tipo:'number' },
+    { key:'pld',       label:'NPL >90d (%)',             placeholder:'ex: 3.8',    tipo:'number' },
+    { key:'rap',       label:'Marg. Financeira (R$ MM)', placeholder:'ex: 20000',  tipo:'number' },
+    { key:'pmso',      label:'PCLD trimestral (R$ MM)',  placeholder:'ex: 8500',   tipo:'number' },
+    { key:'dl_ebitda', label:'Carteira crédito (R$ bi)', placeholder:'ex: 1090',   tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',    placeholder:'ex: 6810',   tipo:'number' },
+    { key:'tir_real',  label:'Índice Eficiência (%)',    placeholder:'ex: 44',     tipo:'number' },
+  ],
+  seguro:     [
+    { key:'trimestre', label:'Trimestre',               placeholder:'ex: 2T26',   tipo:'text'   },
+    { key:'gsf',       label:'ROE / ROAE (%)',           placeholder:'ex: 22',     tipo:'number' },
+    { key:'pld',       label:'Índice Combinado (%)',     placeholder:'ex: 88',     tipo:'number' },
+    { key:'rap',       label:'Prêmios ganhos (R$ MM)',   placeholder:'ex: 8500',   tipo:'number' },
+    { key:'pmso',      label:'Sinistralidade (%)',       placeholder:'ex: 70',     tipo:'number' },
+    { key:'dl_ebitda', label:'Beneficiários (mil)',      placeholder:'ex: 820',    tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',    placeholder:'ex: 900',    tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.5',    tipo:'number' },
+  ],
+  varejo:     [
+    { key:'trimestre', label:'Trimestre',               placeholder:'ex: 2T26',   tipo:'text'   },
+    { key:'gsf',       label:'SSS (%)',                  placeholder:'ex: 6',      tipo:'number' },
+    { key:'pld',       label:'Mg EBITDA ex-IFRS16 (%)', placeholder:'ex: 12',     tipo:'number' },
+    { key:'rap',       label:'Receita líquida (R$ MM)', placeholder:'ex: 3000',   tipo:'number' },
+    { key:'pmso',      label:'Ciclo de caixa (dias)',    placeholder:'ex: 95',     tipo:'number' },
+    { key:'dl_ebitda', label:'DL/EBITDA (x)',            placeholder:'ex: 1.8',    tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',    placeholder:'ex: 400',    tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.0',    tipo:'number' },
+  ],
+  agro:       [
+    { key:'trimestre', label:'Trimestre',               placeholder:'ex: 2T26',   tipo:'text'   },
+    { key:'gsf',       label:'Volume safra (mil t)',     placeholder:'ex: 750',    tipo:'number' },
+    { key:'pld',       label:'Preço soja (R$/sc)',       placeholder:'ex: 130',    tipo:'number' },
+    { key:'rap',       label:'Receita líquida (R$ MM)', placeholder:'ex: 700',    tipo:'number' },
+    { key:'pmso',      label:'Mg EBITDA (%)',            placeholder:'ex: 9',      tipo:'number' },
+    { key:'dl_ebitda', label:'DL/EBITDA (x)',            placeholder:'ex: 1.2',    tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',    placeholder:'ex: 80',     tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.5',    tipo:'number' },
+  ],
+  construcao: [
+    { key:'trimestre', label:'Trimestre',               placeholder:'ex: 2T26',   tipo:'text'   },
+    { key:'gsf',       label:'VSO (%)',                  placeholder:'ex: 28',     tipo:'number' },
+    { key:'pld',       label:'Lançamentos (R$ MM)',      placeholder:'ex: 2500',   tipo:'number' },
+    { key:'rap',       label:'Receita líquida (R$ MM)', placeholder:'ex: 1800',   tipo:'number' },
+    { key:'pmso',      label:'Mg Bruta (%)',             placeholder:'ex: 30',     tipo:'number' },
+    { key:'dl_ebitda', label:'DL/PL (x)',                placeholder:'ex: 0.8',    tipo:'number' },
+    { key:'lucro',     label:'Lucro líquido (R$ MM)',    placeholder:'ex: 300',    tipo:'number' },
+    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.5',    tipo:'number' },
+  ],
+}
+
+function ModalEntrada({ ticker, setor, onClose, onSave }: { ticker: string; setor?: string; onClose: ()=>void; onSave: ()=>void }) {
   const [form, setForm] = useState({ trimestre:'', pld:'', gsf:'', rap:'', pmso:'', dl_ebitda:'', lucro:'', tir_real:'', observacoes:'' })
   const [saving, setSaving]     = useState(false)
   const [urlRelease, setUrl]    = useState('')
@@ -152,16 +226,7 @@ function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()
     onClose()
   }
 
-  const campos = [
-    { key:'trimestre', label:'Trimestre',              placeholder:'ex: 2T26',  tipo:'text'   },
-    { key:'pld',       label:'PLD médio (R$/MWh)',      placeholder:'ex: 260',   tipo:'number' },
-    { key:'gsf',       label:'GSF (%)',                 placeholder:'ex: 91',    tipo:'number' },
-    { key:'rap',       label:'RAP trimestral (R$ MM)',  placeholder:'ex: 4200',  tipo:'number' },
-    { key:'pmso',      label:'PMSO trimestral (R$ MM)', placeholder:'ex: 1500',  tipo:'number' },
-    { key:'dl_ebitda', label:'DL/EBITDA (x)',           placeholder:'ex: 1.9',   tipo:'number' },
-    { key:'lucro',     label:'Lucro líquido (R$ MM)',   placeholder:'ex: 3707',  tipo:'number' },
-    { key:'tir_real',  label:'TIR Real vs NTN-B (p.p.)',placeholder:'ex: 3.2',   tipo:'number' },
-  ]
+  const campos = CAMPOS_SETOR[setor ?? 'energia'] ?? CAMPOS_SETOR.energia
 
   const inputStyle: React.CSSProperties = {
     width:'100%', background:'#1a2632', border:'1px solid rgba(255,255,255,.1)',
@@ -233,6 +298,16 @@ function ModalEntrada({ ticker, onClose, onSave }: { ticker: string; onClose: ()
 }
 
 // ─── Card de tese ──────────────────────────────────────────────────────────────
+const SETOR_POR_TICKER: Record<string, string> = {
+  AXIA3:'energia', CPFE3:'energia', EQTL3:'energia',
+  BBAS3:'banco', BBDC4:'banco', B3SA3:'banco',
+  BBSE3:'seguro', PSSA3:'seguro',
+  AZZA3:'varejo', VULC3:'varejo', GMAT3:'varejo', INTB3:'varejo', KEPL3:'varejo', CSAN3:'varejo',
+  SOJA3:'agro',
+  CYRE3:'construcao',
+  SUZB3:'celulose',
+}
+
 function CardTese({ config, entradas, onNovaEntrada, forceExpandido }: {
   config: Config; entradas: Entrada[]; onNovaEntrada: ()=>void; forceExpandido?: boolean
 }) {
@@ -394,7 +469,7 @@ export default function TesesPage() {
   const [entradas, setEntradas] = useState<Entrada[]>([])
   const [loading,  setLoading]  = useState(true)
   const [plano,    setPlano]    = useState<string|null>(null)
-  const [modalTicker, setModalTicker] = useState<string|null>(null)
+  const [modalTicker, setModalTicker] = useState<{ticker:string;setor:string}|null>(null)
   const [todasExpandidas, setTodasExpandidas] = useState<boolean | undefined>(undefined)
   const [versaoToggle, setVersaoToggle] = useState(0)
 
@@ -500,7 +575,7 @@ export default function TesesPage() {
                 key={`${cfg.ticker}-${versaoToggle}`}
                 config={cfg}
                 entradas={entradas.filter(e=>e.ticker===cfg.ticker)}
-                onNovaEntrada={()=>setModalTicker(cfg.ticker)}
+                onNovaEntrada={()=>setModalTicker({ticker:cfg.ticker, setor:SETOR_POR_TICKER[cfg.ticker]??'energia'})}
                 forceExpandido={todasExpandidas}
               />
             ))
@@ -516,7 +591,8 @@ export default function TesesPage() {
 
       {modalTicker && (
         <ModalEntrada
-          ticker={modalTicker}
+          ticker={modalTicker.ticker}
+          setor={modalTicker.setor}
           onClose={()=>setModalTicker(null)}
           onSave={carregar}
         />
