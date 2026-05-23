@@ -112,6 +112,140 @@ function ModalRelatorio({ ticker, nome, onClose }: { ticker: string; nome: strin
     .replace(/\n\n/g, '<br/>')
     : '', [rel])
 
+  const gerarPDF = () => {
+    if (!rel) return
+    const d = dcfData[ticker] ?? {}
+    const bear = d.bear ?? {}; const base = d.base ?? {}; const bull = d.bull ?? {}
+    const dataHoje = new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' })
+
+    const fR = (v: number|null|undefined) => v == null ? '—' : `R$ ${v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}`
+    const fP = (v: number|null|undefined) => v == null ? '—' : `${v>0?'+':''}${v.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}%`
+
+    // Converte markdown para HTML de impressão (fundo branco, legível)
+    const conteudo = rel
+      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^- (.+)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`)
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/^(?!<[hup]|<\/[hup])(.+)$/gm, '<p>$1</p>')
+      .replace(/<p><\/p>/g, '')
+
+    const html_pdf = `<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<title>Relatório DCF — ${ticker} — Radar Invest Pro</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Georgia',serif;background:#fff;color:#1a2744;font-size:12px;line-height:1.75}
+  /* ── Barra de ação (some ao imprimir) ── */
+  .toolbar{display:flex;gap:10px;align-items:center;justify-content:flex-end;padding:12px 40px;background:#f0f4f8;border-bottom:2px solid #1E3A5F}
+  .toolbar button{padding:8px 22px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:700}
+  .btn-pdf{background:#1E3A5F;color:#fff}
+  .btn-close{background:transparent;border:1px solid #cbd5e0 !important;color:#4a5568}
+  /* ── Cabeçalho ── */
+  .header{background:#1E3A5F;color:#fff;padding:32px 40px 28px;display:flex;justify-content:space-between;align-items:flex-start}
+  .header-logo{font-size:10px;font-weight:800;letter-spacing:2.5px;color:#e8a020;text-transform:uppercase;margin-bottom:10px}
+  .header-logo span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e8a020;margin-right:6px;vertical-align:middle}
+  .header-title{font-size:22px;font-weight:700;color:#fff;line-height:1.2}
+  .header-sub{font-size:13px;color:rgba(255,255,255,.7);margin-top:5px}
+  .header-meta{text-align:right;font-size:11px;color:rgba(255,255,255,.65);line-height:1.8}
+  /* ── Cenários ── */
+  .cenarios{display:flex;gap:14px;padding:24px 40px;background:#fafbfc;border-bottom:1px solid #e2e8f0}
+  .cen{flex:1;border-radius:10px;padding:16px 18px;text-align:center;border:1.5px solid}
+  .cen-bear{border-color:#fca5a5;background:#fff5f5}.cen-base{border-color:#fcd34d;background:#fffbeb}.cen-bull{border-color:#6ee7b7;background:#f0fdf4}
+  .cen-label{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px}
+  .cen-bear .cen-label{color:#dc2626}.cen-base .cen-label{color:#b45309}.cen-bull .cen-label{color:#059669}
+  .cen-preco{font-size:26px;font-weight:700;color:#1a2744}
+  .cen-upside{font-size:12px;margin-top:4px;font-weight:600}
+  .cen-bear .cen-upside{color:#dc2626}.cen-base .cen-upside{color:#b45309}.cen-bull .cen-upside{color:#059669}
+  /* ── Conteúdo ── */
+  .content{padding:28px 40px 8px}
+  h2{font-size:15px;font-weight:700;color:#1E3A5F;margin:26px 0 8px;padding-bottom:5px;border-bottom:2px solid #e8a020}
+  h3{font-size:11px;font-weight:700;color:#1E3A5F;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.8px}
+  p{margin:6px 0;color:#2D3748;font-size:12px}
+  ul{margin:8px 0 8px 20px}
+  li{margin:4px 0;color:#2D3748}
+  strong{color:#1E3A5F;font-weight:700}
+  /* ── Rodapé ── */
+  .footer{margin-top:32px;padding:18px 40px;background:#f0f4f8;border-top:3px solid #1E3A5F}
+  .footer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .footer-brand{font-size:12px;font-weight:700;color:#1E3A5F}
+  .footer-inpi{font-size:10px;color:#718096}
+  .footer-disc{font-size:9px;color:#718096;line-height:1.6}
+  /* ── Impressão ── */
+  @media print{
+    .toolbar{display:none}
+    body{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+    .header{background:#1E3A5F!important;-webkit-print-color-adjust:exact}
+    .cenarios{background:#fafbfc!important}
+    .footer{background:#f0f4f8!important}
+    .cen-bear{background:#fff5f5!important;border-color:#fca5a5!important}
+    .cen-base{background:#fffbeb!important;border-color:#fcd34d!important}
+    .cen-bull{background:#f0fdf4!important;border-color:#6ee7b7!important}
+  }
+</style>
+</head><body>
+
+<div class="toolbar">
+  <span style="font-size:12px;color:#4a5568;margin-right:auto">Para salvar como PDF: clique em Imprimir → selecione "Salvar como PDF"</span>
+  <button class="btn-close" onclick="window.close()">Fechar</button>
+  <button class="btn-pdf" onclick="window.print()">🖨 Imprimir / Salvar PDF</button>
+</div>
+
+<div class="header">
+  <div>
+    <div class="header-logo"><span></span>Radar Invest Pro</div>
+    <div class="header-title">Relatório de Valuation — ${ticker}</div>
+    <div class="header-sub">${nome} &nbsp;·&nbsp; Análise por IA com dados DCF</div>
+  </div>
+  <div class="header-meta">
+    <div>${dataHoje}</div>
+    <div style="color:rgba(255,255,255,.5);font-size:9px;margin-top:6px">radarinvestpro.com.br</div>
+  </div>
+</div>
+
+<div class="cenarios">
+  <div class="cen cen-bear">
+    <div class="cen-label">🔴 Pessimista (Bear)</div>
+    <div class="cen-preco">${fR(bear.preco)}</div>
+    <div class="cen-upside">${fP(bear.upside)}</div>
+  </div>
+  <div class="cen cen-base">
+    <div class="cen-label">🟡 Base</div>
+    <div class="cen-preco">${fR(base.preco)}</div>
+    <div class="cen-upside">${fP(base.upside ?? d.upside_base_legado)}</div>
+  </div>
+  <div class="cen cen-bull">
+    <div class="cen-label">🟢 Otimista (Bull)</div>
+    <div class="cen-preco">${fR(bull.preco)}</div>
+    <div class="cen-upside">${fP(bull.upside)}</div>
+  </div>
+</div>
+
+<div class="content">${conteudo}</div>
+
+<div class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">Radar Invest Pro &nbsp;·&nbsp; radarinvestpro.com.br</div>
+    <div class="footer-inpi">Marca INPI nº 943514495</div>
+  </div>
+  <div class="footer-disc">
+    Este relatório foi gerado automaticamente por inteligência artificial (Claude, Anthropic) com base em dados públicos de mercado e modelos de valuation DCF.
+    Não constitui recomendação de investimento. Investimentos em renda variável envolvem riscos, incluindo perda parcial ou total do capital investido.
+    O investidor deve realizar análise independente e consultar seu assessor de investimentos antes de tomar qualquer decisão.
+  </div>
+</div>
+
+</body></html>`
+
+    const w = window.open('', '_blank', 'width=900,height=700')
+    if (!w) { alert('Permita pop-ups para gerar o PDF.'); return }
+    w.document.write(html_pdf)
+    w.document.close()
+  }
+
   return (
     <div style={{ position:'fixed',inset:0,background:'rgba(0,0,0,.8)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px' }}
          onClick={e=>e.target===e.currentTarget&&onClose()}>
@@ -120,6 +254,7 @@ function ModalRelatorio({ ticker, nome, onClose }: { ticker: string; nome: strin
           <h2 style={{ fontSize:'15px',fontWeight:700,color:'#e8edf5' }}>📄 Relatório — {ticker} · {nome}</h2>
           <div style={{ display:'flex',gap:'8px' }}>
             {rel&&<button onClick={()=>navigator.clipboard.writeText(rel)} style={{ background:'rgba(232,160,32,.12)',border:'1px solid rgba(232,160,32,.3)',color:'#e8a020',padding:'6px 14px',borderRadius:'6px',cursor:'pointer',fontSize:'12px',fontWeight:600 }}>⎘ Copiar</button>}
+            {rel&&<button onClick={gerarPDF} style={{ background:'#1E3A5F',border:'1px solid #2d5a8e',color:'#90CAF9',padding:'6px 14px',borderRadius:'6px',cursor:'pointer',fontSize:'12px',fontWeight:600 }}>↓ PDF</button>}
             <button onClick={onClose} style={{ background:'none',border:'none',color:'#6b84a8',fontSize:'20px',cursor:'pointer' }}>×</button>
           </div>
         </div>
