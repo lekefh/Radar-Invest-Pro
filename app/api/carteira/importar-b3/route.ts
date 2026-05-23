@@ -83,14 +83,18 @@ export async function POST(req: NextRequest) {
         continue
       }
 
-      const tipoStr = String(tipoRaw).trim().toLowerCase()
-      if (!tipoStr.includes('compra') && !tipoStr.includes('venda')) {
+      // Normaliza: remove espaços, BOM e caracteres invisíveis
+      const tipoStr = String(tipoRaw).trim().normalize('NFC').toLowerCase()
+
+      let tipo: string
+      if (tipoStr.includes('compra'))     tipo = 'C'
+      else if (tipoStr.includes('venda')) tipo = 'V'
+      else {
         erros.push(`Linha ${i + 1}: tipo "${tipoRaw}" não reconhecido — ignorada`)
         continue
       }
 
       const ticker    = normalizarTicker(String(codigoRaw))
-      const tipo      = tipoStr.includes('compra') ? 'C' : 'V'
       const quantidade = Math.abs(Number(qtdeRaw))
       const preco     = Math.abs(Number(String(precoRaw).replace(',', '.')))
       const data      = parsearData(dataRaw)
@@ -111,6 +115,13 @@ export async function POST(req: NextRequest) {
         { status: 422 }
       )
     }
+
+    // ── CRÍTICO: ordenar por data CRESCENTE (mais antiga primeiro) ─────────────
+    // A planilha B3 vem do mais recente ao mais antigo.
+    // Se processarmos fora de ordem, uma VENDA executada antes de uma COMPRA
+    // chegará ao banco antes dela — sem posição, a venda é ignorada silenciosamente
+    // e o custo médio fica errado. A ordem correta reconstrói o histórico fielmente.
+    operacoes.sort((a, b) => a.data.localeCompare(b.data))
 
     return NextResponse.json({ operacoes, total: operacoes.length, avisos: erros })
   } catch (e) {
