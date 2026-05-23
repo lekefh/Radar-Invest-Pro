@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const sql = getDb()
 
     const body = await req.json()
-    const { ticker, tipo, quantidade, preco, data_compra } = body
+    const { ticker, tipo, quantidade, preco, data_compra, notas } = body
 
     if (!ticker || !tipo || quantidade == null || preco == null) {
       return NextResponse.json({ error: 'ticker, tipo, quantidade e preco são obrigatórios' }, { status: 400 })
@@ -55,8 +55,8 @@ export async function POST(req: NextRequest) {
         `
       } else {
         await sql`
-          INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_compra)
-          VALUES (${userId}, ${t}, ${qt}, ${pm}, ${dt}::date)
+          INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_compra, notas)
+          VALUES (${userId}, ${t}, ${qt}, ${pm}, ${dt}::date, ${notas ?? null})
         `
       }
     } else {

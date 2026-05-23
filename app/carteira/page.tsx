@@ -284,11 +284,12 @@ export default function CarteiraPage() {
   const [importProgress, setImportProgress] = useState('')
   const [salvandoImport, setSalvandoImport] = useState(false)
 
-  /* multi-nota: lista de notas de origem + operações achatadas */
+  /* multi-nota e B3: lista de fontes + operações achatadas */
   interface NotaInfo { corretora: string|null; data: string|null; arquivo: string }
   interface OpImport {
     tipo: string; ticker: string; quantidade: number; preco: number
     data: string; notaIdx: number; selecionada: boolean
+    notas?: string   // observações (usado pelo import B3: "B3 — CORRETORA")
   }
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
@@ -359,7 +360,8 @@ export default function CarteiraPage() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ticker: op.ticker, tipo: op.tipo,
-            quantidade: op.quantidade, preco: op.preco, data_compra: op.data }),
+            quantidade: op.quantidade, preco: op.preco, data_compra: op.data,
+            notas: op.notas ?? null }),
         })
         if (!r.ok) erros++
       } catch { erros++ }
@@ -368,6 +370,28 @@ export default function CarteiraPage() {
     _fecharImport()
     await carregarCarteira()
     if (erros > 0) alert(`${erros} operação(ões) não foram salvas. Verifique e adicione manualmente.`)
+  }
+
+  /* importação de planilha B3 (.xlsx) */
+  const handleImportarB3 = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImportando(true); setImportErro(''); setImportModal(true)
+    setImportNotas([]); setImportOpsAll([]); setImportProgress('Lendo planilha B3…')
+    try {
+      const fd = new FormData()
+      fd.append('planilha', file)
+      const r = await fetch('/api/carteira/importar-b3', { method: 'POST', body: fd })
+      const d = await r.json()
+      if (!r.ok) { setImportErro(d.error ?? 'Erro ao processar a planilha.'); return }
+      if (d.avisos?.length) setImportErro(d.avisos.join('\n'))
+      setImportNotas([{ corretora: 'Planilha B3', data: null, arquivo: file.name }])
+      setImportOpsAll(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (d.operacoes as any[]).map(op => ({ ...op, notaIdx: 0, selecionada: true }))
+      )
+    } catch { setImportErro('Erro de conexão. Tente novamente.') }
+    finally { setImportProgress(''); setImportando(false); e.target.value = '' }
   }
 
   /* busca posições do banco */
@@ -571,6 +595,12 @@ export default function CarteiraPage() {
             📄 Importar Notas
             <input type="file" accept=".pdf,image/*" multiple style={{ display:'none' }}
               onChange={handleImportarNota} disabled={limiteAtingido} />
+          </label>
+          <label className="btn" style={{ background:'#1a3a5c', color:'#fff', cursor:'pointer' }}
+            title="Importar planilha de negociações baixada do site da B3 (.xlsx)">
+            📊 Planilha B3
+            <input type="file" accept=".xlsx,.xls" style={{ display:'none' }}
+              onChange={handleImportarB3} disabled={limiteAtingido} />
           </label>
           <button className="btn btn-ghost" onClick={() => {
             const rows = posicoes.map(p => [
@@ -792,9 +822,13 @@ export default function CarteiraPage() {
                         <tbody>
                           {importOpsAll.map((op, i) => {
                             const nota = importNotas[op.notaIdx]
-                            const notaLabel = nota
-                              ? `${nota.corretora ?? '?'} ${nota.data ? nota.data.slice(5).replace('-','/') : ''}`
-                              : `Nota ${op.notaIdx + 1}`
+                            // B3: cada op já tem corretora em op.notas → mostra resumido
+                            // Notas PDF: mostra corretora/data da nota de origem
+                            const notaLabel = op.notas
+                              ? op.notas.replace('B3 — ', '').slice(0, 24)
+                              : nota
+                                ? `${nota.corretora ?? '?'} ${nota.data ? nota.data.slice(5).replace('-','/') : ''}`
+                                : `Nota ${op.notaIdx + 1}`
                             const rowBg = op.selecionada ? 'transparent' : 'rgba(0,0,0,.3)'
                             const rowOpacity = op.selecionada ? 1 : 0.4
                             return (
