@@ -278,15 +278,20 @@ export default function CarteiraPage() {
   const [selecionado, setSelecionado] = useState<number | null>(null)
   const [plano,     setPlano]     = useState<string>('gratuito')
   const [limiteModal, setLimiteModal] = useState(false)
-  const [importModal, setImportModal] = useState(false)
-  const [importando,  setImportando]  = useState(false)
-  const [importErro,  setImportErro]  = useState('')
-  const [importPreview, setImportPreview] = useState<{
-    corretora: string | null
-    data: string | null
-    operacoes: { tipo: string; ticker: string; quantidade: number; preco: number; data: string }[]
-  } | null>(null)
+  const [importModal,    setImportModal]    = useState(false)
+  const [importando,     setImportando]     = useState(false)
+  const [importErro,     setImportErro]     = useState('')
+  const [importProgress, setImportProgress] = useState('')
   const [salvandoImport, setSalvandoImport] = useState(false)
+
+  /* multi-nota: lista de notas de origem + operações achatadas */
+  interface NotaInfo { corretora: string|null; data: string|null; arquivo: string }
+  interface OpImport {
+    tipo: string; ticker: string; quantidade: number; preco: number
+    data: string; notaIdx: number; selecionada: boolean
+  }
+  const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
+  const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
 
   useEffect(() => {
@@ -304,51 +309,63 @@ export default function CarteiraPage() {
     setEditando(null); setModal('add')
   }
 
+  const _fecharImport = () => {
+    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress('')
+  }
+
   const handleImportarNota = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    setImportando(true)
-    setImportErro('')
-    setImportPreview(null)
-    setImportModal(true)
-    try {
-      const fd = new FormData()
-      fd.append('nota', file)
-      const r = await fetch('/api/carteira/importar', { method: 'POST', body: fd })
-      const d = await r.json()
-      if (!r.ok) { setImportErro(d.error ?? 'Erro ao processar a nota.'); return }
-      setImportPreview(d)
-    } catch {
-      setImportErro('Erro de conexão. Tente novamente.')
-    } finally {
-      setImportando(false)
-      e.target.value = ''
+    const files = Array.from(e.target.files ?? [])
+    if (!files.length) return
+    setImportando(true); setImportErro(''); setImportModal(true)
+    setImportNotas([]); setImportOpsAll([]); setImportProgress('')
+
+    const notas: NotaInfo[] = []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const ops: OpImport[] = []
+    const errosArq: string[] = []
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
+      setImportProgress(`Lendo ${i + 1} de ${files.length}: ${file.name}…`)
+      try {
+        const fd = new FormData()
+        fd.append('nota', file)
+        const r = await fetch('/api/carteira/importar', { method: 'POST', body: fd })
+        const d = await r.json()
+        if (!r.ok) { errosArq.push(`${file.name}: ${d.error ?? 'Erro'}`); continue }
+        const notaIdx = notas.length
+        notas.push({ corretora: d.corretora ?? null, data: d.data ?? null, arquivo: file.name })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ops.push(...(d.operacoes as any[]).map(op => ({ ...op, notaIdx, selecionada: true })))
+      } catch { errosArq.push(`${file.name}: erro de conexão`) }
     }
+
+    setImportNotas(notas)
+    setImportOpsAll(ops)
+    if (errosArq.length) setImportErro(errosArq.join('\n'))
+    setImportProgress('')
+    setImportando(false)
+    e.target.value = ''
   }
 
   const confirmarImport = async () => {
-    if (!importPreview) return
+    const selecionadas = importOpsAll.filter(op => op.selecionada)
+    if (!selecionadas.length) return
     setSalvandoImport(true)
     let erros = 0
-    for (const op of importPreview.operacoes) {
+    for (const op of selecionadas) {
       try {
         const r = await fetch('/api/carteira/operacao', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ticker:      op.ticker,
-            tipo:        op.tipo,        // 'C' compra ou 'V' venda
-            quantidade:  op.quantidade,
-            preco:       op.preco,
-            data_compra: op.data,
-          }),
+          body: JSON.stringify({ ticker: op.ticker, tipo: op.tipo,
+            quantidade: op.quantidade, preco: op.preco, data_compra: op.data }),
         })
         if (!r.ok) erros++
       } catch { erros++ }
     }
     setSalvandoImport(false)
-    setImportModal(false)
-    setImportPreview(null)
+    _fecharImport()
     await carregarCarteira()
     if (erros > 0) alert(`${erros} operação(ões) não foram salvas. Verifique e adicione manualmente.`)
   }
@@ -550,9 +567,9 @@ export default function CarteiraPage() {
             {atualizando ? '⟳ Atualizando…' : '⟳ Cotações'}
           </button>
           <label className="btn" style={{ background:'#1a3a5c', color:'#fff', cursor:'pointer' }}
-            title="Importar nota de corretagem (PDF ou imagem)">
-            📄 Importar Nota
-            <input type="file" accept=".pdf,image/*" style={{ display:'none' }}
+            title="Importar nota(s) de corretagem — selecione vários PDFs de uma vez (Ctrl+clique)">
+            📄 Importar Notas
+            <input type="file" accept=".pdf,image/*" multiple style={{ display:'none' }}
               onChange={handleImportarNota} disabled={limiteAtingido} />
           </label>
           <button className="btn btn-ghost" onClick={() => {
@@ -677,139 +694,204 @@ export default function CarteiraPage() {
       )}
       {opsTicker && <ModalOps ticker={opsTicker} onClose={() => setOpsTicker(null)} />}
 
-      {/* Modal: importar nota de corretagem */}
-      {importModal && (
-        <div style={{ position:'fixed',inset:0,background:'rgba(0,0,0,.8)',zIndex:300,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px' }}>
-          <div style={{ background:'#0d1a2e',border:'1px solid rgba(232,160,32,.25)',borderRadius:'16px',width:'100%',maxWidth:'600px',maxHeight:'90vh',display:'flex',flexDirection:'column' }}>
-            {/* Header */}
-            <div style={{ padding:'18px 24px',borderBottom:'1px solid rgba(255,255,255,.08)',display:'flex',alignItems:'center',justifyContent:'space-between' }}>
-              <div>
-                <div style={{ fontSize:'15px',fontWeight:700,color:'#e8edf5' }}>📄 Importar Nota de Corretagem</div>
-                {importPreview?.corretora && (
-                  <div style={{ fontSize:'12px',color:'#6b84a8',marginTop:'2px' }}>
-                    {importPreview.corretora} · {importPreview.data}
+      {/* Modal: importar nota(s) de corretagem — múltiplos arquivos */}
+      {importModal && (() => {
+        const totalOps = importOpsAll.length
+        const totalSel = importOpsAll.filter(o => o.selecionada).length
+        const temDados  = !importando && totalOps > 0
+        const iStyle = {
+          background:'#081120', border:'1px solid rgba(255,255,255,.12)',
+          borderRadius:'5px', color:'#e8edf5', padding:'4px 6px',
+          fontSize:'12px', outline:'none',
+        }
+        const updOp = (idx: number, field: string, val: string | number | boolean) =>
+          setImportOpsAll(prev => prev.map((o, j) => j === idx ? { ...o, [field]: val } : o))
+
+        return (
+          <div style={{ position:'fixed',inset:0,background:'rgba(0,0,0,.85)',zIndex:300,
+            display:'flex',alignItems:'center',justifyContent:'center',padding:'16px' }}>
+            <div style={{ background:'#0d1a2e',border:'1px solid rgba(232,160,32,.25)',borderRadius:'16px',
+              width:'100%',maxWidth:'860px',maxHeight:'92vh',display:'flex',flexDirection:'column' }}>
+
+              {/* ── Header ── */}
+              <div style={{ padding:'16px 22px',borderBottom:'1px solid rgba(255,255,255,.08)',
+                display:'flex',alignItems:'center',justifyContent:'space-between' }}>
+                <div>
+                  <div style={{ fontSize:'15px',fontWeight:700,color:'#e8edf5' }}>
+                    📄 Importar Nota(s) de Corretagem
+                  </div>
+                  {temDados && (
+                    <div style={{ fontSize:'11px',color:'#6b84a8',marginTop:'3px' }}>
+                      {importNotas.length} nota(s) · {totalOps} operação(ões) detectada(s)
+                      {importNotas.length > 0 && ' — ' + importNotas.map(n =>
+                        `${n.corretora ?? '?'} ${n.data ? n.data.slice(5).replace('-','/') : ''}`
+                      ).join(' | ')}
+                    </div>
+                  )}
+                </div>
+                <button onClick={_fecharImport}
+                  style={{ background:'none',border:'none',color:'#6b84a8',fontSize:'22px',cursor:'pointer',lineHeight:1 }}>×</button>
+              </div>
+
+              {/* ── Corpo ── */}
+              <div style={{ overflowY:'auto',padding:'16px 22px',flex:1 }}>
+
+                {/* Carregando */}
+                {importando && (
+                  <div style={{ textAlign:'center',padding:'48px 0' }}>
+                    <div style={{ fontSize:'28px',marginBottom:'10px',animation:'spin 1s linear infinite' }}>⟳</div>
+                    <div style={{ color:'#6b84a8',fontSize:'14px' }}>{importProgress || 'Lendo nota com IA…'}</div>
+                    <div style={{ color:'#455a64',fontSize:'12px',marginTop:'6px' }}>Pode levar alguns segundos por arquivo.</div>
+                  </div>
+                )}
+
+                {/* Erros parciais */}
+                {importErro && (
+                  <div style={{ background:'rgba(239,68,68,.08)',border:'1px solid rgba(239,68,68,.25)',
+                    borderRadius:'8px',padding:'12px 14px',color:'#fca5a5',fontSize:'13px',
+                    marginBottom:'12px',whiteSpace:'pre-line' }}>
+                    ⚠ {importErro}
+                  </div>
+                )}
+
+                {/* Tabela de operações com checkboxes */}
+                {temDados && (
+                  <>
+                    <div style={{ fontSize:'12px',color:'#6b84a8',marginBottom:'8px' }}>
+                      Desmarque as operações que <strong>não</strong> deseja importar. Todos os campos são editáveis.
+                    </div>
+
+                    {/* Ações em lote */}
+                    <div style={{ display:'flex',gap:'8px',marginBottom:'10px' }}>
+                      <button onClick={() => setImportOpsAll(p => p.map(o => ({ ...o, selecionada:true })))}
+                        style={{ background:'#1a3a5c',color:'#90CAF9',border:'none',borderRadius:'6px',
+                          padding:'5px 12px',fontSize:'12px',cursor:'pointer',fontWeight:600 }}>
+                        ✔ Marcar todos
+                      </button>
+                      <button onClick={() => setImportOpsAll(p => p.map(o => ({ ...o, selecionada:false })))}
+                        style={{ background:'#1c1c1c',color:'#6b84a8',border:'1px solid rgba(255,255,255,.1)',
+                          borderRadius:'6px',padding:'5px 12px',fontSize:'12px',cursor:'pointer',fontWeight:600 }}>
+                        ✘ Desmarcar todos
+                      </button>
+                      <span style={{ marginLeft:'auto',fontSize:'12px',color:'#6b84a8',alignSelf:'center' }}>
+                        {totalSel} de {totalOps} selecionada(s)
+                      </span>
+                    </div>
+
+                    <div style={{ overflowX:'auto' }}>
+                      <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'12px',minWidth:'700px' }}>
+                        <thead>
+                          <tr style={{ background:'#081120' }}>
+                            {['','NOTA','Tipo','Ticker','Qtde','Preço Unit.','Total','Data'].map(h => (
+                              <th key={h} style={{ padding:'7px 8px',textAlign:'left',color:'#6b84a8',
+                                fontWeight:700,fontSize:'10px',letterSpacing:'.5px',
+                                textTransform:'uppercase',whiteSpace:'nowrap' }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {importOpsAll.map((op, i) => {
+                            const nota = importNotas[op.notaIdx]
+                            const notaLabel = nota
+                              ? `${nota.corretora ?? '?'} ${nota.data ? nota.data.slice(5).replace('-','/') : ''}`
+                              : `Nota ${op.notaIdx + 1}`
+                            const rowBg = op.selecionada ? 'transparent' : 'rgba(0,0,0,.3)'
+                            const rowOpacity = op.selecionada ? 1 : 0.4
+                            return (
+                              <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)',
+                                background:rowBg,opacity:rowOpacity,transition:'opacity .15s' }}>
+                                {/* Checkbox */}
+                                <td style={{ padding:'5px 8px',textAlign:'center',width:'32px' }}>
+                                  <input type="checkbox" checked={op.selecionada}
+                                    onChange={e => updOp(i, 'selecionada', e.target.checked)}
+                                    style={{ width:'15px',height:'15px',cursor:'pointer',accentColor:'#e8a020' }} />
+                                </td>
+                                {/* Nota de origem */}
+                                <td style={{ padding:'5px 8px',color:'#546E7A',fontSize:'11px',whiteSpace:'nowrap' }}>
+                                  {notaLabel}
+                                </td>
+                                {/* Tipo */}
+                                <td style={{ padding:'5px 6px' }}>
+                                  <select value={op.tipo} onChange={e => updOp(i,'tipo',e.target.value)}
+                                    style={{ ...iStyle,width:'80px',
+                                      color: op.tipo==='C' ? '#A5D6A7' : '#EF9A9A' }}>
+                                    <option value="C">COMPRA</option>
+                                    <option value="V">VENDA</option>
+                                  </select>
+                                </td>
+                                {/* Ticker */}
+                                <td style={{ padding:'5px 6px' }}>
+                                  <input value={op.ticker}
+                                    onChange={e => updOp(i,'ticker',e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''))}
+                                    style={{ ...iStyle,width:'72px',fontWeight:700,color:'#e8a020' }}
+                                    placeholder="PETR4" />
+                                </td>
+                                {/* Qtde */}
+                                <td style={{ padding:'5px 6px' }}>
+                                  <input type="number" value={op.quantidade} min="1"
+                                    onChange={e => updOp(i,'quantidade',Number(e.target.value))}
+                                    style={{ ...iStyle,width:'64px' }} />
+                                </td>
+                                {/* Preço */}
+                                <td style={{ padding:'5px 6px' }}>
+                                  <input type="number" value={op.preco} step="0.01" min="0"
+                                    onChange={e => updOp(i,'preco',Number(e.target.value))}
+                                    style={{ ...iStyle,width:'82px' }} />
+                                </td>
+                                {/* Total */}
+                                <td style={{ padding:'5px 8px',color:'#e8a020',fontWeight:600,whiteSpace:'nowrap' }}>
+                                  R$ {(op.preco * op.quantidade).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+                                </td>
+                                {/* Data */}
+                                <td style={{ padding:'5px 6px' }}>
+                                  <input type="date" value={op.data}
+                                    onChange={e => updOp(i,'data',e.target.value)}
+                                    style={{ ...iStyle,width:'116px',colorScheme:'dark' }} />
+                                </td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                )}
+
+                {/* Sem operações após processar */}
+                {!importando && totalOps === 0 && !importErro && (
+                  <div style={{ textAlign:'center',padding:'40px',color:'#546E7A',fontSize:'14px' }}>
+                    Nenhuma operação identificada nas notas.
                   </div>
                 )}
               </div>
-              <button onClick={() => { setImportModal(false); setImportPreview(null); setImportErro('') }}
-                style={{ background:'none',border:'none',color:'#6b84a8',fontSize:'20px',cursor:'pointer' }}>×</button>
-            </div>
 
-            <div style={{ overflowY:'auto',padding:'20px 24px',flex:1 }}>
-              {/* Carregando */}
-              {importando && (
-                <div style={{ textAlign:'center',padding:'40px 0' }}>
-                  <div style={{ fontSize:'32px',marginBottom:'12px' }}>⟳</div>
-                  <div style={{ color:'#6b84a8',fontSize:'14px' }}>Lendo a nota com IA… pode levar alguns segundos.</div>
+              {/* ── Footer ── */}
+              {temDados && (
+                <div style={{ padding:'14px 22px',borderTop:'1px solid rgba(255,255,255,.08)',
+                  display:'flex',gap:'10px',justifyContent:'flex-end',alignItems:'center' }}>
+                  <span style={{ fontSize:'12px',color:'#546E7A',marginRight:'auto' }}>
+                    {totalSel === 0 && '⚠ Nenhuma operação selecionada'}
+                    {totalSel > 0 && `${totalSel} operação(ões) serão importadas`}
+                  </span>
+                  <button onClick={_fecharImport}
+                    style={{ background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',
+                      padding:'8px 18px',borderRadius:'7px',cursor:'pointer',fontSize:'13px',fontWeight:600 }}>
+                    Cancelar
+                  </button>
+                  <button onClick={confirmarImport} disabled={salvandoImport || totalSel === 0}
+                    style={{ background: totalSel > 0 ? '#e8a020' : '#2a2a2a',
+                      color: totalSel > 0 ? '#000' : '#555',
+                      padding:'8px 22px',borderRadius:'7px',fontSize:'13px',fontWeight:700,border:'none',
+                      cursor: totalSel > 0 && !salvandoImport ? 'pointer' : 'not-allowed',
+                      opacity: salvandoImport ? .6 : 1, transition:'all .15s' }}>
+                    {salvandoImport ? 'Salvando…' : `✓ Importar ${totalSel} operação(ões)`}
+                  </button>
                 </div>
               )}
-
-              {/* Erro */}
-              {importErro && !importando && (
-                <div style={{ background:'rgba(239,68,68,.1)',border:'1px solid rgba(239,68,68,.3)',borderRadius:'8px',padding:'16px',color:'#fca5a5',fontSize:'14px' }}>
-                  ⚠ {importErro}
-                </div>
-              )}
-
-              {/* Preview das operações — campos editáveis */}
-              {importPreview && !importando && (
-                <>
-                  <div style={{ fontSize:'13px',color:'#6b84a8',marginBottom:'12px' }}>
-                    {importPreview.operacoes.length} operação(ões) identificada(s). Revise e corrija se necessário:
-                  </div>
-                  <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'13px' }}>
-                    <thead>
-                      <tr style={{ background:'#081120' }}>
-                        {['Tipo','Ticker','Qtde','Preço Unit.','Total','Data'].map(h => (
-                          <th key={h} style={{ padding:'8px 10px',textAlign:'left',color:'#6b84a8',fontWeight:700,fontSize:'11px',letterSpacing:'.5px',textTransform:'uppercase' }}>{h}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {importPreview.operacoes.map((op, i) => {
-                        const upd = (field: string, val: string | number) =>
-                          setImportPreview(prev => prev ? {
-                            ...prev,
-                            operacoes: prev.operacoes.map((o, j) =>
-                              j === i ? { ...o, [field]: val } : o
-                            )
-                          } : prev)
-                        const inputStyle = {
-                          background:'#081120', border:'1px solid rgba(255,255,255,.12)',
-                          borderRadius:'5px', color:'#e8edf5', padding:'4px 8px',
-                          fontSize:'13px', width:'100%', outline:'none',
-                        }
-                        return (
-                          <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.05)' }}>
-                            {/* Tipo */}
-                            <td style={{ padding:'6px 8px' }}>
-                              <select value={op.tipo}
-                                onChange={e => upd('tipo', e.target.value)}
-                                style={{ ...inputStyle, width:'90px' }}>
-                                <option value="C">COMPRA</option>
-                                <option value="V">VENDA</option>
-                              </select>
-                            </td>
-                            {/* Ticker — editável */}
-                            <td style={{ padding:'6px 8px' }}>
-                              <input
-                                value={op.ticker}
-                                onChange={e => upd('ticker', e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''))}
-                                style={{ ...inputStyle, width:'80px', fontWeight:700, color:'#e8a020' }}
-                                placeholder="PETR4"
-                                title="Código da ação (ex: PETR4)"
-                              />
-                            </td>
-                            {/* Quantidade */}
-                            <td style={{ padding:'6px 8px' }}>
-                              <input type="number" value={op.quantidade}
-                                onChange={e => upd('quantidade', Number(e.target.value))}
-                                style={{ ...inputStyle, width:'70px' }} min="1" />
-                            </td>
-                            {/* Preço */}
-                            <td style={{ padding:'6px 8px' }}>
-                              <input type="number" value={op.preco}
-                                onChange={e => upd('preco', Number(e.target.value))}
-                                style={{ ...inputStyle, width:'90px' }} step="0.01" min="0" />
-                            </td>
-                            {/* Total calculado */}
-                            <td style={{ padding:'6px 8px', color:'#e8a020', fontWeight:600, whiteSpace:'nowrap' }}>
-                              R$ {(op.preco * op.quantidade).toFixed(2)}
-                            </td>
-                            {/* Data */}
-                            <td style={{ padding:'6px 8px' }}>
-                              <input type="date" value={op.data}
-                                onChange={e => upd('data', e.target.value)}
-                                style={{ ...inputStyle, width:'120px', colorScheme:'dark' }} />
-                            </td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                  <div style={{ marginTop:'8px',fontSize:'12px',color:'#455a64' }}>
-                    ✏ Todos os campos são editáveis — corrija o ticker ou qualquer dado antes de confirmar.
-                  </div>
-                </>
-              )}
             </div>
-
-            {/* Footer */}
-            {importPreview && !importando && (
-              <div style={{ padding:'16px 24px',borderTop:'1px solid rgba(255,255,255,.08)',display:'flex',gap:'10px',justifyContent:'flex-end' }}>
-                <button onClick={() => { setImportModal(false); setImportPreview(null) }}
-                  style={{ background:'transparent',border:'1px solid rgba(255,255,255,.15)',color:'#6b84a8',padding:'9px 20px',borderRadius:'7px',cursor:'pointer',fontSize:'13px',fontWeight:600 }}>
-                  Cancelar
-                </button>
-                <button onClick={confirmarImport} disabled={salvandoImport}
-                  style={{ background:'#e8a020',color:'#000',padding:'9px 24px',borderRadius:'7px',cursor:salvandoImport?'wait':'pointer',fontSize:'13px',fontWeight:700,border:'none',opacity:salvandoImport?.6:1 }}>
-                  {salvandoImport ? 'Salvando…' : `✓ Importar ${importPreview.operacoes.length} operação(ões)`}
-                </button>
-              </div>
-            )}
           </div>
-        </div>
-      )}
+        )
+      })()}
 
       {/* Modal: limite plano gratuito */}
       {limiteModal && (

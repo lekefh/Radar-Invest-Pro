@@ -18,7 +18,7 @@ function PaywallTeses() {
         <div style={{ background:'rgba(102,187,106,.06)', border:'1px solid rgba(102,187,106,.15)', borderRadius:'12px', padding:'20px', marginBottom:'32px' }}>
           <div style={{ fontSize:'12px', color:'#6b84a8', marginBottom:'12px', fontWeight:600, letterSpacing:'.5px', textTransform:'uppercase' as const }}>O que você terá acesso</div>
           {[
-            '📊 15 empresas B3 com métricas setoriais',
+            '📊 18 empresas B3 com métricas setoriais',
             '🚦 Semáforo automático por trimestre',
             '⚠ Alerta de stop de tese por setor',
             '⚡ Auto-preenchimento via URL do release',
@@ -299,7 +299,7 @@ function ModalEntrada({ ticker, setor, onClose, onSave }: { ticker: string; seto
 
 // ─── Card de tese ──────────────────────────────────────────────────────────────
 const SETOR_POR_TICKER: Record<string, string> = {
-  AXIA3:'energia', CPFE3:'energia', EQTL3:'energia',
+  AXIA3:'energia', CPFE3:'energia', EQTL3:'energia', CMIG4:'energia',
   BBAS3:'banco', BBDC4:'banco', B3SA3:'banco',
   BBSE3:'seguro', PSSA3:'seguro',
   AZZA3:'varejo', VULC3:'varejo', GMAT3:'varejo', INTB3:'varejo', KEPL3:'varejo', CSAN3:'varejo',

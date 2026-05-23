@@ -154,6 +154,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'KEPL3':  { nome: 'Kepler Weber S.A.',           setor: 'varejo'     },
   'SUZB3':  { nome: 'Suzano S.A.',                 setor: 'celulose'   },
   'EQTL3':  { nome: 'Equatorial Energia S.A.',     setor: 'energia'    },
+  'CMIG4':  { nome: 'Cemig S.A.',                  setor: 'energia'    },
 }
 
 async function ensureTables() {
@@ -241,6 +242,17 @@ async function ensureTables() {
       VALUES ('BBDC4','1T26',
         15.8, 4.2, 20050, 9660, 1090, 6810, null,
         'ROE 15,8% (+1,4pp vs 4T25). NPL 4,2%. Lucro R$6,81bi (+16,1% a/a). NIM R$20,05bi. Carteira R$1,09tri (+8,4% a/a). PCLD R$9,66bi (+26,5% a/a — crescimento carteira). Guidance 2026 confirmado: LL R$25-30bi, ROE 14-17%. Fonte: Release 1T26 Bradesco.')
+    `
+  }
+
+  // Seed entrada inicial CMIG4 1T26
+  const cmig4Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='CMIG4' AND trimestre='1T26'`
+  if (!cmig4Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('CMIG4','1T26',
+        null, null, 10460, 1500, 2.50, 1790, null,
+        'Receita R$10.460MM (+6,3% a/a). EBITDA R$1.790MM (-2,1% a/a). LL R$979MM (-5,8% a/a). CapEx R$1.500MM (+22% a/a — plano R$43,7B 2026-2030). DL/EBITDA 2,5x (vs 1,4x em 1T25 — ciclo CapEx). DL R$17,8B. Margem EBITDA 17,1% (comprimida vs LTM 19%). Pressão: CDI alto (despesa financeira ~R$2,5B/ano) + custo energia comprada +15%. Evento binário: 6ª Revisão Tarifária Periódica (6ª RTP) Cemig D prevista para 2028 — reconhecimento do RAB adicional (de ~R$15B para ~R$28-30B) pode expandir EBITDA regulatório em 60-80%. Fonte: Release 1T26 Cemig mai/2026.')
     `
   }
 }
