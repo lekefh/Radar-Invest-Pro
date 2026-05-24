@@ -271,13 +271,19 @@ export default function NoticiasPage() {
   const [empresas, setEmpresas] = useState<Empresa[]>([])
   const [modal, setModal] = useState<Empresa | null>(null)
   const [filtro, setFiltro] = useState<'todos' | 'verde' | 'amarelo' | 'vermelho'>('todos')
+  const [busca, setBusca] = useState('')
 
   useEffect(() => {
+    const cutoff = new Date()
+    cutoff.setMonth(cutoff.getMonth() - 4)
+
     const lista: Empresa[] = []
     for (const [key, val] of Object.entries(fundamentais)) {
       if (!val?.mr) continue
       const mr = val.mr as MrData
       if (!mr.fatos || !Array.isArray(mr.fatos)) continue
+      // Apenas últimos 4 meses
+      if (mr.data && new Date(mr.data) < cutoff) continue
       lista.push({
         ticker: val.ticker?.replace('.SA', '') ?? key,
         nome:   val.nome ?? key,
@@ -285,17 +291,21 @@ export default function NoticiasPage() {
         mr,
       })
     }
-    // Ordena: alerta primeiro, depois por data mais recente
+    // Ordena por data mais recente; alerta flutua para o topo dentro do mesmo dia
     lista.sort((a, b) => {
-      if (a.mr.alerta !== b.mr.alerta) return a.mr.alerta ? -1 : 1
-      return new Date(b.mr.data).getTime() - new Date(a.mr.data).getTime()
+      const dt = new Date(b.mr.data).getTime() - new Date(a.mr.data).getTime()
+      if (dt !== 0) return dt
+      return a.mr.alerta === b.mr.alerta ? 0 : a.mr.alerta ? -1 : 1
     })
     setEmpresas(lista)
   }, [])
 
-  const filtradas = empresas.filter(e =>
-    filtro === 'todos' ? true : calcSemaforo(e.mr) === filtro
-  )
+  const termo = busca.trim().toLowerCase()
+  const filtradas = empresas.filter(e => {
+    if (filtro !== 'todos' && calcSemaforo(e.mr) !== filtro) return false
+    if (termo && !e.ticker.toLowerCase().includes(termo) && !e.nome.toLowerCase().includes(termo)) return false
+    return true
+  })
 
   const totais = {
     verde:    empresas.filter(e => calcSemaforo(e.mr) === 'verde').length,
@@ -311,22 +321,42 @@ export default function NoticiasPage() {
         <div style={{ maxWidth:'1100px', margin:'0 auto' }}>
 
           {/* Header */}
-          <div style={{ marginBottom:'24px' }}>
-            <h1 style={{ fontSize:'20px', fontWeight:700, color:'#e8edf5', margin:'0 0 4px' }}>
-              📰 Fatos Relevantes — B3
-            </h1>
-            <p style={{ fontSize:'13px', color:'#4a5d73', margin:0 }}>
-              Análise de notícias e fatos por empresa · {empresas.length} analisadas
-            </p>
+          <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between',
+                        flexWrap:'wrap', gap:'16px', marginBottom:'20px' }}>
+            <div>
+              <h1 style={{ fontSize:'20px', fontWeight:700, color:'#e8edf5', margin:'0 0 4px' }}>
+                📰 Fatos Relevantes — B3
+              </h1>
+              <p style={{ fontSize:'13px', color:'#4a5d73', margin:0 }}>
+                Últimos 4 meses · {empresas.length} empresa{empresas.length !== 1 ? 's' : ''} analisada{empresas.length !== 1 ? 's' : ''}
+              </p>
+            </div>
+            {/* Campo de busca */}
+            <div style={{ position:'relative', minWidth:'220px' }}>
+              <span style={{ position:'absolute', left:'11px', top:'50%', transform:'translateY(-50%)',
+                             fontSize:'13px', color:'#4a5d73', pointerEvents:'none' }}>🔍</span>
+              <input
+                type="text"
+                placeholder="Buscar ticker ou empresa..."
+                value={busca}
+                onChange={e => setBusca(e.target.value)}
+                style={{
+                  width:'100%', boxSizing:'border-box' as const,
+                  background:'rgba(255,255,255,.04)', border:'1px solid rgba(255,255,255,.1)',
+                  borderRadius:'8px', padding:'8px 12px 8px 32px',
+                  color:'#e8edf5', fontSize:'13px', outline:'none',
+                }}
+              />
+            </div>
           </div>
 
-          {/* Filtros + resumo */}
+          {/* Filtros de semáforo */}
           <div style={{ display:'flex', gap:'10px', marginBottom:'24px', flexWrap:'wrap' }}>
             {([
-              { key:'todos',    label:'Todas',             count:empresas.length, cor:'#6b84a8' },
-              { key:'verde',    label:'Favoráveis',        count:totais.verde,    cor:'#66BB6A' },
-              { key:'amarelo',  label:'Mistas',            count:totais.amarelo,  cor:'#FFD54F' },
-              { key:'vermelho', label:'Atenção',           count:totais.vermelho, cor:'#EF5350' },
+              { key:'todos',    label:'Todas',      count:empresas.length, cor:'#6b84a8' },
+              { key:'verde',    label:'Favoráveis', count:totais.verde,    cor:'#66BB6A' },
+              { key:'amarelo',  label:'Mistas',     count:totais.amarelo,  cor:'#FFD54F' },
+              { key:'vermelho', label:'Atenção',    count:totais.vermelho, cor:'#EF5350' },
             ] as const).map(({ key, label, count, cor }) => (
               <button
                 key={key}
@@ -370,7 +400,7 @@ export default function NoticiasPage() {
               ))}
               {filtradas.length === 0 && (
                 <div style={{ gridColumn:'1/-1', textAlign:'center', padding:'48px', color:'#4a5d73' }}>
-                  Nenhuma empresa neste filtro.
+                  {termo ? `Nenhuma empresa encontrada para "${busca}".` : 'Nenhuma empresa neste filtro.'}
                 </div>
               )}
             </div>
