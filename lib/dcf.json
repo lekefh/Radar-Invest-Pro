@@ -364,7 +364,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -649,7 +649,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -943,7 +943,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1182,7 +1182,7 @@
       "mg_ebitda": 0.2563,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1467,7 +1467,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1758,7 +1758,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2040,7 +2040,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2322,7 +2322,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -2613,7 +2613,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -2904,7 +2904,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3182,7 +3182,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3500,7 +3500,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3785,25 +3785,25 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "BBDC4": {
     "ticker": "BBDC4",
     "company": "BBDC4 — Banco Bradesco",
     "nome": "Banco Bradesco",
     "method": "ddm",
-    "preco_atual": 17.690000534057617,
+    "preco_atual": 17.6200008392334,
     "bear": {
-      "preco": 16.18,
-      "upside": -8.5
+      "preco": 12.17,
+      "upside": -30.9
     },
     "base": {
-      "preco": 19.23,
-      "upside": 8.7
+      "preco": 14.59,
+      "upside": -17.2
     },
     "bull": {
-      "preco": 25.95,
-      "upside": 46.7
+      "preco": 20.08,
+      "upside": 14.0
     },
     "upside_base_legado": null,
     "wacc": 16.82,
@@ -4056,15 +4056,15 @@
       ]
     },
     "tir": {
-      "nominal": 25.32,
-      "real": 19.36,
-      "vs_selic": 12.86,
-      "vs_ntnb": 12.06,
+      "nominal": 25.42,
+      "real": 19.45,
+      "vs_selic": 12.95,
+      "vs_ntnb": 12.15,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": {
       "preco": 11.35,
-      "upside": -35.8,
+      "upside": -35.6,
       "d0": 1.278,
       "d1": 1.3419,
       "detalhe": "D0=R$1.28 Ke=16.8% g=5.0%"
@@ -4074,7 +4074,7 @@
       "preco_formula": null,
       "eps": 2.1,
       "vpa": 17.01,
-      "upside_gn": 60.3,
+      "upside_gn": 60.9,
       "detalhe": "EPS=R$2.10 VPA=R$17.01"
     },
     "proximo_tri": {
@@ -4085,7 +4085,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4379,7 +4379,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4679,7 +4679,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -4979,7 +4979,7 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5279,6 +5279,6 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "24/05/2026 18:21"
+    "atualizado": "24/05/2026 18:23"
   }
 }
