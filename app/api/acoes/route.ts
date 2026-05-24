@@ -135,6 +135,7 @@ export async function GET() {
       atualizado:   f.atualizado,
       dcfUpside,
       tirPremioNtnb,
+      mr: f.mr ?? null,
     }
   })
 

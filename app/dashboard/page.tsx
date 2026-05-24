@@ -6,6 +6,17 @@ import fundamentaisRaw from '@/lib/fundamentais.json'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fundamentais = fundamentaisRaw as unknown as Record<string, any>
 
+interface FatoItem {
+  titulo: string; data?: string; categoria: string
+  sentimento: 'Positivo' | 'Neutro' | 'Negativo'
+  impacto_governanca: string; impacto_projecoes: string
+  descricao: string; sugestao_governanca?: string; sugestao_projecao?: string
+}
+interface MrData {
+  data: string; alerta: boolean
+  govImpacto: string; projImpacto: string
+  resumo: string; fatos: FatoItem[]; resumoGeral: string
+}
 interface Acao {
   ticker: string; nome: string; setor: string
   preco: number | null; variacao: number | null
@@ -16,6 +27,7 @@ interface Acao {
   gov: number | null; govRespostas: Record<string, string>
   nota: number | null; atualizado: string | null
   dcfUpside: number | null; tirPremioNtnb: number | null
+  mr?: MrData | null
 }
 type SortKey = keyof Acao
 type SortDir = 'asc' | 'desc'
@@ -306,6 +318,97 @@ function ModalDetalharNota({acao,onClose}:{acao:Acao;onClose:()=>void}) {
   )
 }
 
+function ModalFatosRelevantes({acao,onClose}:{acao:Acao;onClose:()=>void}) {
+  const mr = acao.mr
+  const corSentimento = (s:string) =>
+    s==='Positivo'?'#66BB6A': s==='Negativo'?'#EF5350':'#FFD54F'
+  const bgSentimento = (s:string) =>
+    s==='Positivo'?'rgba(102,187,106,.08)': s==='Negativo'?'rgba(239,83,80,.08)':'rgba(255,213,79,.06)'
+  const corImpacto = (imp:string) =>
+    imp==='Alto'?'#EF5350':imp==='Médio'?'#FFD54F':imp==='Baixo'?'#90A4AE':'#37474F'
+  const netBadge = (v:string) => {
+    const cor = v==='Positivo'?'#66BB6A':v==='Negativo'?'#EF5350':'#90A4AE'
+    return <span style={{display:'inline-block',padding:'2px 10px',borderRadius:20,fontSize:11,fontWeight:700,
+      background:`${cor}22`,border:`1px solid ${cor}55`,color:cor}}>{v}</span>
+  }
+  return (
+    <Modal title={`📰 Fatos Relevantes & Notícias — ${acao.ticker} · ${acao.nome}`} onClose={onClose}>
+      {!mr ? (
+        <p style={{color:'#6b84a8',fontSize:13,textAlign:'center',padding:'40px 0'}}>
+          Nenhuma análise de mercado disponível para esta empresa.<br/>
+          <span style={{fontSize:12,color:'#455A64'}}>Execute "Varrer Todas" no app desktop para gerar a análise.</span>
+        </p>
+      ) : (
+        <div>
+          {/* Header: data + impacto net */}
+          <div style={{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap',
+            background:'#0a1628',borderRadius:10,padding:'12px 16px',marginBottom:16}}>
+            <span style={{fontSize:12,color:'#6b84a8'}}>Análise: {mr.data || '—'}</span>
+            <span style={{flex:1}}/>
+            <span style={{fontSize:12,color:'#6b84a8'}}>Governança:</span>{netBadge(mr.govImpacto||'Neutro')}
+            <span style={{fontSize:12,color:'#6b84a8',marginLeft:8}}>Projeções:</span>{netBadge(mr.projImpacto||'Neutro')}
+            {mr.alerta && <span style={{padding:'2px 10px',borderRadius:20,fontSize:11,fontWeight:700,
+              background:'rgba(239,83,80,.15)',border:'1px solid rgba(239,83,80,.4)',color:'#EF5350',
+              marginLeft:8}}>⚠ ALERTA CRÍTICO</span>}
+          </div>
+
+          {/* Resumo geral */}
+          {mr.resumoGeral && (
+            <div style={{background:'rgba(79,195,247,.06)',border:'1px solid rgba(79,195,247,.15)',
+              borderRadius:10,padding:'12px 16px',marginBottom:16,fontSize:13,
+              color:'#b8c4d4',lineHeight:1.6}}>
+              <span style={{fontSize:11,fontWeight:700,color:'#4FC3F7',letterSpacing:.5,
+                textTransform:'uppercase',display:'block',marginBottom:6}}>Resumo Geral</span>
+              {mr.resumoGeral}
+            </div>
+          )}
+
+          {/* Cards de fatos */}
+          {(!mr.fatos || mr.fatos.length === 0) ? (
+            <p style={{color:'#546E7A',fontSize:13,textAlign:'center',padding:'20px 0'}}>
+              Nenhum fato individual registrado.
+            </p>
+          ) : (
+            <div style={{display:'flex',flexDirection:'column',gap:10}}>
+              {mr.fatos.map((f,i)=>(
+                <div key={i} style={{background:bgSentimento(f.sentimento),
+                  border:`1px solid ${corSentimento(f.sentimento)}33`,
+                  borderLeft:`3px solid ${corSentimento(f.sentimento)}`,
+                  borderRadius:10,padding:'12px 14px'}}>
+                  <div style={{display:'flex',gap:8,alignItems:'flex-start',flexWrap:'wrap',marginBottom:6}}>
+                    <span style={{fontSize:11,fontWeight:700,color:corSentimento(f.sentimento),
+                      background:`${corSentimento(f.sentimento)}18`,padding:'2px 8px',
+                      borderRadius:20,whiteSpace:'nowrap'}}>{f.sentimento}</span>
+                    <span style={{fontSize:11,color:'#6b84a8',background:'rgba(255,255,255,.06)',
+                      padding:'2px 8px',borderRadius:20,whiteSpace:'nowrap'}}>{f.categoria}</span>
+                    {f.data && <span style={{fontSize:11,color:'#455A64',marginLeft:'auto'}}>{f.data}</span>}
+                  </div>
+                  <div style={{fontSize:13,fontWeight:600,color:'#e8edf5',marginBottom:4}}>{f.titulo}</div>
+                  <div style={{fontSize:12,color:'#b0bec5',lineHeight:1.6,marginBottom:6}}>{f.descricao}</div>
+                  <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+                    <span style={{fontSize:11,color:'#6b84a8'}}>
+                      Gov: <span style={{color:corImpacto(f.impacto_governanca),fontWeight:600}}>{f.impacto_governanca}</span>
+                    </span>
+                    <span style={{fontSize:11,color:'#6b84a8'}}>
+                      Proj: <span style={{color:corImpacto(f.impacto_projecoes),fontWeight:600}}>{f.impacto_projecoes}</span>
+                    </span>
+                  </div>
+                  {(f.sugestao_projecao) && (
+                    <div style={{marginTop:6,fontSize:11,color:'#80DEEA',fontStyle:'italic',
+                      background:'rgba(128,222,234,.06)',padding:'4px 8px',borderRadius:6}}>
+                      💡 {f.sugestao_projecao}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </Modal>
+  )
+}
+
 function exportarCSV(acoes:Acao[]) {
   const cab=['Ticker','Nome','Setor','Preço','DY%','P/L','P/VP','ROE%','LPA','Dív/EBIT','VPA','Merc.(Bi)','EV/EBIT','Máx.52s','Queda%','Var.Dia%','GOV','NOTA']
   const linhas=acoes.map(a=>[a.ticker,a.nome,a.setor,a.preco??'',a.dy??'',a.pl??'',a.pvp??'',a.roe??'',a.lpa??'',a.divEbit??'',a.vpa??'',a.merc??'',a.evEbit??'',a.max52s??'',a.varVsMax??'',a.variacao??'',a.gov??'',a.nota??''].map(v=>String(v).replace(/;/g,' ')).join(';'))
@@ -390,6 +493,7 @@ export default function Dashboard() {
   const [sortKey,  setSortKey]  = useState<SortKey>('ticker')
   const [sortDir,  setSortDir]  = useState<SortDir>('asc')
   const [modalGov,     setModalGov]     = useState<Acao|null>(null)
+  const [modalFatos,   setModalFatos]   = useState<Acao|null>(null)
   const [modalNota,        setModalNota]        = useState<Acao|null>(null)
   const [modalUpgradeNota, setModalUpgradeNota] = useState(false)
   const [modalIndicar,     setModalIndicar]     = useState(false)
@@ -563,6 +667,7 @@ export default function Dashboard() {
                     <Th k="varVsMax" label="Queda%"    title="Distância vs máxima 52 semanas"/>
                     <Th k="variacao" label="Var.Dia"   title="Variação diária (%)"/>
                     <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–2,5)"/>
+                    <th title="Fatos Relevantes & Notícias — clique para ver análise" style={{textAlign:'center'}}>📰</th>
                     <Th k="nota"     label="NOTA ★"    title="Nota fundamentalista (0–10)"/>
                   </tr>
                 </thead>
@@ -590,6 +695,16 @@ export default function Dashboard() {
                           <Cell v={a.varVsMax} pct colorDir={-1}/>
                           <Cell v={a.variacao} pct colorDir={1}/>
                           <GovCell  v={a.gov}  onClick={()=>setModalGov(a)}/>
+                          <td style={{textAlign:'center'}}>
+                            <button
+                              onClick={()=>setModalFatos(a)}
+                              title={a.mr ? `Fatos: Gov ${a.mr.govImpacto} · Proj ${a.mr.projImpacto}${a.mr.alerta?' ⚠ ALERTA':''}` : 'Sem análise de fatos — execute no app desktop'}
+                              style={{background:'none',border:'none',cursor:'pointer',fontSize:'15px',
+                                opacity: a.mr ? 1 : 0.3,
+                                filter: a.mr?.alerta ? 'drop-shadow(0 0 4px #EF5350)' : 'none'}}>
+                              {a.mr?.alerta ? '⚠' : a.mr ? '📰' : '📰'}
+                            </button>
+                          </td>
                           <NotaCell v={notaAjustada(a) ?? a.nota} bloqueado={planoUsuario==='gratuito'} onClick={planoUsuario==='gratuito'?()=>setModalUpgradeNota(true):()=>setModalNota(a)}/>
                         </tr>
                       )
@@ -602,7 +717,8 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {modalGov         && <ModalGovernanca   acao={modalGov}  onClose={()=>setModalGov(null)}/>}
+      {modalGov         && <ModalGovernanca       acao={modalGov}   onClose={()=>setModalGov(null)}/>}
+      {modalFatos       && <ModalFatosRelevantes acao={modalFatos} onClose={()=>setModalFatos(null)}/>}
       {modalNota        && <ModalDetalharNota acao={modalNota} onClose={()=>setModalNota(null)}/>}
       {modalUpgradeNota && <ModalUpgradeNota                   onClose={()=>setModalUpgradeNota(false)}/>}
       {modalIndicar     && <ModalIndicarEmpresa onClose={()=>setModalIndicar(false)}/>}

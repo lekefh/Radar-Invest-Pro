@@ -7,7 +7,7 @@ const LINKS: { href: string; label: string; soon?: boolean }[] = [
   { href: '/dashboard', label: '📊 Monitoramento' },
   { href: '/carteira',  label: '💼 Carteira'      },
   { href: '/alertas',   label: '🔔 Alertas',  soon: true },
-  { href: '/noticias',  label: '📰 Notícias', soon: true },
+  { href: '/noticias',  label: '📰 Notícias' },
   { href: '/dcf',       label: '💹 DCF' },
 ]
 
