@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import NavBar from '@/components/NavBar'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 import fundamentaisRaw from '@/lib/fundamentais.json'
@@ -50,13 +51,16 @@ const LABEL: Record<Semaforo, string> = {
 }
 
 function calcSemaforo(mr: MrData): Semaforo {
-  if (mr.alerta) return 'vermelho'
   const total = mr.fatos?.length ?? 0
   if (total === 0) return 'amarelo'
   const pos = mr.fatos.filter(f => f.sentimento === 'Positivo').length
   const neg = mr.fatos.filter(f => f.sentimento === 'Negativo').length
-  if (neg > pos && neg / total >= 0.5) return 'vermelho'
-  if (pos >= neg && pos / total >= 0.4) return 'verde'
+  const ratioNeg = neg / total
+  // Vermelho: maioria negativa ≥50% ou alerta com pelo menos 25% de negativos
+  if (neg > pos && ratioNeg >= 0.5) return 'vermelho'
+  if (mr.alerta && ratioNeg >= 0.25) return 'vermelho'
+  // Verde: positivos dominantes E sem alerta ativo (alerta = atenção, fica amarelo)
+  if (!mr.alerta && pos >= neg && pos / total >= 0.4) return 'verde'
   return 'amarelo'
 }
 
@@ -350,7 +354,11 @@ function CardEmpresa({ empresa, onClick }: { empresa: Empresa; onClick: () => vo
 }
 
 // ─── Página ───────────────────────────────────────────────────────────────────
+const PLANOS_PERMITIDOS = ['essencial', 'pro', 'analista']
+
 export default function NoticiasPage() {
+  const router = useRouter()
+  const [acesso, setAcesso]       = useState<'verificando' | 'liberado' | 'bloqueado'>('verificando')
   const [empresas, setEmpresas]   = useState<Empresa[]>([])
   const [modal, setModal]         = useState<Empresa | null>(null)
   const [filtro, setFiltro]       = useState<'todos' | 'verde' | 'amarelo' | 'vermelho'>('todos')
@@ -358,7 +366,19 @@ export default function NoticiasPage() {
   const [ordem1, setOrdem1]       = useState<Ordem>('data')
   const [ordem2, setOrdem2]       = useState<Ordem2>('nenhum')
 
+  // Verifica plano antes de carregar dados
   useEffect(() => {
+    const raw = localStorage.getItem('radar_usuario')
+    if (!raw) { router.push('/login'); return }
+    try {
+      const u = JSON.parse(raw)
+      if (PLANOS_PERMITIDOS.includes(u.plano)) setAcesso('liberado')
+      else setAcesso('bloqueado')
+    } catch { router.push('/login') }
+  }, [router])
+
+  useEffect(() => {
+    if (acesso !== 'liberado') return
     const cutoff = new Date()
     cutoff.setMonth(cutoff.getMonth() - 4)
 
@@ -403,7 +423,7 @@ export default function NoticiasPage() {
         }))
         setEmpresas(sortLista(lista, 'data', 'nenhum'))
       })
-  }, [])
+  }, [acesso])
 
   const termo = busca.trim().toLowerCase()
   const filtradas = sortLista(
@@ -421,6 +441,38 @@ export default function NoticiasPage() {
     amarelo:  empresas.filter(e => calcSemaforo(e.mr) === 'amarelo').length,
     vermelho: empresas.filter(e => calcSemaforo(e.mr) === 'vermelho').length,
   }
+
+  // Tela de acesso bloqueado
+  if (acesso === 'verificando') return null
+
+  if (acesso === 'bloqueado') return (
+    <>
+      <NavBar />
+      <div style={{ minHeight: '100vh', background: '#050d1a', display: 'flex',
+                    alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+        <div style={{ background: '#0d1a2e', border: '1px solid rgba(232,160,32,.2)',
+                      borderRadius: '20px', padding: '48px 40px', maxWidth: '420px',
+                      textAlign: 'center', fontFamily: 'Inter,sans-serif' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🔒</div>
+          <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#e8edf5', margin: '0 0 10px' }}>
+            Recurso Exclusivo
+          </h2>
+          <p style={{ fontSize: '13px', color: '#6b84a8', lineHeight: 1.7, margin: '0 0 28px' }}>
+            A aba <strong style={{ color: '#e8edf5' }}>Notícias &amp; Fatos Relevantes</strong> está
+            disponível a partir do plano <strong style={{ color: '#e8a020' }}>Essencial</strong>.
+            Faça upgrade para acessar análises de sentimento, semáforo de empresas e ordenação por nota e upside DCF.
+          </p>
+          <a href="/planos" style={{
+            display: 'inline-block', background: '#e8a020', color: '#050d1a',
+            fontWeight: 700, fontSize: '13px', padding: '10px 28px',
+            borderRadius: '8px', textDecoration: 'none',
+          }}>
+            Ver planos
+          </a>
+        </div>
+      </div>
+    </>
+  )
 
   return (
     <>
