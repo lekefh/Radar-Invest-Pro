@@ -36,7 +36,7 @@ const GOV_PERGUNTAS = [
   { id:'g08', cat:'Alinhamento com Minoritários',txt:'Já houve operações que prejudicaram minoritários? (Não = positivo)', inversa:true  },
   { id:'g09', cat:'Alinhamento com Minoritários',txt:'Remuneração da diretoria alinhada ao desempenho de longo prazo?',   inversa:false },
   { id:'g10', cat:'Nível de Governança na B3',  txt:'Está no Novo Mercado ou Nível 2 da B3?',                             inversa:false },
-  { id:'g11', cat:'Estabilidade de Controle', txt:'A estrutura de controle está estável (sem conflitos públicos entre controladores ou alta diretoria)?', inversa:false },
+  { id:'g11', cat:'Estrutura de Controle', txt:'Há conflito público entre controladores ou alta diretoria? (Sim = penalização −0,5 pts)', inversa:false, penalidade:true },
 ]
 
 function Cell({ v, suffix='', prefix='', pct=false, colorDir=0 }: {
@@ -110,8 +110,9 @@ function ModalGovernanca({acao,onClose}:{acao:Acao;onClose:()=>void}) {
   const temDados = Object.keys(acao.govRespostas).length > 0
   const categorias = [...new Set(GOV_PERGUNTAS.map(q=>q.cat))]
   const resp=(id:string)=>acao.govRespostas[id]??'—'
-  const cor=(id:string,inversa:boolean)=>{
+  const cor=(id:string,inversa:boolean,penalidade?:boolean)=>{
     const r=resp(id); if(r==='—') return '#6b84a8'
+    if(penalidade) return r==='Sim'?'#EF5350':r==='Parcial'?'#FF8A65':'#66BB6A'
     const pos=inversa?r==='Não':r==='Sim'; const par=r==='Parcial'
     return pos?'#66BB6A':par?'#FFD54F':'#EF9A9A'
   }
@@ -127,12 +128,12 @@ function ModalGovernanca({acao,onClose}:{acao:Acao;onClose:()=>void}) {
         <>
           <div style={{display:'flex',alignItems:'center',gap:'16px',marginBottom:'20px',padding:'14px 16px',background:'rgba(232,160,32,.08)',border:'1px solid rgba(232,160,32,.2)',borderRadius:'10px'}}>
             <div style={{textAlign:'center'}}>
-              <div style={{fontSize:'36px',fontWeight:700,color:acao.gov!=null&&acao.gov>=2.4?'#66BB6A':acao.gov!=null&&acao.gov>=1.5?'#FFD54F':'#EF9A9A',fontFamily:'Space Grotesk,sans-serif'}}>{f1(acao.gov)}</div>
-              <div style={{fontSize:'11px',color:'#6b84a8'}}>de 3,0 pts</div>
+              <div style={{fontSize:'36px',fontWeight:700,color:acao.gov!=null&&acao.gov>=2.0?'#66BB6A':acao.gov!=null&&acao.gov>=1.25?'#FFD54F':'#EF9A9A',fontFamily:'Space Grotesk,sans-serif'}}>{f1(acao.gov)}</div>
+              <div style={{fontSize:'11px',color:'#6b84a8'}}>de 2,5 pts</div>
             </div>
             <div>
               <div style={{fontSize:'13px',fontWeight:600,color:'#e8edf5'}}>Score de Governança</div>
-              <div style={{fontSize:'12px',color:'#6b84a8',marginTop:'4px'}}>11 critérios · dono/estabilidade 0,50 · histórico 0,40 · demais 0,20</div>
+              <div style={{fontSize:'12px',color:'#6b84a8',marginTop:'4px'}}>11 critérios · dono 0,50 · histórico 0,40 · demais 0,20 · conflito: −0,5</div>
             </div>
           </div>
           {categorias.map(cat=>(
@@ -140,8 +141,8 @@ function ModalGovernanca({acao,onClose}:{acao:Acao;onClose:()=>void}) {
               <div style={{fontSize:'10.5px',fontWeight:700,letterSpacing:'1px',textTransform:'uppercase',color:'#e8a020',marginBottom:'8px'}}>{cat}</div>
               {GOV_PERGUNTAS.filter(q=>q.cat===cat).map(q=>(
                 <div key={q.id} style={{display:'flex',alignItems:'flex-start',gap:'12px',padding:'10px 0',borderBottom:'1px solid rgba(255,255,255,.05)'}}>
-                  <span style={{fontSize:'13px',fontWeight:700,color:cor(q.id,q.inversa),minWidth:'52px',textAlign:'center',background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'3px 6px'}}>{resp(q.id)}</span>
-                  <span style={{fontSize:'13px',color:'#b8c4d4',lineHeight:1.5,flex:1}}>{q.txt}{q.inversa&&<span style={{fontSize:'11px',color:'#6b84a8',marginLeft:'6px'}}>(inversa)</span>}</span>
+                  <span style={{fontSize:'13px',fontWeight:700,color:cor(q.id,q.inversa,(q as any).penalidade),minWidth:'52px',textAlign:'center',background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'3px 6px'}}>{resp(q.id)}</span>
+                  <span style={{fontSize:'13px',color:'#b8c4d4',lineHeight:1.5,flex:1}}>{q.txt}{q.inversa&&<span style={{fontSize:'11px',color:'#6b84a8',marginLeft:'6px'}}>(inversa)</span>}{(q as any).penalidade&&<span style={{fontSize:'11px',color:'#EF9A9A',marginLeft:'6px'}}>(penalidade)</span>}</span>
                 </div>
               ))}
             </div>
@@ -561,7 +562,7 @@ export default function Dashboard() {
                     <Th k="max52s"   label="Máx.52s"   title="Máxima 52 semanas"/>
                     <Th k="varVsMax" label="Queda%"    title="Distância vs máxima 52 semanas"/>
                     <Th k="variacao" label="Var.Dia"   title="Variação diária (%)"/>
-                    <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–3,0)"/>
+                    <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–2,5)"/>
                     <Th k="nota"     label="NOTA ★"    title="Nota fundamentalista (0–10)"/>
                   </tr>
                 </thead>
