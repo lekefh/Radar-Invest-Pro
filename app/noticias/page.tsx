@@ -26,6 +26,7 @@ interface Empresa {
 
 type Semaforo = 'verde' | 'amarelo' | 'vermelho'
 type Ordem    = 'data' | 'nota' | 'upside'
+type Ordem2   = Ordem | 'nenhum'
 
 const COR: Record<Semaforo, string> = {
   verde:    '#66BB6A',
@@ -72,24 +73,31 @@ function corNota(nota: number | null) {
   return '#EF5350'
 }
 
-function sortLista(lista: Empresa[], ordem: Ordem): Empresa[] {
+function comparar(a: Empresa, b: Empresa, campo: Ordem): number {
+  if (campo === 'nota') {
+    if (a.nota == null && b.nota == null) return 0
+    if (a.nota == null) return 1
+    if (b.nota == null) return -1
+    return b.nota - a.nota
+  }
+  if (campo === 'upside') {
+    if (a.dcfUpside == null && b.dcfUpside == null) return 0
+    if (a.dcfUpside == null) return 1
+    if (b.dcfUpside == null) return -1
+    return b.dcfUpside - a.dcfUpside
+  }
+  // data: mais recente primeiro; alerta sobe em empate de timestamp
+  const dt = new Date(b.mr.data).getTime() - new Date(a.mr.data).getTime()
+  if (dt !== 0) return dt
+  return a.mr.alerta === b.mr.alerta ? 0 : a.mr.alerta ? -1 : 1
+}
+
+function sortLista(lista: Empresa[], ordem1: Ordem, ordem2: Ordem2 = 'nenhum'): Empresa[] {
   return [...lista].sort((a, b) => {
-    if (ordem === 'nota') {
-      if (a.nota == null && b.nota == null) return 0
-      if (a.nota == null) return 1
-      if (b.nota == null) return -1
-      return b.nota - a.nota
-    }
-    if (ordem === 'upside') {
-      if (a.dcfUpside == null && b.dcfUpside == null) return 0
-      if (a.dcfUpside == null) return 1
-      if (b.dcfUpside == null) return -1
-      return b.dcfUpside - a.dcfUpside
-    }
-    // data (padrão): mais recente primeiro; alerta sobe em empate
-    const dt = new Date(b.mr.data).getTime() - new Date(a.mr.data).getTime()
-    if (dt !== 0) return dt
-    return a.mr.alerta === b.mr.alerta ? 0 : a.mr.alerta ? -1 : 1
+    const r1 = comparar(a, b, ordem1)
+    if (r1 !== 0) return r1
+    if (ordem2 !== 'nenhum') return comparar(a, b, ordem2)
+    return 0
   })
 }
 
@@ -347,7 +355,8 @@ export default function NoticiasPage() {
   const [modal, setModal]         = useState<Empresa | null>(null)
   const [filtro, setFiltro]       = useState<'todos' | 'verde' | 'amarelo' | 'vermelho'>('todos')
   const [busca, setBusca]         = useState('')
-  const [ordem, setOrdem]         = useState<Ordem>('data')
+  const [ordem1, setOrdem1]       = useState<Ordem>('data')
+  const [ordem2, setOrdem2]       = useState<Ordem2>('nenhum')
 
   useEffect(() => {
     const cutoff = new Date()
@@ -383,7 +392,7 @@ export default function NoticiasPage() {
           nota:      apiMap[e.ticker]?.nota      ?? nv(fundamentais[e.ticker]?.nota),
           dcfUpside: apiMap[e.ticker]?.dcfUpside ?? null,
         }))
-        setEmpresas(sortLista(lista, 'data'))
+        setEmpresas(sortLista(lista, 'data', 'nenhum'))
       })
       .catch(() => {
         // Fallback sem preço em tempo real
@@ -392,7 +401,7 @@ export default function NoticiasPage() {
           nota:      nv(fundamentais[e.ticker]?.nota),
           dcfUpside: null,
         }))
-        setEmpresas(sortLista(lista, 'data'))
+        setEmpresas(sortLista(lista, 'data', 'nenhum'))
       })
   }, [])
 
@@ -403,7 +412,8 @@ export default function NoticiasPage() {
       if (termo && !e.ticker.toLowerCase().includes(termo) && !e.nome.toLowerCase().includes(termo)) return false
       return true
     }),
-    ordem
+    ordem1,
+    ordem2
   )
 
   const totais = {
@@ -484,29 +494,70 @@ export default function NoticiasPage() {
               ))}
             </div>
 
-            {/* Ordenação */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '11px', color: '#4a5d73', whiteSpace: 'nowrap' as const }}>Ordenar:</span>
-              {([
-                { key: 'data',   label: '📅 Data'       },
-                { key: 'nota',   label: '★ Nota'        },
-                { key: 'upside', label: '📈 Upside DCF' },
-              ] as const).map(({ key, label }) => (
-                <button
-                  key={key}
-                  onClick={() => setOrdem(key)}
-                  style={{
-                    background: ordem === key ? 'rgba(232,160,32,.15)' : 'rgba(255,255,255,.03)',
-                    border: `1px solid ${ordem === key ? 'rgba(232,160,32,.4)' : 'rgba(255,255,255,.08)'}`,
-                    borderRadius: '7px', padding: '5px 12px', cursor: 'pointer',
-                    color: ordem === key ? '#e8a020' : '#6b84a8',
-                    fontSize: '12px', fontWeight: ordem === key ? 700 : 500,
-                    transition: 'all .15s',
-                  }}
-                >
-                  {label}
-                </button>
-              ))}
+            {/* Ordenação dupla */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              {/* 1ª Ordem */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ fontSize: '10px', color: '#4a5d73', fontWeight: 700,
+                               textTransform: 'uppercase', letterSpacing: '.5px', whiteSpace: 'nowrap' as const }}>
+                  1ª
+                </span>
+                {([
+                  { key: 'data',   label: '📅 Data'   },
+                  { key: 'nota',   label: '★ Nota'    },
+                  { key: 'upside', label: '📈 Upside' },
+                ] as const).map(({ key, label }) => (
+                  <button
+                    key={key}
+                    onClick={() => {
+                      setOrdem1(key)
+                      // Se 2ª era igual à nova 1ª, limpa a 2ª
+                      if (ordem2 === key) setOrdem2('nenhum')
+                    }}
+                    style={{
+                      background: ordem1 === key ? 'rgba(232,160,32,.15)' : 'rgba(255,255,255,.03)',
+                      border: `1px solid ${ordem1 === key ? 'rgba(232,160,32,.4)' : 'rgba(255,255,255,.08)'}`,
+                      borderRadius: '7px', padding: '5px 11px', cursor: 'pointer',
+                      color: ordem1 === key ? '#e8a020' : '#6b84a8',
+                      fontSize: '12px', fontWeight: ordem1 === key ? 700 : 500,
+                      transition: 'all .15s',
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              <span style={{ color: 'rgba(255,255,255,.12)', fontSize: '16px' }}>›</span>
+
+              {/* 2ª Ordem */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ fontSize: '10px', color: '#4a5d73', fontWeight: 700,
+                               textTransform: 'uppercase', letterSpacing: '.5px', whiteSpace: 'nowrap' as const }}>
+                  2ª
+                </span>
+                {([
+                  { key: 'nenhum', label: '—'         },
+                  { key: 'data',   label: '📅 Data'   },
+                  { key: 'nota',   label: '★ Nota'    },
+                  { key: 'upside', label: '📈 Upside' },
+                ] as const).filter(o => o.key === 'nenhum' || o.key !== ordem1).map(({ key, label }) => (
+                  <button
+                    key={key}
+                    onClick={() => setOrdem2(key as Ordem2)}
+                    style={{
+                      background: ordem2 === key ? 'rgba(100,149,237,.15)' : 'rgba(255,255,255,.03)',
+                      border: `1px solid ${ordem2 === key ? 'rgba(100,149,237,.4)' : 'rgba(255,255,255,.08)'}`,
+                      borderRadius: '7px', padding: '5px 11px', cursor: 'pointer',
+                      color: ordem2 === key ? '#6495ED' : '#6b84a8',
+                      fontSize: '12px', fontWeight: ordem2 === key ? 700 : 500,
+                      transition: 'all .15s',
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
 
