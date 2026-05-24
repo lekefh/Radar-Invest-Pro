@@ -53,15 +53,10 @@ const LABEL: Record<Semaforo, string> = {
 function calcSemaforo(mr: MrData): Semaforo {
   const total = mr.fatos?.length ?? 0
   if (total === 0) return 'amarelo'
-  const pos = mr.fatos.filter(f => f.sentimento === 'Positivo').length
-  const neg = mr.fatos.filter(f => f.sentimento === 'Negativo').length
-  const ratioNeg = neg / total
-  // Vermelho: maioria negativa ≥50% ou alerta com pelo menos 25% de negativos
-  if (neg > pos && ratioNeg >= 0.5) return 'vermelho'
-  if (mr.alerta && ratioNeg >= 0.25) return 'vermelho'
-  // Verde: positivos dominantes E sem alerta ativo (alerta = atenção, fica amarelo)
-  if (!mr.alerta && pos >= neg && pos / total >= 0.4) return 'verde'
-  return 'amarelo'
+  const ratioNeg = mr.fatos.filter(f => f.sentimento === 'Negativo').length / total
+  if (ratioNeg > 0.30) return 'vermelho'
+  if (ratioNeg > 0.20) return 'amarelo'
+  return 'verde'
 }
 
 function formatDate(iso: string) {
