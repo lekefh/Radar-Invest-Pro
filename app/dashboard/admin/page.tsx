@@ -242,7 +242,7 @@ export default function AdminPage() {
                 </div>
                 <div>
                   <strong style={{ color: '#e8edf5' }}>Governança</strong><br/>
-                  Abra o fundamento.py → selecione a ação → botão Governança → responda os 10 critérios → Salvar.<br/>
+                  Abra o fundamento.py → selecione a ação → botão Governança → responda os 11 critérios → Salvar.<br/>
                   O sync para a web é automático.
                 </div>
                 <div>

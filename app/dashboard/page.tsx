@@ -127,12 +127,12 @@ function ModalGovernanca({acao,onClose}:{acao:Acao;onClose:()=>void}) {
         <>
           <div style={{display:'flex',alignItems:'center',gap:'16px',marginBottom:'20px',padding:'14px 16px',background:'rgba(232,160,32,.08)',border:'1px solid rgba(232,160,32,.2)',borderRadius:'10px'}}>
             <div style={{textAlign:'center'}}>
-              <div style={{fontSize:'36px',fontWeight:700,color:acao.gov!=null&&acao.gov>=1.5?'#66BB6A':acao.gov!=null&&acao.gov>=0.8?'#FFD54F':'#EF9A9A',fontFamily:'Space Grotesk,sans-serif'}}>{f1(acao.gov)}</div>
-              <div style={{fontSize:'11px',color:'#6b84a8'}}>de 2,0 pts</div>
+              <div style={{fontSize:'36px',fontWeight:700,color:acao.gov!=null&&acao.gov>=2.4?'#66BB6A':acao.gov!=null&&acao.gov>=1.5?'#FFD54F':'#EF9A9A',fontFamily:'Space Grotesk,sans-serif'}}>{f1(acao.gov)}</div>
+              <div style={{fontSize:'11px',color:'#6b84a8'}}>de 3,0 pts</div>
             </div>
             <div>
               <div style={{fontSize:'13px',fontWeight:600,color:'#e8edf5'}}>Score de Governança</div>
-              <div style={{fontSize:'12px',color:'#6b84a8',marginTop:'4px'}}>10 critérios × 0,20 pts cada</div>
+              <div style={{fontSize:'12px',color:'#6b84a8',marginTop:'4px'}}>11 critérios · dono/estabilidade 0,50 · histórico 0,40 · demais 0,20</div>
             </div>
           </div>
           {categorias.map(cat=>(
@@ -561,7 +561,7 @@ export default function Dashboard() {
                     <Th k="max52s"   label="Máx.52s"   title="Máxima 52 semanas"/>
                     <Th k="varVsMax" label="Queda%"    title="Distância vs máxima 52 semanas"/>
                     <Th k="variacao" label="Var.Dia"   title="Variação diária (%)"/>
-                    <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–2,5)"/>
+                    <Th k="gov"      label="GOV 🏛"    title="Score de Governança (0–3,0)"/>
                     <Th k="nota"     label="NOTA ★"    title="Nota fundamentalista (0–10)"/>
                   </tr>
                 </thead>
