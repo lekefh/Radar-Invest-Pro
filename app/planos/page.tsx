@@ -44,6 +44,7 @@ const PLANOS = [
       'TIR Real implícita vs NTN-B',
       '2 relatórios PDF por mês',
       'Alertas de variação −15% e −30%',
+      'Notícias e Fatos Relevantes — B3',
     ],
     bloqueados: [
       'Análise detalhada da carteira',
@@ -273,6 +274,7 @@ export default function PlanosPage() {
             { recurso: 'TIR Real implícita vs NTN-B',    gratuito: '—',    essencial: '✓',          pro: '✓' },
             { recurso: 'Relatórios PDF',                 gratuito: '—',    essencial: '2/mês',      pro: '8/mês' },
             { recurso: 'Alertas de variação',            gratuito: '—',    essencial: '✓',          pro: '✓' },
+            { recurso: 'Notícias e Fatos Relevantes',   gratuito: '—',    essencial: '✓',          pro: '✓' },
             { recurso: 'Concentração da carteira',       gratuito: '—',    essencial: '—',          pro: '✓' },
             { recurso: 'Métricas ponderadas',            gratuito: '—',    essencial: '—',          pro: '✓' },
             { recurso: 'Nota média da carteira',         gratuito: '—',    essencial: '—',          pro: '✓' },

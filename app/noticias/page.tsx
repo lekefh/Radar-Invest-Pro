@@ -481,7 +481,7 @@ export default function NoticiasPage() {
                         flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
             <div>
               <h1 style={{ fontSize: '20px', fontWeight: 700, color: '#e8edf5', margin: '0 0 4px' }}>
-                📰 Fatos Relevantes — B3
+                📰 Notícias e Fatos Relevantes — B3
               </h1>
               <p style={{ fontSize: '13px', color: '#4a5d73', margin: 0 }}>
                 Últimos 4 meses · {empresas.length} empresa{empresas.length !== 1 ? 's' : ''} analisada{empresas.length !== 1 ? 's' : ''}
