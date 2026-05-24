@@ -9066,6 +9066,7 @@
     "govRespostas": {
       "g01": "Sim",
       "g02": "Sim",
+      "g11": "Não",
       "g03": "Parcial",
       "g04": "Sim",
       "g05": "Sim",
@@ -9073,8 +9074,7 @@
       "g07": "Sim",
       "g08": "Não",
       "g09": "Sim",
-      "g10": "Sim",
-      "g11": "—"
+      "g10": "Sim"
     },
     "nota": 7.1,
     "atualizado": "24/05/2026 13:38 [StatusInvest]",
