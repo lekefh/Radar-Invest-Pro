@@ -304,7 +304,7 @@ const SETOR_POR_TICKER: Record<string, string> = {
   BBSE3:'seguro', PSSA3:'seguro',
   AZZA3:'varejo', VULC3:'varejo', GMAT3:'varejo', INTB3:'varejo', KEPL3:'varejo', CSAN3:'varejo',
   SOJA3:'agro',
-  CYRE3:'construcao',
+  JHSF3:'construcao', CYRE3:'construcao',
   SUZB3:'celulose',
 }
 

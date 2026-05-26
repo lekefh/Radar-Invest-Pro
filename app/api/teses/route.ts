@@ -148,6 +148,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'GMAT3':  { nome: 'Grupo Mateus S.A.',           setor: 'varejo'     },
   'SOJA3':  { nome: 'Boa Safra Sementes S.A.',     setor: 'agro'       },
   'CYRE3':  { nome: 'Cyrela Realty S.A.',          setor: 'construcao' },
+  'JHSF3':  { nome: 'JHSF Participações S.A.',    setor: 'construcao' },
   'B3SA3':  { nome: 'B3 S.A.',                    setor: 'banco'      },
   'CSAN3':  { nome: 'Cosan S.A.',                  setor: 'varejo'     },
   'INTB3':  { nome: 'Intelbras S.A.',              setor: 'varejo'     },
@@ -199,6 +200,17 @@ async function ensureTables() {
       ON CONFLICT (ticker) DO UPDATE
         SET stops   = ${JSON.stringify(cfg.stops)},
             metricas = ${JSON.stringify(cfg.metricas)}
+    `
+  }
+
+  // Seed entrada inicial JHSF3 4T25
+  const jhsf3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='JHSF3' AND trimestre='4T25'`
+  if (!jhsf3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('JHSF3','4T25',
+        null, null, 690, 48, -0.65, 420, 13.8,
+        'Receita recorrente R$690MM (+11% a/a, ex-FII). Mg EBITDA 48% (meta ~50%). DL/PL negativo (-0,65x) = caixa líquido R$1,8B após venda FII R$5,2B. Lucro R$420MM recorrente (ex-VGV FII). TIR Real vs NTN-B: +13,8 p.p. Evento estrutural: desinvestimento FII transformou balanço — JHSF de alavancada (DL ~R$3B) para caixa líquido. VSO na incorporação ~28% (Fazenda Boa Vista + novos lançamentos luxury). Próx. gatilho: expansão Fasano e lançamentos 2026. Fonte: estimativa mai/2026 com base nos resultados FY2025 divulgados.')
     `
   }
 
