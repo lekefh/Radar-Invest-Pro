@@ -340,7 +340,7 @@ export default function LandingPage() {
           <li><a href="#sobre">Sobre</a></li>
         </ul>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Link href="/dashboard" className="nav-dash">Acessar — é Grátis</Link>
+          <Link href="/dashboard" className="nav-dash">Acessar — Grátis</Link>
           <Link href="/cadastro" className="nav-cta">Fazer cadastro</Link>
         </div>
       </nav>
