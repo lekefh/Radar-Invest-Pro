@@ -149,6 +149,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'SOJA3':  { nome: 'Boa Safra Sementes S.A.',     setor: 'agro'       },
   'CYRE3':  { nome: 'Cyrela Realty S.A.',          setor: 'construcao' },
   'JHSF3':  { nome: 'JHSF Participações S.A.',    setor: 'construcao' },
+  'CXSE3':  { nome: 'Caixa Seguridade Participações S.A.', setor: 'seguro' },
   'B3SA3':  { nome: 'B3 S.A.',                    setor: 'banco'      },
   'CSAN3':  { nome: 'Cosan S.A.',                  setor: 'varejo'     },
   'INTB3':  { nome: 'Intelbras S.A.',              setor: 'varejo'     },
@@ -211,6 +212,17 @@ async function ensureTables() {
       VALUES ('JHSF3','4T25',
         null, null, 690, 48, -0.65, 420, 13.8,
         'Receita recorrente R$690MM (+11% a/a, ex-FII). Mg EBITDA 48% (meta ~50%). DL/PL negativo (-0,65x) = caixa líquido R$1,8B após venda FII R$5,2B. Lucro R$420MM recorrente (ex-VGV FII). TIR Real vs NTN-B: +13,8 p.p. Evento estrutural: desinvestimento FII transformou balanço — JHSF de alavancada (DL ~R$3B) para caixa líquido. VSO na incorporação ~28% (Fazenda Boa Vista + novos lançamentos luxury). Próx. gatilho: expansão Fasano e lançamentos 2026. Fonte: estimativa mai/2026 com base nos resultados FY2025 divulgados.')
+    `
+  }
+
+  // Seed entrada inicial CXSE3 4T25
+  const cxse3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='CXSE3' AND trimestre='4T25'`
+  if (!cxse3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('CXSE3','4T25',
+        32.6, 57.0, 9650, 22.0, -1690, 1125, 3.8,
+        'ROE 4T25: 70,4% (tri anualizado). IC Combinado: 57,0% (−0,9pp vs 2024). Sinistralidade: 22,0% (+3,8pp YoY pós-normalização RS). Prêmios emitidos: R$2,44B (−3,3% YoY; queda prestamista proposital). Receita +4,3% YoY. Resultado financeiro +34% (SELIC 14,75% beneficia float). LL gerencial R$1,125B (+7% YoY). 2025 anual: LL R$4,316B (+14,9%). Caixa líquido R$1,69B. Tese: bancassurance monopoly via CEF. Driver principal: carteira habitacional Caixa + SELIC sustentada. Habitacional +10,6% YoY | Residencial +24% YoY. DCF base R$18,22 (+3,4%). TIR real 11,3% vs NTN-B +3,8pp. Risco: renovação acordo CEF e sinistralidade prestamista. Fonte: Release 4T25 Caixa Seguridade fev/2026.')
     `
   }
 

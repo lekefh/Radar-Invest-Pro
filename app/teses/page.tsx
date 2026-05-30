@@ -301,7 +301,7 @@ function ModalEntrada({ ticker, setor, onClose, onSave }: { ticker: string; seto
 const SETOR_POR_TICKER: Record<string, string> = {
   AXIA3:'energia', CPFE3:'energia', EQTL3:'energia', CMIG4:'energia',
   BBAS3:'banco', BBDC4:'banco', B3SA3:'banco',
-  BBSE3:'seguro', PSSA3:'seguro',
+  BBSE3:'seguro', PSSA3:'seguro', CXSE3:'seguro',
   AZZA3:'varejo', VULC3:'varejo', GMAT3:'varejo', INTB3:'varejo', KEPL3:'varejo', CSAN3:'varejo',
   SOJA3:'agro',
   JHSF3:'construcao', CYRE3:'construcao',

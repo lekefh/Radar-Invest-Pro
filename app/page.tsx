@@ -340,7 +340,7 @@ export default function LandingPage() {
           <li><a href="#sobre">Sobre</a></li>
         </ul>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Link href="/dashboard" className="nav-dash">Acessar plataforma</Link>
+          <Link href="/dashboard" className="nav-dash">Acessar — é Grátis</Link>
           <Link href="/cadastro" className="nav-cta">Fazer cadastro</Link>
         </div>
       </nav>
@@ -361,7 +361,7 @@ export default function LandingPage() {
           exatamente como os <strong>grandes gestores de fundo fazem</strong>.
         </p>
         <div className="hero-actions">
-          <Link href="/dashboard" className="btn-dash">Acessar plataforma</Link>
+          <Link href="/dashboard" className="btn-dash">Acessar plataforma — Grátis</Link>
           <Link href="/cadastro" className="btn-primary">Fazer cadastro agora</Link>
           <a href="#missao" className="btn-ghost">Entender a missão</a>
         </div>
