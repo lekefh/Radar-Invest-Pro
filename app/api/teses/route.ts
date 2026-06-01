@@ -157,6 +157,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'SUZB3':  { nome: 'Suzano S.A.',                 setor: 'celulose'   },
   'EQTL3':  { nome: 'Equatorial Energia S.A.',     setor: 'energia'    },
   'CMIG4':  { nome: 'Cemig S.A.',                  setor: 'energia'    },
+  'GUAR3':  { nome: 'Guararapes Confecções S.A. (Riachuelo)', setor: 'varejo' },
 }
 
 async function ensureTables() {
@@ -266,6 +267,17 @@ async function ensureTables() {
       VALUES ('BBDC4','1T26',
         15.8, 4.2, 20050, 9660, 1090, 6810, null,
         'ROE 15,8% (+1,4pp vs 4T25). NPL 4,2%. Lucro R$6,81bi (+16,1% a/a). NIM R$20,05bi. Carteira R$1,09tri (+8,4% a/a). PCLD R$9,66bi (+26,5% a/a — crescimento carteira). Guidance 2026 confirmado: LL R$25-30bi, ROE 14-17%. Fonte: Release 1T26 Bradesco.')
+    `
+  }
+
+  // Seed entrada inicial GUAR3 4T24
+  const guar3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='GUAR3' AND trimestre='4T24'`
+  if (!guar3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('GUAR3','4T24',
+        10.8, 18.9, 3000, 85, 0.3, 250, null,
+        'Rec R$3,0B (+10,8% a/a). EBITDA R$565MM (+45% a/a). Mg EBITDA 18,9% (expansão vs 14,4% em 4T23). Lucro R$249,9MM (+8,8% a/a). DL/EBITDA 0,3x — menor desde 2019. Midway EBITDA R$169MM (recuperação plena NPL). Mg Bruta Vestuário 54,3% (anual). 425 lojas. Produção fábrica 41M peças (+33% em 2 anos). SSS 4T24 +10,8%. Maior EBITDA anual da história: R$1,487B. LL 2024: R$235M (reversão do prejuízo de R$34M em 2023). Dívida líquida: R$499M (−52,9% vs dez/2023). Tese: recuperação Midway (NPL normalizado) + alavancagem operacional fábrica + desalavancagem financeira acelerada. Principal variável de monitoramento: NPL Midway >90d. Fonte: Release 4T24 Guararapes mar/2025.')
     `
   }
 
