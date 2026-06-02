@@ -658,18 +658,18 @@
     "method": "fcff",
     "preco_atual": 15.039999961853027,
     "bear": {
-      "preco": 10.66,
-      "upside": -29.1
+      "preco": 11.58,
+      "upside": -23.0
     },
     "base": {
-      "preco": 14.01,
-      "upside": -6.8
+      "preco": 15.26,
+      "upside": 1.5
     },
     "bull": {
-      "preco": 18.37,
-      "upside": 22.1
+      "preco": 20.05,
+      "upside": 33.3
     },
-    "upside_base_legado": -6.84,
+    "upside_base_legado": 1.43,
     "wacc": 17.39,
     "g_terminal": 4.0,
     "shares": 316502170,
@@ -3252,7 +3252,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3570,7 +3570,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3855,7 +3855,7 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4155,7 +4155,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4449,7 +4449,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4749,7 +4749,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5049,7 +5049,7 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5349,7 +5349,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -5643,7 +5643,7 @@
       "mg_ebitda": 0.65,
       "metodologia": "YoY+50% media = R$840MM"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -5937,7 +5937,7 @@
       "mg_ebitda": 1.0023,
       "metodologia": "YoY+13% media = R$1,319MM"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "GUAR3": {
     "ticker": "GUAR3",
@@ -6209,7 +6209,7 @@
       "mg_ebitda": 0.1646,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "01/06/2026 22:28"
+    "atualizado": "01/06/2026 22:29"
   },
   "RIAA3": {
     "ticker": "RIAA3",
