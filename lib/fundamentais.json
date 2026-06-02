@@ -9693,6 +9693,25 @@
       "resumoGeral": "RECV3 atravessa um ciclo operacional e financeiro desafiador, com lucro caindo consistentemente ao longo de 2025-2026 (3T25, 4T25 e 1T26 todos abaixo do esperado), queda de produção em campos maduros e pressão de preço do petróleo. Em contrapartida, a companhia avança na desalavancagem, mantém política de dividendos ativa, ingressou no IDIV e no IGPTW da B3, e realizou reestruturações de governança que podem indicar reposicionamento estratégico. O balanço geral aponta para projeções sob pressão no curto prazo, com algum suporte da melhora estrutural de governança e reputação ESG."
     }
   },
+  "RIAA3": {
+    "nome": "",
+    "setor": "Bens Industriais",
+    "dy": null,
+    "pl": null,
+    "pvp": null,
+    "roe": null,
+    "lpa": null,
+    "divEbit": null,
+    "vpa": null,
+    "merc": null,
+    "evEbit": null,
+    "max52s": null,
+    "gov": null,
+    "govRespostas": {},
+    "nota": 0.0,
+    "atualizado": null,
+    "mr": null
+  },
   "ROMI3": {
     "nome": "Romi S.A.",
     "setor": "Industrials",
