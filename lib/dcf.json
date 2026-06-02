@@ -5652,18 +5652,18 @@
     "method": "fcff",
     "preco_atual": 17.6200008392334,
     "bear": {
-      "preco": NaN,
+      "preco": null,
       "upside": null
     },
     "base": {
-      "preco": NaN,
+      "preco": null,
       "upside": null
     },
     "bull": {
-      "preco": NaN,
+      "preco": null,
       "upside": null
     },
-    "upside_base_legado": NaN,
+    "upside_base_legado": null,
     "wacc": 15.95,
     "g_terminal": 5.0,
     "shares": 3000000000,
@@ -5756,8 +5756,8 @@
         "ebit": 6557.5,
         "nopat": 4918.1,
         "capex": 32.8,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       },
       {
         "ano": 2027,
@@ -5766,8 +5766,8 @@
         "ebit": 7781.1,
         "nopat": 5835.8,
         "capex": 37.1,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       },
       {
         "ano": 2028,
@@ -5776,8 +5776,8 @@
         "ebit": 9138.8,
         "nopat": 6854.1,
         "capex": 41.6,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       },
       {
         "ano": 2029,
@@ -5786,8 +5786,8 @@
         "ebit": 10420.9,
         "nopat": 7815.7,
         "capex": 46.1,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       },
       {
         "ano": 2030,
@@ -5796,8 +5796,8 @@
         "ebit": 11660.6,
         "nopat": 8745.4,
         "capex": 50.3,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       },
       {
         "ano": 2031,
@@ -5806,8 +5806,8 @@
         "ebit": 12810.7,
         "nopat": 9608.0,
         "capex": 54.3,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       },
       {
         "ano": 2032,
@@ -5816,12 +5816,12 @@
         "ebit": 13951.5,
         "nopat": 10463.6,
         "capex": 58.1,
-        "fcl": NaN,
-        "vp_fcl": NaN
+        "fcl": null,
+        "vp_fcl": null
       }
     ],
     "projecoes_indicativas": false,
-    "valor_terminal": NaN,
+    "valor_terminal": null,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -5834,81 +5834,81 @@
         {
           "wacc": 10.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 11.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 12.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 13.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 13.5,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 14.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 15.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         },
         {
           "wacc": 16.0,
           "valores": [
-            NaN,
-            NaN,
-            NaN,
-            NaN,
-            NaN
+            null,
+            null,
+            null,
+            null,
+            null
           ]
         }
       ]
