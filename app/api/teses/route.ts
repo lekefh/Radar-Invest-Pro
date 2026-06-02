@@ -169,9 +169,11 @@ async function ensureTables() {
       nome      TEXT NOT NULL,
       metricas  JSONB NOT NULL DEFAULT '[]',
       stops     JSONB NOT NULL DEFAULT '[]',
+      ri_url    TEXT NOT NULL DEFAULT '',
       criado_em TIMESTAMPTZ DEFAULT NOW()
     )
   `
+  await sql`ALTER TABLE teses_config ADD COLUMN IF NOT EXISTS ri_url TEXT NOT NULL DEFAULT ''`
   await sql`
     CREATE TABLE IF NOT EXISTS teses_entradas (
       id          SERIAL PRIMARY KEY,
@@ -328,12 +330,13 @@ export async function POST(req: NextRequest) {
     const { tipo } = body
 
     if (tipo === 'config') {
-      const { ticker, nome, metricas, stops } = body
+      const { ticker, nome, metricas, stops, ri_url } = body
       await sql`
-        INSERT INTO teses_config (ticker, nome, metricas, stops)
-        VALUES (${ticker}, ${nome}, ${JSON.stringify(metricas)}, ${JSON.stringify(stops)})
+        INSERT INTO teses_config (ticker, nome, metricas, stops, ri_url)
+        VALUES (${ticker}, ${nome}, ${JSON.stringify(metricas)}, ${JSON.stringify(stops)}, ${ri_url ?? ''})
         ON CONFLICT (ticker) DO UPDATE
-        SET nome=${nome}, metricas=${JSON.stringify(metricas)}, stops=${JSON.stringify(stops)}
+        SET nome=${nome}, metricas=${JSON.stringify(metricas)}, stops=${JSON.stringify(stops)},
+            ri_url=COALESCE(NULLIF(${ri_url ?? ''},''), teses_config.ri_url)
       `
       return NextResponse.json({ ok: true })
     }
