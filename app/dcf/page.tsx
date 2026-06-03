@@ -475,6 +475,37 @@ function SecOutros({ e }: { e: any }) {
         </>
       )}
 
+      {/* TIR do Acionista */}
+      {e.tir_acionista && (
+        <>
+          <SecTitle>TIR do Acionista  (Div + JCP + Recompras)</SecTitle>
+          <div style={{ background:'rgba(0,212,160,.06)',border:'1px solid rgba(0,212,160,.2)',borderRadius:'10px',padding:'16px 20px',marginBottom:'20px' }}>
+            <div style={{ fontSize:'12px',color:'#80cbc4',marginBottom:'12px' }}>
+              Retorno implícito considerando apenas o que é efetivamente devolvido ao acionista.
+              Yield bruto = Div+JCP LTM / Preço atual · TIR = Yield + g_terminal
+            </div>
+            <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'12px' }}>
+              {[
+                { label:'Yield Bruto (Div+JCP/P)', val: e.tir_acionista.yield_bruto != null ? f1(e.tir_acionista.yield_bruto) + '% a.a.' : '—' },
+                { label:'TIR Nominal', val: e.tir_acionista.nominal != null ? f1(e.tir_acionista.nominal) + '% a.a.' : '—' },
+                { label:'TIR Real (ex-IPCA 5%)', val: e.tir_acionista.real != null ? f1(e.tir_acionista.real) + '% a.a.' : '—' },
+                { label:'vs. NTN-B 10Y real', val: e.tir_acionista.vs_ntnb != null ? fPct(e.tir_acionista.vs_ntnb) + 'pp' : '—' },
+              ].map(item => (
+                <div key={item.label}>
+                  <div style={{ fontSize:'11px',color:'#6b84a8',marginBottom:'3px' }}>{item.label}</div>
+                  <div style={{ fontSize:'15px',fontWeight:700,color:'#e8edf5' }}>{item.val}</div>
+                </div>
+              ))}
+            </div>
+            {e.tir_acionista.veredito && (
+              <div style={{ marginTop:'12px',paddingTop:'12px',borderTop:'1px solid rgba(0,212,160,.15)',fontSize:'13px',fontWeight:700,color: e.tir_acionista.vs_ntnb > 0 ? '#00d4a0' : '#FFD54F' }}>
+                Veredito: {e.tir_acionista.veredito}
+              </div>
+            )}
+          </div>
+        </>
+      )}
+
       {/* Gordon */}
       {e.gordon && (
         <>
