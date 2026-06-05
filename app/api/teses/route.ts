@@ -158,6 +158,9 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'EQTL3':  { nome: 'Equatorial Energia S.A.',     setor: 'energia'    },
   'CMIG4':  { nome: 'Cemig S.A.',                  setor: 'energia'    },
   'RIAA3':  { nome: 'Riachuelo S.A. (ex-Guararapes)', setor: 'varejo' },
+  'CEAB3':  { nome: 'C&A Modas S.A.',                setor: 'varejo' },
+  'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
+  'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
 }
 
 async function ensureTables() {
