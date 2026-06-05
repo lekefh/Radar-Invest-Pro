@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import dcfRaw from '@/lib/dcf.json'
+import { track } from '@vercel/analytics'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dcfData = dcfRaw as Record<string, any>
@@ -757,6 +758,21 @@ export default function DCFPage() {
       .then(r => r.json())
       .then(d => setPlano(d.plano ?? 'gratuito'))
       .catch(() => setPlano('gratuito'))
+  }, [])
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search)
+    const source = p.get('utm_source')
+    const campaign = p.get('utm_campaign')
+    const content = p.get('utm_content')
+    if (source) {
+      track('dcf_utm_visit', {
+        utm_source: source,
+        utm_medium: p.get('utm_medium') ?? '',
+        utm_campaign: campaign ?? '',
+        utm_content: content ?? '',
+      })
+    }
   }, [])
 
   useEffect(() => {
