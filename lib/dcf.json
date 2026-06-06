@@ -372,7 +372,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "05/06/2026 22:49"
+    "atualizado": "05/06/2026 22:50"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -665,7 +665,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$122MM"
     },
-    "atualizado": "05/06/2026 22:49"
+    "atualizado": "05/06/2026 22:50"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -973,7 +973,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "05/06/2026 22:49"
+    "atualizado": "05/06/2026 22:50"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -3333,7 +3333,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3659,7 +3659,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3952,7 +3952,7 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4260,7 +4260,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4562,7 +4562,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4870,7 +4870,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5178,7 +5178,7 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5486,7 +5486,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -5788,7 +5788,7 @@
       "mg_ebitda": 0.65,
       "metodologia": "YoY+50% media = R$840MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -6090,7 +6090,7 @@
       "mg_ebitda": 1.0023,
       "metodologia": "YoY+13% media = R$1,319MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "GUAR3": {
     "ticker": "GUAR3",
@@ -6363,7 +6363,7 @@
       "mg_ebitda": 0.1646,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -6671,7 +6671,7 @@
       "mg_ebitda": 0.1545,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -6973,7 +6973,7 @@
       "mg_ebitda": 0.178,
       "metodologia": "YoY+-20% media = R$1,648MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -6982,16 +6982,16 @@
     "method": "fcff",
     "preco_atual": 40.88999938964844,
     "bear": {
-      "preco": 20.82,
-      "upside": -49.1
+      "preco": 21.44,
+      "upside": -47.6
     },
     "base": {
-      "preco": 43.53,
-      "upside": 6.5
+      "preco": 44.46,
+      "upside": 8.7
     },
     "bull": {
-      "preco": 67.92,
-      "upside": 66.1
+      "preco": 69.19,
+      "upside": 69.2
     },
     "upside_base_legado": null,
     "wacc": 15.15,
@@ -7191,6 +7191,6 @@
       "mg_ebitda": 0.4714,
       "metodologia": "YoY+-20% media = R$95,760MM"
     },
-    "atualizado": "05/06/2026 22:50"
+    "atualizado": "05/06/2026 22:51"
   }
 }
