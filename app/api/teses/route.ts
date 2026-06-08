@@ -159,6 +159,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'CMIG4':  { nome: 'Cemig S.A.',                  setor: 'energia'    },
   'RIAA3':  { nome: 'Riachuelo S.A. (ex-Guararapes)', setor: 'varejo' },
   'CEAB3':  { nome: 'C&A Modas S.A.',                setor: 'varejo' },
+  'LREN3':  { nome: 'Lojas Renner S.A.',             setor: 'varejo' },
   'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
 }
@@ -294,6 +295,17 @@ async function ensureTables() {
       VALUES ('CMIG4','1T26',
         null, null, 10460, 1500, 2.50, 1790, null,
         'Receita R$10.460MM (+6,3% a/a). EBITDA R$1.790MM (-2,1% a/a). LL R$979MM (-5,8% a/a). CapEx R$1.500MM (+22% a/a — plano R$43,7B 2026-2030). DL/EBITDA 2,5x (vs 1,4x em 1T25 — ciclo CapEx). DL R$17,8B. Margem EBITDA 17,1% (comprimida vs LTM 19%). Pressão: CDI alto (despesa financeira ~R$2,5B/ano) + custo energia comprada +15%. Evento binário: 6ª Revisão Tarifária Periódica (6ª RTP) Cemig D prevista para 2028 — reconhecimento do RAB adicional (de ~R$15B para ~R$28-30B) pode expandir EBITDA regulatório em 60-80%. Fonte: Release 1T26 Cemig mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial LREN3 1T26
+  const lren3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='LREN3' AND trimestre='1T26'`
+  if (!lren3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('LREN3','1T26',
+        3.2, 17.0, 2875, 56.7, -0.47, 257, 4.6,
+        'SSS +3,2% (vestuário +3,7%). Mg Bruta Varejo 56,7% — recorde histórico. Mg EBITDA Varejo 17,0% (+2,7pp a/a). EBITDA Total R$611MM (+4,3% a/a). LL R$257MM (+16,4% a/a — recorde 1T). Caixa líquido R$1,5B (DL/EBITDA LTM -0,47x). CapEx R$106MM (+72% a/a; aceleração abertura lojas). FCL R$258MM (+264% a/a). Digital 16,6% receita (+GMV +7,4%). EBITDA Midway R$123MM (contribuição positiva — NPL normalizado). TIR Real implícita ~12,1% vs NTN-B 7,5% real (+4,6pp). DCF base: R$20,00/ação (Upside ~34% vs cotação R$14,90). Graham Number R$18,53 (acima do mercado). Tese: expansão de lojas acelerada + Midway recuperado + DL negativa + margem bruta recorde = rerating estrutural. Principais riscos: desaceleração consumo doméstico, NPL Midway reestressado, base difícil 2T26 (SSS +19% em 2T25). Fonte: Release 1T26 LREN3 mai/2026.')
     `
   }
 }
