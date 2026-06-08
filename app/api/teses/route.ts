@@ -160,6 +160,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'RIAA3':  { nome: 'Riachuelo S.A. (ex-Guararapes)', setor: 'varejo' },
   'CEAB3':  { nome: 'C&A Modas S.A.',                setor: 'varejo' },
   'LREN3':  { nome: 'Lojas Renner S.A.',             setor: 'varejo' },
+  'PRIO3':  { nome: 'PRIO S.A.',                    setor: 'petroleo' },
   'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
 }
@@ -295,6 +296,17 @@ async function ensureTables() {
       VALUES ('CMIG4','1T26',
         null, null, 10460, 1500, 2.50, 1790, null,
         'Receita R$10.460MM (+6,3% a/a). EBITDA R$1.790MM (-2,1% a/a). LL R$979MM (-5,8% a/a). CapEx R$1.500MM (+22% a/a — plano R$43,7B 2026-2030). DL/EBITDA 2,5x (vs 1,4x em 1T25 — ciclo CapEx). DL R$17,8B. Margem EBITDA 17,1% (comprimida vs LTM 19%). Pressão: CDI alto (despesa financeira ~R$2,5B/ano) + custo energia comprada +15%. Evento binário: 6ª Revisão Tarifária Periódica (6ª RTP) Cemig D prevista para 2028 — reconhecimento do RAB adicional (de ~R$15B para ~R$28-30B) pode expandir EBITDA regulatório em 60-80%. Fonte: Release 1T26 Cemig mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial PRIO3 1T26
+  const prio3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='PRIO3' AND trimestre='1T26'`
+  if (!prio3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('PRIO3','1T26',
+        155.4, 76.1, 6552, 1053, 2.37, 2691, 1.6,
+        'Produção 155,4k boed (+42% a/a — recorde). Lifting cost US$9,4/boe ✓ (mínima desde 2024). EBITDA R$4.984MM (+91% a/a). LL R$2.691MM (+33% a/a). Wahoo: 3 poços conectados (início mar/2026) — 4º poço esperado 2T26 → produção alvo 40k boed. Peregrino(40%): pleno operacional pós-shutdown 3T25. Brent 1T26 US$80,6/bbl. Barris vendidos 14,8MM (recorde). DL/EBITDA LTM 2,37x → meta 1,6x fim-2026 e 1,0x fim-2027. FCL estrutural R$8-10B/ano pós-Wahoo. Guidance: dividendos a partir de 2026 (DY estimado 5-8% ao ano). TIR Real implícita ~9,1% vs NTN-B 7,5% real (+1,6pp). DCF base: R$65/ação (WACC 16,5%; g=3%). Graham 2026e: R$83. Forward P/E 2026: ~5x (excepcional). Tese: colheita do ciclo Wahoo + Peregrino. Principal risco: queda Brent abaixo de $60/bbl por 2+ tri. Fonte: Release 1T26 PRIO mai/2026.')
     `
   }
 
