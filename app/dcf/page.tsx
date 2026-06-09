@@ -430,7 +430,8 @@ function SecSensibilidade({ e }: { e: any }) {
                 </td>
                 {linha.valores.map((v, j) => {
                   const isBase = isBaseWacc && Math.abs(gCols[j] - baseG) < 0.1
-                  const cor = v == null ? '#6b84a8' : v < (e.preco_atual || 999) ? '#ef4444' : '#00d4a0'
+                  const precoRef = precoLive ?? e.preco_atual
+                  const cor = v == null ? '#6b84a8' : v < (precoRef || 999) ? '#ef4444' : '#00d4a0'
                   return (
                     <td key={j} style={{ padding:'8px 14px',textAlign:'center',fontWeight: isBase ? 700 : 600,color: isBase ? '#e8a020' : cor,background: isBase ? 'rgba(232,160,32,.1)' : 'transparent',borderRadius: isBase ? '4px' : '0' }}>
                       {v != null ? `R$${v}` : '—'}
@@ -907,12 +908,7 @@ export default function DCFPage() {
                 <p style={{ fontSize:'14px',color:'#b8c4d4',marginTop:'4px' }}>{emp.company}</p>
                 <p style={{ fontSize:'11px',color:'#6b84a8',marginTop:'3px' }}>
                   {emp.atualizado ?? '—'}
-                  {emp.preco_atual ? ` · Preço no cálculo: R$ ${f2(emp.preco_atual)}` : ''}
-                  {precoLive != null && (
-                    <span style={{ color: precoLive !== emp.preco_atual ? '#e8a020' : '#6b84a8' }}>
-                      {` · Cotação atual: R$ ${f2(precoLive)}`}
-                    </span>
-                  )}
+                  {(precoLive != null || emp.preco_atual) ? ` · Preço no cálculo: R$ ${f2(precoLive ?? emp.preco_atual)}` : ''}
                 </p>
               </div>
 
