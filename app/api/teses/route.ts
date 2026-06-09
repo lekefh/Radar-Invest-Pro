@@ -160,6 +160,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'RIAA3':  { nome: 'Riachuelo S.A. (ex-Guararapes)', setor: 'varejo' },
   'CEAB3':  { nome: 'C&A Modas S.A.',                setor: 'varejo' },
   'LREN3':  { nome: 'Lojas Renner S.A.',             setor: 'varejo' },
+  'MGLU3':  { nome: 'Magazine Luiza S.A.',           setor: 'varejo' },
   'PRIO3':  { nome: 'PRIO S.A.',                    setor: 'petroleo' },
   'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
@@ -311,6 +312,16 @@ async function ensureTables() {
   }
 
   // Seed entrada inicial LREN3 1T26
+  const mglu3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='MGLU3' AND trimestre='1T26'`
+  if (!mglu3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('MGLU3','1T26',
+        -14.3, 65.7, 9205, 7.8, 0.63, -34, -2.1,
+        'Receita R$9.205MM (-2,0% a/a). EBITDA R$718MM (mg 7,8% -0,3pp). LL ajustado R$-34MM (reversão por juros). GMV Total R$15,2B (-5,6% a/a). GMV 3P R$3,9B (-14,3% a/a — pressão Shopee/MELI). Penetração digital 65,7% (-4,0pp). SSS físico +6,9% (motor de sustentação). Luizacred: carteira R$20,4B, PDD +47,5% (⚠️). TPV MagaluPay R$10,5B (+4,3%). Despesa financeira R$568,7MM (+16,5%) = 79% do EBITDA. DL/EBITDA LTM ≈0,63x (gerencial). EV/EBITDA 2,9x (desconto severo vs histórico). Graham Number R$8,06 (leve upside vs R$5,34). TIR Real implícita negativa (~-2,1% vs NTN-B 7,5% real). Tese: opcionalidade na queda da SELIC + leverage operacional. Bull DCF: R$37/ação se SELIC cair a 10% e mg EBITDA atingir 11%. Riscos: SELIC persistente, GMV digital continuando em queda, NPL Luizacred acelerando. Fonte: Release 1T26 MGLU3 mai/2026.')
+    `
+  }
+
   const lren3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='LREN3' AND trimestre='1T26'`
   if (!lren3Entrada[0]) {
     await sql`
