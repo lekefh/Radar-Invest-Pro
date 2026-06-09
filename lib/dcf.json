@@ -2755,7 +2755,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 00:36"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3054,7 +3054,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 00:36"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3333,7 +3333,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 00:36"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3659,7 +3659,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 00:36"
   },
   "KEPL3": {
     "ticker": "KEPL3",
