@@ -372,7 +372,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -665,7 +665,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$122MM"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -973,7 +973,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1284,25 +1284,25 @@
       "mg_ebitda": 0.2571,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "PSSA3": {
     "ticker": "PSSA3",
     "company": "PSSA3 — Porto Seguro",
     "nome": "Porto Seguro",
     "method": "ddm",
-    "preco_atual": 47.880001068115234,
+    "preco_atual": 48.65999984741211,
     "bear": {
       "preco": 41.49,
-      "upside": -13.3
+      "upside": -14.7
     },
     "base": {
       "preco": 47.46,
-      "upside": -0.9
+      "upside": -2.5
     },
     "bull": {
       "preco": 54.71,
-      "upside": 14.3
+      "upside": 12.4
     },
     "upside_base_legado": null,
     "wacc": 17.8,
@@ -1546,18 +1546,18 @@
       ]
     },
     "tir": {
-      "nominal": 27.0,
-      "real": 20.95,
-      "vs_selic": 14.45,
-      "vs_ntnb": 13.65,
+      "nominal": 26.61,
+      "real": 20.58,
+      "vs_selic": 14.08,
+      "vs_ntnb": 13.28,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 2.98,
-      "yield_bruto": 6.23,
-      "nominal": 11.23,
-      "real": 5.93,
-      "vs_ntnb": -1.57,
+      "yield_bruto": 6.13,
+      "nominal": 11.13,
+      "real": 5.84,
+      "vs_ntnb": -1.66,
       "veredito": "Abaixo do RF"
     },
     "gordon": null,
@@ -1566,7 +1566,7 @@
       "preco_formula": null,
       "eps": 5.68,
       "vpa": 24.26,
-      "upside_gn": 16.3,
+      "upside_gn": 14.4,
       "detalhe": "EPS=R$5.68 VPA=R$24.26"
     },
     "proximo_tri": {
@@ -1577,7 +1577,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1876,7 +1876,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2166,7 +2166,7 @@
       "mg_ebitda": 0.635,
       "metodologia": "ADTV 23.0bi/dia (0.98× ref) + tech 12%"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2456,7 +2456,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 1T24"
     },
-    "atualizado": "09/06/2026 00:35"
+    "atualizado": "09/06/2026 17:00"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -2755,7 +2755,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:00"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3054,7 +3054,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:00"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3333,7 +3333,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:00"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3659,14 +3659,14 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:00"
   },
   "KEPL3": {
     "ticker": "KEPL3",
     "company": "KEPL3 — Kepler Weber",
     "nome": "Kepler Weber",
     "method": "fcff",
-    "preco_atual": 6.24,
+    "preco_atual": 6.28,
     "bear": {
       "preco": 6.45,
       "upside": null
@@ -3921,18 +3921,18 @@
       ]
     },
     "tir": {
-      "nominal": 25.11,
-      "real": 19.15,
-      "vs_selic": 12.65,
-      "vs_ntnb": 11.85,
+      "nominal": 24.95,
+      "real": 19.0,
+      "vs_selic": 12.5,
+      "vs_ntnb": 11.7,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 0.43,
-      "yield_bruto": 6.93,
-      "nominal": 11.43,
-      "real": 6.13,
-      "vs_ntnb": -1.37,
+      "yield_bruto": 6.89,
+      "nominal": 11.39,
+      "real": 6.09,
+      "vs_ntnb": -1.41,
       "veredito": "Abaixo do RF"
     },
     "gordon": null,
@@ -3941,7 +3941,7 @@
       "preco_formula": null,
       "eps": 0.85,
       "vpa": 4.57,
-      "upside_gn": 49.8,
+      "upside_gn": 48.9,
       "detalhe": "EPS=R$0.85 VPA=R$4.57"
     },
     "proximo_tri": {
@@ -3952,7 +3952,7 @@
       "mg_ebitda": 0.15,
       "metodologia": "YoY+5% media = R$398MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4260,7 +4260,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4562,7 +4562,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4855,12 +4855,12 @@
       "detalhe": "D0=R$1.58 Ke=14.6% g=5.0%"
     },
     "graham": {
-      "preco_gn": 20.68,
+      "preco_gn": 20.79,
       "preco_formula": null,
-      "eps": 0.93,
+      "eps": 0.94,
       "vpa": 20.43,
-      "upside_gn": -45.8,
-      "detalhe": "EPS=R$0.93 VPA=R$20.43"
+      "upside_gn": -45.5,
+      "detalhe": "EPS=R$0.94 VPA=R$20.43"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -4870,7 +4870,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5178,7 +5178,7 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5486,7 +5486,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -5788,7 +5788,7 @@
       "mg_ebitda": 0.65,
       "metodologia": "YoY+50% media = R$840MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -6075,12 +6075,12 @@
       "detalhe": "D0=R$1.00 Ke=15.9% g=5.0%"
     },
     "graham": {
-      "preco_gn": 12.32,
+      "preco_gn": 12.28,
       "preco_formula": null,
-      "eps": 1.47,
+      "eps": 1.46,
       "vpa": 4.59,
-      "upside_gn": -30.1,
-      "detalhe": "EPS=R$1.47 VPA=R$4.59"
+      "upside_gn": -30.3,
+      "detalhe": "EPS=R$1.46 VPA=R$4.59"
     },
     "proximo_tri": {
       "periodo": "1T26",
@@ -6090,7 +6090,7 @@
       "mg_ebitda": 1.0023,
       "metodologia": "YoY+13% media = R$1,319MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "GUAR3": {
     "ticker": "GUAR3",
@@ -6363,7 +6363,7 @@
       "mg_ebitda": 0.1646,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -6671,7 +6671,7 @@
       "mg_ebitda": 0.1545,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -6973,7 +6973,7 @@
       "mg_ebitda": 0.178,
       "metodologia": "YoY+-20% media = R$1,648MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -7191,7 +7191,7 @@
       "mg_ebitda": 0.4714,
       "metodologia": "YoY+-20% media = R$95,760MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -7484,12 +7484,12 @@
       "detalhe": "D0=R$0.87 Ke=20.2% g=4.0%"
     },
     "graham": {
-      "preco_gn": 18.8,
+      "preco_gn": 18.87,
       "preco_formula": null,
-      "eps": 1.48,
+      "eps": 1.49,
       "vpa": 10.62,
-      "upside_gn": 25.6,
-      "detalhe": "EPS=R$1.48 VPA=R$10.62"
+      "upside_gn": 26.1,
+      "detalhe": "EPS=R$1.49 VPA=R$10.62"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -7499,7 +7499,7 @@
       "mg_ebitda": 0.218,
       "metodologia": "YoY+-20% media = R$2,960MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -7689,12 +7689,12 @@
     "tir_acionista": null,
     "gordon": null,
     "graham": {
-      "preco_gn": 48.88,
+      "preco_gn": 49.48,
       "preco_formula": null,
-      "eps": 3.22,
+      "eps": 3.3,
       "vpa": 32.98,
-      "upside_gn": -20.0,
-      "detalhe": "EPS=R$3.22 VPA=R$32.98"
+      "upside_gn": -19.0,
+      "detalhe": "EPS=R$3.30 VPA=R$32.98"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -7704,6 +7704,314 @@
       "mg_ebitda": 0.6267,
       "metodologia": "YoY+-20% media = R$2,760MM"
     },
-    "atualizado": "09/06/2026 00:36"
+    "atualizado": "09/06/2026 17:01"
+  },
+  "MGLU3": {
+    "ticker": "MGLU3",
+    "company": "MGLU3 — Magazine Luiza S.A.",
+    "nome": "Magazine Luiza S.A.",
+    "method": "fcff",
+    "preco_atual": 5.489999771118164,
+    "bear": {
+      "preco": 10.23,
+      "upside": 86.3
+    },
+    "base": {
+      "preco": 13.44,
+      "upside": 144.8
+    },
+    "bull": {
+      "preco": 18.38,
+      "upside": 234.8
+    },
+    "upside_base_legado": 144.78,
+    "wacc": 20.24,
+    "g_terminal": 4.5,
+    "shares": 775945010,
+    "wacc_ke": 29.05,
+    "wacc_rf": 13.0,
+    "wacc_beta": 3.21,
+    "wacc_erp": 5.0,
+    "wacc_peso_e": 45.3,
+    "wacc_peso_d": 54.7,
+    "g_receita": [
+      1.0,
+      4.0,
+      6.0,
+      6.0,
+      7.0,
+      7.0,
+      6.0
+    ],
+    "mg_ebitda": [
+      8.0,
+      8.5,
+      9.0,
+      9.5,
+      10.0,
+      10.5,
+      11.0
+    ],
+    "historico": [
+      {
+        "ano": "2021",
+        "receita": 35278.0,
+        "ebitda": 1472.0,
+        "mg_ebitda": 4.2,
+        "ebit": 413.7,
+        "fcl": 486.675,
+        "div_liq": 2670.0
+      },
+      {
+        "ano": "2022",
+        "receita": 37299.0,
+        "ebitda": 2096.0,
+        "mg_ebitda": 5.6,
+        "ebit": 977.0,
+        "fcl": 811.5118,
+        "div_liq": 4380.0
+      },
+      {
+        "ano": "2023",
+        "receita": 36768.0,
+        "ebitda": 2009.0,
+        "mg_ebitda": 5.5,
+        "ebit": 905.9,
+        "fcl": 902.5019,
+        "div_liq": 3980.0
+      },
+      {
+        "ano": "2024",
+        "receita": 38038.0,
+        "ebitda": 2963.0,
+        "mg_ebitda": 7.8,
+        "ebit": 1821.8,
+        "fcl": 1542.6214,
+        "div_liq": 2420.0
+      },
+      {
+        "ano": "2025",
+        "receita": 38703.0,
+        "ebitda": 3162.0,
+        "mg_ebitda": 8.2,
+        "ebit": 2000.9,
+        "fcl": 1671.5516,
+        "div_liq": 2910.0
+      },
+      {
+        "ano": "2026*",
+        "receita": 37940.4808,
+        "ebitda": 2983.3325,
+        "mg_ebitda": 7.9,
+        "ebit": 1844.7689,
+        "fcl": -4158.4294,
+        "div_liq": 2000.0
+      }
+    ],
+    "linhas_negocio": [],
+    "projecoes": [
+      {
+        "ano": 2027,
+        "receita": 38319.9,
+        "ebitda": 3065.6,
+        "ebit": 1916.0,
+        "nopat": 1437.0,
+        "capex": 958.0,
+        "fcl": 1571.7,
+        "vp_fcl": 1307.1
+      },
+      {
+        "ano": 2028,
+        "receita": 39852.7,
+        "ebitda": 3387.5,
+        "ebit": 2191.9,
+        "nopat": 1643.9,
+        "capex": 996.3,
+        "fcl": 1628.6,
+        "vp_fcl": 1126.5
+      },
+      {
+        "ano": 2029,
+        "receita": 42243.9,
+        "ebitda": 3801.9,
+        "ebit": 2534.6,
+        "nopat": 1901.0,
+        "capex": 1056.1,
+        "fcl": 1801.3,
+        "vp_fcl": 1036.2
+      },
+      {
+        "ano": 2030,
+        "receita": 44778.5,
+        "ebitda": 4254.0,
+        "ebit": 2910.6,
+        "nopat": 2183.0,
+        "capex": 1119.5,
+        "fcl": 2102.7,
+        "vp_fcl": 1006.0
+      },
+      {
+        "ano": 2031,
+        "receita": 47913.0,
+        "ebitda": 4791.3,
+        "ebit": 3353.9,
+        "nopat": 2515.4,
+        "capex": 1197.8,
+        "fcl": 2410.2,
+        "vp_fcl": 959.0
+      },
+      {
+        "ano": 2032,
+        "receita": 51266.9,
+        "ebitda": 5383.0,
+        "ebit": 3845.0,
+        "nopat": 2883.8,
+        "capex": 1281.7,
+        "fcl": 2804.7,
+        "vp_fcl": 928.1
+      },
+      {
+        "ano": 2033,
+        "receita": 54342.9,
+        "ebitda": 5977.7,
+        "ebit": 4347.4,
+        "nopat": 3260.6,
+        "capex": 1358.6,
+        "fcl": 3224.7,
+        "vp_fcl": 887.5
+      }
+    ],
+    "projecoes_indicativas": false,
+    "valor_terminal": 5177.0,
+    "sensibilidade": {
+      "g_cols": [
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        6.0
+      ],
+      "linhas": [
+        {
+          "wacc": 10.0,
+          "valores": [
+            34.59,
+            38.27,
+            43.17,
+            50.05,
+            60.35
+          ]
+        },
+        {
+          "wacc": 11.0,
+          "valores": [
+            30.14,
+            32.86,
+            36.34,
+            40.99,
+            47.5
+          ]
+        },
+        {
+          "wacc": 12.0,
+          "valores": [
+            26.6,
+            28.66,
+            31.23,
+            34.53,
+            38.93
+          ]
+        },
+        {
+          "wacc": 13.0,
+          "valores": [
+            23.71,
+            25.31,
+            27.25,
+            29.69,
+            32.82
+          ]
+        },
+        {
+          "wacc": 13.5,
+          "valores": [
+            22.46,
+            23.87,
+            25.58,
+            27.7,
+            30.38
+          ]
+        },
+        {
+          "wacc": 14.0,
+          "valores": [
+            21.31,
+            22.57,
+            24.08,
+            25.93,
+            28.24
+          ]
+        },
+        {
+          "wacc": 15.0,
+          "valores": [
+            19.29,
+            20.3,
+            21.49,
+            22.93,
+            24.68
+          ]
+        },
+        {
+          "wacc": 16.0,
+          "valores": [
+            17.56,
+            18.38,
+            19.34,
+            20.48,
+            21.84
+          ]
+        }
+      ]
+    },
+    "tir": {
+      "nominal": 52.8,
+      "real": 45.52,
+      "vs_selic": 39.02,
+      "vs_ntnb": 38.22,
+      "veredito": "Atrativo vs. RF"
+    },
+    "tir_acionista": {
+      "dps_ltm": 0.08,
+      "yield_bruto": 1.48,
+      "nominal": 5.98,
+      "real": 0.93,
+      "vs_ntnb": -6.57,
+      "veredito": "Abaixo do RF"
+    },
+    "gordon": {
+      "preco": 0.34,
+      "upside": -93.7,
+      "d0": 0.081,
+      "d1": 0.0846,
+      "detalhe": "D0=R$0.08 Ke=29.1% g=4.5%"
+    },
+    "graham": {
+      "preco_gn": 7.68,
+      "preco_formula": null,
+      "eps": 0.18,
+      "vpa": 14.56,
+      "upside_gn": 39.9,
+      "detalhe": "EPS=R$0.18 VPA=R$14.56"
+    },
+    "proximo_tri": {
+      "periodo": "2T26",
+      "receita": 7307.2,
+      "ebitda": 586.3,
+      "ll": 42.3,
+      "mg_ebitda": 0.0802,
+      "metodologia": "YoY+-20% media = R$7,307MM"
+    },
+    "atualizado": "09/06/2026 17:01"
   }
 }
