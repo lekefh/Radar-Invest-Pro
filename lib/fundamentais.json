@@ -2542,13 +2542,47 @@
     "nota": 6.8,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 15:07",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
       "projImpacto": "Neutro",
-      "resumo": "",
-      "fatos": [],
-      "resumoGeral": ""
+      "resumo": "Bradespar (BRAP4) é holding pura com 100% de exposição à Vale. DY de ~13% nos últimos 12 meses, com R$587 MM distribuídos (R$0,89/ação em março/26). Principal risco: desconto de holding estrutural e ciclo do minério de ferro.",
+      "fatos": [
+        {
+          "titulo": "Bradespar distribui R$ 587 MM em dividendos e JCP — R$0,89 por ação pago em março/26",
+          "data": "2026-03-13",
+          "categoria": "Dividendos",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "A companhia aprovou e pagou R$587 MM em dividendos e JCP, com R$0,89 por ação PN em 13/03/2026. O DY acumulado nos últimos 12 meses atingiu ~13%, posicionando BRAP4 como um dos maiores pagadores de proventos do Ibovespa.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter premissa de payout elevado (80-90% do lucro) no modelo DCF, condicionado à política de dividendos da Vale, que repassa proventos integralmente à Bradespar."
+        },
+        {
+          "titulo": "Desconto de holding estrutural: BRAP4 vale menos que sua participação em Vale",
+          "data": "2026-05-01",
+          "categoria": "Estratégico",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Alto",
+          "descricao": "BRAP4 é negociada com desconto de 15-25% em relação ao valor de mercado de sua participação na Vale — estrutura típica de holding pura. Esse desconto representa destruição de valor ao acionista e não possui catalisador óbvio de fechamento no curto prazo.",
+          "sugestao_governanca": "Verificar se o Conselho avalia alternativas de simplificação da estrutura — fusão direta com Vale ou conversão de participação seria o maior catalisador de valorização.",
+          "sugestao_projecao": "Aplicar desconto de holding de 20% sobre o NAV da participação em Vale ao calcular o valor intrínseco de BRAP4. O desconto tende a se ampliar em ciclos de baixa do minério."
+        },
+        {
+          "titulo": "Resultado 100% ligado à Vale: minério em queda pressiona projeções para 2026",
+          "data": "2026-04-01",
+          "categoria": "Operacional",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "Bradespar não tem operações próprias — o lucro LTM de R$782 MM reflete integralmente os dividendos recebidos da Vale. Com preço do minério abaixo de US$100/t e demanda chinesa desacelerando, a geração futura de proventos está diretamente ameaçada.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Usar premissa de preço do minério Fe62% em US$95-105/t para 2026-27 como principal variável do modelo. Cada US$10/t de variação impacta ~15% o resultado da Vale e os dividendos da Bradespar."
+        }
+      ],
+      "resumoGeral": "Bradespar (BRAP4) é uma holding pura com 100% de sua tese atrelada ao desempenho da Vale. Em 2026, pagou R$587 MM em proventos (DY ~13%), consolidando sua posição como pagadora de dividendos robusta. O desconto estrutural de holding (15-25% sobre o NAV da Vale) representa destruição de valor sem catalisador óbvio de fechamento. O risco central é o ciclo do minério de ferro — com demanda chinesa desacelerando, a capacidade de distribuição futura de dividendos depende do posicionamento da Vale nesse ciclo. O valuation correto de BRAP4 é por NAV descontado do holding, não por múltiplos de empresas operacionais."
     }
   },
   "BRAV3": {
@@ -2687,13 +2721,47 @@
     "nota": 6.2,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 15:08",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
       "projImpacto": "Neutro",
-      "resumo": "",
-      "fatos": [],
-      "resumoGeral": ""
+      "resumo": "Camil Alimentos (CAML3) encerrou o ano fiscal 2025 com receita de R$11,1bi e lucro de R$148 MM. P/L de 7,4x e P/VP de 0,57x indicam desconto. Margens estruturalmente baixas pela natureza de commodity dos produtos (arroz, feijão, açúcar, pescados).",
+      "fatos": [
+        {
+          "titulo": "Camil encerra ano fiscal 2025 com receita de R$ 11,1 bilhões e lucro de R$ 148 MM",
+          "data": "2026-05-01",
+          "categoria": "Resultado",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "A Camil reportou receita líquida de R$11,1bi no ano fiscal encerrado em fevereiro de 2026, com lucro de R$148 MM. A margem líquida de ~1,3% é estrutural para o setor de alimentos básicos, com poder de precificação limitado e alta sensibilidade ao ciclo de custos agrícolas.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Crescimento de receita deve ser monitorado via volume (expansão geográfica/SKUs), não via pricing. Manter margem EBITDA em 6-8% nas premissas de longo prazo."
+        },
+        {
+          "titulo": "Lucro do 3T24 caiu 69% evidenciando volatilidade estrutural da margem",
+          "data": "2024-10-15",
+          "categoria": "Resultado",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "O lucro líquido do 3T24 caiu 69% YoY, reflexo de pressão de custos de matérias-primas (arroz, açúcar) e margens comprimidas. A volatilidade trimestral é estrutural no setor de alimentos básicos e dificulta projeções lineares.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Usar média histórica de margem EBITDA (6-8%) em vez de projeções trimestrais — a sazonalidade de safras torna o resultado trimestral pouco representativo da performance estrutural."
+        },
+        {
+          "titulo": "Múltiplos deprimidos: P/L 7,4x e P/VP 0,57x — DY de 7,5% a R$4,91",
+          "data": "2026-06-08",
+          "categoria": "Outros",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "CAML3 negocia a P/L de 7,4x e P/VP de 0,57x — múltiplos abaixo do histórico do setor de alimentos. DY de 7,5% nos últimos 12 meses reforça tese de valor. A cotação a R$4,91 representa queda de ~33% do máximo de 52 semanas (R$7,40).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "P/VP de 0,57x implica que o mercado não está precificando o valor dos ativos de distribuição e marcas consolidadas. Oportunidade de entrada se o ciclo de custos agrícolas normalizar em 2026-27."
+        }
+      ],
+      "resumoGeral": "Camil Alimentos (CAML3) opera no segmento de alimentos básicos (arroz, feijão, açúcar, pescados e condimentos) com receita de R$11,1bi no ano fiscal 2025. A margem líquida estruturalmente baixa (~1,3%) reflete a natureza de commodity do negócio. O múltiplo P/L de 7,4x e P/VP de 0,57x sinalizam desconto relevante, com DY de 7,5%. O principal driver de resultado é o ciclo de preços de matérias-primas: em anos de safra abundante, margens se expandem; em anos de choques, o lucro é severamente pressionado (ex: -69% no 3T24). A tese de investimento baseia-se em resiliência de demanda (alimentos essenciais), rede de distribuição consolidada e expansão geográfica na América Latina."
     }
   },
   "CASH3": {
@@ -2810,13 +2878,47 @@
     "nota": 1.4,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 15:09",
-      "alerta": false,
-      "govImpacto": "Neutro",
-      "projImpacto": "Neutro",
-      "resumo": "",
-      "fatos": [],
-      "resumoGeral": ""
+      "data": "2026-06-08 15:00",
+      "alerta": true,
+      "govImpacto": "Positivo",
+      "projImpacto": "Alto",
+      "resumo": "ALERTA: CBA (CBAV3) anunciou venda do controle por R$10,50/ação (R$4,7bi) em janeiro/26 — tese passa a ser de arbitragem de M&A. Tag along 100% garante o preço aos minoritários. Prejuízo de R$164MM no 4T25.",
+      "fatos": [
+        {
+          "titulo": "ALERTA: Venda do controle da CBA por R$10,50/ação (R$4,7 bi) — mudança total de tese",
+          "data": "2026-01-29",
+          "categoria": "Estratégico",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Alto",
+          "impacto_projecoes": "Alto",
+          "descricao": "A CBA anunciou venda de 68,6% do capital por R$10,50/ação, totalizando R$4,7 bilhões. Evento estrutural que muda completamente a tese de investimento. O preço de R$10,50 configura gatilho de tag along para minoritários de CBAV3 (ON — tag along 100% garantido por lei). Cotação atual ~R$10,24 reflete precificação com leve desconto por risco de fechamento.",
+          "sugestao_governanca": "Verificar obrigação de OPA por tag along e prazo de aprovação regulatória (CADE se aplicável). Monitorar comunicados ao mercado sobre condições precedentes e cronograma.",
+          "sugestao_projecao": "Com a venda de controle, a precificação passa a ser event-driven: preço justo converge para R$10,50 menos custo de carrego. Projeções de DCF operacional ficam secundárias até o fechamento."
+        },
+        {
+          "titulo": "CBA registra prejuízo de R$ 164 MM no 4T25 — piora operacional",
+          "data": "2026-03-01",
+          "categoria": "Resultado",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "A companhia reportou prejuízo de R$164 MM no 4T25, com receita líquida de R$2,2bi e EBITDA ajustado de R$257 MM. A deterioração operacional reflete pressão nos preços do alumínio e aumento de custos energéticos, confirmando que o valuation da empresa é suportado pelo evento de M&A, não pelos fundamentos.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Resultado operacional fraco confirma que a posição é de arbitragem. Aguardar fechamento da transação antes de recalibrar premissas operacionais."
+        },
+        {
+          "titulo": "Assembleia de abril/26 aprova R$ 28,7 MM em dividendos",
+          "data": "2026-04-15",
+          "categoria": "Dividendos",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A assembleia aprovou R$28,7 MM em dividendos do exercício 2025 — valor modesto que reforça o foco da gestão em preservar caixa durante a transação de venda do controle.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Dividendo irrelevante para a tese atual. O retorno potencial está no tag along a R$10,50/ação."
+        }
+      ],
+      "resumoGeral": "CBA (CBAV3) está em processo de mudança de controle desde janeiro/26, quando foi anunciada a venda de 68,6% do capital por R$10,50/ação (R$4,7bi). A tese é essencialmente de arbitragem de M&A — a cotação (~R$10,24) desconta leve risco de fechamento. O resultado operacional do 4T25 foi fraco (prejuízo R$164 MM), confirmando que a empresa não sustentaria o valuation pelos fundamentos. O tag along de 100% garante que minoritários recebam R$10,50/ação se a operação se concretizar. Monitorar aprovação regulatória e prazo de fechamento como principais catalisadores e riscos da posição."
     }
   },
   "CEAB3": {
@@ -2849,13 +2951,58 @@
     "nota": 8.7,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 15:09",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
-      "projImpacto": "Neutro",
-      "resumo": "",
-      "fatos": [],
-      "resumoGeral": ""
+      "projImpacto": "Positivo",
+      "resumo": "C&A Modas (CEAB3) entregou 1T26 com lucro ajustado +218%, receita R$1,6bi (+0,5%) e SSS vestuário +5-6%. EBITDA de R$116MM recuou 6% por pressão do segmento financeiro. Programa de recompra de ações lançado. DCF indica +62% de upside.",
+      "fatos": [
+        {
+          "titulo": "C&A: lucro ajustado +218% no 1T26 e novo programa de recompra de ações",
+          "data": "2026-05-07",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Baixo",
+          "impacto_projecoes": "Médio",
+          "descricao": "Lucro ajustado (pré-IFRS) de R$8 MM no 1T26, avanço de 218%. Receita vestuário cresceu 6,2% para R$1,44bi. SSS vestuário de +5-6%. Novo programa de recompra de ações de 18 meses aprovado — sinalização de que a gestão considera a ação descontada vs. valor intrínseco.",
+          "sugestao_governanca": "Programa de recompra melhora o EPS e sinaliza confiança da gestão. Monitorar uso de caixa vs. necessidade de investimento operacional.",
+          "sugestao_projecao": "SSS de +5% sustenta crescimento de receita acima da inflação. Revisar g_receita do Ano 1 para +8-10%, incorporando SSS consistente."
+        },
+        {
+          "titulo": "EBITDA recua 6% para R$ 116 MM — segmento financeiro pressiona margens",
+          "data": "2026-05-07",
+          "categoria": "Operacional",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "EBITDA consolidado caiu 6% para R$116MM, com margem de 7% (-0,5pp). A pressão vem do segmento de serviços financeiros (cartão próprio), com inadimplência elevada no contexto de juros altos. Lucro líquido IFRS recuou 59% para R$1,7 MM — diferença para o ajustado reflete IFRS 16 (arrendamentos).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Monitorar NPL do cartão C&A. Se inadimplência não recuar com a queda da SELIC em 2026-27, revisar mg_ebitda para baixo."
+        },
+        {
+          "titulo": "C&A paga R$ 158 MM em JCP e DY implícito de ~15% nos últimos 12 meses",
+          "data": "2026-04-01",
+          "categoria": "Dividendos",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A companhia aprovou pagamento de R$158 MM em JCP, reforçando o compromisso com remuneração ao acionista mesmo com resultado trimestral pressionado. DY dos últimos 12 meses próximo de 15%.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Considerar payout de 70-80% no modelo de dividendos via JCP, que reduz base fiscal e aumenta retorno ao acionista."
+        },
+        {
+          "titulo": "CEAB3 a R$11 com DCF indicando R$18 (BASE +62%) — máximo de 52 semanas R$23,50",
+          "data": "2026-06-08",
+          "categoria": "Outros",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "A cotação atual (~R$11) com P/VP de 1,9x e P/L de 16x sugere desconto relevante em relação ao DCF (preço justo base R$18). Queda de 53% do máximo de 52 semanas (R$23,50) posiciona o papel como candidato a reversão se a normalização de margens se confirmar em 2026-27.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Principal gatilho de upside é a recuperação da margem EBITDA para 9-10% à medida que as despesas financeiras do crédito se normalizam com a queda da SELIC."
+        }
+      ],
+      "resumoGeral": "C&A Modas (CEAB3) entregou 1T26 misto: o segmento de vestuário performou bem (SSS +5-6%, receita +6,2%), mas o EBITDA consolidado recuou 6% por pressão do segmento de serviços financeiros em ambiente de juros altos. O lucro ajustado de R$8 MM (+218%) reflete a melhora operacional do core business. O DCF aponta upside de +62% no cenário base (R$18 vs. R$11 cotação), respaldado por SSS consistente. O programa de recompra de ações sinaliza que a gestão considera o papel descontado. Monitorar NPL do cartão C&A e a trajetória da SELIC como principais catalisadores de reversão de margem."
     }
   },
   "CESP6": {
@@ -2888,13 +3035,36 @@
     "nota": 1.2,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 15:09",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
       "projImpacto": "Neutro",
-      "resumo": "",
-      "fatos": [],
-      "resumoGeral": ""
+      "resumo": "CESP6 é ação preferencial da Companhia Energética de São Paulo, controlada por Votorantim+CPPIB desde 2018. Tag along de 100%. Ação com liquidez reduzida e resultados vinculados à gestão da Votorantim Energia.",
+      "fatos": [
+        {
+          "titulo": "CESP privatizada em 2018: Votorantim + CPPIB assumem controle com 80,2% das ON",
+          "data": "2018-10-01",
+          "categoria": "Estratégico",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Alto",
+          "impacto_projecoes": "Alto",
+          "descricao": "A CESP foi privatizada em 2018 pelo consórcio Votorantim + CPPIB (fundo de pensão canadense). O controlador detém 80,2% das ações ON e apenas 13,7% das PN (CESP6), gerando assimetria de governança. CESP6 oferece tag along de 100% em caso de troca de controle.",
+          "sugestao_governanca": "Verificar se decisões estratégicas de investimento e desinvestimento passam por aprovação independente de minoritários. A concentração de ON no controlador reduz o poder de veto dos detentores de CESP6.",
+          "sugestao_projecao": "Monitorar estratégia da Votorantim Energia — qualquer alienação de ativos ou fusão com outras concessionárias pode ser gatilho de tag along ou impactar premissas de FCL."
+        },
+        {
+          "titulo": "Liquidez reduzida de CESP6 gera prêmio de iliquidez e dificulta formação eficiente de preço",
+          "data": "2026-06-08",
+          "categoria": "Outros",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Baixo",
+          "descricao": "CESP6 (PN) possui free float muito baixo — controlador detém apenas 13,7% das preferenciais. O volume diário de negociação é historicamente baixo, gerando spread de bid/ask elevado e dificultando entrada/saída de posições relevantes.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Adicionar prêmio de iliquidez de 1-2pp no WACC do modelo DCF para CESP6, refletindo a dificuldade de monetizar posição no mercado secundário."
+        }
+      ],
+      "resumoGeral": "CESP6 é a ação preferencial da Companhia Energética de São Paulo, privatizada em 2018 pelo consórcio Votorantim + CPPIB. A estrutura dual de capital com baixa participação do controlador no PN (13,7%) e liquidez reduzida são os principais fatores de risco para detentores de CESP6. O tag along de 100% garante proteção em caso de mudança de controle. A empresa atua no setor de energia elétrica (geração e transmissão) com receita regulada, o que confere previsibilidade de fluxo de caixa. Monitorar comunicados ao mercado sobre investimentos, revisões tarifárias da ANEEL e eventuais operações societárias no grupo Votorantim Energia."
     }
   },
   "CMIG3": {
@@ -2927,13 +3097,47 @@
     "nota": 5.7,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 15:09",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
       "projImpacto": "Neutro",
-      "resumo": "",
-      "fatos": [],
-      "resumoGeral": ""
+      "resumo": "Cemig (CMIG3) reportou 1T26 com receita R$10,5bi (+6%), EBITDA R$1,8bi (-1%) e lucro R$979MM (-4%). Alavancagem crescente com plano de R$43,7bi em investimentos 2026-2030. DY projetado ~6-7% para 2026.",
+      "fatos": [
+        {
+          "titulo": "Cemig: lucro cai 4% no 1T26 para R$ 979 MM com alavancagem em alta",
+          "data": "2026-05-14",
+          "categoria": "Resultado",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Lucro líquido de R$979 MM no 1T26 (-4% YoY), EBITDA de R$1,8bi (-1%) e receita de R$10,5bi (+6%). A compressão de resultado reflete aumento de despesas financeiras pelo crescimento da dívida no contexto do plano de investimentos de R$43,7bi para 2026-2030 (R$6,7bi somente em 2026).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Elevar custo de dívida (Kd) nas premissas do WACC para refletir maior alavancagem. Monitorar DL/EBITDA — se ultrapassar 3,5x, revisar prêmio de risco."
+        },
+        {
+          "titulo": "Plano de capex de R$ 43,7 bilhões até 2030 — maior da história da Cemig",
+          "data": "2026-04-01",
+          "categoria": "Estratégico",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "O plano de R$43,7bi até 2030 (R$6,7bi em 2026) visa expansão da distribuição e transmissão. Positivo para o longo prazo — expande RAB e RAP, gerando crescimento regulado de receita. No curto prazo, eleva alavancagem e pressiona o FCL. Risco de execução e atraso regulatório (ANEEL) são fatores a monitorar.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Aumentar capex/receita para ~18-20% nos próximos 3 anos. O crescimento do RAB deve compensar via revisão tarifária, mas o período de transição tem menor FCL."
+        },
+        {
+          "titulo": "Dividendos projetados em R$ 0,92/ação para 2026 — DY de 6-7%",
+          "data": "2026-04-01",
+          "categoria": "Dividendos",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Com lucro projetado de ~R$4,2bi para 2026 e payout de 63%, a Cemig deve distribuir ~R$0,92/ação, resultando em DY de 6-7% na cotação atual. O estatuto prevê distribuição mínima de 50% do lucro.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Usar payout de 55-63% no modelo DDM. O dividendo sustentável depende do sucesso na execução do plano de investimentos sem deterioração excessiva da alavancagem."
+        }
+      ],
+      "resumoGeral": "Cemig (CMIG3/CMIG4) reportou 1T26 com leve deterioração: lucro R$979 MM (-4%) e EBITDA R$1,8bi (-1%), impactados por crescimento das despesas financeiras. A receita de R$10,5bi (+6%) reflete reajuste tarifário, mas não compensou o custo crescente da dívida. O plano de investimentos de R$43,7bi até 2030 é positivo para o longo prazo (expansão de RAB e RAP), mas pressiona o FCL e a alavancagem no curto prazo. O dividendo projetado de ~R$0,92/ação (~6-7% DY) mantém a ação no radar de investidores de renda. Risco central: execução do capex sem deterioração de rating de crédito e sem que a alavancagem ultrapasse 3,5x DL/EBITDA."
     }
   },
   "CMIG4": {
@@ -6799,13 +7003,58 @@
     "nota": 6.0,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 16:53",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
-      "projImpacto": "Neutro",
-      "resumo": "Análise indisponível (resposta truncada ou inválida).",
-      "fatos": [],
-      "resumoGeral": "Análise indisponível (resposta truncada ou inválida)."
+      "projImpacto": "Negativo",
+      "resumo": "JBS (JBSS3) reportou 1T26 com receita US$21,6bi (+11%), mas lucro caiu 56% para US$221MM e EBITDA recuou 26% para US$1,13bi (margem 5,2%). Beef NA com EBITDA negativo (-US$267MM). Seara compensou com margem de 15,5%.",
+      "fatos": [
+        {
+          "titulo": "JBS: lucro cai 56% no 1T26 para US$ 221 MM com Beef North America no vermelho",
+          "data": "2026-05-13",
+          "categoria": "Resultado",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "Lucro líquido de US$221 MM no 1T26, queda de 56% sobre o 1T25. EBITDA de US$1,13bi (-26%), com margem de 5,2% — abaixo do histórico médio de 8-9%. Principal vilão: JBS Beef North America com EBITDA negativo de US$267 MM e margem de -3,7%, reflexo do ciclo desfavorável do gado nos EUA (custo elevado de boi gordo + preços de processados pressionados).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Beef NA está em fundo de ciclo — a reversão historicamente leva 2-4 trimestres. Modelar recuperação gradual de margem a partir do 3T26, voltando para 4-5% até fim de 2026."
+        },
+        {
+          "titulo": "Seara entrega margem EBITDA de 15,5% — principal driver positivo do trimestre",
+          "data": "2026-05-13",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Seara (frango/suíno Brasil) registrou margem EBITDA de 15,5% no 1T26, com receita de US$2,379bi — principal responsável pela sustentação do resultado consolidado. Forte demanda de proteína aviária no Brasil e exportações robustas para Oriente Médio e Ásia.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter premissa de margem Seara em 13-15% para 2026. Ciclo favorável do frango deve perdurar 2-3 trimestres adicionais dada a oferta controlada de grãos."
+        },
+        {
+          "titulo": "JBS Brasil beneficiada pela forte demanda internacional de carne bovina",
+          "data": "2026-05-13",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "JBS Brasil foi um dos pontos positivos do trimestre, beneficiado pela forte demanda internacional — especialmente China e Oriente Médio — com premium de preço nas exportações. O câmbio BRL/USD favorável amplifica as margens em reais do segmento exportador.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter exposição ao segmento brasileiro como hedge natural contra o ciclo desfavorável nos EUA. Câmbio e demanda chinesa são variáveis-chave para projetar o resultado de JBS Brasil."
+        },
+        {
+          "titulo": "Receita global cresce 11% para US$ 21,6 bilhões — escala e diversificação como moat",
+          "data": "2026-05-13",
+          "categoria": "Resultado",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Receita global de US$21,6bi (+11% YoY) demonstra crescimento via volume e diversificação geográfica mesmo com margens pressionadas. A JBS é o maior frigorífico do mundo — nenhum concorrente tem estrutura similar de diversificação de proteína e geográfica.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Crescimento de receita de 10-12% é sustentado. A recuperação do resultado depende da margem, não do volume — monitorar ciclo de preço do boi nos EUA como principal variável de curto prazo."
+        }
+      ],
+      "resumoGeral": "JBS (JBSS3) reportou 1T26 pressionado pelo ciclo desfavorável do gado nos EUA: lucro caiu 56% para US$221 MM e EBITDA recuou 26% para US$1,13bi (margem 5,2%). O JBS Beef North America gerou EBITDA negativo de US$267 MM — principal driver negativo. Seara (frango/suíno Brasil) compensou com margem de 15,5%, e JBS Brasil se beneficiou da forte demanda de exportação. A tese na JBS é essencialmente cíclica: o fundo do ciclo do Beef NA é o maior catalisador de upside quando os preços do boi gordo nos EUA normalizarem. A diversificação geográfica e de proteínas é o diferencial competitivo — nenhum concorrente tem estrutura similar. Risco adicional: volatilidade cambial BRL/USD dado que resultados são reportados em dólar."
     }
   },
   "JHSF3": {
@@ -8195,13 +8444,36 @@
     "nota": 5.4,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 17:08",
+      "data": "2026-06-08 15:00",
       "alerta": false,
       "govImpacto": "Neutro",
       "projImpacto": "Neutro",
-      "resumo": "Análise indisponível (resposta truncada ou inválida).",
-      "fatos": [],
-      "resumoGeral": "Análise indisponível (resposta truncada ou inválida)."
+      "resumo": "Motiva Infraestrutura (MOTV3) aprovou R$124 MM em dividendos complementares de 2025, pagos em abril/26 (R$0,062/ação). Faturamento LTM R$18,63bi e lucro R$3,6bi. P/L 9,46x, DY 2,44%.",
+      "fatos": [
+        {
+          "titulo": "Motiva aprova R$ 124 MM em dividendos complementares — data base 20/04/2026",
+          "data": "2026-04-10",
+          "categoria": "Dividendos",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A companhia aprovou R$124.082.805,49 em dividendos complementares do exercício 2025, equivalente a R$0,062/ação. Data-base: 20/04/2026, crédito: 28/04/2026. DY dos últimos 12 meses de 2,44% — abaixo da média de infraestrutura, mas consistente com política de crescimento via reinvestimento.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Payout relativamente baixo sugere reinvestimento de capital no crescimento da frota/infraestrutura. Manter premissa de dividendos crescentes conforme a empresa amadurece."
+        },
+        {
+          "titulo": "Motiva com faturamento LTM de R$ 18,6 bilhões e lucro de R$ 3,6 bilhões — P/L 9,4x",
+          "data": "2026-06-08",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Com faturamento LTM de R$18,63bi e lucro de R$3,6bi, a Motiva negocia a P/L de 9,46x e P/VP de 1,95x — múltiplos razoáveis para empresa de infraestrutura de mobilidade com receita recorrente. Margem líquida implícita de ~19% é acima da média do setor de transporte.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "P/L de 9,4x para empresa com margem de 19% representa múltiplo atrativo vs. custo de capital se o crescimento de receita for sustentado. Verificar contratos de concessão de longo prazo que garantam previsibilidade."
+        }
+      ],
+      "resumoGeral": "Motiva Infraestrutura de Mobilidade (MOTV3) opera no segmento de mobilidade/transporte com faturamento LTM de R$18,63bi e lucro de R$3,6bi. O pagamento de R$124 MM em dividendos complementares de 2025 sinaliza política de proventos ativa, embora o DY de 2,44% seja modesto para o setor. Os múltiplos de P/L 9,4x e P/VP 1,95x são atrativos para o setor de infraestrutura. O principal driver da tese é a previsibilidade dos contratos de mobilidade e a capacidade de crescimento da frota e cobertura geográfica. Dados operacionais detalhados (frota, cidades, taxa de utilização) devem ser consultados no RI para análise mais granular da qualidade da receita."
     }
   },
   "MOVI3": {
@@ -9710,7 +9982,71 @@
     "govRespostas": {},
     "nota": 9.5,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
-    "mr": null
+    "mr": {
+      "data": "2026-06-08 15:00",
+      "alerta": false,
+      "govImpacto": "Positivo",
+      "projImpacto": "Positivo",
+      "resumo": "Riachuelo (RIAA3) reverteu 6 anos de prejuízo no 1T26 com lucro de R$5MM. SSS vestuário +10,1% (11º trimestre consecutivo positivo), EBITDA R$268MM (+14,1%), margem bruta 54,9%. XP classificou como resultados fortes.",
+      "fatos": [
+        {
+          "titulo": "Riachuelo reverte 6 anos de prejuízo: primeiro lucro do 1T desde 2020 (R$ 5 MM)",
+          "data": "2026-05-08",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "A Riachuelo reportou lucro líquido de R$5 MM no 1T26, revertendo o prejuízo que persistia nos primeiros trimestres dos últimos 6 anos. Marco significativo na recuperação operacional, impulsionado pelo SSS consistente (+10,1%) e melhora de margem bruta do vestuário (54,9%, +1,2pp). XP classificou o resultado como forte.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Ponto de inflexão operacional confirmado. Aumentar premissa de LL para os próximos trimestres, considerando alavancagem operacional positiva do crescimento de receita sobre base de custos semi-fixos."
+        },
+        {
+          "titulo": "SSS vestuário +10,1% — 11º trimestre consecutivo de crescimento orgânico",
+          "data": "2026-05-08",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "SSS do vestuário cresceu 10,1% no 1T26, marcando o 11º trimestre consecutivo de crescimento orgânico. Receita de vestuário totalizou R$1,4bi (+10,2% YoY). Ticket médio por loja atingiu R$784 mil/mês (+11,2%), demonstrando ganho de produtividade sem dependência de abertura acelerada de novas unidades.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "SSS de 11 trimestres consecutivos é prova de força competitiva. Manter premissa de crescimento de receita vestuário em +8-10% para 2026, com alavancagem operacional gerando expansão de margem."
+        },
+        {
+          "titulo": "EBITDA cresce 14,1% para R$ 268 MM — margem bruta vestuário atinge 54,9% (+1,2pp)",
+          "data": "2026-05-08",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "EBITDA consolidado de R$268MM (+14,1%), margem EBITDA de 11,5% (+0,7pp). Margem bruta do vestuário alcançou 54,9% (+1,2pp), demonstrando melhora na gestão de mix de produtos, precificação e redução de descontos.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Revisar mg_ebitda para 12-13% no médio prazo dado o momentum de expansão. Alavancagem operacional deve amplificar a margem conforme a receita cresce sobre custos semi-fixos."
+        },
+        {
+          "titulo": "Nova loja Barigüi (Curitiba) incorpora formato completo — retomada da expansão e renovação",
+          "data": "2026-05-08",
+          "categoria": "Estratégico",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A unidade Barigüi ParkShopping tornou-se a primeira loja a incorporar completamente o novo formato de ecossistema da Riachuelo, marcando a retomada da agenda de expansão e renovação. Novo formato integra moda, decoração e serviços financeiros em conceito omnichannel.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Retomada de expansão pode adicionar 20-30 novas unidades ao ano. Monitorar payback das novas aberturas como proxy da qualidade da expansão."
+        },
+        {
+          "titulo": "Ação recua 2,2% no dia do resultado apesar de resultado forte — sinal de precificação antecipada",
+          "data": "2026-05-08",
+          "categoria": "Outros",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Apesar do resultado classificado pela XP como forte, a ação recuou 2,17% no dia da divulgação — reação típica quando o resultado já estava parcialmente precificado. O DY dos últimos 12 meses é de ~29% pelo preço deprimido das ações.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Upside adicional depende de SSS e margens continuando crescentes nos próximos trimestres. Monitorar 2T26 como confirmação da tendência de lucro positivo."
+        }
+      ],
+      "resumoGeral": "Riachuelo (RIAA3) marcou ponto de inflexão histórico no 1T26: primeiro lucro líquido em um primeiro trimestre desde 2020, revertendo 6 anos de prejuízo sazonais. SSS de vestuário de +10,1% (11º trimestre consecutivo), EBITDA avançou 14,1% para R$268MM e margem bruta do vestuário atingiu 54,9% (+1,2pp). O principal driver é o ganho de produtividade por loja (R$784k/mês, +11,2%) sem dependência de abertura acelerada. A retomada da agenda de expansão (formato Barigüi) e a melhora do segmento financeiro com queda da SELIC são catalisadores de upside. A ação negocia com DY implícito elevado (~29%) pelo preço deprimido — se o ciclo de lucros se confirmar em 2026, existe potencial significativo de re-rating."
+    }
   },
   "ROMI3": {
     "nome": "Romi S.A.",
