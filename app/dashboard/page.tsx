@@ -553,7 +553,12 @@ export default function Dashboard() {
         else cmp=(av as number)-(bv as number)
         if(cmp!==0) return dir==='asc'?cmp:-cmp
       }
-      return 0
+      // desempate automático: maior gov → maior nota → ticker a-z
+      const govCmp=((b.gov??-1)-(a.gov??-1))
+      if(govCmp!==0) return govCmp
+      const notaCmp=((b.nota??-1)-(a.nota??-1))
+      if(notaCmp!==0) return notaCmp
+      return (a.ticker??'').localeCompare(b.ticker??'','pt-BR')
     })
   },[acoes,busca,setor,precoMin,precoMax,sortOrders])
 
