@@ -10766,13 +10766,102 @@
     "nota": 5.6,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
     "mr": {
-      "data": "2026-05-24 17:34",
+      "data": "2026-06-08 14:00",
       "alerta": false,
-      "govImpacto": "Neutro",
-      "projImpacto": "Neutro",
-      "resumo": "Análise indisponível (resposta truncada ou inválida).",
-      "fatos": [],
-      "resumoGeral": "Análise indisponível (resposta truncada ou inválida)."
+      "govImpacto": "Positivo",
+      "projImpacto": "Positivo",
+      "resumo": "Smart Fit (SMFT3) entregou resultado do 1T26 expressivamente acima do consenso: lucro de R$ 207 MM (+47%), receita histórica de R$ 2,1 bilhões (+25%) e EBITDA de R$ 672 MM (+29%). Consenso de sell-side revisou projeções para cima. Riscos: declínio de membros/academia no Brasil e pressão de margem pelo mix crescente do TotalPass.",
+      "fatos": [
+        {
+          "titulo": "Smart Fit divulga resultado recorde do 1T26: lucro salta 47% e receita supera R$ 2 bilhões pela primeira vez",
+          "data": "2026-05-07",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Baixo",
+          "impacto_projecoes": "Alto",
+          "descricao": "Receita líquida de R$ 2,102 bilhões (+25% YoY), EBITDA de R$ 672 MM (+29%), margem EBITDA de 32% (+1pp) e lucro líquido recorrente de R$ 207 MM (+47%). Resultado ficou 18% acima do consenso de mercado no lucro e 30% acima das estimativas da XP. Gestão mais eficiente de passivos reduziu despesas financeiras abaixo do previsto, amplificando a surpresa positiva.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Revisar g_receita do Ano 1 para +22% (guidance reafirmado) e mg_ebitda para 32-33%, incorporando a surpresa positiva do 1T26 nas premissas de longo prazo."
+        },
+        {
+          "titulo": "Smart Fit encerra março com 2.113 academias em 16 países — expansão recorde de 354 unidades em 12 meses",
+          "data": "2026-05-07",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "A companhia adicionou 354 unidades nos últimos 12 meses (recorde histórico), chegando a 2.113 academias em operação. Pipeline atual: 51 aberturas no ano, 108 em construção e 170 contratos assinados — total de 329 em desenvolvimento, alinhado ao guidance de 330-350 para 2026.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Confirmar crescimento de unidades de ~16% no modelo. Receita média por unidade precisa ser mantida para que o crescimento de unidades se converta em crescimento proporcional de receita."
+        },
+        {
+          "titulo": "Guidance 2026 reafirmado: +22% receita, +24% EBITDA e +18% lucro líquido",
+          "data": "2026-05-07",
+          "categoria": "Estratégico",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "Management reafirmou guidance para 2026: crescimento de 22% na receita, 24% no EBITDA e 18% no lucro líquido, com adição líquida de 330-350 academias. Ritmo do 1T26 está em linha com o plano. Consolidação do Fitmaster/TotalPass México deve contribuir com R$ 16 MM+ de EBITDA incremental.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter premissas de crescimento de receita de +22% e EBITDA de +24% para 2026 — ambas respaldadas pelo resultado do 1T26 e pelo guidance reafirmado."
+        },
+        {
+          "titulo": "Sell-side revisa projeções para cima após 1T26: Safra R$33,50 e BTG/Jefferies R$30 com Buy",
+          "data": "2026-05-08",
+          "categoria": "Outros",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Após o 1T26, casas de research revisaram projeções e mantiveram compra. Safra: Outperform, alvo R$33,50. BTG Pactual: Buy, alvo R$30 (de R$32), projetando CAGR de LPA de 32% entre 2025-28. Jefferies: Buy R$30, caracterizando a queda recente como 'exagerada' e a pressão de margem como 'temporária'. Ação avançou 11,66% no dia do resultado.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Consenso sell-side sinaliza upside relevante vs. cotação atual (~R$18). Considerar WACC ajustado para baixo refletindo melhora de risco percebido após surpresa positiva."
+        },
+        {
+          "titulo": "Membros por academia no Brasil em declínio — indicador piorou vs 4T25",
+          "data": "2026-05-07",
+          "categoria": "Operacional",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "O número de membros por academia consolidada no Brasil caiu na comparação com o 4T25, com redução de receita líquida por academia no YoY. Isso indica que o crescimento de receita é predominantemente volumétrico (mais academias), sem densidade crescente por unidade — risco de diluição de eficiência operacional se a expansão superar a demanda orgânica regional.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Monitorar KPI de membros/academia e receita/academia no 2T26. Se tendência persistir por 2+ trimestres, revisar premissas de crescimento de receita por unidade madura para baixo."
+        },
+        {
+          "titulo": "TotalPass: 13% dos clientes, apenas 9% da receita — desconto de ARPU pressiona margem",
+          "data": "2026-05-07",
+          "categoria": "Operacional",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Usuários do TotalPass pagam em média 40% menos que planos diretos. Management reconheceu 'dificuldade de crescer margens em 2026' pelo mix crescente do TotalPass. A margem de contribuição da plataforma é de 71% com CAC recuperado em menos de 1 mês, tornando o canal estratégico — mas dilutivo no ticket médio até o gap de ARPU ser normalizado (target: 25-30% de desconto vs. 40% atual).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Incorporar redução gradual do gap de ARPU (40% → 30% em 2 anos). A normalização representa potencial de expansão de margem de 1-2pp se executada — monitorar no 2T26."
+        },
+        {
+          "titulo": "Pipeline 2026 menor que 2025: 329 academias em desenvolvimento vs 398 no mesmo período do ano anterior",
+          "data": "2026-05-07",
+          "categoria": "Operacional",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Embora o pipeline de 329 esteja em linha com o guidance de 330-350, é 17% menor que os 398 registrados no 1T25. Isso sugere que a velocidade de contratação de novos pontos pode estar desacelerando marginalmente, limitando crescimento de unidades além do guidance e pressionando a curva de expansão de longo prazo.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter +15-16% de unidades para 2026. Para 2027-28, adotar crescimento mais conservador (~12-13%) até que o pipeline se recupere para os patamares de 2025."
+        },
+        {
+          "titulo": "Plataformas agregadoras (Gympass/Wellhub) pressionam pricing do setor de academias",
+          "data": "2026-03-01",
+          "categoria": "Estratégico",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Gympass/Wellhub e TotalPass exercem pressão estrutural sobre os preços de academia, aumentando o poder de barganha dos consumidores e reduzindo o pricing power da Smart Fit. A empresa usa o TotalPass como canal defensivo e ofensivo, mas a presença crescente de agregadores limita reajuste de mensalidades acima da inflação.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Limitar crescimento real de ticket médio a 0-1% acima da inflação nas premissas de longo prazo. Monitorar market share de planos diretos vs. TotalPass/Wellhub como proxy de pricing power."
+        }
+      ],
+      "resumoGeral": "O conjunto de fatos recentes da Smart Fit (SMFT3) revela uma empresa em trajetória de crescimento acelerado, com resultado do 1T26 materialmente acima do consenso e guidance 2026 reafirmado. O lucro de R$ 207 MM (+47% YoY) e a receita histórica acima de R$ 2 bilhões configuram a melhor entrega trimestral da companhia, interrompendo um ciclo de revisões negativas. EBITDA de R$ 672 MM com margem de 32% (+1pp) reforça a tese de expansão com rentabilidade crescente.\n\nOs pontos de atenção residem na qualidade do crescimento: membros por academia no Brasil estão em declínio, e o mix crescente do TotalPass (13% dos clientes, 9% da receita) exerce pressão estrutural no ticket médio — management reconhece dificuldade de expansão de margem em 2026. O pipeline de 329 academias, embora alinhado ao guidance, é 17% menor que o registrado no mesmo período de 2025.\n\nO sell-side permanece amplamente positivo: Safra (R$33,50), BTG (R$30) e Jefferies (R$30) mantiveram compra após o resultado. O principal catalisador de upside é a normalização do gap de ARPU do TotalPass (de 40% para 25-30% de desconto) e a maturação das novas unidades de 2025-26. Stop de tese: deterioração contínua de membros/academia por mais de 2 trimestres ou margem EBITDA abaixo de 29%."
     }
   },
   "SMTO3": {
