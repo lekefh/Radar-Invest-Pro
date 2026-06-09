@@ -490,8 +490,7 @@ export default function Dashboard() {
   const [setor,    setSetor]    = useState('Todos')
   const [precoMin, setPrecoMin] = useState('')
   const [precoMax, setPrecoMax] = useState('')
-  const [sortKey,  setSortKey]  = useState<SortKey>('ticker')
-  const [sortDir,  setSortDir]  = useState<SortDir>('asc')
+  const [sortOrders, setSortOrders] = useState<{key:SortKey;dir:SortDir}[]>([{key:'ticker',dir:'asc'}])
   const [modalGov,     setModalGov]     = useState<Acao|null>(null)
   const [modalFatos,   setModalFatos]   = useState<Acao|null>(null)
   const [modalNota,        setModalNota]        = useState<Acao|null>(null)
@@ -513,9 +512,21 @@ export default function Dashboard() {
     fetch('/api/auth/me').then(r=>r.json()).then(d=>{ if(d?.plano) setPlanoUsuario(d.plano) }).catch(()=>{})
   },[carregarDados])
 
-  const toggleSort=(k:SortKey)=>{
-    if(sortKey===k) setSortDir(d=>d==='asc'?'desc':'asc')
-    else{setSortKey(k);setSortDir('asc')}
+  const toggleSort=(k:SortKey, shift=false)=>{
+    setSortOrders(prev=>{
+      if(!shift){
+        const same=prev.length===1&&prev[0].key===k
+        return [{key:k,dir:same?(prev[0].dir==='asc'?'desc':'asc'):'asc'}]
+      }
+      const idx=prev.findIndex(o=>o.key===k)
+      if(idx>=0){
+        const upd=[...prev]
+        if(upd[idx].dir==='asc') upd[idx]={key:k,dir:'desc'}
+        else{ upd.splice(idx,1); if(upd.length===0) return [{key:'ticker',dir:'asc'}] }
+        return upd
+      }
+      return prev.length>=3?prev:[...prev,{key:k,dir:'asc'}]
+    })
   }
 
   const setoresDisponiveis = useMemo(()=>{
@@ -532,19 +543,34 @@ export default function Dashboard() {
     if(mn!=null) l=l.filter(a=>a.preco!=null&&a.preco>=mn)
     if(mx!=null) l=l.filter(a=>a.preco!=null&&a.preco<=mx)
     return l.slice().sort((a,b)=>{
-      const av=a[sortKey],bv=b[sortKey]
-      if(av==null&&bv==null)return 0
-      if(av==null)return 1;if(bv==null)return -1
-      if(typeof av==='string'&&typeof bv==='string')
-        return sortDir==='asc'?av.localeCompare(bv,'pt-BR'):bv.localeCompare(av,'pt-BR')
-      return sortDir==='asc'?(av as number)-(bv as number):(bv as number)-(av as number)
+      for(const {key,dir} of sortOrders){
+        const av=a[key],bv=b[key]
+        if(av==null&&bv==null) continue
+        if(av==null) return 1
+        if(bv==null) return -1
+        let cmp=0
+        if(typeof av==='string'&&typeof bv==='string') cmp=av.localeCompare(bv,'pt-BR')
+        else cmp=(av as number)-(bv as number)
+        if(cmp!==0) return dir==='asc'?cmp:-cmp
+      }
+      return 0
     })
-  },[acoes,busca,setor,precoMin,precoMax,sortKey,sortDir])
+  },[acoes,busca,setor,precoMin,precoMax,sortOrders])
 
   const limpar=()=>{setBusca('');setSetor('Todos');setPrecoMin('');setPrecoMax('')}
-  const Th=({k,label,title}:{k:SortKey;label:string;title?:string})=>(
-    <th onClick={()=>toggleSort(k)} title={title}>{label}{sortKey===k?(sortDir==='asc'?' ▲':' ▼'):''}</th>
-  )
+  const Th=({k,label,title}:{k:SortKey;label:string;title?:string})=>{
+    const idx=sortOrders.findIndex(o=>o.key===k)
+    const multi=sortOrders.length>1
+    return(
+      <th onClick={(e)=>toggleSort(k,e.shiftKey)} title={(title??'')+(multi?' | Shift+clique p/ adicionar ordenação':' | Shift+clique p/ ordenação múltipla')}>
+        {label}
+        {idx>=0&&<span style={{fontSize:'9px',opacity:.65,marginLeft:'2px',fontWeight:400}}>
+          {multi?`${idx+1}`:''}
+          {sortOrders[idx].dir==='asc'?' ▲':' ▼'}
+        </span>}
+      </th>
+    )
+  }
   const al30=acoes.filter(a=>a.varVsMax!=null&&a.varVsMax<=-30).length
   const al15=acoes.filter(a=>a.varVsMax!=null&&a.varVsMax<=-15&&a.varVsMax>-30).length
 
@@ -678,7 +704,7 @@ export default function Dashboard() {
                       const al=a.varVsMax!=null&&a.varVsMax<=-30?30:a.varVsMax!=null&&a.varVsMax<=-15?15:0
                       return(
                         <tr key={a.ticker} style={al===30?{background:'rgba(239,68,68,.06)'}:al===15?{background:'rgba(245,197,90,.04)'}:undefined}>
-                          <td>{a.ticker}{al===30&&<span className="badge badge-30">−30%</span>}{al===15&&<span className="badge badge-15">−15%</span>}</td>
+                          <td>{a.ticker}</td>
                           <td title={a.nome}>{a.nome}</td>
                           <td>{a.setor}</td>
                           <td>{a.preco!=null?'R$ '+f2(a.preco):<span className="muted">—</span>}</td>
