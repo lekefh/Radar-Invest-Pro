@@ -394,7 +394,7 @@ function SecProjecoes({ e }: { e: any }) {
   return <Tabela cols={cols} rows={rows}/>
 }
 
-function SecSensibilidade({ e }: { e: any }) {
+function SecSensibilidade({ e, precoLive }: { e: any; precoLive?: number|null }) {
   const sens = e.sensibilidade
   if (!sens) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Tabela de sensibilidade não disponível. Rode export_dcf.py.</p>
   const gCols: number[] = sens.g_cols || []
@@ -926,7 +926,7 @@ export default function DCFPage() {
                 {aba === 'historico'     && <SecHistorico e={emp}/>}
                 {aba === 'linhas'        && <SecLinhasNegocio e={emp}/>}
                 {aba === 'projecoes'     && <SecProjecoes e={emp}/>}
-                {aba === 'sensibilidade' && <SecSensibilidade e={emp}/>}
+                {aba === 'sensibilidade' && <SecSensibilidade e={emp} precoLive={precoLive}/>}
                 {aba === 'outros'        && <SecOutros e={emp}/>}
                 {aba === 'tri'           && <SecProximoTri e={emp}/>}
               </div>
