@@ -138,9 +138,9 @@
     "divEbit": -0.7,
     "vpa": 5.72,
     "merc": 253.48,
-    "evEbit": 10,
+    "evEbit": 10.0,
     "max52s": 16.95,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -429,7 +429,7 @@
     "merc": 13.54,
     "evEbit": 7.55,
     "max52s": 33.15,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -601,7 +601,7 @@
     "merc": 1.23,
     "evEbit": 5.25,
     "max52s": 5.17,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Parcial",
@@ -996,7 +996,7 @@
     "merc": 3.53,
     "evEbit": 5.69,
     "max52s": 41.74,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Sim",
@@ -1010,7 +1010,7 @@
       "g09": "Sim",
       "g10": "Sim"
     },
-    "nota": 8,
+    "nota": 8.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:57",
@@ -1146,7 +1146,7 @@
     "merc": 76.81,
     "evEbit": 10.84,
     "max52s": 19.84,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -1332,7 +1332,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 6,
+    "nota": 6.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:59",
@@ -1588,7 +1588,7 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 6,
+    "nota": 6.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:02",
@@ -1724,7 +1724,7 @@
     "merc": 69.64,
     "evEbit": 6.96,
     "max52s": 36.41,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -2423,7 +2423,7 @@
     "dy": 11.36,
     "pl": 9.48,
     "pvp": 0.95,
-    "roe": 10,
+    "roe": 10.0,
     "lpa": 1.99,
     "divEbit": -0.36,
     "vpa": 19.9,
@@ -2444,7 +2444,7 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 7,
+    "nota": 7.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:10",
@@ -2518,7 +2518,7 @@
     "dy": 10.92,
     "pl": 10.85,
     "pvp": 1.08,
-    "roe": 10,
+    "roe": 10.0,
     "lpa": 1.99,
     "divEbit": -0.36,
     "vpa": 19.9,
@@ -2908,7 +2908,7 @@
     "divEbit": 2.67,
     "vpa": 10.09,
     "merc": 35.56,
-    "evEbit": 8,
+    "evEbit": 8.0,
     "max52s": 19.39,
     "gov": 0.9,
     "govRespostas": {
@@ -2947,7 +2947,7 @@
     "divEbit": 2.67,
     "vpa": 10.09,
     "merc": 35.56,
-    "evEbit": 8,
+    "evEbit": 8.0,
     "max52s": 13.55,
     "gov": 0.9,
     "govRespostas": {
@@ -3232,7 +3232,7 @@
     "pl": 8.54,
     "pvp": 2.02,
     "roe": 23.72,
-    "lpa": 5,
+    "lpa": 5.0,
     "divEbit": 2.35,
     "vpa": 21.09,
     "merc": 49.19,
@@ -3987,7 +3987,7 @@
     "vpa": 23.25,
     "merc": 9.2,
     "evEbit": 6.17,
-    "max52s": 32,
+    "max52s": 32.0,
     "gov": 2.4,
     "govRespostas": {
       "g01": "Sim",
@@ -4002,7 +4002,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 7,
+    "nota": 7.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:26",
@@ -4375,7 +4375,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 5,
+    "nota": 5.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:29",
@@ -4573,7 +4573,7 @@
     "merc": 48.61,
     "evEbit": 11.73,
     "max52s": 45.35,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -4807,7 +4807,7 @@
     "merc": 7.99,
     "evEbit": 8.92,
     "max52s": 17.95,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -5055,7 +5055,7 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 4,
+    "nota": 4.0,
     "atualizado": "08/06/2026 23:02 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:36",
@@ -5832,10 +5832,10 @@
   "GUAR3": {
     "nome": "Guararapes Confecções S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 0,
+    "dy": 0.0,
     "pl": null,
     "pvp": null,
-    "roe": 0,
+    "roe": 0.0,
     "lpa": null,
     "divEbit": null,
     "vpa": null,
@@ -6397,7 +6397,7 @@
     "vpa": 8.04,
     "merc": 139.97,
     "evEbit": 7.77,
-    "max52s": 15,
+    "max52s": 15.0,
     "gov": 1.8,
     "govRespostas": {
       "g01": "Não",
@@ -6540,7 +6540,7 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 7,
+    "nota": 7.0,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:50",
@@ -6657,7 +6657,7 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 7,
+    "nota": 7.0,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:51",
@@ -6796,7 +6796,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 6,
+    "nota": 6.0,
     "atualizado": "08/06/2026 23:03 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:53",
@@ -7212,7 +7212,7 @@
     "roe": 29.03,
     "lpa": 2.03,
     "divEbit": 1.06,
-    "vpa": 7,
+    "vpa": 7.0,
     "merc": 2.09,
     "evEbit": 5.68,
     "max52s": 18.94,
@@ -7600,7 +7600,7 @@
     "merc": 15.07,
     "evEbit": 7.51,
     "max52s": 18.79,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -7910,7 +7910,7 @@
     "vpa": 14.53,
     "merc": 4.14,
     "evEbit": 4.13,
-    "max52s": 11,
+    "max52s": 11.0,
     "gov": 2.5,
     "govRespostas": {
       "g01": "Sim",
@@ -8029,9 +8029,9 @@
   "MILS3": {
     "nome": "Mills Locação, Serviços e Logística S.A.",
     "setor": "Industrials",
-    "dy": 7,
+    "dy": 7.0,
     "pl": 8.27,
-    "pvp": 2,
+    "pvp": 2.0,
     "roe": 24.19,
     "lpa": 1.84,
     "divEbit": 1.72,
@@ -8039,7 +8039,7 @@
     "merc": 3.56,
     "evEbit": 7.05,
     "max52s": 15.3,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -8617,7 +8617,7 @@
     "pl": 5.73,
     "pvp": 1.76,
     "roe": 30.72,
-    "lpa": 1,
+    "lpa": 1.0,
     "divEbit": 1.12,
     "vpa": 3.25,
     "merc": 7.14,
@@ -8734,7 +8734,7 @@
     "pl": 5.72,
     "pvp": 1.76,
     "roe": 30.72,
-    "lpa": 1,
+    "lpa": 1.0,
     "divEbit": 1.12,
     "vpa": 3.25,
     "merc": 7.14,
@@ -8868,7 +8868,7 @@
     "merc": 54.57,
     "evEbit": 24.62,
     "max52s": 72.1,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -9223,7 +9223,7 @@
     "merc": 25.13,
     "evEbit": 8.79,
     "max52s": 18.55,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -9523,7 +9523,7 @@
     "merc": 3.18,
     "evEbit": 7.67,
     "max52s": 14.01,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -9700,7 +9700,7 @@
     "pl": 2.82,
     "pvp": 0.8,
     "roe": 28.33,
-    "lpa": 3,
+    "lpa": 3.0,
     "divEbit": 0.46,
     "vpa": 10.59,
     "merc": 4.24,
@@ -10280,7 +10280,7 @@
     "merc": 2.39,
     "evEbit": 9.3,
     "max52s": 14.95,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -10398,7 +10398,7 @@
   "SBSP3": {
     "nome": "Companhia de Saneamento Básico do Estado de São Paulo - SABESP",
     "setor": "Utilities",
-    "dy": 5,
+    "dy": 5.0,
     "pl": 11.01,
     "pvp": 2.2,
     "roe": 19.97,
@@ -11028,7 +11028,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 4,
+    "nota": 4.0,
     "atualizado": "08/06/2026 23:04 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:36",
@@ -11297,9 +11297,9 @@
     "pl": 4.67,
     "pvp": 1.1,
     "roe": 23.68,
-    "lpa": 9,
+    "lpa": 9.0,
     "divEbit": 6.73,
-    "vpa": 38,
+    "vpa": 38.0,
     "merc": 53.06,
     "evEbit": 11.95,
     "max52s": 58.97,
@@ -11870,7 +11870,7 @@
     "merc": 3.68,
     "evEbit": 6.57,
     "max52s": 34.75,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -12290,7 +12290,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 7,
+    "nota": 7.0,
     "atualizado": "08/06/2026 23:04 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:48",
@@ -12436,7 +12436,7 @@
     "vpa": 16.55,
     "merc": 6.67,
     "evEbit": 14.57,
-    "max52s": 72,
+    "max52s": 72.0,
     "gov": 1.6,
     "govRespostas": {
       "g01": "Não",
@@ -12788,7 +12788,7 @@
     "merc": 34.41,
     "evEbit": 8.86,
     "max52s": 34.2,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
@@ -12971,7 +12971,7 @@
     "merc": 1.42,
     "evEbit": 5.46,
     "max52s": 24.22,
-    "gov": 2,
+    "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
       "g02": "Não",
