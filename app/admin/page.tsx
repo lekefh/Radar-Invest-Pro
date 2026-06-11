@@ -190,6 +190,44 @@ function ModalCarteira({ usuario, onClose }: { usuario: Usuario; onClose: () => 
   )
 }
 
+/* ── Modal Confirmação de Exclusão ─────────────────────────────────────────── */
+function ModalConfirmExclusao({ usuario, excluindo, onCancel, onConfirm }: {
+  usuario: Usuario; excluindo: boolean; onCancel: () => void; onConfirm: () => void
+}) {
+  return (
+    <div
+      onClick={e => e.target === e.currentTarget && !excluindo && onCancel()}
+      style={{ position:'fixed', inset:0, background:'rgba(0,0,0,.75)', zIndex:300, display:'flex', alignItems:'center', justifyContent:'center', padding:'20px' }}
+    >
+      <div style={{ background:'#0d1a2e', border:'1px solid rgba(239,83,80,.3)', borderRadius:'14px', width:'100%', maxWidth:'420px', padding:'24px' }}>
+        <h2 style={{ color:'#fff', fontSize:'17px', fontWeight:700, margin:'0 0 12px' }}>
+          ⚠️ Excluir usuário
+        </h2>
+        <p style={{ color:'#8a9bb5', fontSize:'14px', lineHeight:1.6, margin:'0 0 24px' }}>
+          Tem certeza que deseja excluir <strong style={{ color:'#e0e0e0' }}>{usuario.nome}</strong> (@{usuario.username})?
+          Essa ação não pode ser desfeita.
+        </p>
+        <div style={{ display:'flex', justifyContent:'flex-end', gap:'10px' }}>
+          <button
+            onClick={onCancel}
+            disabled={excluindo}
+            style={{ ...btnStyle, padding:'9px 18px', fontSize:'13px', background:'#1a2632', color:'#8a9bb5', border:'1px solid rgba(255,255,255,.1)' }}
+          >
+            Cancelar
+          </button>
+          <button
+            onClick={onConfirm}
+            disabled={excluindo}
+            style={{ ...btnStyle, padding:'9px 18px', fontSize:'13px', background:'rgba(239,83,80,.15)', color:'#ef5350', border:'1px solid rgba(239,83,80,.3)' }}
+          >
+            {excluindo ? 'Excluindo...' : 'Excluir definitivamente'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── Página Admin ───────────────────────────────────────────────────────────── */
 export default function AdminUsuariosPage() {
   const router = useRouter()
@@ -198,6 +236,7 @@ export default function AdminUsuariosPage() {
   const [erro, setErro]             = useState('')
   const [acao, setAcao]             = useState<Record<number, string>>({})
   const [carteiraUser, setCarteiraUser] = useState<Usuario | null>(null)
+  const [excluirUser, setExcluirUser] = useState<Usuario | null>(null)
 
   useEffect(() => { carregar() }, [])
 
@@ -238,11 +277,12 @@ export default function AdminUsuariosPage() {
     setAcao(a => ({ ...a, [uid]: '' }))
   }
 
-  async function excluir(uid: number, nome: string) {
-    if (!confirm(`Excluir ${nome}?`)) return
+  async function excluir(uid: number) {
     setAcao(a => ({ ...a, [uid]: 'excluindo' }))
     await fetch(`/api/admin/usuarios/${uid}`, { method: 'DELETE' })
     await carregar()
+    setAcao(a => ({ ...a, [uid]: '' }))
+    setExcluirUser(null)
   }
 
   return (
@@ -332,7 +372,7 @@ export default function AdminUsuariosPage() {
                           {acao[u.id] === 'salvando' ? '...' : u.ativo ? 'Desativar' : 'Ativar'}
                         </button>
                         <button
-                          onClick={() => excluir(u.id, u.nome)}
+                          onClick={() => setExcluirUser(u)}
                           disabled={!!acao[u.id]}
                           style={{ ...btnStyle, background: 'rgba(239,83,80,.1)', color: '#ef9090' }}
                         >
@@ -360,6 +400,15 @@ export default function AdminUsuariosPage() {
 
       {carteiraUser && (
         <ModalCarteira usuario={carteiraUser} onClose={() => setCarteiraUser(null)} />
+      )}
+
+      {excluirUser && (
+        <ModalConfirmExclusao
+          usuario={excluirUser}
+          excluindo={acao[excluirUser.id] === 'excluindo'}
+          onCancel={() => setExcluirUser(null)}
+          onConfirm={() => excluir(excluirUser.id)}
+        />
       )}
     </div>
   )

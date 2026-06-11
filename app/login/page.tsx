@@ -1,10 +1,9 @@
 'use client'
 import { Suspense, useState, FormEvent } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 function LoginForm() {
-  const router = useRouter()
   const params = useSearchParams()
   const redirect = params.get('redirect') || '/dashboard'
 
@@ -32,8 +31,7 @@ function LoginForm() {
       }
 
       localStorage.setItem('radar_usuario', JSON.stringify(data.usuario))
-      router.push(redirect)
-      router.refresh()
+      window.location.href = redirect
     } catch {
       setErro('Erro de conexão. Tente novamente.')
     } finally {
