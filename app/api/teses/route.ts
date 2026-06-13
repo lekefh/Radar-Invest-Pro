@@ -164,6 +164,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'PRIO3':  { nome: 'PRIO S.A.',                    setor: 'petroleo' },
   'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
+  'LAVV3':  { nome: 'Lavvi Empreendimentos Imobiliários S.A.', setor: 'construcao' },
 }
 
 async function ensureTables() {
@@ -329,6 +330,17 @@ async function ensureTables() {
       VALUES ('LREN3','1T26',
         3.2, 17.0, 2875, 56.7, -0.47, 257, 4.6,
         'SSS +3,2% (vestuário +3,7%). Mg Bruta Varejo 56,7% — recorde histórico. Mg EBITDA Varejo 17,0% (+2,7pp a/a). EBITDA Total R$611MM (+4,3% a/a). LL R$257MM (+16,4% a/a — recorde 1T). Caixa líquido R$1,5B (DL/EBITDA LTM -0,47x). CapEx R$106MM (+72% a/a; aceleração abertura lojas). FCL R$258MM (+264% a/a). Digital 16,6% receita (+GMV +7,4%). EBITDA Midway R$123MM (contribuição positiva — NPL normalizado). TIR Real implícita ~12,1% vs NTN-B 7,5% real (+4,6pp). DCF base: R$20,00/ação (Upside ~34% vs cotação R$14,90). Graham Number R$18,53 (acima do mercado). Tese: expansão de lojas acelerada + Midway recuperado + DL negativa + margem bruta recorde = rerating estrutural. Principais riscos: desaceleração consumo doméstico, NPL Midway reestressado, base difícil 2T26 (SSS +19% em 2T25). Fonte: Release 1T26 LREN3 mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial LAVV3 1T26
+  const lavv3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='LAVV3' AND trimestre='1T26'`
+  if (!lavv3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('LAVV3','1T26',
+        0.0, 53.67, 372.96, 31.92, 0.288, 69.87, 8.66,
+        'Receita R$372,96MM (+11,4% a/a — reconhecimento PoC do backlog). Mg Bruta 31,92% (-5,6pp a/a). EBITDA ex-SFH R$71,77MM (Mg 19,24%, -8,8pp a/a — release cita "EBITDA ajustado" de R$83MM, divergência ~R$11MM não reconciliada com a planilha MZ). LL R$69,87MM (-19,6% a/a). VGV lançado %Lavvi: R$0,0MM no tri (sazonalidade — Jardim da Hípica aguardado para o 2T26, principal catalisador dos próximos 2 trimestres). Vendas contratadas R$249,8MM (-3,4% a/a, sustentadas por vendas de estoque). VSO 12m 53,7% (-5,9pp a/a). Backlog R$2.757,2MM (+15,3% a/a) com margem recorde 38,0% — 1,6x a receita LTM, ainda não convertida em EBITDA reportado (defasagem PoC). Dívida líquida virou positiva em R$467,7MM (DL/PL +0,29x — 1º trimestre líquido devedor da série, refletindo ramp-up de obras: estoque +39% t/t). Valuation: DCF base R$22,03 (+98,5% upside vs R$11,10; bear R$16,82/bull R$28,65). TIR Real implícita 15,66% vs NTN-B real ~7,0% (+8,66pp, semáforo verde). Gordon (DDM) R$20,21 (payout 132% — distribuição acima do LPA, monitorar sustentabilidade). Graham Number R$17,89. Tese: backlog recorde com margem de 38% ainda não reconhecido + lançamento de Jardim da Hípica (2T26e) = potencial rerating, mas exige confirmação de que o aumento de endividamento é temporário (financiamento de obras) e não estrutural. Principais riscos a monitorar: trajetória de DL/PL, velocidade de conversão do backlog em margem reportada, e VSO do novo lançamento. Fonte: Planilha MZ Group ITR 1T26 + Release 1T26 Lavvi mai/2026.')
     `
   }
 }
