@@ -3442,21 +3442,21 @@
     "merc": 50.19,
     "evEbit": 6.9,
     "max52s": 52.32,
-    "gov": 1.3,
+    "gov": 1.9,
     "govRespostas": {
-      "g01": "Não",
+      "g01": "Sim",
       "g02": "Não",
+      "g11": "—",
       "g03": "Sim",
       "g04": "Sim",
       "g05": "Sim",
       "g06": "Sim",
-      "g07": "Não",
+      "g07": "Sim",
       "g08": "Não",
       "g09": "Parcial",
-      "g10": "Não",
-      "g11": "—"
+      "g10": "Sim"
     },
-    "nota": 6.1,
+    "nota": 6.5,
     "atualizado": "09/06/2026 22:27 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:18",
