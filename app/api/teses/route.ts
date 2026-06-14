@@ -24,6 +24,26 @@ const CONFIGS_SETOR: Record<string, {
     ],
   },
 
+  transmissao: {
+    // TAEE11 — transmissão de energia (RAP regulatória, sem risco de volume/GSF/PLD)
+    // Campos reutilizados: gsf=Equivalência Patrimonial (JVs) | pld=Mg EBITDA Regulatória | rap=RAP Ciclo anual
+    metricas: [
+      { key: 'pld',       label: 'Mg EBITDA Regulatória', unidade: '%',     verde: 85,   vermelho: 80,   sentido: 'maior' },
+      { key: 'gsf',       label: 'Equivalência Patrimonial', unidade: 'R$ MM', verde: 100,  vermelho: 85,   sentido: 'maior' },
+      { key: 'rap',       label: 'RAP Ciclo',         unidade: 'R$ MM',  verde: 4500, vermelho: 4300, sentido: 'maior' },
+      { key: 'pmso',      label: 'PMSO trimestral',   unidade: 'R$ MM',  verde: 95,   vermelho: 105,  sentido: 'menor' },
+      { key: 'dl_ebitda', label: 'DL/EBITDA Regulatório', unidade: 'x',  verde: 4.0,  vermelho: 5.0,  sentido: 'menor' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B', unidade: 'p.p.',   verde: 4.0,  vermelho: 1.0,  sentido: 'maior' },
+      { key: 'lucro',     label: 'Lucro líquido trimestral', unidade: 'R$ MM', verde: 200, vermelho: 170, sentido: 'maior' },
+    ],
+    stops: [
+      'Equivalência Patrimonial cai >10% a/a por 2 trimestres consecutivos (deterioração das JVs TBE/AIE/ATE)',
+      'DL/EBITDA regulatório > 5,0x por 1 trimestre',
+      'Margem EBITDA regulatória < 80% por 2 trimestres consecutivos',
+      'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
+    ],
+  },
+
   banco: {
     metricas: [
       { key: 'gsf',       label: 'ROE / ROAE',        unidade: '%',      verde: 17,   vermelho: 12,   sentido: 'maior' },
@@ -165,6 +185,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'LAVV3':  { nome: 'Lavvi Empreendimentos Imobiliários S.A.', setor: 'construcao' },
+  'TAEE11': { nome: 'Transmissora Aliança de Energia Elétrica S.A.', setor: 'transmissao' },
 }
 
 async function ensureTables() {
@@ -341,6 +362,17 @@ async function ensureTables() {
       VALUES ('LAVV3','1T26',
         0.0, 53.67, 372.96, 31.92, 0.288, 69.87, 8.66,
         'Receita R$372,96MM (+11,4% a/a — reconhecimento PoC do backlog). Mg Bruta 31,92% (-5,6pp a/a). EBITDA ex-SFH R$71,77MM (Mg 19,24%, -8,8pp a/a — release cita "EBITDA ajustado" de R$83MM, divergência ~R$11MM não reconciliada com a planilha MZ). LL R$69,87MM (-19,6% a/a). VGV lançado %Lavvi: R$0,0MM no tri (sazonalidade — Jardim da Hípica aguardado para o 2T26, principal catalisador dos próximos 2 trimestres). Vendas contratadas R$249,8MM (-3,4% a/a, sustentadas por vendas de estoque). VSO 12m 53,7% (-5,9pp a/a). Backlog R$2.757,2MM (+15,3% a/a) com margem recorde 38,0% — 1,6x a receita LTM, ainda não convertida em EBITDA reportado (defasagem PoC). Dívida líquida virou positiva em R$467,7MM (DL/PL +0,29x — 1º trimestre líquido devedor da série, refletindo ramp-up de obras: estoque +39% t/t). Valuation: DCF base R$22,03 (+98,5% upside vs R$11,10; bear R$16,82/bull R$28,65). TIR Real implícita 15,66% vs NTN-B real ~7,0% (+8,66pp, semáforo verde). Gordon (DDM) R$20,21 (payout 132% — distribuição acima do LPA, monitorar sustentabilidade). Graham Number R$17,89. Tese: backlog recorde com margem de 38% ainda não reconhecido + lançamento de Jardim da Hípica (2T26e) = potencial rerating, mas exige confirmação de que o aumento de endividamento é temporário (financiamento de obras) e não estrutural. Principais riscos a monitorar: trajetória de DL/PL, velocidade de conversão do backlog em margem reportada, e VSO do novo lançamento. Fonte: Planilha MZ Group ITR 1T26 + Release 1T26 Lavvi mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial TAEE11 1T26
+  const taee11Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='TAEE11' AND trimestre='1T26'`
+  if (!taee11Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('TAEE11','1T26',
+        85.75, 90.423, 4410.721, 93.404, 4.73, 192.574, -1.25,
+        'Receita Regulatória R$655,53MM (+9,6% a/a vs R$597,93MM). EBITDA Regulatório R$562,13MM (+10,3% a/a) — Mg EBITDA 85,75% (+0,52pp a/a, recorde da série desde 1T21). LL Regulatório R$192,57MM (+2,3% a/a vs R$188,28MM). PMSO R$93,40MM (+5,77% a/a vs R$88,31MM — pressão de custos abaixo da inflação de receita). Equivalência Patrimonial (JVs TBE/AIE/ATE) R$90,42MM (-8,2% a/a vs R$98,50MM — variável-chave a monitorar: 3 trimestres seguidos de queda a/a indicariam deterioração estrutural das participações). RAP ciclo 2025/26 = R$4.410,72MM (+7,78% vs 2024/25, reajuste IGP-M +7,03%/IPCA +5,32%). DL R$10.204,19MM — DL/EBITDA proporcional (release, inclui EBITDA das investidas) 4,2x vs regulatório consolidado (calculado) 4,73x. CapEx R$312,14MM (+16,6% a/a). Pipeline: Ananaí 93,3%, Pitiguari pleno desde jun/2025, Tangará operação parcial fev-mar/2026 (catalisador 2T26), Saíra Conversora Garabi I prevista abr/2026 (95,8% — catalisador 2T26), Juruá 14,2% (maior runway de capex). Valuation: DCF base R$60,53 (+52,5% upside; bear R$52,49/+32,2%, bull R$69,15/+74,2% — calibrado com capex_pct terminal ≈ D&A/receita, steady-state de reposição do RAB). TIR Real implícita 5,75% vs NTN-B real ~7,0% (-1,25pp, semáforo vermelho — renda fixa hoje compete com a tese). Gordon (DDM, D0=R$3,28/unit) R$48,20. Graham Number R$41,26 / Graham Fórmula R$52,10. Tese: COMPRA moderada — preço-alvo 12m ~R$48-50 (ponderando Gordon/Graham, mais conservadores que o DCF), upside de pipeline (Tangará/Saíra/Juruá) como gatilho adicional, mas TIR-real vermelho é o principal contraponto vs renda fixa no ciclo de SELIC alta. Riscos: queda persistente da Equivalência Patrimonial, execução/atraso de Juruá, alavancagem 4,2-4,73x. Fonte: Release 1T26 TAESA + Planilha Auxiliar-Release_TAESA_Site_1T26.xlsx mai/2026.')
     `
   }
 }
