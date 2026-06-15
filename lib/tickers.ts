@@ -43,7 +43,6 @@ export const TICKERS_INFO: Record<string, TickerInfo> = {
   USIM5: { nome: 'Usinas Siderúrgicas de Minas Gerais S.A.', setor: 'Materiais Básicos' },
   PRIO3: { nome: 'PRIO S.A.', setor: 'Petróleo, Gás e Biocombustíveis' },
   AXIA5: { nome: 'Âxia Energia S.A.', setor: 'Utilidade Pública' },
-  JBSS3: { nome: 'JBS S.A.', setor: 'Consumo Não Cíclico' },
   BRAP3: { nome: 'Bradespar S.A.', setor: 'Financeiro e Outros' },
   BRAP4: { nome: 'Bradespar S.A.', setor: 'Financeiro e Outros' },
   POMO3: { nome: 'Marcopolo S.A.', setor: 'Bens Industriais' },
