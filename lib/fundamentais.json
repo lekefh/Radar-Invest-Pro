@@ -3005,6 +3005,68 @@
       "resumoGeral": "C&A Modas (CEAB3) entregou 1T26 misto: o segmento de vestuário performou bem (SSS +5-6%, receita +6,2%), mas o EBITDA consolidado recuou 6% por pressão do segmento de serviços financeiros em ambiente de juros altos. O lucro ajustado de R$8 MM (+218%) reflete a melhora operacional do core business. O DCF aponta upside de +62% no cenário base (R$18 vs. R$11 cotação), respaldado por SSS consistente. O programa de recompra de ações sinaliza que a gestão considera o papel descontado. Monitorar NPL do cartão C&A e a trajetória da SELIC como principais catalisadores de reversão de margem."
     }
   },
+  "CESP6": {
+    "nome": "Companhia Energética de São Paulo - CESP",
+    "setor": "",
+    "dy": null,
+    "pl": 52.19,
+    "pvp": 1.78,
+    "roe": 3.4,
+    "lpa": 0.48,
+    "divEbit": 6.73,
+    "vpa": 14.21,
+    "merc": 8.3,
+    "evEbit": 16.89,
+    "max52s": null,
+    "gov": 1.1,
+    "govRespostas": {
+      "g01": "Não",
+      "g02": "Não",
+      "g03": "Parcial",
+      "g04": "Sim",
+      "g05": "Parcial",
+      "g06": "Sim",
+      "g07": "Não",
+      "g08": "Não",
+      "g09": "Parcial",
+      "g10": "Não",
+      "g11": "—"
+    },
+    "nota": 1.2,
+    "atualizado": "13/06/2026 17:18 [StatusInvest]",
+    "mr": {
+      "data": "2026-06-08 15:00",
+      "alerta": false,
+      "govImpacto": "Neutro",
+      "projImpacto": "Neutro",
+      "resumo": "CESP6 é ação preferencial da Companhia Energética de São Paulo, controlada por Votorantim+CPPIB desde 2018. Tag along de 100%. Ação com liquidez reduzida e resultados vinculados à gestão da Votorantim Energia.",
+      "fatos": [
+        {
+          "titulo": "CESP privatizada em 2018: Votorantim + CPPIB assumem controle com 80,2% das ON",
+          "data": "2018-10-01",
+          "categoria": "Estratégico",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Alto",
+          "impacto_projecoes": "Alto",
+          "descricao": "A CESP foi privatizada em 2018 pelo consórcio Votorantim + CPPIB (fundo de pensão canadense). O controlador detém 80,2% das ações ON e apenas 13,7% das PN (CESP6), gerando assimetria de governança. CESP6 oferece tag along de 100% em caso de troca de controle.",
+          "sugestao_governanca": "Verificar se decisões estratégicas de investimento e desinvestimento passam por aprovação independente de minoritários. A concentração de ON no controlador reduz o poder de veto dos detentores de CESP6.",
+          "sugestao_projecao": "Monitorar estratégia da Votorantim Energia — qualquer alienação de ativos ou fusão com outras concessionárias pode ser gatilho de tag along ou impactar premissas de FCL."
+        },
+        {
+          "titulo": "Liquidez reduzida de CESP6 gera prêmio de iliquidez e dificulta formação eficiente de preço",
+          "data": "2026-06-08",
+          "categoria": "Outros",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Baixo",
+          "descricao": "CESP6 (PN) possui free float muito baixo — controlador detém apenas 13,7% das preferenciais. O volume diário de negociação é historicamente baixo, gerando spread de bid/ask elevado e dificultando entrada/saída de posições relevantes.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Adicionar prêmio de iliquidez de 1-2pp no WACC do modelo DCF para CESP6, refletindo a dificuldade de monetizar posição no mercado secundário."
+        }
+      ],
+      "resumoGeral": "CESP6 é a ação preferencial da Companhia Energética de São Paulo, privatizada em 2018 pelo consórcio Votorantim + CPPIB. A estrutura dual de capital com baixa participação do controlador no PN (13,7%) e liquidez reduzida são os principais fatores de risco para detentores de CESP6. O tag along de 100% garante proteção em caso de mudança de controle. A empresa atua no setor de energia elétrica (geração e transmissão) com receita regulada, o que confere previsibilidade de fluxo de caixa. Monitorar comunicados ao mercado sobre investimentos, revisões tarifárias da ANEEL e eventuais operações societárias no grupo Votorantim Energia."
+    }
+  },
   "CMIG3": {
     "nome": "Companhia Energética de Minas Gerais - CEMIG",
     "setor": "Utilities",
@@ -5971,6 +6033,134 @@
       "resumoGeral": "A Grendene (GRND3) apresenta um fluxo intenso de distribuição de dividendos ao longo de 2025-2026, com valores expressivos incluindo R$ 979,9 milhões em dividendos extraordinários, o que reforça a solidez de caixa e o compromisso com retorno ao acionista. Entretanto, a queda de 38% no lucro em 2025 é o principal risco e demanda revisão significativa nas projeções de rentabilidade, avaliando se a compressão é cíclica ou estrutural. A rescisão da JV com a 3G Capital e a consolidação integral da GGB representam simplificação estratégica positiva para governança, enquanto a manutenção de altos payouts em contexto de lucro cadente merece monitoramento quanto à sustentabilidade."
     }
   },
+  "GUAR3": {
+    "nome": "Guararapes Confecções S.A.",
+    "setor": "Consumer Cyclical",
+    "dy": 0.0,
+    "pl": null,
+    "pvp": null,
+    "roe": 0.0,
+    "lpa": null,
+    "divEbit": null,
+    "vpa": null,
+    "merc": null,
+    "evEbit": null,
+    "max52s": null,
+    "gov": 1.7,
+    "govRespostas": {
+      "g01": "Não",
+      "g02": "Sim",
+      "g03": "Parcial",
+      "g04": "Sim",
+      "g05": "Sim",
+      "g06": "Sim",
+      "g07": "Não",
+      "g08": "Não",
+      "g09": "Parcial",
+      "g10": "Não",
+      "g11": "—"
+    },
+    "nota": 2.9,
+    "atualizado": "13/06/2026 17:19 [Yahoo]",
+    "mr": {
+      "data": "2026-05-24 16:44",
+      "alerta": false,
+      "govImpacto": "Neutro",
+      "projImpacto": "Positivo",
+      "resumo": "A Guararapes/Riachuelo (GUAR3→RIAA3) passou por uma transformação relevante entr",
+      "fatos": [
+        {
+          "titulo": "Guararapes vende Midway Mall e anuncia R$ 1,488 bilhão em dividendos e JCP",
+          "data": "2025-12-18",
+          "categoria": "Estratégico",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Alto",
+          "descricao": "A venda do Midway Mall representa desinvestimento de ativo não-core e geração expressiva de caixa, viabilizando distribuição extraordinária de proventos de R$ 1,488 bi. Reduz base de ativos imobiliários e sinaliza foco no varejo de moda e serviços financeiros.",
+          "sugestao_governanca": "Avaliar se o processo de venda seguiu procedimentos de partes relacionadas e se houve fairness opinion independente; positivo pelo retorno ao acionista, mas verificar conflito de interesse potencial na precificação do ativo.",
+          "sugestao_projecao": "Remover receitas de aluguel/shopping do modelo; registrar ganho não-recorrente na venda; reduzir CAPEX de manutenção imobiliária; elevar estimativa de dividendo extraordinário no período."
+        },
+        {
+          "titulo": "Pagamento de quase R$ 3 por ação em dividendos e JCP",
+          "data": "2025-12-22",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Baixo",
+          "impacto_projecoes": "Médio",
+          "descricao": "Distribuição robusta de proventos (~R$ 3/ação) sinaliza geração de caixa saudável e compromisso com retorno ao acionista, em parte financiada pelo ganho da venda do shopping. O componente JCP traz benefício fiscal adicional.",
+          "sugestao_governanca": "Positivo para governança; confirmar que o pagamento não compromete índices de alavancagem ou covenants bancários.",
+          "sugestao_projecao": "Ajustar yield de dividendos para o período; verificar impacto no caixa disponível para crescimento orgânico; o JCP reduz base tributável, beneficiando lucro líquido projetado."
+        },
+        {
+          "titulo": "Guararapes aprova aumento de capital de R$ 1 bilhão sem emissão de novas ações",
+          "data": "2025-12-26",
+          "categoria": "Governança",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Aumento de capital via incorporação de reservas (sem diluição) fortalece o patrimônio líquido e demonstra solidez financeira. Não há impacto dilutivo para o acionista.",
+          "sugestao_governanca": "Neutro a positivo; prática comum de capitalização de reservas, não há risco de governança relevante. Verificar se a capitalização visa atender requisitos regulatórios da Midway Financeira.",
+          "sugestao_projecao": "Ajustar PL no balanço projetado; não altera earnings power; pode reduzir levemente o ROE aparente por aumento do denominador."
+        },
+        {
+          "titulo": "Mudança de ticker de GUAR3 para RIAA3 e rebranding para Riachuelo a partir de 5 de fevereiro de 2026",
+          "data": "2026-02-05",
+          "categoria": "Estratégico",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Baixo",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A mudança de ticker e nome corporativo de Guararapes para Riachuelo (RIAA3) reforça a identidade da marca principal e simplifica a comunicação com o mercado, sem impacto material nos fundamentos do negócio.",
+          "sugestao_governanca": "Neutro; mudança cosmética de branding. Verificar se a nova razão social implica reestruturação societária que possa afetar obrigações existentes.",
+          "sugestao_projecao": "Sem impacto nas premissas do DCF. Atualizar ticker e nome da empresa nos modelos de valuation."
+        },
+        {
+          "titulo": "Negociação de venda do Midway Mall com fundo imobiliário CPSH11",
+          "data": "2025-11-10",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Baixo",
+          "impacto_projecoes": "Médio",
+          "descricao": "As negociações com o FII CPSH11 para venda do shopping em Natal (RN) antecederam o fato relevante de dezembro, indicando processo estruturado de desinvestimento imobiliário.",
+          "sugestao_governanca": "Verificar se condições da transação foram plenamente divulgadas e se não há vínculos com partes relacionadas ao FII.",
+          "sugestao_projecao": "Confirmar valor final da transação para calibrar ganho de capital; retirar fluxo de receitas do shopping das projeções a partir da data de fechamento."
+        },
+        {
+          "titulo": "Guararapes (GUAR3) dispara 7% após venda bilionária e anúncio de proventos",
+          "data": "2025-12-18",
+          "categoria": "Outros",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Reação positiva do mercado de +7% no pregão confirma que o conjunto de anúncios (venda de ativo + distribuição de proventos) foi recebido como value-unlocking pelo mercado.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Considerar re-rating do múltiplo P/L e EV/EBITDA após a reprecificação; verificar se o novo patamar de preço já incorpora os eventos não-recorrentes."
+        },
+        {
+          "titulo": "Cotação de RIAA3 em ~R$ 9,15 com variação negativa no mês (-3,36%) e no ano (-1,71%)",
+          "data": "2026-05-24",
+          "categoria": "Resultado",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Apesar dos eventos positivos de dezembro/25, a ação apresenta desempenho negativo no YTD de 2026, sugerindo que o mercado ainda precifica desafios operacionais no varejo de moda ou impacto do ambiente macroeconômico (juros altos, inadimplência).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Revisar premissas de crescimento de receita e margem EBITDA para 2026 à luz do cenário de juros e consumo; avaliar pressão na Midway Financeira por inadimplência; conservadorismo na taxa de desconto (WACC) recomendado."
+        },
+        {
+          "titulo": "Histórico de prejuízos em 2023 (1T23, 2T23) e recuperação em 2024 (4T23 lucro dobrou, 1T24 prejuízo reduzido 33%)",
+          "data": "2024-05-06",
+          "categoria": "Resultado",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "A trajetória de resultados mostra ciclo de recuperação gradual após forte deterioração em 2023, com retorno ao lucro no 4T23 e redução de prejuízo no 1T24, mas ainda com fragilidade estrutural no modelo de negócios integrado (varejo + financeira).",
+          "sugestao_governanca": "Monitorar evolução da qualidade da carteira de crédito da Midway Financeira como indicador antecedente de resultados futuros.",
+          "sugestao_projecao": "Utilizar trajetória de recuperação como base para projeção de normalização de margens; evitar extrapolação linear de resultados excepcionais de 2024; manter cenário conservador para inadimplência na Midway Financeira em 2026 dado ambiente de juros elevados."
+        }
+      ],
+      "resumoGeral": "A Guararapes/Riachuelo (GUAR3→RIAA3) passou por uma transformação relevante entre o 2S25 e o início de 2026, marcada pela venda do Midway Mall com distribuição extraordinária de R$ 1,488 bi em proventos e rebranding corporativo para RIAA3, sinalizando foco estratégico no varejo de moda e nos serviços financeiros da Midway. Apesar da reação positiva do mercado ao conjunto de anúncios (+7% em dezembro/25), o papel negocia em queda no YTD de 2026 (~-1,7%), refletindo ainda ceticismo sobre a sustentabilidade do turnaround operacional e os desafios macroeconômicos (juros, consumo e inadimplência) que pressionam o modelo de negócios integrado. Não foram identificados alertas de natureza legal, regulatória ou de governança crítica no período analisado."
+    }
+  },
   "INTB3": {
     "nome": "Intelbras S.A. - Indústria de Telecomunicação Eletrônica Brasileira",
     "setor": "Technology",
@@ -6781,6 +6971,90 @@
         }
       ],
       "resumoGeral": "O conjunto de fatos recentes do ITUB4 apresenta um perfil predominantemente neutro-positivo, com resultados sólidos e consistentes nos últimos dois trimestres (lucro de ~R$ 12,3 bi no 4T25 e ~R$ 12,28 bi no 1T26), distribuição regular de proventos e liderança nas carteiras recomendadas. O principal ponto de atenção é o 'efeito Itaú' observado no 1T26, onde ações recuaram mesmo com resultado positivo, indicando que o mercado já incorpora expectativas muito elevadas ao preço corrente. Não há eventos negativos materiais, escândalos ou riscos regulatórios identificados no período analisado."
+    }
+  },
+  "JBSS3": {
+    "nome": "JBS S.A.",
+    "setor": "",
+    "dy": null,
+    "pl": 6.8,
+    "pvp": 1.56,
+    "roe": 22.87,
+    "lpa": 10.57,
+    "divEbit": 4.51,
+    "vpa": 46.2,
+    "merc": 62.38,
+    "evEbit": 7.52,
+    "max52s": 89.72,
+    "gov": 1.7,
+    "govRespostas": {
+      "g01": "Sim",
+      "g02": "Sim",
+      "g03": "Parcial",
+      "g04": "Sim",
+      "g05": "Sim",
+      "g06": "Não",
+      "g07": "Sim",
+      "g08": "Sim",
+      "g09": "Parcial",
+      "g10": "Sim",
+      "g11": "—"
+    },
+    "nota": 6.0,
+    "atualizado": "13/06/2026 17:19 [StatusInvest]",
+    "mr": {
+      "data": "2026-06-08 15:00",
+      "alerta": false,
+      "govImpacto": "Neutro",
+      "projImpacto": "Negativo",
+      "resumo": "JBS (JBSS3) reportou 1T26 com receita US$21,6bi (+11%), mas lucro caiu 56% para US$221MM e EBITDA recuou 26% para US$1,13bi (margem 5,2%). Beef NA com EBITDA negativo (-US$267MM). Seara compensou com margem de 15,5%.",
+      "fatos": [
+        {
+          "titulo": "JBS: lucro cai 56% no 1T26 para US$ 221 MM com Beef North America no vermelho",
+          "data": "2026-05-13",
+          "categoria": "Resultado",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Alto",
+          "descricao": "Lucro líquido de US$221 MM no 1T26, queda de 56% sobre o 1T25. EBITDA de US$1,13bi (-26%), com margem de 5,2% — abaixo do histórico médio de 8-9%. Principal vilão: JBS Beef North America com EBITDA negativo de US$267 MM e margem de -3,7%, reflexo do ciclo desfavorável do gado nos EUA (custo elevado de boi gordo + preços de processados pressionados).",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Beef NA está em fundo de ciclo — a reversão historicamente leva 2-4 trimestres. Modelar recuperação gradual de margem a partir do 3T26, voltando para 4-5% até fim de 2026."
+        },
+        {
+          "titulo": "Seara entrega margem EBITDA de 15,5% — principal driver positivo do trimestre",
+          "data": "2026-05-13",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Seara (frango/suíno Brasil) registrou margem EBITDA de 15,5% no 1T26, com receita de US$2,379bi — principal responsável pela sustentação do resultado consolidado. Forte demanda de proteína aviária no Brasil e exportações robustas para Oriente Médio e Ásia.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter premissa de margem Seara em 13-15% para 2026. Ciclo favorável do frango deve perdurar 2-3 trimestres adicionais dada a oferta controlada de grãos."
+        },
+        {
+          "titulo": "JBS Brasil beneficiada pela forte demanda internacional de carne bovina",
+          "data": "2026-05-13",
+          "categoria": "Operacional",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "JBS Brasil foi um dos pontos positivos do trimestre, beneficiado pela forte demanda internacional — especialmente China e Oriente Médio — com premium de preço nas exportações. O câmbio BRL/USD favorável amplifica as margens em reais do segmento exportador.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Manter exposição ao segmento brasileiro como hedge natural contra o ciclo desfavorável nos EUA. Câmbio e demanda chinesa são variáveis-chave para projetar o resultado de JBS Brasil."
+        },
+        {
+          "titulo": "Receita global cresce 11% para US$ 21,6 bilhões — escala e diversificação como moat",
+          "data": "2026-05-13",
+          "categoria": "Resultado",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Receita global de US$21,6bi (+11% YoY) demonstra crescimento via volume e diversificação geográfica mesmo com margens pressionadas. A JBS é o maior frigorífico do mundo — nenhum concorrente tem estrutura similar de diversificação de proteína e geográfica.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Crescimento de receita de 10-12% é sustentado. A recuperação do resultado depende da margem, não do volume — monitorar ciclo de preço do boi nos EUA como principal variável de curto prazo."
+        }
+      ],
+      "resumoGeral": "JBS (JBSS3) reportou 1T26 pressionado pelo ciclo desfavorável do gado nos EUA: lucro caiu 56% para US$221 MM e EBITDA recuou 26% para US$1,13bi (margem 5,2%). O JBS Beef North America gerou EBITDA negativo de US$267 MM — principal driver negativo. Seara (frango/suíno Brasil) compensou com margem de 15,5%, e JBS Brasil se beneficiou da forte demanda de exportação. A tese na JBS é essencialmente cíclica: o fundo do ciclo do Beef NA é o maior catalisador de upside quando os preços do boi gordo nos EUA normalizarem. A diversificação geográfica e de proteínas é o diferencial competitivo — nenhum concorrente tem estrutura similar. Risco adicional: volatilidade cambial BRL/USD dado que resultados são reportados em dólar."
     }
   },
   "JHSF3": {
@@ -11238,6 +11512,145 @@
       "resumoGeral": "A Boa Safra (SOJA3) atravessa um período de clara desaceleração operacional, com resultados consecutivamente abaixo do esperado no 3T25 e 4T25, gerando quedas acentuadas nas ações e revisões negativas por parte de analistas. Em contrapartida, a empresa mantém política ativa de retorno ao acionista via JCP e aposta em expansão internacional (JV na Nigéria) como novo vetor de crescimento, embora a execução apresente riscos relevantes. O balanço do período é predominantemente negativo para as projeções financeiras, exigindo revisão para baixo nas estimativas de receita e margens para 2025-2026E."
     }
   },
+  "SULA11": {
+    "nome": "Sul América S.A.",
+    "setor": "",
+    "dy": null,
+    "pl": 48.73,
+    "pvp": 1.06,
+    "roe": 2.17,
+    "lpa": 0.43,
+    "divEbit": 19.47,
+    "vpa": 19.64,
+    "merc": 8.84,
+    "evEbit": 7.41,
+    "max52s": 22.25,
+    "gov": 1.9,
+    "govRespostas": {
+      "g01": "Sim",
+      "g02": "Não",
+      "g03": "Sim",
+      "g04": "Sim",
+      "g05": "Sim",
+      "g06": "Sim",
+      "g07": "Sim",
+      "g08": "Não",
+      "g09": "Parcial",
+      "g10": "Sim",
+      "g11": "—"
+    },
+    "nota": 3.4,
+    "atualizado": "13/06/2026 17:20 [StatusInvest]",
+    "mr": {
+      "data": "2026-05-24 17:38",
+      "alerta": true,
+      "govImpacto": "Negativo",
+      "projImpacto": "Neutro",
+      "resumo": "SULA11 encerrou sua existência como companhia listada em dezembro de 2022, após ",
+      "fatos": [
+        {
+          "titulo": "Incorporação da SulAmérica (SULA11) pela Rede D'Or (RDOR3) — ações deixam de ser negociadas na B3 a partir de 26/12/2022",
+          "data": "2022-12-20",
+          "categoria": "Estratégico",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Alto",
+          "impacto_projecoes": "Alto",
+          "descricao": "A conclusão da incorporação pela Rede D'Or resultou no cancelamento do registro de SULA11 na B3, encerrando a existência da companhia como entidade listada independente. A partir de 26/12/2022, os acionistas passaram a deter ações de RDOR3, tornando qualquer projeção standalone de SULA11 obsoleta.",
+          "sugestao_governanca": "Descontinuar avaliação de governança corporativa de SULA11 como entidade independente; migrar análise para RDOR3 pós-incorporação.",
+          "sugestao_projecao": "Encerrar modelo DCF standalone de SULA11; consolidar premissas operacionais de saúde e seguros dentro das projeções de RDOR3."
+        },
+        {
+          "titulo": "CADE aprova aquisição da SulAmérica pela Rede D'Or sem restrições",
+          "data": "2022-12-14",
+          "categoria": "Legal",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Médio",
+          "descricao": "A aprovação sem restrições pelo CADE eliminou o principal risco regulatório antitruste da operação, removendo incerteza sobre a viabilidade da fusão e permitindo a conclusão do processo dentro do cronograma previsto.",
+          "sugestao_governanca": "Reduzir prêmio de risco regulatório na nota de governança de RDOR3 pós-fusão.",
+          "sugestao_projecao": "Remover desconto por risco de bloqueio antitruste nas sinergias projetadas da combinação RDOR3+SULA11."
+        },
+        {
+          "titulo": "ANS aprova compra da SulAmérica pela Rede D'Or com restrições",
+          "data": "2022-12-19",
+          "categoria": "Legal",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Médio",
+          "descricao": "A aprovação com restrições pela ANS sinaliza que a entidade reguladora identificou potencial concentração de mercado ou riscos ao consumidor de planos de saúde, podendo impor desinvestimentos ou limitações operacionais que reduzam as sinergias esperadas da fusão.",
+          "sugestao_governanca": "Incorporar risco regulatório setorial (ANS) na avaliação de governança; monitorar cumprimento das restrições impostas.",
+          "sugestao_projecao": "Revisar premissas de sinergia da fusão para baixo; incluir custos de adequação às restrições da ANS no modelo de RDOR3."
+        },
+        {
+          "titulo": "Polícia Federal investiga investidores por insider trading com SULA11 e RDOR3 — lucro irregular estimado em R$ 3 milhões",
+          "data": "2022-09-27",
+          "categoria": "Legal",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Alto",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A investigação da PF por uso de informação privilegiada no período que antecedeu o anúncio da fusão aponta para potencial falha nos controles de disclosure e acesso a informações materiais dentro da companhia, com risco de penalidades regulatórias da CVM e dano reputacional.",
+          "sugestao_governanca": "Rebaixar nota de governança (pilar de transparência e controles internos); avaliar risco de multa CVM e impacto reputacional sobre a gestão.",
+          "sugestao_projecao": "Incluir provisão para eventuais multas regulatórias (CVM/PF) nas projeções de despesas não-recorrentes de RDOR3."
+        },
+        {
+          "titulo": "SULA11, IRBR3 e POSI3 excluídas do Ibovespa na terceira prévia de 2023",
+          "data": "2022-12-28",
+          "categoria": "Outros",
+          "sentimento": "Neutro",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "A exclusão do Ibovespa é consequência natural do cancelamento do registro de SULA11 após a incorporação, sem impacto direto nos fundamentos. Pode gerar pressão pontual de venda por fundos passivos que replicam o índice.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Sem ajuste necessário para SULA11 (já incorporada); monitorar impacto de fluxo passivo em RDOR3 caso haja rebalanceamento de índice."
+        },
+        {
+          "titulo": "SulAmérica distribui R$ 24 milhões em JCP",
+          "data": "2022-12-16",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Baixo",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Distribuição de Juros sobre Capital Próprio no período pré-incorporação, representando retorno final aos acionistas antes do encerramento das negociações de SULA11 na B3. Evento de liquidez residual sem impacto relevante nas projeções futuras.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Registrar como evento não-recorrente de distribuição; sem impacto em projeções de longo prazo."
+        },
+        {
+          "titulo": "SulAmérica registra lucro de R$ 138,9 milhões no 2T22, crescimento de 373,3%",
+          "data": "2022-08-10",
+          "categoria": "Resultado",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Médio",
+          "descricao": "Forte recuperação de rentabilidade no 2T22, possivelmente refletindo normalização da sinistralidade pós-COVID e melhora operacional. Reforça o valor estratégico do ativo adquirido pela Rede D'Or.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Utilizar como referência base para premissas de rentabilidade da divisão de seguros saúde a ser integrada em RDOR3; ajustar EBITDA consolidado esperado para cima."
+        },
+        {
+          "titulo": "Aumento de reclamações por descredenciamento de prestadores da SulAmérica",
+          "data": "2022-12-12",
+          "categoria": "Operacional",
+          "sentimento": "Negativo",
+          "impacto_governanca": "Médio",
+          "impacto_projecoes": "Médio",
+          "descricao": "Crescimento de reclamações sobre descredenciamento de prestadores de saúde sugere risco de churn de beneficiários e potencial deterioração da carteira de planos, o que pode impactar negativamente receitas recorrentes e aumentar custos de retenção.",
+          "sugestao_governanca": "Monitorar indicadores de satisfação e churn de beneficiários como proxy de risco operacional na integração com RDOR3.",
+          "sugestao_projecao": "Incorporar premissa conservadora de crescimento líquido de beneficiários na divisão de saúde de RDOR3; elevar custo de retenção estimado."
+        },
+        {
+          "titulo": "SulAmérica lança fundo de previdência",
+          "data": "2022-09-06",
+          "categoria": "Estratégico",
+          "sentimento": "Positivo",
+          "impacto_governanca": "Nenhum",
+          "impacto_projecoes": "Baixo",
+          "descricao": "Lançamento de produto de previdência complementar reforça a estratégia de diversificação de receitas antes da conclusão da fusão, com impacto marginal nas projeções dado o timing próximo à incorporação.",
+          "sugestao_governanca": "",
+          "sugestao_projecao": "Considerar receitas de previdência como linha de crescimento incremental na divisão de seguros dentro de RDOR3."
+        }
+      ],
+      "resumoGeral": "SULA11 encerrou sua existência como companhia listada em dezembro de 2022, após ser incorporada pela Rede D'Or (RDOR3) com aprovação do CADE sem restrições e da ANS com restrições. O conjunto de fatos é dominado pelo processo de fusão, com destaque negativo para a investigação da PF por insider trading, que aponta falhas em controles de acesso à informação privilegiada e gera risco regulatório residual. Qualquer análise prospectiva de valor deve ser conduzida sobre RDOR3, considerando as sinergias esperadas, as restrições impostas pela ANS e os riscos operacionais de integração."
+    }
+  },
   "SUZB3": {
     "nome": "Suzano S.A.",
     "setor": "Basic Materials",
@@ -11609,7 +12022,7 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 6.2,
+    "nota": 5.3,
     "atualizado": "13/06/2026 17:20 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:42",
