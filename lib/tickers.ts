@@ -4,6 +4,7 @@ export interface TickerInfo {
 }
 
 export const TICKERS_INFO: Record<string, TickerInfo> = {
+  ABEV3: { nome: 'Ambev S.A.', setor: 'Consumo Não Cíclico' },
   PETR4: { nome: 'Petróleo Brasileiro S.A.', setor: 'Petróleo, Gás e Biocombustíveis' },
   VALE3: { nome: 'Vale S.A.', setor: 'Materiais Básicos' },
   ITUB4: { nome: 'Itaú Unibanco Holding S.A.', setor: 'Financeiro e Outros' },

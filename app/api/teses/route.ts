@@ -153,6 +153,26 @@ const CONFIGS_SETOR: Record<string, {
       'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
     ],
   },
+
+  bebidas: {
+    // ABEV3 — Ambev. Drivers: (1) Mg EBITDA % | (2) Vol. Cerveja BR | (3) NR/hl vs COGS/hl
+    // gsf=Mg EBITDA% | pld=Vol Cerveja BR mil hl | rap=Receita | pmso=NR/hl | dl_ebitda=Caixa Líq | lucro=LL
+    metricas: [
+      { key: 'gsf',       label: 'Mg EBITDA (%)',            unidade: '%',      verde: 33,    vermelho: 29,    sentido: 'maior' },
+      { key: 'pld',       label: 'Vol. Cerveja BR (mil hl)', unidade: 'mil hl', verde: 30000, vermelho: 25000, sentido: 'maior' },
+      { key: 'rap',       label: 'Receita líquida',          unidade: 'R$ MM',  verde: 22000, vermelho: 18000, sentido: 'maior' },
+      { key: 'pmso',      label: 'NR/hl Cerveja BR (R$)',    unidade: 'R$/hl',  verde: 600,   vermelho: 530,   sentido: 'maior' },
+      { key: 'dl_ebitda', label: 'Caixa Líquido (R$ MM)',    unidade: 'R$ MM',  verde: 15000, vermelho: 5000,  sentido: 'maior' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',        unidade: 'p.p.',   verde: 3.0,   vermelho: 0.0,   sentido: 'maior' },
+      { key: 'lucro',     label: 'Lucro líquido',             unidade: 'R$ MM',  verde: 3500,  vermelho: 2500,  sentido: 'maior' },
+    ],
+    stops: [
+      'Volume Cerveja BR negativo por 2 trimestres consecutivos (perda estrutural de share)',
+      'Mg EBITDA < 29% por 2 trimestres (reversão da recuperação de margem)',
+      'Caixa Líquido < R$5B (redução acelerada por M&A ou dividendos excessivos)',
+      'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
+    ],
+  },
 }
 
 // Mapa ticker → setor (baseado em COMPANIES do dcf.py)
@@ -186,6 +206,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'LAVV3':  { nome: 'Lavvi Empreendimentos Imobiliários S.A.', setor: 'construcao' },
   'TAEE3': { nome: 'Transmissora Aliança de Energia Elétrica S.A.', setor: 'transmissao' },
+  'ABEV3': { nome: 'Ambev S.A.',                                    setor: 'bebidas'      },
 }
 
 async function ensureTables() {
@@ -373,6 +394,17 @@ async function ensureTables() {
       VALUES ('TAEE3','1T26',
         85.75, 90.423, 4410.721, 93.404, 4.73, 192.574, -1.25,
         'Receita Regulatória R$655,53MM (+9,6% a/a vs R$597,93MM). EBITDA Regulatório R$562,13MM (+10,3% a/a) — Mg EBITDA 85,75% (+0,52pp a/a, recorde da série desde 1T21). LL Regulatório R$192,57MM (+2,3% a/a vs R$188,28MM). PMSO R$93,40MM (+5,77% a/a vs R$88,31MM — pressão de custos abaixo da inflação de receita). Equivalência Patrimonial (JVs TBE/AIE/ATE) R$90,42MM (-8,2% a/a vs R$98,50MM — variável-chave a monitorar: 3 trimestres seguidos de queda a/a indicariam deterioração estrutural das participações). RAP ciclo 2025/26 = R$4.410,72MM (+7,78% vs 2024/25, reajuste IGP-M +7,03%/IPCA +5,32%). DL R$10.204,19MM — DL/EBITDA proporcional (release, inclui EBITDA das investidas) 4,2x vs regulatório consolidado (calculado) 4,73x. CapEx R$312,14MM (+16,6% a/a). Pipeline: Ananaí 93,3%, Pitiguari pleno desde jun/2025, Tangará operação parcial fev-mar/2026 (catalisador 2T26), Saíra Conversora Garabi I prevista abr/2026 (95,8% — catalisador 2T26), Juruá 14,2% (maior runway de capex). Valuation (base TAEE3, ON+PN equivalente = 1.033.496.721 ações, preço atual R$13,12): DCF base R$20,18 (+53,8% upside; bear R$17,50/+33,3%, bull R$23,05/+75,7% — calibrado com capex_pct terminal ≈ D&A/receita, steady-state de reposição do RAB). TIR Real implícita ~5,75% vs NTN-B real ~7,0% (-1,25pp, semáforo vermelho — renda fixa hoje compete com a tese; métrica de yield, ~invariante à classe de ação). Gordon (DDM, D0≈R$1,09/ação) R$16,07. Graham Number R$13,75 / Graham Fórmula R$17,37. Tese: COMPRA moderada — preço-alvo 12m ~R$16-17 (ponderando Gordon/Graham, mais conservadores que o DCF), upside de pipeline (Tangará/Saíra/Juruá) como gatilho adicional, mas TIR-real vermelho é o principal contraponto vs renda fixa no ciclo de SELIC alta. Riscos: queda persistente da Equivalência Patrimonial, execução/atraso de Juruá, alavancagem 4,2-4,73x. Fonte: Release 1T26 TAESA + Planilha Auxiliar-Release_TAESA_Site_1T26.xlsx mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial ABEV3 1T26
+  const abev3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='ABEV3' AND trimestre='1T26'`
+  if (!abev3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('ABEV3','1T26',
+        30180, 33.6, 22460, null, 16500, 3886, -1.5,
+        'Receita R$22.460MM (+11,5% a/a). EBITDA R$7.555MM (+1,5% a/a). Mg EBITDA 33,6% (+0,1pp a/a). LL R$3.886MM (+2,2% a/a). Caixa Líquido R$16,5B. JCP declarado R$0,449/ação bruto (1T26). Resultado superou consenso — ação subiu +15% no dia, 2ª maior alta histórica. Destaques: Cerveja BR vol +1,2% (recuperação após queda 1T25); NAB Brasil +3,5% vol; mix premium favorável (+NR/hl). Headwinds: CAC/LAS/Canadá pressionados por FX adverso; concorrência Heineken avançou em share premium BR. Distribuiu R$17,4B em proventos em 2025 (payout 109% do LL — sustentado por JCP). TIR Real implícita ~6,1% vs NTN-B real 8,0% (-1,5pp — caro vs renda fixa; semáforo VERMELHO). DCF base R$22,00/ação (+38% vs cotação); Bear R$16,50 (+4%); Bull R$30,00 (+88%). P/L 16,1x vs Heineken 22x e ABI 19x. EV/EBITDA 7,3x vs peers globais 10-11x — desconto estrutural. Graham Number R$11,29 | Graham Fórmula R$17,33. Gordon R$9,63 (Ke=16,6%) ou R$15,55 (Ke=12% implícito mkt). Tese: qualidade premium + dividendo robusto + caixa líquido R$16,5B, mas upside DCF materializa-se apenas com SELIC cadente para re-rating do múltiplo. Principal stop: Mg EBITDA < 29% por 2 trimestres. Fonte: Release 1T26 Ambev mai/2026.')
     `
   }
 }
