@@ -173,6 +173,26 @@ const CONFIGS_SETOR: Record<string, {
       'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
     ],
   },
+
+  tecnologia: {
+    // VLID3 — Valid. Drivers: (1) Rec ID & Gov Digital | (2) Mg EBITDA | (3) Declínio Pay/Mobile
+    // gsf=Mg EBITDA% | pld=Rec ID/Gov R$MM | rap=Receita | pmso=Rec Pay R$MM | dl_ebitda=Caixa Líq | lucro=LL
+    metricas: [
+      { key: 'gsf',       label: 'Mg EBITDA (%)',               unidade: '%',     verde: 24,    vermelho: 18,    sentido: 'maior' },
+      { key: 'pld',       label: 'Rec ID & Gov Digital (R$ MM)', unidade: 'R$ MM', verde: 260,   vermelho: 200,   sentido: 'maior' },
+      { key: 'rap',       label: 'Receita líquida',              unidade: 'R$ MM', verde: 520,   vermelho: 440,   sentido: 'maior' },
+      { key: 'pmso',      label: 'Rec Pay (R$ MM)',               unidade: 'R$ MM', verde: 130,   vermelho: 70,    sentido: 'maior' },
+      { key: 'dl_ebitda', label: 'Caixa Líquido (R$ MM)',        unidade: 'R$ MM', verde: 50,    vermelho: -100,  sentido: 'maior' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',            unidade: 'p.p.',  verde: 3.0,   vermelho: 0.0,   sentido: 'maior' },
+      { key: 'lucro',     label: 'Lucro líquido',                 unidade: 'R$ MM', verde: 70,    vermelho: 35,    sentido: 'maior' },
+    ],
+    stops: [
+      'Receita ID & Gov Digital cai por 2 trimestres consecutivos (perda de contratos gov.)',
+      'Mg EBITDA < 18% por 2 trimestres (deterioração estrutural de mix)',
+      'Receita Pay abaixo de R$70MM/tri por 2 trimestres (aceleração do declínio)',
+      'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
+    ],
+  },
 }
 
 // Mapa ticker → setor (baseado em COMPANIES do dcf.py)
@@ -207,6 +227,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'LAVV3':  { nome: 'Lavvi Empreendimentos Imobiliários S.A.', setor: 'construcao' },
   'TAEE3': { nome: 'Transmissora Aliança de Energia Elétrica S.A.', setor: 'transmissao' },
   'ABEV3': { nome: 'Ambev S.A.',                                    setor: 'bebidas'      },
+  'VLID3': { nome: 'Valid Soluções S.A.',                           setor: 'tecnologia'   },
 }
 
 async function ensureTables() {
@@ -405,6 +426,17 @@ async function ensureTables() {
       VALUES ('ABEV3','1T26',
         30180, 33.6, 22460, null, 16500, 3886, -1.5,
         'Receita R$22.460MM (+11,5% a/a). EBITDA R$7.555MM (+1,5% a/a). Mg EBITDA 33,6% (+0,1pp a/a). LL R$3.886MM (+2,2% a/a). Caixa Líquido R$16,5B. JCP declarado R$0,449/ação bruto (1T26). Resultado superou consenso — ação subiu +15% no dia, 2ª maior alta histórica. Destaques: Cerveja BR vol +1,2% (recuperação após queda 1T25); NAB Brasil +3,5% vol; mix premium favorável (+NR/hl). Headwinds: CAC/LAS/Canadá pressionados por FX adverso; concorrência Heineken avançou em share premium BR. Distribuiu R$17,4B em proventos em 2025 (payout 109% do LL — sustentado por JCP). TIR Real implícita ~6,1% vs NTN-B real 8,0% (-1,5pp — caro vs renda fixa; semáforo VERMELHO). DCF base R$22,00/ação (+38% vs cotação); Bear R$16,50 (+4%); Bull R$30,00 (+88%). P/L 16,1x vs Heineken 22x e ABI 19x. EV/EBITDA 7,3x vs peers globais 10-11x — desconto estrutural. Graham Number R$11,29 | Graham Fórmula R$17,33. Gordon R$9,63 (Ke=16,6%) ou R$15,55 (Ke=12% implícito mkt). Tese: qualidade premium + dividendo robusto + caixa líquido R$16,5B, mas upside DCF materializa-se apenas com SELIC cadente para re-rating do múltiplo. Principal stop: Mg EBITDA < 29% por 2 trimestres. Fonte: Release 1T26 Ambev mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial VLID3 1T26
+  const vlid3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='VLID3' AND trimestre='1T26'`
+  if (!vlid3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('VLID3','1T26',
+        248.6, 25.5, 447, 90.0, -37, 56, 4.3,
+        'Receita R$447MM (-10,7% a/a). EBITDA R$114MM (Mg 25,5%). LL R$56MM recorrente (reportado R$73,6MM com benefício fiscal não-recorrente). Caixa Líquido R$37MM. Segmentos: ID & Gov Digital R$248,6MM (+1,7% a/a — CIN em expansão); Pay R$90MM (-31,5% a/a — pressão Argentina + digital); Mobile R$108,4MM (-13,3% a/a). EV/EBITDA LTM 3,2x (deep value — peers globais 8-12x). P/L 5,7x. DCF base R$32/ação (+83% upside vs R$17,70); Bear R$23 (+29%); Bull R$43 (+146%). TIR Real implícita ~12,3% vs NTN-B real 8,0% (+4,3pp — VERDE). Gordon DDM R$12 (Ke=18,2% — severo) / R$21 (Ke=12% mkt implícito). Graham Number R$38 (+116%). Tese: COMPRA — Valid é uma empresa de identidade digital em transição: legacy (Pay/Mobile) caindo mas Gov Digital crescendo, net cash, payout ~50%, valuation em mínimas históricas. Novos Negócios (VSoft biometria + serviços gov.) +53% a/a em 2025 já respondem por 16% da receita e 27% do EBITDA. Catalisadores: expansão CIN para todos os estados, contratos gov. digitais (SPs, RJs), estabilização Pay. Stop: Rec ID&Gov cai por 2 tri consecutivos. Fonte: Release 1T26 Valid — mai/2026.')
     `
   }
 }
