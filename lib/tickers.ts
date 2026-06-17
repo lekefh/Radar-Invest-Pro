@@ -39,6 +39,7 @@ export const TICKERS_INFO: Record<string, TickerInfo> = {
   MYPK3: { nome: 'Iochpe-Maxion S.A.', setor: 'Bens Industriais' },
   ROMI3: { nome: 'Indústrias Romi S.A.', setor: 'Bens Industriais' },
   VLID3: { nome: 'Valid Soluções S.A.', setor: 'Tecnologia da Informação' },
+  LEVE3: { nome: 'Mahle Metal Leve S.A.', setor: 'Bens Industriais' },
   COGN3: { nome: 'Cogna Educação S.A.', setor: 'Consumo Cíclico' },
   USIM3: { nome: 'Usinas Siderúrgicas de Minas Gerais S.A.', setor: 'Materiais Básicos' },
   USIM5: { nome: 'Usinas Siderúrgicas de Minas Gerais S.A.', setor: 'Materiais Básicos' },

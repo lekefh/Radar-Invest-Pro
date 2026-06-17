@@ -174,6 +174,26 @@ const CONFIGS_SETOR: Record<string, {
     ],
   },
 
+  autopecas: {
+    // LEVE3 — Mahle Metal Leve. Drivers: (1) Mg EBITDA % | (2) OE Doméstico | (3) DL/EBITDA
+    // gsf=Mg EBITDA% | pld=Rec OE Dom R$MM | rap=Receita | pmso=CapEx tri | dl_ebitda=DL/EBITDA | lucro=LL
+    metricas: [
+      { key: 'gsf',       label: 'Mg EBITDA (%)',              unidade: '%',     verde: 21,   vermelho: 17,   sentido: 'maior' },
+      { key: 'pld',       label: 'Rec OE Doméstico (R$ MM)',   unidade: 'R$ MM', verde: 550,  vermelho: 430,  sentido: 'maior' },
+      { key: 'rap',       label: 'Receita líquida',            unidade: 'R$ MM', verde: 1350, vermelho: 1080, sentido: 'maior' },
+      { key: 'pmso',      label: 'CapEx trimestral (R$ MM)',   unidade: 'R$ MM', verde: 30,   vermelho: 80,   sentido: 'menor' },
+      { key: 'dl_ebitda', label: 'DL/EBITDA',                  unidade: 'x',     verde: 0.8,  vermelho: 1.8,  sentido: 'menor' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',          unidade: 'p.p.',  verde: 2.0,  vermelho: 0.0,  sentido: 'maior' },
+      { key: 'lucro',     label: 'Lucro líquido',               unidade: 'R$ MM', verde: 180,  vermelho: 100,  sentido: 'maior' },
+    ],
+    stops: [
+      'Mg EBITDA < 17% por 2 trimestres consecutivos (deterioração operacional estrutural)',
+      'DL/EBITDA > 2,0x (extração excessiva de dividendos pelo controlador Mahle GmbH)',
+      'OE Doméstico cai >15% a/a por 2 trimestres (queda da produção veicular ICE no Brasil)',
+      'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
+    ],
+  },
+
   tecnologia: {
     // VLID3 — Valid. Drivers: (1) Rec ID & Gov Digital | (2) Mg EBITDA | (3) Declínio Pay/Mobile
     // gsf=Mg EBITDA% | pld=Rec ID/Gov R$MM | rap=Receita | pmso=Rec Pay R$MM | dl_ebitda=Caixa Líq | lucro=LL
@@ -228,6 +248,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'TAEE3': { nome: 'Transmissora Aliança de Energia Elétrica S.A.', setor: 'transmissao' },
   'ABEV3': { nome: 'Ambev S.A.',                                    setor: 'bebidas'      },
   'VLID3': { nome: 'Valid Soluções S.A.',                           setor: 'tecnologia'   },
+  'LEVE3': { nome: 'Mahle Metal Leve S.A.',                        setor: 'autopecas'    },
 }
 
 async function ensureTables() {
@@ -426,6 +447,17 @@ async function ensureTables() {
       VALUES ('ABEV3','1T26',
         30180, 33.6, 22460, null, 16500, 3886, -1.5,
         'Receita R$22.460MM (+11,5% a/a). EBITDA R$7.555MM (+1,5% a/a). Mg EBITDA 33,6% (+0,1pp a/a). LL R$3.886MM (+2,2% a/a). Caixa Líquido R$16,5B. JCP declarado R$0,449/ação bruto (1T26). Resultado superou consenso — ação subiu +15% no dia, 2ª maior alta histórica. Destaques: Cerveja BR vol +1,2% (recuperação após queda 1T25); NAB Brasil +3,5% vol; mix premium favorável (+NR/hl). Headwinds: CAC/LAS/Canadá pressionados por FX adverso; concorrência Heineken avançou em share premium BR. Distribuiu R$17,4B em proventos em 2025 (payout 109% do LL — sustentado por JCP). TIR Real implícita ~6,1% vs NTN-B real 8,0% (-1,5pp — caro vs renda fixa; semáforo VERMELHO). DCF base R$22,00/ação (+38% vs cotação); Bear R$16,50 (+4%); Bull R$30,00 (+88%). P/L 16,1x vs Heineken 22x e ABI 19x. EV/EBITDA 7,3x vs peers globais 10-11x — desconto estrutural. Graham Number R$11,29 | Graham Fórmula R$17,33. Gordon R$9,63 (Ke=16,6%) ou R$15,55 (Ke=12% implícito mkt). Tese: qualidade premium + dividendo robusto + caixa líquido R$16,5B, mas upside DCF materializa-se apenas com SELIC cadente para re-rating do múltiplo. Principal stop: Mg EBITDA < 29% por 2 trimestres. Fonte: Release 1T26 Ambev mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial LEVE3 1T26
+  const leve3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='LEVE3' AND trimestre='1T26'`
+  if (!leve3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('LEVE3','1T26',
+        518, 19.9, 1256, 12, 0.93, 214, 1.6,
+        'Receita R$1.256MM (-0,8% a/a). EBITDA R$249MM (Mg 19,9% +1,2pp a/a). LL R$214MM (+35% a/a — incl. ganho FX R$78MM: res. financeiro R$75,8MM vs R$12,1MM em 1T25). OE Doméstico R$518MM (+1,3% a/a); OE Export R$278MM (-1,4%); AM Dom R$388MM (-2,7%); AM Exp R$72MM (-3,4%). CapEx R$11,9MM (Q1 sazonalmente baixo). DL R$965MM | DL/EBITDA 0,93x. Shares 135,5M | Cotação R$33,35 | MktCap R$4,52B | EV/EBITDA LTM 5,22x. DCF base R$43/ação (+29% vs R$33,35; WACC 15%, g 4%). Bear R$32 (-3%); Bull R$56 (+68%). TIR Real implícita ~9,6% vs NTN-B real 8,0% (+1,6pp — VERDE moderado). Gordon (Ke=18,8%): R$14 (mkt implicit Ke ~10%). Graham Number R$29 (-13% vs cotação). Tese: Compra moderada — empresa de qualidade excepcional (ROE 62%, ROIC 28%) com DY 8,6%, mas risco EV de longo prazo e DL crescente por dividendos ao controlador Mahle GmbH (~74%). Aftermarket (frota envelhecida BR) sustenta demanda. Principal risco: aceleração adoção EV + BRL apreciação. Stop: DL/EBITDA > 2,0x. Fonte: Release 1T26 Mahle Metal Leve mai/2026.')
     `
   }
 
