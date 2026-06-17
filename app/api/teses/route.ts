@@ -213,6 +213,26 @@ const CONFIGS_SETOR: Record<string, {
       'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
     ],
   },
+
+  saneamento: {
+    // SBSP3 — Sabesp. Drivers: (1) Mg EBITDA adj | (2) CapEx (ciclo investimento) | (3) DL/EBITDA
+    // gsf=Mg EBITDA% | pld=CapEx tri R$MM | rap=Receita adj ex-construção | pmso=Cob.Esgoto % | dl_ebitda=DL/EBITDA | lucro=LL adj
+    metricas: [
+      { key: 'gsf',       label: 'Mg EBITDA adj (%)',          unidade: '%',     verde: 62,    vermelho: 52,    sentido: 'maior' },
+      { key: 'pld',       label: 'CapEx trimestral (R$ MM)',   unidade: 'R$ MM', verde: 5000,  vermelho: 1500,  sentido: 'maior' },
+      { key: 'rap',       label: 'Receita adj ex-construção',  unidade: 'R$ MM', verde: 6500,  vermelho: 5000,  sentido: 'maior' },
+      { key: 'pmso',      label: 'Cobertura Esgoto (%)',       unidade: '%',     verde: 92,    vermelho: 84,    sentido: 'maior' },
+      { key: 'dl_ebitda', label: 'DL/EBITDA adj',             unidade: 'x',     verde: 2.0,   vermelho: 3.5,   sentido: 'menor' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',         unidade: 'p.p.',  verde: 2.0,   vermelho: 0.0,   sentido: 'maior' },
+      { key: 'lucro',     label: 'Lucro líquido adj',          unidade: 'R$ MM', verde: 1500,  vermelho: 800,   sentido: 'maior' },
+    ],
+    stops: [
+      'Mg EBITDA adj < 52% por 2 trimestres (reversão das eficiências pós-privatização)',
+      'DL/EBITDA > 3,5x (ciclo de CapEx superando FCO: risco de capital dilutivo)',
+      'CapEx abaixo de R$2.500MM/tri por 2 trimestres (descumprimento de metas contratuais ARSESP)',
+      'TIR Real implícita cai abaixo de NTN-B + 0 p.p.',
+    ],
+  },
 }
 
 // Mapa ticker → setor (baseado em COMPANIES do dcf.py)
@@ -249,6 +269,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'ABEV3': { nome: 'Ambev S.A.',                                    setor: 'bebidas'      },
   'VLID3': { nome: 'Valid Soluções S.A.',                           setor: 'tecnologia'   },
   'LEVE3': { nome: 'Mahle Metal Leve S.A.',                        setor: 'autopecas'    },
+  'SBSP3': { nome: 'Sabesp — Cia. de Saneamento Básico do Estado de SP', setor: 'saneamento' },
 }
 
 async function ensureTables() {
@@ -447,6 +468,17 @@ async function ensureTables() {
       VALUES ('ABEV3','1T26',
         30180, 33.6, 22460, null, 16500, 3886, -1.5,
         'Receita R$22.460MM (+11,5% a/a). EBITDA R$7.555MM (+1,5% a/a). Mg EBITDA 33,6% (+0,1pp a/a). LL R$3.886MM (+2,2% a/a). Caixa Líquido R$16,5B. JCP declarado R$0,449/ação bruto (1T26). Resultado superou consenso — ação subiu +15% no dia, 2ª maior alta histórica. Destaques: Cerveja BR vol +1,2% (recuperação após queda 1T25); NAB Brasil +3,5% vol; mix premium favorável (+NR/hl). Headwinds: CAC/LAS/Canadá pressionados por FX adverso; concorrência Heineken avançou em share premium BR. Distribuiu R$17,4B em proventos em 2025 (payout 109% do LL — sustentado por JCP). TIR Real implícita ~6,1% vs NTN-B real 8,0% (-1,5pp — caro vs renda fixa; semáforo VERMELHO). DCF base R$22,00/ação (+38% vs cotação); Bear R$16,50 (+4%); Bull R$30,00 (+88%). P/L 16,1x vs Heineken 22x e ABI 19x. EV/EBITDA 7,3x vs peers globais 10-11x — desconto estrutural. Graham Number R$11,29 | Graham Fórmula R$17,33. Gordon R$9,63 (Ke=16,6%) ou R$15,55 (Ke=12% implícito mkt). Tese: qualidade premium + dividendo robusto + caixa líquido R$16,5B, mas upside DCF materializa-se apenas com SELIC cadente para re-rating do múltiplo. Principal stop: Mg EBITDA < 29% por 2 trimestres. Fonte: Release 1T26 Ambev mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial SBSP3 1T26
+  const sbsp3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='SBSP3' AND trimestre='1T26'`
+  if (!sbsp3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('SBSP3','1T26',
+        3728, 62.9, 6021, 87, 2.32, 1550, 2.1,
+        'Receita adj R$6.021MM (+10,9% a/a). EBITDA adj R$3.786MM (Mg 62,9% +7,5pp a/a | +25,9% a/a). LL adj R$1.550MM (+32,2% a/a). CapEx R$3.728MM (+30,8% a/a: R$2.485B esgoto + R$1.243B água). DL R$32.460MM | DL/EBITDA adj LTM 2,32x. 3.524M ações | R$27,58 | MktCap R$97,3B | EV/EBITDA adj ~9,3x. Privatização Jun/2024 (Equatorial 32%): contrato até 2060 — metas de cobertura esgoto >95% SP. Mg EBITDA saiu de 35,9% (2023) → 62,9% (1T26) — expansão estrutural por eficiência pós-privatização + corte 17% despesas pessoal + tarifa. CapEx ciclo massivo: R$12-14B/ano → DL crescendo rapidamente (4T21 R$14,5B → 1T26 R$32,5B). FCL negativo no ciclo de investimento. TIR nominal implícita ~14,5% → TIR real ~10,1% vs NTN-B 8,0% (+2,1pp — VERDE moderado). DCF base R$32/ação (+16% vs R$27,58; WACC 13,5%, g 4%). Bear R$22 (-20%); Bull R$42 (+52%). Gordon inadequado (ciclo invest = payout baixo). Graham: R$22,35 (VPA R$12,40 × LPA adj R$1,79 → 24% acima). Tese: NEUTRO — qualidade operacional excelente mas valorização moderada: terminal value + execução do CapEx. Stop: DL/EBITDA >3,5x; Mg EBITDA adj <52%. Fonte: RI Sabesp + Nordinvestimentos + Infomoney 1T26 mai/2026.')
     `
   }
 
