@@ -2,15 +2,15 @@
   "ABCB4": {
     "nome": "Banco ABC Brasil S.A.",
     "setor": "Financial Services",
-    "dy": 10.83,
-    "pl": 6.26,
+    "dy": 10.8,
+    "pl": 6.28,
     "pvp": 0.88,
     "roe": 14.08,
     "lpa": 3.86,
     "divEbit": null,
     "vpa": 27.43,
-    "merc": 6.3,
-    "evEbit": 5.19,
+    "merc": 6.32,
+    "evEbit": 5.21,
     "max52s": 28.12,
     "gov": 1.7,
     "govRespostas": {
@@ -27,7 +27,7 @@
       "g11": "—"
     },
     "nota": 8.4,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:47",
       "alerta": false,
@@ -130,15 +130,15 @@
   "ABEV3": {
     "nome": "Ambev S.A.",
     "setor": "Consumer Defensive",
-    "dy": 5.29,
-    "pl": 16.41,
-    "pvp": 2.84,
+    "dy": 5.35,
+    "pl": 16.24,
+    "pvp": 2.81,
     "roe": 17.28,
     "lpa": 0.99,
     "divEbit": -0.7,
     "vpa": 5.72,
-    "merc": 255.69,
-    "evEbit": 10.09,
+    "merc": 253.01,
+    "evEbit": 9.98,
     "max52s": 16.95,
     "gov": 2.0,
     "govRespostas": {
@@ -155,7 +155,7 @@
       "g11": "—"
     },
     "nota": 5.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:48",
       "alerta": false,
@@ -280,15 +280,15 @@
   "AGRO3": {
     "nome": "BrasilAgro - Companhia Brasileira de Propriedades Agrícolas",
     "setor": "Consumer Defensive",
-    "dy": 4.17,
-    "pl": -125.35,
-    "pvp": 0.91,
+    "dy": 4.12,
+    "pl": -126.88,
+    "pvp": 0.92,
     "roe": -0.72,
     "lpa": -0.14,
     "divEbit": -80.02,
     "vpa": 19.88,
-    "merc": 1.85,
-    "evEbit": -189.89,
+    "merc": 1.88,
+    "evEbit": -191.23,
     "max52s": 22.48,
     "gov": 2.1,
     "govRespostas": {
@@ -305,7 +305,7 @@
       "g11": "—"
     },
     "nota": 6.3,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:50",
       "alerta": false,
@@ -419,15 +419,15 @@
   "ALOS3": {
     "nome": "Allos S.A.",
     "setor": "Real Estate",
-    "dy": 9.22,
-    "pl": 16.23,
-    "pvp": 1.04,
+    "dy": 9.26,
+    "pl": 16.17,
+    "pvp": 1.03,
     "roe": 6.39,
     "lpa": 1.64,
     "divEbit": -1.43,
     "vpa": 25.71,
-    "merc": 13.43,
-    "evEbit": 7.48,
+    "merc": 13.39,
+    "evEbit": 7.45,
     "max52s": 33.15,
     "gov": 2.0,
     "govRespostas": {
@@ -444,7 +444,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:51",
       "alerta": true,
@@ -591,15 +591,15 @@
   "ANIM3": {
     "nome": "Ânima Holding S.A.",
     "setor": "Consumer Defensive",
-    "dy": 3.01,
-    "pl": 8.12,
+    "dy": 2.98,
+    "pl": 8.21,
     "pvp": 0.46,
     "roe": 5.62,
     "lpa": 0.33,
     "divEbit": 4.05,
     "vpa": 5.92,
-    "merc": 1.09,
-    "evEbit": 5.12,
+    "merc": 1.1,
+    "evEbit": 5.13,
     "max52s": 5.17,
     "gov": 2.0,
     "govRespostas": {
@@ -615,8 +615,8 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 5.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "nota": 5.7,
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:53",
       "alerta": true,
@@ -719,15 +719,15 @@
   "AXIA3": {
     "nome": "Âxia Energia S.A.",
     "setor": null,
-    "dy": 7.08,
-    "pl": 15.89,
-    "pvp": 1.25,
+    "dy": 7.04,
+    "pl": 15.98,
+    "pvp": 1.26,
     "roe": 7.88,
     "lpa": 3.24,
     "divEbit": 6.61,
     "vpa": 41.16,
-    "merc": 156.28,
-    "evEbit": 29.14,
+    "merc": 156.98,
+    "evEbit": 29.24,
     "max52s": 67.15,
     "gov": 1.1,
     "govRespostas": {
@@ -744,7 +744,7 @@
       "g11": "—"
     },
     "nota": 3.6,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:54",
       "alerta": false,
@@ -887,8 +887,8 @@
     "lpa": 3.24,
     "divEbit": 6.61,
     "vpa": 41.16,
-    "merc": 156.28,
-    "evEbit": 29.14,
+    "merc": 156.98,
+    "evEbit": 29.24,
     "max52s": 78.75,
     "gov": 1.1,
     "govRespostas": {
@@ -905,7 +905,7 @@
       "g11": "—"
     },
     "nota": 2.7,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:55",
       "alerta": false,
@@ -986,15 +986,15 @@
   "AZZA3": {
     "nome": "Azzas 2154 S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 15.28,
-    "pl": 4.02,
-    "pvp": 0.42,
+    "dy": 14.1,
+    "pl": 4.36,
+    "pvp": 0.45,
     "roe": 10.39,
     "lpa": 4.03,
     "divEbit": 2.17,
     "vpa": 38.77,
-    "merc": 3.35,
-    "evEbit": 5.5,
+    "merc": 3.63,
+    "evEbit": 5.78,
     "max52s": 41.74,
     "gov": 2.0,
     "govRespostas": {
@@ -1011,7 +1011,7 @@
       "g10": "Sim"
     },
     "nota": 8.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:57",
       "alerta": true,
@@ -1136,15 +1136,15 @@
   "B3SA3": {
     "nome": "B3 S.A. - Brasil, Bolsa, Balcão",
     "setor": "Financial Services",
-    "dy": 3.19,
-    "pl": 14.59,
-    "pvp": 3.96,
+    "dy": 3.17,
+    "pl": 14.67,
+    "pvp": 3.98,
     "roe": 27.15,
     "lpa": 0.98,
     "divEbit": -0.09,
     "vpa": 3.62,
-    "merc": 72.32,
-    "evEbit": 10.2,
+    "merc": 72.72,
+    "evEbit": 10.25,
     "max52s": 19.84,
     "gov": 2.0,
     "govRespostas": {
@@ -1161,7 +1161,7 @@
       "g11": "—"
     },
     "nota": 5.6,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:58",
       "alerta": true,
@@ -1308,15 +1308,15 @@
   "BBAS3": {
     "nome": "Banco do Brasil S.A.",
     "setor": "Financial Services",
-    "dy": 2.82,
-    "pl": 7.12,
+    "dy": 2.84,
+    "pl": 7.08,
     "pvp": 0.58,
     "roe": 8.2,
     "lpa": 2.74,
     "divEbit": null,
     "vpa": 33.45,
-    "merc": 111.92,
-    "evEbit": 17.61,
+    "merc": 111.29,
+    "evEbit": 17.51,
     "max52s": 27.52,
     "gov": 1.7,
     "govRespostas": {
@@ -1333,7 +1333,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:55 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:59",
       "alerta": true,
@@ -1436,15 +1436,15 @@
   "BBDC3": {
     "nome": "Banco Bradesco S.A.",
     "setor": "Financial Services",
-    "dy": 7.24,
-    "pl": 6.89,
-    "pvp": 0.9,
+    "dy": 7.29,
+    "pl": 6.84,
+    "pvp": 0.89,
     "roe": 13.06,
     "lpa": 2.22,
     "divEbit": null,
     "vpa": 16.97,
-    "merc": 173.37,
-    "evEbit": 7.61,
+    "merc": 172.79,
+    "evEbit": 7.58,
     "max52s": 18.45,
     "gov": 1.6,
     "govRespostas": {
@@ -1461,7 +1461,7 @@
       "g11": "—"
     },
     "nota": 7.4,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:01",
       "alerta": false,
@@ -1571,8 +1571,8 @@
     "lpa": 2.22,
     "divEbit": null,
     "vpa": 16.97,
-    "merc": 173.37,
-    "evEbit": 7.61,
+    "merc": 172.79,
+    "evEbit": 7.58,
     "max52s": 21.42,
     "gov": 1.6,
     "govRespostas": {
@@ -1589,7 +1589,7 @@
       "g11": "—"
     },
     "nota": 5.8,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:02",
       "alerta": false,
@@ -1714,15 +1714,15 @@
   "BBSE3": {
     "nome": "BB Seguridade Participações S.A.",
     "setor": "Financial Services",
-    "dy": 11.53,
-    "pl": 8.33,
-    "pvp": 6.06,
+    "dy": 11.69,
+    "pl": 8.22,
+    "pvp": 5.97,
     "roe": 72.72,
     "lpa": 4.74,
     "divEbit": null,
     "vpa": 6.51,
-    "merc": 76.57,
-    "evEbit": 7.65,
+    "merc": 75.52,
+    "evEbit": 7.55,
     "max52s": 39.44,
     "gov": 2.0,
     "govRespostas": {
@@ -1739,7 +1739,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:04",
       "alerta": false,
@@ -1875,15 +1875,15 @@
   "BLAU3": {
     "nome": "Blau Farmacêutica S.A.",
     "setor": "Healthcare",
-    "dy": 8.77,
-    "pl": 9.24,
-    "pvp": 0.98,
+    "dy": 8.67,
+    "pl": 9.35,
+    "pvp": 0.99,
     "roe": 10.63,
     "lpa": 1.05,
     "divEbit": 0.06,
     "vpa": 9.84,
-    "merc": 2.25,
-    "evEbit": 6.9,
+    "merc": 2.28,
+    "evEbit": 6.98,
     "max52s": 11.6,
     "gov": 2.3,
     "govRespostas": {
@@ -1900,7 +1900,7 @@
       "g11": "—"
     },
     "nota": 7.8,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:05",
       "alerta": false,
@@ -1992,15 +1992,15 @@
   "BMGB4": {
     "nome": "Banco BMG S.A.",
     "setor": "Financial Services",
-    "dy": 10.17,
-    "pl": 5.89,
-    "pvp": 0.7,
+    "dy": 10.62,
+    "pl": 5.63,
+    "pvp": 0.67,
     "roe": 11.89,
     "lpa": 0.91,
     "divEbit": null,
     "vpa": 7.68,
-    "merc": 3.49,
-    "evEbit": 11.34,
+    "merc": 3.34,
+    "evEbit": 10.86,
     "max52s": 5.8,
     "gov": 1.5,
     "govRespostas": {
@@ -2016,8 +2016,8 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 6.5,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "nota": 6.7,
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:06",
       "alerta": false,
@@ -2131,15 +2131,15 @@
   "BPAC11": {
     "nome": "Banco BTG Pactual S.A.",
     "setor": "Financial Services",
-    "dy": 2.45,
-    "pl": 11.25,
-    "pvp": 2.53,
+    "dy": 2.46,
+    "pl": 11.2,
+    "pvp": 2.52,
     "roe": 22.52,
     "lpa": 4.52,
     "divEbit": null,
     "vpa": 20.08,
-    "merc": 197.81,
-    "evEbit": 10.35,
+    "merc": 196.99,
+    "evEbit": 10.31,
     "max52s": 64.34,
     "gov": 2.2,
     "govRespostas": {
@@ -2156,7 +2156,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:08",
       "alerta": false,
@@ -2303,15 +2303,15 @@
   "BPAC3": {
     "nome": "Banco BTG Pactual S.A.",
     "setor": "Financial Services",
-    "dy": 1.9,
-    "pl": 14.54,
-    "pvp": 3.27,
+    "dy": 1.92,
+    "pl": 14.36,
+    "pvp": 3.23,
     "roe": 22.52,
     "lpa": 1.51,
     "divEbit": null,
     "vpa": 6.69,
-    "merc": 197.81,
-    "evEbit": 10.35,
+    "merc": 196.99,
+    "evEbit": 10.31,
     "max52s": 45.29,
     "gov": 2.2,
     "govRespostas": {
@@ -2328,7 +2328,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:09",
       "alerta": false,
@@ -2420,15 +2420,15 @@
   "BRAP3": {
     "nome": "Bradespar S.A.",
     "setor": "Financial Services",
-    "dy": 11.19,
-    "pl": 9.62,
+    "dy": 11.18,
+    "pl": 9.63,
     "pvp": 0.96,
     "roe": 10.0,
     "lpa": 1.99,
     "divEbit": -0.36,
     "vpa": 19.9,
-    "merc": 8.42,
-    "evEbit": 11.52,
+    "merc": 8.43,
+    "evEbit": 11.53,
     "max52s": 21.7,
     "gov": 1.6,
     "govRespostas": {
@@ -2445,7 +2445,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:10",
       "alerta": false,
@@ -2515,15 +2515,15 @@
   "BRAP4": {
     "nome": "Bradespar S.A.",
     "setor": "Financial Services",
-    "dy": 10.41,
-    "pl": 11.38,
+    "dy": 10.39,
+    "pl": 11.4,
     "pvp": 1.14,
     "roe": 10.0,
     "lpa": 1.99,
     "divEbit": -0.36,
     "vpa": 19.9,
-    "merc": 8.42,
-    "evEbit": 11.52,
+    "merc": 8.43,
+    "evEbit": 11.53,
     "max52s": 25.49,
     "gov": 1.6,
     "govRespostas": {
@@ -2540,7 +2540,7 @@
       "g11": "—"
     },
     "nota": 6.8,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -2588,15 +2588,15 @@
   "BRAV3": {
     "nome": "Brava Energia S.A.",
     "setor": "Energy",
-    "dy": 0.64,
-    "pl": 38.47,
-    "pvp": 0.78,
+    "dy": 0.65,
+    "pl": 37.97,
+    "pvp": 0.77,
     "roe": 2.04,
     "lpa": 0.5,
     "divEbit": 4.25,
     "vpa": 24.56,
-    "merc": 8.94,
-    "evEbit": 7.82,
+    "merc": 8.82,
+    "evEbit": 7.77,
     "max52s": 21.64,
     "gov": 1.9,
     "govRespostas": {
@@ -2613,7 +2613,7 @@
       "g11": "—"
     },
     "nota": 3.3,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:08",
       "alerta": false,
@@ -2694,15 +2694,15 @@
   "CAML3": {
     "nome": "Camil Alimentos S.A.",
     "setor": "Consumer Defensive",
-    "dy": 6.03,
-    "pl": 7.31,
-    "pvp": 0.56,
+    "dy": 5.95,
+    "pl": 7.41,
+    "pvp": 0.57,
     "roe": 7.72,
     "lpa": 0.67,
     "divEbit": 4.82,
     "vpa": 8.62,
-    "merc": 1.7,
-    "evEbit": 7.34,
+    "merc": 1.73,
+    "evEbit": 7.38,
     "max52s": 7.32,
     "gov": 2.3,
     "govRespostas": {
@@ -2719,7 +2719,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -2768,14 +2768,14 @@
     "nome": "Méliuz S.A.",
     "setor": "Communication Services",
     "dy": null,
-    "pl": -6.71,
-    "pvp": 1.05,
+    "pl": -6.53,
+    "pvp": 1.03,
     "roe": -15.69,
     "lpa": -0.63,
     "divEbit": 2.15,
     "vpa": 3.99,
-    "merc": 0.48,
-    "evEbit": -9.03,
+    "merc": 0.46,
+    "evEbit": -8.74,
     "max52s": 7.67,
     "gov": 2.3,
     "govRespostas": {
@@ -2792,7 +2792,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 15:08",
       "alerta": true,
@@ -2852,14 +2852,14 @@
     "nome": "Companhia Brasileira de Alumínio",
     "setor": "Basic Materials",
     "dy": 0.41,
-    "pl": 57.03,
+    "pl": 57.14,
     "pvp": 1.51,
     "roe": 2.65,
     "lpa": 0.19,
     "divEbit": 7.22,
     "vpa": 7.11,
-    "merc": 6.99,
-    "evEbit": 23.31,
+    "merc": 7.0,
+    "evEbit": 23.34,
     "max52s": 10.78,
     "gov": 1.6,
     "govRespostas": {
@@ -2876,7 +2876,7 @@
       "g11": "—"
     },
     "nota": 1.4,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": true,
@@ -2924,15 +2924,15 @@
   "CEAB3": {
     "nome": "C&A Modas S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 5.37,
-    "pl": 5.12,
-    "pvp": 0.81,
+    "dy": 5.26,
+    "pl": 5.22,
+    "pvp": 0.83,
     "roe": 15.79,
     "lpa": 1.9,
     "divEbit": 0.13,
     "vpa": 12.01,
-    "merc": 2.99,
-    "evEbit": 3.06,
+    "merc": 3.05,
+    "evEbit": 3.12,
     "max52s": 19.96,
     "gov": 2.3,
     "govRespostas": {
@@ -2949,7 +2949,7 @@
       "g11": "—"
     },
     "nota": 8.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3033,7 +3033,7 @@
       "g11": "—"
     },
     "nota": 1.2,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3070,15 +3070,15 @@
   "CMIG3": {
     "nome": "Companhia Energética de Minas Gerais - CEMIG",
     "setor": "Utilities",
-    "dy": 5.29,
-    "pl": 9.09,
-    "pvp": 1.52,
+    "dy": 5.35,
+    "pl": 8.99,
+    "pvp": 1.51,
     "roe": 16.75,
     "lpa": 1.69,
     "divEbit": 2.67,
     "vpa": 10.09,
-    "merc": 35.13,
-    "evEbit": 7.93,
+    "merc": 34.89,
+    "evEbit": 7.9,
     "max52s": 19.39,
     "gov": 0.9,
     "govRespostas": {
@@ -3095,7 +3095,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3143,15 +3143,15 @@
   "CMIG4": {
     "nome": "Companhia Energética de Minas Gerais - CEMIG",
     "setor": "Utilities",
-    "dy": 6.6,
-    "pl": 6.34,
+    "dy": 6.62,
+    "pl": 6.32,
     "pvp": 1.06,
     "roe": 16.75,
     "lpa": 1.69,
     "divEbit": 2.67,
     "vpa": 10.09,
-    "merc": 35.13,
-    "evEbit": 7.93,
+    "merc": 34.89,
+    "evEbit": 7.9,
     "max52s": 13.55,
     "gov": 0.9,
     "govRespostas": {
@@ -3168,7 +3168,7 @@
       "g11": "—"
     },
     "nota": 5.1,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:16",
       "alerta": false,
@@ -3293,15 +3293,15 @@
   "COGN3": {
     "nome": "Cogna Educação S.A.",
     "setor": "Consumer Defensive",
-    "dy": 5.54,
-    "pl": 7.16,
-    "pvp": 0.35,
+    "dy": 5.51,
+    "pl": 7.19,
+    "pvp": 0.36,
     "roe": 4.94,
     "lpa": 0.33,
     "divEbit": 3.76,
     "vpa": 6.59,
-    "merc": 4.81,
-    "evEbit": 7.16,
+    "merc": 4.83,
+    "evEbit": 7.17,
     "max52s": 4.56,
     "gov": 1.9,
     "govRespostas": {
@@ -3318,7 +3318,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:17",
       "alerta": false,
@@ -3432,15 +3432,15 @@
   "CPFE3": {
     "nome": "CPFL Energia S.A.",
     "setor": null,
-    "dy": 8.49,
-    "pl": 8.8,
-    "pvp": 2.09,
+    "dy": 8.51,
+    "pl": 8.77,
+    "pvp": 2.08,
     "roe": 23.72,
     "lpa": 5.0,
     "divEbit": 2.35,
     "vpa": 21.09,
-    "merc": 50.71,
-    "evEbit": 6.95,
+    "merc": 50.56,
+    "evEbit": 6.93,
     "max52s": 52.32,
     "gov": 1.9,
     "govRespostas": {
@@ -3457,7 +3457,7 @@
       "g10": "Sim"
     },
     "nota": 6.5,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:18",
       "alerta": false,
@@ -3593,15 +3593,15 @@
   "CPLE3": {
     "nome": "Companhia Paranaense de Energia - COPEL",
     "setor": "Utilities",
-    "dy": 7.19,
-    "pl": 16.24,
-    "pvp": 1.85,
+    "dy": 7.3,
+    "pl": 16.0,
+    "pvp": 1.82,
     "roe": 11.39,
     "lpa": 0.91,
     "divEbit": 3.51,
     "vpa": 7.99,
-    "merc": 44.09,
-    "evEbit": 12.04,
+    "merc": 43.43,
+    "evEbit": 11.91,
     "max52s": 16.72,
     "gov": 1.9,
     "govRespostas": {
@@ -3617,8 +3617,8 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 3.9,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "nota": 4.4,
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:19",
       "alerta": false,
@@ -3689,14 +3689,14 @@
     "nome": "Cosan S.A.",
     "setor": null,
     "dy": null,
-    "pl": -1.42,
-    "pvp": 3.86,
+    "pl": -1.45,
+    "pvp": 3.96,
     "roe": -272.42,
     "lpa": -2.4,
     "divEbit": 48.3,
     "vpa": 0.88,
-    "merc": 13.49,
-    "evEbit": 62.03,
+    "merc": 13.84,
+    "evEbit": 62.4,
     "max52s": 8.0,
     "gov": 2.3,
     "govRespostas": {
@@ -3713,7 +3713,7 @@
       "g11": "—"
     },
     "nota": 3.6,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:21",
       "alerta": true,
@@ -3860,15 +3860,15 @@
   "CSMG3": {
     "nome": "Companhia de Saneamento de Minas Gerais",
     "setor": "Utilities",
-    "dy": 3.91,
-    "pl": 16.15,
-    "pvp": 2.5,
+    "dy": 3.97,
+    "pl": 15.9,
+    "pvp": 2.46,
     "roe": 15.46,
     "lpa": 3.56,
     "divEbit": 3.53,
     "vpa": 23.06,
-    "merc": 21.88,
-    "evEbit": 14.78,
+    "merc": 21.55,
+    "evEbit": 14.6,
     "max52s": 60.35,
     "gov": 1.6,
     "govRespostas": {
@@ -3884,8 +3884,8 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 3.3,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "nota": 3.8,
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:23",
       "alerta": true,
@@ -4032,15 +4032,15 @@
   "CURY3": {
     "nome": "Cury Construtora e Incorporadora S.A.",
     "setor": "Real Estate",
-    "dy": 12.88,
-    "pl": 9.46,
-    "pvp": 6.53,
+    "dy": 12.66,
+    "pl": 9.62,
+    "pvp": 6.64,
     "roe": 68.95,
     "lpa": 3.46,
     "divEbit": -0.29,
     "vpa": 5.01,
-    "merc": 10.08,
-    "evEbit": 6.95,
+    "merc": 10.25,
+    "evEbit": 7.07,
     "max52s": 40.96,
     "gov": 2.4,
     "govRespostas": {
@@ -4057,7 +4057,7 @@
       "g11": "—"
     },
     "nota": 8.3,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:24",
       "alerta": false,
@@ -4182,15 +4182,15 @@
   "CYRE3": {
     "nome": "Cyrela Brazil Realty S.A. Empreendimentos e Participações",
     "setor": "Consumer Cyclical",
-    "dy": 12.91,
-    "pl": 4.85,
-    "pvp": 0.9,
+    "dy": 12.51,
+    "pl": 5.01,
+    "pvp": 0.93,
     "roe": 18.6,
     "lpa": 4.36,
     "divEbit": 2.15,
     "vpa": 23.42,
-    "merc": 9.59,
-    "evEbit": 6.34,
+    "merc": 9.9,
+    "evEbit": 6.47,
     "max52s": 32.0,
     "gov": 2.4,
     "govRespostas": {
@@ -4207,7 +4207,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:26",
       "alerta": true,
@@ -4344,14 +4344,14 @@
     "nome": "Cyrela Brazil Realty S.A.",
     "setor": null,
     "dy": null,
-    "pl": 4.47,
-    "pvp": 0.83,
+    "pl": 4.59,
+    "pvp": 0.85,
     "roe": 18.6,
     "lpa": 4.36,
     "divEbit": 2.15,
     "vpa": 23.42,
-    "merc": 9.59,
-    "evEbit": 6.34,
+    "merc": 9.9,
+    "evEbit": 6.47,
     "max52s": 30.9,
     "gov": 1.8,
     "govRespostas": {
@@ -4368,7 +4368,7 @@
       "g11": "—"
     },
     "nota": 7.3,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:26",
       "alerta": false,
@@ -4416,15 +4416,15 @@
   "ECOR3": {
     "nome": "EcoRodovias Infraestrutura e Logística S.A.",
     "setor": "Industrials",
-    "dy": 4.59,
-    "pl": 6.43,
-    "pvp": 1.15,
+    "dy": 4.48,
+    "pl": 6.58,
+    "pvp": 1.17,
     "roe": 17.81,
     "lpa": 1.05,
     "divEbit": 5.37,
     "vpa": 5.88,
-    "merc": 4.69,
-    "evEbit": 6.48,
+    "merc": 4.8,
+    "evEbit": 6.51,
     "max52s": 11.74,
     "gov": 1.9,
     "govRespostas": {
@@ -4441,7 +4441,7 @@
       "g11": "—"
     },
     "nota": 5.8,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:28",
       "alerta": false,
@@ -4556,13 +4556,13 @@
     "nome": "Energisa S.A.",
     "setor": "Utilities",
     "dy": 3.74,
-    "pl": 12.03,
-    "pvp": 1.17,
+    "pl": 12.02,
+    "pvp": 1.16,
     "roe": 9.69,
     "lpa": 3.78,
     "divEbit": 5.07,
     "vpa": 39.02,
-    "merc": 22.91,
+    "merc": 22.89,
     "evEbit": 8.51,
     "max52s": 58.15,
     "gov": 2.1,
@@ -4580,7 +4580,7 @@
       "g11": "—"
     },
     "nota": 5.0,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:29",
       "alerta": false,
@@ -4672,14 +4672,14 @@
   "ENGI3": {
     "nome": "Energisa S.A.",
     "setor": "Utilities",
-    "dy": 2.91,
-    "pl": 15.47,
+    "dy": 2.92,
+    "pl": 15.43,
     "pvp": 1.5,
     "roe": 9.69,
     "lpa": 0.76,
     "divEbit": 5.07,
     "vpa": 7.8,
-    "merc": 22.91,
+    "merc": 22.89,
     "evEbit": 8.51,
     "max52s": 13.8,
     "gov": 2.1,
@@ -4697,7 +4697,7 @@
       "g11": "—"
     },
     "nota": 4.6,
-    "atualizado": "18/06/2026 21:34 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:30",
       "alerta": false,
@@ -4767,15 +4767,15 @@
   "EQTL3": {
     "nome": "Equatorial S.A.",
     "setor": "Utilities",
-    "dy": 4.3,
-    "pl": 30.01,
-    "pvp": 1.81,
+    "dy": 4.27,
+    "pl": 30.17,
+    "pvp": 1.82,
     "roe": 6.02,
     "lpa": 1.23,
     "divEbit": 5.7,
     "vpa": 20.4,
-    "merc": 46.42,
-    "evEbit": 11.46,
+    "merc": 46.66,
+    "evEbit": 11.49,
     "max52s": 45.35,
     "gov": 2.0,
     "govRespostas": {
@@ -4792,7 +4792,7 @@
       "g11": "—"
     },
     "nota": 2.5,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:31",
       "alerta": false,
@@ -4906,15 +4906,15 @@
   "FIQE3": {
     "nome": "Unifique Telecomunicações S.A.",
     "setor": "Communication Services",
-    "dy": 11.59,
-    "pl": 10.26,
-    "pvp": 1.96,
+    "dy": 11.65,
+    "pl": 10.2,
+    "pvp": 1.95,
     "roe": 19.07,
     "lpa": 0.56,
     "divEbit": 0.91,
     "vpa": 2.93,
-    "merc": 2.29,
-    "evEbit": 7.44,
+    "merc": 2.27,
+    "evEbit": 7.4,
     "max52s": 7.69,
     "gov": 2.3,
     "govRespostas": {
@@ -4931,7 +4931,7 @@
       "g11": "—"
     },
     "nota": 8.3,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:32",
       "alerta": false,
@@ -5001,15 +5001,15 @@
   "FLRY3": {
     "nome": "Fleury S.A.",
     "setor": "Healthcare",
-    "dy": 7.28,
-    "pl": 12.78,
-    "pvp": 1.57,
+    "dy": 7.23,
+    "pl": 12.87,
+    "pvp": 1.58,
     "roe": 12.25,
     "lpa": 1.16,
     "divEbit": 2.55,
     "vpa": 9.47,
-    "merc": 8.11,
-    "evEbit": 9.02,
+    "merc": 8.17,
+    "evEbit": 9.06,
     "max52s": 17.95,
     "gov": 2.0,
     "govRespostas": {
@@ -5026,7 +5026,7 @@
       "g11": "—"
     },
     "nota": 5.6,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:34",
       "alerta": false,
@@ -5129,15 +5129,15 @@
   "FRAS3": {
     "nome": "Frasle Mobility S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 3.32,
-    "pl": 23.63,
-    "pvp": 2.49,
+    "dy": 3.35,
+    "pl": 23.48,
+    "pvp": 2.47,
     "roe": 10.53,
     "lpa": 0.9,
     "divEbit": 2.13,
     "vpa": 8.58,
-    "merc": 5.99,
-    "evEbit": 10.95,
+    "merc": 5.95,
+    "evEbit": 10.9,
     "max52s": 27.08,
     "gov": 2.3,
     "govRespostas": {
@@ -5154,7 +5154,7 @@
       "g11": "—"
     },
     "nota": 4.3,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:35",
       "alerta": false,
@@ -5235,15 +5235,15 @@
   "GGBR3": {
     "nome": "Gerdau S.A.",
     "setor": "Basic Materials",
-    "dy": 3.64,
-    "pl": 22.63,
-    "pvp": 0.7,
+    "dy": 3.7,
+    "pl": 22.28,
+    "pvp": 0.69,
     "roe": 3.11,
     "lpa": 0.83,
     "divEbit": 1.97,
     "vpa": 26.58,
-    "merc": 40.86,
-    "evEbit": 11.73,
+    "merc": 40.66,
+    "evEbit": 11.68,
     "max52s": 20.95,
     "gov": 1.8,
     "govRespostas": {
@@ -5259,8 +5259,8 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 4.6,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "nota": 4.7,
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:36",
       "alerta": false,
@@ -5353,14 +5353,14 @@
     "nome": "Gerdau S.A.",
     "setor": "Basic Materials",
     "dy": 3.14,
-    "pl": 26.21,
+    "pl": 26.23,
     "pvp": 0.81,
     "roe": 3.11,
     "lpa": 0.83,
     "divEbit": 1.97,
     "vpa": 26.58,
-    "merc": 40.86,
-    "evEbit": 11.73,
+    "merc": 40.66,
+    "evEbit": 11.68,
     "max52s": 24.65,
     "gov": 1.8,
     "govRespostas": {
@@ -5377,7 +5377,7 @@
       "g11": "—"
     },
     "nota": 4.3,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:37",
       "alerta": true,
@@ -5502,15 +5502,15 @@
   "GMAT3": {
     "nome": "Grupo Mateus S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 4.86,
-    "pl": 5.1,
-    "pvp": 0.81,
+    "dy": 4.77,
+    "pl": 5.19,
+    "pvp": 0.82,
     "roe": 15.83,
     "lpa": 0.75,
     "divEbit": 0.35,
     "vpa": 4.75,
-    "merc": 8.82,
-    "evEbit": 4.55,
+    "merc": 8.98,
+    "evEbit": 4.63,
     "max52s": 8.09,
     "gov": 2.3,
     "govRespostas": {
@@ -5527,7 +5527,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:39",
       "alerta": true,
@@ -5663,15 +5663,15 @@
   "GOAU3": {
     "nome": "Metalurgica Gerdau S.A.",
     "setor": "Basic Materials",
-    "dy": 4.42,
-    "pl": 20.87,
-    "pvp": 0.63,
+    "dy": 4.38,
+    "pl": 21.05,
+    "pvp": 0.64,
     "roe": 3.04,
     "lpa": 0.43,
     "divEbit": 1.97,
     "vpa": 14.28,
-    "merc": 12.39,
-    "evEbit": 4.93,
+    "merc": 12.52,
+    "evEbit": 4.97,
     "max52s": 10.03,
     "gov": 1.6,
     "govRespostas": {
@@ -5688,7 +5688,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:40",
       "alerta": false,
@@ -5758,15 +5758,15 @@
   "GOAU4": {
     "nome": "Metalurgica Gerdau S.A.",
     "setor": "Basic Materials",
-    "dy": 4.2,
-    "pl": 21.93,
+    "dy": 4.15,
+    "pl": 22.18,
     "pvp": 0.67,
     "roe": 3.04,
     "lpa": 0.43,
     "divEbit": 1.97,
     "vpa": 14.28,
-    "merc": 12.39,
-    "evEbit": 4.93,
+    "merc": 12.52,
+    "evEbit": 4.97,
     "max52s": 10.57,
     "gov": 1.6,
     "govRespostas": {
@@ -5783,7 +5783,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:41",
       "alerta": false,
@@ -5897,15 +5897,15 @@
   "GRND3": {
     "nome": "Grendene S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 33.92,
-    "pl": 5.52,
-    "pvp": 1.1,
+    "dy": 33.74,
+    "pl": 5.55,
+    "pvp": 1.11,
     "roe": 19.96,
     "lpa": 0.7,
     "divEbit": -2.04,
     "vpa": 3.52,
-    "merc": 3.5,
-    "evEbit": 8.95,
+    "merc": 3.52,
+    "evEbit": 9.0,
     "max52s": 4.94,
     "gov": 2.3,
     "govRespostas": {
@@ -5921,8 +5921,8 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 8.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "nota": 8.2,
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:42",
       "alerta": false,
@@ -6061,7 +6061,7 @@
       "g11": "—"
     },
     "nota": 2.9,
-    "atualizado": "18/06/2026 21:35 [Yahoo]",
+    "atualizado": "21/06/2026 19:56 [Yahoo]",
     "mr": {
       "data": "2026-05-24 16:44",
       "alerta": false,
@@ -6164,15 +6164,15 @@
   "INTB3": {
     "nome": "Intelbras S.A. - Indústria de Telecomunicação Eletrônica Brasileira",
     "setor": "Technology",
-    "dy": 8.63,
-    "pl": 7.45,
-    "pvp": 1.36,
+    "dy": 8.79,
+    "pl": 7.32,
+    "pvp": 1.34,
     "roe": 18.29,
     "lpa": 1.75,
     "divEbit": -0.68,
     "vpa": 9.6,
-    "merc": 4.28,
-    "evEbit": 7.88,
+    "merc": 4.21,
+    "evEbit": 7.73,
     "max52s": 15.39,
     "gov": 2.2,
     "govRespostas": {
@@ -6189,7 +6189,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:45",
       "alerta": false,
@@ -6303,15 +6303,15 @@
   "IRBR3": {
     "nome": "IRB-Brasil Resseguros S.A.",
     "setor": "Financial Services",
-    "dy": 2.39,
-    "pl": 12.07,
+    "dy": 2.37,
+    "pl": 12.17,
     "pvp": 0.8,
     "roe": 6.59,
     "lpa": 4.28,
     "divEbit": null,
     "vpa": 64.94,
-    "merc": 4.23,
-    "evEbit": 10.65,
+    "merc": 4.26,
+    "evEbit": 10.74,
     "max52s": 63.22,
     "gov": 1.3,
     "govRespostas": {
@@ -6328,7 +6328,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:56 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:46",
       "alerta": true,
@@ -6453,15 +6453,15 @@
   "ITSA3": {
     "nome": "Itaúsa S.A.",
     "setor": "Industrials",
-    "dy": 9.43,
-    "pl": 8.71,
-    "pvp": 1.64,
+    "dy": 10.21,
+    "pl": 8.52,
+    "pvp": 1.6,
     "roe": 18.83,
     "lpa": 1.51,
     "divEbit": 0.23,
     "vpa": 8.04,
-    "merc": 146.88,
-    "evEbit": 8.14,
+    "merc": 143.85,
+    "evEbit": 7.98,
     "max52s": 14.87,
     "gov": 1.8,
     "govRespostas": {
@@ -6477,8 +6477,8 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 7.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "nota": 7.9,
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:47",
       "alerta": false,
@@ -6592,15 +6592,15 @@
   "ITSA4": {
     "nome": "Itaúsa S.A.",
     "setor": "Industrials",
-    "dy": 9.53,
-    "pl": 8.62,
-    "pvp": 1.62,
+    "dy": 10.25,
+    "pl": 8.45,
+    "pvp": 1.59,
     "roe": 18.83,
     "lpa": 1.51,
     "divEbit": 0.23,
     "vpa": 8.04,
-    "merc": 146.88,
-    "evEbit": 8.14,
+    "merc": 143.85,
+    "evEbit": 7.98,
     "max52s": 15.0,
     "gov": 1.8,
     "govRespostas": {
@@ -6616,8 +6616,8 @@
       "g10": "Não",
       "g11": "—"
     },
-    "nota": 7.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "nota": 7.9,
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:49",
       "alerta": false,
@@ -6720,15 +6720,15 @@
   "ITUB3": {
     "nome": "Itaú Unibanco Holding S.A.",
     "setor": "Financial Services",
-    "dy": 7.42,
-    "pl": 10.2,
-    "pvp": 2.24,
+    "dy": 7.52,
+    "pl": 10.05,
+    "pvp": 2.2,
     "roe": 21.93,
     "lpa": 4.17,
     "divEbit": null,
     "vpa": 19.02,
-    "merc": 457.94,
-    "evEbit": 9.15,
+    "merc": 451.21,
+    "evEbit": 9.01,
     "max52s": 46.84,
     "gov": 1.8,
     "govRespostas": {
@@ -6745,7 +6745,7 @@
       "g11": "—"
     },
     "nota": 6.4,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:50",
       "alerta": false,
@@ -6837,15 +6837,15 @@
   "ITUB4": {
     "nome": "Itaú Unibanco Holding S.A.",
     "setor": "Financial Services",
-    "dy": 7.79,
-    "pl": 9.71,
-    "pvp": 2.13,
+    "dy": 7.9,
+    "pl": 9.56,
+    "pvp": 2.1,
     "roe": 21.93,
     "lpa": 4.17,
     "divEbit": null,
     "vpa": 19.02,
-    "merc": 457.94,
-    "evEbit": 9.15,
+    "merc": 451.21,
+    "evEbit": 9.01,
     "max52s": 48.99,
     "gov": 1.8,
     "govRespostas": {
@@ -6862,7 +6862,7 @@
       "g11": "—"
     },
     "nota": 6.4,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:51",
       "alerta": false,
@@ -7001,7 +7001,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -7060,15 +7060,15 @@
   "JHSF3": {
     "nome": "JHSF Participações S.A.",
     "setor": "Real Estate",
-    "dy": 5.73,
-    "pl": 3.74,
-    "pvp": 1.01,
+    "dy": 5.64,
+    "pl": 3.8,
+    "pvp": 1.03,
     "roe": 27.12,
     "lpa": 2.8,
     "divEbit": 0.49,
     "vpa": 10.33,
-    "merc": 7.16,
-    "evEbit": 3.5,
+    "merc": 7.28,
+    "evEbit": 3.54,
     "max52s": 14.11,
     "gov": 2.3,
     "govRespostas": {
@@ -7085,7 +7085,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:54",
       "alerta": true,
@@ -7199,15 +7199,15 @@
   "KEPL3": {
     "nome": "Kepler Weber S.A.",
     "setor": "Industrials",
-    "dy": 6.78,
-    "pl": 7.76,
-    "pvp": 1.45,
+    "dy": 6.66,
+    "pl": 7.9,
+    "pvp": 1.48,
     "roe": 18.67,
     "lpa": 0.82,
     "divEbit": -0.23,
     "vpa": 4.41,
-    "merc": 1.15,
-    "evEbit": 6.39,
+    "merc": 1.17,
+    "evEbit": 6.51,
     "max52s": 10.45,
     "gov": 2.3,
     "govRespostas": {
@@ -7224,7 +7224,7 @@
       "g11": "—"
     },
     "nota": 8.4,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:55",
       "alerta": true,
@@ -7305,15 +7305,15 @@
   "KLBN11": {
     "nome": "Klabin S.A.",
     "setor": "Basic Materials",
-    "dy": 5.62,
-    "pl": 28.8,
-    "pvp": 2.38,
+    "dy": 5.65,
+    "pl": 28.63,
+    "pvp": 2.36,
     "roe": 8.26,
     "lpa": 0.6,
     "divEbit": 7.34,
     "vpa": 7.25,
-    "merc": 21.51,
-    "evEbit": 13.74,
+    "merc": 21.38,
+    "evEbit": 13.7,
     "max52s": 21.02,
     "gov": 2.2,
     "govRespostas": {
@@ -7330,7 +7330,7 @@
       "g11": "—"
     },
     "nota": 2.9,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:57",
       "alerta": false,
@@ -7455,15 +7455,15 @@
   "LAVV3": {
     "nome": "Lavvi Empreendimentos Imobiliários S.A.",
     "setor": "Real Estate",
-    "dy": 24.03,
-    "pl": 5.27,
-    "pvp": 1.53,
+    "dy": 23.94,
+    "pl": 5.29,
+    "pvp": 1.54,
     "roe": 29.03,
     "lpa": 2.03,
     "divEbit": 1.06,
     "vpa": 7.0,
-    "merc": 2.09,
-    "evEbit": 5.7,
+    "merc": 2.1,
+    "evEbit": 5.71,
     "max52s": 18.94,
     "gov": 2.3,
     "govRespostas": {
@@ -7480,7 +7480,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:58",
       "alerta": false,
@@ -7594,15 +7594,15 @@
   "LEVE3": {
     "nome": "MAHLE Metal Leve S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 8.6,
-    "pl": 6.76,
-    "pvp": 4.19,
+    "dy": 8.64,
+    "pl": 6.73,
+    "pvp": 4.18,
     "roe": 62.01,
     "lpa": 4.9,
     "divEbit": 1.07,
     "vpa": 7.9,
-    "merc": 4.49,
-    "evEbit": 5.89,
+    "merc": 4.47,
+    "evEbit": 5.87,
     "max52s": 35.6,
     "gov": 2.4,
     "govRespostas": {
@@ -7619,7 +7619,7 @@
       "g11": "—"
     },
     "nota": 7.2,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 16:59",
       "alerta": false,
@@ -7700,15 +7700,15 @@
   "LOGG3": {
     "nome": "LOG Commercial Properties e Participações S.A.",
     "setor": "Real Estate",
-    "dy": 25.94,
-    "pl": 5.85,
+    "dy": 26.02,
+    "pl": 5.84,
     "pvp": 0.63,
     "roe": 10.75,
     "lpa": 4.58,
     "divEbit": 3.28,
     "vpa": 42.59,
     "merc": 2.35,
-    "evEbit": 6.85,
+    "evEbit": 6.84,
     "max52s": 30.8,
     "gov": 2.3,
     "govRespostas": {
@@ -7725,7 +7725,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:01",
       "alerta": false,
@@ -7839,15 +7839,15 @@
   "LREN3": {
     "nome": "Lojas Renner S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 6.24,
-    "pl": 9.43,
-    "pvp": 1.36,
+    "dy": 6.11,
+    "pl": 9.63,
+    "pvp": 1.39,
     "roe": 14.41,
     "lpa": 1.48,
     "divEbit": -0.8,
     "vpa": 10.3,
-    "merc": 14.09,
-    "evEbit": 6.96,
+    "merc": 14.39,
+    "evEbit": 7.13,
     "max52s": 18.79,
     "gov": 2.0,
     "govRespostas": {
@@ -7864,7 +7864,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:02",
       "alerta": false,
@@ -7978,15 +7978,15 @@
   "MBRF3": {
     "nome": "Marfrig Global Foods S.A.",
     "setor": "Consumer Defensive",
-    "dy": 18.19,
-    "pl": 56.76,
-    "pvp": 1.9,
+    "dy": 18.39,
+    "pl": 56.14,
+    "pvp": 1.88,
     "roe": 3.34,
     "lpa": 0.27,
     "divEbit": 8.73,
     "vpa": 8.15,
-    "merc": 21.66,
-    "evEbit": 12.53,
+    "merc": 21.42,
+    "evEbit": 12.49,
     "max52s": 27.51,
     "gov": 2.1,
     "govRespostas": {
@@ -8003,7 +8003,7 @@
       "g11": "—"
     },
     "nota": 2.8,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:04",
       "alerta": true,
@@ -8150,15 +8150,15 @@
   "MGLU3": {
     "nome": "Magazine Luiza S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 1.73,
-    "pl": 25.56,
-    "pvp": 0.31,
+    "dy": 1.68,
+    "pl": 26.24,
+    "pvp": 0.32,
     "roe": 1.21,
     "lpa": 0.18,
     "divEbit": 1.87,
     "vpa": 14.53,
-    "merc": 3.49,
-    "evEbit": 3.78,
+    "merc": 3.58,
+    "evEbit": 3.83,
     "max52s": 11.0,
     "gov": 2.5,
     "govRespostas": {
@@ -8175,7 +8175,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:05",
       "alerta": true,
@@ -8278,15 +8278,15 @@
   "MILS3": {
     "nome": "Mills Locação, Serviços e Logística S.A.",
     "setor": "Industrials",
-    "dy": 6.95,
-    "pl": 8.33,
-    "pvp": 2.02,
+    "dy": 6.96,
+    "pl": 8.32,
+    "pvp": 2.01,
     "roe": 24.19,
     "lpa": 1.84,
     "divEbit": 1.72,
     "vpa": 7.59,
     "merc": 3.58,
-    "evEbit": 7.08,
+    "evEbit": 7.07,
     "max52s": 15.35,
     "gov": 2.0,
     "govRespostas": {
@@ -8303,7 +8303,7 @@
       "g11": "—"
     },
     "nota": 7.1,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:06",
       "alerta": false,
@@ -8417,15 +8417,15 @@
   "MOTV3": {
     "nome": "Motiva Infraestrutura de Mobilidade S.A.",
     "setor": "Industrials",
-    "dy": 2.82,
-    "pl": 8.26,
-    "pvp": 1.7,
+    "dy": 2.83,
+    "pl": 8.21,
+    "pvp": 1.69,
     "roe": 20.58,
     "lpa": 1.66,
     "divEbit": 4.4,
     "vpa": 8.09,
-    "merc": 27.77,
-    "evEbit": 8.36,
+    "merc": 27.61,
+    "evEbit": 8.34,
     "max52s": 17.55,
     "gov": 1.8,
     "govRespostas": {
@@ -8442,7 +8442,7 @@
       "g11": "—"
     },
     "nota": 5.4,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -8479,15 +8479,15 @@
   "MOVI3": {
     "nome": "Movida Participações S.A.",
     "setor": "Industrials",
-    "dy": 8.51,
-    "pl": 9.76,
-    "pvp": 1.16,
+    "dy": 8.36,
+    "pl": 9.92,
+    "pvp": 1.18,
     "roe": 11.92,
     "lpa": 0.91,
     "divEbit": 5.33,
     "vpa": 7.6,
-    "merc": 3.56,
-    "evEbit": 6.37,
+    "merc": 3.62,
+    "evEbit": 6.39,
     "max52s": 14.74,
     "gov": 2.3,
     "govRespostas": {
@@ -8504,7 +8504,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:09",
       "alerta": false,
@@ -8607,15 +8607,15 @@
   "MYPK3": {
     "nome": "Iochpe-Maxion S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 3.41,
-    "pl": 15.17,
-    "pvp": 0.34,
+    "dy": 3.25,
+    "pl": 15.91,
+    "pvp": 0.35,
     "roe": 2.23,
     "lpa": 0.59,
     "divEbit": 4.07,
     "vpa": 26.66,
-    "merc": 1.39,
-    "evEbit": 5.54,
+    "merc": 1.45,
+    "evEbit": 5.61,
     "max52s": 14.25,
     "gov": 2.3,
     "govRespostas": {
@@ -8632,7 +8632,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:10",
       "alerta": false,
@@ -8731,7 +8731,7 @@
     "lpa": 8.35,
     "divEbit": 2.25,
     "vpa": 34.54,
-    "merc": 532.58,
+    "merc": 533.87,
     "evEbit": 5.96,
     "max52s": 49.34,
     "gov": 0.6,
@@ -8749,7 +8749,7 @@
       "g11": "—"
     },
     "nota": 6.6,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:12",
       "alerta": true,
@@ -8885,15 +8885,15 @@
   "POMO3": {
     "nome": "Marcopolo S.A.",
     "setor": "Industrials",
-    "dy": 17.85,
-    "pl": 5.78,
-    "pvp": 1.78,
+    "dy": 17.98,
+    "pl": 5.74,
+    "pvp": 1.76,
     "roe": 30.72,
     "lpa": 1.0,
     "divEbit": 1.12,
     "vpa": 3.25,
-    "merc": 7.39,
-    "evEbit": 6.44,
+    "merc": 7.35,
+    "evEbit": 6.41,
     "max52s": 6.72,
     "gov": 2.1,
     "govRespostas": {
@@ -8910,7 +8910,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:13",
       "alerta": false,
@@ -9002,15 +9002,15 @@
   "POMO4": {
     "nome": "Marcopolo S.A.",
     "setor": "Industrials",
-    "dy": 17.2,
-    "pl": 6.0,
+    "dy": 17.25,
+    "pl": 5.98,
     "pvp": 1.84,
     "roe": 30.72,
     "lpa": 1.0,
     "divEbit": 1.12,
     "vpa": 3.25,
-    "merc": 7.39,
-    "evEbit": 6.44,
+    "merc": 7.35,
+    "evEbit": 6.41,
     "max52s": 7.96,
     "gov": 2.1,
     "govRespostas": {
@@ -9027,7 +9027,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:14",
       "alerta": false,
@@ -9131,14 +9131,14 @@
     "nome": "Prio S.A.",
     "setor": "Petróleo",
     "dy": null,
-    "pl": 19.19,
+    "pl": 19.25,
     "pvp": 1.87,
     "roe": 9.72,
     "lpa": 2.97,
     "divEbit": 7.54,
     "vpa": 30.52,
-    "merc": 49.71,
-    "evEbit": 23.1,
+    "merc": 49.86,
+    "evEbit": 23.15,
     "max52s": 72.1,
     "gov": 2.0,
     "govRespostas": {
@@ -9155,7 +9155,7 @@
       "g11": "—"
     },
     "nota": 2.6,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:16",
       "alerta": false,
@@ -9324,15 +9324,15 @@
   "PSSA3": {
     "nome": "Porto Seguro S.A.",
     "setor": "Financial Services",
-    "dy": 5.68,
-    "pl": 9.21,
-    "pvp": 2.18,
+    "dy": 5.66,
+    "pl": 9.25,
+    "pvp": 2.19,
     "roe": 23.7,
     "lpa": 5.7,
     "divEbit": -4.09,
     "vpa": 24.03,
-    "merc": 33.93,
-    "evEbit": 6.54,
+    "merc": 34.08,
+    "evEbit": 6.59,
     "max52s": 55.41,
     "gov": 2.4,
     "govRespostas": {
@@ -9349,7 +9349,7 @@
       "g10": "Sim"
     },
     "nota": 6.6,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:17",
       "alerta": false,
@@ -9485,15 +9485,15 @@
   "RAIL3": {
     "nome": "Rumo S.A.",
     "setor": "Industrials",
-    "dy": 0.88,
-    "pl": 22.03,
-    "pvp": 1.65,
+    "dy": 0.87,
+    "pl": 22.16,
+    "pvp": 1.66,
     "roe": 7.49,
     "lpa": 0.56,
     "divEbit": 3.6,
     "vpa": 7.48,
-    "merc": 22.92,
-    "evEbit": 8.33,
+    "merc": 23.05,
+    "evEbit": 8.36,
     "max52s": 18.55,
     "gov": 2.0,
     "govRespostas": {
@@ -9510,7 +9510,7 @@
       "g10": "Sim"
     },
     "nota": 3.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:19",
       "alerta": true,
@@ -9657,15 +9657,15 @@
   "RANI3": {
     "nome": "Irani Papel e Embalagem S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 6.1,
-    "pl": 8.93,
-    "pvp": 1.23,
+    "dy": 6.06,
+    "pl": 8.98,
+    "pvp": 1.24,
     "roe": 13.78,
     "lpa": 0.88,
     "divEbit": 2.68,
     "vpa": 6.38,
-    "merc": 1.81,
-    "evEbit": 7.16,
+    "merc": 1.82,
+    "evEbit": 7.18,
     "max52s": 9.56,
     "gov": 2.3,
     "govRespostas": {
@@ -9682,7 +9682,7 @@
       "g11": "—"
     },
     "nota": 6.7,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:20",
       "alerta": false,
@@ -9785,16 +9785,16 @@
   "RECV3": {
     "nome": "Petroreconcavo S.A.",
     "setor": "Energy",
-    "dy": 6.82,
-    "pl": 5.49,
-    "pvp": 0.7,
+    "dy": 6.69,
+    "pl": 5.6,
+    "pvp": 0.71,
     "roe": 12.74,
     "lpa": 1.82,
     "divEbit": 2.48,
     "vpa": 14.3,
-    "merc": 2.93,
-    "evEbit": 7.27,
-    "max52s": 14.01,
+    "merc": 2.99,
+    "evEbit": 7.37,
+    "max52s": 13.98,
     "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
@@ -9810,7 +9810,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:22",
       "alerta": false,
@@ -9968,15 +9968,15 @@
   "RIAA3": {
     "nome": "",
     "setor": "Comércio Vestuário",
-    "dy": 28.71,
-    "pl": 2.84,
-    "pvp": 0.8,
+    "dy": 28.58,
+    "pl": 2.85,
+    "pvp": 0.81,
     "roe": 28.33,
     "lpa": 3.0,
     "divEbit": 0.46,
     "vpa": 10.59,
-    "merc": 4.28,
-    "evEbit": 2.27,
+    "merc": 4.3,
+    "evEbit": 2.28,
     "max52s": 10.56,
     "gov": 2.4,
     "govRespostas": {
@@ -9993,7 +9993,7 @@
       "g11": "—"
     },
     "nota": 9.5,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -10063,15 +10063,15 @@
   "ROMI3": {
     "nome": "Romi S.A.",
     "setor": "Industrials",
-    "dy": 6.8,
-    "pl": 7.43,
-    "pvp": 0.46,
+    "dy": 6.76,
+    "pl": 7.47,
+    "pvp": 0.47,
     "roe": 6.24,
     "lpa": 0.83,
     "divEbit": 6.79,
     "vpa": 13.33,
     "merc": 0.58,
-    "evEbit": 13.8,
+    "evEbit": 13.83,
     "max52s": 8.85,
     "gov": 2.3,
     "govRespostas": {
@@ -10088,7 +10088,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:23",
       "alerta": false,
@@ -10202,15 +10202,15 @@
   "SANB11": {
     "nome": "Banco Santander (Brasil) S.A.",
     "setor": "Financial Services",
-    "dy": 8.64,
-    "pl": 7.66,
-    "pvp": 0.79,
+    "dy": 8.61,
+    "pl": 7.69,
+    "pvp": 0.8,
     "roe": 10.34,
     "lpa": 3.49,
     "divEbit": null,
     "vpa": 33.71,
-    "merc": 100.18,
-    "evEbit": 5.96,
+    "merc": 100.56,
+    "evEbit": 5.98,
     "max52s": 36.98,
     "gov": 1.4,
     "govRespostas": {
@@ -10227,7 +10227,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "18/06/2026 21:35 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:24",
       "alerta": false,
@@ -10330,15 +10330,15 @@
   "SANB4": {
     "nome": "Banco Santander (Brasil) S.A.",
     "setor": "Financial Services",
-    "dy": 8.72,
-    "pl": 7.95,
+    "dy": 8.76,
+    "pl": 7.92,
     "pvp": 0.82,
     "roe": 10.34,
     "lpa": 1.74,
     "divEbit": null,
     "vpa": 16.86,
-    "merc": 100.18,
-    "evEbit": 5.96,
+    "merc": 100.56,
+    "evEbit": 5.98,
     "max52s": 18.73,
     "gov": 1.4,
     "govRespostas": {
@@ -10355,7 +10355,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:25",
       "alerta": false,
@@ -10425,15 +10425,15 @@
   "SAPR3": {
     "nome": "Companhia de Saneamento do Paraná - SANEPAR",
     "setor": "Utilities",
-    "dy": 4.16,
-    "pl": 10.76,
-    "pvp": 1.04,
+    "dy": 4.36,
+    "pl": 10.28,
+    "pvp": 0.99,
     "roe": 9.64,
     "lpa": 0.81,
     "divEbit": 0.94,
     "vpa": 8.4,
-    "merc": 11.4,
-    "evEbit": 6.52,
+    "merc": 11.13,
+    "evEbit": 6.39,
     "max52s": 11.71,
     "gov": 1.6,
     "govRespostas": {
@@ -10449,8 +10449,8 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 6.7,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "nota": 6.9,
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:27",
       "alerta": true,
@@ -10542,15 +10542,15 @@
   "SBFG3": {
     "nome": "Grupo SBF S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 5.6,
-    "pl": 6.68,
-    "pvp": 0.72,
+    "dy": 5.38,
+    "pl": 6.95,
+    "pvp": 0.75,
     "roe": 10.84,
     "lpa": 1.45,
     "divEbit": 4.92,
     "vpa": 13.39,
-    "merc": 2.24,
-    "evEbit": 9.02,
+    "merc": 2.33,
+    "evEbit": 9.18,
     "max52s": 14.95,
     "gov": 2.0,
     "govRespostas": {
@@ -10567,7 +10567,7 @@
       "g11": "—"
     },
     "nota": 5.4,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:28",
       "alerta": false,
@@ -10670,15 +10670,15 @@
   "SBSP3": {
     "nome": "Companhia de Saneamento Básico do Estado de São Paulo - SABESP",
     "setor": "Utilities",
-    "dy": 5.06,
-    "pl": 10.86,
-    "pvp": 2.17,
+    "dy": 5.05,
+    "pl": 10.89,
+    "pvp": 2.18,
     "roe": 19.97,
     "lpa": 2.48,
     "divEbit": 2.47,
     "vpa": 12.4,
-    "merc": 94.81,
-    "evEbit": 9.69,
+    "merc": 95.06,
+    "evEbit": 9.71,
     "max52s": 35.21,
     "gov": 1.9,
     "govRespostas": {
@@ -10695,7 +10695,7 @@
       "g11": "—"
     },
     "nota": 5.0,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:29",
       "alerta": false,
@@ -10842,15 +10842,15 @@
   "SEER3": {
     "nome": "Ser Educacional S.A.",
     "setor": "Consumer Defensive",
-    "dy": 2.18,
-    "pl": 5.72,
-    "pvp": 1.0,
+    "dy": 2.14,
+    "pl": 5.82,
+    "pvp": 1.01,
     "roe": 17.4,
     "lpa": 1.92,
     "divEbit": 0.84,
     "vpa": 11.01,
-    "merc": 1.41,
-    "evEbit": 3.87,
+    "merc": 1.44,
+    "evEbit": 3.92,
     "max52s": 13.75,
     "gov": 2.3,
     "govRespostas": {
@@ -10867,7 +10867,7 @@
       "g11": "—"
     },
     "nota": 8.2,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:31",
       "alerta": false,
@@ -10959,15 +10959,15 @@
   "SLCE3": {
     "nome": "SLC Agrícola S.A.",
     "setor": "Consumer Defensive",
-    "dy": 6.69,
-    "pl": 20.84,
-    "pvp": 1.27,
+    "dy": 6.62,
+    "pl": 21.06,
+    "pvp": 1.28,
     "roe": 6.1,
     "lpa": 0.65,
     "divEbit": 4.04,
     "vpa": 10.66,
-    "merc": 6.75,
-    "evEbit": 8.34,
+    "merc": 6.82,
+    "evEbit": 8.38,
     "max52s": 19.32,
     "gov": 2.3,
     "govRespostas": {
@@ -10984,7 +10984,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:32",
       "alerta": false,
@@ -11087,15 +11087,15 @@
   "SMFT3": {
     "nome": "Smartfit Escola de Ginástica e Dança S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 5.54,
-    "pl": 16.75,
-    "pvp": 1.95,
+    "dy": 5.56,
+    "pl": 16.68,
+    "pvp": 1.94,
     "roe": 11.65,
     "lpa": 1.12,
     "divEbit": 2.26,
     "vpa": 9.62,
-    "merc": 11.56,
-    "evEbit": 8.62,
+    "merc": 11.51,
+    "evEbit": 8.59,
     "max52s": 26.3,
     "gov": 2.5,
     "govRespostas": {
@@ -11112,7 +11112,7 @@
       "g11": "—"
     },
     "nota": 5.6,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-06-08 14:00",
       "alerta": false,
@@ -11215,15 +11215,15 @@
   "SMTO3": {
     "nome": "São Martinho S.A.",
     "setor": "Basic Materials",
-    "dy": 3.05,
-    "pl": 5.95,
-    "pvp": 0.68,
+    "dy": 3.06,
+    "pl": 5.94,
+    "pvp": 0.67,
     "roe": 11.35,
     "lpa": 2.52,
     "divEbit": 5.27,
     "vpa": 22.15,
-    "merc": 4.98,
-    "evEbit": 8.84,
+    "merc": 4.96,
+    "evEbit": 8.83,
     "max52s": 21.42,
     "gov": 2.3,
     "govRespostas": {
@@ -11240,7 +11240,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:35",
       "alerta": false,
@@ -11365,15 +11365,15 @@
   "SOJA3": {
     "nome": "Boa Safra Sementes S.A.",
     "setor": "Basic Materials",
-    "dy": 5.13,
-    "pl": 33.38,
+    "dy": 5.06,
+    "pl": 33.84,
     "pvp": 0.62,
     "roe": 1.84,
     "lpa": 0.17,
     "divEbit": 7.81,
     "vpa": 9.42,
-    "merc": 0.82,
-    "evEbit": 15.51,
+    "merc": 0.83,
+    "evEbit": 15.61,
     "max52s": 10.72,
     "gov": 2.3,
     "govRespostas": {
@@ -11390,7 +11390,7 @@
       "g11": "—"
     },
     "nota": 4.2,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:36",
       "alerta": false,
@@ -11540,7 +11540,7 @@
       "g11": "—"
     },
     "nota": 3.4,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:38",
       "alerta": true,
@@ -11654,15 +11654,15 @@
   "SUZB3": {
     "nome": "Suzano S.A.",
     "setor": "Basic Materials",
-    "dy": 2.57,
-    "pl": 4.84,
-    "pvp": 1.15,
+    "dy": 2.61,
+    "pl": 4.78,
+    "pvp": 1.13,
     "roe": 23.68,
     "lpa": 9.0,
     "divEbit": 6.73,
     "vpa": 38.0,
-    "merc": 55.09,
-    "evEbit": 12.15,
+    "merc": 54.36,
+    "evEbit": 12.07,
     "max52s": 58.97,
     "gov": 2.5,
     "govRespostas": {
@@ -11679,7 +11679,7 @@
       "g10": "Sim"
     },
     "nota": 6.0,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:39",
       "alerta": false,
@@ -11859,15 +11859,15 @@
   "TAEE11": {
     "nome": "Transmissora Aliança de Energia Elétrica S.A.",
     "setor": "Utilities",
-    "dy": 8.3,
-    "pl": 8.67,
-    "pvp": 1.71,
+    "dy": 8.35,
+    "pl": 8.62,
+    "pvp": 1.7,
     "roe": 19.7,
     "lpa": 4.55,
     "divEbit": 3.75,
     "vpa": 23.1,
-    "merc": 13.59,
-    "evEbit": 8.81,
+    "merc": 13.52,
+    "evEbit": 8.79,
     "max52s": 44.38,
     "gov": 1.8,
     "govRespostas": {
@@ -11884,7 +11884,7 @@
       "g11": "—"
     },
     "nota": 6.2,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:41",
       "alerta": false,
@@ -11998,15 +11998,15 @@
   "TAEE3": {
     "nome": "Transmissora Aliança de Energia Elétrica S.A.",
     "setor": "Utilities",
-    "dy": 8.28,
-    "pl": 8.69,
-    "pvp": 1.71,
+    "dy": 8.33,
+    "pl": 8.63,
+    "pvp": 1.7,
     "roe": 19.7,
     "lpa": 1.52,
     "divEbit": 3.75,
     "vpa": 7.7,
-    "merc": 13.59,
-    "evEbit": 8.81,
+    "merc": 13.52,
+    "evEbit": 8.79,
     "max52s": 14.47,
     "gov": 1.8,
     "govRespostas": {
@@ -12023,7 +12023,7 @@
       "g11": "—"
     },
     "nota": 5.3,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:42",
       "alerta": false,
@@ -12104,15 +12104,15 @@
   "TAEE4": {
     "nome": "Transmissora Aliança de Energia Elétrica S.A.",
     "setor": "Utilities",
-    "dy": 8.22,
-    "pl": 8.76,
-    "pvp": 1.73,
+    "dy": 8.25,
+    "pl": 8.74,
+    "pvp": 1.72,
     "roe": 19.7,
     "lpa": 1.52,
     "divEbit": 3.75,
     "vpa": 7.7,
-    "merc": 13.59,
-    "evEbit": 8.81,
+    "merc": 13.52,
+    "evEbit": 8.79,
     "max52s": 14.84,
     "gov": 1.8,
     "govRespostas": {
@@ -12129,7 +12129,7 @@
       "g11": "—"
     },
     "nota": 6.2,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:57 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:43",
       "alerta": false,
@@ -12221,15 +12221,15 @@
   "TEND3": {
     "nome": "Construtora Tenda S.A.",
     "setor": "Real Estate",
-    "dy": 3.68,
-    "pl": 6.81,
-    "pvp": 3.03,
+    "dy": 3.64,
+    "pl": 6.87,
+    "pvp": 3.05,
     "roe": 44.45,
     "lpa": 4.92,
     "divEbit": 0.53,
     "vpa": 11.08,
-    "merc": 4.11,
-    "evEbit": 7.29,
+    "merc": 4.15,
+    "evEbit": 7.34,
     "max52s": 34.75,
     "gov": 2.0,
     "govRespostas": {
@@ -12246,7 +12246,7 @@
       "g11": "—"
     },
     "nota": 7.6,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:44",
       "alerta": false,
@@ -12371,15 +12371,15 @@
   "TOTS3": {
     "nome": "TOTVS S.A.",
     "setor": "Technology",
-    "dy": 3.06,
-    "pl": 17.57,
-    "pvp": 3.28,
+    "dy": 3.07,
+    "pl": 17.5,
+    "pvp": 3.27,
     "roe": 18.65,
     "lpa": 1.54,
     "divEbit": 2.87,
     "vpa": 8.28,
-    "merc": 16.27,
-    "evEbit": 16.47,
+    "merc": 16.21,
+    "evEbit": 16.42,
     "max52s": 47.93,
     "gov": 2.5,
     "govRespostas": {
@@ -12396,7 +12396,7 @@
       "g11": "—"
     },
     "nota": 4.6,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:46",
       "alerta": false,
@@ -12521,15 +12521,15 @@
   "TRIS3": {
     "nome": "Trisul S.A.",
     "setor": "Real Estate",
-    "dy": 17.75,
-    "pl": 5.01,
-    "pvp": 0.65,
+    "dy": 16.98,
+    "pl": 5.24,
+    "pvp": 0.68,
     "roe": 12.92,
     "lpa": 0.79,
     "divEbit": 2.28,
     "vpa": 6.09,
-    "merc": 0.96,
-    "evEbit": 7.09,
+    "merc": 1.0,
+    "evEbit": 7.31,
     "max52s": 7.56,
     "gov": 2.3,
     "govRespostas": {
@@ -12546,7 +12546,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:47",
       "alerta": false,
@@ -12627,15 +12627,15 @@
   "UGPA3": {
     "nome": "Ultrapar Participações S.A.",
     "setor": "Energy",
-    "dy": 5.24,
-    "pl": 9.25,
+    "dy": 5.26,
+    "pl": 9.21,
     "pvp": 1.68,
     "roe": 18.19,
     "lpa": 2.69,
     "divEbit": 2.33,
     "vpa": 14.76,
-    "merc": 27.71,
-    "evEbit": 6.95,
+    "merc": 27.59,
+    "evEbit": 6.93,
     "max52s": 30.69,
     "gov": 2.5,
     "govRespostas": {
@@ -12652,7 +12652,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:48",
       "alerta": true,
@@ -12795,8 +12795,8 @@
     "lpa": 3.31,
     "divEbit": 3.87,
     "vpa": 16.55,
-    "merc": 6.74,
-    "evEbit": 14.7,
+    "merc": 6.82,
+    "evEbit": 14.81,
     "max52s": 72.0,
     "gov": 1.6,
     "govRespostas": {
@@ -12813,7 +12813,7 @@
       "g11": "—"
     },
     "nota": 4.2,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:50",
       "alerta": false,
@@ -12895,14 +12895,14 @@
     "nome": "Usinas Siderúrgicas de Minas Gerais S.A.",
     "setor": "Basic Materials",
     "dy": null,
-    "pl": -3.98,
+    "pl": -4.01,
     "pvp": 0.51,
     "roe": -12.7,
     "lpa": -2.08,
     "divEbit": 0.35,
     "vpa": 16.39,
-    "merc": 10.85,
-    "evEbit": -7.25,
+    "merc": 10.93,
+    "evEbit": -7.31,
     "max52s": 10.87,
     "gov": 1.3,
     "govRespostas": {
@@ -12919,7 +12919,7 @@
       "g11": "—"
     },
     "nota": 6.1,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:50",
       "alerta": false,
@@ -12978,15 +12978,15 @@
   "VALE3": {
     "nome": "Vale S.A.",
     "setor": "Basic Materials",
-    "dy": 6.86,
-    "pl": 22.7,
-    "pvp": 1.85,
+    "dy": 6.78,
+    "pl": 22.99,
+    "pvp": 1.88,
     "roe": 8.16,
     "lpa": 3.51,
     "divEbit": 2.1,
     "vpa": 43.07,
-    "merc": 354.24,
-    "evEbit": 12.59,
+    "merc": 358.64,
+    "evEbit": 12.72,
     "max52s": 90.09,
     "gov": 1.7,
     "govRespostas": {
@@ -13003,7 +13003,7 @@
       "g11": "—"
     },
     "nota": 3.7,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:52",
       "alerta": false,
@@ -13139,15 +13139,15 @@
   "VBBR3": {
     "nome": "Vibra Energia S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 3.82,
-    "pl": 11.4,
-    "pvp": 1.58,
+    "dy": 3.78,
+    "pl": 11.53,
+    "pvp": 1.59,
     "roe": 13.83,
     "lpa": 2.51,
     "divEbit": 3.06,
     "vpa": 18.13,
-    "merc": 34.27,
-    "evEbit": 8.84,
+    "merc": 34.65,
+    "evEbit": 8.9,
     "max52s": 34.2,
     "gov": 2.0,
     "govRespostas": {
@@ -13164,7 +13164,7 @@
       "g11": "—"
     },
     "nota": 5.6,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:53",
       "alerta": true,
@@ -13322,15 +13322,15 @@
   "VLID3": {
     "nome": "Valid Soluções S.A.",
     "setor": "Industrials",
-    "dy": 2.2,
-    "pl": 5.6,
+    "dy": 2.19,
+    "pl": 5.63,
     "pvp": 0.8,
     "roe": 14.22,
     "lpa": 3.05,
     "divEbit": 0.26,
     "vpa": 21.47,
     "merc": 1.37,
-    "evEbit": 5.26,
+    "evEbit": 5.29,
     "max52s": 23.98,
     "gov": 2.0,
     "govRespostas": {
@@ -13347,7 +13347,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:55",
       "alerta": false,
@@ -13472,15 +13472,15 @@
   "VULC3": {
     "nome": "Vulcabras S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 32.53,
-    "pl": 4.04,
-    "pvp": 1.83,
+    "dy": 32.44,
+    "pl": 4.05,
+    "pvp": 1.84,
     "roe": 45.47,
     "lpa": 3.58,
     "divEbit": 0.88,
     "vpa": 7.88,
-    "merc": 4.6,
-    "evEbit": 6.93,
+    "merc": 4.61,
+    "evEbit": 6.95,
     "max52s": 20.08,
     "gov": 2.4,
     "govRespostas": {
@@ -13497,7 +13497,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:56",
       "alerta": false,
@@ -13611,15 +13611,15 @@
   "WEGE3": {
     "nome": "WEG S.A.",
     "setor": "Industrials",
-    "dy": 2.93,
-    "pl": 30.58,
-    "pvp": 10.84,
+    "dy": 3.03,
+    "pl": 29.81,
+    "pvp": 10.56,
     "roe": 35.43,
     "lpa": 1.5,
     "divEbit": -0.42,
     "vpa": 4.23,
-    "merc": 192.28,
-    "evEbit": 23.91,
+    "merc": 187.41,
+    "evEbit": 23.29,
     "max52s": 53.94,
     "gov": 2.5,
     "govRespostas": {
@@ -13635,8 +13635,8 @@
       "g10": "Sim",
       "g11": "—"
     },
-    "nota": 5.1,
-    "atualizado": "18/06/2026 21:36 [StatusInvest]",
+    "nota": 5.3,
+    "atualizado": "21/06/2026 19:58 [StatusInvest]",
     "mr": {
       "data": "2026-05-24 17:58",
       "alerta": false,
