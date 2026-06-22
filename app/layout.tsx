@@ -7,17 +7,17 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const space = Space_Grotesk({ subsets: ['latin'], variable: '--font-space' })
 
 export const metadata: Metadata = {
-  title: 'Radar Invest Pro — Análise como Gestores de Fundo',
+  title: 'Radar Invest Pro — Análise como um Profissional de Mercado',
   description:
-    'Democratizamos a análise de ações da B3 com DCF, fundamentos e peso correto de carteira — as mesmas ferramentas que grandes gestores de fundo utilizam.',
+    'Democratizamos a análise de ações da B3 com DCF, fundamentos e peso correto de carteira — as mesmas ferramentas que grandes profissionais de mercado utilizam.',
   keywords:
-    'análise de ações B3, DCF valuation, análise fundamentalista, carteira de investimentos, gestores de fundo',
+    'análise de ações B3, DCF valuation, análise fundamentalista, carteira de investimentos, profissionais de mercado',
   openGraph: {
     type: 'website',
     url: 'https://radarinvestpro.com.br/',
-    title: 'Radar Invest Pro — Análise como Gestores de Fundo',
+    title: 'Radar Invest Pro — Análise como um Profissional de Mercado',
     description:
-      'DCF, fundamentos e peso correto de carteira — as ferramentas dos grandes gestores, agora para o investidor individual.',
+      'DCF, fundamentos e peso correto de carteira — as ferramentas dos grandes profissionais de mercado, agora para o investidor individual.',
   },
   twitter: { card: 'summary_large_image' },
 }

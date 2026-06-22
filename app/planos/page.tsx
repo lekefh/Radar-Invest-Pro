@@ -139,7 +139,7 @@ export default function PlanosPage() {
           Planos e Preços
         </div>
         <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(34px,5vw,54px)', fontWeight: 700, letterSpacing: -1.5, marginBottom: 16, lineHeight: 1.1 }}>
-          Análise como gestora de fundo.<br />
+          Análise como profissional de mercado.<br />
           <span style={{ color: '#e8a020' }}>Ao preço de investidor individual.</span>
         </h1>
         <p style={{ color: '#6b84a8', fontSize: 16, maxWidth: 500, margin: '0 auto 40px', lineHeight: 1.6 }}>

@@ -358,7 +358,7 @@ export default function LandingPage() {
         <p className="hero-mission">
           Democratizamos a análise de ações da B3 da forma correta —<br />
           com <strong>DCF, fundamentos e peso de carteira</strong><br />
-          exatamente como os <strong>grandes gestores de fundo fazem</strong>.
+          exatamente como os <strong>grandes profissionais de mercado fazem</strong>.
         </p>
         <div className="hero-actions">
           <Link href="/dashboard" className="btn-dash">Acessar plataforma — Grátis</Link>
@@ -386,9 +386,9 @@ export default function LandingPage() {
         <div className="mission-inner">
           <div className="mission-left reveal-left">
             <div className="tag">Nossa Missão</div>
-            <h2>O investidor individual merece <em>as mesmas ferramentas</em> que os gestores de fundo.</h2>
+            <h2>O investidor individual merece <em>as mesmas ferramentas</em> que os profissionais de mercado.</h2>
             <p className="mission-statement">
-              Hoje, grandes gestores tomam decisões com <strong>DCF rigoroso, análise fundamentalista setorial e alocação racional de carteira</strong>. O investidor comum toma decisões com achismo, notícia e dica de influencer.<br /><br />
+              Hoje, grandes profissionais de mercado tomam decisões com <strong>DCF rigoroso, análise fundamentalista setorial e alocação racional de carteira</strong>. O investidor comum toma decisões com achismo, notícia e dica de influencer.<br /><br />
               <strong>Isso precisa mudar.</strong>
             </p>
             <div className="mission-pillars">
@@ -399,7 +399,7 @@ export default function LandingPage() {
           </div>
           <div className="reveal">
             <div className="compare-box">
-              <div className="compare-hdr"><span>O que você analisa</span><span>Gestor de Fundo</span><span className="radar-h">📡 Radar Invest Pro</span></div>
+              <div className="compare-hdr"><span>O que você analisa</span><span>Profissional de Mercado</span><span className="radar-h">📡 Radar Invest Pro</span></div>
               {[['Valuation','DCF multicenários','DCF multicenários'],['Fundamentos','KPIs por setor','KPIs por setor'],['Governança','Score ESG','Score ESG'],['Carteira','Peso por risco','Peso por risco'],['Próx. resultado','Estimativa de resultados','Estimativa de resultados'],['Custo','R$ milhões','Acessível']].map(([item, gestor, radar], i) => (
                 <div key={i} className="compare-row">
                   <span className="item">{item}</span>
@@ -425,7 +425,7 @@ export default function LandingPage() {
               <div>
                 <span className="feat-icon">💹</span>
                 <h3 style={{ fontSize: '22px', marginBottom: '12px' }}>Valuation DCF — Fluxo de Caixa Descontado</h3>
-                <p style={{ fontSize: '15px', marginBottom: '20px' }}>O mesmo modelo que gestores de fundo usam para precificar empresas — com premissas macroeconômicas atualizadas, WACC calculado via CAPM e três cenários (Bear / Base / Bull) com tabela de sensibilidade completa.</p>
+                <p style={{ fontSize: '15px', marginBottom: '20px' }}>O mesmo modelo que profissionais de mercado usam para precificar empresas — com premissas macroeconômicas atualizadas, WACC calculado via CAPM e três cenários (Bear / Base / Bull) com tabela de sensibilidade completa.</p>
                 <span className="feat-tag">Bear · Base · Bull · Sensibilidade WACC × g</span>
               </div>
               <div className="feat-visual">
@@ -483,7 +483,7 @@ export default function LandingPage() {
             <h2>Alexander Faria Hurtado</h2>
             <p className="sobre-cargo">Gestor de Contabilidade · Cuiabá, MT</p>
             <p className="sobre-historia">
-              Invisto em ações na B3 <strong>desde 2016</strong>. O maior obstáculo que sempre enfrentei foi o tempo: trabalho durante o dia e, quando chegava o momento de analisar uma empresa a fundo, não existia uma ferramenta que fizesse esse trabalho de forma <strong>completa e profissional</strong> — sem planilhas manuais, sem depender de dica de influencer, com a metodologia real que grandes gestores de fundo utilizam.<br /><br />
+              Invisto em ações na B3 <strong>desde 2016</strong>. O maior obstáculo que sempre enfrentei foi o tempo: trabalho durante o dia e, quando chegava o momento de analisar uma empresa a fundo, não existia uma ferramenta que fizesse esse trabalho de forma <strong>completa e profissional</strong> — sem planilhas manuais, sem depender de dica de influencer, com a metodologia real que grandes profissionais de mercado utilizam.<br /><br />
               O Radar Invest Pro nasceu dessa necessidade real. <strong>Construí a plataforma que eu mesmo precisava e não encontrei no mercado.</strong>
             </p>
             <div className="sobre-creds">
@@ -512,7 +512,7 @@ export default function LandingPage() {
 
       {/* CTA */}
       <section className="cta" id="acesso">
-        <h2 className="reveal">Pronto para analisar<br />como um <span>gestor de fundo</span>?</h2>
+        <h2 className="reveal">Pronto para analisar<br />como um <span>profissional de mercado</span>?</h2>
         <p className="lead reveal">A plataforma já está disponível. Crie sua conta gratuitamente e comece a analisar agora.</p>
         <div className="reveal" style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '14px' }}>
           <Link href="/cadastro" className="btn-primary" style={{ fontSize: '16px', padding: '16px 40px' }}>Fazer cadastro agora</Link>
