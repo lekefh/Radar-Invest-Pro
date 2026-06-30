@@ -111,23 +111,33 @@ export default function PlanosPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#050d1a', color: '#e8edf4', fontFamily: 'Inter, sans-serif' }}>
+      <style jsx>{`
+        @media (max-width: 600px) {
+          .planos-nav { padding: 0 16px !important; }
+          .planos-nav-logo-text { font-size: 14px !important; }
+          .planos-nav-actions a { padding: 7px 12px !important; font-size: 12px !important; }
+          .planos-compare-row { grid-template-columns: 1.5fr 1fr 1fr 1fr !important; }
+          .planos-compare-row > div { padding: 10px 6px !important; font-size: 11.5px !important; }
+          .planos-compare-row > div:first-child { padding-left: 12px !important; }
+        }
+      `}</style>
 
       {/* Nav */}
-      <nav style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: '64px', background: 'rgba(5,13,26,.95)', borderBottom: '1px solid rgba(255,255,255,.07)', position: 'sticky', top: 0, zIndex: 100 }}>
+      <nav className="planos-nav" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 48px', height: '64px', background: 'rgba(5,13,26,.95)', borderBottom: '1px solid rgba(255,255,255,.07)', position: 'sticky', top: 0, zIndex: 100 }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{ width: 32, height: 32, borderRadius: '50%', border: '2px solid #e8a020', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: 32, height: 32, borderRadius: '50%', border: '2px solid #e8a020', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
             <div style={{ width: 8, height: 8, background: '#e8a020', borderRadius: '50%' }} />
           </div>
-          <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 17, fontWeight: 700, color: '#fff' }}>
+          <span className="planos-nav-logo-text" style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 17, fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>
             Radar <span style={{ color: '#e8a020' }}>Invest</span> Pro
           </span>
         </Link>
-        <div style={{ display: 'flex', gap: 12 }}>
+        <div className="planos-nav-actions" style={{ display: 'flex', gap: 12 }}>
           {logado
-            ? <Link href="/dashboard" style={{ background: 'rgba(232,160,32,.12)', border: '1px solid rgba(232,160,32,.35)', color: '#e8a020', padding: '8px 20px', borderRadius: 6, textDecoration: 'none', fontSize: 13, fontWeight: 700 }}>Dashboard</Link>
+            ? <Link href="/dashboard" style={{ background: 'rgba(232,160,32,.12)', border: '1px solid rgba(232,160,32,.35)', color: '#e8a020', padding: '8px 20px', borderRadius: 6, textDecoration: 'none', fontSize: 13, fontWeight: 700, whiteSpace: 'nowrap' }}>Dashboard</Link>
             : <>
-                <Link href="/login" style={{ color: '#6b84a8', padding: '8px 20px', textDecoration: 'none', fontSize: 13 }}>Entrar</Link>
-                <Link href="/cadastro" style={{ background: '#e8a020', color: '#000', padding: '8px 20px', borderRadius: 6, textDecoration: 'none', fontSize: 13, fontWeight: 700 }}>Criar conta</Link>
+                <Link href="/login" style={{ color: '#6b84a8', padding: '8px 20px', textDecoration: 'none', fontSize: 13, whiteSpace: 'nowrap' }}>Entrar</Link>
+                <Link href="/cadastro" style={{ background: '#e8a020', color: '#000', padding: '8px 20px', borderRadius: 6, textDecoration: 'none', fontSize: 13, fontWeight: 700, whiteSpace: 'nowrap' }}>Criar conta</Link>
               </>
           }
         </div>
@@ -281,7 +291,7 @@ export default function PlanosPage() {
             { recurso: 'Indicar empresa para análise',   gratuito: '—',    essencial: '—',          pro: '1/mês' },
             { recurso: 'Suporte WhatsApp prioritário',   gratuito: '—',    essencial: '—',          pro: '✓' },
           ].map((row, i) => (
-            <div key={row.recurso} style={{
+            <div key={row.recurso} className="planos-compare-row" style={{
               display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr',
               borderBottom: i < 12 ? '1px solid rgba(255,255,255,.05)' : 'none',
               background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,.015)',
@@ -299,7 +309,7 @@ export default function PlanosPage() {
             </div>
           ))}
           {/* Header do comparativo */}
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)', order: -1 }}>
+          <div className="planos-compare-row" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)', order: -1 }}>
             <div style={{ padding: '12px 20px', fontSize: 12, color: '#6b84a8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>Recurso</div>
             {['Gratuito', 'Essencial', 'Pro'].map((n, i) => (
               <div key={n} style={{ padding: '12px 12px', textAlign: 'center', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1,

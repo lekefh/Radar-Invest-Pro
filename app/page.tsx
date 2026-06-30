@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 const css = `
@@ -33,6 +33,13 @@ nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-co
 .nav-cta:hover{background:var(--gold2);transform:translateY(-1px)}
 .nav-dash{background:transparent;border:1px solid rgba(232,160,32,.4);color:var(--gold);font-weight:600;font-size:13px;padding:9px 22px;border-radius:6px;text-decoration:none;transition:all .2s;margin-right:10px}
 .nav-dash:hover{background:rgba(232,160,32,.08);border-color:var(--gold)}
+.nav-cta-group{display:flex;align-items:center}
+.nav-hamburger{display:none;background:transparent;border:none;color:var(--gold);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1}
+.nav-mobile-panel{display:none;flex-direction:column;background:rgba(5,13,26,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:absolute;top:64px;left:0;right:0;padding:8px;gap:2px;z-index:99}
+.nav-mobile-panel a{color:var(--muted);font-size:15px;font-weight:500;text-decoration:none;padding:13px 16px;border-radius:8px}
+.nav-mobile-panel a:hover{background:rgba(255,255,255,.05);color:#fff}
+.nav-mobile-panel .nav-mobile-cta{display:flex;flex-direction:column;gap:8px;padding:10px 16px 4px}
+.nav-mobile-panel .nav-mobile-cta a{text-align:center;padding:11px}
 .hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 60px 60px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:56px 56px}
 .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(232,160,32,.07) 0%,transparent 70%)}
@@ -169,6 +176,9 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 6
 @media(max-width:768px){
   nav{padding:0 20px}
   .nav-links{display:none}
+  .nav-cta-group{display:none}
+  .nav-hamburger{display:flex;align-items:center}
+  .nav-mobile-panel.open{display:flex}
   .hero,.mission,.features,.metodo,.setores,.cta,.sobre{padding:60px 24px}
   .stats{grid-template-columns:1fr 1fr}
   .stat{padding:28px 20px}
@@ -184,6 +194,8 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 6
 `
 
 export default function LandingPage() {
+  const [menuMobileAberto, setMenuMobileAberto] = useState(false)
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -339,9 +351,27 @@ export default function LandingPage() {
           <li><a href="#setores">Setores</a></li>
           <li><a href="#sobre">Sobre</a></li>
         </ul>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="nav-cta-group">
           <Link href="/dashboard" className="nav-dash">Acessar — Grátis</Link>
           <Link href="/cadastro" className="nav-cta">Fazer cadastro</Link>
+        </div>
+        <button
+          className="nav-hamburger"
+          aria-label="Abrir menu"
+          onClick={() => setMenuMobileAberto(o => !o)}
+        >
+          {menuMobileAberto ? '✕' : '☰'}
+        </button>
+        <div className={`nav-mobile-panel${menuMobileAberto ? ' open' : ''}`}>
+          <a href="#missao" onClick={() => setMenuMobileAberto(false)}>Missão</a>
+          <a href="#funcionalidades" onClick={() => setMenuMobileAberto(false)}>Funcionalidades</a>
+          <a href="#metodologia" onClick={() => setMenuMobileAberto(false)}>Metodologia</a>
+          <a href="#setores" onClick={() => setMenuMobileAberto(false)}>Setores</a>
+          <a href="#sobre" onClick={() => setMenuMobileAberto(false)}>Sobre</a>
+          <div className="nav-mobile-cta">
+            <Link href="/dashboard" className="nav-dash" onClick={() => setMenuMobileAberto(false)}>Acessar — Grátis</Link>
+            <Link href="/cadastro" className="nav-cta" onClick={() => setMenuMobileAberto(false)}>Fazer cadastro</Link>
+          </div>
         </div>
       </nav>
 
