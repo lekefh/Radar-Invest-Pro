@@ -34,9 +34,9 @@ function Badge({ label, color }: { label: string; color: string }) {
 
 function CenCard({ label, cor, preco, upside }: { label: string; cor: string; preco: number|null; upside: number|null }) {
   return (
-    <div style={{ flex: 1, background: 'rgba(255,255,255,.03)', border: `1px solid ${cor}33`, borderRadius: '12px', padding: '18px', textAlign: 'center' }}>
-      <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' as const, color: cor, marginBottom: '10px' }}>{label}</div>
-      <div style={{ fontSize: '30px', fontWeight: 700, color: cor, fontFamily: 'var(--font-space),Space Grotesk,sans-serif', lineHeight: 1 }}>
+    <div style={{ background: 'rgba(255,255,255,.03)', border: `1px solid ${cor}33`, borderRadius: '12px', padding: '14px 12px', textAlign: 'center' }}>
+      <div style={{ fontSize: '10.5px', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase' as const, color: cor, marginBottom: '8px' }}>{label}</div>
+      <div style={{ fontSize: 'clamp(20px, 6vw, 30px)', fontWeight: 700, color: cor, fontFamily: 'var(--font-space),Space Grotesk,sans-serif', lineHeight: 1 }}>
         {preco != null ? `R$ ${f2(preco)}` : 'R$ —'}
       </div>
       {upside != null && (
@@ -304,14 +304,14 @@ function SecResumo({ e, precoLive }: { e: any; precoLive: number|null }) {
   return (
     <>
       <SecTitle>Cenários de Valuation</SecTitle>
-      <div style={{ display:'flex',gap:'12px',marginBottom:'24px' }}>
+      <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(120px,1fr))',gap:'10px',marginBottom:'24px' }}>
         <CenCard label="🔴 Pessimista (Bear)" cor="#ef4444" preco={bear.preco} upside={up_bear}/>
         <CenCard label="🟡 Base"              cor="#e8a020" preco={base.preco} upside={up_base}/>
         <CenCard label="🟢 Otimista (Bull)"  cor="#00d4a0" preco={bull.preco} upside={up_bull}/>
       </div>
 
       <SecTitle>Parâmetros do Modelo</SecTitle>
-      <div style={{ display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'10px',marginBottom:'24px' }}>
+      <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(100px,1fr))',gap:'10px',marginBottom:'24px' }}>
         <ParamCard label="WACC" val={e.wacc != null ? f1(e.wacc) + '%' : '—'}/>
         <ParamCard label="g Terminal" val={e.g_terminal != null ? f1(e.g_terminal) + '%' : '—'}/>
         <ParamCard label="Ke (Custo Capital)" val={e.wacc_ke != null ? f1(e.wacc_ke) + '%' : '—'}/>
@@ -685,7 +685,7 @@ function SecProximoTri({ e }: { e: any }) {
           Método: {t.metodologia}
         </p>
       )}
-      <div style={{ display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'12px' }}>
+      <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(110px,1fr))',gap:'12px' }}>
         {[
           { label:'Receita Est.', val: t.receita != null ? `R$ ${f2(t.receita)} MM` : '—' },
           { label:'EBITDA Est.',  val: t.ebitda  != null ? `R$ ${f2(t.ebitda)} MM`  : '—' },
@@ -845,6 +845,19 @@ export default function DCFPage() {
         .vazio{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#6b84a8;text-align:center}
         .btn-rel{background:#e8a020;color:#000;font-weight:700;font-size:13px;padding:10px 24px;border-radius:8px;border:none;cursor:pointer}
         .btn-rel:hover{background:#f5c55a}
+        @media (max-width: 640px) {
+          .sidebar{width:104px}
+          .sidebar-hdr{padding:8px 8px}
+          .sidebar-hdr h2{font-size:9px}
+          .sidebar-hdr p{font-size:9px}
+          .emp-item{padding:8px 8px;flex-direction:column;align-items:flex-start;gap:3px}
+          .emp-item.ativo{padding-left:6px}
+          .emp-nome{max-width:88px;font-size:9px}
+          .emp-ticker{font-size:11px}
+          .main-hdr{padding:12px 12px 0}
+          .tab-bar{padding:0 12px}
+          .content{padding:12px 12px 30px}
+        }
       `}</style>
 
       <NavBar />

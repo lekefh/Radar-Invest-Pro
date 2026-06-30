@@ -598,6 +598,13 @@ export default function Dashboard() {
         .inp:focus{border-color:rgba(232,160,32,.5)}
         .inp::placeholder{color:#6b84a8}
         .inp-search{width:200px}.inp-setor{width:190px}.inp-preco{width:90px}
+        @media (max-width: 640px) {
+          .toolbar{height:auto;flex-wrap:wrap;padding:10px 12px;row-gap:8px}
+          .inp-search{width:100%}
+          .inp-setor{width:calc(50% - 5px)}
+          .inp-preco{width:calc(50% - 5px)}
+          .ts-label{margin-left:0;width:100%;text-align:center}
+        }
         .btn-filtrar{background:#e8a020;color:#000;font-weight:700;font-size:12px;padding:7px 16px;border-radius:7px;border:none;cursor:pointer;flex-shrink:0}
         .btn-filtrar:hover{background:#f5c55a}
         .btn-limpar{background:transparent;border:1px solid rgba(255,255,255,.15);color:#6b84a8;font-size:12px;font-weight:600;padding:7px 12px;border-radius:7px;cursor:pointer;flex-shrink:0}
