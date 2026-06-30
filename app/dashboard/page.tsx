@@ -103,6 +103,54 @@ function GovCell({v,onClick}:{v:number|null;onClick:()=>void}) {
   return <td style={{color,fontWeight:600,cursor:'pointer',textDecoration:'underline dotted'}} onClick={onClick} title="Ver critérios de governança">{f1(v)}</td>
 }
 
+function AcaoCardMobile({ a, planoUsuario, notaVal, onGov, onFatos, onNota, onUpgrade }: {
+  a: Acao; planoUsuario: string; notaVal: number | null
+  onGov: () => void; onFatos: () => void; onNota: () => void; onUpgrade: () => void
+}) {
+  const al = a.varVsMax!=null && a.varVsMax<=-30 ? 30 : a.varVsMax!=null && a.varVsMax<=-15 ? 15 : 0
+  const cor = (v: number|null, dir: 0|1|-1) => {
+    if (v==null) return '#6b84a8'
+    if (dir===1)  return v>0?'#00d4a0':v<0?'#ef4444':'#e8edf5'
+    if (dir===-1) return v<0?'#00d4a0':v>0?'#ef4444':'#e8edf5'
+    return '#e8edf5'
+  }
+  const corGov  = a.gov==null?'#6b84a8':a.gov>=1.5?'#66BB6A':a.gov>=0.8?'#FFD54F':'#EF9A9A'
+  const corNota = notaVal==null?'#6b84a8':notaVal>=7?'#66BB6A':notaVal>=5?'#FFD54F':'#EF9A9A'
+
+  return (
+    <div className="acao-card" style={al===30?{borderLeftColor:'#ef4444',background:'rgba(239,68,68,.05)'}:al===15?{borderLeftColor:'#FFD54F',background:'rgba(245,197,90,.04)'}:undefined}>
+      <div className="acao-card-top">
+        <div>
+          <div className="acao-card-ticker">{a.ticker}</div>
+          <div className="acao-card-nome">{a.nome}</div>
+        </div>
+        <div style={{ textAlign:'right' }}>
+          <div className="acao-card-preco">{a.preco!=null?'R$ '+f2(a.preco):'—'}</div>
+          <div style={{ fontSize:'12px', fontWeight:700, color:cor(a.variacao,1) }}>
+            {a.variacao!=null?(a.variacao>0?'+':'')+f1(a.variacao)+'%':'—'}
+          </div>
+        </div>
+      </div>
+      <div className="acao-card-setor">{a.setor}</div>
+      <div className="acao-card-stats">
+        <div><span className="lbl">DY</span><span>{a.dy!=null?f1(a.dy)+'%':'—'}</span></div>
+        <div><span className="lbl">P/L</span><span>{a.pl!=null?f2(a.pl)+'x':'—'}</span></div>
+        <div><span className="lbl">P/VP</span><span>{a.pvp!=null?f2(a.pvp)+'x':'—'}</span></div>
+        <div><span className="lbl">ROE</span><span style={{color:cor(a.roe,1)}}>{a.roe!=null?f1(a.roe)+'%':'—'}</span></div>
+        <div><span className="lbl">Dív/EBIT</span><span style={{color:cor(a.divEbit,-1)}}>{a.divEbit!=null?f2(a.divEbit)+'x':'—'}</span></div>
+        <div><span className="lbl">Queda 52s</span><span style={{color:cor(a.varVsMax,-1)}}>{a.varVsMax!=null?f1(a.varVsMax)+'%':'—'}</span></div>
+      </div>
+      <div className="acao-card-footer">
+        <button className="acao-card-badge" style={{color:corGov}} onClick={onGov}>GOV {a.gov!=null?f1(a.gov):'—'}</button>
+        <button className="acao-card-badge" style={{opacity:a.mr?1:0.45}} onClick={onFatos}>{a.mr?.alerta?'⚠':'📰'} Fatos</button>
+        <button className="acao-card-badge" style={{color:planoUsuario==='gratuito'?'#6b84a8':corNota}} onClick={planoUsuario==='gratuito'?onUpgrade:onNota}>
+          {planoUsuario==='gratuito' ? '★ *' : `★ ${notaVal!=null?f1(notaVal):'—'}`}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 function Modal({title,onClose,children}:{title:string;onClose:()=>void;children:React.ReactNode}) {
   return (
     <div style={{position:'fixed',inset:0,background:'rgba(0,0,0,.72)',zIndex:200,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px'}}
@@ -598,13 +646,6 @@ export default function Dashboard() {
         .inp:focus{border-color:rgba(232,160,32,.5)}
         .inp::placeholder{color:#6b84a8}
         .inp-search{width:200px}.inp-setor{width:190px}.inp-preco{width:90px}
-        @media (max-width: 640px) {
-          .toolbar{height:auto;flex-wrap:wrap;padding:10px 12px;row-gap:8px}
-          .inp-search{width:100%}
-          .inp-setor{width:calc(50% - 5px)}
-          .inp-preco{width:calc(50% - 5px)}
-          .ts-label{margin-left:0;width:100%;text-align:center}
-        }
         .btn-filtrar{background:#e8a020;color:#000;font-weight:700;font-size:12px;padding:7px 16px;border-radius:7px;border:none;cursor:pointer;flex-shrink:0}
         .btn-filtrar:hover{background:#f5c55a}
         .btn-limpar{background:transparent;border:1px solid rgba(255,255,255,.15);color:#6b84a8;font-size:12px;font-weight:600;padding:7px 12px;border-radius:7px;cursor:pointer;flex-shrink:0}
@@ -620,6 +661,8 @@ export default function Dashboard() {
         .resumo-item{font-size:11px;color:#6b84a8;display:flex;align-items:baseline;gap:6px}
         .resumo-num{font-family:var(--font-space),'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:#e8edf5}
         .table-wrap{flex:1;overflow:auto;min-height:0}
+        .cards-mobile{display:none}
+        .sort-bar-mobile{display:none}
         table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1440px}
         thead th{background:#081120;padding:9px 10px;text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#6b84a8;border-bottom:2px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:10;white-space:nowrap;cursor:pointer;user-select:none}
         thead th:first-child,thead th:nth-child(2),thead th:nth-child(3){text-align:left}
@@ -639,6 +682,33 @@ export default function Dashboard() {
         @keyframes spin{to{transform:rotate(360deg)}}
         .erro-box{text-align:center;padding:60px;color:#ef4444}
         .empty-row td{text-align:center;padding:60px;color:#6b84a8}
+        @media (max-width: 640px) {
+          .toolbar{height:auto;flex-wrap:wrap;padding:10px 12px;row-gap:8px}
+          .inp-search{width:100%}
+          .inp-setor{width:calc(50% - 5px)}
+          .inp-preco{width:calc(50% - 5px)}
+          .ts-label{margin-left:0;width:100%;text-align:center}
+        }
+        @media (max-width: 760px) {
+          .table-wrap{display:none}
+          .resumo{padding:8px 12px;gap:12px;font-size:10px}
+          .sort-bar-mobile{display:flex;gap:6px;padding:8px 10px;overflow-x:auto;flex-shrink:0;background:#081120;border-bottom:1px solid rgba(255,255,255,.05)}
+          .sort-chip{flex-shrink:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#b8c4d4;font-size:11px;font-weight:700;padding:6px 12px;border-radius:14px;cursor:pointer;white-space:nowrap;font-family:inherit}
+          .sort-chip.ativo{background:rgba(232,160,32,.15);border-color:rgba(232,160,32,.4);color:#e8a020}
+          .cards-mobile{display:flex;flex-direction:column;gap:8px;padding:10px;overflow-y:auto;flex:1;min-height:0}
+          .acao-card{background:#081120;border:1px solid rgba(255,255,255,.07);border-left:3px solid transparent;border-radius:10px;padding:12px}
+          .acao-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+          .acao-card-ticker{font-weight:700;font-size:15px;color:#e8a020;font-family:var(--font-space),monospace}
+          .acao-card-nome{font-size:11.5px;color:#b8c4d4;margin-top:1px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+          .acao-card-preco{font-size:14px;font-weight:700;color:#e8edf5}
+          .acao-card-setor{font-size:10.5px;color:#6b84a8;margin-top:6px}
+          .acao-card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
+          .acao-card-stats > div{display:flex;flex-direction:column;gap:1px}
+          .acao-card-stats .lbl{font-size:9px;color:#3d4f6a;text-transform:uppercase;letter-spacing:.3px}
+          .acao-card-stats span:not(.lbl){font-size:13px;font-weight:600;color:#e8edf5}
+          .acao-card-footer{display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
+          .acao-card-badge{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:6px 4px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+        }
       `}</style>
 
       <NavBar />
@@ -750,6 +820,52 @@ export default function Dashboard() {
                   }
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {/* Barra de ordenação mobile — substitui o clique no header da tabela */}
+          {!loading&&!erro&&(
+            <div className="sort-bar-mobile">
+              {([
+                { key:'ticker',   label:'Ticker' },
+                { key:'variacao', label:'Var.Dia' },
+                { key:'dy',       label:'DY%' },
+                { key:'pl',       label:'P/L' },
+                { key:'pvp',      label:'P/VP' },
+                { key:'roe',      label:'ROE%' },
+                { key:'divEbit',  label:'Dív/EBIT' },
+                { key:'varVsMax', label:'Queda%' },
+                { key:'gov',      label:'GOV' },
+                { key:'nota',     label:'NOTA' },
+              ] as { key: SortKey; label: string }[]).map(s=>{
+                const ordem = sortOrders.find(o=>o.key===s.key)
+                return (
+                  <button key={s.key} className={`sort-chip${ordem?' ativo':''}`} onClick={()=>toggleSort(s.key)}>
+                    {s.label}{ordem?(ordem.dir==='asc'?' ↑':' ↓'):''}
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          {/* Versão mobile — cards empilhados, mesma fonte de dados da tabela */}
+          {!loading&&!erro&&(
+            <div className="cards-mobile">
+              {dadosEnriquecidos.length===0
+                ? <div style={{ padding:'30px',textAlign:'center',color:'#6b84a8',fontSize:'13px' }}>Nenhuma ação encontrada.</div>
+                : dadosEnriquecidos.map(a=>(
+                    <AcaoCardMobile
+                      key={a.ticker}
+                      a={a}
+                      planoUsuario={planoUsuario}
+                      notaVal={notaAjustada(a) ?? a.nota}
+                      onGov={()=>setModalGov(a)}
+                      onFatos={()=>setModalFatos(a)}
+                      onNota={()=>setModalNota(a)}
+                      onUpgrade={()=>setModalUpgradeNota(true)}
+                    />
+                  ))
+              }
             </div>
           )}
         </div>

@@ -106,6 +106,56 @@ async function buscarPrecos(tickers: string[]): Promise<Record<string, { preco: 
   } catch { return {} }
 }
 
+/* ── Card mobile (substitui a linha da tabela em telas pequenas) ─────────────── */
+function PosicaoCardMobile({ p, pesoAtual, pesoSug, selecionado, onSelecionar, onEditar, onToggleCalculo }: {
+  p: Posicao; pesoAtual: number; pesoSug: number
+  selecionado: boolean
+  onSelecionar: () => void; onEditar: () => void
+  onToggleCalculo: () => void
+}) {
+  const excl     = p.excluir_calculo
+  const pAtual   = p.preco_atual ?? p.preco_medio
+  const resTotal = p.preco_atual != null ? (pAtual - p.preco_medio) * p.quantidade : null
+  const resPct   = p.preco_atual != null && p.preco_medio > 0 ? ((pAtual - p.preco_medio) / p.preco_medio) * 100 : null
+  const valorAtu = pAtual * p.quantidade
+  const corRes   = (v: number | null) => v == null ? '#e8edf5' : v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
+  const corNota  = (n: number | null | undefined) => n == null ? '#6b84a8' : n >= 7 ? '#66BB6A' : n >= 5 ? '#FFD54F' : '#EF9A9A'
+
+  return (
+    <div className={`posicao-card${selecionado ? ' sel' : ''}`} style={excl ? { opacity: .55 } : undefined} onClick={onSelecionar}>
+      <div className="posicao-card-top">
+        <div>
+          <div className="posicao-card-ticker">{p.ticker}{excl && <span className="excl-tag" style={{ marginLeft: 6 }}>EXCLUÍDO</span>}</div>
+          <div className="posicao-card-nome">{p.nome}</div>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: corNota(p.nota) }}>{p.nota != null ? '★ ' + f2(p.nota) : '—'}</div>
+        </div>
+      </div>
+      <div className="posicao-card-stats">
+        <div><span className="lbl">Qtde</span><span>{f2(p.quantidade)}</span></div>
+        <div><span className="lbl">P.Médio</span><span>{fR(p.preco_medio)}</span></div>
+        <div><span className="lbl">P.Atual</span><span>{p.preco_atual != null ? fR(p.preco_atual) : '—'}</span></div>
+      </div>
+      <div className="posicao-card-res" style={{ color: corRes(resTotal) }}>
+        {resTotal != null ? `${resTotal >= 0 ? '+' : ''}${fR(resTotal)} (${resPct! >= 0 ? '+' : ''}${f2(resPct)}%)` : 'Sem cotação atual'}
+      </div>
+      <div className="posicao-card-stats">
+        <div><span className="lbl">Valor Atual</span><span>{fR(valorAtu)}</span></div>
+        <div><span className="lbl">Peso Atual</span><span>{f2(pesoAtual)}%</span></div>
+        <div><span className="lbl">Peso Sug.</span><span style={{ color: pesoSug > pesoAtual ? '#00d4a0' : pesoSug < pesoAtual ? '#FFD54F' : '#b8c4d4' }}>{f2(pesoSug)}%</span></div>
+      </div>
+      <div className="posicao-card-footer">
+        <button className="posicao-card-btn" onClick={e => { e.stopPropagation(); onEditar() }}>✏ Editar</button>
+        <button className="posicao-card-btn" onClick={e => { e.stopPropagation(); onToggleCalculo() }}
+                style={{ color: excl ? '#6b84a8' : '#00d4a0' }}>
+          {excl ? 'Fora do cálculo' : 'Dentro do cálculo'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 /* ── Modal base ──────────────────────────────────────────────────────────────── */
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
   return (
@@ -531,6 +581,8 @@ export default function CarteiraPage() {
         .btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#b8c4d4}.btn-ghost:hover{background:rgba(255,255,255,.1)}
         .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
         .table-wrap{flex:1;overflow:auto;min-height:0}
+        .cards-mobile{display:none}
+        .sort-bar-mobile{display:none}
         table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1100px}
         thead th{background:#081120;padding:9px 10px;text-align:right;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#6b84a8;border-bottom:2px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:10;white-space:nowrap}
         thead th:first-child,thead th:nth-child(2){text-align:left}
@@ -546,6 +598,28 @@ export default function CarteiraPage() {
         @keyframes spin{to{transform:rotate(360deg)}}
         .empty{text-align:center;padding:60px;color:#6b84a8}
         .excl-tag{font-size:9px;background:rgba(255,255,255,.08);color:#6b84a8;border-radius:4px;padding:1px 5px;margin-left:4px;font-weight:700}
+        @media (max-width: 760px) {
+          .table-wrap{display:none}
+          .bar-pl{height:auto;flex-wrap:wrap;padding:8px 12px;gap:14px;row-gap:6px}
+          .nota-legend{margin-left:0;width:100%;justify-content:center}
+          .btn-bar{height:auto;flex-wrap:wrap;padding:8px 12px;row-gap:6px}
+          .sort-bar-mobile{display:flex;gap:6px;padding:8px 10px;overflow-x:auto;flex-shrink:0;background:#081120;border-bottom:1px solid rgba(255,255,255,.05)}
+          .sort-chip{flex-shrink:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#b8c4d4;font-size:11px;font-weight:700;padding:6px 12px;border-radius:14px;cursor:pointer;white-space:nowrap;font-family:inherit}
+          .sort-chip.ativo{background:rgba(232,160,32,.15);border-color:rgba(232,160,32,.4);color:#e8a020}
+          .cards-mobile{display:flex;flex-direction:column;gap:8px;padding:10px;overflow-y:auto;flex:1;min-height:0}
+          .posicao-card{background:#081120;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px;cursor:pointer}
+          .posicao-card.sel{background:rgba(232,160,32,.08);outline:1px solid rgba(232,160,32,.25)}
+          .posicao-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+          .posicao-card-ticker{font-weight:700;font-size:15px;color:#e8a020;font-family:var(--font-space),monospace}
+          .posicao-card-nome{font-size:11.5px;color:#b8c4d4;margin-top:1px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+          .posicao-card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
+          .posicao-card-stats > div{display:flex;flex-direction:column;gap:1px}
+          .posicao-card-stats .lbl{font-size:9px;color:#3d4f6a;text-transform:uppercase;letter-spacing:.3px}
+          .posicao-card-stats span:not(.lbl){font-size:13px;font-weight:600;color:#e8edf5}
+          .posicao-card-res{margin-top:8px;font-size:13px;font-weight:700}
+          .posicao-card-footer{display:flex;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)}
+          .posicao-card-btn{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:7px 4px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;color:#e8edf5}
+        }
       `}</style>
 
       <NavBar />
@@ -706,6 +780,60 @@ export default function CarteiraPage() {
                   }
                 </tbody>
               </table>
+            </div>
+          )}
+
+          {/* Barra de ordenação mobile — substitui o clique no header da tabela */}
+          {!loading && !erro && (
+            <div className="sort-bar-mobile">
+              {[
+                { key: 'ticker',    label: 'Ticker' },
+                { key: 'qtde',      label: 'Qtde' },
+                { key: 'pAtual',    label: 'P.Atual' },
+                { key: 'resPct',    label: 'Res.%' },
+                { key: 'valorAtu',  label: 'Valor Atu.' },
+                { key: 'nota',      label: 'Nota' },
+                { key: 'pesoAtual', label: 'Peso Atual' },
+                { key: 'pesoSug',   label: 'Peso Sug.' },
+              ].map(s => (
+                <button key={s.key} className={`sort-chip${sortConfig?.key === s.key ? ' ativo' : ''}`} onClick={() => toggleSort(s.key)}>
+                  {s.label}{sortConfig?.key === s.key ? (sortConfig.dir === 'asc' ? ' ↑' : ' ↓') : ''}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Versão mobile — cards empilhados, mesma fonte de dados da tabela */}
+          {!loading && !erro && (
+            <div className="cards-mobile">
+              {posicoes.length === 0
+                ? <div style={{ padding: '30px', textAlign: 'center', color: '#6b84a8', fontSize: '13px' }}>
+                    Nenhuma posição na carteira.<br/>
+                    <span style={{ fontSize: '12px' }}>Toque em &quot;+ Posição&quot; para adicionar.</span>
+                  </div>
+                : sortedPosicoes.map(p => {
+                    const totalCart = metricas.atual || 1
+                    const pAtual    = p.preco_atual ?? p.preco_medio
+                    const valorAtu  = pAtual * p.quantidade
+                    const pesoAtual = (valorAtu / totalCart) * 100
+                    const pesoSug   = metricas.pesoSug(p.ticker, p.nota ?? null)
+                    return (
+                      <PosicaoCardMobile
+                        key={p.id}
+                        p={p}
+                        pesoAtual={pesoAtual}
+                        pesoSug={pesoSug}
+                        selecionado={selecionado === p.id}
+                        onSelecionar={() => setSelecionado(p.id === selecionado ? null : p.id)}
+                        onEditar={() => { setEditando(p); setModal('edit') }}
+                        onToggleCalculo={async () => {
+                          await fetch(`/api/carteira/${p.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ excluir_calculo: !p.excluir_calculo }) })
+                          carregarCarteira()
+                        }}
+                      />
+                    )
+                  })
+              }
             </div>
           )}
         </div>
