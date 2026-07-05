@@ -364,6 +364,7 @@ export default function CarteiraPage() {
     tipo: string; ticker: string; quantidade: number; preco: number
     data: string; notaIdx: number; selecionada: boolean
     notas?: string; mercado?: string; vencimento?: string | null
+    direcao?: 'lancador' | 'titular'  // apenas para opções
   }
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
@@ -418,7 +419,7 @@ export default function CarteiraPage() {
   }
 
   /* ── Posição Base ──────────────────────────────────────────────────────── */
-  interface BaseItem { ticker: string; quantidade: number; preco_medio: number; cnpj?: string }
+  interface BaseItem { ticker: string; quantidade: number; preco_medio: number; cnpj?: string; direcao?: 'lancador' | 'titular' | null }
   const [baseData, setBaseData] = useState<string>(new Date().toISOString().slice(0, 10))
   const [baseItens, setBaseItens] = useState<BaseItem[]>([])
   const [basePrejSwing, setBasePrejSwing] = useState('0')
@@ -473,7 +474,7 @@ export default function CarteiraPage() {
       if (!r.ok) { alert(d.error ?? 'Erro ao ler planilha.'); return }
       if (d.avisos?.length) alert('Avisos:\n' + d.avisos.join('\n'))
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      setBaseItens(d.itens.map((i: any) => ({ ticker: i.ticker, quantidade: i.quantidade, preco_medio: i.preco_medio, cnpj: i.cnpj ?? '' })))
+      setBaseItens(d.itens.map((i: any) => ({ ticker: i.ticker, quantidade: i.quantidade, preco_medio: i.preco_medio, cnpj: i.cnpj ?? '', direcao: i.direcao ?? null })))
       alert(`${d.total} ativo(s) importado(s) da aba "${d.aba}". Revise e clique em Salvar.`)
     } catch { alert('Erro de conexão.') }
     finally { setImportandoBase(false); e.target.value = '' }
@@ -581,7 +582,13 @@ export default function CarteiraPage() {
       setImportNotas([{ corretora: 'Planilha B3', data: null, arquivo: file.name }])
       setImportOpsAll(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (d.operacoes as any[]).map(op => ({ ...op, notaIdx: 0, selecionada: true }))
+        (d.operacoes as any[]).map(op => ({
+          ...op, notaIdx: 0, selecionada: true,
+          // Para opções: V = lançador (vende para abrir), C = titular (compra para abrir)
+          direcao: op.mercado === 'opcao'
+            ? (op.tipo === 'V' ? 'lancador' : 'titular')
+            : undefined,
+        }))
       )
     } catch { setImportErro('Erro de conexão. Tente novamente.') }
     finally { setImportProgress(''); setImportando(false); e.target.value = '' }
@@ -1268,17 +1275,24 @@ export default function CarteiraPage() {
                       <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
                         <thead>
                           <tr style={{ color:'#4a5d73', borderBottom:'1px solid rgba(255,255,255,.07)' }}>
-                            {['Ticker', 'CNPJ', 'Quantidade', 'Preço Médio (R$)', ''].map(h => (
+                            {['Ticker', 'CNPJ', 'Quantidade', 'Preço Médio (R$)', 'L/T', ''].map(h => (
                               <th key={h} style={{ padding:'5px 8px', textAlign:'left', fontWeight:600 }}>{h}</th>
                             ))}
                           </tr>
                         </thead>
                         <tbody>
-                          {baseItens.map((item, i) => (
+                          {baseItens.map((item, i) => {
+                            const ehOpcao   = isOpcaoTicker(item.ticker)
+                            const lancador  = item.quantidade < 0
+                            const qtdAbs    = Math.abs(item.quantidade)
+                            const toggleLT  = () => setBaseItens(p => p.map((x,j) => j===i
+                              ? { ...x, quantidade: -x.quantidade, direcao: x.quantidade < 0 ? 'titular' : 'lancador' }
+                              : x))
+                            return (
                             <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)' }}>
                               <td style={{ padding:'4px 6px' }}>
                                 <input value={item.ticker} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, ticker:e.target.value.toUpperCase()} : x))}
-                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:80, outline:'none' }}
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color: ehOpcao ? '#e8a020' : '#e8edf5', fontSize:12, width:90, outline:'none', fontWeight: ehOpcao ? 700 : 400 }}
                                   placeholder="PETR4" />
                               </td>
                               <td style={{ padding:'4px 6px' }}>
@@ -1287,7 +1301,10 @@ export default function CarteiraPage() {
                                   placeholder="00.000.000/0001-00" />
                               </td>
                               <td style={{ padding:'4px 6px' }}>
-                                <input type="number" min="1" value={item.quantidade || ''} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, quantidade:parseFloat(e.target.value)||0} : x))}
+                                <input type="number" min="1" value={qtdAbs || ''} onChange={e => {
+                                  const v = parseFloat(e.target.value) || 0
+                                  setBaseItens(p => p.map((x,j) => j===i ? {...x, quantidade: lancador ? -v : v} : x))
+                                }}
                                   style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:80, outline:'none' }} />
                               </td>
                               <td style={{ padding:'4px 6px' }}>
@@ -1295,13 +1312,24 @@ export default function CarteiraPage() {
                                   style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:100, outline:'none' }} />
                               </td>
                               <td style={{ padding:'4px 6px' }}>
+                                {ehOpcao ? (
+                                  <button onClick={toggleLT} title="Clique para alternar Lançador ↔ Titular"
+                                    style={{ background: lancador ? 'rgba(255,183,77,.12)' : 'rgba(100,181,246,.12)', border: `1px solid ${lancador ? 'rgba(255,183,77,.4)' : 'rgba(100,181,246,.4)'}`, color: lancador ? '#ffb74d' : '#64b5f6', padding:'3px 10px', borderRadius:5, fontSize:11, fontWeight:700, cursor:'pointer', whiteSpace:'nowrap' }}>
+                                    {lancador ? 'Lançador ⇄' : 'Titular ⇄'}
+                                  </button>
+                                ) : (
+                                  <span style={{ color:'#2a3a4a', fontSize:11 }}>—</span>
+                                )}
+                              </td>
+                              <td style={{ padding:'4px 6px' }}>
                                 <button onClick={() => setBaseItens(p => p.filter((_,j) => j!==i))}
                                   style={{ background:'rgba(239,68,68,.1)', border:'none', color:'#ef4444', padding:'3px 8px', borderRadius:4, fontSize:11, cursor:'pointer' }}>✕</button>
                               </td>
                             </tr>
-                          ))}
+                            )
+                          })}
                           {baseItens.length === 0 && (
-                            <tr><td colSpan={5} style={{ padding:'14px 8px', color:'#4a5d73', fontSize:12 }}>Nenhum ativo — importe a planilha ou clique em &quot;+ Ativo&quot;.</td></tr>
+                            <tr><td colSpan={6} style={{ padding:'14px 8px', color:'#4a5d73', fontSize:12 }}>Nenhum ativo — importe a planilha ou clique em &quot;+ Ativo&quot;.</td></tr>
                           )}
                         </tbody>
                       </table>
@@ -1426,7 +1454,7 @@ export default function CarteiraPage() {
                       <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'12px',minWidth:'700px' }}>
                         <thead>
                           <tr style={{ background:'#081120' }}>
-                            {['','NOTA','Tipo','Ticker','Qtde','Preço Unit.','Total','Data'].map(h => (
+                            {['','NOTA','Tipo','Ticker','Qtde','Preço Unit.','Total','Data','Posição'].map(h => (
                               <th key={h} style={{ padding:'7px 8px',textAlign:'left',color:'#6b84a8',
                                 fontWeight:700,fontSize:'10px',letterSpacing:'.5px',
                                 textTransform:'uppercase',whiteSpace:'nowrap' }}>{h}</th>
@@ -1495,6 +1523,29 @@ export default function CarteiraPage() {
                                   <input type="date" value={op.data}
                                     onChange={e => updOp(i,'data',e.target.value)}
                                     style={{ ...iStyle,width:'116px',colorScheme:'dark' }} />
+                                </td>
+                                {/* Posição — só para opções */}
+                                <td style={{ padding:'5px 6px' }}>
+                                  {op.mercado === 'opcao' ? (
+                                    <button
+                                      onClick={() => {
+                                        const novaDir = op.direcao === 'lancador' ? 'titular' : 'lancador'
+                                        setImportOpsAll(prev => prev.map((o,j) => j===i
+                                          ? { ...o, direcao: novaDir, tipo: novaDir === 'lancador' ? 'V' : 'C' }
+                                          : o))
+                                      }}
+                                      style={{
+                                        background: op.direcao === 'lancador' ? 'rgba(255,183,77,.12)' : 'rgba(100,181,246,.12)',
+                                        border: `1px solid ${op.direcao === 'lancador' ? 'rgba(255,183,77,.4)' : 'rgba(100,181,246,.4)'}`,
+                                        color: op.direcao === 'lancador' ? '#ffb74d' : '#64b5f6',
+                                        padding:'3px 9px', borderRadius:5, fontSize:11, fontWeight:700,
+                                        cursor:'pointer', whiteSpace:'nowrap',
+                                      }}>
+                                      {op.direcao === 'lancador' ? 'Lançador ⇄' : 'Titular ⇄'}
+                                    </button>
+                                  ) : (
+                                    <span style={{ color:'#2a3a4a', fontSize:11 }}>—</span>
+                                  )}
                                 </td>
                               </tr>
                             )

@@ -3,21 +3,22 @@ import * as XLSX from 'xlsx'
 import { getSession } from '@/lib/auth'
 
 interface ItemBase {
-  ticker: string
-  quantidade: number
+  ticker:     string
+  quantidade: number        // negativo = lançador de opção
   preco_medio: number
-  cnpj: string | null
+  cnpj:       string | null
+  direcao:    'lancador' | 'titular' | null  // null = ação comum
 }
 
 /**
  * POST /api/carteira/posicao-base/importar
- * Recebe planilha XLSX com posições base e retorna os itens parseados.
  *
- * Formatos aceitos:
- *   • Colunas: Ativo | CNPJ | Qtd | Preço médio   (padrão CEI/B3)
- *   • Colunas: Ticker | CNPJ | Quantidade | Preço  (variação)
+ * Colunas esperadas (ordem flexível, detectada pelo cabeçalho):
+ *   Ativo | CNPJ | Qtd | Preço médio | L/T
  *
- * A linha de cabeçalho é detectada automaticamente (procura "Ativo" ou "Ticker").
+ * Coluna L/T (Lançador/Titular):
+ *   "Lançador" → quantidade negativa (posição vendida em opção)
+ *   "Titular" ou vazio → quantidade positiva
  */
 export async function POST(req: NextRequest) {
   const session = await getSession()
@@ -35,19 +36,16 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer()
     const wb    = XLSX.read(bytes, { type: 'array', cellDates: false })
 
-    // Tenta cada aba até encontrar dados
     for (const sheetName of wb.SheetNames) {
       const ws   = wb.Sheets[sheetName]
       const rows = XLSX.utils.sheet_to_json<unknown[]>(ws, { header: 1, defval: null })
 
-      // Detecta a linha do cabeçalho
       let headerIdx = -1
-      let colTicker = -1, colCnpj = -1, colQtd = -1, colPreco = -1
+      let colTicker = -1, colCnpj = -1, colQtd = -1, colPreco = -1, colLT = -1
 
       for (let i = 0; i < Math.min(rows.length, 20); i++) {
-        const row = (rows[i] as unknown[]).map(c => String(c ?? '').trim().toLowerCase())
-        // Procura coluna que identifique ticker
-        const ti = row.findIndex(c => c === 'ativo' || c === 'ticker' || c === 'código' || c === 'codigo')
+        const row = (rows[i] as unknown[]).map(c => String(c ?? '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''))
+        const ti = row.findIndex(c => c === 'ativo' || c === 'ticker' || c === 'codigo' || c === 'codigo de negociacao')
         if (ti === -1) continue
 
         headerIdx = i
@@ -55,7 +53,12 @@ export async function POST(req: NextRequest) {
         colCnpj   = row.findIndex(c => c.includes('cnpj'))
         colQtd    = row.findIndex(c => c === 'qtd' || c === 'quantidade' || c.startsWith('qt'))
         colPreco  = row.findIndex(c =>
-          c.includes('preço') || c.includes('preco') || c.includes('médio') || c.includes('medio') || c === 'price'
+          c.includes('preco') || c.includes('medio') || c === 'price'
+        )
+        // L/T: Lançador/Titular — vários nomes possíveis
+        colLT = row.findIndex(c =>
+          c === 'l/t' || c === 'lt' || c === 'posicao' || c === 'direcao' ||
+          c.includes('lancador') || c.includes('titular')
         )
         break
       }
@@ -63,7 +66,7 @@ export async function POST(req: NextRequest) {
       if (headerIdx === -1 || colTicker === -1 || colQtd === -1 || colPreco === -1) continue
 
       const itens: ItemBase[] = []
-      const avisos: string[] = []
+      const avisos: string[]  = []
 
       for (let i = headerIdx + 1; i < rows.length; i++) {
         const row = rows[i] as unknown[]
@@ -75,25 +78,32 @@ export async function POST(req: NextRequest) {
         const qtdRaw   = row[colQtd]
         const precoRaw = row[colPreco]
         const cnpjRaw  = colCnpj >= 0 ? String(row[colCnpj] ?? '').trim() : null
+        const ltRaw    = colLT >= 0   ? String(row[colLT]   ?? '').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '') : ''
 
-        const quantidade  = parseFloat(String(qtdRaw  ?? '').replace(',', '.'))
-        const preco_medio = parseFloat(String(precoRaw ?? '').replace(',', '.'))
+        const qtdAbs    = parseFloat(String(qtdRaw  ?? '').replace(',', '.'))
+        const precoMed  = parseFloat(String(precoRaw ?? '').replace(',', '.'))
 
-        if (isNaN(quantidade) || quantidade <= 0) {
+        if (isNaN(qtdAbs) || qtdAbs <= 0) {
           avisos.push(`Linha ${i + 1}: quantidade inválida para ${tickerRaw} — ignorada`)
           continue
         }
-        if (isNaN(preco_medio) || preco_medio <= 0) {
+        if (isNaN(precoMed) || precoMed <= 0) {
           avisos.push(`Linha ${i + 1}: preço inválido para ${tickerRaw} — ignorada`)
           continue
         }
 
-        // Normaliza CNPJ: mantém apenas dígitos e formatação XX.XXX.XXX/XXXX-XX
-        const cnpj = cnpjRaw && cnpjRaw.replace(/\D/g, '').length >= 14
-          ? cnpjRaw.replace(/\D/g, '').replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5')
+        // Lançador = posição vendida → quantidade negativa
+        const ehLancador = ltRaw.includes('lancador') || ltRaw === 'l'
+        const direcao: ItemBase['direcao'] = ehLancador ? 'lancador' : (ltRaw.includes('titular') || ltRaw === 't' ? 'titular' : null)
+        const quantidade = ehLancador ? -qtdAbs : qtdAbs
+
+        // Normaliza CNPJ → XX.XXX.XXX/XXXX-XX
+        const cnpjDigits = (cnpjRaw ?? '').replace(/\D/g, '')
+        const cnpj = cnpjDigits.length === 14
+          ? cnpjDigits.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5')
           : (cnpjRaw || null)
 
-        itens.push({ ticker: tickerRaw, quantidade, preco_medio, cnpj })
+        itens.push({ ticker: tickerRaw, quantidade, preco_medio: precoMed, cnpj, direcao })
       }
 
       if (itens.length > 0) {
@@ -101,7 +111,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ error: 'Nenhum dado encontrado. Verifique se a planilha tem colunas Ativo/CNPJ/Qtd/Preço.' }, { status: 422 })
+    return NextResponse.json({
+      error: 'Nenhum dado encontrado. Verifique se a planilha tem colunas Ativo / CNPJ / Qtd / Preço médio / L/T.'
+    }, { status: 422 })
 
   } catch (e) {
     console.error('[posicao-base/importar]', e)
