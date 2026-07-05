@@ -1149,6 +1149,18 @@ export default function CarteiraPage() {
                     >
                       {marcandoPoTodas ? '⏳ Processando...' : '💀 Marcar todas vencidas como Pó'}
                     </button>
+                    <button
+                      onClick={async () => {
+                        if (!confirm('Limpar VPO + adições manuais dos 4 tickers base?')) return
+                        const r = await fetch('/api/carteira/fix-vpo', { method: 'POST' })
+                        const d = await r.json()
+                        alert(d.msg ?? JSON.stringify(d))
+                        await carregarCarteira()
+                      }}
+                      style={{ background:'rgba(100,100,255,.15)', border:'1px solid rgba(100,100,255,.35)', color:'#9090ff', borderRadius:6, cursor:'pointer', fontSize:11, fontWeight:700, padding:'6px 12px', whiteSpace:'nowrap' }}
+                    >
+                      🔧 Fix VPO
+                    </button>
                   </div>
                   <div style={{ overflowX:'auto' }}>
                     <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13, minWidth:800 }}>
