@@ -277,8 +277,14 @@ export async function reconstruirCarteira(userId: number) {
   )
   if (rows.length > 0) {
     await Promise.all(rows.map(([ticker, pos]) => sql`
-      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento)
-      VALUES (${userId}, ${ticker}, ${pos.quantidade}, ${Number(pos.preco_medio.toFixed(6))}, ${pos.data_vencimento ?? null})
+      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento, data_compra, notas)
+      VALUES (
+        ${userId}, ${ticker}, ${pos.quantidade},
+        ${Number(pos.preco_medio.toFixed(6))},
+        ${pos.data_vencimento ?? null},
+        ${dataBase ?? null}::date,
+        'Posição base importada'
+      )
     `))
   }
 }

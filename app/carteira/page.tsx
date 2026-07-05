@@ -414,16 +414,37 @@ export default function CarteiraPage() {
   const [importacoes, setImportacoes] = useState<ImportBatch[]>([])
   const [loadingImportacoes, setLoadingImportacoes] = useState(false)
   const [revertendoBatch, setRevertendoBatch] = useState<string | null>(null)
+  const [statsMovs, setStatsMovs] = useState<{ total_movs: number; lotes_ativos: number } | null>(null)
+  const [limpandoMovs, setLimpandoMovs] = useState(false)
 
   const carregarImportacoes = useCallback(async () => {
     setLoadingImportacoes(true)
     try {
-      const r = await fetch('/api/carteira/importacoes')
-      const d = await r.json()
-      setImportacoes(d.importacoes ?? [])
+      const [ri, rs] = await Promise.all([
+        fetch('/api/carteira/importacoes'),
+        fetch('/api/carteira/limpar-movimentacoes'),
+      ])
+      const di = await ri.json()
+      const ds = await rs.json()
+      setImportacoes(di.importacoes ?? [])
+      setStatsMovs({ total_movs: ds.total_movs ?? 0, lotes_ativos: ds.lotes_ativos ?? 0 })
     } catch { /* silencioso */ }
     finally { setLoadingImportacoes(false) }
   }, [])
+
+  const limparTodasMovimentacoes = async () => {
+    const n = statsMovs?.total_movs ?? 0
+    if (!confirm(`Apagar TODAS as ${n} movimentações e reconstruir carteira a partir da posição base?\nEsta ação não pode ser desfeita.`)) return
+    setLimpandoMovs(true)
+    try {
+      const r = await fetch('/api/carteira/limpar-movimentacoes', { method: 'DELETE' })
+      const d = await r.json()
+      if (!r.ok) { alert(d.error ?? 'Erro.'); return }
+      alert(`Concluído: ${d.movs_removidas} movimentação(ões) removida(s). Carteira: ${d.total_ativos} ativo(s).`)
+      await Promise.all([carregarImportacoes(), carregarCarteira()])
+    } catch { alert('Erro de conexão.') }
+    finally { setLimpandoMovs(false) }
+  }
 
   const desfazerImport = async (batchId: string) => {
     if (!confirm('Desfazer esta importação irá remover todas as operações do lote e recalcular a carteira. Confirmar?')) return
@@ -937,10 +958,6 @@ export default function CarteiraPage() {
             <input type="file" accept=".xlsx,.xls" style={{ display:'none' }}
               onChange={handleImportarB3} disabled={limiteAtingido} />
           </label>
-          <button className="btn btn-ghost" onClick={sincronizarCarteira} disabled={sincronizando}
-            title="Reconstruir carteira a partir da posição base + movimentações (corrige inconsistências)">
-            {sincronizando ? '⏳ Sincronizando…' : '🔄 Sincronizar'}
-          </button>
           <button className="btn btn-ghost" onClick={() => {
             const rows = posicoes.map(p => [
               p.ticker,p.nome,p.quantidade,p.preco_medio,p.preco_atual??'',
@@ -1244,11 +1261,26 @@ export default function CarteiraPage() {
           {/* ── Aba Importações ─────────────────────────────────────────────── */}
           {abaCarteira === 'importacoes' && (
             <div style={{ flex:1, overflowY:'auto', padding:'20px' }}>
-              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:16 }}>
-                <h3 style={{ color:'#e8edf5', fontSize:14, fontWeight:700, margin:0 }}>Histórico de importações</h3>
-                <button onClick={carregarImportacoes} style={{ background:'#0e1d33', border:'1px solid rgba(255,255,255,.12)', color:'#6b84a8', padding:'5px 14px', borderRadius:6, fontSize:12, cursor:'pointer' }}>
-                  ↺ Atualizar
-                </button>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12 }}>
+                <div>
+                  <h3 style={{ color:'#e8edf5', fontSize:14, fontWeight:700, margin:0 }}>Histórico de importações</h3>
+                  {statsMovs && (
+                    <p style={{ color: statsMovs.total_movs > 0 ? '#e8a020' : '#22c55e', fontSize:11, margin:'4px 0 0' }}>
+                      {statsMovs.total_movs} movimentação(ões) no banco · {statsMovs.lotes_ativos} lote(s) ativo(s)
+                    </p>
+                  )}
+                </div>
+                <div style={{ display:'flex', gap:8 }}>
+                  {(statsMovs?.total_movs ?? 0) > 0 && (
+                    <button onClick={limparTodasMovimentacoes} disabled={limpandoMovs}
+                      style={{ background:'rgba(239,68,68,.12)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', padding:'5px 14px', borderRadius:6, fontSize:12, cursor:'pointer', fontWeight:600 }}>
+                      {limpandoMovs ? '…' : '🗑 Limpar Tudo'}
+                    </button>
+                  )}
+                  <button onClick={carregarImportacoes} style={{ background:'#0e1d33', border:'1px solid rgba(255,255,255,.12)', color:'#6b84a8', padding:'5px 14px', borderRadius:6, fontSize:12, cursor:'pointer' }}>
+                    ↺ Atualizar
+                  </button>
+                </div>
               </div>
               {loadingImportacoes
                 ? <p style={{ color:'#6b84a8', fontSize:13 }}>Carregando…</p>
