@@ -95,7 +95,8 @@ const fR = (v: number | null | undefined) =>
 
 /* ── Opções B3 ───────────────────────────────────────────────────────────────── */
 function isOpcaoTicker(ticker: string) {
-  return /^[A-Z]{4}[A-Z]\d+$/.test(ticker)
+  // 4 letras (ativo) + letra série A-X (calls A-L, puts M-X) + strike alfanumérico (ex: 295E, 254W1E)
+  return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(ticker)
 }
 
 function infoOpcao(ticker: string): { vencimento: Date; isCall: boolean; ativo: string } | null {

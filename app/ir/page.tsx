@@ -38,7 +38,8 @@ const LETRAS_CALL = 'ABCDEFGHIJKL'
 const LETRAS_PUT  = 'MNOPQRSTUVWX'
 
 function isOpcaoTicker(ticker: string): boolean {
-  return /^[A-Z]{4}[A-Z]\d+$/.test(ticker)
+  // 4 letras (ativo) + letra série A-X (calls A-L, puts M-X) + strike alfanumérico (ex: 295E, 254W1E)
+  return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(ticker)
 }
 
 function terceiraSegunda(ano: number, mes: number): Date {

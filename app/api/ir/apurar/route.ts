@@ -23,8 +23,8 @@ function isFuturo(ticker: string): boolean {
 }
 
 function isOpcao(ticker: string): boolean {
-  // Ex: PETRH280, BBASH260 — 4 letras + 1 letra de série + dígitos
-  return /^[A-Z]{4}[A-Z]\d+$/.test(ticker)
+  // 4 letras (ativo) + letra série A-X (calls A-L, puts M-X) + strike alfanumérico (ex: 295E, 254W1E)
+  return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(ticker)
 }
 
 interface Op {
