@@ -375,6 +375,8 @@ export default function CarteiraPage() {
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
   const [togglingDirecao, setTogglingDirecao] = useState<number | null>(null)
   const [removendoOpcao, setRemovendoOpcao] = useState<number | null>(null)
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
+  const [excluindoLote, setExcluindoLote] = useState(false)
 
   const removerOpcao = async (p: Posicao) => {
     if (!confirm(`Remover ${p.ticker} da carteira?`)) return
@@ -382,6 +384,24 @@ export default function CarteiraPage() {
     await fetch(`/api/carteira/${p.id}`, { method: 'DELETE' })
     setPosicoes(prev => prev.filter(x => x.id !== p.id))
     setRemovendoOpcao(null)
+  }
+
+  const toggleSelect = (id: number) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  const excluirLote = async () => {
+    if (!selectedIds.size) return
+    if (!confirm(`Excluir ${selectedIds.size} ativo(s) selecionado(s)? Esta ação não pode ser desfeita.`)) return
+    setExcluindoLote(true)
+    await Promise.all([...selectedIds].map(id => fetch(`/api/carteira/${id}`, { method: 'DELETE' })))
+    setPosicoes(prev => prev.filter(p => !selectedIds.has(p.id)))
+    setSelectedIds(new Set())
+    setExcluindoLote(false)
   }
 
   /* ── Importações (histórico de lotes) ──────────────────────────────────── */
@@ -876,6 +896,14 @@ export default function CarteiraPage() {
           <button className="btn btn-rem" disabled={!selecionado} onClick={remover}>
             🗑 Remover
           </button>
+          {selectedIds.size > 0 && (
+            <button
+              onClick={excluirLote}
+              disabled={excluindoLote}
+              style={{ background:'rgba(239,68,68,.2)', border:'1px solid rgba(239,68,68,.5)', color:'#ef4444', padding:'6px 14px', borderRadius:6, fontSize:13, fontWeight:700, cursor:'pointer', opacity: excluindoLote ? .5 : 1 }}>
+              {excluindoLote ? '…' : `🗑 Excluir ${selectedIds.size} selecionado(s)`}
+            </button>
+          )}
           <button className="btn btn-ops" disabled={!selecionado}
             onClick={() => { if (posicaoSel) setOpsTicker(posicaoSel.ticker) }}>
             📋 Operações
@@ -937,6 +965,17 @@ export default function CarteiraPage() {
                     <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13, minWidth:800 }}>
                       <thead>
                         <tr style={{ background:'#081120', borderBottom:'2px solid rgba(255,255,255,.08)' }}>
+                          <th style={{ padding:'8px 10px', width:32, textAlign:'center' }}>
+                            <input type="checkbox"
+                              title="Selecionar todos"
+                              checked={posicoesOpcoes.length > 0 && posicoesOpcoes.every(p => selectedIds.has(p.id))}
+                              onChange={e => {
+                                if (e.target.checked) setSelectedIds(prev => new Set([...prev, ...posicoesOpcoes.map(p => p.id)]))
+                                else setSelectedIds(prev => { const n = new Set(prev); posicoesOpcoes.forEach(p => n.delete(p.id)); return n })
+                              }}
+                              style={{ cursor:'pointer', accentColor:'#ef4444' }}
+                            />
+                          </th>
                           {['Ticker','Ativo','Tipo','Posição','Qtde','Prêmio Médio','Custo Total','Vencimento','Dias','Ação'].map(h => (
                             <th key={h} style={{ padding:'8px 10px', textAlign:'left', fontSize:'10.5px', fontWeight:700, letterSpacing:'.4px', textTransform:'uppercase', color:'#6b84a8', whiteSpace:'nowrap' }}>{h}</th>
                           ))}
@@ -954,6 +993,10 @@ export default function CarteiraPage() {
                           const rowBg   = vencida ? 'rgba(239,68,68,.07)' : urgente ? 'rgba(234,184,56,.05)' : 'transparent'
                           return (
                             <tr key={p.id} style={{ borderBottom:'1px solid rgba(255,255,255,.04)', background:rowBg }}>
+                              <td style={{ padding:'10px', textAlign:'center' }}>
+                                <input type="checkbox" checked={selectedIds.has(p.id)} onChange={() => toggleSelect(p.id)}
+                                  style={{ cursor:'pointer', accentColor:'#ef4444' }} />
+                              </td>
                               <td style={{ padding:'10px', fontWeight:800, color:'#e8a020', fontFamily:'monospace' }}>{p.ticker}</td>
                               <td style={{ padding:'10px', color:'#b8c4d4' }}>{info.ativo}</td>
                               <td style={{ padding:'10px' }}>
@@ -1031,6 +1074,17 @@ export default function CarteiraPage() {
               <table>
                 <thead>
                   <tr>
+                    <th style={{ width:32, textAlign:'center' }}>
+                      <input type="checkbox"
+                        title="Selecionar todos"
+                        checked={sortedPosicoes.length > 0 && sortedPosicoes.every(p => selectedIds.has(p.id))}
+                        onChange={e => {
+                          if (e.target.checked) setSelectedIds(new Set(sortedPosicoes.map(p => p.id)))
+                          else setSelectedIds(new Set())
+                        }}
+                        style={{ cursor:'pointer', accentColor:'#ef4444' }}
+                      />
+                    </th>
                     {([
                       { key:'ticker',   label:'Ticker',     align:'left'  },
                       { key:'nome',     label:'Nome',       align:'left'  },
@@ -1076,6 +1130,10 @@ export default function CarteiraPage() {
                             onClick={() => setSelecionado(p.id === selecionado ? null : p.id)}
                             onDoubleClick={() => { setEditando(p); setModal('edit') }}
                             style={excl ? {opacity:.5} : undefined}>
+                          <td style={{ textAlign:'center' }} onClick={e => { e.stopPropagation(); toggleSelect(p.id) }}>
+                            <input type="checkbox" checked={selectedIds.has(p.id)} onChange={() => toggleSelect(p.id)}
+                              style={{ cursor:'pointer', accentColor:'#ef4444' }} />
+                          </td>
                           <td>
                             {p.ticker}
                             {excl && <span className="excl-tag">EXCLUÍDO</span>}
