@@ -42,12 +42,11 @@ function isOpcaoTicker(ticker: string): boolean {
   return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(ticker)
 }
 
-function terceiraSegunda(ano: number, mes: number): Date {
-  // Encontra a terceira segunda-feira do mês (vencimento padrão B3 para ações)
+function terceiraSexta(ano: number, mes: number): Date {
+  // Terceira SEXTA-FEIRA do mês — vencimento padrão B3 para opções sobre ações
   const d = new Date(ano, mes, 1)
   const dow = d.getDay() // 0=Dom … 6=Sáb
-  const diasAteProxSeg = dow === 1 ? 0 : (8 - dow) % 7
-  return new Date(ano, mes, 1 + diasAteProxSeg + 14)
+  return new Date(ano, mes, 1 + (5 - dow + 7) % 7 + 14)
 }
 
 function vencimentoOpcao(ticker: string): { data: Date; isCall: boolean } | null {
@@ -59,9 +58,8 @@ function vencimentoOpcao(ticker: string): { data: Date; isCall: boolean } | null
   if (mes === -1) return null
 
   const hoje = new Date(); hoje.setHours(0,0,0,0)
-  let data = terceiraSegunda(hoje.getFullYear(), mes)
-  // Se já venceu neste ano, vai para o próximo
-  if (data < hoje) data = terceiraSegunda(hoje.getFullYear() + 1, mes)
+  let data = terceiraSexta(hoje.getFullYear(), mes)
+  if (data < hoje) data = terceiraSexta(hoje.getFullYear() + 1, mes)
   return { data, isCall }
 }
 

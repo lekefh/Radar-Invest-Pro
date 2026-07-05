@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
 
     const operacoes: {
       tipo: string; ticker: string; quantidade: number; preco: number
-      data: string; notas: string; mercado?: string
+      data: string; notas: string; mercado?: string; vencimento?: string | null
     }[] = []
     const erros: string[] = []
 
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
       const row = rows[i] as unknown[]
       if (!row || row.length < 8) continue
 
-      const [dataRaw, tipoRaw, mercadoRaw, , instituicao, codigoRaw, qtdeRaw, precoRaw] = row
+      const [dataRaw, tipoRaw, mercadoRaw, vencRaw, instituicao, codigoRaw, qtdeRaw, precoRaw] = row
 
       if (!dataRaw && !codigoRaw) continue
       if (!tipoRaw || !codigoRaw || qtdeRaw == null || precoRaw == null) {
@@ -118,6 +118,7 @@ export async function POST(req: NextRequest) {
       const quantidade = Math.abs(Number(qtdeRaw))
       const preco      = Math.abs(Number(String(precoRaw).replace(',', '.')))
       const data       = parsearData(dataRaw)
+      const vencimento = vencRaw ? parsearData(vencRaw) : null
       const corretora  = String(instituicao ?? '').trim()
       const notas      = corretora ? `B3 — ${corretora}` : 'Importado via B3'
 
@@ -127,15 +128,16 @@ export async function POST(req: NextRequest) {
       }
 
       if (isExercicio(mercadoStr)) {
-        // ── Exercício de opção → converte para operação na ação-objeto ──────────
-        // "Compra - Exercício de Opção de Venda" = lançador de put foi assigned → comprou ação
-        // "Venda - Exercício de Opção de Compra" = lançador de call foi assigned → vendeu ação
+        // "Compra - Exercício de Opção de Venda" = lançador de put assigned → comprou ação-objeto
+        // "Venda - Exercício de Opção de Compra" = lançador de call assigned → vendeu ação-objeto
         const acoeTicker = underlyingDaOpcao(tickerRaw)
-        const notasExerc = `${notas} — Exercício de ${tickerRaw}`
-        operacoes.push({ tipo, ticker: acoeTicker, quantidade, preco, data, notas: notasExerc, mercado: 'exercicio' })
+        operacoes.push({ tipo, ticker: acoeTicker, quantidade, preco, data, notas: `${notas} — Exercício de ${tickerRaw}`, mercado: 'exercicio' })
+      } else if (isOpcaoTicker(tickerRaw)) {
+        // Opção regular: preserva vencimento real da planilha B3
+        operacoes.push({ tipo, ticker: tickerRaw, quantidade, preco, data, notas, mercado: 'opcao', vencimento })
       } else {
-        // ── Ação ou opção regular ─────────────────────────────────────────────
-        operacoes.push({ tipo, ticker: tickerRaw, quantidade, preco, data, notas, mercado: isOpcaoTicker(tickerRaw) ? 'opcao' : 'acao' })
+        // Ação comum
+        operacoes.push({ tipo, ticker: tickerRaw, quantidade, preco, data, notas, mercado: 'acao' })
       }
     }
 

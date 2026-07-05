@@ -64,9 +64,48 @@ export async function ensureCarteiraTables() {
     try { await sql`ALTER TABLE carteira ADD CONSTRAINT carteira_user_id_fkey FOREIGN KEY (user_id) REFERENCES usuarios_web(id) ON DELETE CASCADE` } catch { /* já existe */ }
   }
 
-  // 3b. Garante colunas mercado e modalidade em movimentacoes (adicionadas retroativamente)
+  // 3b. Garante colunas extras em movimentacoes
   await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS mercado TEXT NOT NULL DEFAULT 'acao'`
   await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS modalidade TEXT NOT NULL DEFAULT 'swing'`
+  await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS import_batch_id UUID`
+
+  // 3c. Garante coluna data_vencimento em carteira (para opções)
+  await sql`ALTER TABLE carteira ADD COLUMN IF NOT EXISTS data_vencimento DATE`
+
+  // 3d. Tabela de lotes de importação
+  await sql`
+    CREATE TABLE IF NOT EXISTS import_batches (
+      id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id       INTEGER NOT NULL,
+      importado_em  TIMESTAMPTZ DEFAULT NOW(),
+      total_ops     INTEGER DEFAULT 0,
+      data_inicio   DATE,
+      data_fim      DATE,
+      descricao     TEXT,
+      revertido     BOOLEAN DEFAULT FALSE,
+      revertido_em  TIMESTAMPTZ
+    )
+  `
+
+  // 3e. Posição base (ponto de partida por data)
+  await sql`
+    CREATE TABLE IF NOT EXISTS posicao_base (
+      user_id      INTEGER PRIMARY KEY,
+      data_base    DATE NOT NULL,
+      criado_em    TIMESTAMPTZ DEFAULT NOW(),
+      atualizado_em TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+  await sql`
+    CREATE TABLE IF NOT EXISTS posicao_base_itens (
+      id          SERIAL PRIMARY KEY,
+      user_id     INTEGER NOT NULL,
+      ticker      TEXT NOT NULL,
+      quantidade  NUMERIC NOT NULL DEFAULT 0,
+      preco_medio NUMERIC NOT NULL DEFAULT 0,
+      UNIQUE(user_id, ticker)
+    )
+  `
 
   // 4. Corrige FK errada em movimentacoes
   const fkMov = await sql`
@@ -147,4 +186,62 @@ export async function ensureIRTables() {
   await sql`CREATE INDEX IF NOT EXISTS idx_ir_pos_user   ON ir_posicao_inicial(user_id)`
   await sql`CREATE INDEX IF NOT EXISTS idx_ir_apura_user ON ir_apuracao_mensal(user_id, ano_mes)`
   await sql`CREATE INDEX IF NOT EXISTS idx_ir_darfs_user ON ir_darfs(user_id)`
+}
+
+/**
+ * Reconstrói a tabela carteira a partir da posição base + todas as movimentações restantes.
+ * Chamada após rollback de importação ou reset de base.
+ */
+export async function reconstruirCarteira(userId: number) {
+  const sql = getDb()
+
+  // Zera posições actuais
+  await sql`DELETE FROM carteira WHERE user_id = ${userId}`
+
+  // Semeia a partir da posição base (se existir)
+  const baseItems = await sql`
+    SELECT ticker, quantidade::float, preco_medio::float
+    FROM posicao_base_itens WHERE user_id = ${userId}
+  `
+  for (const item of baseItems) {
+    await sql`
+      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio)
+      VALUES (${userId}, ${item.ticker}, ${Number(item.quantidade)}, ${Number(item.preco_medio)})
+    `
+  }
+
+  // Aplica movimentações restantes em ordem cronológica
+  const movs = await sql`
+    SELECT data::text, ticker, tipo, quantidade::float, preco::float, data_vencimento::text
+    FROM movimentacoes WHERE user_id = ${userId}
+    ORDER BY data ASC, id ASC
+  `
+  for (const mv of movs) {
+    const t  = mv.ticker as string
+    const qt = Number(mv.quantidade)
+    const pm = Number(mv.preco)
+    const venc = mv.data_vencimento as string | null
+
+    const atual = await sql`SELECT id, quantidade::float, preco_medio::float FROM carteira WHERE user_id=${userId} AND ticker=${t}`
+    const pos = atual[0] ?? null
+
+    if (mv.tipo === 'C') {
+      if (pos) {
+        const novoQt = Number(pos.quantidade) + qt
+        const novoPm = ((Number(pos.quantidade) * Number(pos.preco_medio)) + (qt * pm)) / novoQt
+        await sql`UPDATE carteira SET quantidade=${novoQt}, preco_medio=${novoPm.toFixed(6)}${venc ? sql`, data_vencimento=${venc}::date` : sql``}, atualizado_em=NOW() WHERE user_id=${userId} AND ticker=${t}`
+      } else {
+        await sql`INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento) VALUES (${userId}, ${t}, ${qt}, ${pm}, ${venc ?? null})`
+      }
+    } else {
+      if (pos) {
+        const novoQt = Number(pos.quantidade) - qt
+        if (novoQt === 0) {
+          await sql`DELETE FROM carteira WHERE user_id=${userId} AND ticker=${t}`
+        } else {
+          await sql`UPDATE carteira SET quantidade=${novoQt}, atualizado_em=NOW() WHERE user_id=${userId} AND ticker=${t}`
+        }
+      }
+    }
+  }
 }

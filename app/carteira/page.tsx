@@ -102,18 +102,18 @@ function isOpcaoTicker(ticker: string) {
 function infoOpcao(ticker: string): { vencimento: Date; isCall: boolean; ativo: string } | null {
   if (!isOpcaoTicker(ticker) || ticker.length < 5) return null
   const letra = ticker[4].toUpperCase()
-  // Calls: A=Jan … L=Dez | Puts: M=Jan … X=Dez (terceira segunda-feira do mês — B3)
+  // Calls: A=Jan … L=Dez | Puts: M=Jan … X=Dez — vencimento: terceira SEXTA-FEIRA do mês (B3)
   let mes = 'ABCDEFGHIJKL'.indexOf(letra)
   let isCall = true
   if (mes === -1) { mes = 'MNOPQRSTUVWX'.indexOf(letra); isCall = false }
   if (mes === -1) return null
   const hoje = new Date(); hoje.setHours(0, 0, 0, 0)
-  function tercSeg(ano: number, m: number) {
+  function tercSex(ano: number, m: number) {
     const d = new Date(ano, m, 1); const dow = d.getDay()
-    return new Date(ano, m, 1 + (dow === 1 ? 0 : (8 - dow) % 7) + 14)
+    return new Date(ano, m, 1 + (5 - dow + 7) % 7 + 14)
   }
-  let data = tercSeg(hoje.getFullYear(), mes)
-  if (data < hoje) data = tercSeg(hoje.getFullYear() + 1, mes)
+  let data = tercSex(hoje.getFullYear(), mes)
+  if (data < hoje) data = tercSex(hoje.getFullYear() + 1, mes)
   return { vencimento: data, isCall, ativo: ticker.slice(0, 4) }
 }
 /* busca via API server-side para evitar CORS do browser */
@@ -363,16 +363,98 @@ export default function CarteiraPage() {
   interface OpImport {
     tipo: string; ticker: string; quantidade: number; preco: number
     data: string; notaIdx: number; selecionada: boolean
-    notas?: string   // observações (usado pelo import B3: "B3 — CORRETORA")
+    notas?: string; mercado?: string; vencimento?: string | null
   }
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
-  const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes'>('acoes')
+  const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base'>('acoes')
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [msgPo, setMsgPo] = useState<string | null>(null)
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
   const [togglingDirecao, setTogglingDirecao] = useState<number | null>(null)
+
+  /* ── Importações (histórico de lotes) ──────────────────────────────────── */
+  interface ImportBatch {
+    id: string; importado_em: string; total_ops: number
+    data_inicio: string | null; data_fim: string | null
+    descricao: string | null; revertido: boolean; revertido_em: string | null
+  }
+  const [importacoes, setImportacoes] = useState<ImportBatch[]>([])
+  const [loadingImportacoes, setLoadingImportacoes] = useState(false)
+  const [revertendoBatch, setRevertendoBatch] = useState<string | null>(null)
+
+  const carregarImportacoes = useCallback(async () => {
+    setLoadingImportacoes(true)
+    try {
+      const r = await fetch('/api/carteira/importacoes')
+      const d = await r.json()
+      setImportacoes(d.importacoes ?? [])
+    } catch { /* silencioso */ }
+    finally { setLoadingImportacoes(false) }
+  }, [])
+
+  const desfazerImport = async (batchId: string) => {
+    if (!confirm('Desfazer esta importação irá remover todas as operações do lote e recalcular a carteira. Confirmar?')) return
+    setRevertendoBatch(batchId)
+    try {
+      const r = await fetch(`/api/carteira/importacoes/${batchId}`, { method: 'DELETE' })
+      const d = await r.json()
+      if (!r.ok) { alert(d.error ?? 'Erro ao desfazer importação.'); return }
+      alert(`Lote desfeito. ${d.ops_removidas} operações removidas. Carteira recalculada.`)
+      await carregarImportacoes()
+      await carregarCarteira()
+    } catch { alert('Erro de conexão.') }
+    finally { setRevertendoBatch(null) }
+  }
+
+  /* ── Posição Base ──────────────────────────────────────────────────────── */
+  interface BaseItem { ticker: string; quantidade: number; preco_medio: number }
+  const [baseData, setBaseData] = useState<string>(new Date().toISOString().slice(0, 10))
+  const [baseItens, setBaseItens] = useState<BaseItem[]>([])
+  const [basePrejSwing, setBasePrejSwing] = useState('0')
+  const [basePrejDay, setBasePrejDay] = useState('0')
+  const [salvandoBase, setSalvandoBase] = useState(false)
+  const [loadingBase, setLoadingBase] = useState(false)
+
+  const carregarBase = useCallback(async () => {
+    setLoadingBase(true)
+    try {
+      const r = await fetch('/api/carteira/posicao-base')
+      const d = await r.json()
+      if (d.data_base) setBaseData(d.data_base)
+      setBaseItens(d.itens ?? [])
+      setBasePrejSwing(String(d.prejuizo_swing ?? 0))
+      setBasePrejDay(String(d.prejuizo_day ?? 0))
+    } catch { /* silencioso */ }
+    finally { setLoadingBase(false) }
+  }, [])
+
+  const salvarBase = async () => {
+    if (!baseData) { alert('Informe a data base.'); return }
+    setSalvandoBase(true)
+    try {
+      const r = await fetch('/api/carteira/posicao-base', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          data_base: baseData,
+          itens: baseItens.filter(i => i.ticker && i.quantidade > 0 && i.preco_medio > 0),
+          prejuizo_swing: parseFloat(basePrejSwing.replace(',', '.')) || 0,
+          prejuizo_day:   parseFloat(basePrejDay.replace(',', '.'))   || 0,
+        }),
+      })
+      const d = await r.json()
+      if (!r.ok) { alert(d.error ?? 'Erro ao salvar.'); return }
+      alert(`Posição base salva! ${d.total_itens} ativo(s). Carteira reconstruída a partir de ${baseData}.`)
+      await carregarCarteira()
+    } catch { alert('Erro de conexão.') }
+    finally { setSalvandoBase(false) }
+  }
+
+  useEffect(() => {
+    if (abaCarteira === 'importacoes') carregarImportacoes()
+    if (abaCarteira === 'base') carregarBase()
+  }, [abaCarteira, carregarImportacoes, carregarBase])
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -432,23 +514,27 @@ export default function CarteiraPage() {
     const selecionadas = importOpsAll.filter(op => op.selecionada)
     if (!selecionadas.length) return
     setSalvandoImport(true)
-    let erros = 0
-    for (const op of selecionadas) {
-      try {
-        const r = await fetch('/api/carteira/operacao', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ticker: op.ticker, tipo: op.tipo,
-            quantidade: op.quantidade, preco: op.preco, data_compra: op.data,
-            notas: op.notas ?? null }),
-        })
-        if (!r.ok) erros++
-      } catch { erros++ }
-    }
-    setSalvandoImport(false)
-    _fecharImport()
-    await carregarCarteira()
-    if (erros > 0) alert(`${erros} operação(ões) não foram salvas. Verifique e adicione manualmente.`)
+    try {
+      const descricao = importNotas[0]?.arquivo
+        ? `Planilha B3 — ${importNotas[0].arquivo}`
+        : `Importação manual — ${new Date().toLocaleDateString('pt-BR')}`
+      const payload = selecionadas.map(op => ({
+        tipo: op.tipo, ticker: op.ticker, quantidade: op.quantidade,
+        preco: op.preco, data: op.data, notas: op.notas ?? null,
+        mercado: op.mercado ?? 'acao', vencimento: op.vencimento ?? null,
+      }))
+      const r = await fetch('/api/carteira/confirmar-import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ operacoes: payload, descricao }),
+      })
+      const d = await r.json()
+      if (!r.ok) { alert(d.error ?? 'Erro ao salvar importação.'); return }
+      if (d.erros > 0) alert(`${d.erros} operação(ões) não foram salvas. Verifique e tente manualmente.`)
+      _fecharImport()
+      await carregarCarteira()
+    } catch { alert('Erro de conexão. Tente novamente.') }
+    finally { setSalvandoImport(false) }
   }
 
   /* importação de planilha B3 (.xlsx) */
@@ -719,9 +805,11 @@ export default function CarteiraPage() {
         {/* ABAS */}
         <div style={{ display:'flex', gap:0, background:'#081120', borderBottom:'1px solid rgba(255,255,255,.07)', paddingLeft:20 }}>
           {([
-            { key:'acoes',  label:`📈 Ações / FIIs${posicoesAcoes.length ? ` (${posicoesAcoes.length})` : ''}` },
-            { key:'opcoes', label:`🎯 Opções${posicoesOpcoes.length ? ` (${posicoesOpcoes.length})` : ''}` },
-          ] as { key: 'acoes'|'opcoes'; label: string }[]).map(t => (
+            { key:'acoes',       label:`📈 Ações / FIIs${posicoesAcoes.length ? ` (${posicoesAcoes.length})` : ''}` },
+            { key:'opcoes',      label:`🎯 Opções${posicoesOpcoes.length ? ` (${posicoesOpcoes.length})` : ''}` },
+            { key:'importacoes', label:'📥 Importações' },
+            { key:'base',        label:'📌 Posição Base' },
+          ] as { key: 'acoes'|'opcoes'|'importacoes'|'base'; label: string }[]).map(t => (
             <button key={t.key} onClick={() => setAbaCarteira(t.key)} style={{
               background:'none', border:'none', borderBottom: abaCarteira===t.key ? '2px solid #e8a020' : '2px solid transparent',
               padding:'10px 18px', fontSize:13, fontWeight: abaCarteira===t.key ? 700 : 500,
@@ -1019,6 +1107,164 @@ export default function CarteiraPage() {
                     )
                   })
               }
+            </div>
+          )}
+
+          {/* ── Aba Importações ─────────────────────────────────────────────── */}
+          {abaCarteira === 'importacoes' && (
+            <div style={{ flex:1, overflowY:'auto', padding:'20px' }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:16 }}>
+                <h3 style={{ color:'#e8edf5', fontSize:14, fontWeight:700, margin:0 }}>Histórico de importações</h3>
+                <button onClick={carregarImportacoes} style={{ background:'#0e1d33', border:'1px solid rgba(255,255,255,.12)', color:'#6b84a8', padding:'5px 14px', borderRadius:6, fontSize:12, cursor:'pointer' }}>
+                  ↺ Atualizar
+                </button>
+              </div>
+              {loadingImportacoes
+                ? <p style={{ color:'#6b84a8', fontSize:13 }}>Carregando…</p>
+                : importacoes.length === 0
+                  ? <p style={{ color:'#6b84a8', fontSize:13 }}>Nenhuma importação registrada ainda.</p>
+                  : (
+                    <div style={{ overflowX:'auto' }}>
+                      <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
+                        <thead>
+                          <tr style={{ color:'#4a5d73', borderBottom:'1px solid rgba(255,255,255,.07)' }}>
+                            {['Data', 'Descrição', 'Ops', 'Período', 'Status', ''].map(h => (
+                              <th key={h} style={{ padding:'6px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {importacoes.map(b => (
+                            <tr key={b.id} style={{ borderBottom:'1px solid rgba(255,255,255,.04)', opacity: b.revertido ? 0.45 : 1 }}>
+                              <td style={{ padding:'7px 10px', color:'#8da3bc', whiteSpace:'nowrap' }}>
+                                {new Date(b.importado_em).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })}
+                              </td>
+                              <td style={{ padding:'7px 10px', color:'#c8d8e8', maxWidth:220, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+                                {b.descricao ?? '—'}
+                              </td>
+                              <td style={{ padding:'7px 10px', color:'#e8a020', fontWeight:700 }}>{b.total_ops}</td>
+                              <td style={{ padding:'7px 10px', color:'#8da3bc', whiteSpace:'nowrap' }}>
+                                {b.data_inicio && b.data_fim
+                                  ? `${b.data_inicio} → ${b.data_fim}`
+                                  : '—'}
+                              </td>
+                              <td style={{ padding:'7px 10px' }}>
+                                {b.revertido
+                                  ? <span style={{ color:'#ef4444', fontSize:11 }}>Revertido</span>
+                                  : <span style={{ color:'#22c55e', fontSize:11 }}>Ativo</span>}
+                              </td>
+                              <td style={{ padding:'7px 10px' }}>
+                                {!b.revertido && (
+                                  <button
+                                    onClick={() => desfazerImport(b.id)}
+                                    disabled={revertendoBatch === b.id}
+                                    style={{ background:'rgba(239,68,68,.12)', border:'1px solid rgba(239,68,68,.3)', color:'#ef4444', padding:'3px 10px', borderRadius:5, fontSize:11, cursor:'pointer', fontWeight:600 }}>
+                                    {revertendoBatch === b.id ? '…' : 'Desfazer'}
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+            </div>
+          )}
+
+          {/* ── Aba Posição Base ─────────────────────────────────────────────── */}
+          {abaCarteira === 'base' && (
+            <div style={{ flex:1, overflowY:'auto', padding:'20px', maxWidth:820 }}>
+              <p style={{ color:'#6b84a8', fontSize:12, marginBottom:18 }}>
+                Define o ponto de partida da carteira. As importações posteriores à data base serão aplicadas sobre esses saldos.
+                Ideal para iniciar o controle a partir de 31/12 de um ano, carregando saldos e preços médios do período anterior.
+              </p>
+              {loadingBase ? <p style={{ color:'#6b84a8', fontSize:13 }}>Carregando…</p> : (
+                <div style={{ display:'flex', flexDirection:'column', gap:20 }}>
+                  {/* Data base */}
+                  <div>
+                    <label style={{ fontSize:12, fontWeight:600, color:'#6b84a8', display:'block', marginBottom:6 }}>Data Base</label>
+                    <input type="date" value={baseData} onChange={e => setBaseData(e.target.value)}
+                      style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:7, padding:'8px 12px', color:'#e8edf5', fontSize:13, outline:'none' }} />
+                  </div>
+
+                  {/* Prejuízo acumulado IR */}
+                  <div>
+                    <label style={{ fontSize:12, fontWeight:600, color:'#6b84a8', display:'block', marginBottom:8 }}>Prejuízo Acumulado para IR (R$)</label>
+                    <div style={{ display:'flex', gap:14 }}>
+                      <div>
+                        <label style={{ fontSize:11, color:'#4a5d73', display:'block', marginBottom:4 }}>Swing Trade</label>
+                        <input type="number" min="0" step="0.01" value={basePrejSwing} onChange={e => setBasePrejSwing(e.target.value)}
+                          style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:7, padding:'7px 12px', color:'#e8edf5', fontSize:13, outline:'none', width:160 }} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize:11, color:'#4a5d73', display:'block', marginBottom:4 }}>Day Trade</label>
+                        <input type="number" min="0" step="0.01" value={basePrejDay} onChange={e => setBasePrejDay(e.target.value)}
+                          style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:7, padding:'7px 12px', color:'#e8edf5', fontSize:13, outline:'none', width:160 }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Tabela de posições base */}
+                  <div>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10 }}>
+                      <label style={{ fontSize:12, fontWeight:600, color:'#6b84a8' }}>Posições na data base</label>
+                      <button onClick={() => setBaseItens(p => [...p, { ticker:'', quantidade:0, preco_medio:0 }])}
+                        style={{ background:'#0e2a4a', border:'1px solid rgba(255,255,255,.12)', color:'#90CAF9', padding:'4px 12px', borderRadius:6, fontSize:11, cursor:'pointer', fontWeight:600 }}>
+                        + Ativo
+                      </button>
+                    </div>
+                    <div style={{ overflowX:'auto' }}>
+                      <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
+                        <thead>
+                          <tr style={{ color:'#4a5d73', borderBottom:'1px solid rgba(255,255,255,.07)' }}>
+                            {['Ticker', 'Quantidade', 'Preço Médio (R$)', ''].map(h => (
+                              <th key={h} style={{ padding:'5px 8px', textAlign:'left', fontWeight:600 }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {baseItens.map((item, i) => (
+                            <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)' }}>
+                              <td style={{ padding:'4px 6px' }}>
+                                <input value={item.ticker} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, ticker:e.target.value.toUpperCase()} : x))}
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:90, outline:'none' }}
+                                  placeholder="PETR4" />
+                              </td>
+                              <td style={{ padding:'4px 6px' }}>
+                                <input type="number" min="1" value={item.quantidade || ''} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, quantidade:parseFloat(e.target.value)||0} : x))}
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:90, outline:'none' }} />
+                              </td>
+                              <td style={{ padding:'4px 6px' }}>
+                                <input type="number" min="0.01" step="0.01" value={item.preco_medio || ''} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, preco_medio:parseFloat(e.target.value)||0} : x))}
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:100, outline:'none' }} />
+                              </td>
+                              <td style={{ padding:'4px 6px' }}>
+                                <button onClick={() => setBaseItens(p => p.filter((_,j) => j!==i))}
+                                  style={{ background:'rgba(239,68,68,.1)', border:'none', color:'#ef4444', padding:'3px 8px', borderRadius:4, fontSize:11, cursor:'pointer' }}>✕</button>
+                              </td>
+                            </tr>
+                          ))}
+                          {baseItens.length === 0 && (
+                            <tr><td colSpan={4} style={{ padding:'14px 8px', color:'#4a5d73', fontSize:12 }}>Nenhum ativo — clique em &quot;+ Ativo&quot; para adicionar.</td></tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div>
+                    <button onClick={salvarBase} disabled={salvandoBase}
+                      style={{ background: salvandoBase ? '#2a2a2a' : '#e8a020', color: salvandoBase ? '#555' : '#000',
+                        padding:'9px 24px', borderRadius:7, fontSize:13, fontWeight:700, border:'none', cursor: salvandoBase ? 'not-allowed' : 'pointer' }}>
+                      {salvandoBase ? 'Salvando…' : '💾 Salvar Posição Base'}
+                    </button>
+                    <p style={{ color:'#6b84a8', fontSize:11, marginTop:8 }}>
+                      Ao salvar, a carteira será reconstruída automaticamente: saldos base + todas as importações posteriores a {baseData || '…'}.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
