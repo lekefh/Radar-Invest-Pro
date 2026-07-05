@@ -444,21 +444,31 @@ export default function CarteiraPage() {
   const salvarBase = async () => {
     if (!baseData) { alert('Informe a data base.'); return }
     setSalvandoBase(true)
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), 90000)
     try {
       const r = await fetch('/api/carteira/posicao-base', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', signal: controller.signal,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           data_base: baseData,
-          itens: baseItens.filter(i => i.ticker && i.quantidade > 0 && i.preco_medio > 0),
+          itens: baseItens.filter(i => i.ticker && Math.abs(i.quantidade) > 0 && i.preco_medio > 0),
           prejuizo_swing: parseFloat(basePrejSwing.replace(',', '.')) || 0,
           prejuizo_day:   parseFloat(basePrejDay.replace(',', '.'))   || 0,
         }),
       })
+      clearTimeout(timer)
       const d = await r.json()
       if (!r.ok) { alert(d.error ?? 'Erro ao salvar.'); return }
       alert(`Posição base salva! ${d.total_itens} ativo(s). Carteira reconstruída a partir de ${baseData}.`)
       await carregarCarteira()
-    } catch { alert('Erro de conexão.') }
+    } catch (err) {
+      clearTimeout(timer)
+      const msg = err instanceof Error && err.name === 'AbortError'
+        ? 'Timeout — muitos itens. Tente novamente (Neon pode demorar no 1º request).'
+        : 'Erro de conexão. Tente novamente.'
+      alert(msg)
+    }
     finally { setSalvandoBase(false) }
   }
 

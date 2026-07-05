@@ -202,58 +202,66 @@ export async function ensureIRTables() {
 
 /**
  * Reconstrói a tabela carteira a partir da posição base + todas as movimentações restantes.
+ * Processamento em memória (JS) — apenas 3 queries no banco, independente do volume.
  * Chamada após rollback de importação ou reset de base.
  */
 export async function reconstruirCarteira(userId: number) {
   const sql = getDb()
 
-  // Zera posições actuais
-  await sql`DELETE FROM carteira WHERE user_id = ${userId}`
+  // 1. Carrega tudo de uma vez (2 queries)
+  const [baseItems, movs] = await Promise.all([
+    sql`SELECT ticker, quantidade::float, preco_medio::float FROM posicao_base_itens WHERE user_id = ${userId}`,
+    sql`SELECT ticker, tipo, quantidade::float, preco::float, data_vencimento::text
+        FROM movimentacoes WHERE user_id = ${userId} ORDER BY data ASC, id ASC`,
+  ])
 
-  // Semeia a partir da posição base (se existir)
-  const baseItems = await sql`
-    SELECT ticker, quantidade::float, preco_medio::float
-    FROM posicao_base_itens WHERE user_id = ${userId}
-  `
-  for (const item of baseItems) {
-    await sql`
-      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio)
-      VALUES (${userId}, ${item.ticker}, ${Number(item.quantidade)}, ${Number(item.preco_medio)})
-    `
+  // 2. Processa em memória
+  type Pos = { quantidade: number; preco_medio: number; data_vencimento: string | null }
+  const posicoes = new Map<string, Pos>()
+
+  for (const b of baseItems) {
+    posicoes.set(b.ticker as string, {
+      quantidade:     Number(b.quantidade),
+      preco_medio:    Number(b.preco_medio),
+      data_vencimento: null,
+    })
   }
 
-  // Aplica movimentações restantes em ordem cronológica
-  const movs = await sql`
-    SELECT data::text, ticker, tipo, quantidade::float, preco::float, data_vencimento::text
-    FROM movimentacoes WHERE user_id = ${userId}
-    ORDER BY data ASC, id ASC
-  `
   for (const mv of movs) {
-    const t  = mv.ticker as string
-    const qt = Number(mv.quantidade)
-    const pm = Number(mv.preco)
-    const venc = mv.data_vencimento as string | null
-
-    const atual = await sql`SELECT id, quantidade::float, preco_medio::float FROM carteira WHERE user_id=${userId} AND ticker=${t}`
-    const pos = atual[0] ?? null
+    const t    = mv.ticker as string
+    const qt   = Number(mv.quantidade)
+    const pm   = Number(mv.preco)
+    const venc = (mv.data_vencimento as string | null) ?? null
+    const pos  = posicoes.get(t)
 
     if (mv.tipo === 'C') {
       if (pos) {
-        const novoQt = Number(pos.quantidade) + qt
-        const novoPm = ((Number(pos.quantidade) * Number(pos.preco_medio)) + (qt * pm)) / novoQt
-        await sql`UPDATE carteira SET quantidade=${novoQt}, preco_medio=${novoPm.toFixed(6)}${venc ? sql`, data_vencimento=${venc}::date` : sql``}, atualizado_em=NOW() WHERE user_id=${userId} AND ticker=${t}`
+        const novoQt = pos.quantidade + qt
+        const novoPm = (pos.quantidade * pos.preco_medio + qt * pm) / novoQt
+        posicoes.set(t, { quantidade: novoQt, preco_medio: novoPm, data_vencimento: venc ?? pos.data_vencimento })
       } else {
-        await sql`INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento) VALUES (${userId}, ${t}, ${qt}, ${pm}, ${venc ?? null})`
+        posicoes.set(t, { quantidade: qt, preco_medio: pm, data_vencimento: venc })
       }
     } else {
       if (pos) {
-        const novoQt = Number(pos.quantidade) - qt
-        if (novoQt === 0) {
-          await sql`DELETE FROM carteira WHERE user_id=${userId} AND ticker=${t}`
+        const novoQt = pos.quantidade - qt
+        if (Math.abs(novoQt) < 0.0001) {
+          posicoes.delete(t)
         } else {
-          await sql`UPDATE carteira SET quantidade=${novoQt}, atualizado_em=NOW() WHERE user_id=${userId} AND ticker=${t}`
+          posicoes.set(t, { ...pos, quantidade: novoQt })
         }
       }
     }
+  }
+
+  // 3. Grava resultado: delete + inserts individuais (sem round-trip de leitura)
+  await sql`DELETE FROM carteira WHERE user_id = ${userId}`
+
+  for (const [ticker, pos] of posicoes) {
+    if (Math.abs(pos.quantidade) < 0.0001) continue
+    await sql`
+      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento)
+      VALUES (${userId}, ${ticker}, ${pos.quantidade}, ${Number(pos.preco_medio.toFixed(6))}, ${pos.data_vencimento ?? null})
+    `
   }
 }

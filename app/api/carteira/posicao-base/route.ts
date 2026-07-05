@@ -60,33 +60,38 @@ export async function POST(req: NextRequest) {
   `
 
   await sql`DELETE FROM posicao_base_itens WHERE user_id = ${userId}`
-  for (const item of itens) {
-    const t    = String(item.ticker).toUpperCase().trim()
-    const qt   = Number(item.quantidade)
-    const pm   = Number(item.preco_medio)
-    const cnpj = item.cnpj?.trim() ?? null
-    if (!t || isNaN(qt) || isNaN(pm) || qt <= 0 || pm <= 0) continue
-    await sql`
-      INSERT INTO posicao_base_itens (user_id, ticker, quantidade, preco_medio, cnpj)
-      VALUES (${userId}, ${t}, ${qt}, ${pm}, ${cnpj})
-    `
-    // Registra no cadastro global de CNPJs (para declaração IR futura)
-    if (cnpj) {
-      await sql`
-        INSERT INTO empresa_cnpj (ticker, cnpj, atualizado_em)
-        VALUES (${t}, ${cnpj}, NOW())
-        ON CONFLICT (ticker) DO UPDATE SET cnpj = ${cnpj}, atualizado_em = NOW()
-      `
-    }
-  }
 
-  for (const [modalidade, valor] of [['swing', prejSwing], ['day', prejDay]] as [string, number][]) {
-    await sql`
-      INSERT INTO ir_prejuizo_acumulado (user_id, modalidade, valor, atualizado_em)
-      VALUES (${userId}, ${modalidade}, ${valor}, NOW())
-      ON CONFLICT (user_id, modalidade) DO UPDATE SET valor = ${valor}, atualizado_em = NOW()
-    `
-  }
+  // Filtra e normaliza os itens válidos
+  const itensValidos = itens
+    .map(item => ({
+      t:    String(item.ticker).toUpperCase().trim(),
+      qt:   Number(item.quantidade),
+      pm:   Number(item.preco_medio),
+      cnpj: item.cnpj?.trim() ?? null,
+    }))
+    .filter(({ t, qt, pm }) => t && !isNaN(qt) && !isNaN(pm) && Math.abs(qt) > 0 && pm > 0)
+
+  // Insere todos os itens em paralelo (sem round-trip sequencial)
+  await Promise.all(itensValidos.map(({ t, qt, pm, cnpj }) =>
+    sql`INSERT INTO posicao_base_itens (user_id, ticker, quantidade, preco_medio, cnpj)
+        VALUES (${userId}, ${t}, ${qt}, ${pm}, ${cnpj})`
+  ))
+
+  // Registra CNPJs no cadastro global — em paralelo
+  const cnpjUpdates = itensValidos.filter(i => i.cnpj).map(({ t, cnpj }) =>
+    sql`INSERT INTO empresa_cnpj (ticker, cnpj, atualizado_em)
+        VALUES (${t}, ${cnpj}, NOW())
+        ON CONFLICT (ticker) DO UPDATE SET cnpj = ${cnpj!}, atualizado_em = NOW()`
+  )
+  await Promise.all([
+    ...cnpjUpdates,
+    sql`INSERT INTO ir_prejuizo_acumulado (user_id, modalidade, valor, atualizado_em)
+        VALUES (${userId}, 'swing', ${prejSwing}, NOW())
+        ON CONFLICT (user_id, modalidade) DO UPDATE SET valor = ${prejSwing}, atualizado_em = NOW()`,
+    sql`INSERT INTO ir_prejuizo_acumulado (user_id, modalidade, valor, atualizado_em)
+        VALUES (${userId}, 'day', ${prejDay}, NOW())
+        ON CONFLICT (user_id, modalidade) DO UPDATE SET valor = ${prejDay}, atualizado_em = NOW()`,
+  ])
 
   await reconstruirCarteira(userId)
 
