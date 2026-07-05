@@ -7,11 +7,12 @@ async function uid(): Promise<number | null> {
 }
 
 // ── Constantes fiscais ────────────────────────────────────────────────────────
-const ALIQ_SWING    = 0.15
-const ALIQ_DAY      = 0.20
-const ISENCAO_SWING = 20000
-const IRRF_DAY_PCT  = 0.01
-const MIN_DARF      = 10
+const ALIQ_SWING      = 0.15
+const ALIQ_DAY        = 0.20
+const ISENCAO_SWING   = 20000
+const IRRF_SWING_PCT  = 0.00005   // 0,005% sobre valor bruto das vendas (dedo-duro)
+const IRRF_DAY_PCT    = 0.01      // 1% sobre resultado líquido positivo
+const MIN_DARF        = 10
 
 const PREFIXOS_FUTUROS = ['WIN','WDO','DOL','IND','BGI','DI1','DAP','FRC','ISP','CNI','EUR','GBP','JPY','OZ1']
 
@@ -75,7 +76,7 @@ export async function POST(req: NextRequest) {
     WHERE user_id = ${userId}
     ORDER BY data ASC, id ASC
   `
-  const todasOps: Op[] = todasOpsRaw
+  const todasOps: Op[] = (todasOpsRaw as unknown as Op[])
     .filter(r => !isFuturo(r.ticker))
     .map(r => ({ ...r, data: String(r.data).slice(0,10) }))
 
@@ -131,9 +132,10 @@ export async function POST(req: NextRequest) {
   const irrf     = [...irrfMap.values()].reduce((s, v) => s + v, 0)
 
   // ── Swing trade ───────────────────────────────────────────────────────────
-  let lucroAcaoSw  = 0
-  let lucroOpcaoSw = 0
-  let vendasAcaoSw = 0
+  let lucroAcaoSw   = 0
+  let lucroOpcaoSw  = 0
+  let vendasAcaoSw  = 0
+  let irrfSwing     = 0           // dedo-duro: 0,005% sobre valor bruto das vendas
   const vUsed = new Map<string, number>()
 
   for (const op of opsDoMes) {
@@ -152,8 +154,10 @@ export async function POST(req: NextRequest) {
       const qSw = op.quantidade - qDayEsta
       if (qSw > 0.001) {
         const pm = custoMedioAte(op.ticker, op.data, anoMes, todasOps, posIniMap.get(op.ticker) ?? null)
+        const valorVendaSw = op.preco * qSw
         lucroAcaoSw  += (op.preco - pm) * qSw
-        vendasAcaoSw += op.preco * qSw
+        vendasAcaoSw += valorVendaSw
+        irrfSwing    += valorVendaSw * IRRF_SWING_PCT
       }
     }
   }
@@ -186,25 +190,30 @@ export async function POST(req: NextRequest) {
     prejDay += Math.abs(lucroDay)
   }
 
-  const irDevidoDay   = Math.max(0, irDay - irrf)
-  const irDevidoSwing = irSwing   >= MIN_DARF ? irSwing   : 0
-  const irDevidoDayFinal = irDevidoDay >= MIN_DARF ? irDevidoDay : 0
+  const irDevidoDay      = Math.max(0, irDay - irrf)
+  const irDevidoSwingBruto = Math.max(0, irSwing - irrfSwing)
+  const irDevidoSwing    = irDevidoSwingBruto >= MIN_DARF ? irDevidoSwingBruto : 0
+  const irDevidoDayFinal = irDevidoDay        >= MIN_DARF ? irDevidoDay        : 0
 
   // ── Salva resultado ───────────────────────────────────────────────────────
+  await sql`ALTER TABLE ir_apuracao_mensal ADD COLUMN IF NOT EXISTS irrf_swing NUMERIC DEFAULT 0`
+
   await sql`
     INSERT INTO ir_apuracao_mensal
       (user_id, ano_mes, vendas_acao_sw, lucro_acao_sw, lucro_opcao_sw, lucro_day,
-       isento_swing, prej_swing_ac, prej_day_ac, ir_swing, ir_day, irrf_day,
+       isento_swing, prej_swing_ac, prej_day_ac, ir_swing, ir_day, irrf_swing, irrf_day,
        ir_devido_swing, ir_devido_day, calculado_em)
     VALUES
       (${userId}, ${anoMes}, ${r(vendasAcaoSw)}, ${r(lucroAcaoSw)}, ${r(lucroOpcaoSw)},
        ${r(lucroDay)}, ${isento}, ${r(prejSwing)}, ${r(prejDay)},
-       ${r(irSwing)}, ${r(irDay)}, ${r(irrf)}, ${r(irDevidoSwing)}, ${r(irDevidoDayFinal)}, NOW())
+       ${r(irSwing)}, ${r(irDay)}, ${r(irrfSwing)}, ${r(irrf)},
+       ${r(irDevidoSwing)}, ${r(irDevidoDayFinal)}, NOW())
     ON CONFLICT (user_id, ano_mes) DO UPDATE SET
       vendas_acao_sw=${r(vendasAcaoSw)}, lucro_acao_sw=${r(lucroAcaoSw)},
       lucro_opcao_sw=${r(lucroOpcaoSw)}, lucro_day=${r(lucroDay)},
       isento_swing=${isento}, prej_swing_ac=${r(prejSwing)}, prej_day_ac=${r(prejDay)},
-      ir_swing=${r(irSwing)}, ir_day=${r(irDay)}, irrf_day=${r(irrf)},
+      ir_swing=${r(irSwing)}, ir_day=${r(irDay)},
+      irrf_swing=${r(irrfSwing)}, irrf_day=${r(irrf)},
       ir_devido_swing=${r(irDevidoSwing)}, ir_devido_day=${r(irDevidoDayFinal)},
       calculado_em=NOW()
   `
