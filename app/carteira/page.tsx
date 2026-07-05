@@ -372,6 +372,7 @@ export default function CarteiraPage() {
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [msgPo, setMsgPo] = useState<string | null>(null)
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
+  const [togglingDirecao, setTogglingDirecao] = useState<number | null>(null)
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -591,6 +592,20 @@ export default function CarteiraPage() {
   }, [posicoes, sortConfig, metricas])
 
   const corPL = (v: number) => v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
+
+  const toggleDirecaoOpcao = async (p: Posicao) => {
+    setTogglingDirecao(p.id)
+    const r = await fetch(`/api/carteira/${p.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quantidade: -p.quantidade }),
+    })
+    if (r.ok) {
+      const { posicao } = await r.json()
+      setPosicoes(prev => prev.map(x => x.id === p.id ? { ...x, quantidade: posicao.quantidade } : x))
+    }
+    setTogglingDirecao(null)
+  }
 
   const virouPo = async (p: Posicao) => {
     setMarcandoPo(p.ticker)
@@ -814,9 +829,17 @@ export default function CarteiraPage() {
                                 </span>
                               </td>
                               <td style={{ padding:'10px' }}>
-                                <span style={{ color: titular ? '#64b5f6' : '#ffb74d', fontWeight:600, fontSize:12 }}>
-                                  {titular ? 'Titular' : 'Lançador'}
-                                </span>
+                                <button
+                                  onClick={() => toggleDirecaoOpcao(p)}
+                                  disabled={togglingDirecao === p.id}
+                                  title="Clique para alternar Titular ↔ Lançador"
+                                  style={{ background:'none', border:'1px solid rgba(255,255,255,.1)', borderRadius:4, cursor:'pointer', padding:'3px 8px', display:'flex', alignItems:'center', gap:5, opacity: togglingDirecao===p.id ? .5 : 1 }}
+                                >
+                                  <span style={{ color: titular ? '#64b5f6' : '#ffb74d', fontWeight:700, fontSize:12 }}>
+                                    {togglingDirecao===p.id ? '...' : titular ? 'Titular' : 'Lançador'}
+                                  </span>
+                                  <span style={{ color:'#4a5d73', fontSize:10 }}>⇄</span>
+                                </button>
                               </td>
                               <td style={{ padding:'10px', color:'#e8edf5' }}>{f2(Math.abs(p.quantidade))}</td>
                               <td style={{ padding:'10px', color:'#6b84a8' }}>R$ {f2(p.preco_medio)}</td>

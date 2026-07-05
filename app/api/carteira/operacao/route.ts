@@ -2,11 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getDb, ensureCarteiraTables } from '@/lib/db'
 import { getSession } from '@/lib/auth'
 
+// Opções B3: 4 letras (ativo) + letra série A-X + strike alfanumérico (ex: 295E, 254W1E)
+function isOpcaoTicker(t: string): boolean {
+  return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(t)
+}
+
 /**
  * POST /api/carteira/operacao
  * Processa uma operação de compra ou venda:
- *   COMPRA → insere posição ou recalcula preço médio ponderado e soma quantidade
- *   VENDA  → subtrai quantidade; se zerar ou negativar, remove a posição
+ *   COMPRA → insere posição (titular) ou recalcula preço médio ponderado
+ *   VENDA  → subtrai quantidade; se zerar, remove a posição
+ *            Para opções sem posição prévia → cria posição negativa (lançador)
  */
 export async function POST(req: NextRequest) {
   try {
@@ -65,10 +71,10 @@ export async function POST(req: NextRequest) {
         const qtAtual = Number(posicaoAtual.quantidade)
         const novoQt  = qtAtual - qt
 
-        if (novoQt <= 0) {
-          // Posição zerada → remove
+        if (novoQt === 0) {
           await sql`DELETE FROM carteira WHERE user_id = ${userId} AND ticker = ${t}`
         } else {
+          // Pode ficar negativo para opções (lançador que vendeu mais do que tinha comprado)
           await sql`
             UPDATE carteira
             SET quantidade    = ${novoQt},
@@ -76,8 +82,14 @@ export async function POST(req: NextRequest) {
             WHERE user_id = ${userId} AND ticker = ${t}
           `
         }
+      } else if (isOpcaoTicker(t)) {
+        // Opção vendida sem posição prévia → lançador: cria posição com quantidade negativa
+        await sql`
+          INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_compra, notas)
+          VALUES (${userId}, ${t}, ${-qt}, ${pm}, ${dt}::date, ${notas ?? null})
+        `
       }
-      // Se não tem posição e recebe uma venda, ignora silenciosamente
+      // Ação sem posição prévia → ignora silenciosamente (não é possível vender a descoberto)
     }
 
     // Registra movimentação
