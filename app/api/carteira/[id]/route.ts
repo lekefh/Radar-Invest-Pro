@@ -15,7 +15,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     const sql = getDb()
     const { id } = await params
     const body = await req.json()
-    const { quantidade, preco_medio, data_compra, notas, excluir_calculo } = body
+    const { quantidade, preco_medio, data_compra, notas, excluir_calculo, data_vencimento } = body
 
     const rows = await sql`
       UPDATE carteira SET
@@ -24,9 +24,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         data_compra     = COALESCE(${data_compra ? String(data_compra) : null}::date, data_compra),
         notas           = COALESCE(${notas != null ? String(notas) : null}, notas),
         excluir_calculo = COALESCE(${excluir_calculo != null ? Boolean(excluir_calculo) : null}::boolean, excluir_calculo),
+        data_vencimento = COALESCE(${data_vencimento ? String(data_vencimento) : null}::date, data_vencimento),
         atualizado_em   = NOW()
       WHERE id = ${Number(id)} AND user_id = ${userId}
-      RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo
+      RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo, data_vencimento
     `
 
     if (!rows[0]) return NextResponse.json({ error: 'Posição não encontrada' }, { status: 404 })

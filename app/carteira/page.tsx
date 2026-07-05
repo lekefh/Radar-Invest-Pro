@@ -10,6 +10,7 @@ import setoresManuaisRaw from '@/lib/setores_manuais.json'
 interface Posicao {
   id: number; ticker: string; quantidade: number; preco_medio: number
   data_compra: string | null; notas: string | null; excluir_calculo: boolean
+  data_vencimento?: string | null
   /* enriquecido no client */
   nome?: string; setor?: string; nota?: number | null
   preco_atual?: number | null; variacao?: number | null
@@ -201,26 +202,36 @@ function FormPosicao({ posicao, onSave, onClose }: {
   posicao?: Partial<Posicao>; onSave: () => void; onClose: () => void
 }) {
   const [ticker,    setTicker]    = useState(posicao?.ticker    ?? '')
-  const [qtde,      setQtde]      = useState(String(posicao?.quantidade  ?? ''))
+  const [qtde,      setQtde]      = useState(String(Math.abs(posicao?.quantidade ?? 0) || ''))
   const [preco,     setPreco]     = useState(String(posicao?.preco_medio ?? ''))
   const [data,      setData]      = useState(posicao?.data_compra?.slice(0,10) ?? new Date().toISOString().slice(0,10))
   const [notas,     setNotas]     = useState(posicao?.notas ?? '')
+  const [vencimento, setVencimento] = useState(posicao?.data_vencimento?.slice(0,10) ?? '')
+  const [lancador,  setLancador]  = useState((posicao?.quantidade ?? 0) < 0 ? true : false)
   const [salvando,  setSalvando]  = useState(false)
   const [erro,      setErro]      = useState('')
 
-  const isEdit = !!posicao?.id
+  const isEdit  = !!posicao?.id
+  const tickerUp = ticker.trim().toUpperCase()
+  const isOpcao = /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(tickerUp)
 
   const salvar = async () => {
     setErro(''); setSalvando(true)
-    const body = {
-      ticker:      ticker.toUpperCase(),
-      quantidade:  parseFloat(qtde.replace(',','.')),
-      preco_medio: parseFloat(preco.replace(',','.')),
-      data_compra: data || null,
-      notas:       notas || null,
+    const qtdeParsed = parseFloat(qtde.replace(',','.'))
+    const qtdeFinal  = isOpcao && lancador ? -qtdeParsed : qtdeParsed
+    const body: Record<string, unknown> = {
+      ticker:          tickerUp,
+      quantidade:      qtdeFinal,
+      preco_medio:     parseFloat(preco.replace(',','.')),
+      data_compra:     data || null,
+      notas:           notas || null,
+      data_vencimento: isOpcao && vencimento ? vencimento : null,
     }
-    if (!body.ticker || isNaN(body.quantidade) || isNaN(body.preco_medio)) {
+    if (!body.ticker || isNaN(qtdeParsed) || isNaN(body.preco_medio as number)) {
       setErro('Ticker, quantidade e preço são obrigatórios.'); setSalvando(false); return
+    }
+    if (isOpcao && !vencimento) {
+      setErro('Informe o vencimento da opção.'); setSalvando(false); return
     }
     const url    = isEdit ? `/api/carteira/${posicao!.id}` : '/api/carteira'
     const method = isEdit ? 'PUT' : 'POST'
@@ -256,17 +267,50 @@ function FormPosicao({ posicao, onSave, onClose }: {
       {!isEdit && (
         <div>
           <span style={lbl}>Ticker *</span>
-          <input style={inp} placeholder="ex: PETR4" value={ticker} onChange={e=>setTicker(e.target.value.toUpperCase())} />
+          <input style={inp} placeholder="ex: PETR4 ou AZZAP250" value={ticker}
+            onChange={e => setTicker(e.target.value.toUpperCase())} />
+          {isOpcao && <span style={{ fontSize:11, color:'#e8a020', marginTop:4, display:'block' }}>Opção detectada — campos extras habilitados abaixo</span>}
         </div>
       )}
+
+      {/* ── Campos exclusivos de opção ── */}
+      {isOpcao && (
+        <div style={{ background:'rgba(232,160,32,.07)', border:'1px solid rgba(232,160,32,.2)', borderRadius:8, padding:'12px 14px', display:'flex', flexDirection:'column', gap:12 }}>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12 }}>
+            <div>
+              <span style={lbl}>Posição *</span>
+              <div style={{ display:'flex', gap:8, marginTop:6 }}>
+                <button type="button"
+                  onClick={() => setLancador(true)}
+                  style={{ flex:1, padding:'9px 0', borderRadius:6, border: lancador ? '2px solid #ef4444' : '1px solid rgba(255,255,255,.12)', background: lancador ? 'rgba(239,68,68,.18)' : 'transparent', color: lancador ? '#ef4444' : '#6b84a8', fontWeight:700, fontSize:13, cursor:'pointer' }}>
+                  Lançador
+                </button>
+                <button type="button"
+                  onClick={() => setLancador(false)}
+                  style={{ flex:1, padding:'9px 0', borderRadius:6, border: !lancador ? '2px solid #22c55e' : '1px solid rgba(255,255,255,.12)', background: !lancador ? 'rgba(34,197,94,.18)' : 'transparent', color: !lancador ? '#22c55e' : '#6b84a8', fontWeight:700, fontSize:13, cursor:'pointer' }}>
+                  Titular
+                </button>
+              </div>
+              <span style={{ fontSize:10, color:'#4a5d73', marginTop:4, display:'block' }}>
+                {lancador ? 'Vendeu a opção (prêmio recebido)' : 'Comprou a opção (prêmio pago)'}
+              </span>
+            </div>
+            <div>
+              <span style={lbl}>Vencimento *</span>
+              <input style={inp} type="date" value={vencimento} onChange={e => setVencimento(e.target.value)} />
+            </div>
+          </div>
+        </div>
+      )}
+
       <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'14px' }}>
         <div>
           <span style={lbl}>Quantidade *</span>
           <input style={inp} placeholder="100" type="number" min="0" value={qtde} onChange={e=>setQtde(e.target.value)} />
         </div>
         <div>
-          <span style={lbl}>Preço Médio (R$) *</span>
-          <input style={inp} placeholder="32,50" type="number" min="0" step="0.01" value={preco} onChange={e=>setPreco(e.target.value)} />
+          <span style={lbl}>{isOpcao ? 'Prêmio Médio (R$) *' : 'Preço Médio (R$) *'}</span>
+          <input style={inp} placeholder="2,50" type="number" min="0" step="0.01" value={preco} onChange={e=>setPreco(e.target.value)} />
         </div>
       </div>
       <div>

@@ -16,7 +16,7 @@ export async function GET() {
     const sql = getDb()
     const rows = await sql`
       SELECT id, ticker, quantidade::float, preco_medio::float,
-             data_compra, notas, excluir_calculo
+             data_compra, notas, excluir_calculo, data_vencimento
       FROM carteira
       WHERE user_id = ${userId}
       ORDER BY ticker
@@ -36,32 +36,37 @@ export async function POST(req: NextRequest) {
     await ensureCarteiraTables()
     const sql = getDb()
     const body = await req.json()
-    const { ticker, quantidade, preco_medio, data_compra, notas } = body
+    const { ticker, quantidade, preco_medio, data_compra, notas, data_vencimento } = body
 
     if (!ticker || quantidade == null || preco_medio == null)
       return NextResponse.json({ error: 'ticker, quantidade e preco_medio são obrigatórios' }, { status: 400 })
 
-    const t  = String(ticker).toUpperCase()
-    const qt = Number(quantidade)
-    const pm = Number(preco_medio)
-    const dt = data_compra ? String(data_compra) : new Date().toISOString().slice(0, 10)
+    const t    = String(ticker).toUpperCase()
+    const qt   = Number(quantidade)  // pode ser negativo (lançador)
+    const pm   = Number(preco_medio)
+    const dt   = data_compra ? String(data_compra) : new Date().toISOString().slice(0, 10)
+    const venc = data_vencimento ? String(data_vencimento) : null
+    const tipo = qt < 0 ? 'V' : 'C'
 
     const rows = await sql`
-      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_compra, notas)
-      VALUES (${userId}, ${t}, ${qt}, ${pm}, ${dt}::date, ${notas ?? null})
+      INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_compra, notas, data_vencimento)
+      VALUES (${userId}, ${t}, ${qt}, ${pm}, ${dt}::date, ${notas ?? null}, ${venc}::date)
       ON CONFLICT (user_id, ticker) DO UPDATE
-        SET quantidade    = EXCLUDED.quantidade,
-            preco_medio   = EXCLUDED.preco_medio,
-            data_compra   = COALESCE(EXCLUDED.data_compra, carteira.data_compra),
-            notas         = COALESCE(EXCLUDED.notas, carteira.notas),
-            atualizado_em = NOW()
-      RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo
+        SET quantidade      = EXCLUDED.quantidade,
+            preco_medio     = EXCLUDED.preco_medio,
+            data_compra     = COALESCE(EXCLUDED.data_compra, carteira.data_compra),
+            notas           = COALESCE(EXCLUDED.notas, carteira.notas),
+            data_vencimento = COALESCE(EXCLUDED.data_vencimento, carteira.data_vencimento),
+            atualizado_em   = NOW()
+      RETURNING id, ticker, quantidade::float, preco_medio::float, data_compra, notas, excluir_calculo, data_vencimento
     `
 
     try {
       await sql`
-        INSERT INTO movimentacoes (user_id, data, ticker, tipo, quantidade, preco, valor_total)
-        VALUES (${userId}, ${dt}::date, ${t}, 'C', ${qt}, ${pm}, ${(qt * pm).toFixed(2)}::numeric)
+        INSERT INTO movimentacoes (user_id, data, ticker, tipo, quantidade, preco, valor_total, mercado, data_vencimento)
+        VALUES (${userId}, ${dt}::date, ${t}, ${tipo}, ${Math.abs(qt)}, ${pm},
+                ${(Math.abs(qt) * pm).toFixed(2)}::numeric,
+                ${venc ? 'opcao' : 'acao'}, ${venc}::date)
       `
     } catch (movErr) {
       // Não falha o cadastro da posição por erro no histórico de movimentações
