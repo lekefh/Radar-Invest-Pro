@@ -262,6 +262,9 @@ export async function reconstruirCarteira(userId: number) {
         } else {
           posicoes.set(t, { ...pos, quantidade: novoQt })
         }
+      } else if (/^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(t)) {
+        // Lançador: venda de opção sem posição prévia → posição negativa
+        posicoes.set(t, { quantidade: -qt, preco_medio: pm, data_vencimento: venc })
       }
     }
   }

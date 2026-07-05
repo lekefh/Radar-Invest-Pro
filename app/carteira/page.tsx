@@ -589,7 +589,7 @@ export default function CarteiraPage() {
       })
       const d = await r.json()
       if (!r.ok) { alert(d.error ?? 'Erro ao salvar importação.'); return }
-      if (d.erros > 0) alert(`${d.erros} operação(ões) não foram salvas. Verifique e tente manualmente.`)
+      if (d.aviso) alert(d.aviso)
       _fecharImport()
       await carregarCarteira()
     } catch { alert('Erro de conexão. Tente novamente.') }
