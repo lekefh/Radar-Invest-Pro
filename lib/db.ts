@@ -254,14 +254,14 @@ export async function reconstruirCarteira(userId: number) {
     }
   }
 
-  // 3. Grava resultado: delete + inserts individuais (sem round-trip de leitura)
+  // 3. Grava resultado: delete + todos os inserts em paralelo (Promise.all)
   await sql`DELETE FROM carteira WHERE user_id = ${userId}`
 
-  for (const [ticker, pos] of posicoes) {
-    if (Math.abs(pos.quantidade) < 0.0001) continue
-    await sql`
+  const rows = [...posicoes.entries()].filter(([, pos]) => Math.abs(pos.quantidade) >= 0.0001)
+  if (rows.length > 0) {
+    await Promise.all(rows.map(([ticker, pos]) => sql`
       INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento)
       VALUES (${userId}, ${ticker}, ${pos.quantidade}, ${Number(pos.preco_medio.toFixed(6))}, ${pos.data_vencimento ?? null})
-    `
+    `))
   }
 }

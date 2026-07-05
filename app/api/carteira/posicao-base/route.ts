@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getDb, ensureCarteiraTables, ensureIRTables, reconstruirCarteira } from '@/lib/db'
 import { getSession } from '@/lib/auth'
 
+export const maxDuration = 60 // Vercel Pro: até 60s para reconstrução com muitos ativos
+
 export async function GET() {
   const session = await getSession()
   if (!session) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
