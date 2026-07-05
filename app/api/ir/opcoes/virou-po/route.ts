@@ -3,12 +3,24 @@ import { getDb, ensureCarteiraTables } from '@/lib/db'
 import { getSession } from '@/lib/auth'
 
 /**
- * POST /api/ir/opcoes/virou-po
- *
- * Registra o desfecho de vencimento "virou pó" de uma opção:
- *   - Titular (qtde_liquida > 0): insere V a R$0 → apurar registrará prejuízo = prêmio pago
- *   - Lançador (qtde_liquida < 0): insere C a R$0 → fecha posição; ganho já foi taxado na abertura
+ * GET /api/ir/opcoes/virou-po — retorna tickers que já viraram pó (nota_num='vpo')
+ * POST /api/ir/opcoes/virou-po — registra vencimento "virou pó"
  */
+export async function GET() {
+  const s = await getSession()
+  if (!s) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+  const userId = Number(s.sub)
+
+  await ensureCarteiraTables()
+  const sql = getDb()
+
+  const rows = await sql`
+    SELECT DISTINCT ticker FROM movimentacoes
+    WHERE user_id = ${userId} AND nota_num = 'vpo'
+  `
+  return NextResponse.json({ tickers: rows.map(r => r.ticker as string) })
+}
+
 export async function POST(req: NextRequest) {
   const s = await getSession()
   if (!s) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })

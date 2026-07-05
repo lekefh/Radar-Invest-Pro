@@ -709,9 +709,12 @@ export default function CarteiraPage() {
   const carregarCarteira = useCallback(async () => {
     setLoading(true); setErro('')
     try {
-      const r = await fetch('/api/carteira')
-      const d = await r.json()
-      const enriquecidas: Posicao[] = (d.carteira ?? []).map((p: Posicao) => ({
+      const [rCart, rPo] = await Promise.all([
+        fetch('/api/carteira'),
+        fetch('/api/ir/opcoes/virou-po'),
+      ])
+      const [dCart, dPo] = await Promise.all([rCart.json(), rPo.json()])
+      const enriquecidas: Posicao[] = (dCart.carteira ?? []).map((p: Posicao) => ({
         ...p,
         nome:  fund[p.ticker]?.nome  ?? p.ticker,
         setor: setoresManuais[p.ticker] ?? fund[p.ticker]?.setor ?? '—',
@@ -720,6 +723,7 @@ export default function CarteiraPage() {
         variacao: null,
       }))
       setPosicoes(enriquecidas)
+      if (Array.isArray(dPo.tickers)) setPoVencidas(new Set(dPo.tickers as string[]))
     } catch { setErro('Erro ao carregar carteira.') }
     finally  { setLoading(false) }
   }, [])
