@@ -92,6 +92,34 @@ const f1 = (v: number | null | undefined) =>
   v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '%'
 const fR = (v: number | null | undefined) =>
   v == null ? '—' : 'R$ ' + f2(v)
+
+/* ── Opções B3 ───────────────────────────────────────────────────────────────── */
+const LETRAS_CALL = 'ABCDEFGHIJKL'
+const LETRAS_PUT  = 'MNOPQRSTUVWX'
+
+function isOpcaoTicker(ticker: string) {
+  return /^[A-Z]{4}[A-Z]\d+$/.test(ticker)
+}
+
+function terceiraSegunda(ano: number, mes: number): Date {
+  const d = new Date(ano, mes, 1)
+  const dow = d.getDay()
+  const diasAte = dow === 1 ? 0 : (8 - dow) % 7
+  return new Date(ano, mes, 1 + diasAte + 14)
+}
+
+function infoOpcao(ticker: string): { vencimento: Date; isCall: boolean; ativo: string } | null {
+  if (!isOpcaoTicker(ticker) || ticker.length < 5) return null
+  const letra = ticker[4].toUpperCase()
+  let mes = LETRAS_CALL.indexOf(letra)
+  let isCall = true
+  if (mes === -1) { mes = LETRAS_PUT.indexOf(letra); isCall = false }
+  if (mes === -1) return null
+  const hoje = new Date(); hoje.setHours(0,0,0,0)
+  let data = terceiraSegunda(hoje.getFullYear(), mes)
+  if (data < hoje) data = terceiraSegunda(hoje.getFullYear() + 1, mes)
+  return { vencimento: data, isCall, ativo: ticker.slice(0, 4) }
+}
 /* busca via API server-side para evitar CORS do browser */
 async function buscarPrecos(tickers: string[]): Promise<Record<string, { preco: number | null; variacao: number | null }>> {
   try {
@@ -344,6 +372,9 @@ export default function CarteiraPage() {
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
+  const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes'>('acoes')
+  const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
+  const [msgPo, setMsgPo] = useState<string | null>(null)
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -532,10 +563,11 @@ export default function CarteiraPage() {
     sortConfig?.key === key ? (sortConfig.dir === 'asc' ? ' ↑' : ' ↓') : ' ↕'
 
   const sortedPosicoes = useMemo(() => {
-    if (!sortConfig) return posicoes
+    const base = posicoesAcoes
+    if (!sortConfig) return base
     const { key, dir } = sortConfig
     const total = metricas.atual || 1
-    return [...posicoes].sort((a, b) => {
+    return [...base].sort((a, b) => {
       let va: number | string = 0, vb: number | string = 0
       const pA = a.preco_atual ?? a.preco_medio, pB = b.preco_atual ?? b.preco_medio
       switch (key) {
@@ -558,6 +590,33 @@ export default function CarteiraPage() {
   }, [posicoes, sortConfig, metricas])
 
   const corPL = (v: number) => v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
+
+  /* Separa ações/FIIs de opções */
+  const posicoesAcoes  = posicoes.filter(p => !isOpcaoTicker(p.ticker))
+  const posicoesOpcoes = posicoes.filter(p =>  isOpcaoTicker(p.ticker))
+
+  const virouPo = async (p: Posicao) => {
+    setMarcandoPo(p.ticker)
+    const info = infoOpcao(p.ticker)
+    const dataVenc = info ? info.vencimento.toISOString().slice(0,10) : new Date().toISOString().slice(0,10)
+    const r = await fetch('/api/ir/opcoes/virou-po', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ticker: p.ticker, qtde_liquida: p.quantidade, data_vencimento: dataVenc }),
+    })
+    setMarcandoPo(null)
+    if (r.ok) {
+      const txt = p.quantidade > 0
+        ? `${p.ticker}: perda de R$ ${f2(p.quantidade * p.preco_medio)} registrada no IR.`
+        : `${p.ticker}: posição de lançamento encerrada.`
+      setMsgPo(txt)
+      setTimeout(() => setMsgPo(null), 5000)
+      await carregarCarteira()
+    } else {
+      const e = await r.json().catch(() => ({}))
+      setMsgPo(e.error ?? 'Erro ao registrar vencimento.')
+      setTimeout(() => setMsgPo(null), 5000)
+    }
+  }
 
   return (
     <>
@@ -644,6 +703,20 @@ export default function CarteiraPage() {
           </div>
         </div>
 
+        {/* ABAS */}
+        <div style={{ display:'flex', gap:0, background:'#081120', borderBottom:'1px solid rgba(255,255,255,.07)', paddingLeft:20 }}>
+          {([
+            { key:'acoes',  label:`📈 Ações / FIIs${posicoesAcoes.length ? ` (${posicoesAcoes.length})` : ''}` },
+            { key:'opcoes', label:`🎯 Opções${posicoesOpcoes.length ? ` (${posicoesOpcoes.length})` : ''}` },
+          ] as { key: 'acoes'|'opcoes'; label: string }[]).map(t => (
+            <button key={t.key} onClick={() => setAbaCarteira(t.key)} style={{
+              background:'none', border:'none', borderBottom: abaCarteira===t.key ? '2px solid #e8a020' : '2px solid transparent',
+              padding:'10px 18px', fontSize:13, fontWeight: abaCarteira===t.key ? 700 : 500,
+              color: abaCarteira===t.key ? '#e8a020' : '#4a5d73', cursor:'pointer', transition:'all .15s',
+            }}>{t.label}</button>
+          ))}
+        </div>
+
         {/* BOTÕES */}
         <div className="btn-bar">
           <button className="btn btn-add" onClick={abrirAddPosicao}
@@ -698,7 +771,98 @@ export default function CarteiraPage() {
           {loading && <div className="loading-box"><div className="spinner"/><p style={{color:'#6b84a8',fontSize:'13px'}}>Carregando carteira…</p></div>}
           {!loading && erro && <p style={{color:'#ef4444',textAlign:'center',padding:'40px'}}>{erro}</p>}
 
-          {!loading && !erro && (
+          {/* ── Painel Opções ──────────────────────────────────────────────────────── */}
+          {!loading && !erro && abaCarteira === 'opcoes' && (
+            <div style={{ flex:1, overflowY:'auto', padding:'16px 20px' }}>
+              {msgPo && (
+                <div style={{ background:'rgba(34,197,94,.12)', border:'1px solid #22c55e', borderRadius:7, padding:'10px 14px', fontSize:13, color:'#22c55e', marginBottom:14 }}>{msgPo}</div>
+              )}
+              {posicoesOpcoes.length === 0 ? (
+                <div style={{ textAlign:'center', color:'#6b84a8', padding:'60px 0', fontSize:14 }}>
+                  Nenhuma opção na carteira.<br/>
+                  <span style={{ fontSize:12 }}>Importe suas notas de corretagem ou adicione manualmente.</span>
+                </div>
+              ) : (
+                <>
+                  <div style={{ fontSize:12, color:'#4a5d73', marginBottom:14 }}>
+                    Vencimento = terceira segunda-feira do mês (B3) · 🔴 vencida · 🟡 ≤5 dias
+                  </div>
+                  <div style={{ overflowX:'auto' }}>
+                    <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13, minWidth:800 }}>
+                      <thead>
+                        <tr style={{ background:'#081120', borderBottom:'2px solid rgba(255,255,255,.08)' }}>
+                          {['Ticker','Ativo','Tipo','Posição','Qtde','Prêmio Médio','Custo Total','Vencimento','Dias','Ação'].map(h => (
+                            <th key={h} style={{ padding:'8px 10px', textAlign:'left', fontSize:'10.5px', fontWeight:700, letterSpacing:'.4px', textTransform:'uppercase', color:'#6b84a8', whiteSpace:'nowrap' }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {posicoesOpcoes.map(p => {
+                          const info = infoOpcao(p.ticker)
+                          if (!info) return null
+                          const hoje = new Date(); hoje.setHours(0,0,0,0)
+                          const dias = Math.round((info.vencimento.getTime() - hoje.getTime()) / 86400000)
+                          const vencida = dias < 0
+                          const urgente = dias >= 0 && dias <= 5
+                          const titular = p.quantidade > 0
+                          const rowBg   = vencida ? 'rgba(239,68,68,.07)' : urgente ? 'rgba(234,184,56,.05)' : 'transparent'
+                          return (
+                            <tr key={p.id} style={{ borderBottom:'1px solid rgba(255,255,255,.04)', background:rowBg }}>
+                              <td style={{ padding:'10px', fontWeight:800, color:'#e8a020', fontFamily:'monospace' }}>{p.ticker}</td>
+                              <td style={{ padding:'10px', color:'#b8c4d4' }}>{info.ativo}</td>
+                              <td style={{ padding:'10px' }}>
+                                <span style={{ background: info.isCall ? 'rgba(34,197,94,.15)' : 'rgba(239,68,68,.15)', color: info.isCall ? '#22c55e' : '#ef4444', padding:'2px 8px', borderRadius:4, fontSize:11, fontWeight:700 }}>
+                                  {info.isCall ? 'CALL' : 'PUT'}
+                                </span>
+                              </td>
+                              <td style={{ padding:'10px' }}>
+                                <span style={{ color: titular ? '#64b5f6' : '#ffb74d', fontWeight:600, fontSize:12 }}>
+                                  {titular ? 'Titular' : 'Lançador'}
+                                </span>
+                              </td>
+                              <td style={{ padding:'10px', color:'#e8edf5' }}>{f2(Math.abs(p.quantidade))}</td>
+                              <td style={{ padding:'10px', color:'#6b84a8' }}>R$ {f2(p.preco_medio)}</td>
+                              <td style={{ padding:'10px', color: titular ? '#ef4444' : '#22c55e', fontWeight:600 }}>
+                                {titular ? '−' : '+'}R$ {f2(Math.abs(p.quantidade) * p.preco_medio)}
+                              </td>
+                              <td style={{ padding:'10px', fontWeight: (vencida || urgente) ? 700 : 400, color: vencida ? '#ef4444' : urgente ? '#eab838' : '#6b84a8' }}>
+                                {info.vencimento.toLocaleDateString('pt-BR')}
+                              </td>
+                              <td style={{ padding:'10px', textAlign:'center' }}>
+                                {vencida
+                                  ? <span style={{ color:'#ef4444', fontWeight:700, fontSize:12 }}>VENCIDA</span>
+                                  : urgente
+                                    ? <span style={{ color:'#eab838', fontWeight:700 }}>{dias}d ⚠</span>
+                                    : <span style={{ color:'#4a5d73' }}>{dias}d</span>
+                                }
+                              </td>
+                              <td style={{ padding:'10px' }}>
+                                <button
+                                  onClick={() => virouPo(p)}
+                                  disabled={marcandoPo === p.ticker}
+                                  title={titular ? `Registrar perda de R$ ${f2(Math.abs(p.quantidade)*p.preco_medio)} no IR` : 'Encerrar lançamento — opção expirou sem exercício'}
+                                  style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 11px', whiteSpace:'nowrap', opacity: marcandoPo===p.ticker ? .5 : 1 }}
+                                >
+                                  {marcandoPo===p.ticker ? '...' : '💀 Virou Pó'}
+                                </button>
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div style={{ marginTop:16, display:'flex', gap:20, flexWrap:'wrap', fontSize:11, color:'#4a5d73' }}>
+                    <span style={{ color:'#64b5f6' }}>■ Titular — comprou a opção (custo = prêmio pago)</span>
+                    <span style={{ color:'#ffb74d' }}>■ Lançador — vendeu a opção (crédito = prêmio recebido)</span>
+                    <span>Ao marcar "Virou Pó": titular registra prejuízo no IR; lançador encerra posição (ganho já foi registrado na abertura).</span>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {!loading && !erro && abaCarteira === 'acoes' && (
             <div className="table-wrap">
               <table>
                 <thead>
@@ -784,7 +948,7 @@ export default function CarteiraPage() {
           )}
 
           {/* Barra de ordenação mobile — substitui o clique no header da tabela */}
-          {!loading && !erro && (
+          {!loading && !erro && abaCarteira === 'acoes' && (
             <div className="sort-bar-mobile">
               {[
                 { key: 'ticker',    label: 'Ticker' },
@@ -804,7 +968,7 @@ export default function CarteiraPage() {
           )}
 
           {/* Versão mobile — cards empilhados, mesma fonte de dados da tabela */}
-          {!loading && !erro && (
+          {!loading && !erro && abaCarteira === 'acoes' && (
             <div className="cards-mobile">
               {posicoes.length === 0
                 ? <div style={{ padding: '30px', textAlign: 'center', color: '#6b84a8', fontSize: '13px' }}>
