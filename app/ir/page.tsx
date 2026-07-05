@@ -13,13 +13,95 @@ interface Apuracao {
 interface Darf { id: number; competencia: string; codigo_receita: string; valor: number; vencimento: string; status: string }
 interface Mov { id: number; data: string; ticker: string; tipo: string; quantidade: number; preco: number; valor_total: number; corretora: string | null }
 
-type Aba = 'posicao' | 'operacoes' | 'apuracao' | 'darfs'
+interface PosicaoOpcao {
+  ticker: string
+  qtdeLiquida: number      // + = titular, - = lançador
+  premioMedio: number      // custo médio pago (titular) ou prêmio médio recebido (lançador)
+  custoTotal: number       // |qtde| × premioMedio
+  vencimento: Date
+  diasParaVencer: number
+  isCall: boolean
+  virouPo: boolean         // já foi marcado
+}
+
+type Aba = 'posicao' | 'operacoes' | 'apuracao' | 'darfs' | 'opcoes'
 
 /* ── Helpers ─────────────────────────────────────────────────────────────────── */
 const BRL = (v: number) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })
 const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
 const anoAtual = new Date().getFullYear()
 const mesAtual = new Date().getMonth() + 1
+
+/* ── Vencimento de opções B3 ─────────────────────────────────────────────────── */
+// Calls: A=Jan … L=Dez | Puts: M=Jan … X=Dez
+const LETRAS_CALL = 'ABCDEFGHIJKL'
+const LETRAS_PUT  = 'MNOPQRSTUVWX'
+
+function isOpcaoTicker(ticker: string): boolean {
+  return /^[A-Z]{4}[A-Z]\d+$/.test(ticker)
+}
+
+function terceiraSegunda(ano: number, mes: number): Date {
+  // Encontra a terceira segunda-feira do mês (vencimento padrão B3 para ações)
+  const d = new Date(ano, mes, 1)
+  const dow = d.getDay() // 0=Dom … 6=Sáb
+  const diasAteProxSeg = dow === 1 ? 0 : (8 - dow) % 7
+  return new Date(ano, mes, 1 + diasAteProxSeg + 14)
+}
+
+function vencimentoOpcao(ticker: string): { data: Date; isCall: boolean } | null {
+  if (ticker.length < 5) return null
+  const letra = ticker[4].toUpperCase()
+  let mes = LETRAS_CALL.indexOf(letra)
+  let isCall = true
+  if (mes === -1) { mes = LETRAS_PUT.indexOf(letra); isCall = false }
+  if (mes === -1) return null
+
+  const hoje = new Date(); hoje.setHours(0,0,0,0)
+  let data = terceiraSegunda(hoje.getFullYear(), mes)
+  // Se já venceu neste ano, vai para o próximo
+  if (data < hoje) data = terceiraSegunda(hoje.getFullYear() + 1, mes)
+  return { data, isCall }
+}
+
+function calcPosicaoOpcoes(movs: Mov[]): PosicaoOpcao[] {
+  const map = new Map<string, { compras: number; vendas: number; custoC: number; custoV: number; virouPo: boolean }>()
+
+  for (const m of movs) {
+    if (!isOpcaoTicker(m.ticker)) continue
+    if (!map.has(m.ticker)) map.set(m.ticker, { compras: 0, vendas: 0, custoC: 0, custoV: 0, virouPo: false })
+    const e = map.get(m.ticker)!
+    if (m.tipo === 'C') { e.compras += m.quantidade; e.custoC += m.quantidade * m.preco }
+    else                { e.vendas  += m.quantidade; e.custoV += m.quantidade * m.preco
+      if (m.corretora === 'Vencimento B3' && m.preco === 0) e.virouPo = true
+    }
+  }
+
+  const hoje = new Date(); hoje.setHours(0,0,0,0)
+  const resultado: PosicaoOpcao[] = []
+
+  for (const [ticker, e] of map) {
+    const qtdeLiquida = e.compras - e.vendas
+    if (Math.abs(qtdeLiquida) < 0.001) continue  // posição fechada
+
+    const venc = vencimentoOpcao(ticker)
+    if (!venc) continue
+
+    const dias = Math.round((venc.data.getTime() - hoje.getTime()) / 86400000)
+    const premioMedio = qtdeLiquida > 0
+      ? (e.compras > 0 ? e.custoC / e.compras : 0)
+      : (e.vendas  > 0 ? e.custoV / e.vendas  : 0)
+
+    resultado.push({
+      ticker, qtdeLiquida, premioMedio,
+      custoTotal: Math.abs(qtdeLiquida) * premioMedio,
+      vencimento: venc.data, diasParaVencer: dias,
+      isCall: venc.isCall, virouPo: e.virouPo,
+    })
+  }
+
+  return resultado.sort((a, b) => a.vencimento.getTime() - b.vencimento.getTime())
+}
 
 /* ── Componente principal ────────────────────────────────────────────────────── */
 export default function PaginaIR() {
@@ -46,6 +128,10 @@ export default function PaginaIR() {
   // DARFs
   const [darfs, setDarfs] = useState<Darf[]>([])
   const [gerandoDarf, setGerandoDarf] = useState('')
+
+  // Opções
+  const [posOpcoes, setPosOpcoes] = useState<PosicaoOpcao[]>([])
+  const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
 
   // Mensagens
   const [msg, setMsg] = useState<{ texto: string; tipo: 'ok' | 'erro' } | null>(null)
@@ -94,8 +180,14 @@ export default function PaginaIR() {
   }, [carregarPosicoes, carregarHistorico, carregarDarfs])
 
   useEffect(() => {
-    if (aba === 'operacoes') carregarOps()
+    if (aba === 'operacoes' || aba === 'opcoes') carregarOps()
   }, [aba, carregarOps])
+
+  useEffect(() => {
+    if (aba === 'opcoes' && ops.length > 0) {
+      setPosOpcoes(calcPosicaoOpcoes(ops))
+    }
+  }, [aba, ops])
 
   /* ── Ações — Posição Inicial ─────────────────────────────────────────────────── */
   async function salvarPosicao() {
@@ -157,6 +249,26 @@ export default function PaginaIR() {
     else aviso('Erro ao gerar DARFs.', 'erro')
   }
 
+  async function marcarVirouPo(pos: PosicaoOpcao) {
+    setMarcandoPo(pos.ticker)
+    const dataVenc = pos.vencimento.toISOString().slice(0,10)
+    const r = await fetch('/api/ir/opcoes/virou-po', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ticker: pos.ticker, qtde_liquida: pos.qtdeLiquida, data_vencimento: dataVenc }),
+    })
+    setMarcandoPo(null)
+    if (r.ok) {
+      const txt = pos.qtdeLiquida > 0
+        ? `${pos.ticker}: prejuízo de ${BRL(pos.custoTotal)} registrado (prêmio virou pó).`
+        : `${pos.ticker}: posição encerrada — ganho já foi apurado na abertura.`
+      aviso(txt)
+      carregarOps()
+    } else {
+      const e = await r.json().catch(() => ({}))
+      aviso(e.error ?? 'Erro ao registrar vencimento.', 'erro')
+    }
+  }
+
   async function marcarPago(id: number) {
     await fetch('/api/ir/darfs', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -190,9 +302,9 @@ export default function PaginaIR() {
         )}
 
         {/* Abas */}
-        <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.08)', paddingBottom: 0 }}>
-          {(['apuracao','darfs','posicao','operacoes'] as Aba[]).map(a => {
-            const labels: Record<Aba,string> = { apuracao: '📊 Apuração Mensal', darfs: '📄 DARFs', posicao: '📌 Posição Inicial', operacoes: '📋 Operações' }
+        <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.08)', paddingBottom: 0, flexWrap: 'wrap' }}>
+          {(['apuracao','darfs','opcoes','posicao','operacoes'] as Aba[]).map(a => {
+            const labels: Record<Aba,string> = { apuracao: '📊 Apuração Mensal', darfs: '📄 DARFs', opcoes: '🎯 Opções', posicao: '📌 Posição Inicial', operacoes: '📋 Operações' }
             return (
               <button key={a} onClick={() => setAba(a)} style={{ background: 'none', border: 'none', borderBottom: aba === a ? '2px solid #eab838' : '2px solid transparent', padding: '8px 16px', fontSize: 13, fontWeight: aba === a ? 700 : 500, color: aba === a ? '#eab838' : '#4a5d73', cursor: 'pointer', transition: 'all .15s' }}>
                 {labels[a]}
@@ -313,6 +425,100 @@ export default function PaginaIR() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* ── ABA OPÇÕES ────────────────────────────────────────────────────────────── */}
+        {aba === 'opcoes' && (
+          <div>
+            <div style={{ fontSize: 12, color: '#4a5d73', marginBottom: 16 }}>
+              Posições abertas de opções · Vencimento: terceira segunda-feira do mês (B3) · Ao marcar "virou pó", o sistema registra automaticamente o resultado fiscal.
+            </div>
+
+            {posOpcoes.length === 0 ? (
+              <div style={{ textAlign: 'center', color: '#4a5d73', padding: '40px 0', fontSize: 14 }}>
+                Nenhuma posição aberta de opções. Importe suas operações pelo módulo Carteira → Importar B3.
+              </div>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,.08)', color: '#4a5d73' }}>
+                      {['Ticker','Tipo','Posição','Prêmio Médio','Custo/Recebido','Vencimento','Dias','Status','Ação'].map(h => (
+                        <th key={h} style={{ padding: '8px 10px', textAlign: 'left', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {posOpcoes.map(p => {
+                      const venceu   = p.diasParaVencer < 0
+                      const urgente  = p.diasParaVencer >= 0 && p.diasParaVencer <= 5
+                      const rowBg    = venceu ? 'rgba(239,68,68,.06)' : urgente ? 'rgba(234,184,56,.05)' : 'transparent'
+                      const dataStr  = p.vencimento.toLocaleDateString('pt-BR')
+                      const titular  = p.qtdeLiquida > 0
+                      return (
+                        <tr key={p.ticker} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', background: rowBg }}>
+                          <td style={{ padding: '10px', fontWeight: 800, color: '#e0e6f0' }}>{p.ticker}</td>
+                          <td style={{ padding: '10px' }}>
+                            <span style={{ background: p.isCall ? 'rgba(34,197,94,.15)' : 'rgba(239,68,68,.15)', color: p.isCall ? '#22c55e' : '#ef4444', padding: '2px 7px', borderRadius: 4, fontSize: 11, fontWeight: 700 }}>
+                              {p.isCall ? 'CALL' : 'PUT'}
+                            </span>
+                          </td>
+                          <td style={{ padding: '10px' }}>
+                            <span style={{ color: titular ? '#64b5f6' : '#ffb74d', fontWeight: 600 }}>
+                              {titular ? `Titular +${p.qtdeLiquida}` : `Lançador ${p.qtdeLiquida}`}
+                            </span>
+                          </td>
+                          <td style={{ padding: '10px', color: '#6b84a8' }}>{BRL(p.premioMedio)}</td>
+                          <td style={{ padding: '10px', color: titular ? '#ef4444' : '#22c55e', fontWeight: 600 }}>
+                            {titular ? `−${BRL(p.custoTotal)}` : `+${BRL(p.custoTotal)}`}
+                          </td>
+                          <td style={{ padding: '10px', color: venceu ? '#ef4444' : urgente ? '#eab838' : '#6b84a8', fontWeight: (venceu || urgente) ? 700 : 400 }}>
+                            {dataStr}
+                          </td>
+                          <td style={{ padding: '10px', textAlign: 'center' }}>
+                            {venceu ? (
+                              <span style={{ color: '#ef4444', fontWeight: 700, fontSize: 12 }}>VENCIDA</span>
+                            ) : urgente ? (
+                              <span style={{ color: '#eab838', fontWeight: 700, fontSize: 12 }}>{p.diasParaVencer}d ⚠</span>
+                            ) : (
+                              <span style={{ color: '#4a5d73', fontSize: 12 }}>{p.diasParaVencer}d</span>
+                            )}
+                          </td>
+                          <td style={{ padding: '10px' }}>
+                            {p.virouPo ? (
+                              <span style={{ color: '#4a5d73', fontSize: 12 }}>✅ Registrado</span>
+                            ) : (
+                              <span style={{ color: '#22c55e', fontSize: 12, fontWeight: 600 }}>Em aberto</span>
+                            )}
+                          </td>
+                          <td style={{ padding: '10px' }}>
+                            {!p.virouPo && (
+                              <button
+                                onClick={() => marcarVirouPo(p)}
+                                disabled={marcandoPo === p.ticker}
+                                title={titular ? `Registrar perda de ${BRL(p.custoTotal)} (prêmio pago)` : 'Encerrar posição de lançamento'}
+                                style={{ background: 'rgba(239,68,68,.15)', border: '1px solid rgba(239,68,68,.35)', color: '#ef4444', borderRadius: 5, cursor: 'pointer', fontSize: 11, fontWeight: 700, padding: '4px 10px', whiteSpace: 'nowrap' }}
+                              >
+                                {marcandoPo === p.ticker ? '...' : '💀 Virou Pó'}
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Legenda */}
+            <div style={{ marginTop: 20, display: 'flex', gap: 20, flexWrap: 'wrap', fontSize: 11, color: '#4a5d73' }}>
+              <span>🔴 Fundo vermelho = vencida</span>
+              <span>🟡 Fundo amarelo = vence em ≤5 dias</span>
+              <span style={{ color: '#64b5f6' }}>■ Titular: comprou a opção (paga prêmio, direito de exercer)</span>
+              <span style={{ color: '#ffb74d' }}>■ Lançador: vendeu a opção (recebeu prêmio, obrigação de cumprir)</span>
+            </div>
           </div>
         )}
 
