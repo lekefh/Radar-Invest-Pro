@@ -374,6 +374,7 @@ export default function CarteiraPage() {
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [msgPo, setMsgPo] = useState<string | null>(null)
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
+  const [marcandoPoTodas, setMarcandoPoTodas] = useState(false)
   const [togglingDirecao, setTogglingDirecao] = useState<number | null>(null)
   const [removendoOpcao, setRemovendoOpcao] = useState<number | null>(null)
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
@@ -836,6 +837,40 @@ export default function CarteiraPage() {
     setMarcandoPo(null)
   }
 
+  const virouPoTodas = async () => {
+    const hoje = new Date(); hoje.setHours(0,0,0,0)
+    const vencidas = posicoesOpcoes.filter(p => {
+      const info = infoOpcao(p.ticker)
+      if (!info) return false
+      return info.vencimento < hoje
+    })
+    if (vencidas.length === 0) {
+      setMsgPo('Nenhuma opção vencida encontrada.')
+      setTimeout(() => setMsgPo(null), 4000)
+      return
+    }
+    if (!confirm(`Marcar ${vencidas.length} opção(ões) vencida(s) como "virou pó"?\n\n${vencidas.map(p => p.ticker).join(', ')}`)) return
+    setMarcandoPoTodas(true)
+    let ok = 0, erros = 0
+    for (const p of vencidas) {
+      const info = infoOpcao(p.ticker)!
+      const dataVenc = info.vencimento.toISOString().slice(0,10)
+      const r = await fetch('/api/ir/opcoes/virou-po', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ticker: p.ticker, qtde_liquida: p.quantidade, data_vencimento: dataVenc }),
+      })
+      if (r.ok) {
+        setPoVencidas(prev => new Set(prev).add(p.ticker))
+        ok++
+      } else {
+        erros++
+      }
+    }
+    setMarcandoPoTodas(false)
+    setMsgPo(`${ok} opção(ões) encerrada(s)${erros > 0 ? ` · ${erros} erro(s)` : ''}.`)
+    setTimeout(() => setMsgPo(null), 6000)
+  }
+
   return (
     <>
       <style>{`
@@ -1012,8 +1047,17 @@ export default function CarteiraPage() {
                 </div>
               ) : (
                 <>
-                  <div style={{ fontSize:12, color:'#4a5d73', marginBottom:14 }}>
-                    Vencimento = terceira sexta-feira do mês (B3) · 🔴 vencida · 🟡 ≤5 dias
+                  <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
+                    <div style={{ fontSize:12, color:'#4a5d73' }}>
+                      Vencimento = terceira sexta-feira do mês (B3) · 🔴 vencida · 🟡 ≤5 dias
+                    </div>
+                    <button
+                      onClick={virouPoTodas}
+                      disabled={marcandoPoTodas}
+                      style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:6, cursor:'pointer', fontSize:12, fontWeight:700, padding:'6px 14px', whiteSpace:'nowrap', opacity: marcandoPoTodas ? .5 : 1 }}
+                    >
+                      {marcandoPoTodas ? '⏳ Processando...' : '💀 Marcar todas vencidas como Pó'}
+                    </button>
                   </div>
                   <div style={{ overflowX:'auto' }}>
                     <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13, minWidth:800 }}>
