@@ -238,8 +238,14 @@ export async function reconstruirCarteira(userId: number) {
     if (mv.tipo === 'C') {
       if (pos) {
         const novoQt = pos.quantidade + qt
-        const novoPm = (pos.quantidade * pos.preco_medio + qt * pm) / novoQt
-        posicoes.set(t, { quantidade: novoQt, preco_medio: novoPm, data_vencimento: venc ?? pos.data_vencimento })
+        if (Math.abs(novoQt) < 0.0001) {
+          posicoes.delete(t)
+        } else {
+          const novoPm = Number.isFinite(novoQt) && novoQt !== 0
+            ? (pos.quantidade * pos.preco_medio + qt * pm) / novoQt
+            : pm
+          posicoes.set(t, { quantidade: novoQt, preco_medio: novoPm, data_vencimento: venc ?? pos.data_vencimento })
+        }
       } else {
         posicoes.set(t, { quantidade: qt, preco_medio: pm, data_vencimento: venc })
       }
@@ -258,7 +264,9 @@ export async function reconstruirCarteira(userId: number) {
   // 3. Grava resultado: delete + todos os inserts em paralelo (Promise.all)
   await sql`DELETE FROM carteira WHERE user_id = ${userId}`
 
-  const rows = [...posicoes.entries()].filter(([, pos]) => Math.abs(pos.quantidade) >= 0.0001)
+  const rows = [...posicoes.entries()].filter(([, pos]) =>
+    Math.abs(pos.quantidade) >= 0.0001 && Number.isFinite(pos.preco_medio)
+  )
   if (rows.length > 0) {
     await Promise.all(rows.map(([ticker, pos]) => sql`
       INSERT INTO carteira (user_id, ticker, quantidade, preco_medio, data_vencimento)

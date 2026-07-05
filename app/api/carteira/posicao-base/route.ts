@@ -63,17 +63,28 @@ export async function POST(req: NextRequest) {
 
   await sql`DELETE FROM posicao_base_itens WHERE user_id = ${userId}`
 
-  // Filtra e normaliza os itens válidos
-  const itensValidos = itens
-    .map(item => ({
-      t:    String(item.ticker).toUpperCase().trim(),
-      qt:   Number(item.quantidade),
-      pm:   Number(item.preco_medio),
-      cnpj: item.cnpj?.trim() ?? null,
-    }))
-    .filter(({ t, qt, pm }) => t && !isNaN(qt) && !isNaN(pm) && Math.abs(qt) > 0 && pm > 0)
+  // Filtra, normaliza e consolida duplicatas (soma qtd + preço médio ponderado)
+  const mapaItens = new Map<string, { qt: number; pm: number; cnpj: string | null }>()
+  for (const item of itens) {
+    const t    = String(item.ticker).toUpperCase().trim()
+    const qt   = Number(item.quantidade)
+    const pm   = Number(item.preco_medio)
+    const cnpj = item.cnpj?.trim() ?? null
+    if (!t || !Number.isFinite(qt) || !Number.isFinite(pm) || Math.abs(qt) < 0.0001 || pm <= 0) continue
+    const exist = mapaItens.get(t)
+    if (exist) {
+      const novoQt = exist.qt + qt
+      const novoPm = Math.abs(novoQt) > 0.0001
+        ? (exist.qt * exist.pm + qt * pm) / novoQt
+        : pm
+      mapaItens.set(t, { qt: novoQt, pm: novoPm, cnpj: cnpj ?? exist.cnpj })
+    } else {
+      mapaItens.set(t, { qt, pm, cnpj })
+    }
+  }
+  const itensValidos = [...mapaItens.entries()].map(([t, v]) => ({ t, ...v }))
 
-  // Insere todos os itens em paralelo — upsert para evitar conflito em duplicatas na planilha
+  // Insere todos os itens em paralelo — upsert por segurança
   await Promise.all(itensValidos.map(({ t, qt, pm, cnpj }) =>
     sql`INSERT INTO posicao_base_itens (user_id, ticker, quantidade, preco_medio, cnpj)
         VALUES (${userId}, ${t}, ${qt}, ${pm}, ${cnpj})
