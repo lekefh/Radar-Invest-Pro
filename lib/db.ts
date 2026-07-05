@@ -68,6 +68,7 @@ export async function ensureCarteiraTables() {
   await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS mercado TEXT NOT NULL DEFAULT 'acao'`
   await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS modalidade TEXT NOT NULL DEFAULT 'swing'`
   await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS import_batch_id UUID`
+  await sql`ALTER TABLE movimentacoes ADD COLUMN IF NOT EXISTS data_vencimento DATE`
 
   // 3c. Garante coluna data_vencimento em carteira (para opções)
   await sql`ALTER TABLE carteira ADD COLUMN IF NOT EXISTS data_vencimento DATE`

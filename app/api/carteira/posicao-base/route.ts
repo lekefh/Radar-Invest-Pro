@@ -73,10 +73,14 @@ export async function POST(req: NextRequest) {
     }))
     .filter(({ t, qt, pm }) => t && !isNaN(qt) && !isNaN(pm) && Math.abs(qt) > 0 && pm > 0)
 
-  // Insere todos os itens em paralelo (sem round-trip sequencial)
+  // Insere todos os itens em paralelo — upsert para evitar conflito em duplicatas na planilha
   await Promise.all(itensValidos.map(({ t, qt, pm, cnpj }) =>
     sql`INSERT INTO posicao_base_itens (user_id, ticker, quantidade, preco_medio, cnpj)
-        VALUES (${userId}, ${t}, ${qt}, ${pm}, ${cnpj})`
+        VALUES (${userId}, ${t}, ${qt}, ${pm}, ${cnpj})
+        ON CONFLICT (user_id, ticker) DO UPDATE
+          SET quantidade  = EXCLUDED.quantidade,
+              preco_medio = EXCLUDED.preco_medio,
+              cnpj        = COALESCE(EXCLUDED.cnpj, posicao_base_itens.cnpj)`
   ))
 
   // Registra CNPJs no cadastro global — em paralelo
