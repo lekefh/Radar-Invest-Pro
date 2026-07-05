@@ -14,9 +14,17 @@ export async function GET() {
   await ensureCarteiraTables()
   const sql = getDb()
 
+  // Retorna apenas tickers onde a ÚLTIMA movimentação é a entrada de vpo.
+  // Se o usuário re-abriu posição depois do vpo, a última entrada tem nota_num diferente
+  // e o ticker NÃO é retornado — opção volta a aparecer na aba.
   const rows = await sql`
-    SELECT DISTINCT ticker FROM movimentacoes
-    WHERE user_id = ${userId} AND nota_num = 'vpo'
+    SELECT ticker FROM (
+      SELECT ticker, nota_num,
+             ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY id DESC) AS rn
+      FROM movimentacoes
+      WHERE user_id = ${userId}
+    ) t
+    WHERE rn = 1 AND nota_num = 'vpo'
   `
   return NextResponse.json({ tickers: rows.map(r => r.ticker as string) })
 }

@@ -108,17 +108,21 @@ function infoOpcao(ticker: string, storedDate?: string | null): { vencimento: Da
   let isCall = true
   if (mes === -1) { mes = 'MNOPQRSTUVWX'.indexOf(letra); isCall = false }
 
-  let data: Date
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0)
+  function tercSex(ano: number, m: number) {
+    const d = new Date(ano, m, 1); const dow = d.getDay()
+    return new Date(ano, m, 1 + (5 - dow + 7) % 7 + 14)
+  }
+
+  let data: Date | null = null
   if (storedDate) {
-    // Usa data gravada no banco (adição manual ou importação B3) — evita ambiguidade de ano
-    data = new Date(storedDate + 'T12:00:00')
-  } else {
+    // Extrai apenas YYYY-MM-DD — Neon pode retornar timestamp completo (ex: "2026-12-18T00:00:00.000Z")
+    const datePart = String(storedDate).slice(0, 10)
+    const d = new Date(datePart + 'T12:00:00')
+    if (!isNaN(d.getTime())) data = d
+  }
+  if (!data) {
     if (mes === -1) return null
-    const hoje = new Date(); hoje.setHours(0, 0, 0, 0)
-    function tercSex(ano: number, m: number) {
-      const d = new Date(ano, m, 1); const dow = d.getDay()
-      return new Date(ano, m, 1 + (5 - dow + 7) % 7 + 14)
-    }
     data = tercSex(hoje.getFullYear(), mes)
     if (data < hoje) data = tercSex(hoje.getFullYear() + 1, mes)
   }
