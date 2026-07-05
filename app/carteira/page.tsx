@@ -357,6 +357,7 @@ export default function CarteiraPage() {
   const [importErro,     setImportErro]     = useState('')
   const [importProgress, setImportProgress] = useState('')
   const [salvandoImport, setSalvandoImport] = useState(false)
+  const [sincronizando,  setSincronizando]  = useState(false)
 
   /* multi-nota e B3: lista de fontes + operações achatadas */
   interface NotaInfo { corretora: string|null; data: string|null; arquivo: string }
@@ -567,6 +568,19 @@ export default function CarteiraPage() {
     setImportProgress('')
     setImportando(false)
     e.target.value = ''
+  }
+
+  const sincronizarCarteira = async () => {
+    if (!confirm('Reconstruir carteira a partir da posição base + movimentações salvas?\nIsso corrige inconsistências causadas por importações anteriores.')) return
+    setSincronizando(true)
+    try {
+      const r = await fetch('/api/carteira/reconstruir', { method: 'POST' })
+      const d = await r.json()
+      if (!r.ok) { alert(d.error ?? 'Erro ao reconstruir.'); return }
+      alert(`Carteira reconstruída: ${d.total_ativos} ativo(s).`)
+      await carregarCarteira()
+    } catch { alert('Erro de conexão. Tente novamente.') }
+    finally { setSincronizando(false) }
   }
 
   const confirmarImport = async () => {
@@ -923,6 +937,10 @@ export default function CarteiraPage() {
             <input type="file" accept=".xlsx,.xls" style={{ display:'none' }}
               onChange={handleImportarB3} disabled={limiteAtingido} />
           </label>
+          <button className="btn btn-ghost" onClick={sincronizarCarteira} disabled={sincronizando}
+            title="Reconstruir carteira a partir da posição base + movimentações (corrige inconsistências)">
+            {sincronizando ? '⏳ Sincronizando…' : '🔄 Sincronizar'}
+          </button>
           <button className="btn btn-ghost" onClick={() => {
             const rows = posicoes.map(p => [
               p.ticker,p.nome,p.quantidade,p.preco_medio,p.preco_atual??'',
