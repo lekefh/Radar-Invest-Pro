@@ -37,9 +37,8 @@ export async function DELETE() {
   const sql = getDb()
 
   // Apaga todas as movimentações
-  const [{ count: movs_removidas }] = await sql`
-    DELETE FROM movimentacoes WHERE user_id = ${userId} RETURNING COUNT(*) AS count
-  `
+  const deleted = await sql`DELETE FROM movimentacoes WHERE user_id = ${userId} RETURNING id`
+  const movs_removidas = deleted.length
 
   // Marca todos os lotes como revertidos
   await sql`
@@ -50,7 +49,8 @@ export async function DELETE() {
   // Reconstrói carteira (vai mostrar só a posição base)
   await reconstruirCarteira(userId)
 
-  const [{ total_ativos }] = await sql`SELECT COUNT(*)::int AS total_ativos FROM carteira WHERE user_id = ${userId}`
+  const [row] = await sql`SELECT COUNT(*)::int AS total_ativos FROM carteira WHERE user_id = ${userId}`
+  const total_ativos = row?.total_ativos ?? 0
 
   return NextResponse.json({ ok: true, movs_removidas: Number(movs_removidas ?? 0), total_ativos })
 }
