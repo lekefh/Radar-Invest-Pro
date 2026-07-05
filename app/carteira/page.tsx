@@ -756,12 +756,12 @@ export default function CarteiraPage() {
   }, [posicoesOpcoes])
 
   const totaisAcoes = useMemo(() => {
-    const investido = sortedPosicoes.reduce((s, p) => s + p.quantidade * p.preco_medio, 0)
-    const atual     = sortedPosicoes.reduce((s, p) => s + p.quantidade * (p.preco_atual ?? p.preco_medio), 0)
+    const investido = posicoesAcoes.reduce((s, p) => s + p.quantidade * p.preco_medio, 0)
+    const atual     = posicoesAcoes.reduce((s, p) => s + p.quantidade * (p.preco_atual ?? p.preco_medio), 0)
     const pl        = atual - investido
     const plPct     = Math.abs(investido) > 0.01 ? (pl / Math.abs(investido)) * 100 : 0
     return { investido, atual, pl, plPct }
-  }, [sortedPosicoes])
+  }, [posicoesAcoes])
 
   const toggleSort = (key: string) =>
     setSortConfig(prev => prev?.key === key ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' })
