@@ -210,11 +210,14 @@ export async function reconstruirCarteira(userId: number) {
   const sql = getDb()
 
   // 1. Carrega tudo de uma vez (2 queries)
-  const [baseItems, movs] = await Promise.all([
+  // Movimentações: só as POSTERIORES à data_base (a base já captura o estado anterior)
+  const [baseItems, baseRow, movs] = await Promise.all([
     sql`SELECT ticker, quantidade::float, preco_medio::float FROM posicao_base_itens WHERE user_id = ${userId}`,
-    sql`SELECT ticker, tipo, quantidade::float, preco::float, data_vencimento::text
+    sql`SELECT data_base::text FROM posicao_base WHERE user_id = ${userId}`,
+    sql`SELECT ticker, tipo, quantidade::float, preco::float, data_vencimento::text, data::text
         FROM movimentacoes WHERE user_id = ${userId} ORDER BY data ASC, id ASC`,
   ])
+  const dataBase: string | null = (baseRow[0]?.data_base as string) ?? null
 
   // 2. Processa em memória
   type Pos = { quantidade: number; preco_medio: number; data_vencimento: string | null }
@@ -229,6 +232,8 @@ export async function reconstruirCarteira(userId: number) {
   }
 
   for (const mv of movs) {
+    // Se há posição base, ignora movimentações na data_base ou anteriores
+    if (dataBase && (mv.data as string) <= dataBase) continue
     const t    = mv.ticker as string
     const qt   = Number(mv.quantidade)
     const pm   = Number(mv.preco)
