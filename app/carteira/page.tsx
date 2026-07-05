@@ -371,6 +371,7 @@ export default function CarteiraPage() {
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes'>('acoes')
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [msgPo, setMsgPo] = useState<string | null>(null)
+  const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     fetch('/api/auth/me')
@@ -554,7 +555,7 @@ export default function CarteiraPage() {
 
   /* Separa ações/FIIs de opções — deve vir ANTES de sortedPosicoes */
   const posicoesAcoes  = posicoes.filter(p => !isOpcaoTicker(p.ticker))
-  const posicoesOpcoes = posicoes.filter(p =>  isOpcaoTicker(p.ticker))
+  const posicoesOpcoes = posicoes.filter(p =>  isOpcaoTicker(p.ticker) && !poVencidas.has(p.ticker))
 
   const toggleSort = (key: string) =>
     setSortConfig(prev => prev?.key === key ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' })
@@ -599,19 +600,20 @@ export default function CarteiraPage() {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ticker: p.ticker, qtde_liquida: p.quantidade, data_vencimento: dataVenc }),
     })
-    setMarcandoPo(null)
     if (r.ok) {
       const txt = p.quantidade > 0
         ? `${p.ticker}: perda de R$ ${f2(p.quantidade * p.preco_medio)} registrada no IR.`
         : `${p.ticker}: posição de lançamento encerrada.`
       setMsgPo(txt)
       setTimeout(() => setMsgPo(null), 5000)
-      await carregarCarteira()
+      // Remove imediatamente da lista sem recarregar tudo
+      setPoVencidas(prev => new Set(prev).add(p.ticker))
     } else {
       const e = await r.json().catch(() => ({}))
       setMsgPo(e.error ?? 'Erro ao registrar vencimento.')
       setTimeout(() => setMsgPo(null), 5000)
     }
+    setMarcandoPo(null)
   }
 
   return (
@@ -835,11 +837,11 @@ export default function CarteiraPage() {
                               <td style={{ padding:'10px' }}>
                                 <button
                                   onClick={() => virouPo(p)}
-                                  disabled={marcandoPo === p.ticker}
+                                  disabled={marcandoPo === p.ticker || poVencidas.has(p.ticker)}
                                   title={titular ? `Registrar perda de R$ ${f2(Math.abs(p.quantidade)*p.preco_medio)} no IR` : 'Encerrar lançamento — opção expirou sem exercício'}
-                                  style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 11px', whiteSpace:'nowrap', opacity: marcandoPo===p.ticker ? .5 : 1 }}
+                                  style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 11px', whiteSpace:'nowrap', opacity: (marcandoPo===p.ticker || poVencidas.has(p.ticker)) ? .4 : 1 }}
                                 >
-                                  {marcandoPo===p.ticker ? '...' : '💀 Virou Pó'}
+                                  {marcandoPo===p.ticker ? '...' : poVencidas.has(p.ticker) ? '✓ Registrado' : '💀 Virou Pó'}
                                 </button>
                               </td>
                             </tr>
