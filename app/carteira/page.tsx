@@ -551,6 +551,10 @@ export default function CarteiraPage() {
 
   const posicaoSel = posicoes.find(p => p.id === selecionado)
 
+  /* Separa ações/FIIs de opções — deve vir ANTES de sortedPosicoes */
+  const posicoesAcoes  = posicoes.filter(p => !isOpcaoTicker(p.ticker))
+  const posicoesOpcoes = posicoes.filter(p =>  isOpcaoTicker(p.ticker))
+
   const toggleSort = (key: string) =>
     setSortConfig(prev => prev?.key === key ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' })
 
@@ -585,10 +589,6 @@ export default function CarteiraPage() {
   }, [posicoes, sortConfig, metricas])
 
   const corPL = (v: number) => v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
-
-  /* Separa ações/FIIs de opções */
-  const posicoesAcoes  = posicoes.filter(p => !isOpcaoTicker(p.ticker))
-  const posicoesOpcoes = posicoes.filter(p =>  isOpcaoTicker(p.ticker))
 
   const virouPo = async (p: Posicao) => {
     setMarcandoPo(p.ticker)
