@@ -100,22 +100,30 @@ function isOpcaoTicker(ticker: string) {
   return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(ticker)
 }
 
-function infoOpcao(ticker: string): { vencimento: Date; isCall: boolean; ativo: string } | null {
+function infoOpcao(ticker: string, storedDate?: string | null): { vencimento: Date; isCall: boolean; ativo: string } | null {
   if (!isOpcaoTicker(ticker) || ticker.length < 5) return null
   const letra = ticker[4].toUpperCase()
   // Calls: A=Jan … L=Dez | Puts: M=Jan … X=Dez — vencimento: terceira SEXTA-FEIRA do mês (B3)
   let mes = 'ABCDEFGHIJKL'.indexOf(letra)
   let isCall = true
   if (mes === -1) { mes = 'MNOPQRSTUVWX'.indexOf(letra); isCall = false }
-  if (mes === -1) return null
-  const hoje = new Date(); hoje.setHours(0, 0, 0, 0)
-  function tercSex(ano: number, m: number) {
-    const d = new Date(ano, m, 1); const dow = d.getDay()
-    return new Date(ano, m, 1 + (5 - dow + 7) % 7 + 14)
+
+  let data: Date
+  if (storedDate) {
+    // Usa data gravada no banco (adição manual ou importação B3) — evita ambiguidade de ano
+    data = new Date(storedDate + 'T12:00:00')
+  } else {
+    if (mes === -1) return null
+    const hoje = new Date(); hoje.setHours(0, 0, 0, 0)
+    function tercSex(ano: number, m: number) {
+      const d = new Date(ano, m, 1); const dow = d.getDay()
+      return new Date(ano, m, 1 + (5 - dow + 7) % 7 + 14)
+    }
+    data = tercSex(hoje.getFullYear(), mes)
+    if (data < hoje) data = tercSex(hoje.getFullYear() + 1, mes)
   }
-  let data = tercSex(hoje.getFullYear(), mes)
-  if (data < hoje) data = tercSex(hoje.getFullYear() + 1, mes)
-  return { vencimento: data, isCall, ativo: ticker.slice(0, 4) }
+  // Se a letra não foi reconhecida mas temos data gravada, assume Call por padrão
+  return { vencimento: data, isCall: mes !== -1 ? isCall : true, ativo: ticker.slice(0, 4) }
 }
 /* busca via API server-side para evitar CORS do browser */
 async function buscarPrecos(tickers: string[]): Promise<Record<string, { preco: number | null; variacao: number | null }>> {
@@ -857,7 +865,7 @@ export default function CarteiraPage() {
     const { key, dir } = sortOpcoes
     const hoje = new Date(); hoje.setHours(0,0,0,0)
     return [...posicoesOpcoes].sort((a, b) => {
-      const infoA = infoOpcao(a.ticker), infoB = infoOpcao(b.ticker)
+      const infoA = infoOpcao(a.ticker, a.data_vencimento), infoB = infoOpcao(b.ticker, b.data_vencimento)
       let va: number | string = 0, vb: number | string = 0
       switch (key) {
         case 'ticker':    va = a.ticker;                                          vb = b.ticker; break
@@ -894,8 +902,8 @@ export default function CarteiraPage() {
 
   const virouPo = async (p: Posicao) => {
     setMarcandoPo(p.ticker)
-    const info = infoOpcao(p.ticker)
-    const dataVenc = info ? info.vencimento.toISOString().slice(0,10) : new Date().toISOString().slice(0,10)
+    const info = infoOpcao(p.ticker, p.data_vencimento)
+    const dataVenc = info ? info.vencimento.toISOString().slice(0,10) : (p.data_vencimento ?? new Date().toISOString().slice(0,10))
     const r = await fetch('/api/ir/opcoes/virou-po', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ticker: p.ticker, qtde_liquida: p.quantidade, data_vencimento: dataVenc }),
@@ -919,7 +927,7 @@ export default function CarteiraPage() {
   const virouPoTodas = async () => {
     const hoje = new Date(); hoje.setHours(0,0,0,0)
     const vencidas = posicoesOpcoes.filter(p => {
-      const info = infoOpcao(p.ticker)
+      const info = infoOpcao(p.ticker, p.data_vencimento)
       if (!info) return false
       return info.vencimento < hoje
     })
@@ -932,7 +940,7 @@ export default function CarteiraPage() {
     setMarcandoPoTodas(true)
     let ok = 0, erros = 0
     for (const p of vencidas) {
-      const info = infoOpcao(p.ticker)!
+      const info = infoOpcao(p.ticker, p.data_vencimento)!
       const dataVenc = info.vencimento.toISOString().slice(0,10)
       const r = await fetch('/api/ir/opcoes/virou-po', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -1176,12 +1184,11 @@ export default function CarteiraPage() {
                       </thead>
                       <tbody>
                         {sortedOpcoes.map(p => {
-                          const info = infoOpcao(p.ticker)
-                          if (!info) return null
+                          const info = infoOpcao(p.ticker, p.data_vencimento)
                           const hoje = new Date(); hoje.setHours(0,0,0,0)
-                          const dias = Math.round((info.vencimento.getTime() - hoje.getTime()) / 86400000)
-                          const vencida = dias < 0
-                          const urgente = dias >= 0 && dias <= 5
+                          const dias = info ? Math.round((info.vencimento.getTime() - hoje.getTime()) / 86400000) : null
+                          const vencida = dias !== null && dias < 0
+                          const urgente = dias !== null && dias >= 0 && dias <= 5
                           const titular = p.quantidade > 0
                           const rowBg   = vencida ? 'rgba(239,68,68,.07)' : urgente ? 'rgba(234,184,56,.05)' : 'transparent'
                           return (
@@ -1191,10 +1198,10 @@ export default function CarteiraPage() {
                                   style={{ cursor:'pointer', accentColor:'#ef4444' }} />
                               </td>
                               <td style={{ padding:'10px', fontWeight:800, color:'#e8a020', fontFamily:'monospace' }}>{p.ticker}</td>
-                              <td style={{ padding:'10px', color:'#b8c4d4' }}>{info.ativo}</td>
+                              <td style={{ padding:'10px', color:'#b8c4d4' }}>{info ? info.ativo : p.ticker.slice(0,4)}</td>
                               <td style={{ padding:'10px' }}>
-                                <span style={{ background: info.isCall ? 'rgba(34,197,94,.15)' : 'rgba(239,68,68,.15)', color: info.isCall ? '#22c55e' : '#ef4444', padding:'2px 8px', borderRadius:4, fontSize:11, fontWeight:700 }}>
-                                  {info.isCall ? 'CALL' : 'PUT'}
+                                <span style={{ background: info?.isCall ? 'rgba(34,197,94,.15)' : 'rgba(239,68,68,.15)', color: info?.isCall ? '#22c55e' : '#ef4444', padding:'2px 8px', borderRadius:4, fontSize:11, fontWeight:700 }}>
+                                  {info ? (info.isCall ? 'CALL' : 'PUT') : '—'}
                                 </span>
                               </td>
                               <td style={{ padding:'10px' }}>
@@ -1216,14 +1223,16 @@ export default function CarteiraPage() {
                                 {titular ? '−' : '+'}R$ {f2(Math.abs(p.quantidade) * p.preco_medio)}
                               </td>
                               <td style={{ padding:'10px', fontWeight: (vencida || urgente) ? 700 : 400, color: vencida ? '#ef4444' : urgente ? '#eab838' : '#6b84a8' }}>
-                                {info.vencimento.toLocaleDateString('pt-BR')}
+                                {info ? info.vencimento.toLocaleDateString('pt-BR') : '—'}
                               </td>
                               <td style={{ padding:'10px', textAlign:'center' }}>
-                                {vencida
-                                  ? <span style={{ color:'#ef4444', fontWeight:700, fontSize:12 }}>VENCIDA</span>
-                                  : urgente
-                                    ? <span style={{ color:'#eab838', fontWeight:700 }}>{dias}d ⚠</span>
-                                    : <span style={{ color:'#4a5d73' }}>{dias}d</span>
+                                {dias === null
+                                  ? <span style={{ color:'#4a5d73' }}>—</span>
+                                  : vencida
+                                    ? <span style={{ color:'#ef4444', fontWeight:700, fontSize:12 }}>VENCIDA</span>
+                                    : urgente
+                                      ? <span style={{ color:'#eab838', fontWeight:700 }}>{dias}d ⚠</span>
+                                      : <span style={{ color:'#4a5d73' }}>{dias}d</span>
                                 }
                               </td>
                               <td style={{ padding:'10px' }}>
