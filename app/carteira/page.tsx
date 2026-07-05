@@ -370,6 +370,7 @@ export default function CarteiraPage() {
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
+  const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base'>('acoes')
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [msgPo, setMsgPo] = useState<string | null>(null)
@@ -797,6 +798,36 @@ export default function CarteiraPage() {
     })
   }, [posicoes, sortConfig, metricas])
 
+  const toggleSortOpcoes = (key: string) =>
+    setSortOpcoes(prev => prev?.key === key ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' })
+
+  const sortIconOpcoes = (key: string) =>
+    sortOpcoes?.key === key ? (sortOpcoes.dir === 'asc' ? ' ↑' : ' ↓') : ' ↕'
+
+  const sortedOpcoes = useMemo(() => {
+    if (!sortOpcoes) return posicoesOpcoes
+    const { key, dir } = sortOpcoes
+    const hoje = new Date(); hoje.setHours(0,0,0,0)
+    return [...posicoesOpcoes].sort((a, b) => {
+      const infoA = infoOpcao(a.ticker), infoB = infoOpcao(b.ticker)
+      let va: number | string = 0, vb: number | string = 0
+      switch (key) {
+        case 'ticker':    va = a.ticker;                                          vb = b.ticker; break
+        case 'ativo':     va = a.ticker.slice(0,4);                              vb = b.ticker.slice(0,4); break
+        case 'tipo':      va = infoA?.isCall ? 'CALL' : 'PUT';                   vb = infoB?.isCall ? 'CALL' : 'PUT'; break
+        case 'posicao':   va = a.quantidade < 0 ? 0 : 1;                         vb = b.quantidade < 0 ? 0 : 1; break
+        case 'qtde':      va = Math.abs(a.quantidade);                            vb = Math.abs(b.quantidade); break
+        case 'premio':    va = a.preco_medio;                                     vb = b.preco_medio; break
+        case 'custo':     va = Math.abs(a.quantidade) * a.preco_medio;            vb = Math.abs(b.quantidade) * b.preco_medio; break
+        case 'vencimento':va = infoA ? infoA.vencimento.getTime() : 0;           vb = infoB ? infoB.vencimento.getTime() : 0; break
+        case 'dias':      va = infoA ? Math.round((infoA.vencimento.getTime() - hoje.getTime()) / 86400000) : -99999;
+                          vb = infoB ? Math.round((infoB.vencimento.getTime() - hoje.getTime()) / 86400000) : -99999; break
+      }
+      if (typeof va === 'string') return dir === 'asc' ? va.localeCompare(vb as string) : (vb as string).localeCompare(va)
+      return dir === 'asc' ? (va as number) - (vb as number) : (vb as number) - (va as number)
+    })
+  }, [posicoesOpcoes, sortOpcoes])
+
   const corPL = (v: number) => v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
 
   const toggleDirecaoOpcao = async (p: Posicao) => {
@@ -1066,21 +1097,37 @@ export default function CarteiraPage() {
                           <th style={{ padding:'8px 10px', width:32, textAlign:'center' }}>
                             <input type="checkbox"
                               title="Selecionar todos"
-                              checked={posicoesOpcoes.length > 0 && posicoesOpcoes.every(p => selectedIds.has(p.id))}
+                              checked={sortedOpcoes.length > 0 && sortedOpcoes.every(p => selectedIds.has(p.id))}
                               onChange={e => {
-                                if (e.target.checked) setSelectedIds(prev => new Set([...prev, ...posicoesOpcoes.map(p => p.id)]))
-                                else setSelectedIds(prev => { const n = new Set(prev); posicoesOpcoes.forEach(p => n.delete(p.id)); return n })
+                                if (e.target.checked) setSelectedIds(prev => new Set([...prev, ...sortedOpcoes.map(p => p.id)]))
+                                else setSelectedIds(prev => { const n = new Set(prev); sortedOpcoes.forEach(p => n.delete(p.id)); return n })
                               }}
                               style={{ cursor:'pointer', accentColor:'#ef4444' }}
                             />
                           </th>
-                          {['Ticker','Ativo','Tipo','Posição','Qtde','Prêmio Médio','Custo Total','Vencimento','Dias','Ação'].map(h => (
-                            <th key={h} style={{ padding:'8px 10px', textAlign:'left', fontSize:'10.5px', fontWeight:700, letterSpacing:'.4px', textTransform:'uppercase', color:'#6b84a8', whiteSpace:'nowrap' }}>{h}</th>
+                          {([
+                            { label:'Ticker',       key:'ticker'    },
+                            { label:'Ativo',        key:'ativo'     },
+                            { label:'Tipo',         key:'tipo'      },
+                            { label:'Posição',      key:'posicao'   },
+                            { label:'Qtde',         key:'qtde'      },
+                            { label:'Prêmio Médio', key:'premio'    },
+                            { label:'Custo Total',  key:'custo'     },
+                            { label:'Vencimento',   key:'vencimento'},
+                            { label:'Dias',         key:'dias'      },
+                            { label:'Ação',         key:''          },
+                          ] as { label: string; key: string }[]).map(({ label, key }) => (
+                            <th key={label}
+                              onClick={key ? () => toggleSortOpcoes(key) : undefined}
+                              style={{ padding:'8px 10px', textAlign:'left', fontSize:'10.5px', fontWeight:700, letterSpacing:'.4px', textTransform:'uppercase', color: key && sortOpcoes?.key === key ? '#e8a020' : '#6b84a8', whiteSpace:'nowrap', cursor: key ? 'pointer' : 'default', userSelect:'none' }}
+                            >
+                              {label}{key ? sortIconOpcoes(key) : ''}
+                            </th>
                           ))}
                         </tr>
                       </thead>
                       <tbody>
-                        {posicoesOpcoes.map(p => {
+                        {sortedOpcoes.map(p => {
                           const info = infoOpcao(p.ticker)
                           if (!info) return null
                           const hoje = new Date(); hoje.setHours(0,0,0,0)
