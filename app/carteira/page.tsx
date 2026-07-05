@@ -744,6 +744,25 @@ export default function CarteiraPage() {
   const posicoesAcoes  = posicoes.filter(p => !isOpcaoTicker(p.ticker))
   const posicoesOpcoes = posicoes.filter(p =>  isOpcaoTicker(p.ticker) && !poVencidas.has(p.ticker))
 
+  const totaisOpcoes = useMemo(() => {
+    let credito = 0, debito = 0, contratos = 0
+    for (const p of posicoesOpcoes) {
+      const val = Math.abs(p.quantidade) * p.preco_medio
+      if (p.quantidade < 0) credito += val  // lançador: recebeu prêmio
+      else debito += val                    // titular: pagou prêmio
+      contratos += Math.abs(p.quantidade)
+    }
+    return { credito, debito, net: credito - debito, contratos }
+  }, [posicoesOpcoes])
+
+  const totaisAcoes = useMemo(() => {
+    const investido = sortedPosicoes.reduce((s, p) => s + p.quantidade * p.preco_medio, 0)
+    const atual     = sortedPosicoes.reduce((s, p) => s + p.quantidade * (p.preco_atual ?? p.preco_medio), 0)
+    const pl        = atual - investido
+    const plPct     = Math.abs(investido) > 0.01 ? (pl / Math.abs(investido)) * 100 : 0
+    return { investido, atual, pl, plPct }
+  }, [sortedPosicoes])
+
   const toggleSort = (key: string) =>
     setSortConfig(prev => prev?.key === key ? (prev.dir === 'asc' ? { key, dir: 'desc' } : null) : { key, dir: 'asc' })
 
@@ -1092,6 +1111,35 @@ export default function CarteiraPage() {
                           )
                         })}
                       </tbody>
+                      <tfoot>
+                        <tr style={{ borderTop:'2px solid rgba(255,255,255,.12)', background:'rgba(255,255,255,.025)' }}>
+                          <td colSpan={4} style={{ padding:'9px 10px', color:'#4a5d73', fontSize:11, fontWeight:700, letterSpacing:'.05em' }}>
+                            TOTAL — {posicoesOpcoes.length} opção(ões)
+                          </td>
+                          <td style={{ padding:'9px 10px', color:'#e8edf5', fontWeight:700, textAlign:'right' }}>
+                            {totaisOpcoes.contratos.toLocaleString('pt-BR', { maximumFractionDigits:0 })}
+                          </td>
+                          <td></td>
+                          <td style={{ padding:'9px 10px', fontWeight:700, color: totaisOpcoes.net >= 0 ? '#22c55e' : '#ef4444' }}>
+                            {totaisOpcoes.net >= 0 ? '+' : '−'}R$ {f2(Math.abs(totaisOpcoes.net))}
+                          </td>
+                          <td colSpan={4}></td>
+                        </tr>
+                        <tr style={{ background:'rgba(255,255,255,.015)', borderBottom:'1px solid rgba(255,255,255,.05)' }}>
+                          <td colSpan={11} style={{ padding:'5px 10px', fontSize:11, color:'#4a5d73' }}>
+                            <span style={{ color:'#ffb74d' }}>Lançadores: +R$ {f2(totaisOpcoes.credito)}</span>
+                            <span style={{ color:'#4a5d73', margin:'0 10px' }}>·</span>
+                            <span style={{ color:'#64b5f6' }}>Titulares: −R$ {f2(totaisOpcoes.debito)}</span>
+                            <span style={{ color:'#4a5d73', margin:'0 10px' }}>·</span>
+                            <span style={{ color:'#8da3bc' }}>
+                              Crédito líquido:{' '}
+                              <strong style={{ color: totaisOpcoes.net >= 0 ? '#22c55e' : '#ef4444' }}>
+                                {totaisOpcoes.net >= 0 ? '+' : '−'}R$ {f2(Math.abs(totaisOpcoes.net))}
+                              </strong>
+                            </span>
+                          </td>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                   <div style={{ marginTop:16, display:'flex', gap:20, flexWrap:'wrap', fontSize:11, color:'#4a5d73' }}>
@@ -1200,6 +1248,41 @@ export default function CarteiraPage() {
                     })
                   }
                 </tbody>
+                {sortedPosicoes.length > 0 && (
+                  <tfoot>
+                    <tr style={{ borderTop:'2px solid rgba(255,255,255,.12)', background:'rgba(255,255,255,.025)' }}>
+                      <td></td>
+                      <td colSpan={2} style={{ padding:'9px 10px', color:'#4a5d73', fontSize:11, fontWeight:700, letterSpacing:'.05em' }}>
+                        TOTAL — {sortedPosicoes.length} ativo(s)
+                      </td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', color:'#8da3bc', fontSize:11 }}>—</td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', color:'#8da3bc', fontSize:11 }}>—</td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', color:'#8da3bc', fontSize:11 }}>—</td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', color:'#8da3bc', fontSize:11 }}>—</td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', fontWeight:700, color: totaisAcoes.pl >= 0 ? '#00d4a0' : '#ef4444' }}>
+                        {totaisAcoes.pl >= 0 ? '+' : ''}R$ {f2(totaisAcoes.pl)}
+                      </td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', fontWeight:700, color: totaisAcoes.plPct >= 0 ? '#00d4a0' : '#ef4444' }}>
+                        {totaisAcoes.plPct >= 0 ? '+' : ''}{f1(totaisAcoes.plPct)}%
+                      </td>
+                      <td style={{ padding:'9px 10px', textAlign:'right', fontWeight:700, color:'#e8edf5' }}>
+                        R$ {f2(totaisAcoes.atual)}
+                      </td>
+                      <td colSpan={4}></td>
+                    </tr>
+                    <tr style={{ background:'rgba(255,255,255,.015)', borderBottom:'1px solid rgba(255,255,255,.05)' }}>
+                      <td colSpan={14} style={{ padding:'5px 10px', fontSize:11, color:'#4a5d73' }}>
+                        <span style={{ color:'#8da3bc' }}>Investido: <strong style={{ color:'#e8edf5' }}>R$ {f2(totaisAcoes.investido)}</strong></span>
+                        <span style={{ color:'#4a5d73', margin:'0 10px' }}>·</span>
+                        <span style={{ color:'#8da3bc' }}>Atual: <strong style={{ color:'#e8edf5' }}>R$ {f2(totaisAcoes.atual)}</strong></span>
+                        <span style={{ color:'#4a5d73', margin:'0 10px' }}>·</span>
+                        <span style={{ color:'#8da3bc' }}>P&L: <strong style={{ color: totaisAcoes.pl >= 0 ? '#00d4a0' : '#ef4444' }}>
+                          {totaisAcoes.pl >= 0 ? '+' : ''}R$ {f2(totaisAcoes.pl)} ({totaisAcoes.plPct >= 0 ? '+' : ''}{f1(totaisAcoes.plPct)}%)
+                        </strong></span>
+                      </td>
+                    </tr>
+                  </tfoot>
+                )}
               </table>
             </div>
           )}
