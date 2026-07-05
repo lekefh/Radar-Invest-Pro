@@ -103,7 +103,19 @@ export async function ensureCarteiraTables() {
       ticker      TEXT NOT NULL,
       quantidade  NUMERIC NOT NULL DEFAULT 0,
       preco_medio NUMERIC NOT NULL DEFAULT 0,
+      cnpj        TEXT,
       UNIQUE(user_id, ticker)
+    )
+  `
+  await sql`ALTER TABLE posicao_base_itens ADD COLUMN IF NOT EXISTS cnpj TEXT`
+
+  // Cadastro de CNPJ por ticker — reutilizado na declaração de IR
+  await sql`
+    CREATE TABLE IF NOT EXISTS empresa_cnpj (
+      ticker TEXT PRIMARY KEY,
+      cnpj   TEXT NOT NULL,
+      nome   TEXT,
+      atualizado_em TIMESTAMPTZ DEFAULT NOW()
     )
   `
 

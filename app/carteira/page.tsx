@@ -418,13 +418,14 @@ export default function CarteiraPage() {
   }
 
   /* ── Posição Base ──────────────────────────────────────────────────────── */
-  interface BaseItem { ticker: string; quantidade: number; preco_medio: number }
+  interface BaseItem { ticker: string; quantidade: number; preco_medio: number; cnpj?: string }
   const [baseData, setBaseData] = useState<string>(new Date().toISOString().slice(0, 10))
   const [baseItens, setBaseItens] = useState<BaseItem[]>([])
   const [basePrejSwing, setBasePrejSwing] = useState('0')
   const [basePrejDay, setBasePrejDay] = useState('0')
   const [salvandoBase, setSalvandoBase] = useState(false)
   const [loadingBase, setLoadingBase] = useState(false)
+  const [importandoBase, setImportandoBase] = useState(false)
 
   const carregarBase = useCallback(async () => {
     setLoadingBase(true)
@@ -458,6 +459,24 @@ export default function CarteiraPage() {
       await carregarCarteira()
     } catch { alert('Erro de conexão.') }
     finally { setSalvandoBase(false) }
+  }
+
+  const handleImportarBase = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImportandoBase(true)
+    try {
+      const fd = new FormData()
+      fd.append('planilha', file)
+      const r = await fetch('/api/carteira/posicao-base/importar', { method: 'POST', body: fd })
+      const d = await r.json()
+      if (!r.ok) { alert(d.error ?? 'Erro ao ler planilha.'); return }
+      if (d.avisos?.length) alert('Avisos:\n' + d.avisos.join('\n'))
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setBaseItens(d.itens.map((i: any) => ({ ticker: i.ticker, quantidade: i.quantidade, preco_medio: i.preco_medio, cnpj: i.cnpj ?? '' })))
+      alert(`${d.total} ativo(s) importado(s) da aba "${d.aba}". Revise e clique em Salvar.`)
+    } catch { alert('Erro de conexão.') }
+    finally { setImportandoBase(false); e.target.value = '' }
   }
 
   useEffect(() => {
@@ -1226,18 +1245,30 @@ export default function CarteiraPage() {
 
                   {/* Tabela de posições base */}
                   <div>
-                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10 }}>
-                      <label style={{ fontSize:12, fontWeight:600, color:'#6b84a8' }}>Posições na data base</label>
-                      <button onClick={() => setBaseItens(p => [...p, { ticker:'', quantidade:0, preco_medio:0 }])}
-                        style={{ background:'#0e2a4a', border:'1px solid rgba(255,255,255,.12)', color:'#90CAF9', padding:'4px 12px', borderRadius:6, fontSize:11, cursor:'pointer', fontWeight:600 }}>
-                        + Ativo
-                      </button>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10, flexWrap:'wrap', gap:8 }}>
+                      <label style={{ fontSize:12, fontWeight:600, color:'#6b84a8' }}>
+                        Posições na data base
+                        {baseItens.length > 0 && <span style={{ color:'#e8a020', marginLeft:6 }}>({baseItens.length} ativos)</span>}
+                      </label>
+                      <div style={{ display:'flex', gap:8 }}>
+                        <label style={{ background:'#0e2a4a', border:'1px solid rgba(255,255,255,.12)', color:'#90CAF9', padding:'4px 14px', borderRadius:6, fontSize:11, cursor: importandoBase ? 'wait' : 'pointer', fontWeight:600, display:'flex', alignItems:'center', gap:6 }}>
+                          {importandoBase ? '⏳ Lendo…' : '📂 Importar Planilha'}
+                          <input type="file" accept=".xlsx,.xls" onChange={handleImportarBase} style={{ display:'none' }} disabled={importandoBase} />
+                        </label>
+                        <button onClick={() => setBaseItens(p => [...p, { ticker:'', quantidade:0, preco_medio:0, cnpj:'' }])}
+                          style={{ background:'#0e2a4a', border:'1px solid rgba(255,255,255,.12)', color:'#90CAF9', padding:'4px 12px', borderRadius:6, fontSize:11, cursor:'pointer', fontWeight:600 }}>
+                          + Ativo
+                        </button>
+                      </div>
                     </div>
+                    <p style={{ fontSize:11, color:'#4a5d73', marginBottom:8 }}>
+                      Colunas esperadas na planilha: <strong style={{ color:'#6b84a8' }}>Ativo · CNPJ · Qtd · Preço médio</strong> — o CNPJ é usado na declaração de IR.
+                    </p>
                     <div style={{ overflowX:'auto' }}>
                       <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
                         <thead>
                           <tr style={{ color:'#4a5d73', borderBottom:'1px solid rgba(255,255,255,.07)' }}>
-                            {['Ticker', 'Quantidade', 'Preço Médio (R$)', ''].map(h => (
+                            {['Ticker', 'CNPJ', 'Quantidade', 'Preço Médio (R$)', ''].map(h => (
                               <th key={h} style={{ padding:'5px 8px', textAlign:'left', fontWeight:600 }}>{h}</th>
                             ))}
                           </tr>
@@ -1247,12 +1278,17 @@ export default function CarteiraPage() {
                             <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)' }}>
                               <td style={{ padding:'4px 6px' }}>
                                 <input value={item.ticker} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, ticker:e.target.value.toUpperCase()} : x))}
-                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:90, outline:'none' }}
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:80, outline:'none' }}
                                   placeholder="PETR4" />
                               </td>
                               <td style={{ padding:'4px 6px' }}>
+                                <input value={item.cnpj ?? ''} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, cnpj:e.target.value} : x))}
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color: item.cnpj ? '#e8edf5' : '#4a5d73', fontSize:12, width:150, outline:'none' }}
+                                  placeholder="00.000.000/0001-00" />
+                              </td>
+                              <td style={{ padding:'4px 6px' }}>
                                 <input type="number" min="1" value={item.quantidade || ''} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, quantidade:parseFloat(e.target.value)||0} : x))}
-                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:90, outline:'none' }} />
+                                  style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.1)', borderRadius:5, padding:'4px 8px', color:'#e8edf5', fontSize:12, width:80, outline:'none' }} />
                               </td>
                               <td style={{ padding:'4px 6px' }}>
                                 <input type="number" min="0.01" step="0.01" value={item.preco_medio || ''} onChange={e => setBaseItens(p => p.map((x,j) => j===i ? {...x, preco_medio:parseFloat(e.target.value)||0} : x))}
@@ -1265,7 +1301,7 @@ export default function CarteiraPage() {
                             </tr>
                           ))}
                           {baseItens.length === 0 && (
-                            <tr><td colSpan={4} style={{ padding:'14px 8px', color:'#4a5d73', fontSize:12 }}>Nenhum ativo — clique em &quot;+ Ativo&quot; para adicionar.</td></tr>
+                            <tr><td colSpan={5} style={{ padding:'14px 8px', color:'#4a5d73', fontSize:12 }}>Nenhum ativo — importe a planilha ou clique em &quot;+ Ativo&quot;.</td></tr>
                           )}
                         </tbody>
                       </table>
