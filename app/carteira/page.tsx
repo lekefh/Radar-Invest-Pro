@@ -373,6 +373,15 @@ export default function CarteiraPage() {
   const [msgPo, setMsgPo] = useState<string | null>(null)
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
   const [togglingDirecao, setTogglingDirecao] = useState<number | null>(null)
+  const [removendoOpcao, setRemovendoOpcao] = useState<number | null>(null)
+
+  const removerOpcao = async (p: Posicao) => {
+    if (!confirm(`Remover ${p.ticker} da carteira?`)) return
+    setRemovendoOpcao(p.id)
+    await fetch(`/api/carteira/${p.id}`, { method: 'DELETE' })
+    setPosicoes(prev => prev.filter(x => x.id !== p.id))
+    setRemovendoOpcao(null)
+  }
 
   /* ── Importações (histórico de lotes) ──────────────────────────────────── */
   interface ImportBatch {
@@ -886,7 +895,7 @@ export default function CarteiraPage() {
               ) : (
                 <>
                   <div style={{ fontSize:12, color:'#4a5d73', marginBottom:14 }}>
-                    Vencimento = terceira segunda-feira do mês (B3) · 🔴 vencida · 🟡 ≤5 dias
+                    Vencimento = terceira sexta-feira do mês (B3) · 🔴 vencida · 🟡 ≤5 dias
                   </div>
                   <div style={{ overflowX:'auto' }}>
                     <table style={{ width:'100%', borderCollapse:'collapse', fontSize:13, minWidth:800 }}>
@@ -946,14 +955,24 @@ export default function CarteiraPage() {
                                 }
                               </td>
                               <td style={{ padding:'10px' }}>
-                                <button
-                                  onClick={() => virouPo(p)}
-                                  disabled={marcandoPo === p.ticker || poVencidas.has(p.ticker)}
-                                  title={titular ? `Registrar perda de R$ ${f2(Math.abs(p.quantidade)*p.preco_medio)} no IR` : 'Encerrar lançamento — opção expirou sem exercício'}
-                                  style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 11px', whiteSpace:'nowrap', opacity: (marcandoPo===p.ticker || poVencidas.has(p.ticker)) ? .4 : 1 }}
-                                >
-                                  {marcandoPo===p.ticker ? '...' : poVencidas.has(p.ticker) ? '✓ Registrado' : '💀 Virou Pó'}
-                                </button>
+                                <div style={{ display:'flex', gap:6, alignItems:'center' }}>
+                                  <button
+                                    onClick={() => virouPo(p)}
+                                    disabled={marcandoPo === p.ticker || poVencidas.has(p.ticker)}
+                                    title={titular ? `Registrar perda de R$ ${f2(Math.abs(p.quantidade)*p.preco_medio)} no IR` : 'Encerrar lançamento — opção expirou sem exercício'}
+                                    style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 10px', whiteSpace:'nowrap', opacity: (marcandoPo===p.ticker || poVencidas.has(p.ticker)) ? .4 : 1 }}
+                                  >
+                                    {marcandoPo===p.ticker ? '...' : poVencidas.has(p.ticker) ? '✓ Registrado' : '💀 Virou Pó'}
+                                  </button>
+                                  <button
+                                    onClick={() => removerOpcao(p)}
+                                    disabled={removendoOpcao === p.id}
+                                    title={`Remover ${p.ticker} da carteira`}
+                                    style={{ background:'rgba(100,100,120,.15)', border:'1px solid rgba(255,255,255,.12)', color:'#6b84a8', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 10px', whiteSpace:'nowrap', opacity: removendoOpcao===p.id ? .4 : 1 }}
+                                  >
+                                    {removendoOpcao===p.id ? '...' : '🗑 Remover'}
+                                  </button>
+                                </div>
                               </td>
                             </tr>
                           )
