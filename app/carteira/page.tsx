@@ -94,30 +94,25 @@ const fR = (v: number | null | undefined) =>
   v == null ? '—' : 'R$ ' + f2(v)
 
 /* ── Opções B3 ───────────────────────────────────────────────────────────────── */
-const LETRAS_CALL = 'ABCDEFGHIJKL'
-const LETRAS_PUT  = 'MNOPQRSTUVWX'
-
 function isOpcaoTicker(ticker: string) {
   return /^[A-Z]{4}[A-Z]\d+$/.test(ticker)
-}
-
-function terceiraSegunda(ano: number, mes: number): Date {
-  const d = new Date(ano, mes, 1)
-  const dow = d.getDay()
-  const diasAte = dow === 1 ? 0 : (8 - dow) % 7
-  return new Date(ano, mes, 1 + diasAte + 14)
 }
 
 function infoOpcao(ticker: string): { vencimento: Date; isCall: boolean; ativo: string } | null {
   if (!isOpcaoTicker(ticker) || ticker.length < 5) return null
   const letra = ticker[4].toUpperCase()
-  let mes = LETRAS_CALL.indexOf(letra)
+  // Calls: A=Jan … L=Dez | Puts: M=Jan … X=Dez (terceira segunda-feira do mês — B3)
+  let mes = 'ABCDEFGHIJKL'.indexOf(letra)
   let isCall = true
-  if (mes === -1) { mes = LETRAS_PUT.indexOf(letra); isCall = false }
+  if (mes === -1) { mes = 'MNOPQRSTUVWX'.indexOf(letra); isCall = false }
   if (mes === -1) return null
-  const hoje = new Date(); hoje.setHours(0,0,0,0)
-  let data = terceiraSegunda(hoje.getFullYear(), mes)
-  if (data < hoje) data = terceiraSegunda(hoje.getFullYear() + 1, mes)
+  const hoje = new Date(); hoje.setHours(0, 0, 0, 0)
+  function tercSeg(ano: number, m: number) {
+    const d = new Date(ano, m, 1); const dow = d.getDay()
+    return new Date(ano, m, 1 + (dow === 1 ? 0 : (8 - dow) % 7) + 14)
+  }
+  let data = tercSeg(hoje.getFullYear(), mes)
+  if (data < hoje) data = tercSeg(hoje.getFullYear() + 1, mes)
   return { vencimento: data, isCall, ativo: ticker.slice(0, 4) }
 }
 /* busca via API server-side para evitar CORS do browser */
