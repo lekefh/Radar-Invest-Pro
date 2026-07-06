@@ -13,11 +13,12 @@ interface Apuracao {
 interface Darf { id: number; competencia: string; codigo_receita: string; valor: number; vencimento: string; status: string }
 interface Mov { id: number; data: string; ticker: string; tipo: string; quantidade: number; preco: number; valor_total: number; corretora: string | null }
 interface DetalheOp {
-  data: string; ticker: string; modalidade: 'acao_swing' | 'opcao_swing' | 'day_trade'
-  quantidade: number; preco_venda: number; custo_medio: number; lucro: number; valor_venda: number
+  data: string; ticker: string; modalidade: 'acao_swing' | 'opcao_lancador_encerra' | 'opcao_titular_encerra' | 'day_trade'
+  descricao: string; quantidade: number; preco_venda: number; custo_medio: number; lucro: number; valor_venda: number
 }
 interface DetalheApuracao {
   anoMes: string; operacoes: DetalheOp[]; posIniCadastrada: boolean; alerta: string | null
+  temLancamentosNaoTributados: boolean
 }
 
 interface PosicaoOpcao {
@@ -437,6 +438,12 @@ export default function PaginaIR() {
                   </div>
                 )}
 
+                {detalhe.temLancamentosNaoTributados && (
+                  <div style={{ background: 'rgba(96,165,250,.08)', border: '1px solid rgba(96,165,250,.25)', borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 12, color: '#60a5fa' }}>
+                    ℹ Lançamentos de opções abertos neste mês <strong>não aparecem aqui</strong> — o resultado é tributado quando a posição fecha (expiração ou recompra), não no lançamento.
+                  </div>
+                )}
+
                 {detalhe.operacoes.length === 0 ? (
                   <div style={{ color: '#4a5d73', fontSize: 13, textAlign: 'center', padding: '20px 0' }}>
                     Nenhuma venda encontrada neste mês.
@@ -453,9 +460,15 @@ export default function PaginaIR() {
                       </thead>
                       <tbody>
                         {detalhe.operacoes.map((op, i) => {
-                          const modLabel = op.modalidade === 'acao_swing' ? 'Ação SW' : op.modalidade === 'opcao_swing' ? 'Opção SW' : 'Day Trade'
-                          const modColor = op.modalidade === 'day_trade' ? '#a78bfa' : op.modalidade === 'opcao_swing' ? '#60a5fa' : '#94a3b8'
-                          const custoZero = op.custo_medio === 0
+                          const modLabel = op.modalidade === 'acao_swing' ? 'Ação SW'
+                            : op.modalidade === 'day_trade' ? 'Day Trade'
+                            : op.modalidade === 'opcao_lancador_encerra' ? 'Opção Lançador'
+                            : 'Opção Titular'
+                          const modColor = op.modalidade === 'day_trade' ? '#a78bfa'
+                            : op.modalidade === 'opcao_lancador_encerra' ? '#fb923c'
+                            : op.modalidade === 'opcao_titular_encerra' ? '#60a5fa'
+                            : '#94a3b8'
+                          const custoZero = op.custo_medio === 0 && op.modalidade === 'acao_swing'
                           return (
                             <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', background: custoZero ? 'rgba(239,68,68,.04)' : 'transparent' }}>
                               <td style={{ padding: '7px 10px', color: '#6b84a8' }}>{op.data.slice(5).replace('-','/')}/{op.data.slice(0,4)}</td>
@@ -464,9 +477,9 @@ export default function PaginaIR() {
                                 <span style={{ background: 'rgba(255,255,255,.06)', color: modColor, padding: '2px 7px', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>{modLabel}</span>
                               </td>
                               <td style={{ padding: '7px 10px', textAlign: 'right', color: '#6b84a8' }}>{op.quantidade}</td>
-                              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#e0e6f0' }}>{BRL(op.preco_venda)}</td>
+                              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#e0e6f0', fontSize: 11 }} title={op.descricao}>{BRL(op.preco_venda)}</td>
                               <td style={{ padding: '7px 10px', textAlign: 'right', color: custoZero ? '#ef4444' : '#6b84a8' }}>
-                                {custoZero ? <span title="Custo médio zero — sem compra anterior nem posição inicial cadastrada">⚠ {BRL(0)}</span> : BRL(op.custo_medio)}
+                                {custoZero ? <span title={op.descricao}>⚠ {BRL(0)}</span> : BRL(op.custo_medio)}
                               </td>
                               <td style={{ padding: '7px 10px', textAlign: 'right', color: '#6b84a8' }}>{BRL(op.valor_venda)}</td>
                               <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700, color: op.lucro >= 0 ? '#22c55e' : '#ef4444' }}>

@@ -6,24 +6,20 @@ async function uid(): Promise<number | null> {
   const s = await getSession(); return s ? Number(s.sub) : null
 }
 
-// ── Constantes fiscais ────────────────────────────────────────────────────────
 const ALIQ_SWING      = 0.15
 const ALIQ_DAY        = 0.20
 const ISENCAO_SWING   = 20000
-const IRRF_SWING_PCT  = 0.00005   // 0,005% sobre valor bruto das vendas (dedo-duro)
-const IRRF_DAY_PCT    = 0.01      // 1% sobre resultado líquido positivo
+const IRRF_SWING_PCT  = 0.00005
+const IRRF_DAY_PCT    = 0.01
 const MIN_DARF        = 10
 
 const PREFIXOS_FUTUROS = ['WIN','WDO','DOL','IND','BGI','DI1','DAP','FRC','ISP','CNI','EUR','GBP','JPY','OZ1']
-
 function isFuturo(ticker: string): boolean {
   const t = ticker.toUpperCase().replace(/F$/, '')
   if (PREFIXOS_FUTUROS.some(p => t.startsWith(p))) return true
   return /^[A-Z]{2,4}[FGHJKMNQUVXZ]\d{2}$/.test(t)
 }
-
 function isOpcao(ticker: string): boolean {
-  // 4 letras (ativo) + letra série A-X (calls A-L, puts M-X) + strike alfanumérico (ex: 295E, 254W1E)
   return /^[A-Z]{4}[A-X][A-Z0-9]{2,}$/.test(ticker)
 }
 
@@ -31,7 +27,6 @@ interface Op {
   data: string; ticker: string; tipo: string
   quantidade: number; preco: number; valor_total: number
 }
-
 interface PosIni { qtde: number; preco_medio: number }
 
 function custoMedioAte(
@@ -40,7 +35,6 @@ function custoMedioAte(
 ): number {
   let qtdeAcc = posIni?.qtde ?? 0
   let custoAcc = (posIni?.qtde ?? 0) * (posIni?.preco_medio ?? 0)
-
   for (const op of todasOps) {
     if (op.ticker !== ticker || op.tipo !== 'C') continue
     const mes = op.data.slice(0, 7)
@@ -53,10 +47,78 @@ function custoMedioAte(
 }
 
 /**
- * POST /api/ir/apurar
- * Body: { ano: number, mes: number }
- * Retorna o resultado calculado e salva em ir_apuracao_mensal.
+ * Calcula o lucro de opções para o mês usando lógica correta de lançador/titular.
+ *
+ * Lançador (vende para abrir): o resultado é realizado quando fecha (C) — não no lançamento (V).
+ * Titular (compra para abrir): o resultado é realizado quando vende (V).
+ * Virou pó para lançador: C a R$0 = encerramento com lucro = prêmio recebido.
  */
+function lucroOpcoesMes(
+  ticker: string, anoMes: string,
+  todasOps: Op[], posIni: PosIni | null
+): number {
+  const ini = posIni
+  let qtde = ini?.qtde ?? 0          // + = titular, - = lançador
+
+  let premioLancado = 0, qtdeLancada = 0     // pool do lançador
+  let custoComprado = 0, qtdeComprado = 0    // pool do titular
+
+  // Inicializa a partir da posição base
+  if (qtde < 0) {
+    qtdeLancada  = Math.abs(qtde)
+    premioLancado = qtdeLancada * (ini?.preco_medio ?? 0)
+  } else if (qtde > 0) {
+    qtdeComprado = qtde
+    custoComprado = qtde * (ini?.preco_medio ?? 0)
+  }
+
+  let lucro = 0
+
+  for (const op of todasOps.filter(o => o.ticker === ticker)) {
+    const isCurrent = op.data.slice(0, 7) === anoMes
+
+    if (op.tipo === 'C') {
+      if (qtde < 0) {
+        // Lançador encerrando posição (parcial ou total)
+        const qClose = Math.min(op.quantidade, Math.abs(qtde))
+        const pmV = qtdeLancada > 0 ? premioLancado / qtdeLancada : 0
+        if (isCurrent) lucro += (pmV - op.preco) * qClose  // ganho = prêmio recebido - custo de recompra
+        qtde          += qClose
+        qtdeLancada    = Math.max(0, qtdeLancada - qClose)
+        premioLancado  = Math.max(0, premioLancado - pmV * qClose)
+        // Qtde restante da compra vira nova posição titular
+        const qRemain = op.quantidade - qClose
+        if (qRemain > 0.001) {
+          qtde += qRemain; custoComprado += qRemain * op.preco; qtdeComprado += qRemain
+        }
+      } else {
+        // Titular abrindo posição
+        qtde += op.quantidade; custoComprado += op.quantidade * op.preco; qtdeComprado += op.quantidade
+      }
+    } else { // tipo === 'V'
+      if (qtde > 0) {
+        // Titular encerrando posição (parcial ou total)
+        const qClose = Math.min(op.quantidade, qtde)
+        const pmC = qtdeComprado > 0 ? custoComprado / qtdeComprado : 0
+        if (isCurrent) lucro += (op.preco - pmC) * qClose  // ganho = preço de venda - custo médio compra
+        qtde         -= qClose
+        qtdeComprado  = Math.max(0, qtdeComprado - qClose)
+        custoComprado = Math.max(0, custoComprado - pmC * qClose)
+        // Qtde restante da venda vira novo lançamento
+        const qRemain = op.quantidade - qClose
+        if (qRemain > 0.001) {
+          qtde -= qRemain; premioLancado += qRemain * op.preco; qtdeLancada += qRemain
+        }
+      } else {
+        // Lançamento (abrindo posição short) — NÃO é evento tributável ainda
+        qtde -= op.quantidade; premioLancado += op.quantidade * op.preco; qtdeLancada += op.quantidade
+      }
+    }
+  }
+
+  return lucro
+}
+
 export async function POST(req: NextRequest) {
   const userId = await uid()
   if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
@@ -69,7 +131,6 @@ export async function POST(req: NextRequest) {
 
   const anoMes = `${String(ano).padStart(4,'0')}-${String(mes).padStart(2,'0')}`
 
-  // ── Busca TODAS as movimentações do usuário (para custo médio histórico) ──
   const todasOpsRaw = await sql`
     SELECT data::text, ticker, tipo, quantidade::float, preco::float, valor_total::float
     FROM movimentacoes
@@ -80,17 +141,14 @@ export async function POST(req: NextRequest) {
     .filter(r => !isFuturo(r.ticker))
     .map(r => ({ ...r, data: String(r.data).slice(0,10) }))
 
-  // Ops do mês corrente
   const opsDoMes = todasOps.filter(op => op.data.slice(0, 7) === anoMes)
 
-  // ── Posições iniciais ──────────────────────────────────────────────────────
   const posInisRaw = await sql`
     SELECT ticker, qtde::float, preco_medio::float FROM ir_posicao_inicial WHERE user_id=${userId}
   `
   const posIniMap = new Map<string, PosIni>()
   for (const r of posInisRaw) posIniMap.set(r.ticker, { qtde: Number(r.qtde), preco_medio: Number(r.preco_medio) })
 
-  // ── Saldo de prejuízo anterior ────────────────────────────────────────────
   const prejRows = await sql`
     SELECT modalidade, valor::float FROM ir_prejuizo_acumulado WHERE user_id=${userId}
   `
@@ -100,12 +158,11 @@ export async function POST(req: NextRequest) {
     else if (r.modalidade === 'day') prejDay = Number(r.valor)
   }
 
-  // ── Day trade detection: mesmo ticker, mesmo dia, C + V ───────────────────
+  // ── Day trade detection ───────────────────────────────────────────────────
   type DayEntry = { cQty: number; cVal: number; vQty: number; vVal: number }
   const porDia = new Map<string, DayEntry>()
-
   for (const op of opsDoMes) {
-    if (isOpcao(op.ticker)) continue // opcoes não têm day trade para fins de IR
+    if (isOpcao(op.ticker)) continue
     const key = `${op.data}|${op.ticker}`
     if (!porDia.has(key)) porDia.set(key, { cQty: 0, cVal: 0, vQty: 0, vVal: 0 })
     const d = porDia.get(key)!
@@ -116,7 +173,6 @@ export async function POST(req: NextRequest) {
   const dayQtyMap    = new Map<string, number>()
   const dayResultMap = new Map<string, number>()
   const irrfMap      = new Map<string, number>()
-
   for (const [key, d] of porDia) {
     if (d.cQty > 0 && d.vQty > 0) {
       const qDay = Math.min(d.cQty, d.vQty)
@@ -127,39 +183,38 @@ export async function POST(req: NextRequest) {
       irrfMap.set(key, pmV * qDay * IRRF_DAY_PCT)
     }
   }
-
   const lucroDay = [...dayResultMap.values()].reduce((s, v) => s + v, 0)
   const irrf     = [...irrfMap.values()].reduce((s, v) => s + v, 0)
 
-  // ── Swing trade ───────────────────────────────────────────────────────────
-  let lucroAcaoSw   = 0
-  let lucroOpcaoSw  = 0
-  let vendasAcaoSw  = 0
-  let irrfSwing     = 0           // dedo-duro: 0,005% sobre valor bruto das vendas
+  // ── Ações swing ───────────────────────────────────────────────────────────
+  let lucroAcaoSw  = 0
+  let vendasAcaoSw = 0
+  let irrfSwing    = 0
   const vUsed = new Map<string, number>()
 
   for (const op of opsDoMes) {
-    if (op.tipo !== 'V') continue
-
-    if (isOpcao(op.ticker)) {
+    if (op.tipo !== 'V' || isOpcao(op.ticker)) continue
+    const key = `${op.data}|${op.ticker}`
+    const qDayV   = dayQtyMap.get(key) ?? 0
+    const jaUsed  = vUsed.get(key) ?? 0
+    const qDayEsta = Math.max(0, Math.min(qDayV - jaUsed, op.quantidade))
+    vUsed.set(key, jaUsed + qDayEsta)
+    const qSw = op.quantidade - qDayEsta
+    if (qSw > 0.001) {
       const pm = custoMedioAte(op.ticker, op.data, anoMes, todasOps, posIniMap.get(op.ticker) ?? null)
-      lucroOpcaoSw += (op.preco - pm) * op.quantidade
-    } else {
-      const key = `${op.data}|${op.ticker}`
-      const qDayV  = dayQtyMap.get(key) ?? 0
-      const jaUsed = vUsed.get(key) ?? 0
-      const qDayEsta = Math.max(0, Math.min(qDayV - jaUsed, op.quantidade))
-      vUsed.set(key, jaUsed + qDayEsta)
-
-      const qSw = op.quantidade - qDayEsta
-      if (qSw > 0.001) {
-        const pm = custoMedioAte(op.ticker, op.data, anoMes, todasOps, posIniMap.get(op.ticker) ?? null)
-        const valorVendaSw = op.preco * qSw
-        lucroAcaoSw  += (op.preco - pm) * qSw
-        vendasAcaoSw += valorVendaSw
-        irrfSwing    += valorVendaSw * IRRF_SWING_PCT
-      }
+      const valorVendaSw = op.preco * qSw
+      lucroAcaoSw  += (op.preco - pm) * qSw
+      vendasAcaoSw += valorVendaSw
+      irrfSwing    += valorVendaSw * IRRF_SWING_PCT
     }
+  }
+
+  // ── Opções swing — lógica correta lançador/titular ────────────────────────
+  // Coleta tickers de opções que tiveram QUALQUER movimentação no mês
+  const opcaoTickersMes = new Set(opsDoMes.filter(o => isOpcao(o.ticker)).map(o => o.ticker))
+  let lucroOpcaoSw = 0
+  for (const ticker of opcaoTickersMes) {
+    lucroOpcaoSw += lucroOpcoesMes(ticker, anoMes, todasOps, posIniMap.get(ticker) ?? null)
   }
 
   // ── Isenção R$20k ─────────────────────────────────────────────────────────
@@ -171,11 +226,7 @@ export async function POST(req: NextRequest) {
   if (lucroSwTotal > 0) {
     const base = Math.max(0, lucroSwTotal - prejSwing)
     prejSwing  = Math.max(0, prejSwing - lucroSwTotal)
-    if (isento) {
-      irSwing = Math.max(0, lucroOpcaoSw) * ALIQ_SWING
-    } else {
-      irSwing = base * ALIQ_SWING
-    }
+    irSwing    = isento ? Math.max(0, lucroOpcaoSw) * ALIQ_SWING : base * ALIQ_SWING
   } else {
     prejSwing += Math.abs(lucroSwTotal)
   }
@@ -191,13 +242,11 @@ export async function POST(req: NextRequest) {
   }
 
   const irDevidoDay      = Math.max(0, irDay - irrf)
-  const irDevidoSwingBruto = Math.max(0, irSwing - irrfSwing)
-  const irDevidoSwing    = irDevidoSwingBruto >= MIN_DARF ? irDevidoSwingBruto : 0
-  const irDevidoDayFinal = irDevidoDay        >= MIN_DARF ? irDevidoDay        : 0
+  const irDevidoSwBruto  = Math.max(0, irSwing - irrfSwing)
+  const irDevidoSwing    = irDevidoSwBruto  >= MIN_DARF ? irDevidoSwBruto  : 0
+  const irDevidoDayFinal = irDevidoDay      >= MIN_DARF ? irDevidoDay      : 0
 
-  // ── Salva resultado ───────────────────────────────────────────────────────
   await sql`ALTER TABLE ir_apuracao_mensal ADD COLUMN IF NOT EXISTS irrf_swing NUMERIC DEFAULT 0`
-
   await sql`
     INSERT INTO ir_apuracao_mensal
       (user_id, ano_mes, vendas_acao_sw, lucro_acao_sw, lucro_opcao_sw, lucro_day,
@@ -218,7 +267,6 @@ export async function POST(req: NextRequest) {
       calculado_em=NOW()
   `
 
-  // Atualiza saldo de prejuízo acumulado
   for (const [mod, val] of [['swing', prejSwing], ['day', prejDay]] as [string, number][]) {
     await sql`
       INSERT INTO ir_prejuizo_acumulado (user_id, modalidade, valor)
@@ -228,11 +276,11 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({
-    anoMes, vendasAcaoSw: r(vendasAcaoSw), lucroAcaoSw: r(lucroAcaoSw),
-    lucroOpcaoSw: r(lucroOpcaoSw), lucroDay: r(lucroDay),
-    isento, prejSwing: r(prejSwing), prejDay: r(prejDay),
-    irSwing: r(irSwing), irDay: r(irDay), irrf: r(irrf),
-    irDevidoSwing: r(irDevidoSwing), irDevidoDay: r(irDevidoDayFinal),
+    ano_mes: anoMes, vendas_acao_sw: r(vendasAcaoSw), lucro_acao_sw: r(lucroAcaoSw),
+    lucro_opcao_sw: r(lucroOpcaoSw), lucro_day: r(lucroDay),
+    isento_swing: isento, prej_swing_ac: r(prejSwing), prej_day_ac: r(prejDay),
+    ir_swing: r(irSwing), ir_day: r(irDay), irrf_day: r(irrf),
+    ir_devido_swing: r(irDevidoSwing), ir_devido_day: r(irDevidoDayFinal),
     totalOpsDoMes: opsDoMes.length,
   })
 }
