@@ -430,6 +430,7 @@ export default function CarteiraPage() {
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base'>('acoes')
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [desfazendoPo, setDesfazendoPo] = useState<string | null>(null)
+  const [encerradasExpandidas, setEncerradasExpandidas] = useState(true)
   const [msgPo, setMsgPo] = useState<string | null>(null)
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
   const [marcandoPoTodas, setMarcandoPoTodas] = useState(false)
@@ -1336,26 +1337,36 @@ export default function CarteiraPage() {
                     if (encerradasSemLinha.length === 0) return null
                     return (
                       <div style={{ marginTop:20, background:'rgba(234,184,56,.06)', border:'1px solid rgba(234,184,56,.2)', borderRadius:8, padding:'12px 16px' }}>
-                        <div style={{ fontSize:12, fontWeight:700, color:'#eab838', marginBottom:10 }}>
-                          Registradas como Virou Pó (fora da carteira)
+                        <div
+                          onClick={() => setEncerradasExpandidas(v => !v)}
+                          style={{ display:'flex', alignItems:'center', justifyContent:'space-between', cursor:'pointer', userSelect:'none' }}
+                        >
+                          <span style={{ fontSize:12, fontWeight:700, color:'#eab838' }}>
+                            Virou Pó — fora da carteira ({encerradasSemLinha.length})
+                          </span>
+                          <span style={{ color:'#eab838', fontSize:14, transition:'transform .2s', display:'inline-block', transform: encerradasExpandidas ? 'rotate(0deg)' : 'rotate(-90deg)' }}>▾</span>
                         </div>
-                        <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
-                          {encerradasSemLinha.map(ticker => (
-                            <div key={ticker} style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(255,255,255,.05)', border:'1px solid rgba(255,255,255,.1)', borderRadius:6, padding:'6px 12px' }}>
-                              <span style={{ fontWeight:700, color:'#e0e6f0', fontSize:13 }}>{ticker}</span>
-                              <button
-                                onClick={() => desfazerVirouPo(ticker)}
-                                disabled={desfazendoPo === ticker}
-                                style={{ background:'rgba(234,184,56,.15)', border:'1px solid rgba(234,184,56,.3)', color:'#eab838', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'3px 10px', whiteSpace:'nowrap', opacity: desfazendoPo===ticker ? .4 : 1 }}
-                              >
-                                {desfazendoPo===ticker ? '...' : '↩ Desfazer'}
-                              </button>
+                        {encerradasExpandidas && (
+                          <>
+                            <div style={{ display:'flex', flexWrap:'wrap', gap:8, marginTop:10 }}>
+                              {encerradasSemLinha.map(ticker => (
+                                <div key={ticker} style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(255,255,255,.05)', border:'1px solid rgba(255,255,255,.1)', borderRadius:6, padding:'6px 12px' }}>
+                                  <span style={{ fontWeight:700, color:'#e0e6f0', fontSize:13 }}>{ticker}</span>
+                                  <button
+                                    onClick={e => { e.stopPropagation(); desfazerVirouPo(ticker) }}
+                                    disabled={desfazendoPo === ticker}
+                                    style={{ background:'rgba(234,184,56,.15)', border:'1px solid rgba(234,184,56,.3)', color:'#eab838', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'3px 10px', whiteSpace:'nowrap', opacity: desfazendoPo===ticker ? .4 : 1 }}
+                                  >
+                                    {desfazendoPo===ticker ? '...' : '↩ Desfazer'}
+                                  </button>
+                                </div>
+                              ))}
                             </div>
-                          ))}
-                        </div>
-                        <div style={{ marginTop:8, fontSize:11, color:'#4a5d73' }}>
-                          Estas opções foram marcadas como Virou Pó mas não estão mais na tabela da carteira. Clique em ↩ Desfazer para remover o registro.
-                        </div>
+                            <div style={{ marginTop:8, fontSize:11, color:'#4a5d73' }}>
+                              Marcadas como Virou Pó mas ausentes da carteira. Clique em ↩ Desfazer para remover o registro.
+                            </div>
+                          </>
+                        )}
                       </div>
                     )
                   })()}
