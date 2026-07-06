@@ -147,6 +147,12 @@ export default function PaginaIR() {
   // Exclusão de operação
   const [excluindoId, setExcluindoId] = useState<number | null>(null)
 
+  // Impressão de DARF
+  const [darfImpressao, setDarfImpressao] = useState<Darf | null>(null)
+  const [dadosContrib, setDadosContrib] = useState({ nome: '', cpf: '', telefone: '', cidade: '' })
+  const [darfMulta, setDarfMulta] = useState('0,00')
+  const [darfJuros, setDarfJuros] = useState('0,00')
+
   // Mensagens
   const [msg, setMsg] = useState<{ texto: string; tipo: 'ok' | 'erro' } | null>(null)
 
@@ -196,6 +202,15 @@ export default function PaginaIR() {
   useEffect(() => {
     if (aba === 'operacoes' || aba === 'opcoes') carregarOps()
   }, [aba, carregarOps])
+
+  useEffect(() => {
+    setDadosContrib({
+      nome: localStorage.getItem('darf_nome') || '',
+      cpf: localStorage.getItem('darf_cpf') || '',
+      telefone: localStorage.getItem('darf_tel') || '',
+      cidade: localStorage.getItem('darf_cidade') || '',
+    })
+  }, [])
 
   useEffect(() => {
     if (aba === 'opcoes' && ops.length > 0) {
@@ -345,94 +360,131 @@ export default function PaginaIR() {
   }
 
   function imprimirDarf(d: Darf) {
-    const descricao = d.codigo_receita === '6015'
-      ? 'Ganhos Líquidos em Operações em Bolsa — Mercado à Vista (Swing Trade)'
-      : 'Ganhos Líquidos em Operações em Bolsa — Day Trade'
-    const venc = d.vencimento?.slice(0,10) ?? ''
-    const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
-<title>DARF — ${d.competencia}</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: Arial, sans-serif; font-size: 11px; background: #fff; color: #000; padding: 20px; }
-  h1 { font-size: 13px; text-align: center; margin-bottom: 4px; }
-  .subtitle { text-align: center; font-size: 10px; margin-bottom: 16px; color: #555; }
-  .darf { border: 2px solid #000; width: 100%; }
-  .header-row { background: #1a3a6e; color: #fff; padding: 6px 10px; font-weight: bold; font-size: 12px; }
-  .row { display: flex; border-top: 1px solid #999; }
-  .cell { padding: 4px 8px; border-right: 1px solid #999; flex: 1; }
-  .cell:last-child { border-right: none; }
-  .label { font-size: 9px; color: #555; display: block; margin-bottom: 2px; }
-  .value { font-size: 12px; font-weight: bold; }
-  .value.money { font-size: 14px; color: #1a3a6e; }
-  .full { flex: 2; }
-  .divider { height: 6px; background: #1a3a6e; }
-  .footer { margin-top: 16px; font-size: 9px; color: #555; text-align: center; line-height: 1.6; }
-  .instrucoes { margin-top: 12px; border: 1px solid #ccc; padding: 8px; font-size: 10px; }
-  .instrucoes h3 { font-size: 11px; margin-bottom: 6px; }
-  .instrucoes li { margin-left: 16px; margin-bottom: 3px; }
-  @media print {
-    body { padding: 10px; }
-    .no-print { display: none; }
-    @page { size: A4; margin: 15mm; }
+    const today = new Date()
+    const vencDate = new Date(d.vencimento.slice(0,10) + 'T12:00:00')
+    const daysLate = Math.max(0, Math.floor((today.getTime() - vencDate.getTime()) / (1000*60*60*24)))
+    const multaPct = daysLate > 0 ? Math.min(daysLate * 0.0033, 0.20) : 0
+    const multaCalc = Math.round(d.valor * multaPct * 100) / 100
+    const monthsLate = daysLate / 30
+    const jurosCalc = daysLate > 0 ? Math.round(d.valor * 0.01208 * monthsLate * 100) / 100 : 0
+    setDarfMulta(multaCalc.toFixed(2).replace('.', ','))
+    setDarfJuros(jurosCalc.toFixed(2).replace('.', ','))
+    setDarfImpressao(d)
   }
-</style></head><body>
-<h1>DOCUMENTO DE ARRECADAÇÃO DE RECEITAS FEDERAIS — DARF</h1>
-<div class="subtitle">Instrução Normativa RFB nº 1.585/2015 · Operações em Bolsa de Valores</div>
 
-<div class="darf">
-  <div class="header-row">IDENTIFICAÇÃO DO CONTRIBUINTE</div>
-  <div class="row">
-    <div class="cell full"><span class="label">Nome / Razão Social</span><span class="value">_________________________________________________</span></div>
-    <div class="cell"><span class="label">CPF / CNPJ</span><span class="value">___ . ___ . ___ - __</span></div>
-  </div>
-  <div class="row">
-    <div class="cell full"><span class="label">Descrição da Receita</span><span class="value">${descricao}</span></div>
-  </div>
+  function gerarPDFDarf() {
+    const d = darfImpressao
+    if (!d) return
 
-  <div class="divider"></div>
-  <div class="header-row">DADOS DO PAGAMENTO</div>
+    localStorage.setItem('darf_nome', dadosContrib.nome)
+    localStorage.setItem('darf_cpf', dadosContrib.cpf)
+    localStorage.setItem('darf_tel', dadosContrib.telefone)
+    localStorage.setItem('darf_cidade', dadosContrib.cidade)
 
-  <div class="row">
-    <div class="cell"><span class="label">01 — Período de Apuração</span><span class="value">${d.competencia}</span></div>
-    <div class="cell"><span class="label">02 — Código da Receita</span><span class="value">${d.codigo_receita}</span></div>
-    <div class="cell"><span class="label">03 — Número de Referência</span><span class="value">&nbsp;</span></div>
-    <div class="cell"><span class="label">04 — Data de Vencimento</span><span class="value">${venc.split('-').reverse().join('/')}</span></div>
-  </div>
-  <div class="row">
-    <div class="cell"><span class="label">05 — Valor do Principal (R$)</span><span class="value money">${d.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span></div>
-    <div class="cell"><span class="label">06 — Valor da Multa (R$)</span><span class="value">0,00</span></div>
-    <div class="cell"><span class="label">07 — Valor dos Juros/Encargos (R$)</span><span class="value">0,00</span></div>
-    <div class="cell"><span class="label">08 — VALOR TOTAL (R$)</span><span class="value money">${d.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span></div>
-  </div>
-  <div class="row">
-    <div class="cell full"><span class="label">Autenticação Bancária</span><span class="value">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-    <div class="cell"><span class="label">Data do Pagamento</span><span class="value">___/___/______</span></div>
-  </div>
+    const [ano, mes] = d.competencia.split('-').map(Number)
+    const ultimoDia = new Date(ano, mes, 0).getDate()
+    const periodoApuracao = `${String(ultimoDia).padStart(2,'0')}/${String(mes).padStart(2,'0')}/${ano}`
+    const MESES_EXT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+    const mesTexto = `${MESES_EXT[mes-1]} de ${ano}`
+    const todayStr = new Date().toLocaleDateString('pt-BR')
+    const vencFmt = d.vencimento.slice(0,10).split('-').reverse().join('/')
+
+    const multaNum = parseFloat(darfMulta.replace(',', '.')) || 0
+    const jurosNum = parseFloat(darfJuros.replace(',', '.')) || 0
+    const totalNum = d.valor + multaNum + jurosNum
+    const fBRL = (v: number) => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+    const viaHtml = (num: string) => `
+  <div class="via">
+    <div class="via-topo"><span>Aprovado pela IN/RFB n&#186; 736/2007</span><span>${num}</span></div>
+    <div class="corpo">
+      <div class="esquerda">
+        <div style="text-align:center;margin-bottom:3px;"><div class="rf-logo">RF</div></div>
+        <div class="ministerio">MINIST&#201;RIO DA FAZENDA</div>
+        <div class="secretaria">SECRETARIA DA RECEITA FEDERAL DO BRASIL</div>
+        <div class="doc-titulo">Documento de Arrecada&#231;&#227;o de Receitas Federais</div>
+        <div class="darf-grande">DARF</div>
+        <div class="campo-label">01 NOME / TELEFONE</div>
+        <div class="nome-tel">${dadosContrib.nome || '____________________________'} / ${dadosContrib.telefone || '_____________'}</div>
+        <div class="ref-ops">REF. OPERA&#199;&#213;ES EM BOLSA DE VALORES</div>
+        <div class="mes-ref">${mesTexto}</div>
+        <div class="validade">DARF v&#225;lido para pagamento at&#233; ${todayStr}</div>
+        <div class="campo-label" style="margin-top:5px;">Domic&#237;lio tribut&#225;rio do contribuinte:</div>
+        <div class="domicilio">${dadosContrib.cidade || '____________________________'}</div>
+        <div class="nao-rasuras">N&#195;O RECEBER COM RASURAS</div>
+      </div>
+      <div class="direita">
+        <div class="linha"><div class="num">02 PER&#205;ODO DE APURA&#199;&#195;O</div><div class="val">${periodoApuracao}</div></div>
+        <div class="linha"><div class="num">03 N&#218;MERO DO CPF OU CNPJ</div><div class="val">${dadosContrib.cpf || '___.___.___-__'}</div></div>
+        <div class="linha"><div class="num">04 C&#211;DIGO DA RECEITA</div><div class="val">${d.codigo_receita}</div></div>
+        <div class="linha"><div class="num">05 N&#218;MERO DE REFER&#202;NCIA</div><div class="val">&nbsp;</div></div>
+        <div class="linha"><div class="num">06 DATA DE VENCIMENTO</div><div class="val">${vencFmt}</div></div>
+        <div class="linha"><div class="num">07 VALOR DO PRINCIPAL</div><div class="val">R$ ${fBRL(d.valor)}</div></div>
+        <div class="linha"><div class="num">08 VALOR DA MULTA</div><div class="val">${multaNum > 0 ? 'R$ ' + fBRL(multaNum) : 'R$ -'}</div></div>
+        <div class="linha"><div class="num">09 VALOR DOS JUROS E/OU ENCARGOS DL&#8201;-&#8201;1.025/69</div><div class="val">${jurosNum > 0 ? 'R$ ' + fBRL(jurosNum) : 'R$ -'}</div></div>
+        <div class="linha total"><div class="num">10 VALOR TOTAL</div><div class="val">R$ ${fBRL(totalNum)}</div></div>
+        <div class="autent"><div class="autent-lbl">11 AUTENTICA&#199;&#195;O BANC&#193;RIA <span style="font-weight:normal;">(Somente nas 1&#170; e 2&#170; vias)</span></div><div class="autent-val">&nbsp;</div></div>
+      </div>
+    </div>
+  </div>`
+
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>DARF ${d.competencia}</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, Helvetica, sans-serif; font-size: 8.5pt; background: #fff; color: #000; }
+.page { width: 190mm; margin: 6mm auto; }
+.via { border: 1px solid #000; }
+.via-topo { display: flex; justify-content: space-between; font-size: 6.5pt; padding: 2px 5px; border-bottom: 1px solid #000; background: #f0f0f0; }
+.corpo { display: flex; }
+.esquerda { width: 43%; padding: 5px 7px; border-right: 1px solid #000; }
+.direita { width: 57%; }
+.rf-logo { display: inline-block; border: 2px solid #00518a; border-radius: 50%; width: 34px; height: 34px; line-height: 30px; text-align: center; font-weight: bold; font-size: 10pt; color: #00518a; font-family: serif; }
+.ministerio { font-size: 7pt; font-weight: bold; text-align: center; margin-top: 2px; }
+.secretaria { font-size: 6pt; text-align: center; }
+.doc-titulo { font-size: 6pt; text-align: center; margin-bottom: 2px; font-style: italic; }
+.darf-grande { font-size: 20pt; font-weight: 900; text-align: center; margin: 4px 0 5px; letter-spacing: 3px; }
+.campo-label { font-size: 6pt; font-weight: bold; color: #444; }
+.nome-tel { font-size: 7.5pt; margin-bottom: 4px; word-break: break-word; }
+.ref-ops { font-size: 6.5pt; font-weight: bold; margin-bottom: 1px; }
+.mes-ref { font-size: 6.5pt; margin-bottom: 2px; }
+.validade { font-size: 6.5pt; margin-bottom: 2px; }
+.domicilio { font-size: 7pt; font-weight: bold; }
+.nao-rasuras { font-size: 7pt; font-weight: bold; margin-top: 8px; }
+.linha { display: flex; border-bottom: 1px solid #000; min-height: 22px; }
+.num { width: 46%; padding: 2px 4px; border-right: 1px solid #000; font-size: 6pt; color: #333; display: flex; align-items: flex-end; padding-bottom: 3px; line-height: 1.2; }
+.val { width: 54%; padding: 3px 6px; font-size: 8.5pt; font-weight: bold; display: flex; align-items: center; }
+.total .num { font-weight: bold; color: #000; background: #f5f5f5; }
+.total .val { font-size: 9.5pt; font-weight: 900; background: #f5f5f5; }
+.autent { display: flex; min-height: 22px; }
+.autent-lbl { width: 46%; padding: 2px 4px; border-right: 1px solid #000; font-size: 6pt; font-weight: bold; color: #333; display: flex; align-items: flex-start; padding-top: 3px; line-height: 1.3; }
+.autent-val { width: 54%; }
+.cortar { text-align: center; font-size: 6.5pt; color: #888; padding: 2px 0; border-top: 1px dashed #bbb; border-bottom: 1px dashed #bbb; margin: 5mm 0; letter-spacing: 1px; }
+.print-btn { text-align: center; margin: 14px 0; }
+.print-btn button { background: #00518a; color: #fff; border: none; padding: 10px 32px; font-size: 13px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+@media print {
+  .print-btn { display: none !important; }
+  .cortar { color: #bbb; }
+  @page { size: A4; margin: 8mm 10mm; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  ${viaHtml('1&#170; Via')}
+  <div class="cortar">&#8212; &#8212; &#8212; &#8212; &#8212; &#8212; &#8212; &#8212; &#8212; cortar nesta linha &#8212; &#8212; &#8212; &#8212; &#8212; &#8212; &#8212; &#8212; &#8212;</div>
+  ${viaHtml('2&#170; Via')}
 </div>
+<div class="print-btn"><button onclick="window.print()">&#128424; Imprimir / Salvar PDF</button></div>
+</body>
+</html>`
 
-<div class="instrucoes">
-  <h3>Como pagar:</h3>
-  <ul>
-    <li>Internet Banking: acesse seu banco, opção "Pagamentos → DARF", informe o código <strong>${d.codigo_receita}</strong>, período <strong>${d.competencia}</strong> e valor <strong>R$ ${d.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong></li>
-    <li>App do banco: procure por "DARF" ou "Pagamento de tributos federais"</li>
-    <li>Agência bancária: apresente este documento impresso</li>
-    <li>Vencimento: <strong>${venc.split('-').reverse().join('/')}</strong> — após essa data incidem multa de 0,33%/dia (max 20%) + SELIC</li>
-  </ul>
-</div>
-
-<div class="footer">
-  Gerado por Radar Invest Pro · radarinvestpro.com.br · ${new Date().toLocaleDateString('pt-BR')}
-</div>
-
-<div class="no-print" style="margin-top:20px; text-align:center;">
-  <button onclick="window.print()" style="background:#1a3a6e;color:#fff;border:none;padding:10px 28px;font-size:14px;border-radius:6px;cursor:pointer;font-weight:bold;">
-    Imprimir / Salvar PDF
-  </button>
-</div>
-</body></html>`
-
-    const w = window.open('', '_blank', 'width=800,height=700')
+    const w = window.open('', '_blank', 'width=860,height=800')
     if (w) { w.document.write(html); w.document.close() }
+    setDarfImpressao(null)
   }
 
   /* ── Resultado atual selecionado ─────────────────────────────────────────────── */
@@ -958,6 +1010,68 @@ export default function PaginaIR() {
           </div>
         )}
       </div>
+
+      {/* Modal de impressão de DARF */}
+      {darfImpressao && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.75)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ background: '#0e1d33', border: '1px solid rgba(255,255,255,.12)', borderRadius: 12, padding: 28, width: 460, maxWidth: '95vw' }}>
+            <div style={{ fontSize: 15, fontWeight: 800, color: '#eab838', marginBottom: 4 }}>Gerar DARF para impressão</div>
+            <div style={{ fontSize: 12, color: '#4a5d73', marginBottom: 20 }}>
+              Competência: <b style={{ color: '#e0e6f0' }}>{darfImpressao.competencia}</b> · Código: <b style={{ color: '#e0e6f0' }}>{darfImpressao.codigo_receita}</b> · Principal: <b style={{ color: '#eab838' }}>{BRL(darfImpressao.valor)}</b>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+              <div style={{ gridColumn: '1/-1' }}>
+                <div style={{ fontSize: 11, color: '#4a5d73', marginBottom: 4 }}>Nome completo</div>
+                <input value={dadosContrib.nome} onChange={e => setDadosContrib(p => ({ ...p, nome: e.target.value }))} style={stInput} placeholder="Alexander Faria Hurtado" />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: '#4a5d73', marginBottom: 4 }}>CPF</div>
+                <input value={dadosContrib.cpf} onChange={e => setDadosContrib(p => ({ ...p, cpf: e.target.value }))} style={stInput} placeholder="016.781.461-37" />
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: '#4a5d73', marginBottom: 4 }}>Telefone</div>
+                <input value={dadosContrib.telefone} onChange={e => setDadosContrib(p => ({ ...p, telefone: e.target.value }))} style={stInput} placeholder="65999116121" />
+              </div>
+              <div style={{ gridColumn: '1/-1' }}>
+                <div style={{ fontSize: 11, color: '#4a5d73', marginBottom: 4 }}>Domicílio (Cidade - Estado)</div>
+                <input value={dadosContrib.cidade} onChange={e => setDadosContrib(p => ({ ...p, cidade: e.target.value }))} style={stInput} placeholder="CUIABÁ - MT" />
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(255,255,255,.04)', borderRadius: 8, padding: '12px 14px', marginBottom: 16 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: '#e0e6f0', marginBottom: 10 }}>Multa e Juros (edite se necessário)</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div>
+                  <div style={{ fontSize: 11, color: '#4a5d73', marginBottom: 4 }}>Multa (R$)</div>
+                  <input value={darfMulta} onChange={e => setDarfMulta(e.target.value)} style={stInput} placeholder="0,00" />
+                  <div style={{ fontSize: 10, color: '#4a5d73', marginTop: 3 }}>0,33%/dia, máx 20%</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 11, color: '#4a5d73', marginBottom: 4 }}>Juros/Encargos (R$)</div>
+                  <input value={darfJuros} onChange={e => setDarfJuros(e.target.value)} style={stInput} placeholder="0,00" />
+                  <div style={{ fontSize: 10, color: '#4a5d73', marginTop: 3 }}>Taxa SELIC acumulada</div>
+                </div>
+              </div>
+              {(() => {
+                const m = parseFloat(darfMulta.replace(',', '.')) || 0
+                const j = parseFloat(darfJuros.replace(',', '.')) || 0
+                const total = darfImpressao.valor + m + j
+                return (
+                  <div style={{ marginTop: 10, fontSize: 13, fontWeight: 800, color: '#eab838' }}>
+                    Total a pagar: {BRL(total)}
+                  </div>
+                )
+              })()}
+            </div>
+
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+              <button onClick={() => setDarfImpressao(null)} style={{ ...stBtn('#374151'), padding: '8px 18px' }}>Cancelar</button>
+              <button onClick={gerarPDFDarf} style={{ ...stBtn('#00518a'), padding: '8px 22px', fontWeight: 700 }}>🖨 Gerar DARF</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }
