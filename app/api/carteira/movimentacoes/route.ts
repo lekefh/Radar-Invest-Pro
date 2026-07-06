@@ -47,6 +47,27 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true, id: row.id })
 }
 
+export async function PATCH(req: NextRequest) {
+  const s = await getSession()
+  if (!s) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+  const userId = Number(s.sub)
+  await ensureCarteiraTables()
+  const sql = getDb()
+
+  const { id, nota_num } = await req.json()
+  if (!id) return NextResponse.json({ error: 'Informe id.' }, { status: 400 })
+
+  const updated = await sql`
+    UPDATE movimentacoes SET nota_num = ${nota_num ?? null}
+    WHERE id = ${Number(id)} AND user_id = ${userId}
+    RETURNING id, nota_num
+  `
+  if (updated.length === 0)
+    return NextResponse.json({ error: 'Operação não encontrada.' }, { status: 404 })
+
+  return NextResponse.json({ ok: true, id: updated[0].id, nota_num: updated[0].nota_num })
+}
+
 export async function DELETE(req: NextRequest) {
   const s = await getSession()
   if (!s) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
