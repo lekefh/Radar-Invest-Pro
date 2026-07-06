@@ -56,20 +56,43 @@ export async function GET(req: NextRequest) {
   const de  = searchParams.get('de')  || `${new Date().getFullYear()}-01-01`
   const ate = searchParams.get('ate') || hoje
 
-  const allOps = await sql`
-    SELECT data::text, ticker, tipo, quantidade::float, preco::float
-    FROM movimentacoes
-    WHERE user_id = ${userId}
-    ORDER BY data ASC, id ASC
-  `
+  // ── Fontes de custo inicial (mesma prioridade do IR) ──────────────────────
+  // 1. ir_posicao_inicial (mais preciso, informado manualmente pelo usuário)
+  // 2. posicao_base_itens (snapshot de posição com preco_medio)
+  // Operações na data_base ou antes são ignoradas para evitar dupla contagem
+  const [allOpsRaw, posInisRaw, posBaseItensRaw, posBaseRow] = await Promise.all([
+    sql`
+      SELECT data::text, ticker, tipo, quantidade::float, preco::float
+      FROM movimentacoes WHERE user_id = ${userId}
+      ORDER BY data ASC, id ASC
+    `,
+    sql`SELECT ticker, qtde::float, preco_medio::float FROM ir_posicao_inicial WHERE user_id = ${userId}`,
+    sql`SELECT ticker, quantidade::float, preco_medio::float FROM posicao_base_itens WHERE user_id = ${userId}`,
+    sql`SELECT data_base::text FROM posicao_base WHERE user_id = ${userId} LIMIT 1`,
+  ])
 
-  const posMap       = new Map<string, { qty: number; cost: number }>()
+  const dataBase: string = posBaseRow[0]?.data_base ? String(posBaseRow[0].data_base).slice(0, 10) : ''
+
+  // Mapa de posição inicial: ticker → { qty, cost, dbFilter }
+  // dbFilter: se veio da posicao_base_itens, ignora movimentacoes até essa data
+  type PosEntry = { qty: number; cost: number; dbFilter: string }
+  const posMap = new Map<string, PosEntry>()
+
+  for (const r of posInisRaw as { ticker: string; qtde: number; preco_medio: number }[]) {
+    posMap.set(r.ticker, { qty: Number(r.qtde), cost: Number(r.qtde) * Number(r.preco_medio), dbFilter: '' })
+  }
+  for (const r of posBaseItensRaw as { ticker: string; quantidade: number; preco_medio: number }[]) {
+    if (!posMap.has(r.ticker)) {
+      const qty = Number(r.quantidade)
+      posMap.set(r.ticker, { qty, cost: qty * Number(r.preco_medio), dbFilter: dataBase })
+    }
+  }
+
   const realByTicker = new Map<string, { pl: number; vol_vendas: number; vol_compras: number; n_ops: number }>()
   const porMes       = new Map<string, number>()
-
   let volCompras = 0, volVendas = 0, nCompras = 0, nVendas = 0
 
-  for (const op of allOps as { data: string; ticker: string; tipo: string; quantidade: number; preco: number }[]) {
+  for (const op of allOpsRaw as { data: string; ticker: string; tipo: string; quantidade: number; preco: number }[]) {
     const ticker = op.ticker
     const data   = String(op.data).slice(0, 10)
     const qty    = Number(op.quantidade)
@@ -77,8 +100,11 @@ export async function GET(req: NextRequest) {
     const inPer  = data >= de && data <= ate
     const mes    = data.slice(0, 7)
 
-    if (!posMap.has(ticker)) posMap.set(ticker, { qty: 0, cost: 0 })
+    if (!posMap.has(ticker)) posMap.set(ticker, { qty: 0, cost: 0, dbFilter: '' })
     const pos = posMap.get(ticker)!
+
+    // Se posição veio da posicao_base_itens, ignora operações até a data_base (já embutidas no custo)
+    if (pos.dbFilter && data <= pos.dbFilter) continue
 
     if (op.tipo === 'C') {
       pos.qty  += qty
