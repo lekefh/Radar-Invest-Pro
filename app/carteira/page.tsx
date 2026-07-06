@@ -1499,7 +1499,7 @@ export default function CarteiraPage() {
                             {p.ticker}
                             {excl && <span className="excl-tag">EXCLUÍDO</span>}
                           </td>
-                          <td title={p.nome}>{p.nome}</td>
+                          <td title={p.nome ?? ''} style={{ maxWidth:160, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{p.nome}</td>
                           <td>{f2(p.quantidade)}</td>
                           <td>R$ {f2(p.preco_medio)}</td>
                           <td>{p.preco_atual != null ? <span>R$ {f2(p.preco_atual)}</span> : <span className="muted">—</span>}</td>
@@ -1887,11 +1887,11 @@ export default function CarteiraPage() {
                     <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.07)', borderRadius:12, padding:'22px 24px 18px', marginBottom:12 }}>
                       <div style={{ fontSize:10, color:'#4a5d73', textTransform:'uppercase', letterSpacing:1, marginBottom:8 }}>Resultado Realizado no Período</div>
                       <div style={{ display:'flex', alignItems:'baseline', gap:12, flexWrap:'wrap' }}>
-                        <span style={{ fontSize:34, fontWeight:900, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444', lineHeight:1 }}>
+                        <span className="perf-hero-value" style={{ color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>
                           {fBRL2(totalRealizado)}
                         </span>
                         {volVendas > 0 && (
-                          <span style={{ fontSize:17, fontWeight:700, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>
+                          <span className="perf-hero-pct" style={{ color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>
                             {fPct((totalRealizado / volVendas) * 100)}
                           </span>
                         )}
@@ -1902,7 +1902,7 @@ export default function CarteiraPage() {
 
                       {/* Benchmarks */}
                       {(perfData.benchmark.cdi_pct != null || perfData.benchmark.ibov_pct != null) && (
-                        <div style={{ display:'flex', gap:10, marginTop:16, flexWrap:'wrap' }}>
+                        <div className="perf-benchmarks">
                           {[
                             { key:'CDI',       val: perfData.benchmark.cdi_pct  },
                             { key:'IBOVESPA',  val: perfData.benchmark.ibov_pct },
@@ -1937,7 +1937,7 @@ export default function CarteiraPage() {
                       return (
                         <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.07)', borderRadius:12, padding:'18px 20px 12px', marginBottom:12, overflowX:'auto' }}>
                           <div style={{ fontSize:10, color:'#4a5d73', textTransform:'uppercase', letterSpacing:1, marginBottom:12 }}>P&L Mensal</div>
-                          <svg width={Math.max(W, 280)} height={BAR_H + 30} style={{ overflow:'visible', display:'block' }}>
+                          <svg width={Math.max(W, 280)} height={BAR_H + 30} style={{ overflow:'visible', display:'block', minWidth: Math.max(W, 280) }}>
                             <line x1={0} y1={BAR_H / 2} x2={Math.max(W, 280)} y2={BAR_H / 2} stroke="rgba(255,255,255,.06)" strokeWidth={1} />
                             {meses.map((m, i) => {
                               const x = i * (BAR_W + GAP)
@@ -1964,13 +1964,13 @@ export default function CarteiraPage() {
                     })()}
 
                     {/* Stats chips */}
-                    <div style={{ display:'flex', gap:10, marginBottom:12, flexWrap:'wrap' }}>
+                    <div className="perf-stats">
                       {([
                         { label:'Vol. Comprado', val:fBRL2(volCompras), sub:`${perfData.operacoes.n_compras} compras` },
                         { label:'Vol. Vendido',  val:fBRL2(volVendas),  sub:`${perfData.operacoes.n_vendas} vendas` },
                         { label:'Operações',     val:String(totalOps),  sub:'no período' },
                       ] as {label:string;val:string;sub:string}[]).map(c => (
-                        <div key={c.label} style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.06)', borderRadius:8, padding:'10px 16px', flex:1, minWidth:110 }}>
+                        <div key={c.label} className="perf-stats-card">
                           <div style={{ fontSize:10, color:'#4a5d73', marginBottom:3 }}>{c.label}</div>
                           <div style={{ fontSize:15, fontWeight:700, color:'#e8edf5' }}>{c.val}</div>
                           <div style={{ fontSize:10, color:'#4a5d73', marginTop:2 }}>{c.sub}</div>
@@ -1979,20 +1979,23 @@ export default function CarteiraPage() {
                     </div>
 
                     {/* Resultado latente */}
-                    <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.06)', borderRadius:8, padding:'13px 18px', marginBottom:14, display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:8 }}>
-                      <div>
-                        <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Carteira em Aberto — Resultado Latente</div>
-                        <div style={{ display:'flex', alignItems:'baseline', gap:10 }}>
-                          <span style={{ fontSize:20, fontWeight:800, color: naoRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(naoRealizado)}</span>
-                          <span style={{ fontSize:13, fontWeight:600, color: naoRealizadoPct >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct(naoRealizadoPct)}</span>
+                    <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.06)', borderRadius:8, padding:'13px 18px', marginBottom:14 }}>
+                      <div className="perf-latente">
+                        <div>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Carteira em Aberto — Resultado Latente</div>
+                          <div style={{ display:'flex', alignItems:'baseline', gap:10 }}>
+                            <span className="perf-latente-val" style={{ color: naoRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(naoRealizado)}</span>
+                            <span className="perf-latente-pct" style={{ color: naoRealizadoPct >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct(naoRealizadoPct)}</span>
+                          </div>
                         </div>
+                        <div style={{ fontSize:11, color:'#4a5d73' }}>{posComTipo.length} posições abertas</div>
                       </div>
-                      <div style={{ fontSize:11, color:'#4a5d73' }}>{posComTipo.length} posições abertas</div>
                     </div>
 
                     {/* Detalhar por ativo */}
                     <button onClick={() => setPerfDetalhes(v => !v)}
-                      style={{ background:'transparent', border:'1px solid rgba(255,255,255,.1)', borderRadius:8, color:'#90CAF9', padding:'8px 16px', fontSize:12, cursor:'pointer', width:'100%', display:'flex', alignItems:'center', justifyContent:'center', gap:6, marginBottom: perfDetalhes ? 10 : 0 }}>
+                      className="perf-btn-detail"
+                      style={{ marginBottom: perfDetalhes ? 10 : 0 }}>
                       <span>📋 Detalhar por ativo</span>
                       <span style={{ fontSize:10 }}>{perfDetalhes ? '▲' : '▼'}</span>
                     </button>
