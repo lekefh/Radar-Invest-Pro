@@ -64,3 +64,38 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({ ok: true, tipo, ticker: t, qty, data })
 }
+
+/**
+ * DELETE /api/ir/opcoes/virou-po
+ * Body: { ticker }
+ * Remove o último registro de virou-pó (nota_num='vpo') para o ticker.
+ */
+export async function DELETE(req: NextRequest) {
+  const s = await getSession()
+  if (!s) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+  const userId = Number(s.sub)
+
+  const { ticker } = await req.json()
+  if (!ticker) return NextResponse.json({ error: 'Informe ticker' }, { status: 400 })
+
+  await ensureCarteiraTables()
+  const sql = getDb()
+  const t = String(ticker).toUpperCase().trim()
+
+  // Deleta apenas a movimentação vpo mais recente do ticker
+  const deleted = await sql`
+    DELETE FROM movimentacoes
+    WHERE id = (
+      SELECT id FROM movimentacoes
+      WHERE user_id = ${userId} AND ticker = ${t} AND nota_num = 'vpo'
+      ORDER BY id DESC
+      LIMIT 1
+    )
+    RETURNING id
+  `
+
+  if (deleted.length === 0)
+    return NextResponse.json({ error: 'Nenhum registro vpo encontrado para este ticker.' }, { status: 404 })
+
+  return NextResponse.json({ ok: true, ticker: t, deletado: deleted[0].id })
+}

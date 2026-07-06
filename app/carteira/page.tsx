@@ -429,6 +429,7 @@ export default function CarteiraPage() {
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base'>('acoes')
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
+  const [desfazendoPo, setDesfazendoPo] = useState<string | null>(null)
   const [msgPo, setMsgPo] = useState<string | null>(null)
   const [poVencidas, setPoVencidas] = useState<Set<string>>(new Set())
   const [marcandoPoTodas, setMarcandoPoTodas] = useState(false)
@@ -962,6 +963,23 @@ export default function CarteiraPage() {
     setTimeout(() => setMsgPo(null), 6000)
   }
 
+  const desfazerVirouPo = async (ticker: string) => {
+    setDesfazendoPo(ticker)
+    const r = await fetch('/api/ir/opcoes/virou-po', {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ticker }),
+    })
+    setDesfazendoPo(null)
+    if (r.ok) {
+      setPoVencidas(prev => { const s = new Set(prev); s.delete(ticker); return s })
+      setMsgPo(`${ticker}: marcação de virou pó desfeita.`)
+    } else {
+      const e = await r.json().catch(() => ({}))
+      setMsgPo(`Erro: ${e.error ?? 'não foi possível desfazer.'}`)
+    }
+    setTimeout(() => setMsgPo(null), 5000)
+  }
+
   return (
     <>
       <style>{`
@@ -1147,7 +1165,7 @@ export default function CarteiraPage() {
                       disabled={marcandoPoTodas}
                       style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:6, cursor:'pointer', fontSize:12, fontWeight:700, padding:'6px 14px', whiteSpace:'nowrap', opacity: marcandoPoTodas ? .5 : 1 }}
                     >
-                      {marcandoPoTodas ? '⏳ Processando...' : '💀 Marcar todas vencidas como Pó'}
+                      {marcandoPoTodas ? '⏳ Processando...' : 'Marcar todas vencidas como Virou Pó'}
                     </button>
                   </div>
                   <div style={{ overflowX:'auto' }}>
@@ -1241,14 +1259,25 @@ export default function CarteiraPage() {
                               </td>
                               <td style={{ padding:'10px' }}>
                                 <div style={{ display:'flex', gap:6, alignItems:'center' }}>
-                                  <button
-                                    onClick={() => virouPo(p)}
-                                    disabled={marcandoPo === p.ticker || poVencidas.has(p.ticker)}
-                                    title={titular ? `Registrar perda de R$ ${f2(Math.abs(p.quantidade)*p.preco_medio)} no IR` : 'Encerrar lançamento — opção expirou sem exercício'}
-                                    style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 10px', whiteSpace:'nowrap', opacity: (marcandoPo===p.ticker || poVencidas.has(p.ticker)) ? .4 : 1 }}
-                                  >
-                                    {marcandoPo===p.ticker ? '...' : poVencidas.has(p.ticker) ? '✓ Registrado' : '💀 Virou Pó'}
-                                  </button>
+                                  {poVencidas.has(p.ticker) ? (
+                                    <button
+                                      onClick={() => desfazerVirouPo(p.ticker)}
+                                      disabled={desfazendoPo === p.ticker}
+                                      title="Desfazer marcação de virou pó"
+                                      style={{ background:'rgba(234,184,56,.1)', border:'1px solid rgba(234,184,56,.3)', color:'#eab838', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 10px', whiteSpace:'nowrap', opacity: desfazendoPo===p.ticker ? .4 : 1 }}
+                                    >
+                                      {desfazendoPo===p.ticker ? '...' : '↩ Desfazer'}
+                                    </button>
+                                  ) : (
+                                    <button
+                                      onClick={() => virouPo(p)}
+                                      disabled={marcandoPo === p.ticker}
+                                      title={titular ? `Registrar perda de R$ ${f2(Math.abs(p.quantidade)*p.preco_medio)} no IR` : 'Encerrar lançamento — opção expirou sem exercício'}
+                                      style={{ background:'rgba(239,68,68,.15)', border:'1px solid rgba(239,68,68,.35)', color:'#ef4444', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'5px 10px', whiteSpace:'nowrap', opacity: marcandoPo===p.ticker ? .4 : 1 }}
+                                    >
+                                      {marcandoPo===p.ticker ? '...' : 'Virou Pó'}
+                                    </button>
+                                  )}
                                   <button
                                     onClick={() => removerOpcao(p)}
                                     disabled={removendoOpcao === p.id}
