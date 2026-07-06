@@ -821,20 +821,22 @@ export default function PaginaIR() {
                         <td style={{ padding: '6px 10px', color: '#6b84a8' }}>{BRL(o.preco)}</td>
                         <td style={{ padding: '6px 10px', color: '#e0e6f0' }}>{BRL(o.valor_total)}</td>
                         <td style={{ padding: '6px 10px', color: '#4a5d73', fontSize: 11 }}>{o.corretora ?? '—'}</td>
-                        <td style={{ padding: '6px 6px', whiteSpace: 'nowrap', display: 'flex', gap: 4 }}>
-                          {o.tipo === 'C' && (
+                        <td style={{ padding: '6px 6px' }}>
+                          <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                            {o.tipo === 'C' && (
+                              <button
+                                onClick={() => marcarExercicio(o.id, o.ticker, o.nota_num === 'exercicio')}
+                                title={o.nota_num === 'exercicio' ? 'Remover marcação de exercício' : 'Marcar como exercício de opção (não conta como day trade)'}
+                                style={{ background: o.nota_num === 'exercicio' ? 'rgba(234,184,56,.25)' : 'rgba(234,184,56,.08)', border: `1px solid rgba(234,184,56,${o.nota_num === 'exercicio' ? '.6' : '.25'})`, color: '#eab838', borderRadius: 4, cursor: 'pointer', fontSize: 10, padding: '2px 6px', fontWeight: o.nota_num === 'exercicio' ? 700 : 400, whiteSpace: 'nowrap' }}
+                              >{o.nota_num === 'exercicio' ? '★ Exerc.' : '☆ Exerc.'}</button>
+                            )}
                             <button
-                              onClick={() => marcarExercicio(o.id, o.ticker, o.nota_num === 'exercicio')}
-                              title={o.nota_num === 'exercicio' ? 'Remover marcação de exercício' : 'Marcar como exercício de opção (não conta como day trade)'}
-                              style={{ background: o.nota_num === 'exercicio' ? 'rgba(234,184,56,.25)' : 'rgba(234,184,56,.08)', border: `1px solid rgba(234,184,56,${o.nota_num === 'exercicio' ? '.6' : '.25'})`, color: '#eab838', borderRadius: 4, cursor: 'pointer', fontSize: 10, padding: '2px 6px', fontWeight: o.nota_num === 'exercicio' ? 700 : 400 }}
-                            >{o.nota_num === 'exercicio' ? '★ Exercício' : '☆ Exercício'}</button>
-                          )}
-                          <button
-                            onClick={() => excluirOp(o.id, o.ticker)}
-                            disabled={excluindoId === o.id}
-                            title={`Excluir #${o.id}`}
-                            style={{ background: 'rgba(239,68,68,.12)', border: '1px solid rgba(239,68,68,.3)', color: '#ef4444', borderRadius: 4, cursor: 'pointer', fontSize: 11, padding: '2px 7px' }}
-                          >✕</button>
+                              onClick={() => excluirOp(o.id, o.ticker)}
+                              disabled={excluindoId === o.id}
+                              title={`Excluir #${o.id}`}
+                              style={{ background: 'rgba(239,68,68,.12)', border: '1px solid rgba(239,68,68,.3)', color: '#ef4444', borderRadius: 4, cursor: 'pointer', fontSize: 11, padding: '2px 7px' }}
+                            >✕</button>
+                          </div>
                         </td>
                       </tr>
                     ))}
