@@ -144,6 +144,9 @@ export default function PaginaIR() {
   const [detalhe, setDetalhe] = useState<DetalheApuracao | null>(null)
   const [carregandoDetalhe, setCarregandoDetalhe] = useState(false)
 
+  // Exclusão de operação
+  const [excluindoId, setExcluindoId] = useState<number | null>(null)
+
   // Mensagens
   const [msg, setMsg] = useState<{ texto: string; tipo: 'ok' | 'erro' } | null>(null)
 
@@ -255,6 +258,18 @@ export default function PaginaIR() {
     setCarregandoDetalhe(false)
     if (r.ok) setDetalhe(await r.json())
     else aviso('Erro ao carregar detalhes das operações.', 'erro')
+  }
+
+  async function excluirOp(id: number, ticker: string) {
+    if (!confirm(`Excluir operação #${id} (${ticker})?`)) return
+    setExcluindoId(id)
+    const r = await fetch('/api/carteira/movimentacoes', {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    })
+    setExcluindoId(null)
+    if (r.ok) { aviso(`Operação ${ticker} excluída.`); carregarOps() }
+    else { const e = await r.json().catch(() => ({})); aviso(e.error ?? 'Erro ao excluir.', 'erro') }
   }
 
   /* ── Ações — DARFs ───────────────────────────────────────────────────────────── */
@@ -777,14 +792,14 @@ export default function PaginaIR() {
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(255,255,255,.08)', color: '#4a5d73' }}>
-                      {['Data','Ticker','Tipo','Qtde','Preço','Total','Corretora'].map(h => (
+                      {['Data','Ticker','Tipo','Qtde','Preço','Total','Corretora',''].map(h => (
                         <th key={h} style={{ padding: '7px 10px', textAlign: 'left', fontWeight: 600 }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {opsFiltradas.slice(0, 500).map(o => (
-                      <tr key={o.id} style={{ borderBottom: '1px solid rgba(255,255,255,.03)' }}>
+                      <tr key={o.id} style={{ borderBottom: '1px solid rgba(255,255,255,.03)', background: excluindoId === o.id ? 'rgba(239,68,68,.08)' : 'transparent' }}>
                         <td style={{ padding: '6px 10px', color: '#6b84a8' }}>{o.data?.slice(0,10)}</td>
                         <td style={{ padding: '6px 10px', fontWeight: 700, color: '#e0e6f0' }}>{o.ticker}</td>
                         <td style={{ padding: '6px 10px' }}><span style={{ color: o.tipo === 'C' ? '#22c55e' : '#ef4444', fontWeight: 700 }}>{o.tipo === 'C' ? 'Compra' : 'Venda'}</span></td>
@@ -792,6 +807,14 @@ export default function PaginaIR() {
                         <td style={{ padding: '6px 10px', color: '#6b84a8' }}>{BRL(o.preco)}</td>
                         <td style={{ padding: '6px 10px', color: '#e0e6f0' }}>{BRL(o.valor_total)}</td>
                         <td style={{ padding: '6px 10px', color: '#4a5d73', fontSize: 11 }}>{o.corretora ?? '—'}</td>
+                        <td style={{ padding: '6px 6px' }}>
+                          <button
+                            onClick={() => excluirOp(o.id, o.ticker)}
+                            disabled={excluindoId === o.id}
+                            title={`Excluir #${o.id}`}
+                            style={{ background: 'rgba(239,68,68,.12)', border: '1px solid rgba(239,68,68,.3)', color: '#ef4444', borderRadius: 4, cursor: 'pointer', fontSize: 11, padding: '2px 7px' }}
+                          >✕</button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
