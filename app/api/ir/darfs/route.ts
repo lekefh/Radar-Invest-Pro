@@ -70,12 +70,31 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, gerados })
   }
 
-  // Marcar DARF como pago
-  if (action === 'marcar_pago') {
+  // Marcar / desmarcar DARF
+  if (action === 'marcar_pago' || action === 'desmarcar_pago') {
     if (!id) return NextResponse.json({ error: 'Informe id' }, { status: 400 })
-    await sql`UPDATE ir_darfs SET status = ${status ?? 'pago'} WHERE id = ${id} AND user_id = ${userId}`
+    const novoStatus = action === 'desmarcar_pago' ? 'pendente' : (status ?? 'pago')
+    await sql`UPDATE ir_darfs SET status = ${novoStatus} WHERE id = ${id} AND user_id = ${userId}`
     return NextResponse.json({ ok: true })
   }
 
   return NextResponse.json({ error: 'action inválida' }, { status: 400 })
+}
+
+export async function DELETE(req: NextRequest) {
+  const userId = await uid()
+  if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
+  const sql = getDb()
+  await ensureIRTables()
+
+  const { id } = await req.json()
+  if (!id) return NextResponse.json({ error: 'Informe id' }, { status: 400 })
+
+  const deleted = await sql`
+    DELETE FROM ir_darfs WHERE id = ${Number(id)} AND user_id = ${userId} RETURNING id
+  `
+  if (deleted.length === 0)
+    return NextResponse.json({ error: 'DARF não encontrado.' }, { status: 404 })
+
+  return NextResponse.json({ ok: true, id: deleted[0].id })
 }

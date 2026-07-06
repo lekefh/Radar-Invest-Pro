@@ -326,6 +326,24 @@ export default function PaginaIR() {
     carregarDarfs()
   }
 
+  async function desmarcarPago(id: number) {
+    await fetch('/api/ir/darfs', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'desmarcar_pago', id }),
+    })
+    carregarDarfs()
+  }
+
+  async function excluirDarf(id: number, competencia: string) {
+    if (!confirm(`Excluir DARF de ${competencia}? Esta ação não pode ser desfeita.`)) return
+    const r = await fetch('/api/ir/darfs', {
+      method: 'DELETE', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    })
+    if (r.ok) carregarDarfs()
+    else { const e = await r.json().catch(() => ({})); aviso(e.error ?? 'Erro ao excluir DARF.', 'erro') }
+  }
+
   function imprimirDarf(d: Darf) {
     const descricao = d.codigo_receita === '6015'
       ? 'Ganhos Líquidos em Operações em Bolsa — Mercado à Vista (Swing Trade)'
@@ -793,11 +811,13 @@ export default function PaginaIR() {
                           <span style={{ color: d.status === 'pago' ? '#22c55e' : '#f59e0b', fontSize: 12, fontWeight: 600 }}>{d.status === 'pago' ? '✅ Pago' : '⏳ Pendente'}</span>
                         </td>
                         <td style={{ padding: '10px 12px' }}>
-                          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                            {d.status !== 'pago' && (
-                              <button onClick={() => marcarPago(d.id)} style={{ ...stBtn('#22c55e'), fontSize: 11, padding: '3px 10px' }}>Marcar pago</button>
-                            )}
+                          <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+                            {d.status !== 'pago'
+                              ? <button onClick={() => marcarPago(d.id)} style={{ ...stBtn('#22c55e'), fontSize: 11, padding: '3px 10px' }}>Marcar pago</button>
+                              : <button onClick={() => desmarcarPago(d.id)} style={{ ...stBtn('#f59e0b'), fontSize: 11, padding: '3px 10px' }}>Desmarcar</button>
+                            }
                             <button onClick={() => imprimirDarf(d)} style={{ ...stBtn('#1a3a6e'), fontSize: 11, padding: '3px 10px', border: '1px solid #3b5ea6' }}>🖨 Imprimir</button>
+                            <button onClick={() => excluirDarf(d.id, d.competencia)} style={{ ...stBtn('#7f1d1d'), fontSize: 11, padding: '3px 10px', border: '1px solid #ef4444' }}>✕ Excluir</button>
                           </div>
                         </td>
                       </tr>
