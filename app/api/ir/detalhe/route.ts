@@ -24,12 +24,13 @@ interface PosIni { qtde: number; preco_medio: number }
 
 function custoMedioAte(
   ticker: string, dataRef: string, anoMes: string,
-  todasOps: Op[], posIni: PosIni | null
+  todasOps: Op[], posIni: PosIni | null, dataBaseFilter?: string
 ): number {
   let qtdeAcc = posIni?.qtde ?? 0
   let custoAcc = (posIni?.qtde ?? 0) * (posIni?.preco_medio ?? 0)
   for (const op of todasOps) {
     if (op.ticker !== ticker || op.tipo !== 'C') continue
+    if (dataBaseFilter && op.data <= dataBaseFilter) continue
     const mes = op.data.slice(0, 7)
     if (mes < anoMes || (mes === anoMes && op.data < dataRef)) {
       qtdeAcc += op.quantidade; custoAcc += op.quantidade * op.preco
@@ -42,18 +43,14 @@ export interface DetalheOp {
   data: string
   ticker: string
   modalidade: 'acao_swing' | 'opcao_lancador_encerra' | 'opcao_titular_encerra' | 'day_trade'
-  descricao: string      // ex: "Lançador encerra — prêmio R$0,92 - recompra R$0,00"
+  descricao: string
   quantidade: number
-  preco_venda: number    // para titular: preço de venda; para lançador: prêmio recebido
-  custo_medio: number    // para titular: PM de compra; para lançador: preço de recompra
+  preco_venda: number
+  custo_medio: number
   lucro: number
   valor_venda: number
 }
 
-/**
- * GET /api/ir/detalhe?ano=2026&mes=1
- * Retorna operações individuais que geraram resultado no mês (lógica correta lançador/titular).
- */
 export async function GET(req: NextRequest) {
   const userId = await uid()
   if (!userId) return NextResponse.json({ error: 'Não autenticado' }, { status: 401 })
@@ -70,9 +67,7 @@ export async function GET(req: NextRequest) {
 
   const todasOpsRaw = await sql`
     SELECT data::text, ticker, tipo, quantidade::float, preco::float, valor_total::float
-    FROM movimentacoes
-    WHERE user_id = ${userId}
-    ORDER BY data ASC, id ASC
+    FROM movimentacoes WHERE user_id = ${userId} ORDER BY data ASC, id ASC
   `
   const todasOps: Op[] = (todasOpsRaw as unknown as Op[])
     .filter(r => !isFuturo(r.ticker))
@@ -80,13 +75,30 @@ export async function GET(req: NextRequest) {
 
   const opsDoMes = todasOps.filter(op => op.data.slice(0, 7) === anoMes)
 
-  const posInisRaw = await sql`
-    SELECT ticker, qtde::float, preco_medio::float FROM ir_posicao_inicial WHERE user_id=${userId}
-  `
+  // ── Fontes de custo inicial ────────────────────────────────────────────────
+  const [posInisRaw, posBaseItensRaw, posBaseRow] = await Promise.all([
+    sql`SELECT ticker, qtde::float, preco_medio::float FROM ir_posicao_inicial WHERE user_id=${userId}`,
+    sql`SELECT ticker, quantidade::float, preco_medio::float FROM posicao_base_itens WHERE user_id=${userId}`,
+    sql`SELECT data_base::text FROM posicao_base WHERE user_id=${userId} LIMIT 1`,
+  ])
+
   const posIniMap = new Map<string, PosIni>()
   for (const r of posInisRaw) posIniMap.set(r.ticker, { qtde: Number(r.qtde), preco_medio: Number(r.preco_medio) })
 
-  // Day trade detection
+  const posBaseMap = new Map<string, PosIni>()
+  for (const r of posBaseItensRaw) posBaseMap.set(r.ticker, { qtde: Number(r.quantidade), preco_medio: Number(r.preco_medio) })
+
+  const dataBase: string = posBaseRow[0]?.data_base ? String(posBaseRow[0].data_base).slice(0,10) : ''
+
+  function resolveBase(ticker: string): { posIni: PosIni | null; dbFilter?: string } {
+    const fromIR = posIniMap.get(ticker)
+    if (fromIR) return { posIni: fromIR }
+    const fromBase = posBaseMap.get(ticker)
+    if (fromBase) return { posIni: fromBase, dbFilter: dataBase }
+    return { posIni: null }
+  }
+
+  // Day trade
   type DayEntry = { cQty: number; cVal: number; vQty: number; vVal: number }
   const porDia = new Map<string, DayEntry>()
   for (const op of opsDoMes) {
@@ -128,10 +140,14 @@ export async function GET(req: NextRequest) {
 
     const qSw = op.quantidade - qDayEsta
     if (qSw > 0.001) {
-      const pm = custoMedioAte(op.ticker, op.data, anoMes, todasOps, posIniMap.get(op.ticker) ?? null)
+      const { posIni, dbFilter } = resolveBase(op.ticker)
+      const pm = custoMedioAte(op.ticker, op.data, anoMes, todasOps, posIni, dbFilter)
+      const fonte = posIniMap.has(op.ticker) ? 'ir_posicao_inicial' : posBaseMap.has(op.ticker) ? 'posicao_base' : 'sem_base'
       operacoes.push({
         data: op.data, ticker: op.ticker, modalidade: 'acao_swing',
-        descricao: pm === 0 ? 'Ação SW — ⚠ custo médio zero (sem compra anterior)' : 'Ação SW',
+        descricao: pm === 0 && fonte === 'sem_base'
+          ? 'Ação SW — ⚠ custo médio zero (não encontrado em posicao_base nem ir_posicao_inicial)'
+          : `Ação SW — base: ${fonte}`,
         quantidade: qSw, preco_venda: op.preco, custo_medio: pm,
         lucro: r2((op.preco - pm) * qSw),
         valor_venda: r2(op.preco * qSw),
@@ -143,33 +159,33 @@ export async function GET(req: NextRequest) {
   const opcaoTickers = new Set(opsDoMes.filter(o => isOpcao(o.ticker)).map(o => o.ticker))
 
   for (const ticker of opcaoTickers) {
-    const ini = posIniMap.get(ticker) ?? null
-    let qtde = ini?.qtde ?? 0
+    const { posIni, dbFilter } = resolveBase(ticker)
+    let qtde = posIni?.qtde ?? 0
     let premioLancado = 0, qtdeLancada = 0
     let custoComprado = 0, qtdeComprado = 0
 
     if (qtde < 0) {
-      qtdeLancada = Math.abs(qtde); premioLancado = qtdeLancada * (ini?.preco_medio ?? 0)
+      qtdeLancada = Math.abs(qtde); premioLancado = qtdeLancada * (posIni?.preco_medio ?? 0)
     } else if (qtde > 0) {
-      qtdeComprado = qtde; custoComprado = qtde * (ini?.preco_medio ?? 0)
+      qtdeComprado = qtde; custoComprado = qtde * (posIni?.preco_medio ?? 0)
     }
 
     for (const op of todasOps.filter(o => o.ticker === ticker)) {
+      if (dbFilter && op.data <= dbFilter) continue
       const isCurrent = op.data.slice(0, 7) === anoMes
 
       if (op.tipo === 'C') {
         if (qtde < 0) {
-          // Lançador encerrando
           const qClose = Math.min(op.quantidade, Math.abs(qtde))
           const pmV = qtdeLancada > 0 ? premioLancado / qtdeLancada : 0
           if (isCurrent) {
-            const lucro = r2((pmV - op.preco) * qClose)
             const encDsc = op.preco === 0 ? 'Virou pó (expirou)' : `Recompra a ${fBRL(op.preco)}`
             operacoes.push({
               data: op.data, ticker, modalidade: 'opcao_lancador_encerra',
               descricao: `Lançador encerra — prêmio médio ${fBRL(pmV)} · ${encDsc}`,
               quantidade: qClose, preco_venda: pmV, custo_medio: op.preco,
-              lucro, valor_venda: r2(pmV * qClose),
+              lucro: r2((pmV - op.preco) * qClose),
+              valor_venda: r2(pmV * qClose),
             })
           }
           qtde += qClose; qtdeLancada = Math.max(0, qtdeLancada - qClose); premioLancado = Math.max(0, premioLancado - pmV * qClose)
@@ -178,9 +194,8 @@ export async function GET(req: NextRequest) {
         } else {
           qtde += op.quantidade; custoComprado += op.quantidade * op.preco; qtdeComprado += op.quantidade
         }
-      } else { // V
+      } else {
         if (qtde > 0) {
-          // Titular encerrando
           const qClose = Math.min(op.quantidade, qtde)
           const pmC = qtdeComprado > 0 ? custoComprado / qtdeComprado : 0
           if (isCurrent) {
@@ -196,7 +211,6 @@ export async function GET(req: NextRequest) {
           const qRemain = op.quantidade - qClose
           if (qRemain > 0.001) { qtde -= qRemain; premioLancado += qRemain * op.preco; qtdeLancada += qRemain }
         } else {
-          // Lançamento — não é evento tributável aqui, será tributado ao fechar
           qtde -= op.quantidade; premioLancado += op.quantidade * op.preco; qtdeLancada += op.quantidade
         }
       }
@@ -206,20 +220,20 @@ export async function GET(req: NextRequest) {
   operacoes.sort((a, b) => a.data.localeCompare(b.data) || a.ticker.localeCompare(b.ticker))
 
   const custoZeros = operacoes.filter(o => o.custo_medio === 0 && o.lucro > 0 && o.modalidade === 'acao_swing')
-  const temLancamentos = opsDoMes.some(o => isOpcao(o.ticker) && o.tipo === 'V')
+  const temPosBase = posBaseMap.size > 0
 
   let alerta: string | null = null
   if (custoZeros.length > 0) {
     const tickers = [...new Set(custoZeros.map(o => o.ticker))].join(', ')
-    alerta = `Custo médio zero para: ${tickers}. Cadastre na aba "Posição Inicial" o preço médio de compra para corrigir o cálculo.`
+    alerta = `Custo médio zero para: ${tickers}. Verifique se estes ativos estão na aba "Posição Base" com preço médio correto.`
   }
 
   return NextResponse.json({
-    anoMes,
-    operacoes,
-    totalOpsDoMes: opsDoMes.length,
+    anoMes, operacoes, totalOpsDoMes: opsDoMes.length,
     posIniCadastrada: posIniMap.size > 0,
-    temLancamentosNaoTributados: temLancamentos,
+    posBaseCadastrada: temPosBase,
+    dataBase,
+    temLancamentosNaoTributados: opsDoMes.some(o => isOpcao(o.ticker) && o.tipo === 'V'),
     alerta,
   })
 }
