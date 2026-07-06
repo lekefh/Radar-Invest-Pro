@@ -1657,23 +1657,6 @@ export default function CarteiraPage() {
                       style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:7, padding:'8px 12px', color:'#e8edf5', fontSize:13, outline:'none' }} />
                   </div>
 
-                  {/* Prejuízo acumulado IR */}
-                  <div>
-                    <label style={{ fontSize:12, fontWeight:600, color:'#6b84a8', display:'block', marginBottom:8 }}>Prejuízo Acumulado para IR (R$)</label>
-                    <div style={{ display:'flex', gap:14 }}>
-                      <div>
-                        <label style={{ fontSize:11, color:'#4a5d73', display:'block', marginBottom:4 }}>Swing Trade</label>
-                        <input type="number" min="0" step="0.01" value={basePrejSwing} onChange={e => setBasePrejSwing(e.target.value)}
-                          style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:7, padding:'7px 12px', color:'#e8edf5', fontSize:13, outline:'none', width:160 }} />
-                      </div>
-                      <div>
-                        <label style={{ fontSize:11, color:'#4a5d73', display:'block', marginBottom:4 }}>Day Trade</label>
-                        <input type="number" min="0" step="0.01" value={basePrejDay} onChange={e => setBasePrejDay(e.target.value)}
-                          style={{ background:'#0d1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:7, padding:'7px 12px', color:'#e8edf5', fontSize:13, outline:'none', width:160 }} />
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Tabela de posições base */}
                   <div>
                     <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10, flexWrap:'wrap', gap:8 }}>
