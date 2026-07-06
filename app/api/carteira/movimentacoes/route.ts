@@ -11,7 +11,7 @@ export async function GET() {
 
   const rows = await sql`
     SELECT id, data::text, ticker, tipo, quantidade::float, preco::float, valor_total::float,
-           corretora, nota_num
+           corretora, nota_num, mercado
     FROM movimentacoes
     WHERE user_id = ${userId}
     ORDER BY data DESC, id DESC

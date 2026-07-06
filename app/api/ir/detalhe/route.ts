@@ -19,7 +19,10 @@ function isOpcao(ticker: string): boolean {
 interface Op {
   data: string; ticker: string; tipo: string
   quantidade: number; preco: number; valor_total: number
-  nota_num?: string
+  nota_num?: string; mercado?: string
+}
+function isExercicio(op: Op): boolean {
+  return op.mercado === 'exercicio' || op.nota_num === 'exercicio'
 }
 interface PosIni { qtde: number; preco_medio: number }
 
@@ -67,12 +70,12 @@ export async function GET(req: NextRequest) {
   const anoMes = `${String(ano).padStart(4,'0')}-${String(mes).padStart(2,'0')}`
 
   const todasOpsRaw = await sql`
-    SELECT data::text, ticker, tipo, quantidade::float, preco::float, valor_total::float, nota_num
+    SELECT data::text, ticker, tipo, quantidade::float, preco::float, valor_total::float, nota_num, mercado
     FROM movimentacoes WHERE user_id = ${userId} ORDER BY data ASC, id ASC
   `
   const todasOps: Op[] = (todasOpsRaw as unknown as Op[])
     .filter(r => !isFuturo(r.ticker))
-    .map(r => ({ ...r, data: String(r.data).slice(0,10) }))
+    .map(r => ({ ...r, data: String(r.data).slice(0, 10) }))
 
   const opsDoMes = todasOps.filter(op => op.data.slice(0, 7) === anoMes)
 
@@ -104,7 +107,7 @@ export async function GET(req: NextRequest) {
   const porDia = new Map<string, DayEntry>()
   for (const op of opsDoMes) {
     if (isOpcao(op.ticker)) continue
-    if (op.nota_num === 'exercicio') continue   // exercício de opção não conta como day trade
+    if (isExercicio(op)) continue   // exercício de opção não conta como day trade
     const key = `${op.data}|${op.ticker}`
     if (!porDia.has(key)) porDia.set(key, { cQty: 0, cVal: 0, vQty: 0, vVal: 0 })
     const d = porDia.get(key)!

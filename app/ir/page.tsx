@@ -11,7 +11,7 @@ interface Apuracao {
   ir_swing: number; ir_day: number; irrf_day: number; ir_devido_swing: number; ir_devido_day: number
 }
 interface Darf { id: number; competencia: string; codigo_receita: string; valor: number; vencimento: string; status: string }
-interface Mov { id: number; data: string; ticker: string; tipo: string; quantidade: number; preco: number; valor_total: number; corretora: string | null; nota_num: string | null }
+interface Mov { id: number; data: string; ticker: string; tipo: string; quantidade: number; preco: number; valor_total: number; corretora: string | null; nota_num: string | null; mercado: string | null }
 interface DetalheOp {
   data: string; ticker: string; modalidade: 'acao_swing' | 'opcao_lancador_encerra' | 'opcao_titular_encerra' | 'day_trade'
   descricao: string; quantidade: number; preco_venda: number; custo_medio: number; lucro: number; valor_venda: number
@@ -823,12 +823,8 @@ export default function PaginaIR() {
                         <td style={{ padding: '6px 10px', color: '#4a5d73', fontSize: 11 }}>{o.corretora ?? '—'}</td>
                         <td style={{ padding: '6px 6px' }}>
                           <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-                            {o.tipo === 'C' && (
-                              <button
-                                onClick={() => marcarExercicio(o.id, o.ticker, o.nota_num === 'exercicio')}
-                                title={o.nota_num === 'exercicio' ? 'Remover marcação de exercício' : 'Marcar como exercício de opção (não conta como day trade)'}
-                                style={{ background: o.nota_num === 'exercicio' ? 'rgba(234,184,56,.25)' : 'rgba(234,184,56,.08)', border: `1px solid rgba(234,184,56,${o.nota_num === 'exercicio' ? '.6' : '.25'})`, color: '#eab838', borderRadius: 4, cursor: 'pointer', fontSize: 10, padding: '2px 6px', fontWeight: o.nota_num === 'exercicio' ? 700 : 400, whiteSpace: 'nowrap' }}
-                              >{o.nota_num === 'exercicio' ? '★ Exerc.' : '☆ Exerc.'}</button>
+                            {(o.mercado === 'exercicio' || o.nota_num === 'exercicio') && (
+                              <span title="Exercício de opção — excluído do day trade automaticamente" style={{ color: '#eab838', fontSize: 10, fontWeight: 700, whiteSpace: 'nowrap' }}>Exercício</span>
                             )}
                             <button
                               onClick={() => excluirOp(o.id, o.ticker)}
