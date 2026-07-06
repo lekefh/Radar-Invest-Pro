@@ -1326,8 +1326,39 @@ export default function CarteiraPage() {
                   <div style={{ marginTop:16, display:'flex', gap:20, flexWrap:'wrap', fontSize:11, color:'#4a5d73' }}>
                     <span style={{ color:'#64b5f6' }}>■ Titular — comprou a opção (custo = prêmio pago)</span>
                     <span style={{ color:'#ffb74d' }}>■ Lançador — vendeu a opção (crédito = prêmio recebido)</span>
-                    <span>Ao marcar "Virou Pó": titular registra prejuízo no IR; lançador encerra posição (ganho já foi registrado na abertura).</span>
+                    <span>Ao marcar "Virou Pó": titular registra prejuízo no IR; lançador encerra posição.</span>
                   </div>
+
+                  {/* Opções que foram marcadas como virou pó mas não estão mais na carteira */}
+                  {(() => {
+                    const tickersNaCarteira = new Set(sortedOpcoes.map(p => p.ticker))
+                    const encerradasSemLinha = [...poVencidas].filter(t => !tickersNaCarteira.has(t))
+                    if (encerradasSemLinha.length === 0) return null
+                    return (
+                      <div style={{ marginTop:20, background:'rgba(234,184,56,.06)', border:'1px solid rgba(234,184,56,.2)', borderRadius:8, padding:'12px 16px' }}>
+                        <div style={{ fontSize:12, fontWeight:700, color:'#eab838', marginBottom:10 }}>
+                          Registradas como Virou Pó (fora da carteira)
+                        </div>
+                        <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
+                          {encerradasSemLinha.map(ticker => (
+                            <div key={ticker} style={{ display:'flex', alignItems:'center', gap:8, background:'rgba(255,255,255,.05)', border:'1px solid rgba(255,255,255,.1)', borderRadius:6, padding:'6px 12px' }}>
+                              <span style={{ fontWeight:700, color:'#e0e6f0', fontSize:13 }}>{ticker}</span>
+                              <button
+                                onClick={() => desfazerVirouPo(ticker)}
+                                disabled={desfazendoPo === ticker}
+                                style={{ background:'rgba(234,184,56,.15)', border:'1px solid rgba(234,184,56,.3)', color:'#eab838', borderRadius:5, cursor:'pointer', fontSize:11, fontWeight:700, padding:'3px 10px', whiteSpace:'nowrap', opacity: desfazendoPo===ticker ? .4 : 1 }}
+                              >
+                                {desfazendoPo===ticker ? '...' : '↩ Desfazer'}
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ marginTop:8, fontSize:11, color:'#4a5d73' }}>
+                          Estas opções foram marcadas como Virou Pó mas não estão mais na tabela da carteira. Clique em ↩ Desfazer para remover o registro.
+                        </div>
+                      </div>
+                    )
+                  })()}
                 </>
               )}
             </div>
