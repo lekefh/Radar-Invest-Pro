@@ -427,7 +427,19 @@ export default function CarteiraPage() {
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
-  const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base'>('acoes')
+  const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base' | 'performance'>('acoes')
+
+  // Performance
+  const [perfDe,      setPerfDe]      = useState(() => `${new Date().getFullYear()}-01-01`)
+  const [perfAte,     setPerfAte]     = useState(() => new Date().toISOString().slice(0, 10))
+  const [perfPeriodo, setPerfPeriodo] = useState('ytd')
+  const [perfTipos,   setPerfTipos]   = useState(new Set(['acao', 'fii_etf', 'bdr', 'opcao']))
+  const [perfData,    setPerfData]    = useState<{
+    periodo: { de: string; ate: string }
+    realizado: { total: number; por_ticker: { ticker: string; tipo: string; pl: number; vol_vendas: number; vol_compras: number; n_ops: number }[] }
+    operacoes: { vol_compras: number; vol_vendas: number; n_compras: number; n_vendas: number }
+  } | null>(null)
+  const [perfLoading, setPerfLoading] = useState(false)
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [desfazendoPo, setDesfazendoPo] = useState<string | null>(null)
   const [encerradasExpandidas, setEncerradasExpandidas] = useState(true)
@@ -595,6 +607,8 @@ export default function CarteiraPage() {
   useEffect(() => {
     if (abaCarteira === 'importacoes') carregarImportacoes()
     if (abaCarteira === 'base') carregarBase()
+    if (abaCarteira === 'performance') buscarPerformance()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [abaCarteira, carregarImportacoes, carregarBase])
 
   useEffect(() => {
@@ -892,6 +906,44 @@ export default function CarteiraPage() {
 
   const corPL = (v: number) => v > 0 ? '#00d4a0' : v < 0 ? '#ef4444' : '#e8edf5'
 
+  // ── Performance ─────────────────────────────────────────────────────────────
+  function tipoAtivo(ticker: string): 'acao' | 'fii_etf' | 'bdr' | 'opcao' {
+    if (isOpcaoTicker(ticker)) return 'opcao'
+    if (/11$/.test(ticker) && ticker.length >= 6) return 'fii_etf'
+    if (/(34|32|39|33)$/.test(ticker) && ticker.length >= 6) return 'bdr'
+    return 'acao'
+  }
+
+  function aplicarPeriodo(periodo: string) {
+    const hoje = new Date()
+    const ate = hoje.toISOString().slice(0, 10)
+    let de: string
+    switch (periodo) {
+      case 'mes': de = new Date(hoje.getFullYear(), hoje.getMonth(), 1).toISOString().slice(0, 10); break
+      case '3m': { const d = new Date(hoje); d.setMonth(d.getMonth() - 3); de = d.toISOString().slice(0, 10); break }
+      case '6m': { const d = new Date(hoje); d.setMonth(d.getMonth() - 6); de = d.toISOString().slice(0, 10); break }
+      case '12m': { const d = new Date(hoje); d.setFullYear(d.getFullYear() - 1); de = d.toISOString().slice(0, 10); break }
+      default: de = `${hoje.getFullYear()}-01-01` // ytd
+    }
+    setPerfDe(de); setPerfAte(ate); setPerfPeriodo(periodo)
+  }
+
+  function toggleTipoPerfil(tipo: string) {
+    setPerfTipos(prev => {
+      const next = new Set(prev)
+      next.has(tipo) ? next.delete(tipo) : next.add(tipo)
+      return next
+    })
+  }
+
+  async function buscarPerformance() {
+    setPerfLoading(true)
+    try {
+      const r = await fetch(`/api/carteira/performance?de=${perfDe}&ate=${perfAte}`)
+      if (r.ok) setPerfData(await r.json())
+    } finally { setPerfLoading(false) }
+  }
+
   const toggleDirecaoOpcao = async (p: Posicao) => {
     setTogglingDirecao(p.id)
     const r = await fetch(`/api/carteira/${p.id}`, {
@@ -1071,9 +1123,10 @@ export default function CarteiraPage() {
           {([
             { key:'acoes',       label:`📈 Ações / FIIs${posicoesAcoes.length ? ` (${posicoesAcoes.length})` : ''}` },
             { key:'opcoes',      label:`🎯 Opções${posicoesOpcoes.length ? ` (${posicoesOpcoes.length})` : ''}` },
-            { key:'importacoes', label:'📥 Importações' },
-            { key:'base',        label:'📌 Posição Base' },
-          ] as { key: 'acoes'|'opcoes'|'importacoes'|'base'; label: string }[]).map(t => (
+            { key:'importacoes',  label:'📥 Importações' },
+            { key:'base',         label:'📌 Posição Base' },
+            { key:'performance',  label:'📊 Performance' },
+          ] as { key: 'acoes'|'opcoes'|'importacoes'|'base'|'performance'; label: string }[]).map(t => (
             <button key={t.key} onClick={() => setAbaCarteira(t.key)} style={{
               background:'none', border:'none', borderBottom: abaCarteira===t.key ? '2px solid #e8a020' : '2px solid transparent',
               padding:'10px 18px', fontSize:13, fontWeight: abaCarteira===t.key ? 700 : 500,
@@ -1757,6 +1810,182 @@ export default function CarteiraPage() {
               )}
             </div>
           )}
+
+          {/* ── Aba Performance ──────────────────────────────────────────────── */}
+          {abaCarteira === 'performance' && (() => {
+            const stCard2 = { background:'#0d1a2e', border:'1px solid rgba(255,255,255,.07)', borderRadius:10, padding:'16px 18px' }
+            const stBtn2 = (active: boolean) => ({
+              background: active ? '#0e2a4a' : '#081120',
+              border: `1px solid ${active ? '#3b5ea6' : 'rgba(255,255,255,.08)'}`,
+              color: active ? '#90CAF9' : '#4a5d73',
+              borderRadius:6, padding:'5px 13px', fontSize:12, cursor:'pointer', fontWeight: active ? 700 : 400,
+            })
+            const fBRL2 = (v: number) => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL', minimumFractionDigits:2 })
+            const fPct  = (v: number) => (v >= 0 ? '+' : '') + v.toFixed(2) + '%'
+
+            // unrealized PL das posições atuais, filtrado por tipo
+            const posComTipo = posicoesAcoes.filter(p => perfTipos.has(tipoAtivo(p.ticker)))
+            const naoRealizado = posComTipo.reduce((s, p) => {
+              const pa = p.preco_atual ?? p.preco_medio
+              return s + (pa - p.preco_medio) * p.quantidade
+            }, 0)
+            const custoAtual = posComTipo.reduce((s, p) => s + p.preco_medio * p.quantidade, 0)
+            const naoRealizadoPct = custoAtual > 0 ? (naoRealizado / custoAtual) * 100 : 0
+
+            // realized filtrado por tipo
+            const realizadoFiltrado = perfData
+              ? perfData.realizado.por_ticker.filter(t => perfTipos.has(t.tipo))
+              : []
+            const totalRealizado = realizadoFiltrado.reduce((s, t) => s + t.pl, 0)
+            const volCompras = perfData?.operacoes.vol_compras ?? 0
+            const volVendas  = perfData?.operacoes.vol_vendas  ?? 0
+            const totalOps   = (perfData?.operacoes.n_compras ?? 0) + (perfData?.operacoes.n_vendas ?? 0)
+            const totalGeral = totalRealizado + naoRealizado
+
+            const TIPO_LABEL: Record<string, string> = { acao:'Ação', fii_etf:'FII/ETF', bdr:'BDR', opcao:'Opção' }
+
+            return (
+              <div style={{ flex:1, overflowY:'auto', padding:'20px' }}>
+
+                {/* Filtros de período */}
+                <div style={{ display:'flex', gap:8, marginBottom:12, flexWrap:'wrap', alignItems:'center' }}>
+                  <span style={{ fontSize:12, color:'#4a5d73', minWidth:60 }}>Período:</span>
+                  {([['mes','Este mês'],['3m','3M'],['6m','6M'],['ytd','YTD'],['12m','12M']] as [string,string][]).map(([k,l]) => (
+                    <button key={k} onClick={() => aplicarPeriodo(k)} style={stBtn2(perfPeriodo === k)}>{l}</button>
+                  ))}
+                  <div style={{ display:'flex', gap:6, alignItems:'center', marginLeft:4 }}>
+                    <input type="date" value={perfDe} onChange={e => { setPerfDe(e.target.value); setPerfPeriodo('custom') }}
+                      style={{ background:'#081120', border:'1px solid rgba(255,255,255,.12)', borderRadius:6, padding:'4px 8px', color:'#e8edf5', fontSize:12, outline:'none' }} />
+                    <span style={{ color:'#4a5d73', fontSize:12 }}>→</span>
+                    <input type="date" value={perfAte} onChange={e => { setPerfAte(e.target.value); setPerfPeriodo('custom') }}
+                      style={{ background:'#081120', border:'1px solid rgba(255,255,255,.12)', borderRadius:6, padding:'4px 8px', color:'#e8edf5', fontSize:12, outline:'none' }} />
+                    <button onClick={buscarPerformance} disabled={perfLoading}
+                      style={{ background:'#1a3a6e', border:'1px solid #3b5ea6', color:'#90CAF9', borderRadius:6, padding:'5px 14px', fontSize:12, cursor:'pointer', fontWeight:700, opacity: perfLoading ? .6 : 1 }}>
+                      {perfLoading ? '⏳' : '🔍 Buscar'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Filtros de tipo */}
+                <div style={{ display:'flex', gap:8, marginBottom:20, flexWrap:'wrap', alignItems:'center' }}>
+                  <span style={{ fontSize:12, color:'#4a5d73', minWidth:60 }}>Tipo:</span>
+                  {([['acao','📈 Ações'],['fii_etf','🏢 FIIs/ETFs'],['bdr','🌎 BDRs'],['opcao','🎯 Opções']] as [string,string][]).map(([k,l]) => (
+                    <button key={k} onClick={() => toggleTipoPerfil(k)} style={stBtn2(perfTipos.has(k))}>
+                      {perfTipos.has(k) ? '✓ ' : ''}{l}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Cards de resumo */}
+                <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:12, marginBottom:14 }}>
+                  {[
+                    { label:'P&L Realizado', val:totalRealizado, pct: volVendas > 0 ? (totalRealizado/volVendas)*100 : null, hint:'no período selecionado' },
+                    { label:'P&L Não Realizado', val:naoRealizado, pct:naoRealizadoPct, hint:'posição atual' },
+                    { label:'P&L Total', val:totalGeral, pct:null, hint:'realizado + não real.' },
+                  ].map(c => (
+                    <div key={c.label} style={stCard2}>
+                      <div style={{ fontSize:11, color:'#4a5d73', marginBottom:6 }}>{c.label}</div>
+                      <div style={{ fontSize:18, fontWeight:800, color: c.val >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(c.val)}</div>
+                      {c.pct != null && <div style={{ fontSize:11, color: c.pct >= 0 ? '#00d4a0' : '#ef4444', marginTop:2 }}>{fPct(c.pct)}</div>}
+                      <div style={{ fontSize:10, color:'#4a5d73', marginTop:4 }}>{c.hint}</div>
+                    </div>
+                  ))}
+                  {[
+                    { label:'Vol. Comprado', val:volCompras, sub:`${perfData?.operacoes.n_compras ?? 0} compras` },
+                    { label:'Vol. Vendido',  val:volVendas,  sub:`${perfData?.operacoes.n_vendas  ?? 0} vendas` },
+                    { label:'Total de Ops',  val:totalOps,   sub:'compras + vendas', isMoney:false },
+                  ].map(c => (
+                    <div key={c.label} style={stCard2}>
+                      <div style={{ fontSize:11, color:'#4a5d73', marginBottom:6 }}>{c.label}</div>
+                      <div style={{ fontSize:18, fontWeight:800, color:'#e8edf5' }}>
+                        {c.isMoney === false ? c.val : fBRL2(c.val as number)}
+                      </div>
+                      <div style={{ fontSize:10, color:'#4a5d73', marginTop:4 }}>{c.sub}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {perfData && realizadoFiltrado.length > 0 && (
+                  <div style={{ ...stCard2, marginBottom:16 }}>
+                    <div style={{ fontSize:13, fontWeight:700, color:'#eab838', marginBottom:12 }}>Resultado Realizado por Ativo — {perfDe} a {perfAte}</div>
+                    <div style={{ overflowX:'auto' }}>
+                      <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
+                        <thead>
+                          <tr style={{ borderBottom:'1px solid rgba(255,255,255,.08)', color:'#4a5d73' }}>
+                            {['Ticker','Tipo','P&L Realizado','Vol. Vendas','Vol. Compras','Ops'].map(h => (
+                              <th key={h} style={{ padding:'7px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {realizadoFiltrado.map(t => (
+                            <tr key={t.ticker} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
+                              <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{t.ticker}</td>
+                              <td style={{ padding:'7px 10px' }}>
+                                <span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[t.tipo] ?? t.tipo}</span>
+                              </td>
+                              <td style={{ padding:'7px 10px', fontWeight:700, color: t.pl >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(t.pl)}</td>
+                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{t.vol_vendas > 0 ? fBRL2(t.vol_vendas) : '—'}</td>
+                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{t.vol_compras > 0 ? fBRL2(t.vol_compras) : '—'}</td>
+                              <td style={{ padding:'7px 10px', color:'#4a5d73' }}>{t.n_ops}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                <div style={stCard2}>
+                  <div style={{ fontSize:13, fontWeight:700, color:'#eab838', marginBottom:12 }}>Posição Atual — Não Realizado</div>
+                  <div style={{ overflowX:'auto' }}>
+                    <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
+                      <thead>
+                        <tr style={{ borderBottom:'1px solid rgba(255,255,255,.08)', color:'#4a5d73' }}>
+                          {['Ticker','Nome','Tipo','Qtde','P.Médio','P.Atual','Res. Unit.','Res. Total','%'].map(h => (
+                            <th key={h} style={{ padding:'7px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {posComTipo.map(p => {
+                          const pa  = p.preco_atual ?? p.preco_medio
+                          const ru  = pa - p.preco_medio
+                          const rt  = ru * p.quantidade
+                          const pct = p.preco_medio > 0 ? (ru / p.preco_medio) * 100 : 0
+                          const tipo = tipoAtivo(p.ticker)
+                          return (
+                            <tr key={p.id} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
+                              <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{p.ticker}</td>
+                              <td style={{ padding:'7px 10px', color:'#6b84a8', fontSize:11, maxWidth:180, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{p.nome ?? '—'}</td>
+                              <td style={{ padding:'7px 10px' }}>
+                                <span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[tipo]}</span>
+                              </td>
+                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{p.quantidade}</td>
+                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{fBRL2(p.preco_medio)}</td>
+                              <td style={{ padding:'7px 10px', color:'#e8edf5' }}>{p.preco_atual != null ? fBRL2(p.preco_atual) : '—'}</td>
+                              <td style={{ padding:'7px 10px', fontWeight:600, color: corPL(ru) }}>{fBRL2(ru)}</td>
+                              <td style={{ padding:'7px 10px', fontWeight:700, color: corPL(rt) }}>{fBRL2(rt)}</td>
+                              <td style={{ padding:'7px 10px', fontWeight:600, color: corPL(pct) }}>{fPct(pct)}</td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  {posComTipo.length === 0 && (
+                    <div style={{ textAlign:'center', color:'#4a5d73', padding:'30px 0', fontSize:13 }}>Nenhuma posição no tipo selecionado.</div>
+                  )}
+                </div>
+
+                {!perfData && (
+                  <div style={{ textAlign:'center', color:'#4a5d73', padding:'20px 0', fontSize:13 }}>
+                    Selecione o período e clique em <b style={{ color:'#90CAF9' }}>Buscar</b> para carregar o resultado realizado.
+                  </div>
+                )}
+              </div>
+            )
+          })()}
         </div>
       </div>
 

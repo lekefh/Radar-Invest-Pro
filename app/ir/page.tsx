@@ -809,7 +809,7 @@ body { font-family: Arial, Helvetica, sans-serif; font-size: 8.5pt; background: 
                                 title={titular ? `Registrar perda de ${BRL(p.custoTotal)} (prêmio pago)` : 'Encerrar posição de lançamento'}
                                 style={{ background: 'rgba(239,68,68,.15)', border: '1px solid rgba(239,68,68,.35)', color: '#ef4444', borderRadius: 5, cursor: 'pointer', fontSize: 11, fontWeight: 700, padding: '4px 10px', whiteSpace: 'nowrap' }}
                               >
-                                {marcandoPo === p.ticker ? '...' : '💀 Virou Pó'}
+                                {marcandoPo === p.ticker ? '...' : 'Virou Pó'}
                               </button>
                             )}
                           </td>
