@@ -1048,7 +1048,7 @@ export default function CarteiraPage() {
         .nota-legend{margin-left:auto;font-size:12px;color:#6b84a8;display:flex;align-items:center;gap:12px}
         .nota-legend span{font-weight:700}
         .btn-bar{flex-shrink:0;background:#081120;border-bottom:1px solid rgba(255,255,255,.07);padding:0 20px;height:48px;display:flex;align-items:center;gap:8px}
-        .btn{padding:7px 16px;border-radius:6px;font-size:12.5px;font-weight:700;cursor:pointer;border:none;transition:all .15s;display:flex;align-items:center;gap:5px}
+        .btn{padding:7px 16px;border-radius:6px;font-size:12.5px;font-weight:700;cursor:pointer;border:none;transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0}
         .btn-add  {background:#1565C0;color:#fff}.btn-add:hover{background:#1976D2}
         .btn-edit {background:#00695C;color:#fff}.btn-edit:hover{background:#00796B}.btn-edit:disabled{opacity:.4;cursor:not-allowed}
         .btn-rem  {background:#B71C1C;color:#fff}.btn-rem:hover{background:#C62828}.btn-rem:disabled{opacity:.4;cursor:not-allowed}
@@ -1078,7 +1078,8 @@ export default function CarteiraPage() {
           .table-wrap{display:none}
           .bar-pl{height:auto;flex-wrap:wrap;padding:8px 12px;gap:14px;row-gap:6px}
           .nota-legend{margin-left:0;width:100%;justify-content:center}
-          .btn-bar{height:auto;flex-wrap:wrap;padding:8px 12px;row-gap:6px}
+          .btn-bar{height:44px;flex-wrap:nowrap;overflow-x:auto;padding:0 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.btn-bar::-webkit-scrollbar{display:none}
+          .aba-tabs{overflow-x:auto;flex-wrap:nowrap!important;-webkit-overflow-scrolling:touch;scrollbar-width:none}.aba-tabs::-webkit-scrollbar{display:none}
           .sort-bar-mobile{display:flex;gap:6px;padding:8px 10px;overflow-x:auto;flex-shrink:0;background:#081120;border-bottom:1px solid rgba(255,255,255,.05)}
           .sort-chip{flex-shrink:0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#b8c4d4;font-size:11px;font-weight:700;padding:6px 12px;border-radius:14px;cursor:pointer;white-space:nowrap;font-family:inherit}
           .sort-chip.ativo{background:rgba(232,160,32,.15);border-color:rgba(232,160,32,.4);color:#e8a020}
@@ -1121,7 +1122,7 @@ export default function CarteiraPage() {
         </div>
 
         {/* ABAS */}
-        <div style={{ display:'flex', gap:0, background:'#081120', borderBottom:'1px solid rgba(255,255,255,.07)', paddingLeft:20 }}>
+        <div className="aba-tabs" style={{ display:'flex', gap:0, background:'#081120', borderBottom:'1px solid rgba(255,255,255,.07)', paddingLeft:20 }}>
           {([
             { key:'acoes',       label:`📈 Ações / FIIs${posicoesAcoes.length ? ` (${posicoesAcoes.length})` : ''}` },
             { key:'opcoes',      label:`🎯 Opções${posicoesOpcoes.length ? ` (${posicoesOpcoes.length})` : ''}` },
@@ -1133,6 +1134,7 @@ export default function CarteiraPage() {
               background:'none', border:'none', borderBottom: abaCarteira===t.key ? '2px solid #e8a020' : '2px solid transparent',
               padding:'10px 18px', fontSize:13, fontWeight: abaCarteira===t.key ? 700 : 500,
               color: abaCarteira===t.key ? '#e8a020' : '#4a5d73', cursor:'pointer', transition:'all .15s',
+              whiteSpace:'nowrap', flexShrink:0,
             }}>{t.label}</button>
           ))}
         </div>
