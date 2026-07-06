@@ -12,6 +12,13 @@ interface Apuracao {
 }
 interface Darf { id: number; competencia: string; codigo_receita: string; valor: number; vencimento: string; status: string }
 interface Mov { id: number; data: string; ticker: string; tipo: string; quantidade: number; preco: number; valor_total: number; corretora: string | null }
+interface DetalheOp {
+  data: string; ticker: string; modalidade: 'acao_swing' | 'opcao_swing' | 'day_trade'
+  quantidade: number; preco_venda: number; custo_medio: number; lucro: number; valor_venda: number
+}
+interface DetalheApuracao {
+  anoMes: string; operacoes: DetalheOp[]; posIniCadastrada: boolean; alerta: string | null
+}
 
 interface PosicaoOpcao {
   ticker: string
@@ -132,6 +139,10 @@ export default function PaginaIR() {
   const [posOpcoes, setPosOpcoes] = useState<PosicaoOpcao[]>([])
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
 
+  // Detalhe de operações
+  const [detalhe, setDetalhe] = useState<DetalheApuracao | null>(null)
+  const [carregandoDetalhe, setCarregandoDetalhe] = useState(false)
+
   // Mensagens
   const [msg, setMsg] = useState<{ texto: string; tipo: 'ok' | 'erro' } | null>(null)
 
@@ -236,6 +247,15 @@ export default function PaginaIR() {
     }
   }
 
+  async function verDetalhe(ano: number, mes: number) {
+    setCarregandoDetalhe(true)
+    setDetalhe(null)
+    const r = await fetch(`/api/ir/detalhe?ano=${ano}&mes=${mes}`)
+    setCarregandoDetalhe(false)
+    if (r.ok) setDetalhe(await r.json())
+    else aviso('Erro ao carregar detalhes das operações.', 'erro')
+  }
+
   /* ── Ações — DARFs ───────────────────────────────────────────────────────────── */
   async function gerarDarfs(anoMes: string) {
     setGerandoDarf(anoMes)
@@ -332,6 +352,9 @@ export default function PaginaIR() {
               <button onClick={calcular} disabled={calculando} style={{ ...stBtn('#1565C0'), height: 36, padding: '0 20px', marginBottom: 0 }}>
                 {calculando ? 'Calculando...' : '⚡ Calcular'}
               </button>
+              <button onClick={() => verDetalhe(anoSel, mesSel)} disabled={carregandoDetalhe} style={{ ...stBtn('#1a3a2a'), height: 36, padding: '0 16px', marginBottom: 0, border: '1px solid #22c55e', color: '#22c55e' }}>
+                {carregandoDetalhe ? 'Carregando...' : '🔍 Ver Operações'}
+              </button>
               {apuracaoExibe && (
                 <button onClick={() => gerarDarfs(anoMesSel)} disabled={!!gerandoDarf} style={{ ...stBtn('#7B3F00'), height: 36, padding: '0 20px', marginBottom: 0 }}>
                   {gerandoDarf === anoMesSel ? 'Gerando...' : '📄 Gerar DARFs'}
@@ -389,6 +412,87 @@ export default function PaginaIR() {
               </div>
             )}
 
+            {/* Detalhe de operações */}
+            {detalhe && detalhe.anoMes === anoMesSel && (
+              <div style={{ marginTop: 24 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#eab838' }}>
+                    Operações de Venda — {MESES[mesSel-1]}/{anoSel}
+                    <span style={{ marginLeft: 10, fontWeight: 400, color: '#4a5d73', fontSize: 12 }}>
+                      {detalhe.operacoes.length} operaç{detalhe.operacoes.length === 1 ? 'ão' : 'ões'}
+                    </span>
+                  </div>
+                  <button onClick={() => setDetalhe(null)} style={{ background: 'none', border: 'none', color: '#4a5d73', cursor: 'pointer', fontSize: 18, padding: '0 4px' }}>✕</button>
+                </div>
+
+                {detalhe.alerta && (
+                  <div style={{ background: 'rgba(239,68,68,.12)', border: '1px solid rgba(239,68,68,.35)', borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 12, color: '#ef4444' }}>
+                    ⚠ {detalhe.alerta}
+                  </div>
+                )}
+
+                {!detalhe.posIniCadastrada && (
+                  <div style={{ background: 'rgba(234,184,56,.08)', border: '1px solid rgba(234,184,56,.25)', borderRadius: 8, padding: '10px 14px', marginBottom: 12, fontSize: 12, color: '#eab838' }}>
+                    💡 Nenhuma posição inicial cadastrada. Se você já tinha ações antes da primeira importação de nota, cadastre na aba <strong>Posição Inicial</strong> para que o custo médio seja calculado corretamente.
+                  </div>
+                )}
+
+                {detalhe.operacoes.length === 0 ? (
+                  <div style={{ color: '#4a5d73', fontSize: 13, textAlign: 'center', padding: '20px 0' }}>
+                    Nenhuma venda encontrada neste mês.
+                  </div>
+                ) : (
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,.1)', color: '#4a5d73' }}>
+                          {['Data','Ticker','Modalidade','Qtde','Preço Venda','Custo Médio','Valor Venda','Lucro/Prej'].map(h => (
+                            <th key={h} style={{ padding: '6px 10px', textAlign: h === 'Data' || h === 'Ticker' || h === 'Modalidade' ? 'left' : 'right', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {detalhe.operacoes.map((op, i) => {
+                          const modLabel = op.modalidade === 'acao_swing' ? 'Ação SW' : op.modalidade === 'opcao_swing' ? 'Opção SW' : 'Day Trade'
+                          const modColor = op.modalidade === 'day_trade' ? '#a78bfa' : op.modalidade === 'opcao_swing' ? '#60a5fa' : '#94a3b8'
+                          const custoZero = op.custo_medio === 0
+                          return (
+                            <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', background: custoZero ? 'rgba(239,68,68,.04)' : 'transparent' }}>
+                              <td style={{ padding: '7px 10px', color: '#6b84a8' }}>{op.data.slice(5).replace('-','/')}/{op.data.slice(0,4)}</td>
+                              <td style={{ padding: '7px 10px', fontWeight: 700, color: '#e0e6f0' }}>{op.ticker}</td>
+                              <td style={{ padding: '7px 10px' }}>
+                                <span style={{ background: 'rgba(255,255,255,.06)', color: modColor, padding: '2px 7px', borderRadius: 4, fontSize: 11, fontWeight: 600 }}>{modLabel}</span>
+                              </td>
+                              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#6b84a8' }}>{op.quantidade}</td>
+                              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#e0e6f0' }}>{BRL(op.preco_venda)}</td>
+                              <td style={{ padding: '7px 10px', textAlign: 'right', color: custoZero ? '#ef4444' : '#6b84a8' }}>
+                                {custoZero ? <span title="Custo médio zero — sem compra anterior nem posição inicial cadastrada">⚠ {BRL(0)}</span> : BRL(op.custo_medio)}
+                              </td>
+                              <td style={{ padding: '7px 10px', textAlign: 'right', color: '#6b84a8' }}>{BRL(op.valor_venda)}</td>
+                              <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700, color: op.lucro >= 0 ? '#22c55e' : '#ef4444' }}>
+                                {op.lucro >= 0 ? '+' : ''}{BRL(op.lucro)}
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                      <tfoot>
+                        <tr style={{ borderTop: '1px solid rgba(255,255,255,.1)' }}>
+                          <td colSpan={6} style={{ padding: '8px 10px', color: '#4a5d73', fontSize: 11 }}>Total</td>
+                          <td style={{ padding: '8px 10px', textAlign: 'right', fontWeight: 700, color: '#e0e6f0', fontSize: 12 }}>
+                            {BRL(detalhe.operacoes.reduce((s, o) => s + o.valor_venda, 0))}
+                          </td>
+                          <td style={{ padding: '8px 10px', textAlign: 'right', fontWeight: 700, fontSize: 12 }}>
+                            {(() => { const t = detalhe.operacoes.reduce((s, o) => s + o.lucro, 0); return <span style={{ color: t >= 0 ? '#22c55e' : '#ef4444' }}>{t >= 0 ? '+' : ''}{BRL(t)}</span> })()}
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Histórico */}
             {historico.length > 0 && (
               <div style={{ marginTop: 32 }}>
@@ -397,14 +501,14 @@ export default function PaginaIR() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                     <thead>
                       <tr style={{ borderBottom: '1px solid rgba(255,255,255,.08)', color: '#4a5d73' }}>
-                        {['Mês','Vendas SW','Lucro SW','Lucro DT','Isento','IR Swing','IR Day','Total IR'].map(h => (
+                        {['Mês','Vendas SW','Lucro SW','Lucro DT','Isento','IR Swing','IR Day','Total IR',''].map(h => (
                           <th key={h} style={{ padding: '6px 10px', textAlign: 'right', fontWeight: 600, whiteSpace: 'nowrap' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {historico.map(h => (
-                        <tr key={h.ano_mes} onClick={() => { const [a,m] = h.ano_mes.split('-').map(Number); setAnoSel(a); setMesSel(m); setApuracaoAtual(null) }}
+                        <tr key={h.ano_mes} onClick={() => { const [a,m] = h.ano_mes.split('-').map(Number); setAnoSel(a); setMesSel(m); setApuracaoAtual(null); setDetalhe(null) }}
                           style={{ borderBottom: '1px solid rgba(255,255,255,.04)', cursor: 'pointer', transition: 'background .1s' }}
                           onMouseOver={e => (e.currentTarget.style.background='rgba(255,255,255,.03)')}
                           onMouseOut={e => (e.currentTarget.style.background='transparent')}
@@ -417,6 +521,9 @@ export default function PaginaIR() {
                           <td style={{ padding: '7px 10px', textAlign: 'right', color: h.ir_devido_swing > 0 ? '#ef4444' : '#4a5d73' }}>{BRL(h.ir_devido_swing)}</td>
                           <td style={{ padding: '7px 10px', textAlign: 'right', color: h.ir_devido_day > 0 ? '#ef4444' : '#4a5d73' }}>{BRL(h.ir_devido_day)}</td>
                           <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700, color: (h.ir_devido_swing + h.ir_devido_day) > 0 ? '#ef4444' : '#22c55e' }}>{BRL(h.ir_devido_swing + h.ir_devido_day)}</td>
+                          <td style={{ padding: '7px 10px', textAlign: 'center' }} onClick={e => { e.stopPropagation(); const [a,m] = h.ano_mes.split('-').map(Number); setAnoSel(a); setMesSel(m); setApuracaoAtual(null); verDetalhe(a, m) }}>
+                            <span style={{ color: '#22c55e', fontSize: 11, cursor: 'pointer', whiteSpace: 'nowrap' }}>🔍 Ver</span>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
