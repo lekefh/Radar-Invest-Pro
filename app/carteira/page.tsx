@@ -1139,8 +1139,8 @@ export default function CarteiraPage() {
           ))}
         </div>
 
-        {/* BOTÕES */}
-        <div className="btn-bar">
+        {/* BOTÕES — apenas nas abas de posição */}
+        {(abaCarteira === 'acoes' || abaCarteira === 'opcoes') && <div className="btn-bar">
           <button className="btn btn-add" onClick={abrirAddPosicao}
             title={limiteAtingido ? 'Plano gratuito: máx. 2 ações. Faça upgrade para adicionar mais.' : ''}>
             + Posição {limiteAtingido && <span style={{ fontSize: '10px', opacity: .7 }}>🔒</span>}
@@ -1195,7 +1195,7 @@ export default function CarteiraPage() {
           }}>
             ⬇ Exportar Excel
           </button>
-        </div>
+        </div>}
 
         <div className="main">
           {loading && <div className="loading-box"><div className="spinner"/><p style={{color:'#6b84a8',fontSize:'13px'}}>Carregando carteira…</p></div>}
