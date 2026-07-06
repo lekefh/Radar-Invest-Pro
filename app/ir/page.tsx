@@ -326,6 +326,97 @@ export default function PaginaIR() {
     carregarDarfs()
   }
 
+  function imprimirDarf(d: Darf) {
+    const descricao = d.codigo_receita === '6015'
+      ? 'Ganhos Líquidos em Operações em Bolsa — Mercado à Vista (Swing Trade)'
+      : 'Ganhos Líquidos em Operações em Bolsa — Day Trade'
+    const venc = d.vencimento?.slice(0,10) ?? ''
+    const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+<title>DARF — ${d.competencia}</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; font-size: 11px; background: #fff; color: #000; padding: 20px; }
+  h1 { font-size: 13px; text-align: center; margin-bottom: 4px; }
+  .subtitle { text-align: center; font-size: 10px; margin-bottom: 16px; color: #555; }
+  .darf { border: 2px solid #000; width: 100%; }
+  .header-row { background: #1a3a6e; color: #fff; padding: 6px 10px; font-weight: bold; font-size: 12px; }
+  .row { display: flex; border-top: 1px solid #999; }
+  .cell { padding: 4px 8px; border-right: 1px solid #999; flex: 1; }
+  .cell:last-child { border-right: none; }
+  .label { font-size: 9px; color: #555; display: block; margin-bottom: 2px; }
+  .value { font-size: 12px; font-weight: bold; }
+  .value.money { font-size: 14px; color: #1a3a6e; }
+  .full { flex: 2; }
+  .divider { height: 6px; background: #1a3a6e; }
+  .footer { margin-top: 16px; font-size: 9px; color: #555; text-align: center; line-height: 1.6; }
+  .instrucoes { margin-top: 12px; border: 1px solid #ccc; padding: 8px; font-size: 10px; }
+  .instrucoes h3 { font-size: 11px; margin-bottom: 6px; }
+  .instrucoes li { margin-left: 16px; margin-bottom: 3px; }
+  @media print {
+    body { padding: 10px; }
+    .no-print { display: none; }
+    @page { size: A4; margin: 15mm; }
+  }
+</style></head><body>
+<h1>DOCUMENTO DE ARRECADAÇÃO DE RECEITAS FEDERAIS — DARF</h1>
+<div class="subtitle">Instrução Normativa RFB nº 1.585/2015 · Operações em Bolsa de Valores</div>
+
+<div class="darf">
+  <div class="header-row">IDENTIFICAÇÃO DO CONTRIBUINTE</div>
+  <div class="row">
+    <div class="cell full"><span class="label">Nome / Razão Social</span><span class="value">_________________________________________________</span></div>
+    <div class="cell"><span class="label">CPF / CNPJ</span><span class="value">___ . ___ . ___ - __</span></div>
+  </div>
+  <div class="row">
+    <div class="cell full"><span class="label">Descrição da Receita</span><span class="value">${descricao}</span></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="header-row">DADOS DO PAGAMENTO</div>
+
+  <div class="row">
+    <div class="cell"><span class="label">01 — Período de Apuração</span><span class="value">${d.competencia}</span></div>
+    <div class="cell"><span class="label">02 — Código da Receita</span><span class="value">${d.codigo_receita}</span></div>
+    <div class="cell"><span class="label">03 — Número de Referência</span><span class="value">&nbsp;</span></div>
+    <div class="cell"><span class="label">04 — Data de Vencimento</span><span class="value">${venc.split('-').reverse().join('/')}</span></div>
+  </div>
+  <div class="row">
+    <div class="cell"><span class="label">05 — Valor do Principal (R$)</span><span class="value money">${d.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span></div>
+    <div class="cell"><span class="label">06 — Valor da Multa (R$)</span><span class="value">0,00</span></div>
+    <div class="cell"><span class="label">07 — Valor dos Juros/Encargos (R$)</span><span class="value">0,00</span></div>
+    <div class="cell"><span class="label">08 — VALOR TOTAL (R$)</span><span class="value money">${d.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span></div>
+  </div>
+  <div class="row">
+    <div class="cell full"><span class="label">Autenticação Bancária</span><span class="value">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+    <div class="cell"><span class="label">Data do Pagamento</span><span class="value">___/___/______</span></div>
+  </div>
+</div>
+
+<div class="instrucoes">
+  <h3>Como pagar:</h3>
+  <ul>
+    <li>Internet Banking: acesse seu banco, opção "Pagamentos → DARF", informe o código <strong>${d.codigo_receita}</strong>, período <strong>${d.competencia}</strong> e valor <strong>R$ ${d.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong></li>
+    <li>App do banco: procure por "DARF" ou "Pagamento de tributos federais"</li>
+    <li>Agência bancária: apresente este documento impresso</li>
+    <li>Vencimento: <strong>${venc.split('-').reverse().join('/')}</strong> — após essa data incidem multa de 0,33%/dia (max 20%) + SELIC</li>
+  </ul>
+</div>
+
+<div class="footer">
+  Gerado por Radar Invest Pro · radarinvestpro.com.br · ${new Date().toLocaleDateString('pt-BR')}
+</div>
+
+<div class="no-print" style="margin-top:20px; text-align:center;">
+  <button onclick="window.print()" style="background:#1a3a6e;color:#fff;border:none;padding:10px 28px;font-size:14px;border-radius:6px;cursor:pointer;font-weight:bold;">
+    Imprimir / Salvar PDF
+  </button>
+</div>
+</body></html>`
+
+    const w = window.open('', '_blank', 'width=800,height=700')
+    if (w) { w.document.write(html); w.document.close() }
+  }
+
   /* ── Resultado atual selecionado ─────────────────────────────────────────────── */
   const anoMesSel = `${anoSel}-${String(mesSel).padStart(2,'0')}`
   const apuracaoHist = historico.find(h => h.ano_mes === anoMesSel)
@@ -702,9 +793,12 @@ export default function PaginaIR() {
                           <span style={{ color: d.status === 'pago' ? '#22c55e' : '#f59e0b', fontSize: 12, fontWeight: 600 }}>{d.status === 'pago' ? '✅ Pago' : '⏳ Pendente'}</span>
                         </td>
                         <td style={{ padding: '10px 12px' }}>
-                          {d.status !== 'pago' && (
-                            <button onClick={() => marcarPago(d.id)} style={{ ...stBtn('#22c55e'), fontSize: 11, padding: '3px 10px' }}>Marcar pago</button>
-                          )}
+                          <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                            {d.status !== 'pago' && (
+                              <button onClick={() => marcarPago(d.id)} style={{ ...stBtn('#22c55e'), fontSize: 11, padding: '3px 10px' }}>Marcar pago</button>
+                            )}
+                            <button onClick={() => imprimirDarf(d)} style={{ ...stBtn('#1a3a6e'), fontSize: 11, padding: '3px 10px', border: '1px solid #3b5ea6' }}>🖨 Imprimir</button>
+                          </div>
                         </td>
                       </tr>
                     ))}
