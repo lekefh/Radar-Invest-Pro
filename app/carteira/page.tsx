@@ -436,10 +436,12 @@ export default function CarteiraPage() {
   const [perfTipos,   setPerfTipos]   = useState(new Set(['acao', 'fii_etf', 'bdr', 'opcao']))
   const [perfData,    setPerfData]    = useState<{
     periodo: { de: string; ate: string }
-    realizado: { total: number; por_ticker: { ticker: string; tipo: string; pl: number; vol_vendas: number; vol_compras: number; n_ops: number }[] }
+    realizado: { total: number; por_ticker: { ticker: string; tipo: string; pl: number; vol_vendas: number; vol_compras: number; n_ops: number }[]; por_mes: { mes: string; pl: number }[] }
     operacoes: { vol_compras: number; vol_vendas: number; n_compras: number; n_vendas: number }
+    benchmark: { cdi_pct: number | null; ibov_pct: number | null }
   } | null>(null)
   const [perfLoading, setPerfLoading] = useState(false)
+  const [perfDetalhes, setPerfDetalhes] = useState(false)
   const [marcandoPo, setMarcandoPo] = useState<string | null>(null)
   const [desfazendoPo, setDesfazendoPo] = useState<string | null>(null)
   const [encerradasExpandidas, setEncerradasExpandidas] = useState(true)
@@ -1876,111 +1878,191 @@ export default function CarteiraPage() {
                   ))}
                 </div>
 
-                {/* Cards de resumo */}
-                <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))', gap:12, marginBottom:14 }}>
-                  {[
-                    { label:'P&L Realizado', val:totalRealizado, pct: volVendas > 0 ? (totalRealizado/volVendas)*100 : null, hint:'no período selecionado' },
-                    { label:'P&L Não Realizado', val:naoRealizado, pct:naoRealizadoPct, hint:'posição atual' },
-                    { label:'P&L Total', val:totalGeral, pct:null, hint:'realizado + não real.' },
-                  ].map(c => (
-                    <div key={c.label} style={stCard2}>
-                      <div style={{ fontSize:11, color:'#4a5d73', marginBottom:6 }}>{c.label}</div>
-                      <div style={{ fontSize:18, fontWeight:800, color: c.val >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(c.val)}</div>
-                      {c.pct != null && <div style={{ fontSize:11, color: c.pct >= 0 ? '#00d4a0' : '#ef4444', marginTop:2 }}>{fPct(c.pct)}</div>}
-                      <div style={{ fontSize:10, color:'#4a5d73', marginTop:4 }}>{c.hint}</div>
-                    </div>
-                  ))}
-                  {[
-                    { label:'Vol. Comprado', val:volCompras, sub:`${perfData?.operacoes.n_compras ?? 0} compras` },
-                    { label:'Vol. Vendido',  val:volVendas,  sub:`${perfData?.operacoes.n_vendas  ?? 0} vendas` },
-                    { label:'Total de Ops',  val:totalOps,   sub:'compras + vendas', isMoney:false },
-                  ].map(c => (
-                    <div key={c.label} style={stCard2}>
-                      <div style={{ fontSize:11, color:'#4a5d73', marginBottom:6 }}>{c.label}</div>
-                      <div style={{ fontSize:18, fontWeight:800, color:'#e8edf5' }}>
-                        {c.isMoney === false ? c.val : fBRL2(c.val as number)}
+                {/* ── Conteúdo principal ── */}
+                {perfLoading ? (
+                  <div style={{ textAlign:'center', color:'#4a5d73', padding:'40px 0', fontSize:13 }}>Carregando...</div>
+                ) : perfData ? (
+                  <>
+                    {/* Hero — resultado realizado */}
+                    <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.07)', borderRadius:12, padding:'22px 24px 18px', marginBottom:12 }}>
+                      <div style={{ fontSize:10, color:'#4a5d73', textTransform:'uppercase', letterSpacing:1, marginBottom:8 }}>Resultado Realizado no Período</div>
+                      <div style={{ display:'flex', alignItems:'baseline', gap:12, flexWrap:'wrap' }}>
+                        <span style={{ fontSize:34, fontWeight:900, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444', lineHeight:1 }}>
+                          {fBRL2(totalRealizado)}
+                        </span>
+                        {volVendas > 0 && (
+                          <span style={{ fontSize:17, fontWeight:700, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>
+                            {fPct((totalRealizado / volVendas) * 100)}
+                          </span>
+                        )}
                       </div>
-                      <div style={{ fontSize:10, color:'#4a5d73', marginTop:4 }}>{c.sub}</div>
+                      <div style={{ fontSize:11, color:'#4a5d73', marginTop:6 }}>
+                        {realizadoFiltrado.filter(t => t.n_ops > 0).length} ativos negociados · {perfData.operacoes.n_vendas} vendas
+                      </div>
+
+                      {/* Benchmarks */}
+                      {(perfData.benchmark.cdi_pct != null || perfData.benchmark.ibov_pct != null) && (
+                        <div style={{ display:'flex', gap:10, marginTop:16, flexWrap:'wrap' }}>
+                          {[
+                            { key:'CDI',       val: perfData.benchmark.cdi_pct  },
+                            { key:'IBOVESPA',  val: perfData.benchmark.ibov_pct },
+                          ].filter(b => b.val != null).map(b => {
+                            const portPct = volVendas > 0 ? (totalRealizado / volVendas) * 100 : null
+                            const acima   = portPct != null ? portPct >= b.val! : null
+                            return (
+                              <div key={b.key} style={{ background:'rgba(255,255,255,.04)', borderRadius:8, padding:'8px 14px', minWidth:90 }}>
+                                <div style={{ fontSize:9, color:'#4a5d73', textTransform:'uppercase', letterSpacing:.5, marginBottom:4 }}>{b.key}</div>
+                                <div style={{ fontSize:15, fontWeight:700, color: b.val! >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct(b.val!)}</div>
+                                {acima != null && (
+                                  <div style={{ fontSize:10, color: acima ? '#00d4a0' : '#ef4444', marginTop:3 }}>
+                                    {acima ? '▲ acima' : '▼ abaixo'}
+                                  </div>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
                     </div>
-                  ))}
-                </div>
 
-                {perfData && realizadoFiltrado.length > 0 && (
-                  <div style={{ ...stCard2, marginBottom:16 }}>
-                    <div style={{ fontSize:13, fontWeight:700, color:'#eab838', marginBottom:12 }}>Resultado Realizado por Ativo — {perfDe} a {perfAte}</div>
-                    <div style={{ overflowX:'auto' }}>
-                      <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
-                        <thead>
-                          <tr style={{ borderBottom:'1px solid rgba(255,255,255,.08)', color:'#4a5d73' }}>
-                            {['Ticker','Tipo','P&L Realizado','Vol. Vendas','Vol. Compras','Ops'].map(h => (
-                              <th key={h} style={{ padding:'7px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {realizadoFiltrado.map(t => (
-                            <tr key={t.ticker} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
-                              <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{t.ticker}</td>
-                              <td style={{ padding:'7px 10px' }}>
-                                <span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[t.tipo] ?? t.tipo}</span>
-                              </td>
-                              <td style={{ padding:'7px 10px', fontWeight:700, color: t.pl >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(t.pl)}</td>
-                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{t.vol_vendas > 0 ? fBRL2(t.vol_vendas) : '—'}</td>
-                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{t.vol_compras > 0 ? fBRL2(t.vol_compras) : '—'}</td>
-                              <td style={{ padding:'7px 10px', color:'#4a5d73' }}>{t.n_ops}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                    {/* Gráfico de barras mensal */}
+                    {perfData.realizado.por_mes.length > 0 && (() => {
+                      const meses  = perfData.realizado.por_mes
+                      const maxAbs = Math.max(...meses.map(m => Math.abs(m.pl)), 1)
+                      const BAR_H  = 76
+                      const BAR_W  = Math.max(24, Math.min(52, Math.floor(500 / meses.length)))
+                      const GAP    = 5
+                      const W      = meses.length * (BAR_W + GAP)
+                      const MES_LABELS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+                      return (
+                        <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.07)', borderRadius:12, padding:'18px 20px 12px', marginBottom:12, overflowX:'auto' }}>
+                          <div style={{ fontSize:10, color:'#4a5d73', textTransform:'uppercase', letterSpacing:1, marginBottom:12 }}>P&L Mensal</div>
+                          <svg width={Math.max(W, 280)} height={BAR_H + 30} style={{ overflow:'visible', display:'block' }}>
+                            <line x1={0} y1={BAR_H / 2} x2={Math.max(W, 280)} y2={BAR_H / 2} stroke="rgba(255,255,255,.06)" strokeWidth={1} />
+                            {meses.map((m, i) => {
+                              const x = i * (BAR_W + GAP)
+                              const h = Math.max(2, (Math.abs(m.pl) / maxAbs) * (BAR_H / 2 - 4))
+                              const y = m.pl >= 0 ? BAR_H / 2 - h : BAR_H / 2
+                              const fill = m.pl >= 0 ? '#00d4a0' : '#ef4444'
+                              const label = MES_LABELS[parseInt(m.mes.split('-')[1]) - 1]
+                              return (
+                                <g key={m.mes}>
+                                  <rect x={x} y={y} width={BAR_W} height={h} fill={fill} opacity={.82} rx={2} />
+                                  <text x={x + BAR_W / 2} y={BAR_H + 18} textAnchor="middle" fontSize={9} fill="#4a5d73">{label}</text>
+                                  {m.pl !== 0 && (
+                                    <text x={x + BAR_W / 2} y={m.pl >= 0 ? y - 3 : y + h + 11}
+                                      textAnchor="middle" fontSize={8} fill={fill}>
+                                      {(m.pl >= 0 ? '+' : '') + (m.pl / 1000).toFixed(1) + 'k'}
+                                    </text>
+                                  )}
+                                </g>
+                              )
+                            })}
+                          </svg>
+                        </div>
+                      )
+                    })()}
+
+                    {/* Stats chips */}
+                    <div style={{ display:'flex', gap:10, marginBottom:12, flexWrap:'wrap' }}>
+                      {([
+                        { label:'Vol. Comprado', val:fBRL2(volCompras), sub:`${perfData.operacoes.n_compras} compras` },
+                        { label:'Vol. Vendido',  val:fBRL2(volVendas),  sub:`${perfData.operacoes.n_vendas} vendas` },
+                        { label:'Operações',     val:String(totalOps),  sub:'no período' },
+                      ] as {label:string;val:string;sub:string}[]).map(c => (
+                        <div key={c.label} style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.06)', borderRadius:8, padding:'10px 16px', flex:1, minWidth:110 }}>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginBottom:3 }}>{c.label}</div>
+                          <div style={{ fontSize:15, fontWeight:700, color:'#e8edf5' }}>{c.val}</div>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginTop:2 }}>{c.sub}</div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                )}
 
-                <div style={stCard2}>
-                  <div style={{ fontSize:13, fontWeight:700, color:'#eab838', marginBottom:12 }}>Posição Atual — Não Realizado</div>
-                  <div style={{ overflowX:'auto' }}>
-                    <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
-                      <thead>
-                        <tr style={{ borderBottom:'1px solid rgba(255,255,255,.08)', color:'#4a5d73' }}>
-                          {['Ticker','Nome','Tipo','Qtde','P.Médio','P.Atual','Res. Unit.','Res. Total','%'].map(h => (
-                            <th key={h} style={{ padding:'7px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {posComTipo.map(p => {
-                          const pa  = p.preco_atual ?? p.preco_medio
-                          const ru  = pa - p.preco_medio
-                          const rt  = ru * p.quantidade
-                          const pct = p.preco_medio > 0 ? (ru / p.preco_medio) * 100 : 0
-                          const tipo = tipoAtivo(p.ticker)
-                          return (
-                            <tr key={p.id} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
-                              <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{p.ticker}</td>
-                              <td style={{ padding:'7px 10px', color:'#6b84a8', fontSize:11, maxWidth:180, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{p.nome ?? '—'}</td>
-                              <td style={{ padding:'7px 10px' }}>
-                                <span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[tipo]}</span>
-                              </td>
-                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{p.quantidade}</td>
-                              <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{fBRL2(p.preco_medio)}</td>
-                              <td style={{ padding:'7px 10px', color:'#e8edf5' }}>{p.preco_atual != null ? fBRL2(p.preco_atual) : '—'}</td>
-                              <td style={{ padding:'7px 10px', fontWeight:600, color: corPL(ru) }}>{fBRL2(ru)}</td>
-                              <td style={{ padding:'7px 10px', fontWeight:700, color: corPL(rt) }}>{fBRL2(rt)}</td>
-                              <td style={{ padding:'7px 10px', fontWeight:600, color: corPL(pct) }}>{fPct(pct)}</td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                  {posComTipo.length === 0 && (
-                    <div style={{ textAlign:'center', color:'#4a5d73', padding:'30px 0', fontSize:13 }}>Nenhuma posição no tipo selecionado.</div>
-                  )}
-                </div>
+                    {/* Resultado latente */}
+                    <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.06)', borderRadius:8, padding:'13px 18px', marginBottom:14, display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:8 }}>
+                      <div>
+                        <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Carteira em Aberto — Resultado Latente</div>
+                        <div style={{ display:'flex', alignItems:'baseline', gap:10 }}>
+                          <span style={{ fontSize:20, fontWeight:800, color: naoRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(naoRealizado)}</span>
+                          <span style={{ fontSize:13, fontWeight:600, color: naoRealizadoPct >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct(naoRealizadoPct)}</span>
+                        </div>
+                      </div>
+                      <div style={{ fontSize:11, color:'#4a5d73' }}>{posComTipo.length} posições abertas</div>
+                    </div>
 
-                {!perfData && (
-                  <div style={{ textAlign:'center', color:'#4a5d73', padding:'20px 0', fontSize:13 }}>
-                    Selecione o período e clique em <b style={{ color:'#90CAF9' }}>Buscar</b> para carregar o resultado realizado.
+                    {/* Detalhar por ativo */}
+                    <button onClick={() => setPerfDetalhes(v => !v)}
+                      style={{ background:'transparent', border:'1px solid rgba(255,255,255,.1)', borderRadius:8, color:'#90CAF9', padding:'8px 16px', fontSize:12, cursor:'pointer', width:'100%', display:'flex', alignItems:'center', justifyContent:'center', gap:6, marginBottom: perfDetalhes ? 10 : 0 }}>
+                      <span>📋 Detalhar por ativo</span>
+                      <span style={{ fontSize:10 }}>{perfDetalhes ? '▲' : '▼'}</span>
+                    </button>
+
+                    {perfDetalhes && (
+                      <>
+                        {realizadoFiltrado.length > 0 && (
+                          <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.07)', borderRadius:10, padding:'14px 16px', marginBottom:10 }}>
+                            <div style={{ fontSize:12, fontWeight:700, color:'#eab838', marginBottom:10 }}>Realizados no período</div>
+                            <div style={{ overflowX:'auto' }}>
+                              <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
+                                <thead>
+                                  <tr style={{ borderBottom:'1px solid rgba(255,255,255,.06)', color:'#4a5d73' }}>
+                                    {['Ticker','Tipo','P&L','Ops'].map(h => <th key={h} style={{ padding:'6px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>)}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {realizadoFiltrado.map(t => (
+                                    <tr key={t.ticker} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
+                                      <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{t.ticker}</td>
+                                      <td style={{ padding:'7px 10px' }}><span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[t.tipo] ?? t.tipo}</span></td>
+                                      <td style={{ padding:'7px 10px', fontWeight:700, color: t.pl >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(t.pl)}</td>
+                                      <td style={{ padding:'7px 10px', color:'#4a5d73' }}>{t.n_ops}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        )}
+                        {posComTipo.length > 0 && (
+                          <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.07)', borderRadius:10, padding:'14px 16px' }}>
+                            <div style={{ fontSize:12, fontWeight:700, color:'#eab838', marginBottom:10 }}>Posição atual por ativo</div>
+                            <div style={{ overflowX:'auto' }}>
+                              <table style={{ width:'100%', borderCollapse:'collapse', fontSize:12 }}>
+                                <thead>
+                                  <tr style={{ borderBottom:'1px solid rgba(255,255,255,.06)', color:'#4a5d73' }}>
+                                    {['Ticker','Tipo','Qtde','P.Médio','P.Atual','Res. Total','%'].map(h => <th key={h} style={{ padding:'6px 10px', textAlign:'left', fontWeight:600 }}>{h}</th>)}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {posComTipo.map(p => {
+                                    const pa  = p.preco_atual ?? p.preco_medio
+                                    const ru  = pa - p.preco_medio
+                                    const rt  = ru * p.quantidade
+                                    const pct = p.preco_medio > 0 ? (ru / p.preco_medio) * 100 : 0
+                                    const tipo = tipoAtivo(p.ticker)
+                                    return (
+                                      <tr key={p.id} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
+                                        <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{p.ticker}</td>
+                                        <td style={{ padding:'7px 10px' }}><span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[tipo]}</span></td>
+                                        <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{p.quantidade}</td>
+                                        <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{fBRL2(p.preco_medio)}</td>
+                                        <td style={{ padding:'7px 10px', color:'#e8edf5' }}>{p.preco_atual != null ? fBRL2(p.preco_atual) : '—'}</td>
+                                        <td style={{ padding:'7px 10px', fontWeight:700, color: corPL(rt) }}>{fBRL2(rt)}</td>
+                                        <td style={{ padding:'7px 10px', fontWeight:600, color: corPL(pct) }}>{fPct(pct)}</td>
+                                      </tr>
+                                    )
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <div style={{ textAlign:'center', color:'#4a5d73', padding:'30px 0', fontSize:13 }}>
+                    Selecione o período e clique em <b style={{ color:'#90CAF9' }}>Buscar</b> para carregar o desempenho.
                   </div>
                 )}
               </div>
