@@ -1,15 +1,15 @@
 {
-  "atualizado": "09/07/2026 10:45 [auto]",
-  "total": 390,
+  "atualizado": "09/07/2026 11:08 [auto]",
+  "total": 534,
   "proventos": [
     {
-      "ticker": "ITSA4",
+      "ticker": "CAML3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1,
+      "valor": 0.41,
       "data_com": "2026-08-28",
       "data_ex": "2026-08-31",
       "data_pagamento": null,
-      "yield_pct": 0.75,
+      "yield_pct": 8.49,
       "status": "declarado"
     },
     {
@@ -23,13 +23,13 @@
       "status": "declarado"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "ITSA4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.23,
-      "data_com": "2026-07-31",
-      "data_ex": "2026-08-03",
+      "valor": 0.1,
+      "data_com": "2026-08-28",
+      "data_ex": "2026-08-31",
       "data_pagamento": null,
-      "yield_pct": 1.29,
+      "yield_pct": 0.75,
       "status": "declarado"
     },
     {
@@ -43,13 +43,23 @@
       "status": "declarado"
     },
     {
-      "ticker": "CXSE3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 1.4,
+      "valor": 0.23,
       "data_com": "2026-07-31",
       "data_ex": "2026-08-03",
       "data_pagamento": null,
-      "yield_pct": 6.58,
+      "yield_pct": 1.29,
+      "status": "declarado"
+    },
+    {
+      "ticker": "ITUB3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.22,
+      "data_com": "2026-07-31",
+      "data_ex": "2026-08-02",
+      "data_pagamento": null,
+      "yield_pct": 0.5,
       "status": "declarado"
     },
     {
@@ -63,34 +73,24 @@
       "status": "declarado"
     },
     {
-      "ticker": "ITUB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.22,
-      "data_com": "2026-07-31",
-      "data_ex": "2026-08-02",
-      "data_pagamento": null,
-      "yield_pct": 0.49,
-      "status": "declarado"
-    },
-    {
       "ticker": "JHSF3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.83,
       "data_com": "2026-07-29",
       "data_ex": "2026-07-30",
       "data_pagamento": null,
-      "yield_pct": 7.99,
+      "yield_pct": 8.03,
       "status": "declarado"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "ALOS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3469,
-      "data_com": "2026-07-03",
-      "data_ex": "2026-07-06",
+      "valor": 3.5,
+      "data_com": "2026-07-22",
+      "data_ex": "2026-07-23",
       "data_pagamento": null,
-      "yield_pct": 1.94,
-      "status": "pago"
+      "yield_pct": 12.87,
+      "status": "declarado"
     },
     {
       "ticker": "BBDC3",
@@ -105,7 +105,27 @@
     {
       "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
+      "valor": 0.3469,
+      "data_com": "2026-07-03",
+      "data_ex": "2026-07-06",
+      "data_pagamento": null,
+      "yield_pct": 1.95,
+      "status": "pago"
+    },
+    {
+      "ticker": "SMTO3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2166,
+      "data_com": "2026-07-03",
+      "data_ex": "2026-07-06",
+      "data_pagamento": null,
+      "yield_pct": 1.41,
+      "status": "pago"
+    },
+    {
+      "ticker": "BBDC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0173,
       "data_com": "2026-07-01",
       "data_ex": "2026-07-02",
       "data_pagamento": null,
@@ -113,9 +133,9 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0173,
+      "valor": 0.019,
       "data_com": "2026-07-01",
       "data_ex": "2026-07-02",
       "data_pagamento": null,
@@ -133,13 +153,13 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "IRBR3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
+      "valor": 0.3201,
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.58,
       "status": "pago"
     },
     {
@@ -153,13 +173,13 @@
       "status": "pago"
     },
     {
-      "ticker": "IRBR3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3201,
+      "valor": 0.0182,
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
       "data_pagamento": null,
-      "yield_pct": 0.58,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -169,7 +189,7 @@
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
       "data_pagamento": null,
-      "yield_pct": 1.17,
+      "yield_pct": 1.18,
       "status": "pago"
     },
     {
@@ -179,7 +199,7 @@
       "data_com": "2026-06-29",
       "data_ex": "2026-06-30",
       "data_pagamento": null,
-      "yield_pct": 4.85,
+      "yield_pct": 4.84,
       "status": "pago"
     },
     {
@@ -189,7 +209,7 @@
       "data_com": "2026-06-25",
       "data_ex": "2026-06-26",
       "data_pagamento": null,
-      "yield_pct": 0.74,
+      "yield_pct": 0.73,
       "status": "pago"
     },
     {
@@ -203,16 +223,6 @@
       "status": "pago"
     },
     {
-      "ticker": "CMIG4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2204,
-      "data_com": "2026-06-23",
-      "data_ex": "2026-06-24",
-      "data_pagamento": null,
-      "yield_pct": 2.03,
-      "status": "pago"
-    },
-    {
       "ticker": "CMIG3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.2204,
@@ -220,6 +230,26 @@
       "data_ex": "2026-06-24",
       "data_pagamento": null,
       "yield_pct": 1.41,
+      "status": "pago"
+    },
+    {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2204,
+      "data_com": "2026-06-23",
+      "data_ex": "2026-06-24",
+      "data_pagamento": null,
+      "yield_pct": 2.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3759,
+      "data_com": "2026-06-23",
+      "data_ex": "2026-06-24",
+      "data_pagamento": null,
+      "yield_pct": 0.6,
       "status": "pago"
     },
     {
@@ -243,6 +273,16 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2919,
+      "data_com": "2026-06-22",
+      "data_ex": "2026-06-23",
+      "data_pagamento": null,
+      "yield_pct": 1.07,
+      "status": "pago"
+    },
+    {
       "ticker": "PSSA3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.5128,
@@ -250,6 +290,16 @@
       "data_ex": "2026-06-23",
       "data_pagamento": null,
       "yield_pct": 0.97,
+      "status": "pago"
+    },
+    {
+      "ticker": "VBBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4666,
+      "data_com": "2026-06-22",
+      "data_ex": "2026-06-23",
+      "data_pagamento": null,
+      "yield_pct": 1.46,
       "status": "pago"
     },
     {
@@ -263,23 +313,13 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ITSA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3619,
+      "valor": 0.138,
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
       "data_pagamento": null,
-      "yield_pct": 0.86,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3619,
-      "data_com": "2026-06-18",
-      "data_ex": "2026-06-19",
-      "data_pagamento": null,
-      "yield_pct": 0.81,
+      "yield_pct": 1.02,
       "status": "pago"
     },
     {
@@ -293,13 +333,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.138,
+      "valor": 0.3619,
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
       "data_pagamento": null,
-      "yield_pct": 1.02,
+      "yield_pct": 0.82,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3619,
+      "data_com": "2026-06-18",
+      "data_ex": "2026-06-19",
+      "data_pagamento": null,
+      "yield_pct": 0.86,
       "status": "pago"
     },
     {
@@ -313,33 +363,33 @@
       "status": "pago"
     },
     {
+      "ticker": "TOTS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.18,
+      "data_com": "2026-06-15",
+      "data_ex": "2026-06-16",
+      "data_pagamento": null,
+      "yield_pct": 0.62,
+      "status": "pago"
+    },
+    {
       "ticker": "LOGG3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 2.8599,
       "data_com": "2026-06-11",
       "data_ex": "2026-06-12",
       "data_pagamento": null,
-      "yield_pct": 10.69,
+      "yield_pct": 10.72,
       "status": "pago"
     },
     {
-      "ticker": "PETR4",
+      "ticker": "SMFT3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.701,
-      "data_com": "2026-06-01",
-      "data_ex": "2026-06-02",
+      "valor": 0.0652,
+      "data_com": "2026-06-04",
+      "data_ex": "2026-06-05",
       "data_pagamento": null,
-      "yield_pct": 1.76,
-      "status": "pago"
-    },
-    {
-      "ticker": "PETR3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.701,
-      "data_com": "2026-06-01",
-      "data_ex": "2026-06-02",
-      "data_pagamento": null,
-      "yield_pct": 1.58,
+      "yield_pct": 0.33,
       "status": "pago"
     },
     {
@@ -353,16 +403,6 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2026-06-01",
-      "data_ex": "2026-06-02",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
-      "status": "pago"
-    },
-    {
       "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0173,
@@ -373,33 +413,43 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
-      "data_com": "2026-05-29",
-      "data_ex": "2026-06-01",
+      "valor": 0.019,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "PETR4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
-      "data_com": "2026-05-29",
-      "data_ex": "2026-06-01",
+      "valor": 0.701,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 1.78,
       "status": "pago"
     },
     {
-      "ticker": "ITSA4",
+      "ticker": "CAML3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0242,
+      "valor": 0.0733,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
       "data_pagamento": null,
-      "yield_pct": 0.18,
+      "yield_pct": 1.52,
+      "status": "pago"
+    },
+    {
+      "ticker": "IRBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3201,
+      "data_com": "2026-05-29",
+      "data_ex": "2026-06-01",
+      "data_pagamento": null,
+      "yield_pct": 0.58,
       "status": "pago"
     },
     {
@@ -413,13 +463,33 @@
       "status": "pago"
     },
     {
-      "ticker": "IRBR3",
+      "ticker": "ITSA4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3201,
+      "valor": 0.0242,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
       "data_pagamento": null,
-      "yield_pct": 0.58,
+      "yield_pct": 0.18,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0182,
+      "data_com": "2026-05-29",
+      "data_ex": "2026-06-01",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0182,
+      "data_com": "2026-05-29",
+      "data_ex": "2026-06-01",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -443,13 +513,73 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2919,
+      "data_com": "2026-05-19",
+      "data_ex": "2026-05-20",
+      "data_pagamento": null,
+      "yield_pct": 1.07,
+      "status": "pago"
+    },
+    {
       "ticker": "RECV3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.3407,
       "data_com": "2026-05-18",
       "data_ex": "2026-05-19",
       "data_pagamento": null,
-      "yield_pct": 3.32,
+      "yield_pct": 3.37,
+      "status": "pago"
+    },
+    {
+      "ticker": "CURY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5194,
+      "data_com": "2026-05-15",
+      "data_ex": "2026-05-18",
+      "data_pagamento": null,
+      "yield_pct": 1.66,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.18,
+      "data_com": "2026-05-13",
+      "data_ex": "2026-05-14",
+      "data_pagamento": null,
+      "yield_pct": 0.95,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.18,
+      "data_com": "2026-05-13",
+      "data_ex": "2026-05-14",
+      "data_pagamento": null,
+      "yield_pct": 0.81,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.08,
+      "data_com": "2026-05-13",
+      "data_ex": "2026-05-14",
+      "data_pagamento": null,
+      "yield_pct": 0.9,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.08,
+      "data_com": "2026-05-13",
+      "data_ex": "2026-05-14",
+      "data_pagamento": null,
+      "yield_pct": 0.82,
       "status": "pago"
     },
     {
@@ -473,13 +603,23 @@
       "status": "pago"
     },
     {
-      "ticker": "VLID3",
+      "ticker": "ECOR3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1802,
+      "valor": 0.3024,
+      "data_com": "2026-05-12",
+      "data_ex": "2026-05-13",
+      "data_pagamento": null,
+      "yield_pct": 4.17,
+      "status": "pago"
+    },
+    {
+      "ticker": "BMGB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1,
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
       "data_pagamento": null,
-      "yield_pct": 1.04,
+      "yield_pct": 1.89,
       "status": "pago"
     },
     {
@@ -503,6 +643,26 @@
       "status": "pago"
     },
     {
+      "ticker": "TAEE4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1863,
+      "data_com": "2026-05-11",
+      "data_ex": "2026-05-12",
+      "data_pagamento": null,
+      "yield_pct": 1.39,
+      "status": "pago"
+    },
+    {
+      "ticker": "VLID3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1802,
+      "data_com": "2026-05-11",
+      "data_ex": "2026-05-12",
+      "data_pagamento": null,
+      "yield_pct": 1.05,
+      "status": "pago"
+    },
+    {
       "ticker": "RANI3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0224,
@@ -510,16 +670,6 @@
       "data_ex": "2026-05-08",
       "data_pagamento": null,
       "yield_pct": 0.28,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2026-05-04",
-      "data_ex": "2026-05-05",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
       "status": "pago"
     },
     {
@@ -533,43 +683,13 @@
       "status": "pago"
     },
     {
-      "ticker": "EGIE3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.4883,
+      "valor": 0.019,
       "data_com": "2026-05-04",
       "data_ex": "2026-05-05",
       "data_pagamento": null,
-      "yield_pct": 1.5,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
-      "data_com": "2026-05-01",
-      "data_ex": "2026-05-04",
-      "data_pagamento": null,
-      "yield_pct": 0.04,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
-      "data_com": "2026-05-01",
-      "data_ex": "2026-05-04",
-      "data_pagamento": null,
-      "yield_pct": 0.04,
-      "status": "pago"
-    },
-    {
-      "ticker": "CMIG4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2364,
-      "data_com": "2026-05-01",
-      "data_ex": "2026-05-04",
-      "data_pagamento": null,
-      "yield_pct": 2.18,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
@@ -583,6 +703,16 @@
       "status": "pago"
     },
     {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2364,
+      "data_com": "2026-05-01",
+      "data_ex": "2026-05-04",
+      "data_pagamento": null,
+      "yield_pct": 2.18,
+      "status": "pago"
+    },
+    {
       "ticker": "IRBR3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.3201,
@@ -593,13 +723,53 @@
       "status": "pago"
     },
     {
-      "ticker": "CXSE3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.33,
+      "valor": 0.0182,
       "data_com": "2026-05-01",
       "data_ex": "2026-05-04",
       "data_pagamento": null,
-      "yield_pct": 1.55,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0182,
+      "data_com": "2026-05-01",
+      "data_ex": "2026-05-04",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "CBAV3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0442,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": null,
+      "yield_pct": 0.41,
+      "status": "pago"
+    },
+    {
+      "ticker": "CPFE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 3.7315,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": null,
+      "yield_pct": 8.26,
+      "status": "pago"
+    },
+    {
+      "ticker": "CPLE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2377,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": null,
+      "yield_pct": 1.61,
       "status": "pago"
     },
     {
@@ -619,7 +789,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 6.37,
+      "yield_pct": 6.38,
       "status": "pago"
     },
     {
@@ -643,23 +813,33 @@
       "status": "pago"
     },
     {
-      "ticker": "CPFE3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 3.7315,
-      "data_com": "2026-04-29",
-      "data_ex": "2026-04-30",
-      "data_pagamento": null,
-      "yield_pct": 8.22,
-      "status": "pago"
-    },
-    {
       "ticker": "TAEE3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.303,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.29,
+      "yield_pct": 2.3,
+      "status": "pago"
+    },
+    {
+      "ticker": "TAEE4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.303,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": null,
+      "yield_pct": 2.26,
+      "status": "pago"
+    },
+    {
+      "ticker": "RAIL3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1084,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": null,
+      "yield_pct": 0.81,
       "status": "pago"
     },
     {
@@ -669,17 +849,27 @@
       "data_com": "2026-04-27",
       "data_ex": "2026-04-28",
       "data_pagamento": null,
-      "yield_pct": 0.66,
+      "yield_pct": 0.65,
       "status": "pago"
     },
     {
-      "ticker": "RANI3",
+      "ticker": "ANIM3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2591,
+      "valor": 0.0778,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 3.27,
+      "yield_pct": 3.05,
+      "status": "pago"
+    },
+    {
+      "ticker": "MGLU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0813,
+      "data_com": "2026-04-24",
+      "data_ex": "2026-04-27",
+      "data_pagamento": null,
+      "yield_pct": 1.75,
       "status": "pago"
     },
     {
@@ -703,13 +893,23 @@
       "status": "pago"
     },
     {
-      "ticker": "MGLU3",
+      "ticker": "RANI3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0813,
+      "valor": 0.2591,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 1.76,
+      "yield_pct": 3.28,
+      "status": "pago"
+    },
+    {
+      "ticker": "SBFG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5429,
+      "data_com": "2026-04-24",
+      "data_ex": "2026-04-27",
+      "data_pagamento": null,
+      "yield_pct": 5.7,
       "status": "pago"
     },
     {
@@ -723,23 +923,23 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2919,
+      "data_com": "2026-04-22",
+      "data_ex": "2026-04-23",
+      "data_pagamento": null,
+      "yield_pct": 1.07,
+      "status": "pago"
+    },
+    {
       "ticker": "PETR4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.6631,
       "data_com": "2026-04-22",
       "data_ex": "2026-04-23",
       "data_pagamento": null,
-      "yield_pct": 1.67,
-      "status": "pago"
-    },
-    {
-      "ticker": "PETR3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6631,
-      "data_com": "2026-04-22",
-      "data_ex": "2026-04-23",
-      "data_pagamento": null,
-      "yield_pct": 1.49,
+      "yield_pct": 1.68,
       "status": "pago"
     },
     {
@@ -753,13 +953,43 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "MILS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2973,
-      "data_com": "2026-04-06",
-      "data_ex": "2026-04-07",
+      "valor": 1.3949,
+      "data_com": "2026-04-21",
+      "data_ex": "2026-04-22",
       "data_pagamento": null,
-      "yield_pct": 1.67,
+      "yield_pct": 9.06,
+      "status": "pago"
+    },
+    {
+      "ticker": "MOTV3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0617,
+      "data_com": "2026-04-21",
+      "data_ex": "2026-04-22",
+      "data_pagamento": null,
+      "yield_pct": 0.42,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5347,
+      "data_com": "2026-04-21",
+      "data_ex": "2026-04-22",
+      "data_pagamento": null,
+      "yield_pct": 2.06,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2801,
+      "data_com": "2026-04-21",
+      "data_ex": "2026-04-22",
+      "data_pagamento": null,
+      "yield_pct": 2.08,
       "status": "pago"
     },
     {
@@ -770,6 +1000,16 @@
       "data_ex": "2026-04-07",
       "data_pagamento": null,
       "yield_pct": 1.73,
+      "status": "pago"
+    },
+    {
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2973,
+      "data_com": "2026-04-06",
+      "data_ex": "2026-04-07",
+      "data_pagamento": null,
+      "yield_pct": 1.67,
       "status": "pago"
     },
     {
@@ -789,17 +1029,17 @@
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 1.17,
+      "yield_pct": 1.18,
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "SEER3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2026-04-01",
-      "data_ex": "2026-04-02",
+      "valor": 0.4776,
+      "data_com": "2026-04-06",
+      "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 4.11,
       "status": "pago"
     },
     {
@@ -813,7 +1053,27 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.019,
+      "data_com": "2026-04-01",
+      "data_ex": "2026-04-02",
+      "data_pagamento": null,
+      "yield_pct": 0.11,
+      "status": "pago"
+    },
+    {
+      "ticker": "B3SA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0743,
+      "data_com": "2026-03-31",
+      "data_ex": "2026-04-01",
+      "data_pagamento": null,
+      "yield_pct": 0.51,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0182,
       "data_com": "2026-03-31",
@@ -823,7 +1083,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0182,
       "data_com": "2026-03-31",
@@ -843,13 +1103,13 @@
       "status": "pago"
     },
     {
-      "ticker": "B3SA3",
+      "ticker": "JHSF3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0743,
-      "data_com": "2026-03-31",
-      "data_ex": "2026-04-01",
+      "valor": 0.0687,
+      "data_com": "2026-03-30",
+      "data_ex": "2026-03-31",
       "data_pagamento": null,
-      "yield_pct": 0.52,
+      "yield_pct": 0.66,
       "status": "pago"
     },
     {
@@ -863,23 +1123,33 @@
       "status": "pago"
     },
     {
-      "ticker": "JHSF3",
+      "ticker": "ALOS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0687,
-      "data_com": "2026-03-30",
-      "data_ex": "2026-03-31",
+      "valor": 0.2925,
+      "data_com": "2026-03-27",
+      "data_ex": "2026-03-30",
       "data_pagamento": null,
-      "yield_pct": 0.66,
+      "yield_pct": 1.08,
       "status": "pago"
     },
     {
-      "ticker": "CMIG4",
+      "ticker": "VBBR3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.23,
-      "data_com": "2026-03-24",
-      "data_ex": "2026-03-25",
+      "valor": 0.33,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
       "data_pagamento": null,
-      "yield_pct": 2.12,
+      "yield_pct": 1.03,
+      "status": "pago"
+    },
+    {
+      "ticker": "TOTS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.18,
+      "data_com": "2026-03-25",
+      "data_ex": "2026-03-26",
+      "data_pagamento": null,
+      "yield_pct": 0.62,
       "status": "pago"
     },
     {
@@ -890,6 +1160,16 @@
       "data_ex": "2026-03-25",
       "data_pagamento": null,
       "yield_pct": 2.2,
+      "status": "pago"
+    },
+    {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.23,
+      "data_com": "2026-03-24",
+      "data_ex": "2026-03-25",
+      "data_pagamento": null,
+      "yield_pct": 2.13,
       "status": "pago"
     },
     {
@@ -909,7 +1189,27 @@
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
       "data_pagamento": null,
-      "yield_pct": 0.74,
+      "yield_pct": 0.73,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4684,
+      "data_com": "2026-03-23",
+      "data_ex": "2026-03-24",
+      "data_pagamento": null,
+      "yield_pct": 0.75,
+      "status": "pago"
+    },
+    {
+      "ticker": "SMFT3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0651,
+      "data_com": "2026-03-23",
+      "data_ex": "2026-03-24",
+      "data_pagamento": null,
+      "yield_pct": 0.33,
       "status": "pago"
     },
     {
@@ -923,23 +1223,13 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ITSA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3489,
+      "valor": 0.116,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
       "data_pagamento": null,
-      "yield_pct": 0.83,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3489,
-      "data_com": "2026-03-19",
-      "data_ex": "2026-03-20",
-      "data_pagamento": null,
-      "yield_pct": 0.78,
+      "yield_pct": 0.86,
       "status": "pago"
     },
     {
@@ -953,13 +1243,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.116,
+      "valor": 0.3489,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
       "data_pagamento": null,
-      "yield_pct": 0.86,
+      "yield_pct": 0.79,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3489,
+      "data_com": "2026-03-19",
+      "data_ex": "2026-03-20",
+      "data_pagamento": null,
+      "yield_pct": 0.83,
       "status": "pago"
     },
     {
@@ -973,13 +1273,63 @@
       "status": "pago"
     },
     {
+      "ticker": "GGBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": null,
+      "yield_pct": 0.53,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": null,
+      "yield_pct": 0.45,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.05,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": null,
+      "yield_pct": 0.56,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.05,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": null,
+      "yield_pct": 0.51,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0018,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": null,
+      "yield_pct": 0.0,
+      "status": "pago"
+    },
+    {
       "ticker": "RANI3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0416,
       "data_com": "2026-03-05",
       "data_ex": "2026-03-06",
       "data_pagamento": null,
-      "yield_pct": 0.52,
+      "yield_pct": 0.53,
       "status": "pago"
     },
     {
@@ -993,16 +1343,6 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2026-03-02",
-      "data_ex": "2026-03-03",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
-      "status": "pago"
-    },
-    {
       "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0173,
@@ -1013,23 +1353,33 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
-      "data_com": "2026-02-27",
-      "data_ex": "2026-03-02",
+      "valor": 0.019,
+      "data_com": "2026-03-02",
+      "data_ex": "2026-03-03",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "CAML3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
+      "valor": 0.0733,
       "data_com": "2026-02-27",
       "data_ex": "2026-03-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 1.52,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITSA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0242,
+      "data_com": "2026-02-27",
+      "data_ex": "2026-03-02",
+      "data_pagamento": null,
+      "yield_pct": 0.18,
       "status": "pago"
     },
     {
@@ -1043,13 +1393,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0242,
+      "valor": 0.0182,
       "data_com": "2026-02-27",
       "data_ex": "2026-03-02",
       "data_pagamento": null,
-      "yield_pct": 0.18,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0182,
+      "data_com": "2026-02-27",
+      "data_ex": "2026-03-02",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -1073,23 +1433,33 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2925,
+      "data_com": "2026-02-19",
+      "data_ex": "2026-02-20",
+      "data_pagamento": null,
+      "yield_pct": 1.08,
+      "status": "pago"
+    },
+    {
       "ticker": "BBSE3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 2.6068,
       "data_com": "2026-02-12",
       "data_ex": "2026-02-13",
       "data_pagamento": null,
-      "yield_pct": 6.68,
+      "yield_pct": 6.67,
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "CURY3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2026-02-02",
-      "data_ex": "2026-02-03",
+      "valor": 0.4545,
+      "data_com": "2026-02-04",
+      "data_ex": "2026-02-05",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 1.45,
       "status": "pago"
     },
     {
@@ -1103,17 +1473,27 @@
       "status": "pago"
     },
     {
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.019,
+      "data_com": "2026-02-02",
+      "data_ex": "2026-02-03",
+      "data_pagamento": null,
+      "yield_pct": 0.11,
+      "status": "pago"
+    },
+    {
       "ticker": "LAVV3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 1.0234,
       "data_com": "2026-02-02",
       "data_ex": "2026-02-03",
       "data_pagamento": null,
-      "yield_pct": 9.76,
+      "yield_pct": 9.77,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0182,
       "data_com": "2026-01-30",
@@ -1123,7 +1503,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0182,
       "data_com": "2026-01-30",
@@ -1143,6 +1523,16 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2925,
+      "data_com": "2026-01-21",
+      "data_ex": "2026-01-22",
+      "data_pagamento": null,
+      "yield_pct": 1.08,
+      "status": "pago"
+    },
+    {
       "ticker": "JHSF3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0685,
@@ -1153,23 +1543,33 @@
       "status": "pago"
     },
     {
+      "ticker": "SANB11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5359,
+      "data_com": "2026-01-20",
+      "data_ex": "2026-01-21",
+      "data_pagamento": null,
+      "yield_pct": 2.07,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2807,
+      "data_com": "2026-01-20",
+      "data_ex": "2026-01-21",
+      "data_pagamento": null,
+      "yield_pct": 2.08,
+      "status": "pago"
+    },
+    {
       "ticker": "RECV3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 1.024,
       "data_com": "2026-01-08",
       "data_ex": "2026-01-09",
       "data_pagamento": null,
-      "yield_pct": 9.98,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2026-01-02",
-      "data_ex": "2026-01-05",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 10.13,
       "status": "pago"
     },
     {
@@ -1183,23 +1583,53 @@
       "status": "pago"
     },
     {
-      "ticker": "CXSE3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3521,
+      "valor": 0.019,
       "data_com": "2026-01-02",
       "data_ex": "2026-01-05",
       "data_pagamento": null,
-      "yield_pct": 1.66,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "SANB11",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0182,
+      "valor": 0.1661,
+      "data_com": "2026-01-02",
+      "data_ex": "2026-01-05",
+      "data_pagamento": null,
+      "yield_pct": 0.64,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.087,
+      "data_com": "2026-01-02",
+      "data_ex": "2026-01-05",
+      "data_pagamento": null,
+      "yield_pct": 0.65,
+      "status": "pago"
+    },
+    {
+      "ticker": "B3SA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3805,
       "data_com": "2026-01-01",
       "data_ex": "2026-01-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 2.63,
+      "status": "pago"
+    },
+    {
+      "ticker": "CPLE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.8249,
+      "data_com": "2026-01-01",
+      "data_ex": "2026-01-02",
+      "data_pagamento": null,
+      "yield_pct": 5.58,
       "status": "pago"
     },
     {
@@ -1213,33 +1643,13 @@
       "status": "pago"
     },
     {
-      "ticker": "B3SA3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3805,
+      "valor": 0.0182,
       "data_com": "2026-01-01",
       "data_ex": "2026-01-02",
       "data_pagamento": null,
-      "yield_pct": 2.64,
-      "status": "pago"
-    },
-    {
-      "ticker": "SAPR3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1023,
-      "data_com": "2026-01-01",
-      "data_ex": "2026-01-02",
-      "data_pagamento": null,
-      "yield_pct": 1.27,
-      "status": "pago"
-    },
-    {
-      "ticker": "SAPR4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1125,
-      "data_com": "2026-01-01",
-      "data_ex": "2026-01-02",
-      "data_pagamento": null,
-      "yield_pct": 1.61,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -1253,23 +1663,23 @@
       "status": "pago"
     },
     {
+      "ticker": "SAPR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1023,
+      "data_com": "2026-01-01",
+      "data_ex": "2026-01-02",
+      "data_pagamento": null,
+      "yield_pct": 1.27,
+      "status": "pago"
+    },
+    {
       "ticker": "ABCB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 1.532,
       "data_com": "2025-12-29",
       "data_ex": "2025-12-30",
       "data_pagamento": null,
-      "yield_pct": 6.36,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3863,
-      "data_com": "2025-12-29",
-      "data_ex": "2025-12-30",
-      "data_pagamento": null,
-      "yield_pct": 2.17,
+      "yield_pct": 6.35,
       "status": "pago"
     },
     {
@@ -1283,6 +1693,36 @@
       "status": "pago"
     },
     {
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3863,
+      "data_com": "2025-12-29",
+      "data_ex": "2025-12-30",
+      "data_pagamento": null,
+      "yield_pct": 2.17,
+      "status": "pago"
+    },
+    {
+      "ticker": "BPAC11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1484,
+      "data_com": "2025-12-29",
+      "data_ex": "2025-12-30",
+      "data_pagamento": null,
+      "yield_pct": 0.27,
+      "status": "pago"
+    },
+    {
+      "ticker": "BPAC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0495,
+      "data_com": "2025-12-29",
+      "data_ex": "2025-12-30",
+      "data_pagamento": null,
+      "yield_pct": 0.22,
+      "status": "pago"
+    },
+    {
       "ticker": "EQTL3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.1333,
@@ -1293,13 +1733,13 @@
       "status": "pago"
     },
     {
-      "ticker": "PSSA3",
+      "ticker": "FIQE3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.5376,
-      "data_com": "2025-12-26",
-      "data_ex": "2025-12-29",
+      "valor": 0.5664,
+      "data_com": "2025-12-29",
+      "data_ex": "2025-12-30",
       "data_pagamento": null,
-      "yield_pct": 1.02,
+      "yield_pct": 9.58,
       "status": "pago"
     },
     {
@@ -1309,7 +1749,17 @@
       "data_com": "2025-12-26",
       "data_ex": "2025-12-29",
       "data_pagamento": null,
-      "yield_pct": 29.28,
+      "yield_pct": 29.2,
+      "status": "pago"
+    },
+    {
+      "ticker": "PSSA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5376,
+      "data_com": "2025-12-26",
+      "data_ex": "2025-12-29",
+      "data_pagamento": null,
+      "yield_pct": 1.01,
       "status": "pago"
     },
     {
@@ -1319,17 +1769,17 @@
       "data_com": "2025-12-26",
       "data_ex": "2025-12-29",
       "data_pagamento": null,
-      "yield_pct": 9.98,
+      "yield_pct": 10.27,
       "status": "pago"
     },
     {
-      "ticker": "CMIG4",
+      "ticker": "CEAB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2368,
+      "valor": 0.5216,
       "data_com": "2025-12-25",
       "data_ex": "2025-12-26",
       "data_pagamento": null,
-      "yield_pct": 2.18,
+      "yield_pct": 5.14,
       "status": "pago"
     },
     {
@@ -1343,6 +1793,36 @@
       "status": "pago"
     },
     {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2368,
+      "data_com": "2025-12-25",
+      "data_ex": "2025-12-26",
+      "data_pagamento": null,
+      "yield_pct": 2.19,
+      "status": "pago"
+    },
+    {
+      "ticker": "COGN3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1147,
+      "data_com": "2025-12-25",
+      "data_ex": "2025-12-26",
+      "data_pagamento": null,
+      "yield_pct": 5.24,
+      "status": "pago"
+    },
+    {
+      "ticker": "SBSP3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5279,
+      "data_com": "2025-12-25",
+      "data_ex": "2025-12-26",
+      "data_pagamento": null,
+      "yield_pct": 1.8,
+      "status": "pago"
+    },
+    {
       "ticker": "TEND3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.8252,
@@ -1353,73 +1833,13 @@
       "status": "pago"
     },
     {
-      "ticker": "SBSP3",
+      "ticker": "BMGB4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.5279,
-      "data_com": "2025-12-25",
-      "data_ex": "2025-12-26",
-      "data_pagamento": null,
-      "yield_pct": 1.79,
-      "status": "pago"
-    },
-    {
-      "ticker": "COGN3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1147,
-      "data_com": "2025-12-25",
-      "data_ex": "2025-12-26",
-      "data_pagamento": null,
-      "yield_pct": 5.26,
-      "status": "pago"
-    },
-    {
-      "ticker": "CEAB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.5216,
-      "data_com": "2025-12-25",
-      "data_ex": "2025-12-26",
-      "data_pagamento": null,
-      "yield_pct": 5.13,
-      "status": "pago"
-    },
-    {
-      "ticker": "PETR4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.9521,
+      "valor": 0.1454,
       "data_com": "2025-12-22",
       "data_ex": "2025-12-23",
       "data_pagamento": null,
-      "yield_pct": 2.4,
-      "status": "pago"
-    },
-    {
-      "ticker": "PETR3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.9521,
-      "data_com": "2025-12-22",
-      "data_ex": "2025-12-23",
-      "data_pagamento": null,
-      "yield_pct": 2.14,
-      "status": "pago"
-    },
-    {
-      "ticker": "VULC3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.65,
-      "data_com": "2025-12-22",
-      "data_ex": "2025-12-23",
-      "data_pagamento": null,
-      "yield_pct": 4.67,
-      "status": "pago"
-    },
-    {
-      "ticker": "CMIG4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1459,
-      "data_com": "2025-12-22",
-      "data_ex": "2025-12-23",
-      "data_pagamento": null,
-      "yield_pct": 1.35,
+      "yield_pct": 2.75,
       "status": "pago"
     },
     {
@@ -1433,13 +1853,83 @@
       "status": "pago"
     },
     {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1459,
+      "data_com": "2025-12-22",
+      "data_ex": "2025-12-23",
+      "data_pagamento": null,
+      "yield_pct": 1.35,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3641,
+      "data_com": "2025-12-22",
+      "data_ex": "2025-12-23",
+      "data_pagamento": null,
+      "yield_pct": 0.58,
+      "status": "pago"
+    },
+    {
+      "ticker": "PETR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.9521,
+      "data_com": "2025-12-22",
+      "data_ex": "2025-12-23",
+      "data_pagamento": null,
+      "yield_pct": 2.42,
+      "status": "pago"
+    },
+    {
       "ticker": "RIAA3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 2.9759,
       "data_com": "2025-12-22",
       "data_ex": "2025-12-23",
       "data_pagamento": null,
-      "yield_pct": 35.05,
+      "yield_pct": 35.22,
+      "status": "pago"
+    },
+    {
+      "ticker": "VULC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.65,
+      "data_com": "2025-12-22",
+      "data_ex": "2025-12-23",
+      "data_pagamento": null,
+      "yield_pct": 4.65,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2925,
+      "data_com": "2025-12-19",
+      "data_ex": "2025-12-22",
+      "data_pagamento": null,
+      "yield_pct": 1.08,
+      "status": "pago"
+    },
+    {
+      "ticker": "AZZA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.5847,
+      "data_com": "2025-12-19",
+      "data_ex": "2025-12-22",
+      "data_pagamento": null,
+      "yield_pct": 8.81,
+      "status": "pago"
+    },
+    {
+      "ticker": "MOVI3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.7396,
+      "data_com": "2025-12-19",
+      "data_ex": "2025-12-22",
+      "data_pagamento": null,
+      "yield_pct": 8.6,
       "status": "pago"
     },
     {
@@ -1453,43 +1943,13 @@
       "status": "pago"
     },
     {
-      "ticker": "AZZA3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 1.5847,
-      "data_com": "2025-12-19",
-      "data_ex": "2025-12-22",
-      "data_pagamento": null,
-      "yield_pct": 8.83,
-      "status": "pago"
-    },
-    {
       "ticker": "ABEV3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.6117,
       "data_com": "2025-12-18",
       "data_ex": "2025-12-19",
       "data_pagamento": null,
-      "yield_pct": 3.89,
-      "status": "pago"
-    },
-    {
-      "ticker": "LOGG3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 3.1876,
-      "data_com": "2025-12-18",
-      "data_ex": "2025-12-19",
-      "data_pagamento": null,
-      "yield_pct": 11.91,
-      "status": "pago"
-    },
-    {
-      "ticker": "SOJA3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2974,
-      "data_com": "2025-12-18",
-      "data_ex": "2025-12-19",
-      "data_pagamento": null,
-      "yield_pct": 5.0,
+      "yield_pct": 3.9,
       "status": "pago"
     },
     {
@@ -1499,7 +1959,47 @@
       "data_com": "2025-12-18",
       "data_ex": "2025-12-19",
       "data_pagamento": null,
-      "yield_pct": 4.22,
+      "yield_pct": 4.19,
+      "status": "pago"
+    },
+    {
+      "ticker": "BPAC11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.495,
+      "data_com": "2025-12-18",
+      "data_ex": "2025-12-19",
+      "data_pagamento": null,
+      "yield_pct": 0.9,
+      "status": "pago"
+    },
+    {
+      "ticker": "BPAC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.165,
+      "data_com": "2025-12-18",
+      "data_ex": "2025-12-19",
+      "data_pagamento": null,
+      "yield_pct": 0.72,
+      "status": "pago"
+    },
+    {
+      "ticker": "LOGG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 3.1876,
+      "data_com": "2025-12-18",
+      "data_ex": "2025-12-19",
+      "data_pagamento": null,
+      "yield_pct": 11.95,
+      "status": "pago"
+    },
+    {
+      "ticker": "SOJA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2974,
+      "data_com": "2025-12-18",
+      "data_ex": "2025-12-19",
+      "data_pagamento": null,
+      "yield_pct": 4.98,
       "status": "pago"
     },
     {
@@ -1513,23 +2013,13 @@
       "status": "pago"
     },
     {
-      "ticker": "EGIE3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0875,
-      "data_com": "2025-12-18",
-      "data_ex": "2025-12-19",
-      "data_pagamento": null,
-      "yield_pct": 0.27,
-      "status": "pago"
-    },
-    {
       "ticker": "BRAP3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 1.4023,
       "data_com": "2025-12-17",
       "data_ex": "2025-12-18",
       "data_pagamento": null,
-      "yield_pct": 7.65,
+      "yield_pct": 7.69,
       "status": "pago"
     },
     {
@@ -1539,7 +2029,37 @@
       "data_com": "2025-12-17",
       "data_ex": "2025-12-18",
       "data_pagamento": null,
-      "yield_pct": 7.33,
+      "yield_pct": 7.39,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5275,
+      "data_com": "2025-12-16",
+      "data_ex": "2025-12-17",
+      "data_pagamento": null,
+      "yield_pct": 0.84,
+      "status": "pago"
+    },
+    {
+      "ticker": "CURY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.8601,
+      "data_com": "2025-12-16",
+      "data_ex": "2025-12-17",
+      "data_pagamento": null,
+      "yield_pct": 5.95,
+      "status": "pago"
+    },
+    {
+      "ticker": "FRAS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3693,
+      "data_com": "2025-12-16",
+      "data_ex": "2025-12-17",
+      "data_pagamento": null,
+      "yield_pct": 1.88,
       "status": "pago"
     },
     {
@@ -1553,23 +2073,13 @@
       "status": "pago"
     },
     {
-      "ticker": "KLBN11",
-      "tipo": "RENDIMENTO",
-      "valor": 0.9029,
-      "data_com": "2025-12-15",
-      "data_ex": "2025-12-16",
-      "data_pagamento": null,
-      "yield_pct": 5.23,
-      "status": "pago"
-    },
-    {
       "ticker": "INTB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.9166,
       "data_com": "2025-12-15",
       "data_ex": "2025-12-16",
       "data_pagamento": null,
-      "yield_pct": 7.14,
+      "yield_pct": 7.11,
       "status": "pago"
     },
     {
@@ -1583,13 +2093,53 @@
       "status": "pago"
     },
     {
-      "ticker": "VALE3",
+      "ticker": "KLBN11",
+      "tipo": "RENDIMENTO",
+      "valor": 0.9029,
+      "data_com": "2025-12-15",
+      "data_ex": "2025-12-16",
+      "data_pagamento": null,
+      "yield_pct": 5.24,
+      "status": "pago"
+    },
+    {
+      "ticker": "TOTS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 3.5818,
+      "valor": 0.17,
+      "data_com": "2025-12-15",
+      "data_ex": "2025-12-16",
+      "data_pagamento": null,
+      "yield_pct": 0.59,
+      "status": "pago"
+    },
+    {
+      "ticker": "SLCE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.8052,
+      "data_com": "2025-12-12",
+      "data_ex": "2025-12-15",
+      "data_pagamento": null,
+      "yield_pct": 5.96,
+      "status": "pago"
+    },
+    {
+      "ticker": "BMGB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0989,
       "data_com": "2025-12-11",
       "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 4.91,
+      "yield_pct": 1.87,
+      "status": "pago"
+    },
+    {
+      "ticker": "FIQE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0385,
+      "data_com": "2025-12-11",
+      "data_ex": "2025-12-12",
+      "data_pagamento": null,
+      "yield_pct": 0.65,
       "status": "pago"
     },
     {
@@ -1599,7 +2149,7 @@
       "data_com": "2025-12-11",
       "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 3.03,
+      "yield_pct": 3.02,
       "status": "pago"
     },
     {
@@ -1609,27 +2159,27 @@
       "data_com": "2025-12-11",
       "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 1.65,
+      "yield_pct": 1.66,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "VALE3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 2.1728,
-      "data_com": "2025-12-09",
-      "data_ex": "2025-12-10",
+      "valor": 3.5818,
+      "data_com": "2025-12-11",
+      "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 5.17,
+      "yield_pct": 4.94,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "MOTV3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 2.1728,
-      "data_com": "2025-12-09",
-      "data_ex": "2025-12-10",
+      "valor": 0.1464,
+      "data_com": "2025-12-10",
+      "data_ex": "2025-12-11",
       "data_pagamento": null,
-      "yield_pct": 4.89,
+      "yield_pct": 1.0,
       "status": "pago"
     },
     {
@@ -1639,17 +2189,7 @@
       "data_com": "2025-12-09",
       "data_ex": "2025-12-10",
       "data_pagamento": null,
-      "yield_pct": 12.75,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITSA4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.778,
-      "data_com": "2025-12-09",
-      "data_ex": "2025-12-10",
-      "data_pagamento": null,
-      "yield_pct": 5.81,
+      "yield_pct": 12.83,
       "status": "pago"
     },
     {
@@ -1663,6 +2203,66 @@
       "status": "pago"
     },
     {
+      "ticker": "ITSA4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.778,
+      "data_com": "2025-12-09",
+      "data_ex": "2025-12-10",
+      "data_pagamento": null,
+      "yield_pct": 5.81,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 2.1728,
+      "data_com": "2025-12-09",
+      "data_ex": "2025-12-10",
+      "data_pagamento": null,
+      "yield_pct": 4.9,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 2.1728,
+      "data_com": "2025-12-09",
+      "data_ex": "2025-12-10",
+      "data_pagamento": null,
+      "yield_pct": 5.17,
+      "status": "pago"
+    },
+    {
+      "ticker": "SMFT3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.8417,
+      "data_com": "2025-12-05",
+      "data_ex": "2025-12-08",
+      "data_pagamento": null,
+      "yield_pct": 4.31,
+      "status": "pago"
+    },
+    {
+      "ticker": "UGPA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.0,
+      "data_com": "2025-12-05",
+      "data_ex": "2025-12-08",
+      "data_pagamento": null,
+      "yield_pct": 3.42,
+      "status": "pago"
+    },
+    {
+      "ticker": "UNIP5",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 6.4768,
+      "data_com": "2025-12-05",
+      "data_ex": "2025-12-08",
+      "data_pagamento": null,
+      "yield_pct": 10.62,
+      "status": "pago"
+    },
+    {
       "ticker": "BLAU3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0866,
@@ -1670,6 +2270,16 @@
       "data_ex": "2025-12-05",
       "data_pagamento": null,
       "yield_pct": 0.84,
+      "status": "pago"
+    },
+    {
+      "ticker": "CAML3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0733,
+      "data_com": "2025-12-04",
+      "data_ex": "2025-12-05",
+      "data_pagamento": null,
+      "yield_pct": 1.52,
       "status": "pago"
     },
     {
@@ -1693,6 +2303,16 @@
       "status": "pago"
     },
     {
+      "ticker": "FLRY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.8991,
+      "data_com": "2025-12-02",
+      "data_ex": "2025-12-03",
+      "data_pagamento": null,
+      "yield_pct": 5.84,
+      "status": "pago"
+    },
+    {
       "ticker": "BBAS3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0719,
@@ -1700,16 +2320,6 @@
       "data_ex": "2025-12-02",
       "data_pagamento": null,
       "yield_pct": 0.37,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-12-01",
-      "data_ex": "2025-12-02",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
       "status": "pago"
     },
     {
@@ -1723,23 +2333,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
-      "data_com": "2025-11-28",
-      "data_ex": "2025-12-01",
+      "valor": 0.019,
+      "data_com": "2025-12-01",
+      "data_ex": "2025-12-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITSA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
+      "valor": 0.0231,
       "data_com": "2025-11-28",
       "data_ex": "2025-12-01",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.17,
       "status": "pago"
     },
     {
@@ -1753,13 +2363,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0231,
+      "valor": 0.0171,
       "data_com": "2025-11-28",
       "data_ex": "2025-12-01",
       "data_pagamento": null,
-      "yield_pct": 0.17,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0171,
+      "data_com": "2025-11-28",
+      "data_ex": "2025-12-01",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -1779,7 +2399,17 @@
       "data_com": "2025-11-28",
       "data_ex": "2025-12-01",
       "data_pagamento": null,
-      "yield_pct": 8.7,
+      "yield_pct": 8.75,
+      "status": "pago"
+    },
+    {
+      "ticker": "CURY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.8536,
+      "data_com": "2025-11-27",
+      "data_ex": "2025-11-28",
+      "data_pagamento": null,
+      "yield_pct": 2.73,
       "status": "pago"
     },
     {
@@ -1789,7 +2419,7 @@
       "data_com": "2025-11-27",
       "data_ex": "2025-11-28",
       "data_pagamento": null,
-      "yield_pct": 0.9,
+      "yield_pct": 0.89,
       "status": "pago"
     },
     {
@@ -1803,13 +2433,43 @@
       "status": "pago"
     },
     {
+      "ticker": "ENGI3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1275,
+      "data_com": "2025-11-26",
+      "data_ex": "2025-11-27",
+      "data_pagamento": null,
+      "yield_pct": 1.05,
+      "status": "pago"
+    },
+    {
       "ticker": "LAVV3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.7675,
       "data_com": "2025-11-25",
       "data_ex": "2025-11-26",
       "data_pagamento": null,
-      "yield_pct": 7.32,
+      "yield_pct": 7.33,
+      "status": "pago"
+    },
+    {
+      "ticker": "VBBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.7634,
+      "data_com": "2025-11-25",
+      "data_ex": "2025-11-26",
+      "data_pagamento": null,
+      "yield_pct": 2.39,
+      "status": "pago"
+    },
+    {
+      "ticker": "KEPL3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1442,
+      "data_com": "2025-11-24",
+      "data_ex": "2025-11-25",
+      "data_pagamento": null,
+      "yield_pct": 2.25,
       "status": "pago"
     },
     {
@@ -1833,23 +2493,13 @@
       "status": "pago"
     },
     {
-      "ticker": "KEPL3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1442,
-      "data_com": "2025-11-24",
-      "data_ex": "2025-11-25",
-      "data_pagamento": null,
-      "yield_pct": 2.25,
-      "status": "pago"
-    },
-    {
       "ticker": "AZZA3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.8915,
       "data_com": "2025-11-21",
       "data_ex": "2025-11-24",
       "data_pagamento": null,
-      "yield_pct": 4.97,
+      "yield_pct": 4.96,
       "status": "pago"
     },
     {
@@ -1859,7 +2509,7 @@
       "data_com": "2025-11-21",
       "data_ex": "2025-11-24",
       "data_pagamento": null,
-      "yield_pct": 1.91,
+      "yield_pct": 1.9,
       "status": "pago"
     },
     {
@@ -1869,7 +2519,17 @@
       "data_com": "2025-11-20",
       "data_ex": "2025-11-21",
       "data_pagamento": null,
-      "yield_pct": 1.31,
+      "yield_pct": 1.3,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2945,
+      "data_com": "2025-11-18",
+      "data_ex": "2025-11-19",
+      "data_pagamento": null,
+      "yield_pct": 1.08,
       "status": "pago"
     },
     {
@@ -1879,7 +2539,17 @@
       "data_com": "2025-11-18",
       "data_ex": "2025-11-19",
       "data_pagamento": null,
-      "yield_pct": 9.98,
+      "yield_pct": 10.27,
+      "status": "pago"
+    },
+    {
+      "ticker": "MILS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1877,
+      "data_com": "2025-11-17",
+      "data_ex": "2025-11-18",
+      "data_pagamento": null,
+      "yield_pct": 1.22,
       "status": "pago"
     },
     {
@@ -1889,7 +2559,27 @@
       "data_com": "2025-11-17",
       "data_ex": "2025-11-18",
       "data_pagamento": null,
-      "yield_pct": 0.9,
+      "yield_pct": 0.89,
+      "status": "pago"
+    },
+    {
+      "ticker": "AXIA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.8895,
+      "data_com": "2025-11-14",
+      "data_ex": "2025-11-17",
+      "data_pagamento": null,
+      "yield_pct": 3.61,
+      "status": "pago"
+    },
+    {
+      "ticker": "AXIA5",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.5815,
+      "data_com": "2025-11-14",
+      "data_ex": "2025-11-17",
+      "data_pagamento": null,
+      "yield_pct": 2.85,
       "status": "pago"
     },
     {
@@ -1913,16 +2603,6 @@
       "status": "pago"
     },
     {
-      "ticker": "AXIA3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 1.8895,
-      "data_com": "2025-11-14",
-      "data_ex": "2025-11-17",
-      "data_pagamento": null,
-      "yield_pct": 3.58,
-      "status": "pago"
-    },
-    {
       "ticker": "TAEE3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.3128,
@@ -1930,6 +2610,16 @@
       "data_ex": "2025-11-17",
       "data_pagamento": null,
       "yield_pct": 2.37,
+      "status": "pago"
+    },
+    {
+      "ticker": "TAEE4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3128,
+      "data_com": "2025-11-14",
+      "data_ex": "2025-11-17",
+      "data_pagamento": null,
+      "yield_pct": 2.34,
       "status": "pago"
     },
     {
@@ -1949,7 +2639,7 @@
       "data_com": "2025-11-12",
       "data_ex": "2025-11-13",
       "data_pagamento": null,
-      "yield_pct": 4.04,
+      "yield_pct": 4.06,
       "status": "pago"
     },
     {
@@ -1959,7 +2649,67 @@
       "data_com": "2025-11-12",
       "data_ex": "2025-11-13",
       "data_pagamento": null,
-      "yield_pct": 3.87,
+      "yield_pct": 3.9,
+      "status": "pago"
+    },
+    {
+      "ticker": "BMGB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0989,
+      "data_com": "2025-11-11",
+      "data_ex": "2025-11-12",
+      "data_pagamento": null,
+      "yield_pct": 1.87,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.28,
+      "data_com": "2025-11-10",
+      "data_ex": "2025-11-11",
+      "data_pagamento": null,
+      "yield_pct": 1.47,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.28,
+      "data_com": "2025-11-10",
+      "data_ex": "2025-11-11",
+      "data_pagamento": null,
+      "yield_pct": 1.27,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1425,
+      "data_com": "2025-11-10",
+      "data_ex": "2025-11-11",
+      "data_pagamento": null,
+      "yield_pct": 1.6,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1425,
+      "data_com": "2025-11-10",
+      "data_ex": "2025-11-11",
+      "data_pagamento": null,
+      "yield_pct": 1.46,
+      "status": "pago"
+    },
+    {
+      "ticker": "LOGG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3037,
+      "data_com": "2025-11-10",
+      "data_ex": "2025-11-11",
+      "data_pagamento": null,
+      "yield_pct": 1.14,
       "status": "pago"
     },
     {
@@ -1970,16 +2720,6 @@
       "data_ex": "2025-11-11",
       "data_pagamento": null,
       "yield_pct": 0.57,
-      "status": "pago"
-    },
-    {
-      "ticker": "LOGG3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3037,
-      "data_com": "2025-11-10",
-      "data_ex": "2025-11-11",
-      "data_pagamento": null,
-      "yield_pct": 1.13,
       "status": "pago"
     },
     {
@@ -1999,7 +2739,7 @@
       "data_com": "2025-11-05",
       "data_ex": "2025-11-06",
       "data_pagamento": null,
-      "yield_pct": 3.73,
+      "yield_pct": 3.74,
       "status": "pago"
     },
     {
@@ -2009,17 +2749,7 @@
       "data_com": "2025-11-04",
       "data_ex": "2025-11-05",
       "data_pagamento": null,
-      "yield_pct": 15.8,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-11-03",
-      "data_ex": "2025-11-04",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 15.73,
       "status": "pago"
     },
     {
@@ -2033,17 +2763,17 @@
       "status": "pago"
     },
     {
-      "ticker": "CXSE3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.32,
+      "valor": 0.019,
       "data_com": "2025-11-03",
       "data_ex": "2025-11-04",
       "data_pagamento": null,
-      "yield_pct": 1.5,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-10-31",
@@ -2053,7 +2783,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-10-31",
@@ -2073,13 +2803,53 @@
       "status": "pago"
     },
     {
+      "ticker": "AGRO3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.7529,
+      "data_com": "2025-10-22",
+      "data_ex": "2025-10-23",
+      "data_pagamento": null,
+      "yield_pct": 4.02,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1022,
+      "data_com": "2025-10-21",
+      "data_ex": "2025-10-22",
+      "data_pagamento": null,
+      "yield_pct": 0.38,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5359,
+      "data_com": "2025-10-21",
+      "data_ex": "2025-10-22",
+      "data_pagamento": null,
+      "yield_pct": 2.07,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2807,
+      "data_com": "2025-10-21",
+      "data_ex": "2025-10-22",
+      "data_pagamento": null,
+      "yield_pct": 2.08,
+      "status": "pago"
+    },
+    {
       "ticker": "VULC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.118,
       "data_com": "2025-10-20",
       "data_ex": "2025-10-21",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {
@@ -2089,17 +2859,7 @@
       "data_com": "2025-10-03",
       "data_ex": "2025-10-06",
       "data_pagamento": null,
-      "yield_pct": 3.45,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-10-01",
-      "data_ex": "2025-10-02",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 3.44,
       "status": "pago"
     },
     {
@@ -2113,7 +2873,27 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.019,
+      "data_com": "2025-10-01",
+      "data_ex": "2025-10-02",
+      "data_pagamento": null,
+      "yield_pct": 0.11,
+      "status": "pago"
+    },
+    {
+      "ticker": "CURY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.6829,
+      "data_com": "2025-09-30",
+      "data_ex": "2025-10-01",
+      "data_pagamento": null,
+      "yield_pct": 2.18,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-09-30",
@@ -2123,7 +2903,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-09-30",
@@ -2143,23 +2923,13 @@
       "status": "pago"
     },
     {
-      "ticker": "CMIG4",
+      "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2114,
+      "valor": 0.2701,
       "data_com": "2025-09-29",
       "data_ex": "2025-09-30",
       "data_pagamento": null,
-      "yield_pct": 1.95,
-      "status": "pago"
-    },
-    {
-      "ticker": "CMIG3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2114,
-      "data_com": "2025-09-29",
-      "data_ex": "2025-09-30",
-      "data_pagamento": null,
-      "yield_pct": 1.35,
+      "yield_pct": 1.73,
       "status": "pago"
     },
     {
@@ -2173,13 +2943,23 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC3",
+      "ticker": "CMIG3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2701,
+      "valor": 0.2114,
       "data_com": "2025-09-29",
       "data_ex": "2025-09-30",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.35,
+      "status": "pago"
+    },
+    {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2114,
+      "data_com": "2025-09-29",
+      "data_ex": "2025-09-30",
+      "data_pagamento": null,
+      "yield_pct": 1.95,
       "status": "pago"
     },
     {
@@ -2193,6 +2973,16 @@
       "status": "pago"
     },
     {
+      "ticker": "GMAT3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0726,
+      "data_com": "2025-09-25",
+      "data_ex": "2025-09-26",
+      "data_pagamento": null,
+      "yield_pct": 1.91,
+      "status": "pago"
+    },
+    {
       "ticker": "PSSA3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.5338,
@@ -2203,13 +2993,13 @@
       "status": "pago"
     },
     {
-      "ticker": "GMAT3",
+      "ticker": "ALOS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0726,
-      "data_com": "2025-09-25",
-      "data_ex": "2025-09-26",
+      "valor": 0.1022,
+      "data_com": "2025-09-23",
+      "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 1.92,
+      "yield_pct": 0.38,
       "status": "pago"
     },
     {
@@ -2229,7 +3019,7 @@
       "data_com": "2025-09-23",
       "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 0.72,
+      "yield_pct": 0.71,
       "status": "pago"
     },
     {
@@ -2240,6 +3030,26 @@
       "data_ex": "2025-09-24",
       "data_pagamento": null,
       "yield_pct": 1.6,
+      "status": "pago"
+    },
+    {
+      "ticker": "TOTS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.15,
+      "data_com": "2025-09-23",
+      "data_ex": "2025-09-24",
+      "data_pagamento": null,
+      "yield_pct": 0.52,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4476,
+      "data_com": "2025-09-22",
+      "data_ex": "2025-09-23",
+      "data_pagamento": null,
+      "yield_pct": 0.71,
       "status": "pago"
     },
     {
@@ -2259,7 +3069,17 @@
       "data_com": "2025-09-17",
       "data_ex": "2025-09-18",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
+      "status": "pago"
+    },
+    {
+      "ticker": "SMFT3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0666,
+      "data_com": "2025-09-12",
+      "data_ex": "2025-09-15",
+      "data_pagamento": null,
+      "yield_pct": 0.34,
       "status": "pago"
     },
     {
@@ -2269,17 +3089,17 @@
       "data_com": "2025-09-08",
       "data_ex": "2025-09-09",
       "data_pagamento": null,
-      "yield_pct": 7.49,
+      "yield_pct": 7.45,
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "CAML3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-09-01",
-      "data_ex": "2025-09-02",
+      "valor": 0.0733,
+      "data_com": "2025-09-03",
+      "data_ex": "2025-09-04",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 1.52,
       "status": "pago"
     },
     {
@@ -2293,23 +3113,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
-      "data_com": "2025-08-29",
-      "data_ex": "2025-09-01",
+      "valor": 0.019,
+      "data_com": "2025-09-01",
+      "data_ex": "2025-09-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITSA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
+      "valor": 0.0231,
       "data_com": "2025-08-29",
       "data_ex": "2025-09-01",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.17,
       "status": "pago"
     },
     {
@@ -2323,13 +3143,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0231,
+      "valor": 0.0171,
       "data_com": "2025-08-29",
       "data_ex": "2025-09-01",
       "data_pagamento": null,
-      "yield_pct": 0.17,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0171,
+      "data_com": "2025-08-29",
+      "data_ex": "2025-09-01",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -2363,23 +3193,13 @@
       "status": "pago"
     },
     {
-      "ticker": "PETR4",
+      "ticker": "ALOS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6719,
+      "valor": 0.1022,
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 1.69,
-      "status": "pago"
-    },
-    {
-      "ticker": "PETR3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6719,
-      "data_com": "2025-08-21",
-      "data_ex": "2025-08-22",
-      "data_pagamento": null,
-      "yield_pct": 1.51,
+      "yield_pct": 0.38,
       "status": "pago"
     },
     {
@@ -2389,47 +3209,47 @@
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 3.09,
+      "yield_pct": 3.08,
       "status": "pago"
     },
     {
-      "ticker": "EGIE3",
+      "ticker": "PETR4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6296,
+      "valor": 0.6719,
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 1.94,
+      "yield_pct": 1.71,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "UGPA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3528,
-      "data_com": "2025-08-18",
-      "data_ex": "2025-08-19",
+      "valor": 0.3,
+      "data_com": "2025-08-21",
+      "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 0.84,
+      "yield_pct": 1.03,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "MILS3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3528,
-      "data_com": "2025-08-18",
-      "data_ex": "2025-08-19",
+      "valor": 0.2157,
+      "data_com": "2025-08-19",
+      "data_ex": "2025-08-20",
       "data_pagamento": null,
-      "yield_pct": 0.79,
+      "yield_pct": 1.4,
       "status": "pago"
     },
     {
-      "ticker": "VULC3",
+      "ticker": "ITSA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.118,
+      "valor": 0.1823,
       "data_com": "2025-08-18",
       "data_ex": "2025-08-19",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 1.35,
       "status": "pago"
     },
     {
@@ -2443,13 +3263,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1823,
+      "valor": 0.3528,
       "data_com": "2025-08-18",
       "data_ex": "2025-08-19",
       "data_pagamento": null,
-      "yield_pct": 1.35,
+      "yield_pct": 0.79,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3528,
+      "data_com": "2025-08-18",
+      "data_ex": "2025-08-19",
+      "data_pagamento": null,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {
@@ -2469,7 +3299,27 @@
       "data_com": "2025-08-18",
       "data_ex": "2025-08-19",
       "data_pagamento": null,
-      "yield_pct": 2.19,
+      "yield_pct": 2.2,
+      "status": "pago"
+    },
+    {
+      "ticker": "TAEE4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2897,
+      "data_com": "2025-08-18",
+      "data_ex": "2025-08-19",
+      "data_pagamento": null,
+      "yield_pct": 2.17,
+      "status": "pago"
+    },
+    {
+      "ticker": "VULC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.118,
+      "data_com": "2025-08-18",
+      "data_ex": "2025-08-19",
+      "data_pagamento": null,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {
@@ -2479,7 +3329,17 @@
       "data_com": "2025-08-15",
       "data_ex": "2025-08-18",
       "data_pagamento": null,
-      "yield_pct": 3.33,
+      "yield_pct": 3.36,
+      "status": "pago"
+    },
+    {
+      "ticker": "AXIA5",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 2.4304,
+      "data_com": "2025-08-15",
+      "data_ex": "2025-08-18",
+      "data_pagamento": null,
+      "yield_pct": 4.38,
       "status": "pago"
     },
     {
@@ -2489,7 +3349,17 @@
       "data_com": "2025-08-14",
       "data_ex": "2025-08-15",
       "data_pagamento": null,
-      "yield_pct": 4.98,
+      "yield_pct": 4.97,
+      "status": "pago"
+    },
+    {
+      "ticker": "FIQE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1542,
+      "data_com": "2025-08-14",
+      "data_ex": "2025-08-15",
+      "data_pagamento": null,
+      "yield_pct": 2.61,
       "status": "pago"
     },
     {
@@ -2503,16 +3373,6 @@
       "status": "pago"
     },
     {
-      "ticker": "VALE3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 1.8954,
-      "data_com": "2025-08-12",
-      "data_ex": "2025-08-13",
-      "data_pagamento": null,
-      "yield_pct": 2.6,
-      "status": "pago"
-    },
-    {
       "ticker": "ENGI11",
       "tipo": "RENDIMENTO",
       "valor": 0.9091,
@@ -2520,6 +3380,86 @@
       "data_ex": "2025-08-13",
       "data_pagamento": null,
       "yield_pct": 1.86,
+      "status": "pago"
+    },
+    {
+      "ticker": "ENGI3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1818,
+      "data_com": "2025-08-12",
+      "data_ex": "2025-08-13",
+      "data_pagamento": null,
+      "yield_pct": 1.49,
+      "status": "pago"
+    },
+    {
+      "ticker": "FLRY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3101,
+      "data_com": "2025-08-12",
+      "data_ex": "2025-08-13",
+      "data_pagamento": null,
+      "yield_pct": 2.01,
+      "status": "pago"
+    },
+    {
+      "ticker": "UNIP5",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 3.701,
+      "data_com": "2025-08-12",
+      "data_ex": "2025-08-13",
+      "data_pagamento": null,
+      "yield_pct": 6.07,
+      "status": "pago"
+    },
+    {
+      "ticker": "VALE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.8954,
+      "data_com": "2025-08-12",
+      "data_ex": "2025-08-13",
+      "data_pagamento": null,
+      "yield_pct": 2.62,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.12,
+      "data_com": "2025-08-11",
+      "data_ex": "2025-08-12",
+      "data_pagamento": null,
+      "yield_pct": 0.63,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.12,
+      "data_com": "2025-08-11",
+      "data_ex": "2025-08-12",
+      "data_pagamento": null,
+      "yield_pct": 0.54,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.06,
+      "data_com": "2025-08-11",
+      "data_ex": "2025-08-12",
+      "data_pagamento": null,
+      "yield_pct": 0.67,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.06,
+      "data_com": "2025-08-11",
+      "data_ex": "2025-08-12",
+      "data_pagamento": null,
+      "yield_pct": 0.62,
       "status": "pago"
     },
     {
@@ -2533,23 +3473,23 @@
       "status": "pago"
     },
     {
-      "ticker": "RANI3",
+      "ticker": "BPAC11",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1098,
+      "valor": 0.604,
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 1.39,
+      "yield_pct": 1.1,
       "status": "pago"
     },
     {
-      "ticker": "LOGG3",
+      "ticker": "BPAC3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2374,
+      "valor": 0.2013,
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 0.89,
+      "yield_pct": 0.88,
       "status": "pago"
     },
     {
@@ -2563,23 +3503,53 @@
       "status": "pago"
     },
     {
+      "ticker": "LOGG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2374,
+      "data_com": "2025-08-08",
+      "data_ex": "2025-08-11",
+      "data_pagamento": null,
+      "yield_pct": 0.89,
+      "status": "pago"
+    },
+    {
+      "ticker": "RANI3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1098,
+      "data_com": "2025-08-08",
+      "data_ex": "2025-08-11",
+      "data_pagamento": null,
+      "yield_pct": 1.39,
+      "status": "pago"
+    },
+    {
       "ticker": "TEND3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.4079,
       "data_com": "2025-08-07",
       "data_ex": "2025-08-08",
       "data_pagamento": null,
+      "yield_pct": 1.24,
+      "status": "pago"
+    },
+    {
+      "ticker": "MOTV3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1793,
+      "data_com": "2025-08-05",
+      "data_ex": "2025-08-06",
+      "data_pagamento": null,
       "yield_pct": 1.23,
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "ECOR3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-08-01",
-      "data_ex": "2025-08-04",
+      "valor": 0.3087,
+      "data_com": "2025-08-04",
+      "data_ex": "2025-08-05",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 4.25,
       "status": "pago"
     },
     {
@@ -2593,13 +3563,13 @@
       "status": "pago"
     },
     {
-      "ticker": "CXSE3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.31,
+      "valor": 0.019,
       "data_com": "2025-08-01",
       "data_ex": "2025-08-04",
       "data_pagamento": null,
-      "yield_pct": 1.46,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
@@ -2609,11 +3579,11 @@
       "data_com": "2025-08-01",
       "data_ex": "2025-08-04",
       "data_pagamento": null,
-      "yield_pct": 1.65,
+      "yield_pct": 1.64,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-07-31",
@@ -2623,7 +3593,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-07-31",
@@ -2643,6 +3613,16 @@
       "status": "pago"
     },
     {
+      "ticker": "SMTO3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4565,
+      "data_com": "2025-07-30",
+      "data_ex": "2025-07-31",
+      "data_pagamento": null,
+      "yield_pct": 2.98,
+      "status": "pago"
+    },
+    {
       "ticker": "WEGE3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.1714,
@@ -2650,6 +3630,16 @@
       "data_ex": "2025-07-28",
       "data_pagamento": null,
       "yield_pct": 0.38,
+      "status": "pago"
+    },
+    {
+      "ticker": "BMGB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0989,
+      "data_com": "2025-07-24",
+      "data_ex": "2025-07-25",
+      "data_pagamento": null,
+      "yield_pct": 1.87,
       "status": "pago"
     },
     {
@@ -2663,13 +3653,53 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1022,
+      "data_com": "2025-07-22",
+      "data_ex": "2025-07-23",
+      "data_pagamento": null,
+      "yield_pct": 0.38,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5359,
+      "data_com": "2025-07-17",
+      "data_ex": "2025-07-18",
+      "data_pagamento": null,
+      "yield_pct": 2.07,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2807,
+      "data_com": "2025-07-17",
+      "data_ex": "2025-07-18",
+      "data_pagamento": null,
+      "yield_pct": 2.08,
+      "status": "pago"
+    },
+    {
       "ticker": "VULC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.118,
       "data_com": "2025-07-17",
       "data_ex": "2025-07-18",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
+      "status": "pago"
+    },
+    {
+      "ticker": "FRAS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3402,
+      "data_com": "2025-07-04",
+      "data_ex": "2025-07-07",
+      "data_pagamento": null,
+      "yield_pct": 1.73,
       "status": "pago"
     },
     {
@@ -2679,13 +3709,13 @@
       "data_com": "2025-07-02",
       "data_ex": "2025-07-03",
       "data_pagamento": null,
-      "yield_pct": 1.47,
+      "yield_pct": 1.48,
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
+      "valor": 0.0173,
       "data_com": "2025-07-01",
       "data_ex": "2025-07-02",
       "data_pagamento": null,
@@ -2693,9 +3723,9 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC3",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0173,
+      "valor": 0.019,
       "data_com": "2025-07-01",
       "data_ex": "2025-07-02",
       "data_pagamento": null,
@@ -2713,7 +3743,37 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ABCB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.0714,
+      "data_com": "2025-06-30",
+      "data_ex": "2025-07-01",
+      "data_pagamento": null,
+      "yield_pct": 4.44,
+      "status": "pago"
+    },
+    {
+      "ticker": "BBDC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2701,
+      "data_com": "2025-06-30",
+      "data_ex": "2025-07-01",
+      "data_pagamento": null,
+      "yield_pct": 1.73,
+      "status": "pago"
+    },
+    {
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2972,
+      "data_com": "2025-06-30",
+      "data_ex": "2025-07-01",
+      "data_pagamento": null,
+      "yield_pct": 1.67,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-06-30",
@@ -2723,7 +3783,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0171,
       "data_com": "2025-06-30",
@@ -2739,47 +3799,17 @@
       "data_com": "2025-06-30",
       "data_ex": "2025-07-01",
       "data_pagamento": null,
-      "yield_pct": 3.25,
+      "yield_pct": 3.23,
       "status": "pago"
     },
     {
-      "ticker": "SAPR4",
+      "ticker": "GMAT3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2869,
-      "data_com": "2025-06-30",
-      "data_ex": "2025-07-01",
+      "valor": 0.067,
+      "data_com": "2025-06-26",
+      "data_ex": "2025-06-27",
       "data_pagamento": null,
-      "yield_pct": 4.09,
-      "status": "pago"
-    },
-    {
-      "ticker": "ABCB4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 1.0714,
-      "data_com": "2025-06-30",
-      "data_ex": "2025-07-01",
-      "data_pagamento": null,
-      "yield_pct": 4.45,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2972,
-      "data_com": "2025-06-30",
-      "data_ex": "2025-07-01",
-      "data_pagamento": null,
-      "yield_pct": 1.67,
-      "status": "pago"
-    },
-    {
-      "ticker": "BBDC3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2701,
-      "data_com": "2025-06-30",
-      "data_ex": "2025-07-01",
-      "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.76,
       "status": "pago"
     },
     {
@@ -2793,33 +3823,13 @@
       "status": "pago"
     },
     {
-      "ticker": "GMAT3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.067,
-      "data_com": "2025-06-26",
-      "data_ex": "2025-06-27",
-      "data_pagamento": null,
-      "yield_pct": 1.77,
-      "status": "pago"
-    },
-    {
       "ticker": "B3SA3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0728,
       "data_com": "2025-06-23",
       "data_ex": "2025-06-24",
       "data_pagamento": null,
-      "yield_pct": 0.51,
-      "status": "pago"
-    },
-    {
-      "ticker": "CMIG4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2086,
-      "data_com": "2025-06-23",
-      "data_ex": "2025-06-24",
-      "data_pagamento": null,
-      "yield_pct": 1.92,
+      "yield_pct": 0.5,
       "status": "pago"
     },
     {
@@ -2833,23 +3843,33 @@
       "status": "pago"
     },
     {
-      "ticker": "WEGE3",
+      "ticker": "CMIG4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0941,
-      "data_com": "2025-06-20",
-      "data_ex": "2025-06-23",
+      "valor": 0.2086,
+      "data_com": "2025-06-23",
+      "data_ex": "2025-06-24",
       "data_pagamento": null,
-      "yield_pct": 0.21,
+      "yield_pct": 1.93,
       "status": "pago"
     },
     {
-      "ticker": "ITSA4",
+      "ticker": "CSMG3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0579,
-      "data_com": "2025-06-20",
-      "data_ex": "2025-06-23",
+      "valor": 0.4333,
+      "data_com": "2025-06-23",
+      "data_ex": "2025-06-24",
       "data_pagamento": null,
-      "yield_pct": 0.43,
+      "yield_pct": 0.69,
+      "status": "pago"
+    },
+    {
+      "ticker": "TOTS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.15,
+      "data_com": "2025-06-23",
+      "data_ex": "2025-06-24",
+      "data_pagamento": null,
+      "yield_pct": 0.52,
       "status": "pago"
     },
     {
@@ -2863,13 +3883,63 @@
       "status": "pago"
     },
     {
+      "ticker": "ITSA4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0579,
+      "data_com": "2025-06-20",
+      "data_ex": "2025-06-23",
+      "data_pagamento": null,
+      "yield_pct": 0.43,
+      "status": "pago"
+    },
+    {
+      "ticker": "WEGE3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0941,
+      "data_com": "2025-06-20",
+      "data_ex": "2025-06-23",
+      "data_pagamento": null,
+      "yield_pct": 0.21,
+      "status": "pago"
+    },
+    {
+      "ticker": "CAML3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0733,
+      "data_com": "2025-06-19",
+      "data_ex": "2025-06-20",
+      "data_pagamento": null,
+      "yield_pct": 1.52,
+      "status": "pago"
+    },
+    {
       "ticker": "VULC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.118,
       "data_com": "2025-06-19",
       "data_ex": "2025-06-20",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.102,
+      "data_com": "2025-06-17",
+      "data_ex": "2025-06-18",
+      "data_pagamento": null,
+      "yield_pct": 0.37,
+      "status": "pago"
+    },
+    {
+      "ticker": "RAIL3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.8104,
+      "data_com": "2025-06-16",
+      "data_ex": "2025-06-17",
+      "data_pagamento": null,
+      "yield_pct": 6.05,
       "status": "pago"
     },
     {
@@ -2883,13 +3953,13 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "SMFT3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3244,
-      "data_com": "2025-06-09",
-      "data_ex": "2025-06-10",
+      "valor": 0.0666,
+      "data_com": "2025-06-13",
+      "data_ex": "2025-06-16",
       "data_pagamento": null,
-      "yield_pct": 0.77,
+      "yield_pct": 0.34,
       "status": "pago"
     },
     {
@@ -2903,23 +3973,13 @@
       "status": "pago"
     },
     {
-      "ticker": "PETR4",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.9092,
-      "data_com": "2025-06-02",
-      "data_ex": "2025-06-03",
+      "valor": 0.3244,
+      "data_com": "2025-06-09",
+      "data_ex": "2025-06-10",
       "data_pagamento": null,
-      "yield_pct": 2.29,
-      "status": "pago"
-    },
-    {
-      "ticker": "PETR3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.9092,
-      "data_com": "2025-06-02",
-      "data_ex": "2025-06-03",
-      "data_pagamento": null,
-      "yield_pct": 2.05,
+      "yield_pct": 0.77,
       "status": "pago"
     },
     {
@@ -2933,16 +3993,6 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-06-02",
-      "data_ex": "2025-06-03",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
-      "status": "pago"
-    },
-    {
       "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0173,
@@ -2953,33 +4003,23 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
-      "data_com": "2025-05-30",
-      "data_ex": "2025-06-02",
+      "valor": 0.019,
+      "data_com": "2025-06-02",
+      "data_ex": "2025-06-03",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "PETR4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
-      "data_com": "2025-05-30",
-      "data_ex": "2025-06-02",
+      "valor": 0.9092,
+      "data_com": "2025-06-02",
+      "data_ex": "2025-06-03",
       "data_pagamento": null,
-      "yield_pct": 0.04,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITSA4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0231,
-      "data_com": "2025-05-30",
-      "data_ex": "2025-06-02",
-      "data_pagamento": null,
-      "yield_pct": 0.17,
+      "yield_pct": 2.31,
       "status": "pago"
     },
     {
@@ -2993,6 +4033,36 @@
       "status": "pago"
     },
     {
+      "ticker": "ITSA4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0231,
+      "data_com": "2025-05-30",
+      "data_ex": "2025-06-02",
+      "data_pagamento": null,
+      "yield_pct": 0.17,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0171,
+      "data_com": "2025-05-30",
+      "data_ex": "2025-06-02",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0171,
+      "data_com": "2025-05-30",
+      "data_ex": "2025-06-02",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
       "ticker": "JHSF3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0311,
@@ -3003,13 +4073,23 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1015,
+      "data_com": "2025-05-22",
+      "data_ex": "2025-05-23",
+      "data_pagamento": null,
+      "yield_pct": 0.37,
+      "status": "pago"
+    },
+    {
       "ticker": "VULC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.118,
       "data_com": "2025-05-20",
       "data_ex": "2025-05-21",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {
@@ -3019,17 +4099,7 @@
       "data_com": "2025-05-15",
       "data_ex": "2025-05-16",
       "data_pagamento": null,
-      "yield_pct": 0.81,
-      "status": "pago"
-    },
-    {
-      "ticker": "RECV3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.9001,
-      "data_com": "2025-05-15",
-      "data_ex": "2025-05-16",
-      "data_pagamento": null,
-      "yield_pct": 8.77,
+      "yield_pct": 0.82,
       "status": "pago"
     },
     {
@@ -3043,13 +4113,23 @@
       "status": "pago"
     },
     {
+      "ticker": "RECV3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.9001,
+      "data_com": "2025-05-15",
+      "data_ex": "2025-05-16",
+      "data_pagamento": null,
+      "yield_pct": 8.9,
+      "status": "pago"
+    },
+    {
       "ticker": "GRND3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0638,
       "data_com": "2025-05-14",
       "data_ex": "2025-05-15",
       "data_pagamento": null,
-      "yield_pct": 1.72,
+      "yield_pct": 1.71,
       "status": "pago"
     },
     {
@@ -3083,6 +4163,56 @@
       "status": "pago"
     },
     {
+      "ticker": "TAEE4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1822,
+      "data_com": "2025-05-12",
+      "data_ex": "2025-05-13",
+      "data_pagamento": null,
+      "yield_pct": 1.36,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.12,
+      "data_com": "2025-05-08",
+      "data_ex": "2025-05-09",
+      "data_pagamento": null,
+      "yield_pct": 0.63,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.12,
+      "data_com": "2025-05-08",
+      "data_ex": "2025-05-09",
+      "data_pagamento": null,
+      "yield_pct": 0.54,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.06,
+      "data_com": "2025-05-08",
+      "data_ex": "2025-05-09",
+      "data_pagamento": null,
+      "yield_pct": 0.67,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.06,
+      "data_com": "2025-05-08",
+      "data_ex": "2025-05-09",
+      "data_pagamento": null,
+      "yield_pct": 0.62,
+      "status": "pago"
+    },
+    {
       "ticker": "RANI3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0626,
@@ -3090,16 +4220,6 @@
       "data_ex": "2025-05-08",
       "data_pagamento": null,
       "yield_pct": 0.79,
-      "status": "pago"
-    },
-    {
-      "ticker": "EGIE3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6261,
-      "data_com": "2025-05-06",
-      "data_ex": "2025-05-07",
-      "data_pagamento": null,
-      "yield_pct": 1.92,
       "status": "pago"
     },
     {
@@ -3113,13 +4233,13 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "SLCE3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-05-02",
-      "data_ex": "2025-05-05",
+      "valor": 0.4856,
+      "data_com": "2025-05-05",
+      "data_ex": "2025-05-06",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 3.6,
       "status": "pago"
     },
     {
@@ -3133,13 +4253,53 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
+      "valor": 0.019,
+      "data_com": "2025-05-02",
+      "data_ex": "2025-05-05",
+      "data_pagamento": null,
+      "yield_pct": 0.11,
+      "status": "pago"
+    },
+    {
+      "ticker": "CEAB3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0378,
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 0.37,
+      "status": "pago"
+    },
+    {
+      "ticker": "CMIG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.6588,
+      "data_com": "2025-05-01",
+      "data_ex": "2025-05-02",
+      "data_pagamento": null,
+      "yield_pct": 4.2,
+      "status": "pago"
+    },
+    {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.6588,
+      "data_com": "2025-05-01",
+      "data_ex": "2025-05-02",
+      "data_pagamento": null,
+      "yield_pct": 6.09,
+      "status": "pago"
+    },
+    {
+      "ticker": "EQTL3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.7002,
+      "data_com": "2025-05-01",
+      "data_ex": "2025-05-02",
+      "data_pagamento": null,
+      "yield_pct": 1.8,
       "status": "pago"
     },
     {
@@ -3153,23 +4313,23 @@
       "status": "pago"
     },
     {
-      "ticker": "CMIG4",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6588,
+      "valor": 0.0171,
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 6.08,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
-      "ticker": "CMIG3",
+      "ticker": "MOVI3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.6588,
+      "valor": 0.0235,
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 4.2,
+      "yield_pct": 0.27,
       "status": "pago"
     },
     {
@@ -3193,33 +4353,13 @@
       "status": "pago"
     },
     {
-      "ticker": "EQTL3",
+      "ticker": "AXIA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.7002,
-      "data_com": "2025-05-01",
-      "data_ex": "2025-05-02",
+      "valor": 0.8952,
+      "data_com": "2025-04-29",
+      "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 1.8,
-      "status": "pago"
-    },
-    {
-      "ticker": "CXSE3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.3202,
-      "data_com": "2025-05-01",
-      "data_ex": "2025-05-02",
-      "data_pagamento": null,
-      "yield_pct": 1.51,
-      "status": "pago"
-    },
-    {
-      "ticker": "CEAB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0378,
-      "data_com": "2025-05-01",
-      "data_ex": "2025-05-02",
-      "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 1.71,
       "status": "pago"
     },
     {
@@ -3239,7 +4379,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 5.97,
+      "yield_pct": 5.98,
       "status": "pago"
     },
     {
@@ -3249,7 +4389,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.45,
+      "yield_pct": 2.46,
       "status": "pago"
     },
     {
@@ -3263,16 +4403,6 @@
       "status": "pago"
     },
     {
-      "ticker": "AXIA3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.8952,
-      "data_com": "2025-04-29",
-      "data_ex": "2025-04-30",
-      "data_pagamento": null,
-      "yield_pct": 1.7,
-      "status": "pago"
-    },
-    {
       "ticker": "TAEE3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.2917,
@@ -3283,23 +4413,33 @@
       "status": "pago"
     },
     {
+      "ticker": "TAEE4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2917,
+      "data_com": "2025-04-29",
+      "data_ex": "2025-04-30",
+      "data_pagamento": null,
+      "yield_pct": 2.18,
+      "status": "pago"
+    },
+    {
       "ticker": "COGN3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0607,
       "data_com": "2025-04-28",
       "data_ex": "2025-04-29",
       "data_pagamento": null,
-      "yield_pct": 2.78,
+      "yield_pct": 2.77,
       "status": "pago"
     },
     {
-      "ticker": "CYRE3",
+      "ticker": "SEER3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 1.0691,
-      "data_com": "2025-04-25",
-      "data_ex": "2025-04-28",
+      "valor": 0.1541,
+      "data_com": "2025-04-28",
+      "data_ex": "2025-04-29",
       "data_pagamento": null,
-      "yield_pct": 4.99,
+      "yield_pct": 1.33,
       "status": "pago"
     },
     {
@@ -3309,7 +4449,7 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 4.56,
+      "yield_pct": 4.58,
       "status": "pago"
     },
     {
@@ -3319,17 +4459,17 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 4.37,
+      "yield_pct": 4.4,
       "status": "pago"
     },
     {
-      "ticker": "TRIS3",
+      "ticker": "CYRE3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2312,
+      "valor": 1.0691,
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 5.39,
+      "yield_pct": 5.02,
       "status": "pago"
     },
     {
@@ -3339,7 +4479,37 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 6.3,
+      "yield_pct": 6.26,
+      "status": "pago"
+    },
+    {
+      "ticker": "SBFG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5484,
+      "data_com": "2025-04-25",
+      "data_ex": "2025-04-28",
+      "data_pagamento": null,
+      "yield_pct": 5.75,
+      "status": "pago"
+    },
+    {
+      "ticker": "TRIS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2312,
+      "data_com": "2025-04-25",
+      "data_ex": "2025-04-28",
+      "data_pagamento": null,
+      "yield_pct": 5.55,
+      "status": "pago"
+    },
+    {
+      "ticker": "ANIM3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0535,
+      "data_com": "2025-04-24",
+      "data_ex": "2025-04-25",
+      "data_pagamento": null,
+      "yield_pct": 2.1,
       "status": "pago"
     },
     {
@@ -3349,7 +4519,17 @@
       "data_com": "2025-04-23",
       "data_ex": "2025-04-24",
       "data_pagamento": null,
-      "yield_pct": 4.08,
+      "yield_pct": 4.09,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1017,
+      "data_com": "2025-04-22",
+      "data_ex": "2025-04-23",
+      "data_pagamento": null,
+      "yield_pct": 0.37,
       "status": "pago"
     },
     {
@@ -3359,7 +4539,37 @@
       "data_com": "2025-04-22",
       "data_ex": "2025-04-23",
       "data_pagamento": null,
-      "yield_pct": 6.89,
+      "yield_pct": 6.87,
+      "status": "pago"
+    },
+    {
+      "ticker": "CURY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.5306,
+      "data_com": "2025-04-21",
+      "data_ex": "2025-04-22",
+      "data_pagamento": null,
+      "yield_pct": 1.7,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4019,
+      "data_com": "2025-04-21",
+      "data_ex": "2025-04-22",
+      "data_pagamento": null,
+      "yield_pct": 1.55,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2105,
+      "data_com": "2025-04-21",
+      "data_ex": "2025-04-22",
+      "data_pagamento": null,
+      "yield_pct": 1.56,
       "status": "pago"
     },
     {
@@ -3369,7 +4579,7 @@
       "data_com": "2025-04-21",
       "data_ex": "2025-04-22",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {
@@ -3379,17 +4589,27 @@
       "data_com": "2025-04-16",
       "data_ex": "2025-04-17",
       "data_pagamento": null,
-      "yield_pct": 1.88,
+      "yield_pct": 1.9,
       "status": "pago"
     },
     {
-      "ticker": "PETR3",
+      "ticker": "VBBR3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.7481,
+      "valor": 0.4709,
       "data_com": "2025-04-16",
       "data_ex": "2025-04-17",
       "data_pagamento": null,
-      "yield_pct": 1.69,
+      "yield_pct": 1.47,
+      "status": "pago"
+    },
+    {
+      "ticker": "MILS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0606,
+      "data_com": "2025-04-11",
+      "data_ex": "2025-04-14",
+      "data_pagamento": null,
+      "yield_pct": 0.39,
       "status": "pago"
     },
     {
@@ -3400,6 +4620,26 @@
       "data_ex": "2025-04-04",
       "data_pagamento": null,
       "yield_pct": 0.3,
+      "status": "pago"
+    },
+    {
+      "ticker": "BMGB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0985,
+      "data_com": "2025-04-02",
+      "data_ex": "2025-04-03",
+      "data_pagamento": null,
+      "yield_pct": 1.87,
+      "status": "pago"
+    },
+    {
+      "ticker": "BBDC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0173,
+      "data_com": "2025-04-01",
+      "data_ex": "2025-04-02",
+      "data_pagamento": null,
+      "yield_pct": 0.11,
       "status": "pago"
     },
     {
@@ -3415,31 +4655,11 @@
     {
       "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0173,
-      "data_com": "2025-04-01",
-      "data_ex": "2025-04-02",
-      "data_pagamento": null,
-      "yield_pct": 0.11,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
+      "valor": 0.2071,
       "data_com": "2025-03-31",
       "data_ex": "2025-04-01",
       "data_pagamento": null,
-      "yield_pct": 0.04,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0171,
-      "data_com": "2025-03-31",
-      "data_ex": "2025-04-01",
-      "data_pagamento": null,
-      "yield_pct": 0.04,
+      "yield_pct": 1.33,
       "status": "pago"
     },
     {
@@ -3453,13 +4673,23 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2071,
+      "valor": 0.0171,
       "data_com": "2025-03-31",
       "data_ex": "2025-04-01",
       "data_pagamento": null,
-      "yield_pct": 1.33,
+      "yield_pct": 0.04,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0171,
+      "data_com": "2025-03-31",
+      "data_ex": "2025-04-01",
+      "data_pagamento": null,
+      "yield_pct": 0.04,
       "status": "pago"
     },
     {
@@ -3469,7 +4699,7 @@
       "data_com": "2025-03-31",
       "data_ex": "2025-04-01",
       "data_pagamento": null,
-      "yield_pct": 6.31,
+      "yield_pct": 6.29,
       "status": "pago"
     },
     {
@@ -3483,13 +4713,23 @@
       "status": "pago"
     },
     {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0355,
+      "data_com": "2025-03-26",
+      "data_ex": "2025-03-27",
+      "data_pagamento": null,
+      "yield_pct": 0.06,
+      "status": "pago"
+    },
+    {
       "ticker": "GMAT3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0601,
       "data_com": "2025-03-26",
       "data_ex": "2025-03-27",
       "data_pagamento": null,
-      "yield_pct": 1.59,
+      "yield_pct": 1.58,
       "status": "pago"
     },
     {
@@ -3499,17 +4739,7 @@
       "data_com": "2025-03-25",
       "data_ex": "2025-03-26",
       "data_pagamento": null,
-      "yield_pct": 0.44,
-      "status": "pago"
-    },
-    {
-      "ticker": "CMIG4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1891,
-      "data_com": "2025-03-25",
-      "data_ex": "2025-03-26",
-      "data_pagamento": null,
-      "yield_pct": 1.74,
+      "yield_pct": 0.43,
       "status": "pago"
     },
     {
@@ -3523,6 +4753,16 @@
       "status": "pago"
     },
     {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1891,
+      "data_com": "2025-03-25",
+      "data_ex": "2025-03-26",
+      "data_pagamento": null,
+      "yield_pct": 1.75,
+      "status": "pago"
+    },
+    {
       "ticker": "LREN3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.1878,
@@ -3530,6 +4770,56 @@
       "data_ex": "2025-03-26",
       "data_pagamento": null,
       "yield_pct": 1.36,
+      "status": "pago"
+    },
+    {
+      "ticker": "SMFT3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0666,
+      "data_com": "2025-03-24",
+      "data_ex": "2025-03-25",
+      "data_pagamento": null,
+      "yield_pct": 0.34,
+      "status": "pago"
+    },
+    {
+      "ticker": "TOTS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.14,
+      "data_com": "2025-03-24",
+      "data_ex": "2025-03-25",
+      "data_pagamento": null,
+      "yield_pct": 0.48,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1016,
+      "data_com": "2025-03-21",
+      "data_ex": "2025-03-24",
+      "data_pagamento": null,
+      "yield_pct": 0.37,
+      "status": "pago"
+    },
+    {
+      "ticker": "BLAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1948,
+      "data_com": "2025-03-21",
+      "data_ex": "2025-03-24",
+      "data_pagamento": null,
+      "yield_pct": 1.88,
+      "status": "pago"
+    },
+    {
+      "ticker": "VBBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2932,
+      "data_com": "2025-03-21",
+      "data_ex": "2025-03-24",
+      "data_pagamento": null,
+      "yield_pct": 0.92,
       "status": "pago"
     },
     {
@@ -3543,13 +4833,13 @@
       "status": "pago"
     },
     {
-      "ticker": "BLAU3",
+      "ticker": "UNIP5",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1948,
-      "data_com": "2025-03-21",
-      "data_ex": "2025-03-24",
+      "valor": 2.2979,
+      "data_com": "2025-03-18",
+      "data_ex": "2025-03-19",
       "data_pagamento": null,
-      "yield_pct": 1.9,
+      "yield_pct": 3.77,
       "status": "pago"
     },
     {
@@ -3559,7 +4849,7 @@
       "data_com": "2025-03-18",
       "data_ex": "2025-03-19",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {
@@ -3589,7 +4879,7 @@
       "data_com": "2025-03-13",
       "data_ex": "2025-03-14",
       "data_pagamento": null,
-      "yield_pct": 9.11,
+      "yield_pct": 9.15,
       "status": "pago"
     },
     {
@@ -3599,7 +4889,17 @@
       "data_com": "2025-03-11",
       "data_ex": "2025-03-12",
       "data_pagamento": null,
-      "yield_pct": 3.27,
+      "yield_pct": 3.28,
+      "status": "pago"
+    },
+    {
+      "ticker": "CAML3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0733,
+      "data_com": "2025-03-11",
+      "data_ex": "2025-03-12",
+      "data_pagamento": null,
+      "yield_pct": 1.52,
       "status": "pago"
     },
     {
@@ -3609,7 +4909,7 @@
       "data_com": "2025-03-10",
       "data_ex": "2025-03-11",
       "data_pagamento": null,
-      "yield_pct": 2.44,
+      "yield_pct": 2.45,
       "status": "pago"
     },
     {
@@ -3619,7 +4919,17 @@
       "data_com": "2025-03-07",
       "data_ex": "2025-03-10",
       "data_pagamento": null,
-      "yield_pct": 2.94,
+      "yield_pct": 2.96,
+      "status": "pago"
+    },
+    {
+      "ticker": "FLRY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4661,
+      "data_com": "2025-03-06",
+      "data_ex": "2025-03-07",
+      "data_pagamento": null,
+      "yield_pct": 3.03,
       "status": "pago"
     },
     {
@@ -3633,13 +4943,13 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "UGPA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-03-05",
-      "data_ex": "2025-03-06",
+      "valor": 0.4502,
+      "data_com": "2025-03-06",
+      "data_ex": "2025-03-07",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 1.54,
       "status": "pago"
     },
     {
@@ -3653,13 +4963,63 @@
       "status": "pago"
     },
     {
-      "ticker": "KLBN11",
-      "tipo": "RENDIMENTO",
-      "valor": 0.044,
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.019,
       "data_com": "2025-03-05",
       "data_ex": "2025-03-06",
       "data_pagamento": null,
-      "yield_pct": 0.25,
+      "yield_pct": 0.11,
+      "status": "pago"
+    },
+    {
+      "ticker": "CSMG3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4762,
+      "data_com": "2025-03-05",
+      "data_ex": "2025-03-06",
+      "data_pagamento": null,
+      "yield_pct": 0.76,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1,
+      "data_com": "2025-03-05",
+      "data_ex": "2025-03-06",
+      "data_pagamento": null,
+      "yield_pct": 0.53,
+      "status": "pago"
+    },
+    {
+      "ticker": "GGBR4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.1,
+      "data_com": "2025-03-05",
+      "data_ex": "2025-03-06",
+      "data_pagamento": null,
+      "yield_pct": 0.45,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0375,
+      "data_com": "2025-03-05",
+      "data_ex": "2025-03-06",
+      "data_pagamento": null,
+      "yield_pct": 0.42,
+      "status": "pago"
+    },
+    {
+      "ticker": "GOAU4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0375,
+      "data_com": "2025-03-05",
+      "data_ex": "2025-03-06",
+      "data_pagamento": null,
+      "yield_pct": 0.38,
       "status": "pago"
     },
     {
@@ -3669,11 +5029,41 @@
       "data_com": "2025-03-05",
       "data_ex": "2025-03-06",
       "data_pagamento": null,
-      "yield_pct": 2.14,
+      "yield_pct": 2.13,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "KLBN11",
+      "tipo": "RENDIMENTO",
+      "valor": 0.044,
+      "data_com": "2025-03-05",
+      "data_ex": "2025-03-06",
+      "data_pagamento": null,
+      "yield_pct": 0.26,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITSA3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0461,
+      "data_com": "2025-03-04",
+      "data_ex": "2025-03-05",
+      "data_pagamento": null,
+      "yield_pct": 0.34,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITSA4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0461,
+      "data_com": "2025-03-04",
+      "data_ex": "2025-03-05",
+      "data_pagamento": null,
+      "yield_pct": 0.34,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0156,
       "data_com": "2025-03-04",
@@ -3683,7 +5073,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0156,
       "data_com": "2025-03-04",
@@ -3700,26 +5090,6 @@
       "data_ex": "2025-03-05",
       "data_pagamento": null,
       "yield_pct": 0.67,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITSA4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0461,
-      "data_com": "2025-03-04",
-      "data_ex": "2025-03-05",
-      "data_pagamento": null,
-      "yield_pct": 0.34,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITSA3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.0461,
-      "data_com": "2025-03-04",
-      "data_ex": "2025-03-05",
-      "data_pagamento": null,
-      "yield_pct": 0.34,
       "status": "pago"
     },
     {
@@ -3743,16 +5113,6 @@
       "status": "pago"
     },
     {
-      "ticker": "JHSF3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.031,
-      "data_com": "2025-02-25",
-      "data_ex": "2025-02-26",
-      "data_pagamento": null,
-      "yield_pct": 0.3,
-      "status": "pago"
-    },
-    {
       "ticker": "ENGI11",
       "tipo": "RENDIMENTO",
       "valor": 1.7273,
@@ -3763,43 +5123,53 @@
       "status": "pago"
     },
     {
+      "ticker": "ENGI3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.3455,
+      "data_com": "2025-02-25",
+      "data_ex": "2025-02-26",
+      "data_pagamento": null,
+      "yield_pct": 2.83,
+      "status": "pago"
+    },
+    {
+      "ticker": "JHSF3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.031,
+      "data_com": "2025-02-25",
+      "data_ex": "2025-02-26",
+      "data_pagamento": null,
+      "yield_pct": 0.3,
+      "status": "pago"
+    },
+    {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0902,
+      "data_com": "2025-02-20",
+      "data_ex": "2025-02-21",
+      "data_pagamento": null,
+      "yield_pct": 0.33,
+      "status": "pago"
+    },
+    {
       "ticker": "BBSE3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 2.3202,
       "data_com": "2025-02-20",
       "data_ex": "2025-02-21",
       "data_pagamento": null,
-      "yield_pct": 5.95,
+      "yield_pct": 5.94,
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "ITSA3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 1.3984,
+      "valor": 0.5897,
       "data_com": "2025-02-17",
       "data_ex": "2025-02-18",
       "data_pagamento": null,
-      "yield_pct": 3.33,
-      "status": "pago"
-    },
-    {
-      "ticker": "ITUB3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 1.3984,
-      "data_com": "2025-02-17",
-      "data_ex": "2025-02-18",
-      "data_pagamento": null,
-      "yield_pct": 3.14,
-      "status": "pago"
-    },
-    {
-      "ticker": "VULC3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.118,
-      "data_com": "2025-02-17",
-      "data_ex": "2025-02-18",
-      "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 4.37,
       "status": "pago"
     },
     {
@@ -3813,13 +5183,43 @@
       "status": "pago"
     },
     {
-      "ticker": "ITSA3",
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.5897,
+      "valor": 1.3984,
       "data_com": "2025-02-17",
       "data_ex": "2025-02-18",
       "data_pagamento": null,
-      "yield_pct": 4.36,
+      "yield_pct": 3.15,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 1.3984,
+      "data_com": "2025-02-17",
+      "data_ex": "2025-02-18",
+      "data_pagamento": null,
+      "yield_pct": 3.33,
+      "status": "pago"
+    },
+    {
+      "ticker": "VULC3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.118,
+      "data_com": "2025-02-17",
+      "data_ex": "2025-02-18",
+      "data_pagamento": null,
+      "yield_pct": 0.84,
+      "status": "pago"
+    },
+    {
+      "ticker": "CURY3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.6016,
+      "data_com": "2025-02-10",
+      "data_ex": "2025-02-11",
+      "data_pagamento": null,
+      "yield_pct": 1.92,
       "status": "pago"
     },
     {
@@ -3833,13 +5233,13 @@
       "status": "pago"
     },
     {
-      "ticker": "BBDC4",
+      "ticker": "FIQE3",
       "tipo": "DIVIDENDO/JCP",
-      "valor": 0.019,
-      "data_com": "2025-02-03",
-      "data_ex": "2025-02-04",
+      "valor": 0.0899,
+      "data_com": "2025-02-06",
+      "data_ex": "2025-02-07",
       "data_pagamento": null,
-      "yield_pct": 0.11,
+      "yield_pct": 1.52,
       "status": "pago"
     },
     {
@@ -3853,7 +5253,17 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB4",
+      "ticker": "BBDC4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.019,
+      "data_com": "2025-02-03",
+      "data_ex": "2025-02-04",
+      "data_pagamento": null,
+      "yield_pct": 0.11,
+      "status": "pago"
+    },
+    {
+      "ticker": "ITUB3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0156,
       "data_com": "2025-01-31",
@@ -3863,7 +5273,7 @@
       "status": "pago"
     },
     {
-      "ticker": "ITUB3",
+      "ticker": "ITUB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0156,
       "data_com": "2025-01-31",
@@ -3883,13 +5293,43 @@
       "status": "pago"
     },
     {
+      "ticker": "ALOS3",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.0909,
+      "data_com": "2025-01-23",
+      "data_ex": "2025-01-24",
+      "data_pagamento": null,
+      "yield_pct": 0.33,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.4025,
+      "data_com": "2025-01-22",
+      "data_ex": "2025-01-23",
+      "data_pagamento": null,
+      "yield_pct": 1.55,
+      "status": "pago"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "DIVIDENDO/JCP",
+      "valor": 0.2108,
+      "data_com": "2025-01-22",
+      "data_ex": "2025-01-23",
+      "data_pagamento": null,
+      "yield_pct": 1.56,
+      "status": "pago"
+    },
+    {
       "ticker": "VULC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.118,
       "data_com": "2025-01-21",
       "data_ex": "2025-01-22",
       "data_pagamento": null,
-      "yield_pct": 0.85,
+      "yield_pct": 0.84,
       "status": "pago"
     },
     {

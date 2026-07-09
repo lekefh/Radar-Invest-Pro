@@ -27,20 +27,10 @@ BRT = timezone(timedelta(hours=-3))
 ROOT = Path(__file__).parent.parent
 OUT_PATH = ROOT / "lib" / "dividendos.json"
 
-# Todos os tickers monitorados (dashboard + teses)
-TICKERS = [
-    # Dashboard principal
-    "ABEV3", "PETR4", "PETR3", "VALE3", "ITUB4", "ITUB3", "BBAS3", "WEGE3",
-    "BBSE3", "VULC3", "AZZA3", "CYRE3", "PSSA3", "B3SA3", "CMIG4", "CMIG3",
-    "RANI3", "RECV3", "SAPR3", "SAPR4", "LOGG3", "ABCB4", "BBDC4", "BBDC3",
-    "ITSA4", "ITSA3", "SOJA3", "GRND3", "TEND3", "LAVV3", "BLAU3", "JHSF3",
-    "ENGI11", "BRAV3", "MYPK3", "ROMI3", "VLID3", "LEVE3", "SBSP3", "COGN3",
-    "USIM3", "USIM5", "PRIO3", "BRAP3", "BRAP4", "POMO3", "POMO4", "IRBR3",
-    "TRIS3", "SUZB3", "KLBN11", "EGIE3", "TAEE11", "CPFE3", "CSAN3",
-    # Teses extras
-    "AXIA3", "EQTL3", "TAEE3", "CXSE3", "GMAT3", "INTB3", "KEPL3",
-    "RIAA3", "CEAB3", "LREN3", "MGLU3",
-]
+# Lê todos os tickers diretamente do fundamentais.json — fica sempre em sincronia
+_FUND_PATH = ROOT / "lib" / "fundamentais.json"
+with open(_FUND_PATH, "r", encoding="utf-8") as _f:
+    TICKERS = sorted(json.load(_f).keys())
 
 # FIIs e Units pagam "RENDIMENTO", demais pagam "DIVIDENDO/JCP"
 TIPO_RENDIMENTO = {"ENGI11", "TAEE11", "KLBN11"}
