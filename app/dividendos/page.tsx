@@ -114,7 +114,7 @@ export default function DividendosPage() {
       return dir === 'asc' ? cmp : -cmp
     })
     return lista
-  }, [proventos, mesSelecionado, filtroTipo, busca, anoAtual])
+  }, [proventos, mesSelecionado, filtroTipo, busca, anoAtual, sort])
 
   const totalRecebido = tabelaFiltrada
     .filter(p => p.status === 'pago')
