@@ -12,6 +12,10 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone, timedelta, date
 
+# Forçar UTF-8 no Windows (evita UnicodeEncodeError no PowerShell)
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+
 try:
     import yfinance as yf
     import pandas as pd
