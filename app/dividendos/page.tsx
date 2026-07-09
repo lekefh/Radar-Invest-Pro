@@ -55,6 +55,11 @@ export default function DividendosPage() {
   const [mesSelecionado, setMesSelecionado] = useState<number | null>(null)
   const [filtroTipo, setFiltroTipo] = useState<string>('todos')
   const [busca, setBusca] = useState('')
+  const [sort, setSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({ key: 'data_ex', dir: 'desc' })
+
+  function toggleSort(key: string) {
+    setSort(s => s.key === key ? { key, dir: s.dir === 'desc' ? 'asc' : 'desc' } : { key, dir: 'desc' })
+  }
 
   // Agrupar por mês/ano da data_ex para o mapa
   const porMes = useMemo(() => {
@@ -92,7 +97,23 @@ export default function DividendosPage() {
       const b = busca.trim().toUpperCase()
       lista = lista.filter(p => p.ticker.includes(b))
     }
-    return lista.sort((a, b) => (b.data_ex ?? '').localeCompare(a.data_ex ?? ''))
+    // Ordenação por coluna
+    lista.sort((a, b) => {
+      const { key, dir } = sort
+      let va: number | string = 0
+      let vb: number | string = 0
+      if (key === 'ticker')       { va = a.ticker;              vb = b.ticker }
+      else if (key === 'tipo')    { va = a.tipo;                vb = b.tipo }
+      else if (key === 'data_com'){ va = a.data_com ?? '';      vb = b.data_com ?? '' }
+      else if (key === 'data_ex') { va = a.data_ex ?? '';       vb = b.data_ex ?? '' }
+      else if (key === 'data_pag'){ va = a.data_pagamento ?? ''; vb = b.data_pagamento ?? '' }
+      else if (key === 'valor')   { va = a.valor;               vb = b.valor }
+      else if (key === 'yield')   { va = a.yield_pct ?? -1;     vb = b.yield_pct ?? -1 }
+      else if (key === 'status')  { va = a.status;              vb = b.status }
+      const cmp = typeof va === 'number' ? va - (vb as number) : (va as string).localeCompare(vb as string)
+      return dir === 'asc' ? cmp : -cmp
+    })
+    return lista
   }, [proventos, mesSelecionado, filtroTipo, busca, anoAtual])
 
   const totalRecebido = tabelaFiltrada
@@ -259,11 +280,36 @@ export default function DividendosPage() {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
-                  {['Ticker', 'Tipo', 'Data COM', 'Data EX', 'Data Pagto', 'Valor/Ação', 'Yield %', 'Status'].map(h => (
-                    <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '10px', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#4a6080', whiteSpace: 'nowrap' }}>
-                      {h}
-                    </th>
-                  ))}
+                  {([
+                    { label: 'Ticker',      key: 'ticker'   },
+                    { label: 'Tipo',        key: 'tipo'     },
+                    { label: 'Data COM',    key: 'data_com' },
+                    { label: 'Data EX',     key: 'data_ex'  },
+                    { label: 'Data Pagto',  key: 'data_pag' },
+                    { label: 'Valor/Ação',  key: 'valor'    },
+                    { label: 'Yield %',     key: 'yield'    },
+                    { label: 'Status',      key: 'status'   },
+                  ] as { label: string; key: string }[]).map(({ label, key }) => {
+                    const ativo = sort.key === key
+                    return (
+                      <th
+                        key={key}
+                        onClick={() => toggleSort(key)}
+                        style={{
+                          padding: '12px 16px', textAlign: 'left', fontSize: '10px', fontWeight: 700,
+                          letterSpacing: '.1em', textTransform: 'uppercase', whiteSpace: 'nowrap',
+                          cursor: 'pointer', userSelect: 'none',
+                          color: ativo ? '#e8a020' : '#4a6080',
+                          transition: 'color .15s',
+                        }}
+                      >
+                        {label}{' '}
+                        <span style={{ fontSize: '9px', opacity: ativo ? 1 : 0.3 }}>
+                          {ativo ? (sort.dir === 'desc' ? '▼' : '▲') : '▼'}
+                        </span>
+                      </th>
+                    )
+                  })}
                 </tr>
               </thead>
               <tbody>
