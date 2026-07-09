@@ -4,12 +4,13 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const LINKS: { href: string; label: string; soon?: boolean }[] = [
-  { href: '/dashboard', label: '📊 Monitoramento' },
-  { href: '/carteira',  label: '💼 Carteira'      },
-  { href: '/alertas',   label: '🔔 Alertas',  soon: true },
-  { href: '/noticias',  label: '📰 Notícias' },
-  { href: '/dcf',       label: '💹 DCF' },
-  { href: '/ir',        label: '📋 Apuração IR' },
+  { href: '/dashboard',  label: '📊 Monitoramento' },
+  { href: '/carteira',   label: '💼 Carteira'      },
+  { href: '/dividendos', label: '💰 Dividendos'    },
+  { href: '/alertas',    label: '🔔 Alertas',  soon: true },
+  { href: '/noticias',   label: '📰 Notícias' },
+  { href: '/dcf',        label: '💹 DCF' },
+  { href: '/ir',         label: '📋 Apuração IR' },
 ]
 
 const LINKS_PRO: { href: string; label: string; soon?: boolean }[] = [

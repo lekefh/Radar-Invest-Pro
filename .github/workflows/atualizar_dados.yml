@@ -1,0 +1,48 @@
+name: Atualizar Dados Diários
+
+on:
+  schedule:
+    # 22h UTC = 19h BRT — pós-fechamento B3, seg a sex
+    - cron: '0 22 * * 1-5'
+  workflow_dispatch: # permite disparo manual pelo GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install yfinance requests pandas numpy
+
+      - name: Atualizar fundamentais
+        run: python scripts/atualizar_fundamentais.py
+
+      - name: Atualizar dividendos
+        run: python scripts/atualizar_dividendos.py
+
+      - name: Commit e push (se houver mudanças)
+        run: |
+          git config user.name  "Radar Bot"
+          git config user.email "bot@radarinvestpro.com.br"
+          git add lib/fundamentais.json lib/dividendos.json
+          if git diff --staged --quiet; then
+            echo "Sem alterações para commitar."
+          else
+            git commit -m "chore: atualização automática $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
