@@ -104,8 +104,9 @@ def scrape_investidor10_mes(ano: int, mes: int) -> list[dict]:
     """
     Scrapa proventos declarados para um mês/ano do Investidor10.
     URL: investidor10.com.br/acoes/dividendos/{ano}/{mes_pt}/
-    Fonte: B3 + CVM — cobre múltiplos eventos futuros por ticker,
-    diferente do t.calendar do Yahoo que retorna só o próximo.
+    Estrutura real (4 colunas):
+      [0] Ticker  [1] "Data Com DD/MM/YY"  [2] "Pgto DD/MM/YY"  [3] "TIPO R$ VALOR"
+    Fonte: B3 + CVM — cobre múltiplos eventos futuros por ticker.
     """
     url = f"https://investidor10.com.br/acoes/dividendos/{ano}/{MESES_PT[mes]}/"
     print(f"  [Investidor10] {MESES_PT[mes]}/{ano} → {url}")
@@ -119,77 +120,68 @@ def scrape_investidor10_mes(ano: int, mes: int) -> list[dict]:
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    # Localiza a tabela principal de dividendos
-    table = soup.find("table")
+    # Segunda tabela: class="table" — contém os proventos declarados
+    table = soup.find("table", {"class": "table"})
+    if not table:
+        # Fallback: qualquer tabela com "Data Com" no conteúdo
+        for t in soup.find_all("table"):
+            if "Data Com" in t.get_text():
+                table = t
+                break
     if not table:
         print(f"    ✗ Tabela não encontrada")
         return []
 
-    # Detecta ordem das colunas pelo header
-    headers = [th.get_text(strip=True).lower() for th in table.find_all("th")]
-    def col(nome: str) -> int:
-        for idx, h in enumerate(headers):
-            if nome in h:
-                return idx
-        return -1
-
-    idx_empresa  = col("empresa") if col("empresa") >= 0 else 0
-    idx_data_com = col("data com") if col("data com") >= 0 else 1
-    idx_data_pgto= col("pagamento") if col("pagamento") >= 0 else 2
-    idx_tipo     = col("tipo") if col("tipo") >= 0 else 3
-    idx_valor    = col("valor") if col("valor") >= 0 else 4
-
     resultado = []
-    for row in table.find_all("tr")[1:]:
+    for row in table.find_all("tr"):
         cols = row.find_all("td")
-        if len(cols) < 3:
+        if len(cols) < 4:
             continue
 
         def txt(i: int) -> str:
-            return cols[i].get_text(strip=True) if i < len(cols) else ""
+            return cols[i].get_text(" ", strip=True) if i < len(cols) else ""
 
-        # Ticker: extrai do href /acoes/bbdc3/
-        ticker = None
-        empresa_cell = cols[idx_empresa] if idx_empresa < len(cols) else None
-        if empresa_cell:
-            a = empresa_cell.find("a", href=re.compile(r"/acoes/\w+"))
-            if a:
-                m = re.search(r"/acoes/([a-z0-9]+)/?", a["href"])
-                if m:
-                    ticker = m.group(1).upper()
-            if not ticker:
-                # Fallback: texto que parece ticker (4 letras + 1-2 dígitos)
-                for part in empresa_cell.get_text(" ", strip=True).split():
-                    if re.match(r'^[A-Z]{4}\d{1,2}$', part):
-                        ticker = part
-                        break
-
-        if not ticker:
+        # [0] → ticker puro, ex: "BBDC3"
+        ticker_raw = txt(0).split()[0].upper()
+        if not re.match(r'^[A-Z]{3,5}\d{1,2}$', ticker_raw):
             continue
+        ticker = ticker_raw
 
-        data_com  = parse_br_date(txt(idx_data_com))
-        data_pgto = parse_br_date(txt(idx_data_pgto))
-        tipo_raw  = txt(idx_tipo)
-        valor     = parse_valor(txt(idx_valor))
+        # [1] → "Data Com 01/09/26" — extrai a data
+        data_com = None
+        m = re.search(r'(\d{2}/\d{2}/\d{2,4})', txt(1))
+        if m:
+            data_com = parse_br_date(m.group(1))
+
+        # [2] → "Pgto 01/10/26" — extrai a data
+        data_pgto = None
+        m2 = re.search(r'(\d{2}/\d{2}/\d{2,4})', txt(2))
+        if m2:
+            data_pgto = parse_br_date(m2.group(1))
+
+        # [3] → "JSCP R$ 0,02" ou "Dividendos R$ 0,03"
+        col3 = txt(3)
+        tipo_raw = re.sub(r'R\$.*', '', col3).strip()
+        valor    = parse_valor(col3)
 
         if not data_com or not valor:
             continue
 
-        # data_ex = dia útil seguinte à data-com
+        # data_ex = próximo dia útil após data-com
         data_ex = data_com + timedelta(days=1)
         while data_ex.weekday() >= 5:
             data_ex += timedelta(days=1)
 
         resultado.append({
-            "ticker":          ticker,
-            "tipo":            tipo_from_ticker(ticker, tipo_raw),
-            "valor":           round(valor, 4),
-            "data_com":        data_com.isoformat(),
-            "data_ex":         data_ex.isoformat(),
-            "data_pagamento":  data_pgto.isoformat() if data_pgto else None,
-            "yield_pct":       None,   # calculado depois com preço atual
-            "status":          "declarado",
-            "fonte":           "investidor10",
+            "ticker":         ticker,
+            "tipo":           tipo_from_ticker(ticker, tipo_raw),
+            "valor":          round(valor, 4),
+            "data_com":       data_com.isoformat(),
+            "data_ex":        data_ex.isoformat(),
+            "data_pagamento": data_pgto.isoformat() if data_pgto else None,
+            "yield_pct":      None,
+            "status":         "declarado",
+            "fonte":          "investidor10",
         })
 
     print(f"    ✓ {len(resultado)} proventos")
