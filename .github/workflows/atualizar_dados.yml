@@ -2,9 +2,8 @@ name: Atualizar Dados Diários
 
 on:
   schedule:
-    # 22h UTC = 19h BRT — pós-fechamento B3, seg a sex
     - cron: '0 22 * * 1-5'
-  workflow_dispatch: # permite disparo manual pelo GitHub
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -27,7 +26,7 @@ jobs:
           cache: pip
 
       - name: Instalar dependências
-        run: pip install yfinance requests pandas numpy
+        run: pip install yfinance requests pandas numpy beautifulsoup4
 
       - name: Atualizar fundamentais
         run: python scripts/atualizar_fundamentais.py
