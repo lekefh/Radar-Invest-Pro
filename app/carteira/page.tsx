@@ -428,6 +428,7 @@ export default function CarteiraPage() {
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base' | 'performance'>('acoes')
+  const [showConcentracao, setShowConcentracao] = useState(false)
 
   // Performance
   const [perfDe,      setPerfDe]      = useState(() => `${new Date().getFullYear()}-01-01`)
@@ -808,12 +809,35 @@ export default function CarteiraPage() {
       valor: p.quantidade * (p.preco_atual ?? p.preco_medio),
     }))
 
-    /* peso sugerido por nota (normalizado 0-10) */
+    /* peso sugerido por nota — com cap de setor em 40% */
     const somaNotas = ativas.reduce((s,p) => s+(p.nota ?? 5), 0)
-    const pesoSug = (ticker: string, nota: number | null) => {
-      const n = nota ?? 5
-      return somaNotas > 0 ? (n / somaNotas) * 100 : 0
+    const pesosBrutos: Record<string, number> = {}
+    for (const p of ativas) {
+      const n = p.nota ?? 5
+      pesosBrutos[p.ticker] = somaNotas > 0 ? (n / somaNotas) * 100 : 0
     }
+    // Soma por setor e calcula fator de escala se ultrapassar 40%
+    const pesoPorSetor: Record<string, number> = {}
+    for (const p of ativas) {
+      const s = p.setor ?? '—'
+      pesoPorSetor[s] = (pesoPorSetor[s] ?? 0) + pesosBrutos[p.ticker]
+    }
+    const fatorSetor: Record<string, number> = {}
+    for (const [s, total] of Object.entries(pesoPorSetor)) {
+      fatorSetor[s] = total > 40 ? 40 / total : 1
+    }
+    // Aplica fator e renormaliza para 100%
+    const pesosEscalados: Record<string, number> = {}
+    for (const p of ativas) {
+      const s = p.setor ?? '—'
+      pesosEscalados[p.ticker] = pesosBrutos[p.ticker] * fatorSetor[s]
+    }
+    const somaEscalada = Object.values(pesosEscalados).reduce((a, b) => a + b, 0)
+    const pesosFinais: Record<string, number> = {}
+    for (const p of ativas) {
+      pesosFinais[p.ticker] = somaEscalada > 0 ? (pesosEscalados[p.ticker] / somaEscalada) * 100 : 0
+    }
+    const pesoSug = (ticker: string, _nota: number | null) => pesosFinais[ticker] ?? 0
 
     return { investido, atual: totalAtual, pl, plPct, posComPeso, pesoSug }
   }, [posicoes])
@@ -1194,6 +1218,10 @@ export default function CarteiraPage() {
             const a=document.createElement('a');a.href=u;a.download='carteira-radar.csv';a.click();URL.revokeObjectURL(u)
           }}>
             ⬇ Exportar Excel
+          </button>
+          <button className="btn btn-ghost" onClick={() => setShowConcentracao(true)}
+            title="Análise de concentração por ativo e setor">
+            🎯 Concentração
           </button>
         </div>}
 
@@ -2075,6 +2103,100 @@ export default function CarteiraPage() {
           })()}
         </div>
       </div>
+
+      {/* Modal: Concentração */}
+      {showConcentracao && (() => {
+        const ativas = posicoesAcoes.filter(p => !p.excluir_calculo)
+        const total = ativas.reduce((s, p) => s + p.quantidade * (p.preco_atual ?? p.preco_medio), 0)
+
+        // Peso por ativo
+        const pesoAtivo: { ticker: string; nome: string; peso: number; critico: boolean }[] = ativas.map(p => {
+          const val = p.quantidade * (p.preco_atual ?? p.preco_medio)
+          const peso = total > 0 ? (val / total) * 100 : 0
+          return { ticker: p.ticker, nome: p.nome ?? p.ticker, peso, critico: peso > 25 }
+        }).sort((a, b) => b.peso - a.peso)
+
+        // Peso por setor
+        const setorMap: Record<string, number> = {}
+        for (const p of ativas) {
+          const s = p.setor ?? '—'
+          const val = p.quantidade * (p.preco_atual ?? p.preco_medio)
+          setorMap[s] = (setorMap[s] ?? 0) + (total > 0 ? (val / total) * 100 : 0)
+        }
+        const pesoSetor = Object.entries(setorMap)
+          .map(([setor, peso]) => ({ setor, peso, critico: peso > 40 }))
+          .sort((a, b) => b.peso - a.peso)
+
+        const temCritico = pesoAtivo.some(x => x.critico) || pesoSetor.some(x => x.critico)
+
+        const overlayStyle: React.CSSProperties = {
+          position:'fixed', inset:0, background:'rgba(0,0,0,.65)', zIndex:9999,
+          display:'flex', alignItems:'center', justifyContent:'center', padding:'20px',
+        }
+        const boxStyle: React.CSSProperties = {
+          background:'#0c1a2e', border:'1px solid rgba(255,255,255,.12)', borderRadius:12,
+          width:'100%', maxWidth:620, maxHeight:'85vh', overflowY:'auto',
+          padding:'24px 28px', position:'relative',
+        }
+        const rowStyle = (critico: boolean): React.CSSProperties => ({
+          display:'flex', alignItems:'center', justifyContent:'space-between',
+          padding:'8px 12px', borderRadius:6, marginBottom:4,
+          background: critico ? 'rgba(239,68,68,.12)' : 'rgba(255,255,255,.04)',
+          border: critico ? '1px solid rgba(239,68,68,.4)' : '1px solid transparent',
+        })
+
+        return (
+          <div style={overlayStyle} onClick={() => setShowConcentracao(false)}>
+            <div style={boxStyle} onClick={e => e.stopPropagation()}>
+              <button onClick={() => setShowConcentracao(false)}
+                style={{ position:'absolute', top:14, right:16, background:'none', border:'none', color:'#6b84a8', fontSize:20, cursor:'pointer', lineHeight:1 }}>✕</button>
+
+              <div style={{ fontSize:15, fontWeight:700, color:'#e8edf5', marginBottom:4 }}>🎯 Concentração da Carteira</div>
+              <div style={{ fontSize:12, color:'#6b84a8', marginBottom:20 }}>
+                {total > 0 ? `${ativas.length} ativo${ativas.length !== 1 ? 's' : ''} · total R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits:0, maximumFractionDigits:0 })}` : 'Nenhum ativo com cotação'}
+              </div>
+
+              {/* Ativos */}
+              <div style={{ fontSize:12, fontWeight:700, color:'#6b84a8', letterSpacing:1, marginBottom:8 }}>POR ATIVO</div>
+              {pesoAtivo.length === 0 && <div style={{ color:'#6b84a8', fontSize:13, marginBottom:16 }}>Nenhum ativo na carteira.</div>}
+              {pesoAtivo.map(x => (
+                <div key={x.ticker} style={rowStyle(x.critico)}>
+                  <span style={{ fontSize:13, color: x.critico ? '#ef4444' : '#e8edf5', fontWeight: x.critico ? 700 : 400 }}>
+                    {x.critico && '⚠ '}{x.ticker}
+                    <span style={{ color:'#6b84a8', fontWeight:400, marginLeft:6, fontSize:12 }}>{x.nome}</span>
+                  </span>
+                  <span style={{ fontSize:14, fontWeight:700, color: x.critico ? '#ef4444' : '#b8c4d4', minWidth:52, textAlign:'right' }}>
+                    {x.peso.toFixed(1)}%
+                  </span>
+                </div>
+              ))}
+
+              {/* Setores */}
+              <div style={{ fontSize:12, fontWeight:700, color:'#6b84a8', letterSpacing:1, marginTop:20, marginBottom:8 }}>POR SETOR</div>
+              {pesoSetor.map(x => (
+                <div key={x.setor} style={rowStyle(x.critico)}>
+                  <span style={{ fontSize:13, color: x.critico ? '#ef4444' : '#e8edf5', fontWeight: x.critico ? 700 : 400 }}>
+                    {x.critico && '⚠ '}{x.setor}
+                  </span>
+                  <span style={{ fontSize:14, fontWeight:700, color: x.critico ? '#ef4444' : '#b8c4d4', minWidth:52, textAlign:'right' }}>
+                    {x.peso.toFixed(1)}%
+                  </span>
+                </div>
+              ))}
+
+              {/* Legenda */}
+              <div style={{ marginTop:20, padding:'10px 14px', background:'rgba(255,255,255,.03)', borderRadius:7, border:'1px solid rgba(255,255,255,.07)' }}>
+                <div style={{ fontSize:11, color:'#6b84a8', lineHeight:1.7 }}>
+                  <span style={{ color:'#ef4444', fontWeight:700 }}>Crítico</span>: ativo &gt; 25% · setor &gt; 40%<br/>
+                  {temCritico
+                    ? <span style={{ color:'#ef4444' }}>Carteira com concentração crítica — revise a alocação</span>
+                    : <span style={{ color:'#22c55e' }}>Nenhum alerta crítico no momento</span>}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {/* MODAIS */}
       {(modal === 'add' || modal === 'edit') && (
