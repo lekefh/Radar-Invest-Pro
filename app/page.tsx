@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
 
 const css = `
@@ -195,6 +195,34 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 6
 
 export default function LandingPage() {
   const [menuMobileAberto, setMenuMobileAberto] = useState(false)
+  const [showExitPopup, setShowExitPopup]       = useState(false)
+  const exitShown   = useRef(false)
+  const tempoMinimo = useRef(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => { tempoMinimo.current = true }, 5000)
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 10 && tempoMinimo.current && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
+        exitShown.current = true
+        sessionStorage.setItem('exitPopupHomeVisto', '1')
+        setShowExitPopup(true)
+      }
+    }
+    const handleVisibility = () => {
+      if (document.visibilityState === 'hidden' && tempoMinimo.current && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
+        exitShown.current = true
+        sessionStorage.setItem('exitPopupHomeVisto', '1')
+        setShowExitPopup(true)
+      }
+    }
+    document.addEventListener('mouseleave', handleMouseLeave)
+    document.addEventListener('visibilitychange', handleVisibility)
+    return () => {
+      clearTimeout(timer)
+      document.removeEventListener('mouseleave', handleMouseLeave)
+      document.removeEventListener('visibilitychange', handleVisibility)
+    }
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -313,6 +341,82 @@ export default function LandingPage() {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: css }} />
+
+      {/* ── Exit-intent popup ─────────────────────────────────────────────── */}
+      {showExitPopup && (
+        <div
+          onClick={() => setShowExitPopup(false)}
+          style={{
+            position:'fixed', inset:0, zIndex:9999,
+            background:'rgba(0,0,0,.75)',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            padding:'20px', backdropFilter:'blur(3px)',
+            animation:'fadeIn .25s ease',
+          }}>
+          <style dangerouslySetInnerHTML={{ __html: '@keyframes fadeIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}' }} />
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              background:'#0a1628',
+              border:'1px solid rgba(232,160,32,.35)',
+              borderRadius:16,
+              maxWidth:460, width:'100%',
+              padding:'40px 36px 32px',
+              position:'relative',
+              boxShadow:'0 0 60px rgba(232,160,32,.12)',
+            }}>
+            <button
+              onClick={() => setShowExitPopup(false)}
+              style={{ position:'absolute', top:14, right:16, background:'none', border:'none', color:'#4a5d73', fontSize:22, cursor:'pointer', lineHeight:1 }}>
+              ✕
+            </button>
+            <div style={{ textAlign:'center', marginBottom:20 }}>
+              <svg viewBox="0 0 240 240" width="52" height="52">
+                <circle cx="120" cy="120" r="100" fill="none" stroke="#e8a020" strokeWidth="3" opacity="0.2"/>
+                <circle cx="120" cy="120" r="66" fill="none" stroke="#e8a020" strokeWidth="4" opacity="0.5"/>
+                <circle cx="120" cy="120" r="33" fill="none" stroke="#e8a020" strokeWidth="5" opacity="0.85"/>
+                <circle cx="120" cy="120" r="10" fill="#e8a020"/>
+                <line x1="120" y1="120" x2="172" y2="68" stroke="#e8a020" strokeWidth="2.5" strokeLinecap="round" opacity="0.4"/>
+              </svg>
+            </div>
+            <p style={{ textAlign:'center', fontSize:11, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', color:'#e8a020', margin:'0 0 10px' }}>
+              Espera! Antes de ir embora…
+            </p>
+            <h2 style={{ textAlign:'center', fontSize:24, fontWeight:900, color:'#fff', lineHeight:1.25, margin:'0 0 8px' }}>
+              Monte sua carteira de<br/>
+              <span style={{ color:'#e8a020' }}>renda mensal</span> agora
+            </h2>
+            <p style={{ textAlign:'center', fontSize:14, color:'rgba(255,255,255,.5)', margin:'0 0 24px', lineHeight:1.6 }}>
+              Inteiramente gratuito. Sem cartão de crédito.<br/>Leva menos de 1 minuto para criar sua conta.
+            </p>
+            <div style={{ display:'flex', flexDirection:'column', gap:10, marginBottom:28 }}>
+              <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:10, background:'rgba(255,255,255,.04)', borderRadius:8, padding:'10px 14px' }}>
+                <span style={{ fontSize:14, color:'rgba(255,255,255,.8)', lineHeight:1.5 }}>📊 Mapa completo de dividendos da B3 atualizado diariamente</span>
+                <span style={{ flexShrink:0, background:'rgba(34,197,94,.15)', border:'1px solid rgba(34,197,94,.4)', color:'#22c55e', fontSize:11, fontWeight:800, padding:'3px 9px', borderRadius:20, letterSpacing:'.5px' }}>GRATIS</span>
+              </div>
+              {['🎯 Análise fundamentalista de mais de 30 empresas','💰 Valuation DCF — descubra se a ação está cara ou barata'].map(b => (
+                <div key={b} style={{ display:'flex', alignItems:'flex-start', gap:10, background:'rgba(255,255,255,.04)', borderRadius:8, padding:'10px 14px' }}>
+                  <span style={{ fontSize:14, color:'rgba(255,255,255,.8)', lineHeight:1.5 }}>{b}</span>
+                </div>
+              ))}
+            </div>
+            <a
+              href="/cadastro"
+              style={{
+                display:'block', textAlign:'center', background:'#e8a020', color:'#050d1a',
+                border:'none', borderRadius:9, padding:'15px',
+                fontSize:15, fontWeight:900, cursor:'pointer', letterSpacing:'.3px',
+                textDecoration:'none',
+              }}>
+              Criar Conta Gratis Agora →
+            </a>
+            <p style={{ textAlign:'center', fontSize:11, color:'#4a5d73', marginTop:12, marginBottom:0 }}>
+              Já tem conta?{' '}
+              <a href="/login" style={{ color:'#e8a020', textDecoration:'none' }}>Entrar</a>
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* TICKER */}
       <div className="ticker-wrap">
