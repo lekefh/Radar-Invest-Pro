@@ -9,43 +9,25 @@ export default function CadastroPage() {
   const [carregando, setCarregando] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
   const exitShown = useRef(false)
-  const tempoMinimo = useRef(false)
 
   useEffect(() => {
-    // Só dispara após 4 segundos na página e só uma vez por sessão
-    const timer = setTimeout(() => { tempoMinimo.current = true }, 4000)
-
     const handleMouseLeave = (e: MouseEvent) => {
-      if (
-        e.clientY <= 10 &&          // mouse saiu pelo topo (intenção de fechar/voltar)
-        tempoMinimo.current &&       // ficou ao menos 4s na página
-        !exitShown.current &&        // ainda não mostrou nessa sessão
-        !sessionStorage.getItem('exitPopupVisto')
-      ) {
+      if (e.clientY <= 10 && !exitShown.current && !sessionStorage.getItem('exitPopupVisto')) {
         exitShown.current = true
         sessionStorage.setItem('exitPopupVisto', '1')
         setShowExitPopup(true)
       }
     }
-
-    // Fallback mobile: visibilitychange (quando muda de aba/app)
     const handleVisibility = () => {
-      if (
-        document.visibilityState === 'hidden' &&
-        tempoMinimo.current &&
-        !exitShown.current &&
-        !sessionStorage.getItem('exitPopupVisto')
-      ) {
+      if (document.visibilityState === 'hidden' && !exitShown.current && !sessionStorage.getItem('exitPopupVisto')) {
         exitShown.current = true
         sessionStorage.setItem('exitPopupVisto', '1')
         setShowExitPopup(true)
       }
     }
-
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
     return () => {
-      clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
     }
