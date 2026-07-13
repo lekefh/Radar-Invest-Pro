@@ -195,21 +195,19 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 6
 
 export default function LandingPage() {
   const [menuMobileAberto, setMenuMobileAberto] = useState(false)
-  const [showExitPopup, setShowExitPopup]       = useState(false)
-  const exitShown   = useRef(false)
-  const tempoMinimo = useRef(false)
+  const [showExitPopup, setShowExitPopup] = useState(false)
+  const exitShown = useRef(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => { tempoMinimo.current = true }, 5000)
     const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 10 && tempoMinimo.current && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
+      if (e.clientY <= 10 && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
         exitShown.current = true
         sessionStorage.setItem('exitPopupHomeVisto', '1')
         setShowExitPopup(true)
       }
     }
     const handleVisibility = () => {
-      if (document.visibilityState === 'hidden' && tempoMinimo.current && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
+      if (document.visibilityState === 'hidden' && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
         exitShown.current = true
         sessionStorage.setItem('exitPopupHomeVisto', '1')
         setShowExitPopup(true)
@@ -218,7 +216,6 @@ export default function LandingPage() {
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
     return () => {
-      clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
     }
