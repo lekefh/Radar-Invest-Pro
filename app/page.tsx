@@ -213,11 +213,20 @@ export default function LandingPage() {
         setShowExitPopup(true)
       }
     }
+    const handleWindowBlur = () => {
+      if (!exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
+        exitShown.current = true
+        sessionStorage.setItem('exitPopupHomeVisto', '1')
+        setShowExitPopup(true)
+      }
+    }
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
+    window.addEventListener('blur', handleWindowBlur)
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
+      window.removeEventListener('blur', handleWindowBlur)
     }
   }, [])
 

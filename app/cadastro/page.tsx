@@ -25,11 +25,20 @@ export default function CadastroPage() {
         setShowExitPopup(true)
       }
     }
+    const handleWindowBlur = () => {
+      if (!exitShown.current && !sessionStorage.getItem('exitPopupVisto')) {
+        exitShown.current = true
+        sessionStorage.setItem('exitPopupVisto', '1')
+        setShowExitPopup(true)
+      }
+    }
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
+    window.addEventListener('blur', handleWindowBlur)
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
+      window.removeEventListener('blur', handleWindowBlur)
     }
   }, [])
 

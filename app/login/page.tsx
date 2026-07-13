@@ -29,11 +29,20 @@ function LoginForm() {
         setShowExitPopup(true)
       }
     }
+    const handleWindowBlur = () => {
+      if (!exitShown.current && !sessionStorage.getItem('exitPopupLoginVisto')) {
+        exitShown.current = true
+        sessionStorage.setItem('exitPopupLoginVisto', '1')
+        setShowExitPopup(true)
+      }
+    }
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
+    window.addEventListener('blur', handleWindowBlur)
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
+      window.removeEventListener('blur', handleWindowBlur)
     }
   }, [])
 
