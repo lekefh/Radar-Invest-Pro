@@ -178,7 +178,7 @@ export default function CadastroPage() {
             {/* Benefícios */}
             <div style={{ display:'flex', flexDirection:'column', gap:10, marginBottom:28 }}>
               {[
-                '📊 Mapa completo de dividendos da B3 atualizado diariamente',
+                '📊 Mapa completo de dividendos da B3 atualizado diariamente — grátis',
                 '🎯 Análise fundamentalista de mais de 30 empresas',
                 '💰 Valuation DCF — descubra se a ação está cara ou barata',
               ].map(b => (
