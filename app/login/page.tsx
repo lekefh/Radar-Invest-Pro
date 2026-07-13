@@ -12,42 +12,26 @@ function LoginForm() {
   const [erro, setErro]                   = useState('')
   const [carregando, setCarregando]       = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
-  const exitShown    = useRef(false)
-  const tempoMinimo  = useRef(false)
+  const exitShown = useRef(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => { tempoMinimo.current = true }, 6000)
-
     const handleMouseLeave = (e: MouseEvent) => {
-      if (
-        e.clientY <= 10 &&
-        tempoMinimo.current &&
-        !exitShown.current &&
-        !sessionStorage.getItem('exitPopupLoginVisto')
-      ) {
+      if (e.clientY <= 10 && !exitShown.current && !sessionStorage.getItem('exitPopupLoginVisto')) {
         exitShown.current = true
         sessionStorage.setItem('exitPopupLoginVisto', '1')
         setShowExitPopup(true)
       }
     }
-
     const handleVisibility = () => {
-      if (
-        document.visibilityState === 'hidden' &&
-        tempoMinimo.current &&
-        !exitShown.current &&
-        !sessionStorage.getItem('exitPopupLoginVisto')
-      ) {
+      if (document.visibilityState === 'hidden' && !exitShown.current && !sessionStorage.getItem('exitPopupLoginVisto')) {
         exitShown.current = true
         sessionStorage.setItem('exitPopupLoginVisto', '1')
         setShowExitPopup(true)
       }
     }
-
     document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
     return () => {
-      clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
     }
