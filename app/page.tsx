@@ -402,7 +402,7 @@ export default function LandingPage() {
                 <span style={{ fontSize:14, color:'rgba(255,255,255,.8)', lineHeight:1.5 }}>📊 Mapa completo de dividendos da B3 atualizado diariamente</span>
                 <span style={{ flexShrink:0, background:'rgba(34,197,94,.15)', border:'1px solid rgba(34,197,94,.4)', color:'#22c55e', fontSize:11, fontWeight:800, padding:'3px 9px', borderRadius:20, letterSpacing:'.5px' }}>GRATIS</span>
               </div>
-              {['🎯 Análise fundamentalista de mais de 30 empresas','💰 Valuation DCF — descubra se a ação está cara ou barata'].map(b => (
+              {['🎯 Análise fundamentalista de mais de 100 empresas','💰 Valuation DCF de mais de 30 empresas'].map(b => (
                 <div key={b} style={{ display:'flex', alignItems:'flex-start', gap:10, background:'rgba(255,255,255,.04)', borderRadius:8, padding:'10px 14px' }}>
                   <span style={{ fontSize:14, color:'rgba(255,255,255,.8)', lineHeight:1.5 }}>{b}</span>
                 </div>
