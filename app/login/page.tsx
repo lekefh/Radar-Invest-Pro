@@ -16,7 +16,7 @@ function LoginForm() {
   const tempoMinimo  = useRef(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => { tempoMinimo.current = true }, 4000)
+    const timer = setTimeout(() => { tempoMinimo.current = true }, 6000)
 
     const handleMouseLeave = (e: MouseEvent) => {
       if (
