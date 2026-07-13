@@ -8,37 +8,32 @@ export default function CadastroPage() {
   const [sucesso, setSucesso]     = useState(false)
   const [carregando, setCarregando] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
+  const [isMobile, setIsMobile]           = useState(false)
   const exitShown = useRef(false)
 
   useEffect(() => {
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 10 && !exitShown.current && !sessionStorage.getItem('exitPopupVisto')) {
+    const mobile = window.matchMedia('(pointer: coarse)').matches
+    setIsMobile(mobile)
+    const KEY = 'exitPopupVisto'
+
+    const disparar = () => {
+      if (!exitShown.current && !sessionStorage.getItem(KEY)) {
         exitShown.current = true
-        sessionStorage.setItem('exitPopupVisto', '1')
+        sessionStorage.setItem(KEY, '1')
         setShowExitPopup(true)
       }
     }
-    const handleVisibility = () => {
-      if (document.visibilityState === 'hidden' && !exitShown.current && !sessionStorage.getItem('exitPopupVisto')) {
-        exitShown.current = true
-        sessionStorage.setItem('exitPopupVisto', '1')
-        setShowExitPopup(true)
-      }
-    }
-    const handleWindowBlur = () => {
-      if (!exitShown.current && !sessionStorage.getItem('exitPopupVisto')) {
-        exitShown.current = true
-        sessionStorage.setItem('exitPopupVisto', '1')
-        setShowExitPopup(true)
-      }
-    }
-    document.addEventListener('mouseleave', handleMouseLeave)
+
+    const timer = mobile ? setTimeout(disparar, 4000) : null
+    const handleMouseLeave = (e: MouseEvent) => { if (e.clientY <= 10) disparar() }
+    const handleVisibility = () => { if (document.visibilityState === 'hidden') disparar() }
+
+    if (!mobile) document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
-    window.addEventListener('blur', handleWindowBlur)
     return () => {
+      if (timer) clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
-      window.removeEventListener('blur', handleWindowBlur)
     }
   }, [])
 
@@ -152,10 +147,12 @@ export default function CadastroPage() {
               </svg>
             </div>
 
-            {/* Gancho */}
-            <p style={{ textAlign:'center', fontSize:11, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', color:'#e8a020', margin:'0 0 10px' }}>
-              Espera! Antes de ir embora…
-            </p>
+            {/* Gancho — só no desktop (exit intent) */}
+            {!isMobile && (
+              <p style={{ textAlign:'center', fontSize:11, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', color:'#e8a020', margin:'0 0 10px' }}>
+                Espera! Antes de ir embora…
+              </p>
+            )}
 
             {/* Headline */}
             <h2 style={{ textAlign:'center', fontSize:24, fontWeight:900, color:'#fff', lineHeight:1.25, margin:'0 0 8px' }}>

@@ -196,37 +196,37 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 6
 export default function LandingPage() {
   const [menuMobileAberto, setMenuMobileAberto] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
+  const [isMobile, setIsMobile]           = useState(false)
   const exitShown = useRef(false)
 
   useEffect(() => {
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 10 && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
+    const isMobile = window.matchMedia('(pointer: coarse)').matches
+    setIsMobile(isMobile)
+    const KEY = 'exitPopupHomeVisto'
+
+    const disparar = () => {
+      if (!exitShown.current && !sessionStorage.getItem(KEY)) {
         exitShown.current = true
-        sessionStorage.setItem('exitPopupHomeVisto', '1')
+        sessionStorage.setItem(KEY, '1')
         setShowExitPopup(true)
       }
     }
-    const handleVisibility = () => {
-      if (document.visibilityState === 'hidden' && !exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
-        exitShown.current = true
-        sessionStorage.setItem('exitPopupHomeVisto', '1')
-        setShowExitPopup(true)
-      }
-    }
-    const handleWindowBlur = () => {
-      if (!exitShown.current && !sessionStorage.getItem('exitPopupHomeVisto')) {
-        exitShown.current = true
-        sessionStorage.setItem('exitPopupHomeVisto', '1')
-        setShowExitPopup(true)
-      }
-    }
-    document.addEventListener('mouseleave', handleMouseLeave)
+
+    // Mobile: timer de 6 segundos
+    const timer = isMobile ? setTimeout(disparar, 6000) : null
+
+    // Desktop: exit intent pelo topo
+    const handleMouseLeave = (e: MouseEvent) => { if (e.clientY <= 10) disparar() }
+
+    // Ambos: troca de aba / minimizar
+    const handleVisibility = () => { if (document.visibilityState === 'hidden') disparar() }
+
+    if (!isMobile) document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
-    window.addEventListener('blur', handleWindowBlur)
     return () => {
+      if (timer) clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
-      window.removeEventListener('blur', handleWindowBlur)
     }
   }, [])
 
@@ -385,9 +385,11 @@ export default function LandingPage() {
                 <line x1="120" y1="120" x2="172" y2="68" stroke="#e8a020" strokeWidth="2.5" strokeLinecap="round" opacity="0.4"/>
               </svg>
             </div>
-            <p style={{ textAlign:'center', fontSize:11, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', color:'#e8a020', margin:'0 0 10px' }}>
-              Espera! Antes de ir embora…
-            </p>
+            {!isMobile && (
+              <p style={{ textAlign:'center', fontSize:11, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', color:'#e8a020', margin:'0 0 10px' }}>
+                Espera! Antes de ir embora…
+              </p>
+            )}
             <h2 style={{ textAlign:'center', fontSize:24, fontWeight:900, color:'#fff', lineHeight:1.25, margin:'0 0 8px' }}>
               Monte sua carteira de<br/>
               <span style={{ color:'#e8a020' }}>renda mensal</span> agora

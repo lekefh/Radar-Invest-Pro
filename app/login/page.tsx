@@ -15,34 +15,27 @@ function LoginForm() {
   const exitShown = useRef(false)
 
   useEffect(() => {
-    const handleMouseLeave = (e: MouseEvent) => {
-      if (e.clientY <= 10 && !exitShown.current && !sessionStorage.getItem('exitPopupLoginVisto')) {
+    const isMobile = window.matchMedia('(pointer: coarse)').matches
+    const KEY = 'exitPopupLoginVisto'
+
+    const disparar = () => {
+      if (!exitShown.current && !sessionStorage.getItem(KEY)) {
         exitShown.current = true
-        sessionStorage.setItem('exitPopupLoginVisto', '1')
+        sessionStorage.setItem(KEY, '1')
         setShowExitPopup(true)
       }
     }
-    const handleVisibility = () => {
-      if (document.visibilityState === 'hidden' && !exitShown.current && !sessionStorage.getItem('exitPopupLoginVisto')) {
-        exitShown.current = true
-        sessionStorage.setItem('exitPopupLoginVisto', '1')
-        setShowExitPopup(true)
-      }
-    }
-    const handleWindowBlur = () => {
-      if (!exitShown.current && !sessionStorage.getItem('exitPopupLoginVisto')) {
-        exitShown.current = true
-        sessionStorage.setItem('exitPopupLoginVisto', '1')
-        setShowExitPopup(true)
-      }
-    }
-    document.addEventListener('mouseleave', handleMouseLeave)
+
+    const timer = isMobile ? setTimeout(disparar, 6000) : null
+    const handleMouseLeave = (e: MouseEvent) => { if (e.clientY <= 10) disparar() }
+    const handleVisibility = () => { if (document.visibilityState === 'hidden') disparar() }
+
+    if (!isMobile) document.addEventListener('mouseleave', handleMouseLeave)
     document.addEventListener('visibilitychange', handleVisibility)
-    window.addEventListener('blur', handleWindowBlur)
     return () => {
+      if (timer) clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
-      window.removeEventListener('blur', handleWindowBlur)
     }
   }, [])
 
