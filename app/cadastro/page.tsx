@@ -2,13 +2,32 @@
 import { useState, FormEvent, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
+// ── Depoimentos — substitua pelo texto real quando receber dos investidores ──
+const DEPOIMENTOS = [
+  {
+    texto: '[ Depoimento investidor 1 ]',
+    autor: 'Investidor 1',
+    cidade: 'SP',
+  },
+  {
+    texto: '[ Depoimento investidor 2 ]',
+    autor: 'Investidor 2',
+    cidade: 'RJ',
+  },
+  {
+    texto: '[ Depoimento investidor 3 ]',
+    autor: 'Investidor 3',
+    cidade: 'MG',
+  },
+]
+
 export default function CadastroPage() {
-  const [form, setForm] = useState({ nome: '', username: '', email: '', senha: '', confirmar: '' })
-  const [erro, setErro]           = useState('')
-  const [sucesso, setSucesso]     = useState(false)
+  const [form, setForm]             = useState({ nome: '', email: '', senha: '' })
+  const [erro, setErro]             = useState('')
   const [carregando, setCarregando] = useState(false)
+  const [mostrarSenha, setMostrarSenha] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
-  const [isMobile, setIsMobile]           = useState(false)
+  const [isMobile, setIsMobile]     = useState(false)
   const exitShown = useRef(false)
 
   useEffect(() => {
@@ -45,26 +64,15 @@ export default function CadastroPage() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setErro('')
-
-    if (form.senha !== form.confirmar) {
-      setErro('As senhas não coincidem.')
-      return
-    }
-    if (form.senha.length < 6) {
-      setErro('A senha deve ter pelo menos 6 caracteres.')
-      return
-    }
-
     setCarregando(true)
     try {
       const res = await fetch('/api/auth/register', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nome:     form.nome.trim(),
-          username: form.username.trim().toLowerCase(),
-          email:    form.email.trim().toLowerCase(),
-          senha:    form.senha,
+        body:    JSON.stringify({
+          nome:  form.nome.trim(),
+          email: form.email.trim().toLowerCase(),
+          senha: form.senha,
         }),
       })
       const data = await res.json()
@@ -74,7 +82,9 @@ export default function CadastroPage() {
         return
       }
 
-      setSucesso(true)
+      // Login automático — salva sessão e redireciona direto ao dashboard
+      localStorage.setItem('radar_usuario', JSON.stringify(data.usuario))
+      window.location.href = '/dashboard'
     } catch {
       setErro('Erro de conexão. Tente novamente.')
     } finally {
@@ -82,29 +92,12 @@ export default function CadastroPage() {
     }
   }
 
-  if (sucesso) {
-    return (
-      <div style={{ minHeight: '100vh', background: '#050d1a', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
-        <div style={{ maxWidth: '400px', width: '100%', background: '#0f1923', border: '1px solid rgba(255,255,255,.08)', borderRadius: '12px', padding: '40px 36px', textAlign: 'center' }}>
-          <div style={{ fontSize: '40px', marginBottom: '16px' }}>📧</div>
-          <h2 style={{ color: '#fff', margin: '0 0 12px', fontSize: '20px' }}>Verifique seu e-mail</h2>
-          <p style={{ color: '#6b84a8', fontSize: '14px', lineHeight: '1.6', margin: '0 0 24px' }}>
-            Enviamos um link de confirmação para <strong style={{ color: '#e0e0e0' }}>{form.email}</strong>.
-            <br />Clique no link para ativar sua conta.
-          </p>
-          <p style={{ color: '#4a5d73', fontSize: '12px', margin: '0 0 24px' }}>
-            Não recebeu? Verifique a caixa de spam.
-          </p>
-          <Link href="/login" style={{ display: 'inline-block', background: '#1565C0', color: '#fff', padding: '11px 28px', borderRadius: '7px', textDecoration: 'none', fontWeight: 700, fontSize: '14px' }}>
-            Ir para o Login
-          </Link>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div style={{ minHeight: '100vh', background: '#050d1a', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+    <div style={{
+      minHeight: '100vh', background: '#050d1a',
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      justifyContent: 'center', padding: '32px 24px 48px',
+    }}>
 
       {/* ── Exit-intent popup ─────────────────────────────────────────────── */}
       {showExitPopup && (
@@ -121,22 +114,16 @@ export default function CadastroPage() {
           <div
             onClick={e => e.stopPropagation()}
             style={{
-              background: '#0a1628',
-              border: '1px solid rgba(232,160,32,.35)',
-              borderRadius: 16,
-              maxWidth: 460, width: '100%',
-              padding: '40px 36px 32px',
-              position: 'relative',
+              background: '#0a1628', border: '1px solid rgba(232,160,32,.35)',
+              borderRadius: 16, maxWidth: 460, width: '100%',
+              padding: '40px 36px 32px', position: 'relative',
               boxShadow: '0 0 60px rgba(232,160,32,.12)',
             }}>
-            {/* Fechar */}
             <button
               onClick={() => setShowExitPopup(false)}
               style={{ position:'absolute', top:14, right:16, background:'none', border:'none', color:'#4a5d73', fontSize:22, cursor:'pointer', lineHeight:1 }}>
               ✕
             </button>
-
-            {/* Ícone radar */}
             <div style={{ textAlign:'center', marginBottom:20 }}>
               <svg viewBox="0 0 240 240" width="52" height="52">
                 <circle cx="120" cy="120" r="100" fill="none" stroke="#e8a020" strokeWidth="3" opacity="0.2"/>
@@ -146,50 +133,33 @@ export default function CadastroPage() {
                 <line x1="120" y1="120" x2="172" y2="68" stroke="#e8a020" strokeWidth="2.5" strokeLinecap="round" opacity="0.4"/>
               </svg>
             </div>
-
-            {/* Gancho — só no desktop (exit intent) */}
             {!isMobile && (
               <p style={{ textAlign:'center', fontSize:11, fontWeight:700, letterSpacing:'2px', textTransform:'uppercase', color:'#e8a020', margin:'0 0 10px' }}>
                 Espera! Antes de ir embora…
               </p>
             )}
-
-            {/* Headline */}
             <h2 style={{ textAlign:'center', fontSize:24, fontWeight:900, color:'#fff', lineHeight:1.25, margin:'0 0 8px' }}>
-              Monte sua carteira de<br/>
-              <span style={{ color:'#e8a020' }}>renda mensal</span> agora
+              Monte sua carteira de<br/><span style={{ color:'#e8a020' }}>renda mensal</span> agora
             </h2>
             <p style={{ textAlign:'center', fontSize:14, color:'rgba(255,255,255,.5)', margin:'0 0 24px', lineHeight:1.6 }}>
               Inteiramente gratuito. Sem cartão de crédito.<br/>Leva menos de 1 minuto para criar sua conta.
             </p>
-
-            {/* Benefícios */}
             <div style={{ display:'flex', flexDirection:'column', gap:10, marginBottom:28 }}>
               <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', gap:10, background:'rgba(255,255,255,.04)', borderRadius:8, padding:'10px 14px' }}>
                 <span style={{ fontSize:14, color:'rgba(255,255,255,.8)', lineHeight:1.5 }}>📊 Mapa completo de dividendos da B3 atualizado diariamente</span>
                 <span style={{ flexShrink:0, background:'rgba(34,197,94,.15)', border:'1px solid rgba(34,197,94,.4)', color:'#22c55e', fontSize:11, fontWeight:800, padding:'3px 9px', borderRadius:20, letterSpacing:'.5px' }}>GRATIS</span>
               </div>
-              {[
-                '🎯 Análise fundamentalista de mais de 100 empresas',
-                '💰 Valuation DCF de mais de 30 empresas',
-              ].map(b => (
+              {['🎯 Análise fundamentalista de mais de 100 empresas','💰 Valuation DCF de mais de 30 empresas'].map(b => (
                 <div key={b} style={{ display:'flex', alignItems:'flex-start', gap:10, background:'rgba(255,255,255,.04)', borderRadius:8, padding:'10px 14px' }}>
                   <span style={{ fontSize:14, color:'rgba(255,255,255,.8)', lineHeight:1.5 }}>{b}</span>
                 </div>
               ))}
             </div>
-
-            {/* CTA */}
             <button
               onClick={() => setShowExitPopup(false)}
-              style={{
-                width:'100%', background:'#e8a020', color:'#050d1a',
-                border:'none', borderRadius:9, padding:'15px',
-                fontSize:15, fontWeight:900, cursor:'pointer', letterSpacing:'.3px',
-              }}>
+              style={{ width:'100%', background:'#e8a020', color:'#050d1a', border:'none', borderRadius:9, padding:'15px', fontSize:15, fontWeight:900, cursor:'pointer', letterSpacing:'.3px' }}>
               Criar Conta Grátis Agora →
             </button>
-
             <p style={{ textAlign:'center', fontSize:11, color:'#4a5d73', marginTop:12, marginBottom:0 }}>
               Já tem conta?{' '}
               <Link href="/login" style={{ color:'#e8a020', textDecoration:'none' }}>Entrar</Link>
@@ -198,51 +168,69 @@ export default function CadastroPage() {
         </div>
       )}
 
+      {/* ── Formulário de cadastro ─────────────────────────────────────────── */}
       <div style={{ width: '100%', maxWidth: '420px', background: '#0f1923', border: '1px solid rgba(255,255,255,.08)', borderRadius: '12px', padding: '40px 36px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div style={{ fontSize: '22px', fontWeight: 700, color: '#fff', marginBottom: '4px' }}>
             Radar <span style={{ color: '#e8a020' }}>Invest Pro</span>
           </div>
           <div style={{ fontSize: '13px', color: '#6b84a8' }}>Crie sua conta gratuita</div>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* Nome */}
           <div>
             <label style={labelStyle}>Nome completo</label>
-            <input type="text" value={form.nome} onChange={e => set('nome', e.target.value)}
-              required placeholder="Seu nome" style={inputStyle} autoFocus />
+            <input
+              type="text"
+              value={form.nome}
+              onChange={e => set('nome', e.target.value)}
+              required
+              placeholder="Seu nome"
+              style={inputStyle}
+              autoFocus
+            />
           </div>
 
-          <div>
-            <label style={labelStyle}>Nome de usuário</label>
-            <input type="text" value={form.username}
-              onChange={e => set('username', e.target.value.replace(/\s/g, ''))}
-              required placeholder="ex: joaosilva" style={inputStyle}
-              pattern="[a-z0-9_\-]{4,30}"
-              title="4 a 30 caracteres · apenas letras minúsculas, números, _ ou - · sem espaços" />
-            <span style={{ fontSize: '12px', color: '#8fa3bc', marginTop: '5px', display: 'block', lineHeight: '1.5' }}>
-              ⚠ Sem espaços — use apenas letras minúsculas, números, <strong>_</strong> ou <strong>-</strong>
-              <br />
-              <span style={{ color: '#4a5d73' }}>Exemplo: <em>joao_silva</em> ou <em>joao-silva2</em></span>
-            </span>
-          </div>
-
+          {/* E-mail */}
           <div>
             <label style={labelStyle}>E-mail</label>
-            <input type="email" value={form.email} onChange={e => set('email', e.target.value)}
-              required placeholder="seu@email.com" style={inputStyle} />
+            <input
+              type="email"
+              value={form.email}
+              onChange={e => set('email', e.target.value)}
+              required
+              placeholder="seu@email.com"
+              style={inputStyle}
+            />
           </div>
 
+          {/* Senha com mostrar/ocultar */}
           <div>
             <label style={labelStyle}>Senha</label>
-            <input type="password" value={form.senha} onChange={e => set('senha', e.target.value)}
-              required placeholder="Mínimo 6 caracteres" style={inputStyle} />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Confirmar senha</label>
-            <input type="password" value={form.confirmar} onChange={e => set('confirmar', e.target.value)}
-              required placeholder="Repita a senha" style={inputStyle} />
+            <div style={{ position: 'relative' }}>
+              <input
+                type={mostrarSenha ? 'text' : 'password'}
+                value={form.senha}
+                onChange={e => set('senha', e.target.value)}
+                required
+                placeholder="Mínimo 6 caracteres"
+                style={{ ...inputStyle, paddingRight: '44px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setMostrarSenha(v => !v)}
+                style={{
+                  position: 'absolute', right: '12px', top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  color: '#6b84a8', fontSize: '16px', lineHeight: 1, padding: '4px',
+                }}
+                aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+              >
+                {mostrarSenha ? '🙈' : '👁'}
+              </button>
+            </div>
           </div>
 
           {erro && (
@@ -251,20 +239,63 @@ export default function CadastroPage() {
             </div>
           )}
 
-          <button type="submit" disabled={carregando} style={{
-            marginTop: '4px', background: carregando ? '#1a2632' : '#1565C0',
-            color: '#fff', border: 'none', borderRadius: '8px', padding: '13px',
-            fontSize: '14px', fontWeight: 700, cursor: carregando ? 'not-allowed' : 'pointer',
-          }}>
-            {carregando ? 'Cadastrando...' : 'Criar Conta'}
+          <button
+            type="submit"
+            disabled={carregando}
+            style={{
+              marginTop: '4px',
+              background: carregando ? '#1a2632' : '#1565C0',
+              color: '#fff', border: 'none', borderRadius: '8px',
+              padding: '14px', fontSize: '15px', fontWeight: 700,
+              cursor: carregando ? 'not-allowed' : 'pointer',
+            }}>
+            {carregando ? 'Criando conta...' : 'Criar Conta Grátis →'}
           </button>
         </form>
 
-        <div style={{ textAlign: 'center', marginTop: '24px', fontSize: '13px', color: '#6b84a8' }}>
+        <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '13px', color: '#6b84a8' }}>
           Já tem conta?{' '}
           <Link href="/login" style={{ color: '#e8a020', textDecoration: 'none', fontWeight: 600 }}>Entrar</Link>
         </div>
       </div>
+
+      {/* ── Depoimentos ───────────────────────────────────────────────────── */}
+      <div style={{ width: '100%', maxWidth: '420px', marginTop: '32px' }}>
+        <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#4a5d73', marginBottom: '16px' }}>
+          O que dizem os investidores
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {DEPOIMENTOS.map((d, i) => (
+            <div key={i} style={{
+              background: '#0f1923',
+              border: '1px solid rgba(255,255,255,.06)',
+              borderRadius: '10px',
+              padding: '16px 18px',
+            }}>
+              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,.7)', lineHeight: 1.6, margin: '0 0 10px', fontStyle: 'italic' }}>
+                &ldquo;{d.texto}&rdquo;
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: '50%',
+                  background: 'rgba(232,160,32,.15)',
+                  border: '1px solid rgba(232,160,32,.3)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '11px', color: '#e8a020', fontWeight: 700,
+                }}>
+                  {d.autor[0]}
+                </div>
+                <div>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#e0e0e0' }}>{d.autor}</div>
+                  <div style={{ fontSize: '11px', color: '#4a5d73' }}>{d.cidade}</div>
+                </div>
+                <div style={{ marginLeft: 'auto', color: '#e8a020', fontSize: '11px' }}>★★★★★</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
     </div>
   )
 }
@@ -277,6 +308,6 @@ const labelStyle: React.CSSProperties = {
 const inputStyle: React.CSSProperties = {
   width: '100%', background: '#1a2632',
   border: '1px solid rgba(255,255,255,.1)', borderRadius: '7px',
-  padding: '11px 14px', fontSize: '14px', color: '#e0e0e0',
+  padding: '12px 14px', fontSize: '14px', color: '#e0e0e0',
   outline: 'none', boxSizing: 'border-box',
 }
