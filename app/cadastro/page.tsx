@@ -259,42 +259,6 @@ export default function CadastroPage() {
         </div>
       </div>
 
-      {/* ── Depoimentos ───────────────────────────────────────────────────── */}
-      <div style={{ width: '100%', maxWidth: '420px', marginTop: '32px' }}>
-        <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#4a5d73', marginBottom: '16px' }}>
-          O que dizem os investidores
-        </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {DEPOIMENTOS.map((d, i) => (
-            <div key={i} style={{
-              background: '#0f1923',
-              border: '1px solid rgba(255,255,255,.06)',
-              borderRadius: '10px',
-              padding: '16px 18px',
-            }}>
-              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,.7)', lineHeight: 1.6, margin: '0 0 10px', fontStyle: 'italic' }}>
-                &ldquo;{d.texto}&rdquo;
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{
-                  width: 28, height: 28, borderRadius: '50%',
-                  background: 'rgba(232,160,32,.15)',
-                  border: '1px solid rgba(232,160,32,.3)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '11px', color: '#e8a020', fontWeight: 700,
-                }}>
-                  {d.autor[0]}
-                </div>
-                <div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#e0e0e0' }}>{d.autor}</div>
-                  <div style={{ fontSize: '11px', color: '#4a5d73' }}>{d.cidade}</div>
-                </div>
-                <div style={{ marginLeft: 'auto', color: '#e8a020', fontSize: '11px' }}>★★★★★</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
 
     </div>
   )
