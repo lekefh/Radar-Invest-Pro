@@ -2,22 +2,14 @@
 import { useState, FormEvent, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
-// ── Depoimentos — substitua pelo texto real quando receber dos investidores ──
 const DEPOIMENTOS = [
   {
-    texto: '[ Depoimento investidor 1 ]',
-    autor: 'Investidor 1',
-    cidade: 'SP',
+    texto: 'Excelente plataforma! O Mapa de Dividendos facilitou minhas decisões e potencializou meus ganhos na B3',
+    autor: 'Heitor',
   },
   {
-    texto: '[ Depoimento investidor 2 ]',
-    autor: 'Investidor 2',
-    cidade: 'RJ',
-  },
-  {
-    texto: '[ Depoimento investidor 3 ]',
-    autor: 'Investidor 3',
-    cidade: 'MG',
+    texto: 'Eu comecei investir em ações a pouco tempo, mas na Radar Invest Pro eu tenho muito mais segurança na hora de escolher minhas ações',
+    autor: 'Maria',
   },
 ]
 
@@ -259,6 +251,28 @@ export default function CadastroPage() {
         </div>
       </div>
 
+      {/* ── Depoimentos ───────────────────────────────────────────────────── */}
+      <div style={{ width: '100%', maxWidth: '420px', marginTop: '32px' }}>
+        <p style={{ textAlign: 'center', fontSize: '12px', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#4a5d73', marginBottom: '16px' }}>
+          O que dizem os investidores
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {DEPOIMENTOS.map((d, i) => (
+            <div key={i} style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.06)', borderRadius: '10px', padding: '16px 18px' }}>
+              <p style={{ fontSize: '13px', color: 'rgba(255,255,255,.7)', lineHeight: 1.6, margin: '0 0 12px', fontStyle: 'italic' }}>
+                &ldquo;{d.texto}&rdquo;
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(232,160,32,.15)', border: '1px solid rgba(232,160,32,.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: '#e8a020', fontWeight: 700 }}>
+                  {d.autor[0]}
+                </div>
+                <span style={{ fontSize: '12px', fontWeight: 700, color: '#e0e0e0' }}>{d.autor}</span>
+                <span style={{ marginLeft: 'auto', color: '#e8a020', fontSize: '11px' }}>★★★★★</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
     </div>
   )
