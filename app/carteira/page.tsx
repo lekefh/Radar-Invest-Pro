@@ -775,15 +775,33 @@ export default function CarteiraPage() {
 
   useEffect(() => { carregarCarteira() }, [carregarCarteira])
 
-  /* busca cotações uma vez após carregar as posições */
+  /* busca cotações após carregar posições + auto-refresh a cada 5 min + ao voltar à aba */
   const [cotacoesCarregadas, setCotacoesCarregadas] = useState(false)
+  const [horaCotacao, setHoraCotacao] = useState<string|null>(null)
+
+  const refreshCotacoes = useCallback(async () => {
+    if (posicoes.length === 0) return
+    await atualizarCotacoes()
+    setHoraCotacao(new Date().toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit', second:'2-digit' }))
+  }, [atualizarCotacoes, posicoes.length])
+
   useEffect(() => {
     if (!loading && posicoes.length > 0 && !cotacoesCarregadas) {
       setCotacoesCarregadas(true)
-      atualizarCotacoes()
+      refreshCotacoes()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, posicoes.length])
+
+  // auto-refresh a cada 5 min + ao voltar à aba
+  useEffect(() => {
+    if (!cotacoesCarregadas) return
+    const timer = setInterval(() => { if (!document.hidden) refreshCotacoes() }, 5 * 60 * 1000)
+    const onVisible = () => { if (!document.hidden) refreshCotacoes() }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => { clearInterval(timer); document.removeEventListener('visibilitychange', onVisible) }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cotacoesCarregadas])
 
   const remover = async () => {
     if (!selecionado) return
@@ -1188,9 +1206,14 @@ export default function CarteiraPage() {
             onClick={() => { if (posicaoSel) setOpsTicker(posicaoSel.ticker) }}>
             📋 Operações
           </button>
-          <button className="btn btn-cot" onClick={atualizarCotacoes} disabled={atualizando || loading}>
+          <button className="btn btn-cot" onClick={() => refreshCotacoes()} disabled={atualizando || loading}>
             {atualizando ? '⟳ Atualizando…' : '⟳ Cotações'}
           </button>
+          {horaCotacao && !atualizando && (
+            <span style={{ fontSize:'11px', color:'#3d4f6a', alignSelf:'center' }}>
+              atualizado {horaCotacao}
+            </span>
+          )}
           <label className="btn" style={{ background:'#1a3a5c', color:'#fff', cursor:'pointer' }}
             title="Importar nota(s) de corretagem — selecione vários PDFs de uma vez (Ctrl+clique)">
             📄 Importar Notas

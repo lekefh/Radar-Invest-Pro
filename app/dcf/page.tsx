@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import dcfRaw from '@/lib/dcf.json'
@@ -447,9 +447,25 @@ function SecSensibilidade({ e, precoLive }: { e: any; precoLive?: number|null })
   )
 }
 
-function SecOutros({ e }: { e: any }) {
+function SecOutros({ e, precoLive }: { e: any; precoLive: number|null }) {
+  const precoBase = e.preco_atual ?? null
+  const difPct = precoLive != null && precoBase != null && precoBase > 0
+    ? ((precoLive - precoBase) / precoBase) * 100 : null
+  const precoMudou = difPct != null && Math.abs(difPct) >= 0.5
+
   return (
     <>
+      {/* Aviso quando preço atual difere do preço usado no cálculo da TIR */}
+      {precoMudou && (
+        <div style={{ background:'rgba(232,160,32,.07)',border:'1px solid rgba(232,160,32,.25)',borderRadius:'8px',padding:'10px 16px',marginBottom:'16px',fontSize:'12px',color:'#b8c4d4',display:'flex',gap:'8px',alignItems:'center' }}>
+          <span style={{ color:'#e8a020',fontWeight:700 }}>⚠</span>
+          <span>
+            TIR calculada ao preço de <strong style={{color:'#e8edf5'}}>R$ {f2(precoBase)}</strong> (base do DCF).
+            Cotação atual: <strong style={{color: difPct! > 0 ? '#00d4a0' : '#ef4444'}}>R$ {f2(precoLive!)} ({difPct! > 0 ? '+' : ''}{f1(difPct!)}%)</strong>
+            {' '} — a TIR real implícita ao preço atual é {difPct! > 0 ? 'menor' : 'maior'} que a exibida.
+          </span>
+        </div>
+      )}
       {/* TIR Real */}
       {e.tir && (
         <>
@@ -776,7 +792,9 @@ export default function DCFPage() {
     }
   }, [])
 
-  useEffect(() => {
+  const [ultimaAtualizacao, setUltimaAtualizacao] = useState<Date|null>(null)
+
+  const fetchCotacoes = useCallback(() => {
     const tickers = Object.keys(dcfData)
     if (tickers.length === 0) return
     fetch(`/api/cotacoes?tickers=${tickers.join(',')}`)
@@ -785,9 +803,22 @@ export default function DCFPage() {
         const m: Record<string, number|null> = {}
         for (const c of d.cotacoes ?? []) m[c.ticker] = c.preco
         setPrecos(m)
+        setUltimaAtualizacao(new Date())
       })
       .catch(() => {})
   }, [])
+
+  useEffect(() => {
+    fetchCotacoes()
+    // atualiza a cada 5 minutos enquanto a aba está visível
+    const timer = setInterval(() => {
+      if (!document.hidden) fetchCotacoes()
+    }, 5 * 60 * 1000)
+    // atualiza ao retornar para a aba
+    const onVisible = () => { if (!document.hidden) fetchCotacoes() }
+    document.addEventListener('visibilitychange', onVisible)
+    return () => { clearInterval(timer); document.removeEventListener('visibilitychange', onVisible) }
+  }, [fetchCotacoes])
 
   const emp = sel ? dcfData[sel] : null
   const precoLive = sel ? (precos[sel] ?? null) : null
@@ -920,8 +951,16 @@ export default function DCFPage() {
                 </div>
                 <p style={{ fontSize:'14px',color:'#b8c4d4',marginTop:'4px' }}>{emp.company}</p>
                 <p style={{ fontSize:'11px',color:'#6b84a8',marginTop:'3px' }}>
-                  {emp.atualizado ?? '—'}
-                  {(precoLive != null || emp.preco_atual) ? ` · Preço no cálculo: R$ ${f2(precoLive ?? emp.preco_atual)}` : ''}
+                  {precoLive != null && ultimaAtualizacao != null
+                    ? ultimaAtualizacao.toLocaleDateString('pt-BR') + ' ' +
+                      ultimaAtualizacao.toLocaleTimeString('pt-BR', { hour:'2-digit', minute:'2-digit' }) +
+                      ' · cotação ao vivo'
+                    : (emp.atualizado ?? '—')}
+                  {precoLive != null
+                    ? ` · Preço no cálculo: R$ ${f2(precoLive)}`
+                    : emp.preco_atual
+                      ? ` · Preço base: R$ ${f2(emp.preco_atual)}`
+                      : ''}
                 </p>
               </div>
 
@@ -940,7 +979,7 @@ export default function DCFPage() {
                 {aba === 'linhas'        && <SecLinhasNegocio e={emp}/>}
                 {aba === 'projecoes'     && <SecProjecoes e={emp}/>}
                 {aba === 'sensibilidade' && <SecSensibilidade e={emp} precoLive={precoLive}/>}
-                {aba === 'outros'        && <SecOutros e={emp}/>}
+                {aba === 'outros'        && <SecOutros e={emp} precoLive={precoLive}/>}
                 {aba === 'tri'           && <SecProximoTri e={emp}/>}
               </div>
             </>
