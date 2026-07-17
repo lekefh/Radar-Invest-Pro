@@ -77,6 +77,10 @@ export default function CadastroPage() {
 
       // Conta criada — aguardando confirmação de e-mail
       setPendente(true)
+      // Meta Pixel: dispara CompleteRegistration
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'CompleteRegistration', { status: 'pendente_email' })
+      }
     } catch {
       setErro('Erro de conexão. Tente novamente.')
     } finally {
