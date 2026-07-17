@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { Resend } from 'resend'
 import {
   initUsersTable, findByEmail, findByUsername,
-  createUser, createToken
+  createUser, generateToken
 } from '@/lib/auth'
 
 function gerarUsername(nome: string): string {
@@ -41,55 +40,42 @@ export async function POST(req: NextRequest) {
       username = `${base}${sufixo++}`
     }
 
-    const usuario = await createUser({
+    const confirmToken = generateToken()
+    const tokenExpira  = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24h
+
+    await createUser({
       nome:            nome.trim(),
       username,
       email:           email.toLowerCase().trim(),
       senha,
       plano:           'gratuito',
-      ativo:           true,
-      emailConfirmado: true,
-      token:           null,
-      tokenExpira:     null,
+      ativo:           false,
+      emailConfirmado: false,
+      token:           confirmToken,
+      tokenExpira,
     })
 
-    // Login automático — mesmo fluxo do /api/auth/login
-    const token = await createToken({
-      sub:      String(usuario.id),
-      username: usuario.username,
-      nome:     usuario.nome,
-      email:    usuario.email,
-      plano:    usuario.plano,
-    })
-
-    const store = await cookies()
-    store.set('radar_token', token, {
-      httpOnly: true,
-      secure:   process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge:   60 * 60 * 24 * 7,
-      path:     '/',
-    })
-
-    // E-mail de boas-vindas (não-bloqueante)
+    // E-mail de ativação (não-bloqueante)
     try {
       const resend = new Resend(process.env.RESEND_API_KEY || 'placeholder')
       const host   = process.env.NEXT_PUBLIC_URL || 'https://radarinvestpro.com.br'
+      const link   = `${host}/api/auth/confirmar?token=${confirmToken}`
       await resend.emails.send({
         from:    process.env.EMAIL_FROM || 'Radar Invest Pro <onboarding@resend.dev>',
         to:      email,
-        subject: 'Bem-vindo ao Radar Invest Pro!',
+        subject: 'Ative sua conta — Radar Invest Pro',
         html: `
           <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;background:#0f1923;color:#e0e0e0;padding:32px;border-radius:8px">
             <h1 style="color:#e8a020;font-size:22px;margin:0 0 8px">Radar Invest Pro</h1>
-            <h2 style="color:#fff;font-size:18px;margin:0 0 20px">Bem-vindo, ${nome}! 🎉</h2>
-            <p style="color:#a0b4c8">Sua conta está ativa. Acesse agora:</p>
-            <a href="${host}/dashboard"
-               style="display:inline-block;background:#1565C0;color:#fff;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;margin:20px 0">
-              Acessar a Plataforma →
+            <h2 style="color:#fff;font-size:18px;margin:0 0 16px">Olá, ${nome.trim()}! Confirme seu e-mail</h2>
+            <p style="color:#a0b4c8;margin:0 0 20px">Clique no botão abaixo para ativar sua conta. O link expira em 24 horas.</p>
+            <a href="${link}"
+               style="display:inline-block;background:#e8a020;color:#050d1a;padding:14px 28px;border-radius:6px;text-decoration:none;font-weight:bold;font-size:15px;margin:0 0 24px">
+              Ativar minha conta →
             </a>
-            <p style="color:#4a5d73;font-size:12px;margin-top:24px">
-              Você se cadastrou em radarinvestpro.com.br
+            <p style="color:#4a5d73;font-size:12px;margin:0">
+              Se você não se cadastrou, ignore este e-mail.<br>
+              Link direto: ${link}
             </p>
           </div>
         `,
@@ -98,15 +84,7 @@ export async function POST(req: NextRequest) {
       console.error('[register] email error:', emailErr)
     }
 
-    return NextResponse.json({
-      ok: true,
-      usuario: {
-        id:       usuario.id,
-        nome:     usuario.nome,
-        username: usuario.username,
-        plano:    usuario.plano,
-      },
-    })
+    return NextResponse.json({ ok: true, pendente: true })
   } catch (e) {
     console.error('[register]', e)
     return NextResponse.json({ erro: 'Erro interno.' }, { status: 500 })

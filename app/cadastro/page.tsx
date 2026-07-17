@@ -17,6 +17,7 @@ export default function CadastroPage() {
   const [form, setForm]             = useState({ nome: '', email: '', senha: '' })
   const [erro, setErro]             = useState('')
   const [carregando, setCarregando] = useState(false)
+  const [pendente, setPendente]     = useState(false)
   const [mostrarSenha, setMostrarSenha] = useState(false)
   const [showExitPopup, setShowExitPopup] = useState(false)
   const [isMobile, setIsMobile]     = useState(false)
@@ -74,14 +75,53 @@ export default function CadastroPage() {
         return
       }
 
-      // Login automático — salva sessão e redireciona direto ao dashboard
-      localStorage.setItem('radar_usuario', JSON.stringify(data.usuario))
-      window.location.href = '/dashboard'
+      // Conta criada — aguardando confirmação de e-mail
+      setPendente(true)
     } catch {
       setErro('Erro de conexão. Tente novamente.')
     } finally {
       setCarregando(false)
     }
+  }
+
+  if (pendente) {
+    return (
+      <div style={{
+        minHeight: '100vh', background: '#050d1a',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '32px 24px',
+      }}>
+        <div style={{
+          width: '100%', maxWidth: '440px',
+          background: '#0f1923', border: '1px solid rgba(34,197,94,.25)',
+          borderRadius: '12px', padding: '48px 36px', textAlign: 'center',
+        }}>
+          <div style={{ fontSize: '52px', marginBottom: '20px' }}>📧</div>
+          <h2 style={{ fontSize: '22px', fontWeight: 900, color: '#fff', margin: '0 0 12px', lineHeight: 1.3 }}>
+            Acesse seu e-mail para<br/>
+            <span style={{ color: '#e8a020' }}>ativar sua conta</span>
+          </h2>
+          <p style={{ fontSize: '14px', color: 'rgba(255,255,255,.55)', lineHeight: 1.7, margin: '0 0 28px' }}>
+            Enviamos um link de ativação para <strong style={{ color: '#e0e0e0' }}>{form.email}</strong>.
+            <br />Clique no link para concluir o cadastro.
+          </p>
+          <div style={{
+            background: 'rgba(34,197,94,.07)', border: '1px solid rgba(34,197,94,.2)',
+            borderRadius: '8px', padding: '14px 18px', marginBottom: '28px',
+          }}>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,.5)', margin: 0, lineHeight: 1.6 }}>
+              Não encontrou o e-mail? Verifique a pasta de <strong style={{ color: 'rgba(255,255,255,.7)' }}>spam</strong> ou lixo eletrônico.
+            </p>
+          </div>
+          <Link href="/login" style={{
+            display: 'inline-block', color: '#e8a020',
+            textDecoration: 'none', fontSize: '13px', fontWeight: 600,
+          }}>
+            Já ativou? Faça login →
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (

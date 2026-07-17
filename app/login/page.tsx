@@ -6,6 +6,8 @@ import Link from 'next/link'
 function LoginForm() {
   const params = useSearchParams()
   const redirect = params.get('redirect') || '/dashboard'
+  const ativado  = params.get('ativado') === '1'
+  const erroLink = params.get('erro')
 
   const [identificador, setIdentificador] = useState('')
   const [senha, setSenha]                 = useState('')
@@ -176,6 +178,26 @@ function LoginForm() {
           </div>
           <div style={{ fontSize: '13px', color: '#6b84a8' }}>Acesse sua conta</div>
         </div>
+
+        {ativado && (
+          <div style={{
+            background: 'rgba(34,197,94,.1)', border: '1px solid rgba(34,197,94,.3)',
+            borderRadius: '8px', padding: '12px 16px', marginBottom: '20px',
+            fontSize: '13px', color: '#22c55e', textAlign: 'center', lineHeight: 1.5,
+          }}>
+            ✅ E-mail confirmado com sucesso! Faça login para acessar a plataforma.
+          </div>
+        )}
+
+        {erroLink === 'link_invalido' && (
+          <div style={{
+            background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)',
+            borderRadius: '8px', padding: '12px 16px', marginBottom: '20px',
+            fontSize: '13px', color: '#ef5350', textAlign: 'center', lineHeight: 1.5,
+          }}>
+            Link inválido ou expirado. Faça um novo cadastro para receber outro link.
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
