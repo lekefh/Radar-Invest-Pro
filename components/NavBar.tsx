@@ -138,11 +138,18 @@ export default function NavBar() {
             )}
           </div>
         ) : (
-          <Link href="/login" style={{ textDecoration: 'none' }}>
-            <span style={{ background: '#1565C0', color: '#fff', fontSize: '12px', fontWeight: 700, padding: '6px 14px', borderRadius: '6px', whiteSpace: 'nowrap' }}>
-              Entrar
-            </span>
-          </Link>
+          <>
+            <Link href="/login" className="rip-entrar" style={{ textDecoration: 'none' }}>
+              <span style={{ background: '#1565C0', color: '#fff', fontSize: '12px', fontWeight: 700, padding: '6px 14px', borderRadius: '6px', whiteSpace: 'nowrap' }}>
+                Entrar
+              </span>
+            </Link>
+            <Link href="/cadastro" className="rip-cta-mobile" style={{ textDecoration: 'none' }}>
+              <span style={{ background: '#e8a020', color: '#050d1a', fontSize: '12px', fontWeight: 700, padding: '6px 12px', borderRadius: '6px', whiteSpace: 'nowrap' }}>
+                Cadastre-se grátis
+              </span>
+            </Link>
+          </>
         )}
 
         {/* Botão hambúrguer — só aparece em mobile (ver .rip-hamburger) */}
@@ -173,11 +180,14 @@ export default function NavBar() {
       )}
 
       <style jsx>{`
+        .rip-cta-mobile { display: none; }
         @media (max-width: 760px) {
           .rip-desktop-links { display: none !important; }
           .rip-hamburger { display: flex !important; align-items: center; }
           .rip-admin-link span { font-size: 11px; padding: 4px 6px; }
           .rip-user-name { display: none; }
+          .rip-entrar { display: none; }
+          .rip-cta-mobile { display: block; }
         }
       `}</style>
     </nav>
