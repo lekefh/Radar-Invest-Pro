@@ -1,6 +1,6 @@
 {
-  "atualizado": "20/07/2026 20:07 [auto]",
-  "total": 583,
+  "atualizado": "21/07/2026 20:05 [auto]",
+  "total": 579,
   "fontes": {
     "historico": "Yahoo Finance (18 meses pagos)",
     "futuros": "Investidor10 (B3/CVM, 4 meses)"
@@ -35,7 +35,7 @@
       "data_com": "2026-10-28",
       "data_ex": "2026-10-29",
       "data_pagamento": "2026-11-09",
-      "yield_pct": 0.65,
+      "yield_pct": 0.63,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -156,7 +156,7 @@
       "data_com": "2026-09-30",
       "data_ex": "2026-10-01",
       "data_pagamento": "2026-10-09",
-      "yield_pct": 0.65,
+      "yield_pct": 0.63,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -233,7 +233,7 @@
       "data_com": "2026-08-31",
       "data_ex": "2026-09-01",
       "data_pagamento": "2026-09-09",
-      "yield_pct": 1.65,
+      "yield_pct": 1.63,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -288,7 +288,7 @@
       "data_com": "2026-08-28",
       "data_ex": "2026-08-31",
       "data_pagamento": "2026-09-09",
-      "yield_pct": 0.65,
+      "yield_pct": 0.63,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -299,7 +299,7 @@
       "data_com": "2026-08-21",
       "data_ex": "2026-08-24",
       "data_pagamento": "2026-09-02",
-      "yield_pct": 1.06,
+      "yield_pct": 1.07,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -409,7 +409,7 @@
       "data_com": "2026-07-30",
       "data_ex": "2026-07-31",
       "data_pagamento": "2026-08-10",
-      "yield_pct": 0.65,
+      "yield_pct": 0.63,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -431,7 +431,7 @@
       "data_com": "2026-07-23",
       "data_ex": "2026-07-24",
       "data_pagamento": "2026-08-04",
-      "yield_pct": 1.06,
+      "yield_pct": 1.07,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -453,7 +453,7 @@
       "data_com": "2026-07-21",
       "data_ex": "2026-07-22",
       "data_pagamento": "2026-08-06",
-      "yield_pct": 1.96,
+      "yield_pct": 1.95,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -475,7 +475,7 @@
       "data_com": "2026-07-21",
       "data_ex": "2026-07-22",
       "data_pagamento": "2026-08-06",
-      "yield_pct": 2.03,
+      "yield_pct": 2.01,
       "status": "declarado",
       "fonte": "investidor10"
     },
@@ -519,7 +519,7 @@
       "data_com": "2026-07-16",
       "data_ex": "2026-07-17",
       "data_pagamento": null,
-      "yield_pct": 1.22,
+      "yield_pct": 1.2,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -618,7 +618,7 @@
       "data_com": "2026-07-03",
       "data_ex": "2026-07-06",
       "data_pagamento": null,
-      "yield_pct": 1.96,
+      "yield_pct": 1.95,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -629,7 +629,7 @@
       "data_com": "2026-07-03",
       "data_ex": "2026-07-06",
       "data_pagamento": null,
-      "yield_pct": 1.88,
+      "yield_pct": 1.87,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -640,7 +640,7 @@
       "data_com": "2026-07-03",
       "data_ex": "2026-07-06",
       "data_pagamento": null,
-      "yield_pct": 1.41,
+      "yield_pct": 1.39,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -717,7 +717,7 @@
       "data_com": "2026-07-01",
       "data_ex": "2026-07-02",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -750,7 +750,7 @@
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
       "data_pagamento": null,
-      "yield_pct": 0.56,
+      "yield_pct": 0.57,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -783,7 +783,7 @@
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
       "data_pagamento": null,
-      "yield_pct": 1.26,
+      "yield_pct": 1.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -805,7 +805,7 @@
       "data_com": "2026-06-25",
       "data_ex": "2026-06-26",
       "data_pagamento": null,
-      "yield_pct": 0.82,
+      "yield_pct": 0.83,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -816,7 +816,7 @@
       "data_com": "2026-06-24",
       "data_ex": "2026-06-25",
       "data_pagamento": null,
-      "yield_pct": 1.45,
+      "yield_pct": 1.46,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -849,7 +849,7 @@
       "data_com": "2026-06-23",
       "data_ex": "2026-06-24",
       "data_pagamento": null,
-      "yield_pct": 0.59,
+      "yield_pct": 0.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -860,7 +860,7 @@
       "data_com": "2026-06-23",
       "data_ex": "2026-06-24",
       "data_pagamento": null,
-      "yield_pct": 1.72,
+      "yield_pct": 1.73,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -882,7 +882,7 @@
       "data_com": "2026-06-22",
       "data_ex": "2026-06-23",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -893,7 +893,7 @@
       "data_com": "2026-06-22",
       "data_ex": "2026-06-23",
       "data_pagamento": null,
-      "yield_pct": 0.95,
+      "yield_pct": 0.96,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -915,7 +915,7 @@
       "data_com": "2026-06-19",
       "data_ex": "2026-06-22",
       "data_pagamento": null,
-      "yield_pct": 0.24,
+      "yield_pct": 0.25,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -959,7 +959,7 @@
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
       "data_pagamento": null,
-      "yield_pct": 0.86,
+      "yield_pct": 0.85,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -970,7 +970,7 @@
       "data_com": "2026-06-15",
       "data_ex": "2026-06-16",
       "data_pagamento": null,
-      "yield_pct": 1.01,
+      "yield_pct": 1.02,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -981,7 +981,7 @@
       "data_com": "2026-06-15",
       "data_ex": "2026-06-16",
       "data_pagamento": null,
-      "yield_pct": 0.62,
+      "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -992,7 +992,7 @@
       "data_com": "2026-06-11",
       "data_ex": "2026-06-12",
       "data_pagamento": null,
-      "yield_pct": 10.88,
+      "yield_pct": 11.05,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1003,7 +1003,7 @@
       "data_com": "2026-06-04",
       "data_ex": "2026-06-05",
       "data_pagamento": null,
-      "yield_pct": 0.32,
+      "yield_pct": 0.33,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1014,7 +1014,7 @@
       "data_com": "2026-06-01",
       "data_ex": "2026-06-02",
       "data_pagamento": null,
-      "yield_pct": 0.7,
+      "yield_pct": 0.68,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1047,7 +1047,7 @@
       "data_com": "2026-06-01",
       "data_ex": "2026-06-02",
       "data_pagamento": null,
-      "yield_pct": 1.7,
+      "yield_pct": 1.68,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1058,7 +1058,7 @@
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1069,7 +1069,7 @@
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
       "data_pagamento": null,
-      "yield_pct": 0.56,
+      "yield_pct": 0.57,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1124,7 +1124,7 @@
       "data_com": "2026-05-28",
       "data_ex": "2026-05-29",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1135,7 +1135,7 @@
       "data_com": "2026-05-21",
       "data_ex": "2026-05-22",
       "data_pagamento": null,
-      "yield_pct": 1.62,
+      "yield_pct": 1.63,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1146,7 +1146,7 @@
       "data_com": "2026-05-19",
       "data_ex": "2026-05-20",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1157,7 +1157,7 @@
       "data_com": "2026-05-18",
       "data_ex": "2026-05-19",
       "data_pagamento": null,
-      "yield_pct": 3.35,
+      "yield_pct": 3.3,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1168,7 +1168,7 @@
       "data_com": "2026-05-15",
       "data_ex": "2026-05-18",
       "data_pagamento": null,
-      "yield_pct": 1.72,
+      "yield_pct": 1.73,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1179,7 +1179,7 @@
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
       "data_pagamento": null,
-      "yield_pct": 0.89,
+      "yield_pct": 0.9,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1190,7 +1190,7 @@
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
       "data_pagamento": null,
-      "yield_pct": 0.76,
+      "yield_pct": 0.77,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1223,7 +1223,7 @@
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
       "data_pagamento": null,
-      "yield_pct": 1.39,
+      "yield_pct": 1.41,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1234,7 +1234,7 @@
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
       "data_pagamento": null,
-      "yield_pct": 1.0,
+      "yield_pct": 1.02,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1245,7 +1245,7 @@
       "data_com": "2026-05-12",
       "data_ex": "2026-05-13",
       "data_pagamento": null,
-      "yield_pct": 4.36,
+      "yield_pct": 4.45,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1289,7 +1289,7 @@
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
       "data_pagamento": null,
-      "yield_pct": 1.35,
+      "yield_pct": 1.34,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1300,7 +1300,7 @@
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
       "data_pagamento": null,
-      "yield_pct": 1.0,
+      "yield_pct": 1.02,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1366,7 +1366,7 @@
       "data_com": "2026-05-01",
       "data_ex": "2026-05-04",
       "data_pagamento": null,
-      "yield_pct": 0.56,
+      "yield_pct": 0.57,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1410,7 +1410,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 8.06,
+      "yield_pct": 8.04,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1421,7 +1421,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 1.59,
+      "yield_pct": 1.64,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1432,7 +1432,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1443,7 +1443,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 6.48,
+      "yield_pct": 6.47,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1476,7 +1476,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.23,
+      "yield_pct": 2.22,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1487,7 +1487,7 @@
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.2,
+      "yield_pct": 2.18,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1498,7 +1498,7 @@
       "data_com": "2026-04-28",
       "data_ex": "2026-04-29",
       "data_pagamento": null,
-      "yield_pct": 0.8,
+      "yield_pct": 0.82,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1509,7 +1509,7 @@
       "data_com": "2026-04-27",
       "data_ex": "2026-04-28",
       "data_pagamento": null,
-      "yield_pct": 0.66,
+      "yield_pct": 0.67,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1520,7 +1520,7 @@
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 3.57,
+      "yield_pct": 3.74,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1531,7 +1531,7 @@
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 1.67,
+      "yield_pct": 1.69,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1542,7 +1542,7 @@
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 1.78,
+      "yield_pct": 1.82,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1553,7 +1553,7 @@
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 1.66,
+      "yield_pct": 1.67,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1564,7 +1564,7 @@
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 3.24,
+      "yield_pct": 3.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1575,7 +1575,7 @@
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
       "data_pagamento": null,
-      "yield_pct": 5.59,
+      "yield_pct": 5.74,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1586,7 +1586,7 @@
       "data_com": "2026-04-23",
       "data_ex": "2026-04-24",
       "data_pagamento": null,
-      "yield_pct": 2.42,
+      "yield_pct": 2.44,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1597,7 +1597,7 @@
       "data_com": "2026-04-22",
       "data_ex": "2026-04-23",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1608,7 +1608,7 @@
       "data_com": "2026-04-22",
       "data_ex": "2026-04-23",
       "data_pagamento": null,
-      "yield_pct": 1.61,
+      "yield_pct": 1.59,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1619,7 +1619,7 @@
       "data_com": "2026-04-21",
       "data_ex": "2026-04-22",
       "data_pagamento": null,
-      "yield_pct": 0.62,
+      "yield_pct": 0.61,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1630,7 +1630,7 @@
       "data_com": "2026-04-21",
       "data_ex": "2026-04-22",
       "data_pagamento": null,
-      "yield_pct": 9.12,
+      "yield_pct": 9.09,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1641,7 +1641,7 @@
       "data_com": "2026-04-21",
       "data_ex": "2026-04-22",
       "data_pagamento": null,
-      "yield_pct": 0.42,
+      "yield_pct": 0.43,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1652,7 +1652,7 @@
       "data_com": "2026-04-21",
       "data_ex": "2026-04-22",
       "data_pagamento": null,
-      "yield_pct": 1.98,
+      "yield_pct": 1.97,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1663,7 +1663,7 @@
       "data_com": "2026-04-21",
       "data_ex": "2026-04-22",
       "data_pagamento": null,
-      "yield_pct": 2.03,
+      "yield_pct": 2.01,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1674,7 +1674,7 @@
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 1.68,
+      "yield_pct": 1.67,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1685,7 +1685,7 @@
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 1.62,
+      "yield_pct": 1.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1696,7 +1696,7 @@
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 1.09,
+      "yield_pct": 1.11,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1707,7 +1707,7 @@
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 1.26,
+      "yield_pct": 1.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1718,7 +1718,7 @@
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
       "data_pagamento": null,
-      "yield_pct": 4.12,
+      "yield_pct": 4.1,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1784,7 +1784,7 @@
       "data_com": "2026-03-31",
       "data_ex": "2026-04-01",
       "data_pagamento": null,
-      "yield_pct": 1.63,
+      "yield_pct": 1.66,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1795,7 +1795,7 @@
       "data_com": "2026-03-30",
       "data_ex": "2026-03-31",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.62,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1806,7 +1806,7 @@
       "data_com": "2026-03-30",
       "data_ex": "2026-03-31",
       "data_pagamento": null,
-      "yield_pct": 1.0,
+      "yield_pct": 1.01,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1817,7 +1817,7 @@
       "data_com": "2026-03-27",
       "data_ex": "2026-03-30",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1839,7 +1839,7 @@
       "data_com": "2026-03-25",
       "data_ex": "2026-03-26",
       "data_pagamento": null,
-      "yield_pct": 0.62,
+      "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1872,7 +1872,7 @@
       "data_com": "2026-03-24",
       "data_ex": "2026-03-25",
       "data_pagamento": null,
-      "yield_pct": 1.67,
+      "yield_pct": 1.68,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1883,7 +1883,7 @@
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
       "data_pagamento": null,
-      "yield_pct": 0.82,
+      "yield_pct": 0.83,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1894,7 +1894,7 @@
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
       "data_pagamento": null,
-      "yield_pct": 0.73,
+      "yield_pct": 0.74,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1905,7 +1905,7 @@
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
       "data_pagamento": null,
-      "yield_pct": 0.32,
+      "yield_pct": 0.33,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1916,7 +1916,7 @@
       "data_com": "2026-03-20",
       "data_ex": "2026-03-23",
       "data_pagamento": null,
-      "yield_pct": 0.23,
+      "yield_pct": 0.24,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -1993,7 +1993,7 @@
       "data_com": "2026-03-10",
       "data_ex": "2026-03-11",
       "data_pagamento": null,
-      "yield_pct": 0.42,
+      "yield_pct": 0.43,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2037,7 +2037,7 @@
       "data_com": "2026-03-05",
       "data_ex": "2026-03-06",
       "data_pagamento": null,
-      "yield_pct": 0.52,
+      "yield_pct": 0.53,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2048,7 +2048,7 @@
       "data_com": "2026-03-02",
       "data_ex": "2026-03-03",
       "data_pagamento": null,
-      "yield_pct": 0.35,
+      "yield_pct": 0.34,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2081,7 +2081,7 @@
       "data_com": "2026-02-27",
       "data_ex": "2026-03-02",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2136,7 +2136,7 @@
       "data_com": "2026-02-26",
       "data_ex": "2026-02-27",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.62,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2147,7 +2147,7 @@
       "data_com": "2026-02-23",
       "data_ex": "2026-02-24",
       "data_pagamento": null,
-      "yield_pct": 1.09,
+      "yield_pct": 1.06,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2158,7 +2158,7 @@
       "data_com": "2026-02-19",
       "data_ex": "2026-02-20",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2169,7 +2169,7 @@
       "data_com": "2026-02-12",
       "data_ex": "2026-02-13",
       "data_pagamento": null,
-      "yield_pct": 6.35,
+      "yield_pct": 6.27,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2180,7 +2180,7 @@
       "data_com": "2026-02-04",
       "data_ex": "2026-02-05",
       "data_pagamento": null,
-      "yield_pct": 1.51,
+      "yield_pct": 1.52,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2213,7 +2213,7 @@
       "data_com": "2026-02-02",
       "data_ex": "2026-02-03",
       "data_pagamento": null,
-      "yield_pct": 9.55,
+      "yield_pct": 10.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2246,7 +2246,7 @@
       "data_com": "2026-01-29",
       "data_ex": "2026-01-30",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.62,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2257,7 +2257,7 @@
       "data_com": "2026-01-21",
       "data_ex": "2026-01-22",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2268,7 +2268,7 @@
       "data_com": "2026-01-20",
       "data_ex": "2026-01-21",
       "data_pagamento": null,
-      "yield_pct": 0.64,
+      "yield_pct": 0.62,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2279,7 +2279,7 @@
       "data_com": "2026-01-20",
       "data_ex": "2026-01-21",
       "data_pagamento": null,
-      "yield_pct": 1.98,
+      "yield_pct": 1.97,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2290,7 +2290,7 @@
       "data_com": "2026-01-20",
       "data_ex": "2026-01-21",
       "data_pagamento": null,
-      "yield_pct": 2.04,
+      "yield_pct": 2.02,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2301,7 +2301,7 @@
       "data_com": "2026-01-08",
       "data_ex": "2026-01-09",
       "data_pagamento": null,
-      "yield_pct": 10.08,
+      "yield_pct": 9.9,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2334,7 +2334,7 @@
       "data_com": "2026-01-02",
       "data_ex": "2026-01-05",
       "data_pagamento": null,
-      "yield_pct": 0.62,
+      "yield_pct": 0.61,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2356,7 +2356,7 @@
       "data_com": "2026-01-01",
       "data_ex": "2026-01-02",
       "data_pagamento": null,
-      "yield_pct": 2.49,
+      "yield_pct": 2.51,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2367,7 +2367,7 @@
       "data_com": "2026-01-01",
       "data_ex": "2026-01-02",
       "data_pagamento": null,
-      "yield_pct": 5.53,
+      "yield_pct": 5.69,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2400,7 +2400,7 @@
       "data_com": "2026-01-01",
       "data_ex": "2026-01-02",
       "data_pagamento": null,
-      "yield_pct": 3.03,
+      "yield_pct": 3.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2433,7 +2433,7 @@
       "data_com": "2025-12-29",
       "data_ex": "2025-12-30",
       "data_pagamento": null,
-      "yield_pct": 2.19,
+      "yield_pct": 2.17,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2444,7 +2444,7 @@
       "data_com": "2025-12-29",
       "data_ex": "2025-12-30",
       "data_pagamento": null,
-      "yield_pct": 2.1,
+      "yield_pct": 2.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2499,7 +2499,7 @@
       "data_com": "2025-12-26",
       "data_ex": "2025-12-29",
       "data_pagamento": null,
-      "yield_pct": 28.51,
+      "yield_pct": 28.74,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2510,7 +2510,7 @@
       "data_com": "2025-12-26",
       "data_ex": "2025-12-29",
       "data_pagamento": null,
-      "yield_pct": 0.99,
+      "yield_pct": 1.01,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2521,7 +2521,7 @@
       "data_com": "2025-12-26",
       "data_ex": "2025-12-29",
       "data_pagamento": null,
-      "yield_pct": 10.57,
+      "yield_pct": 10.65,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2532,7 +2532,7 @@
       "data_com": "2025-12-25",
       "data_ex": "2025-12-26",
       "data_pagamento": null,
-      "yield_pct": 5.45,
+      "yield_pct": 5.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2565,7 +2565,7 @@
       "data_com": "2025-12-25",
       "data_ex": "2025-12-26",
       "data_pagamento": null,
-      "yield_pct": 5.26,
+      "yield_pct": 5.36,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2576,7 +2576,7 @@
       "data_com": "2025-12-25",
       "data_ex": "2025-12-26",
       "data_pagamento": null,
-      "yield_pct": 1.82,
+      "yield_pct": 1.85,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2587,7 +2587,7 @@
       "data_com": "2025-12-25",
       "data_ex": "2025-12-26",
       "data_pagamento": null,
-      "yield_pct": 2.69,
+      "yield_pct": 2.78,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2631,7 +2631,7 @@
       "data_com": "2025-12-22",
       "data_ex": "2025-12-23",
       "data_pagamento": null,
-      "yield_pct": 0.57,
+      "yield_pct": 0.58,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2642,7 +2642,7 @@
       "data_com": "2025-12-22",
       "data_ex": "2025-12-23",
       "data_pagamento": null,
-      "yield_pct": 2.31,
+      "yield_pct": 2.29,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2653,7 +2653,7 @@
       "data_com": "2025-12-22",
       "data_ex": "2025-12-23",
       "data_pagamento": null,
-      "yield_pct": 37.53,
+      "yield_pct": 38.15,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2664,7 +2664,7 @@
       "data_com": "2025-12-22",
       "data_ex": "2025-12-23",
       "data_pagamento": null,
-      "yield_pct": 4.57,
+      "yield_pct": 4.56,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2675,7 +2675,7 @@
       "data_com": "2025-12-19",
       "data_ex": "2025-12-22",
       "data_pagamento": null,
-      "yield_pct": 1.07,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2686,7 +2686,7 @@
       "data_com": "2025-12-19",
       "data_ex": "2025-12-22",
       "data_pagamento": null,
-      "yield_pct": 8.72,
+      "yield_pct": 9.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2697,7 +2697,7 @@
       "data_com": "2025-12-19",
       "data_ex": "2025-12-22",
       "data_pagamento": null,
-      "yield_pct": 8.59,
+      "yield_pct": 9.24,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2708,7 +2708,7 @@
       "data_com": "2025-12-19",
       "data_ex": "2025-12-22",
       "data_pagamento": null,
-      "yield_pct": 2.87,
+      "yield_pct": 2.92,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2730,7 +2730,7 @@
       "data_com": "2025-12-18",
       "data_ex": "2025-12-19",
       "data_pagamento": null,
-      "yield_pct": 4.71,
+      "yield_pct": 4.75,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2763,7 +2763,7 @@
       "data_com": "2025-12-18",
       "data_ex": "2025-12-19",
       "data_pagamento": null,
-      "yield_pct": 12.12,
+      "yield_pct": 12.31,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2774,7 +2774,7 @@
       "data_com": "2025-12-18",
       "data_ex": "2025-12-19",
       "data_pagamento": null,
-      "yield_pct": 4.99,
+      "yield_pct": 5.13,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2785,7 +2785,7 @@
       "data_com": "2025-12-18",
       "data_ex": "2025-12-19",
       "data_pagamento": null,
-      "yield_pct": 2.67,
+      "yield_pct": 2.68,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2796,7 +2796,7 @@
       "data_com": "2025-12-17",
       "data_ex": "2025-12-18",
       "data_pagamento": null,
-      "yield_pct": 7.68,
+      "yield_pct": 7.7,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2807,7 +2807,7 @@
       "data_com": "2025-12-17",
       "data_ex": "2025-12-18",
       "data_pagamento": null,
-      "yield_pct": 7.41,
+      "yield_pct": 7.42,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2818,7 +2818,7 @@
       "data_com": "2025-12-16",
       "data_ex": "2025-12-17",
       "data_pagamento": null,
-      "yield_pct": 0.83,
+      "yield_pct": 0.84,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2829,7 +2829,7 @@
       "data_com": "2025-12-16",
       "data_ex": "2025-12-17",
       "data_pagamento": null,
-      "yield_pct": 6.16,
+      "yield_pct": 6.21,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2840,7 +2840,7 @@
       "data_com": "2025-12-16",
       "data_ex": "2025-12-17",
       "data_pagamento": null,
-      "yield_pct": 1.78,
+      "yield_pct": 1.76,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2862,18 +2862,7 @@
       "data_com": "2025-12-15",
       "data_ex": "2025-12-16",
       "data_pagamento": null,
-      "yield_pct": 6.95,
-      "status": "pago",
-      "fonte": "yfinance"
-    },
-    {
-      "ticker": "KEPL3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1442,
-      "data_com": "2025-12-15",
-      "data_ex": "2025-12-16",
-      "data_pagamento": null,
-      "yield_pct": 2.28,
+      "yield_pct": 6.92,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2884,7 +2873,7 @@
       "data_com": "2025-12-15",
       "data_ex": "2025-12-16",
       "data_pagamento": null,
-      "yield_pct": 5.17,
+      "yield_pct": 5.13,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2895,7 +2884,7 @@
       "data_com": "2025-12-15",
       "data_ex": "2025-12-16",
       "data_pagamento": null,
-      "yield_pct": 0.59,
+      "yield_pct": 0.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2906,7 +2895,7 @@
       "data_com": "2025-12-12",
       "data_ex": "2025-12-15",
       "data_pagamento": null,
-      "yield_pct": 5.93,
+      "yield_pct": 5.86,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2939,7 +2928,7 @@
       "data_com": "2025-12-11",
       "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 2.95,
+      "yield_pct": 2.97,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2950,7 +2939,7 @@
       "data_com": "2025-12-11",
       "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 1.71,
+      "yield_pct": 1.72,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2961,7 +2950,7 @@
       "data_com": "2025-12-11",
       "data_ex": "2025-12-12",
       "data_pagamento": null,
-      "yield_pct": 4.98,
+      "yield_pct": 4.96,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2983,7 +2972,7 @@
       "data_com": "2025-12-09",
       "data_ex": "2025-12-10",
       "data_pagamento": null,
-      "yield_pct": 12.92,
+      "yield_pct": 12.89,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -2994,7 +2983,7 @@
       "data_com": "2025-12-09",
       "data_ex": "2025-12-10",
       "data_pagamento": null,
-      "yield_pct": 5.65,
+      "yield_pct": 5.66,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3027,7 +3016,7 @@
       "data_com": "2025-12-09",
       "data_ex": "2025-12-10",
       "data_pagamento": null,
-      "yield_pct": 5.14,
+      "yield_pct": 5.11,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3038,7 +3027,7 @@
       "data_com": "2025-12-05",
       "data_ex": "2025-12-08",
       "data_pagamento": null,
-      "yield_pct": 4.18,
+      "yield_pct": 4.21,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3049,7 +3038,7 @@
       "data_com": "2025-12-05",
       "data_ex": "2025-12-08",
       "data_pagamento": null,
-      "yield_pct": 3.15,
+      "yield_pct": 3.14,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3071,7 +3060,7 @@
       "data_com": "2025-12-04",
       "data_ex": "2025-12-05",
       "data_pagamento": null,
-      "yield_pct": 0.94,
+      "yield_pct": 0.95,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3082,7 +3071,7 @@
       "data_com": "2025-12-04",
       "data_ex": "2025-12-05",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3093,7 +3082,7 @@
       "data_com": "2025-12-03",
       "data_ex": "2025-12-04",
       "data_pagamento": null,
-      "yield_pct": 1.05,
+      "yield_pct": 1.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3104,7 +3093,7 @@
       "data_com": "2025-12-02",
       "data_ex": "2025-12-03",
       "data_pagamento": null,
-      "yield_pct": 0.23,
+      "yield_pct": 0.22,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3126,7 +3115,7 @@
       "data_com": "2025-12-01",
       "data_ex": "2025-12-02",
       "data_pagamento": null,
-      "yield_pct": 0.36,
+      "yield_pct": 0.34,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3203,7 +3192,7 @@
       "data_com": "2025-11-28",
       "data_ex": "2025-12-01",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3214,7 +3203,7 @@
       "data_com": "2025-11-28",
       "data_ex": "2025-12-01",
       "data_pagamento": null,
-      "yield_pct": 8.39,
+      "yield_pct": 8.52,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3225,7 +3214,7 @@
       "data_com": "2025-11-27",
       "data_ex": "2025-11-28",
       "data_pagamento": null,
-      "yield_pct": 2.83,
+      "yield_pct": 2.85,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3247,7 +3236,7 @@
       "data_com": "2025-11-26",
       "data_ex": "2025-11-27",
       "data_pagamento": null,
-      "yield_pct": 1.29,
+      "yield_pct": 1.3,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3258,7 +3247,7 @@
       "data_com": "2025-11-26",
       "data_ex": "2025-11-27",
       "data_pagamento": null,
-      "yield_pct": 1.09,
+      "yield_pct": 1.08,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3269,7 +3258,7 @@
       "data_com": "2025-11-25",
       "data_ex": "2025-11-26",
       "data_pagamento": null,
-      "yield_pct": 7.16,
+      "yield_pct": 7.56,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3280,18 +3269,7 @@
       "data_com": "2025-11-25",
       "data_ex": "2025-11-26",
       "data_pagamento": null,
-      "yield_pct": 2.24,
-      "status": "pago",
-      "fonte": "yfinance"
-    },
-    {
-      "ticker": "KEPL3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1442,
-      "data_com": "2025-11-24",
-      "data_ex": "2025-11-25",
-      "data_pagamento": null,
-      "yield_pct": 2.28,
+      "yield_pct": 2.25,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3302,7 +3280,7 @@
       "data_com": "2025-11-24",
       "data_ex": "2025-11-25",
       "data_pagamento": null,
-      "yield_pct": 14.87,
+      "yield_pct": 15.15,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3313,7 +3291,7 @@
       "data_com": "2025-11-24",
       "data_ex": "2025-11-25",
       "data_pagamento": null,
-      "yield_pct": 13.82,
+      "yield_pct": 13.9,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3324,7 +3302,7 @@
       "data_com": "2025-11-21",
       "data_ex": "2025-11-24",
       "data_pagamento": null,
-      "yield_pct": 4.91,
+      "yield_pct": 5.1,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3335,7 +3313,7 @@
       "data_com": "2025-11-21",
       "data_ex": "2025-11-24",
       "data_pagamento": null,
-      "yield_pct": 1.86,
+      "yield_pct": 1.87,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3357,7 +3335,7 @@
       "data_com": "2025-11-18",
       "data_ex": "2025-11-19",
       "data_pagamento": null,
-      "yield_pct": 1.08,
+      "yield_pct": 1.09,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3368,7 +3346,7 @@
       "data_com": "2025-11-18",
       "data_ex": "2025-11-19",
       "data_pagamento": null,
-      "yield_pct": 10.57,
+      "yield_pct": 10.65,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3379,7 +3357,7 @@
       "data_com": "2025-11-17",
       "data_ex": "2025-11-18",
       "data_pagamento": null,
-      "yield_pct": 1.23,
+      "yield_pct": 1.22,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3401,7 +3379,7 @@
       "data_com": "2025-11-14",
       "data_ex": "2025-11-17",
       "data_pagamento": null,
-      "yield_pct": 3.75,
+      "yield_pct": 3.74,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3434,7 +3412,7 @@
       "data_com": "2025-11-14",
       "data_ex": "2025-11-17",
       "data_pagamento": null,
-      "yield_pct": 2.3,
+      "yield_pct": 2.29,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3445,7 +3423,7 @@
       "data_com": "2025-11-14",
       "data_ex": "2025-11-17",
       "data_pagamento": null,
-      "yield_pct": 2.27,
+      "yield_pct": 2.26,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3456,7 +3434,7 @@
       "data_com": "2025-11-13",
       "data_ex": "2025-11-14",
       "data_pagamento": null,
-      "yield_pct": 5.95,
+      "yield_pct": 6.29,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3467,7 +3445,7 @@
       "data_com": "2025-11-12",
       "data_ex": "2025-11-13",
       "data_pagamento": null,
-      "yield_pct": 4.05,
+      "yield_pct": 4.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3478,7 +3456,7 @@
       "data_com": "2025-11-12",
       "data_ex": "2025-11-13",
       "data_pagamento": null,
-      "yield_pct": 3.91,
+      "yield_pct": 3.92,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3500,7 +3478,7 @@
       "data_com": "2025-11-10",
       "data_ex": "2025-11-11",
       "data_pagamento": null,
-      "yield_pct": 1.39,
+      "yield_pct": 1.4,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3533,7 +3511,7 @@
       "data_com": "2025-11-10",
       "data_ex": "2025-11-11",
       "data_pagamento": null,
-      "yield_pct": 1.38,
+      "yield_pct": 1.39,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3544,7 +3522,7 @@
       "data_com": "2025-11-10",
       "data_ex": "2025-11-11",
       "data_pagamento": null,
-      "yield_pct": 1.16,
+      "yield_pct": 1.17,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3555,7 +3533,7 @@
       "data_com": "2025-11-10",
       "data_ex": "2025-11-11",
       "data_pagamento": null,
-      "yield_pct": 0.56,
+      "yield_pct": 0.57,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3566,7 +3544,7 @@
       "data_com": "2025-11-07",
       "data_ex": "2025-11-10",
       "data_pagamento": null,
-      "yield_pct": 1.48,
+      "yield_pct": 1.47,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3577,7 +3555,7 @@
       "data_com": "2025-11-05",
       "data_ex": "2025-11-06",
       "data_pagamento": null,
-      "yield_pct": 3.69,
+      "yield_pct": 3.73,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3588,7 +3566,7 @@
       "data_com": "2025-11-04",
       "data_ex": "2025-11-05",
       "data_pagamento": null,
-      "yield_pct": 15.47,
+      "yield_pct": 15.44,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3643,7 +3621,7 @@
       "data_com": "2025-10-30",
       "data_ex": "2025-10-31",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3654,7 +3632,7 @@
       "data_com": "2025-10-22",
       "data_ex": "2025-10-23",
       "data_pagamento": null,
-      "yield_pct": 3.84,
+      "yield_pct": 3.91,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3665,7 +3643,7 @@
       "data_com": "2025-10-21",
       "data_ex": "2025-10-22",
       "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 0.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3676,7 +3654,7 @@
       "data_com": "2025-10-21",
       "data_ex": "2025-10-22",
       "data_pagamento": null,
-      "yield_pct": 1.98,
+      "yield_pct": 1.97,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3687,7 +3665,7 @@
       "data_com": "2025-10-21",
       "data_ex": "2025-10-22",
       "data_pagamento": null,
-      "yield_pct": 2.04,
+      "yield_pct": 2.02,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3709,7 +3687,7 @@
       "data_com": "2025-10-03",
       "data_ex": "2025-10-06",
       "data_pagamento": null,
-      "yield_pct": 3.29,
+      "yield_pct": 3.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3742,7 +3720,7 @@
       "data_com": "2025-09-30",
       "data_ex": "2025-10-01",
       "data_pagamento": null,
-      "yield_pct": 2.26,
+      "yield_pct": 2.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3775,7 +3753,7 @@
       "data_com": "2025-09-30",
       "data_ex": "2025-10-01",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3786,7 +3764,7 @@
       "data_com": "2025-09-29",
       "data_ex": "2025-09-30",
       "data_pagamento": null,
-      "yield_pct": 1.68,
+      "yield_pct": 1.67,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3797,7 +3775,7 @@
       "data_com": "2025-09-29",
       "data_ex": "2025-09-30",
       "data_pagamento": null,
-      "yield_pct": 1.61,
+      "yield_pct": 1.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3852,7 +3830,7 @@
       "data_com": "2025-09-25",
       "data_ex": "2025-09-26",
       "data_pagamento": null,
-      "yield_pct": 0.98,
+      "yield_pct": 1.0,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3863,7 +3841,7 @@
       "data_com": "2025-09-23",
       "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 0.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3874,7 +3852,7 @@
       "data_com": "2025-09-23",
       "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 0.51,
+      "yield_pct": 0.52,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3885,7 +3863,7 @@
       "data_com": "2025-09-23",
       "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 0.8,
+      "yield_pct": 0.81,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3896,7 +3874,7 @@
       "data_com": "2025-09-23",
       "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 1.65,
+      "yield_pct": 1.66,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3907,7 +3885,7 @@
       "data_com": "2025-09-23",
       "data_ex": "2025-09-24",
       "data_pagamento": null,
-      "yield_pct": 0.52,
+      "yield_pct": 0.53,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3918,7 +3896,7 @@
       "data_com": "2025-09-22",
       "data_ex": "2025-09-23",
       "data_pagamento": null,
-      "yield_pct": 0.7,
+      "yield_pct": 0.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3929,7 +3907,7 @@
       "data_com": "2025-09-22",
       "data_ex": "2025-09-23",
       "data_pagamento": null,
-      "yield_pct": 3.03,
+      "yield_pct": 3.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3962,7 +3940,7 @@
       "data_com": "2025-09-08",
       "data_ex": "2025-09-09",
       "data_pagamento": null,
-      "yield_pct": 7.33,
+      "yield_pct": 7.32,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -3973,7 +3951,7 @@
       "data_com": "2025-09-03",
       "data_ex": "2025-09-04",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4050,7 +4028,7 @@
       "data_com": "2025-08-29",
       "data_ex": "2025-09-01",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4061,7 +4039,7 @@
       "data_com": "2025-08-26",
       "data_ex": "2025-08-27",
       "data_pagamento": null,
-      "yield_pct": 3.14,
+      "yield_pct": 3.21,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4072,7 +4050,7 @@
       "data_com": "2025-08-26",
       "data_ex": "2025-08-27",
       "data_pagamento": null,
-      "yield_pct": 2.92,
+      "yield_pct": 2.94,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4083,7 +4061,7 @@
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 0.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4094,7 +4072,7 @@
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 3.01,
+      "yield_pct": 3.03,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4105,7 +4083,7 @@
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 1.63,
+      "yield_pct": 1.61,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4116,7 +4094,7 @@
       "data_com": "2025-08-21",
       "data_ex": "2025-08-22",
       "data_pagamento": null,
-      "yield_pct": 0.95,
+      "yield_pct": 0.94,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4138,7 +4116,7 @@
       "data_com": "2025-08-18",
       "data_ex": "2025-08-19",
       "data_pagamento": null,
-      "yield_pct": 1.32,
+      "yield_pct": 1.33,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4204,7 +4182,7 @@
       "data_com": "2025-08-18",
       "data_ex": "2025-08-19",
       "data_pagamento": null,
-      "yield_pct": 2.1,
+      "yield_pct": 2.09,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4226,7 +4204,7 @@
       "data_com": "2025-08-15",
       "data_ex": "2025-08-18",
       "data_pagamento": null,
-      "yield_pct": 3.49,
+      "yield_pct": 3.48,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4237,7 +4215,7 @@
       "data_com": "2025-08-14",
       "data_ex": "2025-08-15",
       "data_pagamento": null,
-      "yield_pct": 4.73,
+      "yield_pct": 4.67,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4259,7 +4237,7 @@
       "data_com": "2025-08-14",
       "data_ex": "2025-08-15",
       "data_pagamento": null,
-      "yield_pct": 1.35,
+      "yield_pct": 1.42,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4270,7 +4248,7 @@
       "data_com": "2025-08-12",
       "data_ex": "2025-08-13",
       "data_pagamento": null,
-      "yield_pct": 1.84,
+      "yield_pct": 1.85,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4281,7 +4259,7 @@
       "data_com": "2025-08-12",
       "data_ex": "2025-08-13",
       "data_pagamento": null,
-      "yield_pct": 1.55,
+      "yield_pct": 1.54,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4314,7 +4292,7 @@
       "data_com": "2025-08-12",
       "data_ex": "2025-08-13",
       "data_pagamento": null,
-      "yield_pct": 2.64,
+      "yield_pct": 2.62,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4358,18 +4336,7 @@
       "data_com": "2025-08-11",
       "data_ex": "2025-08-12",
       "data_pagamento": null,
-      "yield_pct": 0.58,
-      "status": "pago",
-      "fonte": "yfinance"
-    },
-    {
-      "ticker": "KEPL3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.1442,
-      "data_com": "2025-08-11",
-      "data_ex": "2025-08-12",
-      "data_pagamento": null,
-      "yield_pct": 2.28,
+      "yield_pct": 0.59,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4380,7 +4347,7 @@
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 1.08,
+      "yield_pct": 1.09,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4391,7 +4358,7 @@
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 0.9,
+      "yield_pct": 0.91,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4402,7 +4369,7 @@
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 1.42,
+      "yield_pct": 1.41,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4413,7 +4380,7 @@
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 0.9,
+      "yield_pct": 0.92,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4424,7 +4391,7 @@
       "data_com": "2025-08-08",
       "data_ex": "2025-08-11",
       "data_pagamento": null,
-      "yield_pct": 1.37,
+      "yield_pct": 1.39,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4435,7 +4402,7 @@
       "data_com": "2025-08-07",
       "data_ex": "2025-08-08",
       "data_pagamento": null,
-      "yield_pct": 1.33,
+      "yield_pct": 1.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4446,7 +4413,7 @@
       "data_com": "2025-08-05",
       "data_ex": "2025-08-06",
       "data_pagamento": null,
-      "yield_pct": 1.23,
+      "yield_pct": 1.24,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4457,7 +4424,7 @@
       "data_com": "2025-08-04",
       "data_ex": "2025-08-05",
       "data_pagamento": null,
-      "yield_pct": 4.45,
+      "yield_pct": 4.54,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4490,7 +4457,7 @@
       "data_com": "2025-08-01",
       "data_ex": "2025-08-04",
       "data_pagamento": null,
-      "yield_pct": 1.61,
+      "yield_pct": 1.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4523,7 +4490,7 @@
       "data_com": "2025-07-31",
       "data_ex": "2025-08-01",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4534,7 +4501,7 @@
       "data_com": "2025-07-30",
       "data_ex": "2025-07-31",
       "data_pagamento": null,
-      "yield_pct": 2.96,
+      "yield_pct": 2.93,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4567,7 +4534,7 @@
       "data_com": "2025-07-24",
       "data_ex": "2025-07-25",
       "data_pagamento": null,
-      "yield_pct": 1.48,
+      "yield_pct": 1.51,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4578,7 +4545,7 @@
       "data_com": "2025-07-22",
       "data_ex": "2025-07-23",
       "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 0.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4589,7 +4556,7 @@
       "data_com": "2025-07-17",
       "data_ex": "2025-07-18",
       "data_pagamento": null,
-      "yield_pct": 1.98,
+      "yield_pct": 1.97,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4600,7 +4567,7 @@
       "data_com": "2025-07-17",
       "data_ex": "2025-07-18",
       "data_pagamento": null,
-      "yield_pct": 2.04,
+      "yield_pct": 2.02,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4622,7 +4589,7 @@
       "data_com": "2025-07-04",
       "data_ex": "2025-07-07",
       "data_pagamento": null,
-      "yield_pct": 1.64,
+      "yield_pct": 1.62,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4666,7 +4633,7 @@
       "data_com": "2025-07-01",
       "data_ex": "2025-07-02",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4688,7 +4655,7 @@
       "data_com": "2025-06-30",
       "data_ex": "2025-07-01",
       "data_pagamento": null,
-      "yield_pct": 1.68,
+      "yield_pct": 1.67,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4699,7 +4666,7 @@
       "data_com": "2025-06-30",
       "data_ex": "2025-07-01",
       "data_pagamento": null,
-      "yield_pct": 1.61,
+      "yield_pct": 1.6,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4743,7 +4710,7 @@
       "data_com": "2025-06-26",
       "data_ex": "2025-06-27",
       "data_pagamento": null,
-      "yield_pct": 1.74,
+      "yield_pct": 1.75,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4754,7 +4721,7 @@
       "data_com": "2025-06-26",
       "data_ex": "2025-06-27",
       "data_pagamento": null,
-      "yield_pct": 0.89,
+      "yield_pct": 0.9,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4798,7 +4765,7 @@
       "data_com": "2025-06-23",
       "data_ex": "2025-06-24",
       "data_pagamento": null,
-      "yield_pct": 0.68,
+      "yield_pct": 0.69,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4809,7 +4776,7 @@
       "data_com": "2025-06-23",
       "data_ex": "2025-06-24",
       "data_pagamento": null,
-      "yield_pct": 0.52,
+      "yield_pct": 0.53,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4853,7 +4820,7 @@
       "data_com": "2025-06-19",
       "data_ex": "2025-06-20",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4875,7 +4842,7 @@
       "data_com": "2025-06-17",
       "data_ex": "2025-06-18",
       "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 0.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4886,7 +4853,7 @@
       "data_com": "2025-06-16",
       "data_ex": "2025-06-17",
       "data_pagamento": null,
-      "yield_pct": 5.97,
+      "yield_pct": 6.12,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4897,7 +4864,7 @@
       "data_com": "2025-06-16",
       "data_ex": "2025-06-17",
       "data_pagamento": null,
-      "yield_pct": 3.03,
+      "yield_pct": 3.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4930,7 +4897,7 @@
       "data_com": "2025-06-09",
       "data_ex": "2025-06-10",
       "data_pagamento": null,
-      "yield_pct": 0.77,
+      "yield_pct": 0.76,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4941,7 +4908,7 @@
       "data_com": "2025-06-02",
       "data_ex": "2025-06-03",
       "data_pagamento": null,
-      "yield_pct": 2.11,
+      "yield_pct": 2.03,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -4974,7 +4941,7 @@
       "data_com": "2025-06-02",
       "data_ex": "2025-06-03",
       "data_pagamento": null,
-      "yield_pct": 2.21,
+      "yield_pct": 2.18,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5029,7 +4996,7 @@
       "data_com": "2025-05-29",
       "data_ex": "2025-05-30",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5073,7 +5040,7 @@
       "data_com": "2025-05-15",
       "data_ex": "2025-05-16",
       "data_pagamento": null,
-      "yield_pct": 0.99,
+      "yield_pct": 1.04,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5084,7 +5051,7 @@
       "data_com": "2025-05-15",
       "data_ex": "2025-05-16",
       "data_pagamento": null,
-      "yield_pct": 8.86,
+      "yield_pct": 8.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5095,7 +5062,7 @@
       "data_com": "2025-05-14",
       "data_ex": "2025-05-15",
       "data_pagamento": null,
-      "yield_pct": 1.67,
+      "yield_pct": 1.69,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5106,7 +5073,7 @@
       "data_com": "2025-05-13",
       "data_ex": "2025-05-14",
       "data_pagamento": null,
-      "yield_pct": 1.3,
+      "yield_pct": 1.29,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5139,7 +5106,7 @@
       "data_com": "2025-05-12",
       "data_ex": "2025-05-13",
       "data_pagamento": null,
-      "yield_pct": 1.32,
+      "yield_pct": 1.31,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5183,7 +5150,7 @@
       "data_com": "2025-05-08",
       "data_ex": "2025-05-09",
       "data_pagamento": null,
-      "yield_pct": 0.58,
+      "yield_pct": 0.59,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5194,7 +5161,7 @@
       "data_com": "2025-05-07",
       "data_ex": "2025-05-08",
       "data_pagamento": null,
-      "yield_pct": 0.78,
+      "yield_pct": 0.79,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5205,7 +5172,7 @@
       "data_com": "2025-05-05",
       "data_ex": "2025-05-06",
       "data_pagamento": null,
-      "yield_pct": 0.9,
+      "yield_pct": 0.91,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5216,7 +5183,7 @@
       "data_com": "2025-05-05",
       "data_ex": "2025-05-06",
       "data_pagamento": null,
-      "yield_pct": 3.58,
+      "yield_pct": 3.53,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5249,7 +5216,7 @@
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 0.39,
+      "yield_pct": 0.41,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5282,7 +5249,7 @@
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 1.78,
+      "yield_pct": 1.8,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5315,7 +5282,7 @@
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 0.27,
+      "yield_pct": 0.29,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5326,7 +5293,7 @@
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 1.62,
+      "yield_pct": 1.65,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5337,7 +5304,7 @@
       "data_com": "2025-05-01",
       "data_ex": "2025-05-02",
       "data_pagamento": null,
-      "yield_pct": 1.51,
+      "yield_pct": 1.52,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5348,7 +5315,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 1.78,
+      "yield_pct": 1.77,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5359,7 +5326,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5370,7 +5337,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 6.07,
+      "yield_pct": 6.06,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5381,7 +5348,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.5,
+      "yield_pct": 2.53,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5403,7 +5370,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.15,
+      "yield_pct": 2.14,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5414,7 +5381,7 @@
       "data_com": "2025-04-29",
       "data_ex": "2025-04-30",
       "data_pagamento": null,
-      "yield_pct": 2.11,
+      "yield_pct": 2.1,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5425,7 +5392,7 @@
       "data_com": "2025-04-28",
       "data_ex": "2025-04-29",
       "data_pagamento": null,
-      "yield_pct": 2.78,
+      "yield_pct": 2.83,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5436,7 +5403,7 @@
       "data_com": "2025-04-28",
       "data_ex": "2025-04-29",
       "data_pagamento": null,
-      "yield_pct": 1.33,
+      "yield_pct": 1.32,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5447,7 +5414,7 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 4.58,
+      "yield_pct": 4.59,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5469,7 +5436,7 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 5.06,
+      "yield_pct": 5.05,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5480,7 +5447,7 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 5.98,
+      "yield_pct": 6.03,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5491,7 +5458,7 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 5.65,
+      "yield_pct": 5.8,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5502,7 +5469,7 @@
       "data_com": "2025-04-25",
       "data_ex": "2025-04-28",
       "data_pagamento": null,
-      "yield_pct": 5.71,
+      "yield_pct": 5.75,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5513,7 +5480,7 @@
       "data_com": "2025-04-24",
       "data_ex": "2025-04-25",
       "data_pagamento": null,
-      "yield_pct": 2.46,
+      "yield_pct": 2.57,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5524,7 +5491,7 @@
       "data_com": "2025-04-23",
       "data_ex": "2025-04-24",
       "data_pagamento": null,
-      "yield_pct": 4.04,
+      "yield_pct": 4.1,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5535,7 +5502,7 @@
       "data_com": "2025-04-22",
       "data_ex": "2025-04-23",
       "data_pagamento": null,
-      "yield_pct": 0.37,
+      "yield_pct": 0.38,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5546,7 +5513,7 @@
       "data_com": "2025-04-22",
       "data_ex": "2025-04-23",
       "data_pagamento": null,
-      "yield_pct": 6.71,
+      "yield_pct": 6.76,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5557,7 +5524,7 @@
       "data_com": "2025-04-21",
       "data_ex": "2025-04-22",
       "data_pagamento": null,
-      "yield_pct": 1.76,
+      "yield_pct": 1.77,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5568,7 +5535,7 @@
       "data_com": "2025-04-21",
       "data_ex": "2025-04-22",
       "data_pagamento": null,
-      "yield_pct": 1.49,
+      "yield_pct": 1.48,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5579,7 +5546,7 @@
       "data_com": "2025-04-21",
       "data_ex": "2025-04-22",
       "data_pagamento": null,
-      "yield_pct": 1.53,
+      "yield_pct": 1.51,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5601,7 +5568,7 @@
       "data_com": "2025-04-16",
       "data_ex": "2025-04-17",
       "data_pagamento": null,
-      "yield_pct": 1.82,
+      "yield_pct": 1.8,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5612,7 +5579,7 @@
       "data_com": "2025-04-16",
       "data_ex": "2025-04-17",
       "data_pagamento": null,
-      "yield_pct": 1.38,
+      "yield_pct": 1.39,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5623,7 +5590,7 @@
       "data_com": "2025-04-11",
       "data_ex": "2025-04-14",
       "data_pagamento": null,
-      "yield_pct": 0.4,
+      "yield_pct": 0.39,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5634,7 +5601,7 @@
       "data_com": "2025-04-03",
       "data_ex": "2025-04-04",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5678,7 +5645,7 @@
       "data_com": "2025-03-31",
       "data_ex": "2025-04-01",
       "data_pagamento": null,
-      "yield_pct": 1.29,
+      "yield_pct": 1.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5689,7 +5656,7 @@
       "data_com": "2025-03-31",
       "data_ex": "2025-04-01",
       "data_pagamento": null,
-      "yield_pct": 1.24,
+      "yield_pct": 1.23,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5716,24 +5683,13 @@
       "fonte": "yfinance"
     },
     {
-      "ticker": "KEPL3",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.404,
-      "data_com": "2025-03-31",
-      "data_ex": "2025-04-01",
-      "data_pagamento": null,
-      "yield_pct": 6.38,
-      "status": "pago",
-      "fonte": "yfinance"
-    },
-    {
       "ticker": "PSSA3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 1.0385,
       "data_com": "2025-03-28",
       "data_ex": "2025-03-31",
       "data_pagamento": null,
-      "yield_pct": 1.92,
+      "yield_pct": 1.94,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5755,7 +5711,7 @@
       "data_com": "2025-03-26",
       "data_ex": "2025-03-27",
       "data_pagamento": null,
-      "yield_pct": 1.56,
+      "yield_pct": 1.57,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5843,7 +5799,7 @@
       "data_com": "2025-03-21",
       "data_ex": "2025-03-24",
       "data_pagamento": null,
-      "yield_pct": 2.12,
+      "yield_pct": 2.14,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5898,7 +5854,7 @@
       "data_com": "2025-03-17",
       "data_ex": "2025-03-18",
       "data_pagamento": null,
-      "yield_pct": 3.03,
+      "yield_pct": 3.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5920,7 +5876,7 @@
       "data_com": "2025-03-13",
       "data_ex": "2025-03-14",
       "data_pagamento": null,
-      "yield_pct": 8.78,
+      "yield_pct": 8.91,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5931,7 +5887,7 @@
       "data_com": "2025-03-11",
       "data_ex": "2025-03-12",
       "data_pagamento": null,
-      "yield_pct": 3.18,
+      "yield_pct": 3.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5942,7 +5898,7 @@
       "data_com": "2025-03-11",
       "data_ex": "2025-03-12",
       "data_pagamento": null,
-      "yield_pct": 1.73,
+      "yield_pct": 1.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5953,7 +5909,7 @@
       "data_com": "2025-03-10",
       "data_ex": "2025-03-11",
       "data_pagamento": null,
-      "yield_pct": 2.42,
+      "yield_pct": 2.45,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5964,7 +5920,7 @@
       "data_com": "2025-03-07",
       "data_ex": "2025-03-10",
       "data_pagamento": null,
-      "yield_pct": 2.98,
+      "yield_pct": 2.96,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5975,7 +5931,7 @@
       "data_com": "2025-03-06",
       "data_ex": "2025-03-07",
       "data_pagamento": null,
-      "yield_pct": 2.81,
+      "yield_pct": 2.82,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -5997,7 +5953,7 @@
       "data_com": "2025-03-06",
       "data_ex": "2025-03-07",
       "data_pagamento": null,
-      "yield_pct": 1.42,
+      "yield_pct": 1.41,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6052,7 +6008,7 @@
       "data_com": "2025-03-05",
       "data_ex": "2025-03-06",
       "data_pagamento": null,
-      "yield_pct": 0.42,
+      "yield_pct": 0.43,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6074,7 +6030,7 @@
       "data_com": "2025-03-05",
       "data_ex": "2025-03-06",
       "data_pagamento": null,
-      "yield_pct": 0.36,
+      "yield_pct": 0.37,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6085,7 +6041,7 @@
       "data_com": "2025-03-05",
       "data_ex": "2025-03-06",
       "data_pagamento": null,
-      "yield_pct": 2.08,
+      "yield_pct": 2.07,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6151,7 +6107,7 @@
       "data_com": "2025-03-04",
       "data_ex": "2025-03-05",
       "data_pagamento": null,
-      "yield_pct": 0.7,
+      "yield_pct": 0.71,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6162,7 +6118,7 @@
       "data_com": "2025-02-26",
       "data_ex": "2025-02-27",
       "data_pagamento": null,
-      "yield_pct": 4.38,
+      "yield_pct": 4.47,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6173,7 +6129,7 @@
       "data_com": "2025-02-26",
       "data_ex": "2025-02-27",
       "data_pagamento": null,
-      "yield_pct": 4.08,
+      "yield_pct": 4.1,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6184,7 +6140,7 @@
       "data_com": "2025-02-25",
       "data_ex": "2025-02-26",
       "data_pagamento": null,
-      "yield_pct": 3.49,
+      "yield_pct": 3.52,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6195,7 +6151,7 @@
       "data_com": "2025-02-25",
       "data_ex": "2025-02-26",
       "data_pagamento": null,
-      "yield_pct": 2.95,
+      "yield_pct": 2.92,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6206,7 +6162,7 @@
       "data_com": "2025-02-25",
       "data_ex": "2025-02-26",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6228,7 +6184,7 @@
       "data_com": "2025-02-20",
       "data_ex": "2025-02-21",
       "data_pagamento": null,
-      "yield_pct": 5.65,
+      "yield_pct": 5.58,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6272,7 +6228,7 @@
       "data_com": "2025-02-17",
       "data_ex": "2025-02-18",
       "data_pagamento": null,
-      "yield_pct": 3.31,
+      "yield_pct": 3.29,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6294,7 +6250,7 @@
       "data_com": "2025-02-10",
       "data_ex": "2025-02-11",
       "data_pagamento": null,
-      "yield_pct": 1.99,
+      "yield_pct": 2.01,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6305,7 +6261,7 @@
       "data_com": "2025-02-10",
       "data_ex": "2025-02-11",
       "data_pagamento": null,
-      "yield_pct": 3.82,
+      "yield_pct": 4.03,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6371,7 +6327,7 @@
       "data_com": "2025-01-30",
       "data_ex": "2025-01-31",
       "data_pagamento": null,
-      "yield_pct": 0.29,
+      "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6382,7 +6338,7 @@
       "data_com": "2025-01-23",
       "data_ex": "2025-01-24",
       "data_pagamento": null,
-      "yield_pct": 0.33,
+      "yield_pct": 0.34,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6393,7 +6349,7 @@
       "data_com": "2025-01-22",
       "data_ex": "2025-01-23",
       "data_pagamento": null,
-      "yield_pct": 1.49,
+      "yield_pct": 1.48,
       "status": "pago",
       "fonte": "yfinance"
     },
@@ -6404,7 +6360,7 @@
       "data_com": "2025-01-22",
       "data_ex": "2025-01-23",
       "data_pagamento": null,
-      "yield_pct": 1.53,
+      "yield_pct": 1.52,
       "status": "pago",
       "fonte": "yfinance"
     },
