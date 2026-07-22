@@ -22,6 +22,25 @@ const fPct = (v: number | null | undefined) => v == null ? '—' : `${v > 0 ? '+
 const corUpside = (v: number | null | undefined) =>
   v == null ? '#6b84a8' : v >= 20 ? '#00d4a0' : v >= 0 ? '#FFD54F' : '#ef4444'
 
+// Retorna o trimestre seguinte (ex: "4T25" → "1T26", "1T26" → "2T26")
+const proximoTrimestre = (periodo: string): string | null => {
+  const m = periodo.match(/^([1-4])T(\d{2})$/)
+  if (!m) return null
+  const q = parseInt(m[1]), y = parseInt(m[2])
+  return q < 4 ? `${q + 1}T${y.toString().padStart(2, '0')}` : `1T${(y + 1).toString().padStart(2, '0')}`
+}
+
+// Estima se o resultado de um trimestre já deveria estar disponível
+// (resultado divulgado ~45 dias após fim do trimestre)
+const trimestreDisponivel = (periodo: string): boolean => {
+  const m = periodo.match(/^([1-4])T(\d{2})$/)
+  if (!m) return false
+  const q = parseInt(m[1]), y = 2000 + parseInt(m[2])
+  const fimTri = new Date(y, q * 3, 1) // 1º dia do próximo trimestre
+  const divulgacao = new Date(fimTri.getTime() + 45 * 24 * 60 * 60 * 1000)
+  return new Date() >= divulgacao
+}
+
 type Aba = 'resumo' | 'historico' | 'linhas' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri' | 'kpis' | 'saude'
 
 /* ── Componentes menores ──────────────────────────────────────────────────── */
@@ -887,47 +906,63 @@ function SecSaude({ e }: { e: any }) {
   )
 }
 
-function SecProximoTri({ e }: { e: any }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function SecProximoTri({ e, plano, localEst, setLocalEst }: { e: any; plano: string | null; localEst: Record<string, any> | null; setLocalEst: (v: Record<string, any> | null) => void }) {
   const t = e.proximo_tri
   const kl = e.kpis_ltm ?? {}
+  const isAnalista = plano === 'analista'
 
-  if (!t) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Estimativa não disponível. Execute /buscar-resultado-ri para gerar.</p>
+  // Usa localEst se existir (editado pelo analista), senão fallback p/ e.proximo_tri
+  const est = localEst ?? t ?? {}
 
-  // Comparação Realizado vs Estimado
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const compRows: { label: string; est: any; real: any; campo: string }[] = []
-  if (t.receita  != null) compRows.push({ label:'Receita (R$ MM)',   est: t.receita,  real: kl.receita,   campo:'rec' })
-  if (t.ebitda   != null) compRows.push({ label:'EBITDA ex (R$ MM)', est: t.ebitda,   real: kl.ebitda,    campo:'ebitda' })
-  if (t.mg_ebitda != null) compRows.push({ label:'Mg EBITDA (%)',    est: t.mg_ebitda < 2 ? f1(t.mg_ebitda * 100) : f1(t.mg_ebitda), real: kl.mg_ebitda != null ? f1(kl.mg_ebitda < 2 ? kl.mg_ebitda * 100 : kl.mg_ebitda) : null, campo:'mg' })
-  if (t.ll       != null) compRows.push({ label:'Lucro Líq. (R$ MM)',est: t.ll,       real: kl.ll,        campo:'ll' })
-  if (t.sss      != null) compRows.push({ label:'SSS (%)',           est: t.sss,      real: kl.sss,       campo:'sss' })
-  if (t.npl      != null) compRows.push({ label:'NPL >90d (%)',      est: t.npl,      real: kl.npl,       campo:'npl' })
-  if (t.bhkp     != null) compRows.push({ label:'BHKP (USD/t)',      est: t.bhkp,     real: kl.bhkp,      campo:'bhkp' })
-  if (t.brent    != null) compRows.push({ label:'Brent (USD/bbl)',   est: t.brent,    real: kl.brent,     campo:'brent' })
-  if (t.roe      != null) compRows.push({ label:'ROE (%)',           est: t.roe,      real: kl.roe,       campo:'roe' })
-  if (t.div_liq  != null) compRows.push({ label:'Dív. Líquida (R$ MM)', est: t.div_liq, real: kl.div_liq, campo:'dl' })
+  const compRows: { label: string; est: any; real: any }[] = []
+  if (est.receita   != null) compRows.push({ label:'Receita (R$ MM)',       est: est.receita,   real: kl.receita   })
+  if (est.ebitda    != null) compRows.push({ label:'EBITDA ex (R$ MM)',      est: est.ebitda,    real: kl.ebitda    })
+  if (est.mg_ebitda != null) compRows.push({ label:'Mg EBITDA (%)',          est: est.mg_ebitda, real: kl.mg_ebitda != null ? (kl.mg_ebitda < 2 ? +(kl.mg_ebitda * 100).toFixed(1) : kl.mg_ebitda) : null })
+  if (est.ll        != null) compRows.push({ label:'Lucro Líq. (R$ MM)',     est: est.ll,        real: kl.ll        })
+  if (est.sss       != null) compRows.push({ label:'SSS (%)',                est: est.sss,       real: kl.sss       })
+  if (est.npl       != null) compRows.push({ label:'NPL >90d (%)',           est: est.npl,       real: kl.npl       })
+  if (est.bhkp      != null) compRows.push({ label:'BHKP (USD/t)',           est: est.bhkp,      real: kl.bhkp      })
+  if (est.brent     != null) compRows.push({ label:'Brent (USD/bbl)',        est: est.brent,     real: kl.brent     })
+  if (est.roe       != null) compRows.push({ label:'ROE (%)',                est: est.roe,       real: kl.roe       })
+  if (est.div_liq   != null) compRows.push({ label:'Dív. Líquida (R$ MM)',   est: est.div_liq,   real: kl.div_liq   })
 
-  const delta = (est: number | null, real: number | null) => {
-    if (est == null || real == null || est === 0) return null
-    return ((real - est) / Math.abs(est)) * 100
+  const delta = (e2: number | null, r: number | null) => {
+    if (e2 == null || r == null || e2 === 0) return null
+    return ((r - e2) / Math.abs(e2)) * 100
   }
+
+  const updEst = (campo: string, val: string) => {
+    const n = parseFloat(val.replace(',', '.'))
+    setLocalEst({ ...(localEst ?? {}), [campo]: isNaN(n) ? null : n })
+  }
+
+  const inputSty: React.CSSProperties = { background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.12)',borderRadius:'6px',color:'#e8edf5',fontFamily:'var(--font-space),monospace',fontSize:'13px',fontWeight:600,padding:'6px 10px',width:'100%',outline:'none' }
+
+  if (!t && !isAnalista) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Estimativa não disponível. Execute /buscar-resultado-ri para gerar.</p>
 
   return (
     <>
-      <SecTitle>Premissas {t.periodo ?? 'Próximo Trimestre'}</SecTitle>
-      {t.metodologia && (
+      {/* ── Estimativas do modelo ─────────────────────────────────────── */}
+      <SecTitle>
+        {est.periodo ?? t?.periodo ?? 'Próximo Trimestre'}
+        {localEst && <span style={{ marginLeft:'10px',fontSize:'11px',background:'rgba(232,160,32,.15)',color:'#e8a020',borderRadius:'4px',padding:'2px 7px',fontWeight:700 }}>✎ Editado</span>}
+      </SecTitle>
+
+      {t?.metodologia && (
         <p style={{ fontSize:'12px',color:'#6b84a8',marginBottom:'16px',background:'rgba(255,255,255,.03)',padding:'10px 14px',borderRadius:'8px',lineHeight:1.6 }}>
           <span style={{ color:'#e8a020',fontWeight:700 }}>Método: </span>{t.metodologia}
         </p>
       )}
 
-      {/* Cards principais */}
+      {/* Cards resumo */}
       <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(120px,1fr))',gap:'12px',marginBottom:'24px' }}>
         {[
-          { label:'Receita Est.',  val: t.receita  != null ? `R$ ${f2(t.receita)} MM`                                          : '—', cor:'#e8edf5' },
-          { label:'EBITDA Est.',   val: t.ebitda   != null ? `R$ ${f2(t.ebitda)} MM`                                           : '—', cor:'#e8edf5' },
-          { label:'Mg EBITDA Est.',val: t.mg_ebitda != null ? `${f1(t.mg_ebitda < 2 ? t.mg_ebitda * 100 : t.mg_ebitda)}%`    : '—', cor:'#00d4a0' },
-          { label:'Lucro Líq.',    val: t.ll        != null ? `R$ ${f2(t.ll)} MM`                                              : '—', cor:'#e8edf5' },
+          { label:'Receita Est.',   val: est.receita   != null ? `R$ ${f2(est.receita)} MM`  : '—', cor:'#e8edf5' },
+          { label:'EBITDA Est.',    val: est.ebitda    != null ? `R$ ${f2(est.ebitda)} MM`   : '—', cor:'#e8edf5' },
+          { label:'Mg EBITDA Est.', val: est.mg_ebitda != null ? `${f1(est.mg_ebitda)}%`     : '—', cor:'#00d4a0' },
+          { label:'Lucro Líq.',     val: est.ll        != null ? `R$ ${f2(est.ll)} MM`       : '—', cor:'#e8edf5' },
         ].map(item => (
           <div key={item.label} style={{ background:'rgba(255,255,255,.04)',border:'1px solid rgba(255,255,255,.07)',borderRadius:'10px',padding:'14px 16px' }}>
             <div style={{ fontSize:'11px',color:'#6b84a8',marginBottom:'4px' }}>{item.label}</div>
@@ -958,10 +993,10 @@ function SecProximoTri({ e }: { e: any }) {
                     <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)' }}>
                       <td style={{ padding:'9px 12px',color:'#b8c4d4' }}>{row.label}</td>
                       <td style={{ padding:'9px 12px',textAlign:'right',color:'#6b84a8',fontFamily:'var(--font-space),monospace',fontWeight:600 }}>
-                        {typeof row.est === 'string' ? row.est : row.est != null ? f2(Number(row.est)) : '—'}
+                        {row.est != null ? f2(Number(row.est)) : '—'}
                       </td>
                       <td style={{ padding:'9px 12px',textAlign:'right',color:'#e8edf5',fontFamily:'var(--font-space),monospace',fontWeight:700 }}>
-                        {typeof row.real === 'string' ? row.real : row.real != null ? f2(Number(row.real)) : '—'}
+                        {row.real != null ? f2(Number(row.real)) : '—'}
                       </td>
                       <td style={{ padding:'9px 12px',textAlign:'right',color:dCor,fontWeight:700 }}>
                         {d != null ? `${d >= 0 ? '+' : ''}${f1(d)}%` : '—'}
@@ -978,22 +1013,96 @@ function SecProximoTri({ e }: { e: any }) {
         </>
       )}
 
-      {/* KPIs setoriais extras */}
-      {(t.n_lojas != null || t.area_m2 != null || t.adtv != null || t.prod_mboed != null || t.brent_real != null) && (
+      {/* KPIs setoriais (modelo) */}
+      {(t?.n_lojas != null || t?.area_m2 != null || t?.adtv != null || t?.prod_mboed != null) && (
         <>
           <SecTitle>KPIs Setoriais Estimados</SecTitle>
           <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))',gap:'8px',marginBottom:'16px' }}>
             {[
-              t.n_lojas    != null && { label:'Lojas (est.)',         val: String(t.n_lojas) },
-              t.area_m2    != null && { label:'Área m² (est.)',       val: f2(t.area_m2) },
-              t.adtv       != null && { label:'ADTV est. (R$bi/dia)', val: f1(t.adtv) },
-              t.prod_mboed != null && { label:'Produção (Mboed)',      val: f2(t.prod_mboed) },
+              t.n_lojas    != null && { label:'Lojas (est.)',          val: String(t.n_lojas) },
+              t.area_m2    != null && { label:'Área m² (est.)',        val: f2(t.area_m2) },
+              t.adtv       != null && { label:'ADTV est. (R$bi/dia)',  val: f1(t.adtv) },
+              t.prod_mboed != null && { label:'Produção (Mboed)',       val: f2(t.prod_mboed) },
             ].filter(Boolean).map((k: any) => (
               <div key={k.label} style={{ background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.06)',borderRadius:'8px',padding:'10px 12px' }}>
                 <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'3px',fontWeight:700,textTransform:'uppercase' as const,letterSpacing:'.5px' }}>{k.label}</div>
                 <div style={{ fontSize:'14px',fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>{k.val}</div>
               </div>
             ))}
+          </div>
+        </>
+      )}
+
+      {/* ── Formulário de estimativa (apenas Analista) ─────────────────── */}
+      {isAnalista && (
+        <>
+          <div style={{ borderTop:'1px solid rgba(255,255,255,.08)',marginTop:'24px',paddingTop:'20px' }}>
+            <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'14px' }}>
+              <div>
+                <div style={{ fontSize:'12px',fontWeight:700,color:'#e8a020',letterSpacing:'1px',textTransform:'uppercase' as const }}>Estimar Próximo Trimestre</div>
+                <div style={{ fontSize:'11px',color:'#3d4f6a',marginTop:'2px' }}>Local · somente no browser · não altera o modelo</div>
+              </div>
+              {localEst && (
+                <button onClick={() => setLocalEst(null)} style={{ background:'rgba(255,255,255,.05)',border:'1px solid rgba(255,255,255,.10)',borderRadius:'6px',color:'#6b84a8',fontSize:'11px',fontWeight:700,padding:'5px 10px',cursor:'pointer' }}>
+                  Resetar
+                </button>
+              )}
+            </div>
+
+            {/* Campos DRE */}
+            <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'10px',marginBottom:'16px' }}>
+              {[
+                { campo:'receita',   label:'Receita (R$ MM)'   },
+                { campo:'ebitda',    label:'EBITDA (R$ MM)'    },
+                { campo:'mg_ebitda', label:'Mg EBITDA (%)'     },
+                { campo:'ll',        label:'Lucro Líq. (R$ MM)'},
+                { campo:'div_liq',   label:'Dív. Líq. (R$ MM)' },
+                { campo:'roe',       label:'ROE (%)'           },
+              ].map(({ campo, label }) => (
+                <div key={campo}>
+                  <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'4px' }}>{label}</div>
+                  <input
+                    type="number" step="0.1"
+                    value={est[campo] ?? ''}
+                    onChange={ev => updEst(campo, ev.target.value)}
+                    placeholder="—"
+                    style={inputSty}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* KPIs setoriais */}
+            {(t?.sss != null || t?.npl != null || t?.bhkp != null || t?.brent != null || t?.n_lojas != null) && (
+              <>
+                <div style={{ fontSize:'10px',fontWeight:700,color:'#6b84a8',letterSpacing:'1px',textTransform:'uppercase' as const,marginBottom:'10px' }}>KPIs Setoriais</div>
+                <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'10px',marginBottom:'16px' }}>
+                  {[
+                    t?.sss     != null && { campo:'sss',     label:'SSS (%)'         },
+                    t?.npl     != null && { campo:'npl',     label:'NPL >90d (%)'    },
+                    t?.bhkp    != null && { campo:'bhkp',    label:'BHKP (USD/t)'    },
+                    t?.brent   != null && { campo:'brent',   label:'Brent (USD/bbl)' },
+                    t?.n_lojas != null && { campo:'n_lojas', label:'Lojas'           },
+                  ].filter(Boolean).map((item: any) => (
+                    <div key={item.campo}>
+                      <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'4px' }}>{item.label}</div>
+                      <input
+                        type="number" step="0.1"
+                        value={est[item.campo] ?? ''}
+                        onChange={ev => updEst(item.campo, ev.target.value)}
+                        placeholder="—"
+                        style={inputSty}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <p style={{ fontSize:'11px',color:'#3d4f6a',lineHeight:1.5,marginTop:'4px' }}>
+              Os campos acima atualizam a tabela "Estimado vs Realizado" em tempo real.
+              Para tornar permanente, insira os dados em <code>dcf.py</code> e rode <code>export_dcf.py</code>.
+            </p>
           </div>
         </>
       )}
@@ -1188,7 +1297,15 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
 
   const [avancado, setAvancado] = useState(false)
   const [waccModal, setWaccModal] = useState(false)
+  const [calculandoLocal, setCalculandoLocal] = useState(false)
   const hasRecBase = emp?.rec_base != null
+
+  const calcularAgora = () => {
+    if (calculandoLocal) return
+    setCalculandoLocal(true)
+    onCalcularAgora()
+    setTimeout(() => setCalculandoLocal(false), 700)
+  }
 
   return (
     <div style={{ width: '256px', flexShrink: 0, background: '#081120', borderLeft: '1px solid rgba(255,255,255,.07)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
@@ -1238,10 +1355,11 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
         {/* Botão Calcular DCF */}
         {hasRecBase && (
           <button
-            onClick={onCalcularAgora}
-            style={{ width:'100%', background:'linear-gradient(135deg,#1a4a8a,#1e6aa0)', border:'1px solid rgba(30,106,160,.5)', borderRadius:'7px', color:'#90CAF9', fontWeight:700, fontSize:'12px', padding:'9px', cursor:'pointer', marginBottom:'12px', letterSpacing:'.5px' }}
+            onClick={calcularAgora}
+            disabled={calculandoLocal}
+            style={{ width:'100%', background: calculandoLocal ? 'linear-gradient(135deg,#0a5c2a,#0e8040)' : 'linear-gradient(135deg,#1a4a8a,#1e6aa0)', border:`1px solid ${calculandoLocal ? 'rgba(14,128,64,.5)' : 'rgba(30,106,160,.5)'}`, borderRadius:'7px', color: calculandoLocal ? '#4ade80' : '#90CAF9', fontWeight:700, fontSize:'12px', padding:'9px', cursor: calculandoLocal ? 'default' : 'pointer', marginBottom:'12px', letterSpacing:'.5px', transition:'all .2s' }}
           >
-            ▶ Calcular DCF
+            {calculandoLocal ? '✔ Calculado!' : '▶ Calcular DCF'}
           </button>
         )}
 
@@ -1364,6 +1482,9 @@ export default function DCFPage() {
   const [sel, setSel] = useState<string|null>(null)
   const [aba, setAba] = useState<Aba>('resumo')
   const [modalRel, setModalRel] = useState<string|null>(null)
+  const [busca, setBusca] = useState('')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [localEst, setLocalEst] = useState<Record<string, any> | null>(null)
   const [plano, setPlano] = useState<string | null>(null)
   const [precos, setPrecos] = useState<Record<string, number|null>>({})
 
@@ -1456,6 +1577,37 @@ export default function DCFPage() {
     return () => { clearInterval(timer); document.removeEventListener('visibilitychange', onVisible) }
   }, [fetchCotacoes])
 
+  // Inicializa localEst ao trocar de empresa (pré-popula com proximo_tri)
+  useEffect(() => {
+    if (!sel) { setLocalEst(null); return }
+    const e = dcfData[sel]
+    const t = e?.proximo_tri
+    if (!t) { setLocalEst(null); return }
+    setLocalEst({
+      receita:   t.receita   ?? null,
+      ebitda:    t.ebitda    ?? null,
+      mg_ebitda: t.mg_ebitda != null ? (t.mg_ebitda < 2 ? +(t.mg_ebitda * 100).toFixed(1) : t.mg_ebitda) : null,
+      ll:        t.ll        ?? null,
+      sss:       t.sss       ?? null,
+      npl:       t.npl       ?? null,
+      bhkp:      t.bhkp      ?? null,
+      brent:     t.brent     ?? null,
+      roe:       t.roe       ?? null,
+      div_liq:   t.div_liq   ?? null,
+      n_lojas:   t.n_lojas   ?? null,
+    })
+  }, [sel])
+
+  // Empresas filtradas pela busca (todos os planos com acesso)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const empresasFiltradas = useMemo<any[]>(() => {
+    const q = busca.toLowerCase().trim()
+    if (!q) return empresas
+    return empresas.filter((e: any) =>
+      e.ticker?.toLowerCase().includes(q) || e.nome?.toLowerCase().includes(q) || e.company?.toLowerCase().includes(q)
+    )
+  }, [busca])
+
   const emp = sel ? dcfData[sel] : null
   const precoLive = sel ? (precos[sel] ?? null) : null
   const upsideLive = (target: number|null, fallback: number|null) =>
@@ -1497,9 +1649,12 @@ export default function DCFPage() {
         body{font-family:var(--font-inter),Inter,sans-serif;background:#050d1a;color:#e8edf5}
         .page{display:flex;height:calc(100vh - 44px)}
         .sidebar{width:270px;flex-shrink:0;background:#081120;border-right:1px solid rgba(255,255,255,.07);overflow-y:auto;display:flex;flex-direction:column}
-        .sidebar-hdr{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.07)}
+        .sidebar-hdr{padding:14px 18px 10px;border-bottom:1px solid rgba(255,255,255,.07)}
         .sidebar-hdr h2{font-size:12px;font-weight:700;color:#6b84a8;letter-spacing:1px;text-transform:uppercase}
         .sidebar-hdr p{font-size:11px;color:#3d4f6a;margin-top:3px}
+        .busca-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:7px;color:#e8edf5;font-size:12px;padding:7px 10px;outline:none;margin-top:8px;font-family:inherit}
+        .busca-input::placeholder{color:#3d4f6a}
+        .busca-input:focus{border-color:rgba(232,160,32,.4);background:rgba(232,160,32,.04)}
         .emp-item{padding:13px 18px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .12s;display:flex;align-items:center;justify-content:space-between}
         .emp-item:hover{background:rgba(255,255,255,.04)}
         .emp-item.ativo{background:rgba(232,160,32,.08);border-left:3px solid #e8a020;padding-left:15px}
@@ -1521,9 +1676,10 @@ export default function DCFPage() {
         @keyframes spin{to{transform:rotate(360deg)}}
         @media (max-width: 640px) {
           .sidebar{width:104px}
-          .sidebar-hdr{padding:8px 8px}
+          .sidebar-hdr{padding:8px 8px 6px}
           .sidebar-hdr h2{font-size:9px}
           .sidebar-hdr p{font-size:9px}
+          .busca-input{font-size:10px;padding:5px 7px}
           .emp-item{padding:8px 8px;flex-direction:column;align-items:flex-start;gap:3px}
           .emp-item.ativo{padding-left:6px}
           .emp-nome{max-width:88px;font-size:9px}
@@ -1542,12 +1698,22 @@ export default function DCFPage() {
           <div className="sidebar-hdr">
             <h2>DCF / Valuation</h2>
             <p>{empresas.length} {empresas.length === 1 ? 'empresa' : 'empresas'} analisadas</p>
+            <input
+              className="busca-input"
+              placeholder="🔍  Filtrar empresa..."
+              value={busca}
+              onChange={e => setBusca(e.target.value)}
+            />
           </div>
           {empresas.length === 0 ? (
             <div style={{ padding:'20px',color:'#6b84a8',fontSize:'12px',textAlign:'center' }}>
               <p>Rode <code>export_dcf.py</code> para publicar as análises.</p>
             </div>
-          ) : empresas.map((e: any) => {
+          ) : empresasFiltradas.length === 0 ? (
+            <div style={{ padding:'16px 18px',color:'#3d4f6a',fontSize:'12px' }}>
+              Nenhuma empresa encontrada para "{busca}".
+            </div>
+          ) : empresasFiltradas.map((e: any) => {
             const pLive = precos[e.ticker] ?? null
             const up = pLive != null && e.base?.preco != null && pLive > 0
               ? ((e.base.preco - pLive) / pLive) * 100
@@ -1591,7 +1757,23 @@ export default function DCFPage() {
                   {resultadoCustom && <Badge label="⚡ EDITADO" color="#e8a020"/>}
                   <div style={{ marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center' }}>
                     <button
-                      onClick={() => { setAtualizando(true); fetchCotacoes(); setTimeout(() => setAtualizando(false), 2000) }}
+                      onClick={() => {
+                        setAtualizando(true)
+                        fetchCotacoes()
+                        setTimeout(() => {
+                          setAtualizando(false)
+                          // Verificar se novo trimestre pode estar disponível
+                          const ultimo = emp?.proximo_tri_ultimo_confirmado ?? emp?.ultimo_periodo_confirmado
+                          if (ultimo && emp?.ri_url) {
+                            const next = proximoTrimestre(ultimo)
+                            if (next && trimestreDisponivel(next)) {
+                              if (window.confirm(`${next} pode estar disponível.\n\nAcessar RI para confirmar o resultado?\n${emp.ri_url}`)) {
+                                window.open(emp.ri_url, '_blank')
+                              }
+                            }
+                          }
+                        }, 2000)
+                      }}
                       style={{ background:'rgba(0,212,160,.1)',border:'1px solid rgba(0,212,160,.3)',color:'#00d4a0',fontWeight:700,fontSize:'12px',padding:'8px 16px',borderRadius:'7px',cursor:'pointer' }}
                     >
                       {atualizando ? '⟳ Atualizando…' : '⟳ Atualizar dados'}
@@ -1631,7 +1813,7 @@ export default function DCFPage() {
                 {aba === 'projecoes'     && <SecProjecoes e={emp} customResult={resultadoCustom}/>}
                 {aba === 'sensibilidade' && <SecSensibilidade e={emp} precoLive={precoLive}/>}
                 {aba === 'outros'        && <SecOutros e={emp} precoLive={precoLive}/>}
-                {aba === 'tri'           && <SecProximoTri e={emp}/>}
+                {aba === 'tri'           && <SecProximoTri e={emp} plano={plano} localEst={localEst} setLocalEst={setLocalEst}/>}
                 {aba === 'kpis'  && isAnalista && <>
                   <SecTitle>KPIs Operacionais — Último Período</SecTitle>
                   <SecKPIs e={emp} precoLive={precoLive}/>
