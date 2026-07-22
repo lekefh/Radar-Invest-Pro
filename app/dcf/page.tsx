@@ -366,16 +366,33 @@ function SecResumo({ e, precoLive, customResult }: { e: any; precoLive: number|n
 function SecHistorico({ e }: { e: any }) {
   const hist: any[] = e.historico || []
   if (!hist.length) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Histórico não disponível. Rode export_dcf.py após calcular no fundamento.py.</p>
-  const cols = ['Ano','Receita (R$M)','EBITDA ex','Mg EBITDA','EBIT','FCL','Dív. Líq.']
-  const rows = hist.map(h => [
-    h.ano,
-    h.receita != null ? f2(h.receita) : '—',
-    h.ebitda  != null ? f2(h.ebitda)  : '—',
-    h.mg_ebitda != null ? f1(h.mg_ebitda * (h.mg_ebitda < 1 ? 100 : 1)) + '%' : '—',
-    h.ebit    != null ? f2(h.ebit)    : '—',
-    h.fcl     != null ? f2(h.fcl)     : '—',
-    h.div_liq != null ? f2(h.div_liq) : '—',
-  ])
+
+  const temCapex  = hist.some(h => h.capex  != null)
+  const temLojas  = hist.some(h => h.n_lojas != null)
+  const temArea   = hist.some(h => h.area_m2 != null)
+
+  const cols = [
+    'Ano', 'Receita (R$M)', 'EBITDA ex (R$M)', 'Mg EBITDA', 'EBIT (R$M)',
+    ...(temCapex ? ['CapEx (R$M)'] : []),
+    'FCL (R$M)', 'Dív. Líq. (R$M)',
+    ...(temLojas ? ['Lojas'] : []),
+    ...(temArea  ? ['Área m²'] : []),
+  ]
+  const rows = hist.map(h => {
+    const mg = h.mg_ebitda != null ? f1(h.mg_ebitda < 2 ? h.mg_ebitda * 100 : h.mg_ebitda) + '%' : '—'
+    return [
+      h.ano,
+      h.receita  != null ? f2(h.receita)  : '—',
+      h.ebitda   != null ? f2(h.ebitda)   : '—',
+      mg,
+      h.ebit     != null ? f2(h.ebit)     : '—',
+      ...(temCapex ? [h.capex   != null ? f2(h.capex)   : '—'] : []),
+      h.fcl      != null ? f2(h.fcl)      : '—',
+      h.div_liq  != null ? f2(h.div_liq)  : '—',
+      ...(temLojas ? [h.n_lojas != null ? String(Math.round(h.n_lojas)) : '—'] : []),
+      ...(temArea  ? [h.area_m2 != null ? f2(h.area_m2) : '—']  : []),
+    ]
+  })
   return <Tabela cols={cols} rows={rows}/>
 }
 
@@ -872,33 +889,235 @@ function SecSaude({ e }: { e: any }) {
 
 function SecProximoTri({ e }: { e: any }) {
   const t = e.proximo_tri
-  if (!t) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Estimativa não disponível.</p>
+  const kl = e.kpis_ltm ?? {}
+
+  if (!t) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Estimativa não disponível. Execute /buscar-resultado-ri para gerar.</p>
+
+  // Comparação Realizado vs Estimado
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const compRows: { label: string; est: any; real: any; campo: string }[] = []
+  if (t.receita  != null) compRows.push({ label:'Receita (R$ MM)',   est: t.receita,  real: kl.receita,   campo:'rec' })
+  if (t.ebitda   != null) compRows.push({ label:'EBITDA ex (R$ MM)', est: t.ebitda,   real: kl.ebitda,    campo:'ebitda' })
+  if (t.mg_ebitda != null) compRows.push({ label:'Mg EBITDA (%)',    est: t.mg_ebitda < 2 ? f1(t.mg_ebitda * 100) : f1(t.mg_ebitda), real: kl.mg_ebitda != null ? f1(kl.mg_ebitda < 2 ? kl.mg_ebitda * 100 : kl.mg_ebitda) : null, campo:'mg' })
+  if (t.ll       != null) compRows.push({ label:'Lucro Líq. (R$ MM)',est: t.ll,       real: kl.ll,        campo:'ll' })
+  if (t.sss      != null) compRows.push({ label:'SSS (%)',           est: t.sss,      real: kl.sss,       campo:'sss' })
+  if (t.npl      != null) compRows.push({ label:'NPL >90d (%)',      est: t.npl,      real: kl.npl,       campo:'npl' })
+  if (t.bhkp     != null) compRows.push({ label:'BHKP (USD/t)',      est: t.bhkp,     real: kl.bhkp,      campo:'bhkp' })
+  if (t.brent    != null) compRows.push({ label:'Brent (USD/bbl)',   est: t.brent,    real: kl.brent,     campo:'brent' })
+  if (t.roe      != null) compRows.push({ label:'ROE (%)',           est: t.roe,      real: kl.roe,       campo:'roe' })
+  if (t.div_liq  != null) compRows.push({ label:'Dív. Líquida (R$ MM)', est: t.div_liq, real: kl.div_liq, campo:'dl' })
+
+  const delta = (est: number | null, real: number | null) => {
+    if (est == null || real == null || est === 0) return null
+    return ((real - est) / Math.abs(est)) * 100
+  }
+
   return (
     <>
-      <SecTitle>Estimativa {t.periodo}</SecTitle>
+      <SecTitle>Premissas {t.periodo ?? 'Próximo Trimestre'}</SecTitle>
       {t.metodologia && (
-        <p style={{ fontSize:'12px',color:'#6b84a8',marginBottom:'16px',background:'rgba(255,255,255,.03)',padding:'10px 14px',borderRadius:'8px' }}>
-          Método: {t.metodologia}
+        <p style={{ fontSize:'12px',color:'#6b84a8',marginBottom:'16px',background:'rgba(255,255,255,.03)',padding:'10px 14px',borderRadius:'8px',lineHeight:1.6 }}>
+          <span style={{ color:'#e8a020',fontWeight:700 }}>Método: </span>{t.metodologia}
         </p>
       )}
-      <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(110px,1fr))',gap:'12px' }}>
+
+      {/* Cards principais */}
+      <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(120px,1fr))',gap:'12px',marginBottom:'24px' }}>
         {[
-          { label:'Receita Est.', val: t.receita != null ? `R$ ${f2(t.receita)} MM` : '—' },
-          { label:'EBITDA Est.',  val: t.ebitda  != null ? `R$ ${f2(t.ebitda)} MM`  : '—' },
-          { label:'Lucro Líq.',   val: t.ll      != null ? `R$ ${f2(t.ll)} MM`      : '—' },
+          { label:'Receita Est.',  val: t.receita  != null ? `R$ ${f2(t.receita)} MM`                                          : '—', cor:'#e8edf5' },
+          { label:'EBITDA Est.',   val: t.ebitda   != null ? `R$ ${f2(t.ebitda)} MM`                                           : '—', cor:'#e8edf5' },
+          { label:'Mg EBITDA Est.',val: t.mg_ebitda != null ? `${f1(t.mg_ebitda < 2 ? t.mg_ebitda * 100 : t.mg_ebitda)}%`    : '—', cor:'#00d4a0' },
+          { label:'Lucro Líq.',    val: t.ll        != null ? `R$ ${f2(t.ll)} MM`                                              : '—', cor:'#e8edf5' },
         ].map(item => (
           <div key={item.label} style={{ background:'rgba(255,255,255,.04)',border:'1px solid rgba(255,255,255,.07)',borderRadius:'10px',padding:'14px 16px' }}>
             <div style={{ fontSize:'11px',color:'#6b84a8',marginBottom:'4px' }}>{item.label}</div>
-            <div style={{ fontSize:'18px',fontWeight:700,color:'#e8edf5' }}>{item.val}</div>
+            <div style={{ fontSize:'17px',fontWeight:700,color:item.cor,fontFamily:'var(--font-space),monospace' }}>{item.val}</div>
           </div>
         ))}
       </div>
-      {t.mg_ebitda != null && (
-        <div style={{ marginTop:'12px',fontSize:'13px',color:'#b8c4d4' }}>
-          Mg EBITDA est.: {f1(t.mg_ebitda * 100)}%
-        </div>
+
+      {/* Tabela Estimado vs Realizado */}
+      {compRows.length > 0 && kl.periodo && (
+        <>
+          <SecTitle>Estimado vs Realizado — {kl.periodo}</SecTitle>
+          <div style={{ overflowX:'auto',marginBottom:'20px' }}>
+            <table style={{ width:'100%',borderCollapse:'collapse',fontSize:'12.5px',minWidth:'400px' }}>
+              <thead>
+                <tr>
+                  {['Indicador','Estimado','Realizado','Δ vs Est.','Status'].map(c => (
+                    <th key={c} style={{ padding:'8px 12px',textAlign: c === 'Indicador' ? 'left' : 'right',fontSize:'10px',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,color:'#6b84a8',borderBottom:'2px solid rgba(255,255,255,.08)',whiteSpace:'nowrap' as const }}>{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {compRows.map((row, i) => {
+                  const d = typeof row.est === 'number' && typeof row.real === 'number' ? delta(row.est, row.real) : null
+                  const status = d == null ? '' : d >= 3 ? '✅ Acima' : d >= -3 ? '≈ Em linha' : '⚠ Abaixo'
+                  const dCor   = d == null ? '#6b84a8' : d >= 3 ? '#00d4a0' : d >= -3 ? '#FFD54F' : '#ef4444'
+                  return (
+                    <tr key={i} style={{ borderBottom:'1px solid rgba(255,255,255,.04)' }}>
+                      <td style={{ padding:'9px 12px',color:'#b8c4d4' }}>{row.label}</td>
+                      <td style={{ padding:'9px 12px',textAlign:'right',color:'#6b84a8',fontFamily:'var(--font-space),monospace',fontWeight:600 }}>
+                        {typeof row.est === 'string' ? row.est : row.est != null ? f2(Number(row.est)) : '—'}
+                      </td>
+                      <td style={{ padding:'9px 12px',textAlign:'right',color:'#e8edf5',fontFamily:'var(--font-space),monospace',fontWeight:700 }}>
+                        {typeof row.real === 'string' ? row.real : row.real != null ? f2(Number(row.real)) : '—'}
+                      </td>
+                      <td style={{ padding:'9px 12px',textAlign:'right',color:dCor,fontWeight:700 }}>
+                        {d != null ? `${d >= 0 ? '+' : ''}${f1(d)}%` : '—'}
+                      </td>
+                      <td style={{ padding:'9px 12px',textAlign:'right',color:dCor,fontSize:'11px',fontWeight:700 }}>
+                        {status || '—'}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+      {/* KPIs setoriais extras */}
+      {(t.n_lojas != null || t.area_m2 != null || t.adtv != null || t.prod_mboed != null || t.brent_real != null) && (
+        <>
+          <SecTitle>KPIs Setoriais Estimados</SecTitle>
+          <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(150px,1fr))',gap:'8px',marginBottom:'16px' }}>
+            {[
+              t.n_lojas    != null && { label:'Lojas (est.)',         val: String(t.n_lojas) },
+              t.area_m2    != null && { label:'Área m² (est.)',       val: f2(t.area_m2) },
+              t.adtv       != null && { label:'ADTV est. (R$bi/dia)', val: f1(t.adtv) },
+              t.prod_mboed != null && { label:'Produção (Mboed)',      val: f2(t.prod_mboed) },
+            ].filter(Boolean).map((k: any) => (
+              <div key={k.label} style={{ background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.06)',borderRadius:'8px',padding:'10px 12px' }}>
+                <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'3px',fontWeight:700,textTransform:'uppercase' as const,letterSpacing:'.5px' }}>{k.label}</div>
+                <div style={{ fontSize:'14px',fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>{k.val}</div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </>
+  )
+}
+
+/* ── Modal WACC — Ke / Kd / Pesos ───────────────────────────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ModalWACC({ emp, taxRate, onAplicar, onClose }: {
+  emp: any; taxRate: number; onAplicar: (wacc: number) => void; onClose: () => void
+}) {
+  const [rf,      setRf]      = useState<number>(emp.wacc_rf       ?? 13.6)
+  const [beta,    setBeta]    = useState<number>(emp.wacc_beta      ?? 1.0)
+  const [erp,     setErp]     = useState<number>(emp.wacc_erp       ?? 5.0)
+  const [kdBruto, setKdBruto] = useState<number>(emp.wacc_kd_bruto  ?? emp.wacc_ke ?? 14.0)
+  const [pesoE,   setPesoE]   = useState<number>((emp.wacc_peso_e ?? 1.0) * 100)
+
+  const ke     = rf + beta * erp
+  const kdAt   = kdBruto * (1 - taxRate / 100)
+  const waccCalc = ke * (pesoE / 100) + kdAt * (1 - pesoE / 100)
+
+  const numStyle: React.CSSProperties = {
+    background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.15)',
+    borderRadius:'6px', color:'#e8edf5', fontFamily:'var(--font-space),monospace',
+    fontSize:'13px', fontWeight:600, padding:'6px 8px', width:'90px', outline:'none',
+    textAlign:'right',
+  }
+  const labelStyle: React.CSSProperties = {
+    fontSize:'11px', color:'#6b84a8', display:'flex', alignItems:'center',
+    justifyContent:'space-between', gap:'8px', padding:'6px 0',
+    borderBottom:'1px solid rgba(255,255,255,.04)',
+  }
+  const calcStyle: React.CSSProperties = {
+    fontSize:'13px', fontWeight:700, color:'#e8a020', fontFamily:'var(--font-space),monospace',
+    background:'rgba(232,160,32,.08)', border:'1px solid rgba(232,160,32,.2)',
+    borderRadius:'6px', padding:'6px 10px', minWidth:'70px', textAlign:'right',
+  }
+  const sectionStyle: React.CSSProperties = {
+    fontSize:'10px', fontWeight:700, letterSpacing:'1px', textTransform:'uppercase',
+    color:'#e8a020', padding:'10px 0 6px', marginTop:'4px',
+  }
+
+  return (
+    <div style={{ position:'fixed',inset:0,background:'rgba(0,0,0,.75)',zIndex:300,display:'flex',alignItems:'center',justifyContent:'center',padding:'20px' }}
+         onClick={e => e.target === e.currentTarget && onClose()}>
+      <div style={{ background:'#0a1628',border:'1px solid rgba(255,255,255,.12)',borderRadius:'14px',width:'100%',maxWidth:'480px',maxHeight:'90vh',overflow:'auto' }}>
+        {/* Header */}
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',padding:'16px 24px',borderBottom:'1px solid rgba(255,255,255,.08)' }}>
+          <h2 style={{ fontSize:'14px',fontWeight:700,color:'#e8edf5' }}>WACC — Ke / Kd / Pesos</h2>
+          <button onClick={onClose} style={{ background:'none',border:'none',color:'#6b84a8',fontSize:'20px',cursor:'pointer' }}>×</button>
+        </div>
+
+        <div style={{ padding:'16px 24px' }}>
+          {/* SEÇÃO Ke */}
+          <div style={sectionStyle}>Custo do Capital Próprio &nbsp;·&nbsp; Ke = Rf + Beta × ERP</div>
+          <div style={labelStyle}>
+            <span>Rf — taxa livre de risco (%) <span style={{ color:'#3d4f6a',fontSize:'10px' }}>NTN-B longa</span></span>
+            <input type="number" step={0.1} value={rf} onChange={e => setRf(parseFloat(e.target.value)||0)} style={numStyle}/>
+          </div>
+          <div style={labelStyle}>
+            <span>Beta <span style={{ color:'#3d4f6a',fontSize:'10px' }}>[36M vs IBOV]</span></span>
+            <input type="number" step={0.01} value={beta} onChange={e => setBeta(parseFloat(e.target.value)||0)} style={numStyle}/>
+          </div>
+          <div style={labelStyle}>
+            <span>ERP Brasil (%)</span>
+            <input type="number" step={0.1} value={erp} onChange={e => setErp(parseFloat(e.target.value)||0)} style={numStyle}/>
+          </div>
+          <div style={{ ...labelStyle, borderBottom:'none', marginTop:'4px' }}>
+            <span style={{ color:'#e8edf5',fontWeight:600 }}>Ke (%) [calculado]</span>
+            <span style={calcStyle}>{f2(ke)}%</span>
+          </div>
+
+          {/* SEÇÃO Kd */}
+          <div style={{ ...sectionStyle, borderTop:'1px solid rgba(255,255,255,.07)', paddingTop:'12px', marginTop:'8px' }}>
+            Custo da Dívida &nbsp;·&nbsp; Kd = Kd × (1 − tax shield)
+          </div>
+          <div style={labelStyle}>
+            <span>Kd bruto (%)</span>
+            <input type="number" step={0.1} value={kdBruto} onChange={e => setKdBruto(parseFloat(e.target.value)||0)} style={numStyle}/>
+          </div>
+          <div style={labelStyle}>
+            <span>Tax shield IR/CSLL (%) <span style={{ color:'#3d4f6a',fontSize:'10px' }}>← {f1(taxRate)}% efetiva</span></span>
+            <span style={{ ...numStyle, display:'inline-block', color:'#6b84a8' }}>{f1(taxRate)}</span>
+          </div>
+          <div style={{ ...labelStyle, borderBottom:'none', marginTop:'4px' }}>
+            <span style={{ color:'#e8edf5',fontWeight:600 }}>Kd líquido (%) [calculado]</span>
+            <span style={calcStyle}>{f2(kdAt)}%</span>
+          </div>
+
+          {/* SEÇÃO Pesos */}
+          <div style={{ ...sectionStyle, borderTop:'1px solid rgba(255,255,255,.07)', paddingTop:'12px', marginTop:'8px' }}>
+            Pesos Estrutura de Capital
+          </div>
+          <div style={labelStyle}>
+            <span>E% (equity / capital total) [auto]</span>
+            <input type="number" step={1} min={0} max={100} value={pesoE} onChange={e => setPesoE(parseFloat(e.target.value)||0)} style={numStyle}/>
+          </div>
+
+          {/* RESULTADO */}
+          <div style={{ marginTop:'16px',padding:'14px 16px',background:'rgba(232,160,32,.07)',border:'1px solid rgba(232,160,32,.25)',borderRadius:'10px',display:'flex',justifyContent:'space-between',alignItems:'center' }}>
+            <div>
+              <div style={{ fontSize:'10px',color:'#6b84a8',letterSpacing:'.5px',textTransform:'uppercase' }}>WACC calculado</div>
+              <div style={{ fontSize:'11px',color:'#6b84a8',marginTop:'2px' }}>
+                {f1(ke)}% × {f1(pesoE)}% E + {f2(kdAt)}% × {f1(100-pesoE)}% D
+              </div>
+            </div>
+            <div style={{ fontSize:'26px',fontWeight:700,color:'#e8a020',fontFamily:'var(--font-space),monospace' }}>
+              {f2(waccCalc)}%
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display:'flex',gap:'10px',padding:'14px 24px',borderTop:'1px solid rgba(255,255,255,.07)' }}>
+          <button onClick={onClose} style={{ flex:1,background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',fontWeight:600,fontSize:'13px',padding:'10px',borderRadius:'7px',cursor:'pointer' }}>
+            Cancelar
+          </button>
+          <button onClick={() => { onAplicar(Math.round(waccCalc * 100) / 100); onClose() }}
+            style={{ flex:2,background:'#e8a020',color:'#000',fontWeight:700,fontSize:'13px',padding:'10px',borderRadius:'7px',border:'none',cursor:'pointer' }}>
+            Aplicar WACC ao modelo ({f2(waccCalc)}%)
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -945,13 +1164,14 @@ function AnosGrid({ label, values, onChange }: {
   )
 }
 
-function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset }: {
+function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onCalcularAgora }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emp: any
   premissas: PremissasDCF
   setPremissas: (fn: (p: PremissasDCF) => PremissasDCF) => void
   resultado: ResultadoDCF | null
   onReset: () => void
+  onCalcularAgora: () => void
 }) {
   const upd = <K extends keyof PremissasDCF>(key: K, val: PremissasDCF[K]) =>
     setPremissas(p => ({ ...p, [key]: val }))
@@ -967,6 +1187,7 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset }: {
   const corU = (v: number | null | undefined) => v == null ? '#6b84a8' : v >= 20 ? '#00d4a0' : v >= 0 ? '#FFD54F' : '#ef4444'
 
   const [avancado, setAvancado] = useState(false)
+  const [waccModal, setWaccModal] = useState(false)
   const hasRecBase = emp?.rec_base != null
 
   return (
@@ -983,7 +1204,7 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset }: {
       <div style={{ padding: '14px 16px', flex: 1 }}>
         {/* Resultado calculado */}
         {hasRecBase && resultado ? (
-          <div style={{ marginBottom: '16px', background: 'rgba(232,160,32,.05)', border: '1px solid rgba(232,160,32,.18)', borderRadius: '8px', padding: '10px 12px' }}>
+          <div style={{ marginBottom: '12px', background: 'rgba(232,160,32,.05)', border: '1px solid rgba(232,160,32,.18)', borderRadius: '8px', padding: '10px 12px' }}>
             <div style={{ fontSize: '9.5px', fontWeight: 700, color: '#e8a020', letterSpacing: '.5px', textTransform: 'uppercase' as const, marginBottom: '8px' }}>Resultado calculado</div>
             {[
               { label: '🔴 Bear', val: resultado.bear.preco, up: resultado.bear.upside },
@@ -1014,9 +1235,49 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset }: {
           </div>
         )}
 
+        {/* Botão Calcular DCF */}
+        {hasRecBase && (
+          <button
+            onClick={onCalcularAgora}
+            style={{ width:'100%', background:'linear-gradient(135deg,#1a4a8a,#1e6aa0)', border:'1px solid rgba(30,106,160,.5)', borderRadius:'7px', color:'#90CAF9', fontWeight:700, fontSize:'12px', padding:'9px', cursor:'pointer', marginBottom:'12px', letterSpacing:'.5px' }}
+          >
+            ▶ Calcular DCF
+          </button>
+        )}
+
         {/* Parâmetros gerais */}
-        <div style={{ fontSize: '10px', fontWeight: 700, color: '#e8a020', letterSpacing: '1px', textTransform: 'uppercase' as const, marginBottom: '10px' }}>Parâmetros Gerais</div>
-        <InputPrem label="WACC"               value={premissas.wacc}              onChange={v => upd('wacc', v)} />
+        <div style={{ fontSize: '10px', fontWeight: 700, color: '#e8a020', letterSpacing: '1px', textTransform: 'uppercase' as const, marginBottom: '8px' }}>Parâmetros Gerais</div>
+
+        {/* WACC com botão de abertura do modal */}
+        <div style={{ marginBottom: '10px' }}>
+          <div style={{ fontSize: '10px', color: '#6b84a8', fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase' as const, marginBottom: '4px' }}>WACC</div>
+          <div style={{ display: 'flex', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flex: 1 }}>
+              <input
+                type="number" step={0.1} value={premissas.wacc}
+                onChange={e => upd('wacc', parseFloat(e.target.value) || 0)}
+                style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.14)', borderRadius: '6px', color: '#e8edf5', fontFamily: 'var(--font-space),monospace', fontSize: '13px', fontWeight: 600, padding: '6px 8px', width: '100%', outline: 'none' }}
+              />
+              <span style={{ fontSize: '12px', color: '#6b84a8', flexShrink: 0 }}>%</span>
+            </div>
+            <button
+              onClick={() => setWaccModal(true)}
+              title="WACC — Ke/Kd/Pesos (editar componentes)"
+              style={{ background: 'rgba(30,106,160,.15)', border: '1px solid rgba(30,106,160,.3)', borderRadius: '6px', color: '#90CAF9', fontSize: '10px', fontWeight: 700, padding: '0 7px', cursor: 'pointer', flexShrink: 0, whiteSpace: 'nowrap' as const }}
+            >
+              Ke/Kd
+            </button>
+          </div>
+          {(emp.wacc_ke != null || emp.wacc_rf != null) && (
+            <div style={{ fontSize: '9.5px', color: '#3d4f6a', marginTop: '3px', lineHeight: 1.4 }}>
+              {emp.wacc_rf != null && `Rf=${f1(emp.wacc_rf)}% · `}
+              {emp.wacc_beta != null && `β=${f2(emp.wacc_beta)} · `}
+              {emp.wacc_ke != null && `Ke=${f1(emp.wacc_ke)}%`}
+              {emp.wacc_peso_e != null && ` · E=${f1((emp.wacc_peso_e) * 100)}%`}
+            </div>
+          )}
+        </div>
+
         <InputPrem label="g Terminal"          value={premissas.g_terminal}         onChange={v => upd('g_terminal', v)} />
         <InputPrem label="IR/CSLL efetivo"     value={premissas.tax_rate}           onChange={v => upd('tax_rate', v)} />
         <InputPrem label="IR/CSLL perpetuidade" value={premissas.tax_rate_terminal} onChange={v => upd('tax_rate_terminal', v)} />
@@ -1044,6 +1305,16 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset }: {
           </>
         )}
       </div>
+
+      {/* Modal WACC */}
+      {waccModal && (
+        <ModalWACC
+          emp={emp}
+          taxRate={premissas.tax_rate}
+          onAplicar={wacc => upd('wacc', wacc)}
+          onClose={() => setWaccModal(false)}
+        />
+      )}
     </div>
   )
 }
@@ -1147,6 +1418,16 @@ export default function DCFPage() {
       setResultadoCustom(res)
     }, 400)
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [premissas, sel, plano, precos])
+
+  const calcularDCFAgora = useCallback(() => {
+    if (!premissas || !sel || plano !== 'analista') return
+    const e = dcfData[sel]
+    if (!e) return
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    const pa = precos[sel] ?? e.preco_atual ?? null
+    const res = calcDCFCustom(e, premissas, pa)
+    setResultadoCustom(res)
   }, [premissas, sel, plano, precos])
 
   const fetchCotacoes = useCallback(() => {
@@ -1372,6 +1653,7 @@ export default function DCFPage() {
             setPremissas={fn => setPremissas(p => p ? fn(p) : p)}
             resultado={resultadoCustom}
             onReset={() => { setPremissas(premissasDeEmp(emp)); setResultadoCustom(null) }}
+            onCalcularAgora={calcularDCFAgora}
           />
         )}
       </div>
