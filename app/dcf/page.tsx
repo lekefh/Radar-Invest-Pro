@@ -25,6 +25,186 @@ const corUpside = (v: number | null | undefined) =>
 
 type Aba = 'resumo' | 'historico' | 'linhas' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri' | 'kpis' | 'saude'
 
+/* ── Ajustes do Analista — tipo e default ────────────────────────────────── */
+interface AjustesAnalista {
+  nao_recorrente_liq: number   // R$ MM a remover da base de projeção
+  wacc_ajuste: number          // pp a somar ao WACC (positivo = conservador)
+  desconto_adicional: number   // % a descontar/premiar sobre o preço final
+  observacoes: string
+}
+const AJUSTES_DEFAULT: AjustesAnalista = { nao_recorrente_liq: 0, wacc_ajuste: 0, desconto_adicional: 0, observacoes: '' }
+
+/* ── Configuração de inputs por setor (Premissas Próx. Tri) ─────────────── */
+interface CampoSetor { key: string; label: string; default: number; hint?: string }
+interface SetorConfig { label: string; campos: CampoSetor[] }
+const SETORES_CONFIG: Record<string, SetorConfig> = {
+  varejo_vest: { label:'Varejo Vestuário', campos:[
+    { key:'sss',        label:'SSS lojas exist. (%)',      default:5.0,  hint:'Same Store Sales YoY' },
+    { key:'new_stores', label:'Novas lojas (qtde)',         default:20 },
+    { key:'ramp_up',    label:'Ramp up novas lojas (%)',    default:50,   hint:'% receita vs loja madura no 1º tri' },
+  ]},
+  varejo_alim: { label:'Varejo Alimentar', campos:[
+    { key:'sss',        label:'SSS lojas exist. (%)',       default:0.0 },
+    { key:'new_stores', label:'Novas lojas (qtde)',          default:5 },
+    { key:'ramp_up',    label:'Ramp up novas lojas (%)',     default:50 },
+  ]},
+  tecnologia: { label:'Tecnologia', campos:[
+    { key:'cresc_seg',      label:'Cresc. Segurança (% a/a)',  default:4.0 },
+    { key:'cresc_tic',      label:'Cresc. TIC (% a/a)',        default:-5.0 },
+    { key:'cresc_ener',     label:'Cresc. Energia (% a/a)',    default:8.0 },
+    { key:'mg_ebitda_next', label:'Mg. EBITDA esperada (%)',   default:12.5 },
+  ]},
+  agro_ind: { label:'Agro Industrial', campos:[
+    { key:'cresc_mi',       label:'Cresc. Merc. Interno (% a/a)',  default:2.0 },
+    { key:'cresc_me',       label:'Cresc. Merc. Externo (% a/a)',  default:18.0 },
+    { key:'mg_ebitda_next', label:'Mg. EBITDA esperada (%)',       default:15.0 },
+  ]},
+  real_estate: { label:'Real Estate / Incorporação', campos:[
+    { key:'vgv_pct',    label:'VGV lançado (% vs ref)',     default:0, hint:'Δ em relação ao mesmo tri ano anterior' },
+    { key:'vendas_pct', label:'Vendas contrat. (% vs ref)', default:0 },
+    { key:'mg_bruta_pp',label:'Margem bruta (pp vs ref)',   default:0 },
+  ]},
+  ddm_seguro: { label:'Seguro / DDM', campos:[
+    { key:'ll_prev', label:'LL Prev./Saúde (R$ MM)',   default:5500 },
+    { key:'ll_seg',  label:'LL Seguros (R$ MM)',        default:2254 },
+    { key:'ll_ban',  label:'LL Corretora (R$ MM)',      default:864 },
+    { key:'ll_cap',  label:'LL Cap./Outros (R$ MM)',    default:420 },
+  ]},
+  banco: { label:'Banco / Financeiro', campos:[
+    { key:'npl',         label:'NPL >90d (%)',               default:3.5 },
+    { key:'g_carteira',  label:'g Carteira de Crédito (% a/a)', default:10.0 },
+    { key:'mg_financeira',label:'Mg. Financeira Líq. (%)',   default:8.0 },
+  ]},
+  bolsa: { label:'Bolsa (B3SA3)', campos:[
+    { key:'adtv',          label:'ADTV spot (R$ bi/dia)',    default:23.0 },
+    { key:'g_tech',        label:'g Tecnologia/Dados (% a/a)',default:12.0 },
+    { key:'mg_ebitda_next',label:'Mg. EBITDA esperada (%)', default:63.5 },
+  ]},
+  energia: { label:'Energia Elétrica', campos:[
+    { key:'ipca_reaj',     label:'Reajuste tarifário IPCA (%)', default:6.5 },
+    { key:'var_vol',       label:'Var. volume elétrico (% a/a)', default:1.0 },
+    { key:'mg_ebitda_next',label:'Mg. EBITDA esperada (%)',    default:30.5 },
+  ]},
+  celulose: { label:'Celulose / Papel', campos:[
+    { key:'bhkp_usd', label:'BHKP esperado (USD/t)',   default:650 },
+    { key:'vol_kt',   label:'Volume produção (kt)',      default:2800 },
+    { key:'fx',       label:'Câmbio BRL/USD esperado',  default:5.15 },
+  ]},
+  petroleo: { label:'Petróleo / E&P', campos:[
+    { key:'brent',      label:'Brent esperado (USD/bbl)', default:75 },
+    { key:'prod_mboed', label:'Produção (Mboed)',          default:2800 },
+    { key:'fx',         label:'Câmbio BRL/USD esperado',  default:5.15 },
+  ]},
+  agro: { label:'Agro / Commodities', campos:[
+    { key:'area_kha_pct', label:'Área plantada (% vs ref)',  default:0 },
+    { key:'yield_pct',    label:'Yield bags/ha (% vs ref)',   default:0 },
+    { key:'bag_price_pct',label:'Preço bag R$ (% vs ref)',   default:0 },
+  ]},
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function detectarSetor(emp: any): string {
+  const t = (emp.ticker ?? '').toUpperCase()
+  const s = (emp.setor ?? '').toLowerCase()
+  if (['B3SA3'].some(x => t.includes(x))) return 'bolsa'
+  if (['BBSE3','PSSA3','CXSE3','IZZB3','IRBR3'].some(x => t.includes(x))) return 'ddm_seguro'
+  if (['BBAS3','BBDC4','ITUB4','SANB11','BMGB4','BPAC11'].some(x => t.includes(x))) return 'banco'
+  if (['AZZA3','RIAA3','CEAB3','AMAR3','SOMA3','LREN3'].some(x => t.includes(x))) return 'varejo_vest'
+  if (['GMAT3','PCAR3','ASAI3'].some(x => t.includes(x))) return 'varejo_alim'
+  if (['INTB3'].some(x => t.includes(x))) return 'tecnologia'
+  if (['KEPL3'].some(x => t.includes(x))) return 'agro_ind'
+  if (['CYRE3','EVEN3','TRIS3','MRV3'].some(x => t.includes(x))) return 'real_estate'
+  if (['EGIE3','TAEE11','CPFE3','ENGI11','AURE3','SBSP3','CSMG3'].some(x => t.includes(x))) return 'energia'
+  if (['SUZB3','KLBN11','RANI3'].some(x => t.includes(x))) return 'celulose'
+  if (['PETR4','PRIO3','RECV3','BRAV3','RRRP3'].some(x => t.includes(x))) return 'petroleo'
+  if (['SOJA3','SLCE3','AGRO3','CAML3'].some(x => t.includes(x))) return 'agro'
+  if (s.includes('varejo')) return 'varejo_vest'
+  if (s.includes('energia') || s.includes('utili')) return 'energia'
+  if (s.includes('banco') || s.includes('financ')) return 'banco'
+  return 'generico'
+}
+
+// Estimation engine — mirrors dcf.py calc_next_quarter_estimate()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function estimarProxTriLocal(emp: any, setor: string, inputs: Record<string, number>): Record<string, number | null> {
+  const r1 = (v: number) => Math.round(v * 10) / 10
+  const recBase = ((emp.rec_base ?? 0) / 4) // quarterly base (LTM ÷ 4)
+  const kl = emp.kpis_ltm ?? {}
+  const mgEH = (kl.mg_ebitda != null ? (kl.mg_ebitda < 2 ? kl.mg_ebitda * 100 : kl.mg_ebitda) : (emp.mg_ebitda?.[0] ?? 20)) / 100
+  const mgLL = kl.ll != null && kl.receita != null && kl.receita > 0 ? kl.ll / kl.receita / 4 : 0.08
+
+  let recEst = recBase
+  let ebEst: number | null = null
+  let mgEst: number | null = null
+  let llEst: number | null = null
+
+  switch (setor) {
+    case 'varejo_vest': case 'varejo_alim': {
+      const nL = kl.n_lojas ?? 100
+      const sss = (inputs.sss ?? 5) / 100
+      const ns  = inputs.new_stores ?? 20
+      const ru  = (inputs.ramp_up ?? 50) / 100
+      const rpl = nL > 0 ? recBase / nL : 0
+      recEst = recBase * (1 + sss) + ns * rpl * ru
+      break
+    }
+    case 'tecnologia': {
+      const g = (0.61*(inputs.cresc_seg??4) + 0.21*(inputs.cresc_tic??-5) + 0.18*(inputs.cresc_ener??8)) / 100
+      recEst = recBase * (1 + g)
+      const mg = (inputs.mg_ebitda_next ?? 12.5) / 100
+      ebEst = recEst * mg; mgEst = mg * 100; break
+    }
+    case 'agro_ind': {
+      const g = (0.84*(inputs.cresc_mi??2) + 0.16*(inputs.cresc_me??18)) / 100
+      recEst = recBase * (1 + g)
+      const mg = (inputs.mg_ebitda_next ?? 15) / 100
+      ebEst = recEst * mg; mgEst = mg * 100; break
+    }
+    case 'energia': {
+      recEst = recBase * (1 + (inputs.ipca_reaj??6.5)/100) * (1 + (inputs.var_vol??1)/100)
+      const mg = (inputs.mg_ebitda_next ?? 30.5) / 100
+      ebEst = recEst * mg; mgEst = mg * 100; break
+    }
+    case 'bolsa': {
+      const adtvRef = kl.adtv ?? 23; const adtvEsp = inputs.adtv ?? adtvRef
+      recEst = recBase * (0.65 * (adtvRef > 0 ? adtvEsp/adtvRef : 1) + 0.35 * (1 + (inputs.g_tech??12)/100))
+      const mg = (inputs.mg_ebitda_next ?? 63.5) / 100
+      ebEst = recEst * mg; mgEst = mg * 100; break
+    }
+    case 'celulose': {
+      const bhkp = inputs.bhkp_usd ?? 650; const vol = inputs.vol_kt ?? 2800; const fx = inputs.fx ?? 5.15
+      recEst = (bhkp * vol * fx) / 1000; break
+    }
+    case 'petroleo': {
+      const brent = inputs.brent ?? 75; const prod = inputs.prod_mboed ?? 2800; const fx = inputs.fx ?? 5.15
+      recEst = prod * 90 * brent * fx / 1e6; break
+    }
+    case 'ddm_seguro': {
+      llEst = (inputs.ll_prev??5500) + (inputs.ll_seg??2254) + (inputs.ll_ban??864) + (inputs.ll_cap??420)
+      break
+    }
+    default: {
+      const g = (emp.g_receita?.[0] ?? 8) / 100
+      recEst = recBase * (1 + g)
+    }
+  }
+
+  if (ebEst == null) { ebEst = recEst * mgEH; mgEst = mgEH * 100 }
+  if (llEst == null) { llEst = recEst * mgLL }
+
+  return {
+    receita:   r1(recEst),
+    ebitda:    r1(ebEst),
+    mg_ebitda: mgEst != null ? r1(mgEst) : r1(ebEst / recEst * 100),
+    ll:        r1(llEst),
+    ...(inputs.sss        != null ? { sss:     inputs.sss }                             : {}),
+    ...(inputs.npl        != null ? { npl:     inputs.npl }                             : {}),
+    ...(inputs.bhkp_usd   != null ? { bhkp:    inputs.bhkp_usd }                        : {}),
+    ...(inputs.brent      != null ? { brent:   inputs.brent }                           : {}),
+    ...(inputs.new_stores != null ? { n_lojas: (kl.n_lojas ?? 0) + inputs.new_stores } : {}),
+  }
+}
+
 /* ── Componentes menores ──────────────────────────────────────────────────── */
 function Badge({ label, color }: { label: string; color: string }) {
   return (
@@ -1255,7 +1435,7 @@ function AnosGrid({ label, values, onChange }: {
   )
 }
 
-function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onCalcularAgora }: {
+function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onCalcularAgora, ajustes, setAjustes, nextTriInputs, setNextTriInputs, onEstimarProxTri }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   emp: any
   premissas: PremissasDCF
@@ -1263,6 +1443,12 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
   resultado: ResultadoDCF | null
   onReset: () => void
   onCalcularAgora: () => void
+  ajustes: AjustesAnalista
+  setAjustes: (aj: AjustesAnalista) => void
+  nextTriInputs: Record<string, number>
+  setNextTriInputs: (v: Record<string, number>) => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onEstimarProxTri: (resultado: Record<string, any>) => void
 }) {
   const upd = <K extends keyof PremissasDCF>(key: K, val: PremissasDCF[K]) =>
     setPremissas(p => ({ ...p, [key]: val }))
@@ -1280,7 +1466,11 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
   const [avancado, setAvancado] = useState(false)
   const [waccModal, setWaccModal] = useState(false)
   const [calculandoLocal, setCalculandoLocal] = useState(false)
+  const [ajAberto, setAjAberto] = useState(false)
+  const [proxTriAberto, setProxTriAberto] = useState(false)
   const hasRecBase = emp?.rec_base != null
+  const setor = detectarSetor(emp)
+  const setorCfg = SETORES_CONFIG[setor]
 
   const calcularAgora = () => {
     if (calculandoLocal) return
@@ -1288,6 +1478,20 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
     onCalcularAgora()
     setTimeout(() => setCalculandoLocal(false), 700)
   }
+
+  const updAj = (key: keyof AjustesAnalista, val: string | number) =>
+    setAjustes({ ...ajustes, [key]: typeof val === 'string' && key !== 'observacoes' ? (parseFloat(val) || 0) : val })
+
+  const updNTI = (key: string, val: string) => {
+    const n = parseFloat(val.replace(',', '.'))
+    setNextTriInputs({ ...nextTriInputs, [key]: isNaN(n) ? 0 : n })
+  }
+
+  const temAjuste = ajustes.nao_recorrente_liq !== 0 || ajustes.wacc_ajuste !== 0 || ajustes.desconto_adicional !== 0 || ajustes.observacoes !== ''
+
+  // Preço ajustado pelo desconto adicional
+  const precoAjust = (v: number) => ajustes.desconto_adicional ? v * (1 - ajustes.desconto_adicional / 100) : v
+  const sInp: React.CSSProperties = { background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.12)',borderRadius:'6px',color:'#e8edf5',fontFamily:'var(--font-space),monospace',fontSize:'13px',fontWeight:600,padding:'6px 8px',width:'100%',outline:'none' }
 
   return (
     <div style={{ width: '256px', flexShrink: 0, background: '#081120', borderLeft: '1px solid rgba(255,255,255,.07)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
@@ -1405,6 +1609,109 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
           </>
         )}
       </div>
+
+      {/* ── Ajustes do Analista ────────────────────────────── */}
+      <div style={{ borderTop:'1px solid rgba(255,255,255,.06)',marginTop:'4px' }}>
+        <button
+          onClick={() => setAjAberto(a => !a)}
+          style={{ width:'100%',background:'transparent',border:'none',padding:'10px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',cursor:'pointer',color: temAjuste ? '#e8a020' : '#6b84a8',fontSize:'10.5px',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const }}
+        >
+          <span>{ajAberto ? '▲' : '▼'} Ajustes do Analista</span>
+          {temAjuste && <span style={{ fontSize:'9px',background:'rgba(232,160,32,.2)',color:'#e8a020',borderRadius:'4px',padding:'1px 5px' }}>ATIVO</span>}
+        </button>
+        {ajAberto && (
+          <div style={{ padding:'0 16px 14px' }}>
+            <p style={{ fontSize:'10px',color:'#3d4f6a',marginBottom:'10px',lineHeight:1.5 }}>
+              Normalização pós-análise de fatos
+            </p>
+            {[
+              { key:'nao_recorrente_liq', label:'Não Recorrente Líq. (R$ MM)', hint:'+ = receita extra  /  − = custo extra' },
+              { key:'wacc_ajuste',        label:'Ajuste WACC (pp)',             hint:'+ = mais conservador  /  − = prêmio' },
+              { key:'desconto_adicional', label:'Desconto / Prêmio (%)',        hint:'+ = desconto no preço  /  − = prêmio' },
+            ].map(({ key, label, hint }) => (
+              <div key={key} style={{ marginBottom:'8px' }}>
+                <div style={{ fontSize:'9.5px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'3px' }}>{label}</div>
+                <input
+                  type="number" step="0.1"
+                  value={(ajustes as any)[key] ?? 0}
+                  onChange={e => updAj(key as keyof AjustesAnalista, e.target.value)}
+                  style={sInp}
+                />
+                <div style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'2px' }}>{hint}</div>
+              </div>
+            ))}
+            <div style={{ marginBottom:'8px' }}>
+              <div style={{ fontSize:'9.5px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'3px' }}>Observações</div>
+              <textarea
+                value={ajustes.observacoes}
+                onChange={e => updAj('observacoes', e.target.value)}
+                rows={3}
+                style={{ ...sInp, fontFamily:'inherit',fontSize:'11px',resize:'vertical' as const,lineHeight:1.5 }}
+              />
+            </div>
+            {/* Preços com desconto — mostrar quando há ajuste */}
+            {(ajustes.desconto_adicional !== 0 || ajustes.wacc_ajuste !== 0 || ajustes.nao_recorrente_liq !== 0) && resultado && (
+              <div style={{ background:'rgba(232,160,32,.05)',border:'1px solid rgba(232,160,32,.15)',borderRadius:'7px',padding:'8px 10px',marginBottom:'8px' }}>
+                <div style={{ fontSize:'9px',color:'#e8a020',fontWeight:700,marginBottom:'6px',textTransform:'uppercase' as const,letterSpacing:'.5px' }}>Preço ajustado (com desconto/prêmio)</div>
+                {(['bear','base','bull'] as const).map(c => {
+                  const preco = resultado[c].preco
+                  const adj = precoAjust(preco)
+                  return (
+                    <div key={c} style={{ display:'flex',justifyContent:'space-between',padding:'2px 0',fontSize:'11px' }}>
+                      <span style={{ color:'#6b84a8',textTransform:'capitalize' as const }}>{c}</span>
+                      <span style={{ color:'#e8edf5',fontFamily:'var(--font-space),monospace',fontWeight:700 }}>
+                        R$ {adj.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+                        {ajustes.desconto_adicional !== 0 && <span style={{ fontSize:'9px',color:'#6b84a8',marginLeft:'4px' }}>({preco.toLocaleString('pt-BR',{minimumFractionDigits:2})} s/adj.)</span>}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* ── Premissas Próximo Trimestre ─────────────────────── */}
+      {setorCfg && (
+        <div style={{ borderTop:'1px solid rgba(255,255,255,.06)' }}>
+          <button
+            onClick={() => setProxTriAberto(a => !a)}
+            style={{ width:'100%',background:'transparent',border:'none',padding:'10px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',cursor:'pointer',color:'#6b84a8',fontSize:'10.5px',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const }}
+          >
+            <span>{proxTriAberto ? '▲' : '▼'} Premissas Próx. Tri</span>
+          </button>
+          {proxTriAberto && (
+            <div style={{ padding:'0 16px 14px' }}>
+              <div style={{ fontSize:'10px',color:'#e8a020',fontWeight:700,marginBottom:'10px' }}>▼ {setorCfg.label}</div>
+              {setorCfg.campos.map(campo => (
+                <div key={campo.key} style={{ marginBottom:'8px' }}>
+                  <div style={{ fontSize:'9.5px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'3px' }}>{campo.label}</div>
+                  <input
+                    type="number" step="0.1"
+                    value={nextTriInputs[campo.key] ?? campo.default}
+                    onChange={e => updNTI(campo.key, e.target.value)}
+                    style={sInp}
+                  />
+                  {campo.hint && <div style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'2px' }}>{campo.hint}</div>}
+                </div>
+              ))}
+              <button
+                onClick={() => {
+                  const res = estimarProxTriLocal(emp, setor, nextTriInputs)
+                  onEstimarProxTri(res)
+                }}
+                style={{ width:'100%',background:'linear-gradient(135deg,#3a1a8a,#6a20c0)',border:'1px solid rgba(106,32,192,.5)',borderRadius:'7px',color:'#d4aaff',fontWeight:700,fontSize:'12px',padding:'9px',cursor:'pointer',marginTop:'4px',letterSpacing:'.5px' }}
+              >
+                ▶ Estimar Próximo Trimestre
+              </button>
+              <p style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'6px',lineHeight:1.5,textAlign:'center' as const }}>
+                SSS = crescimento YoY com lojas já abertas antes | Ramp up = % receita contribuída no 1º tri de operação
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Modal WACC */}
       {waccModal && (
@@ -1651,6 +1958,8 @@ export default function DCFPage() {
   const [busca, setBusca] = useState('')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [localEst, setLocalEst] = useState<Record<string, any> | null>(null)
+  const [ajustes, setAjustes] = useState<AjustesAnalista>(AJUSTES_DEFAULT)
+  const [nextTriInputs, setNextTriInputs] = useState<Record<string, number>>({})
   const [plano, setPlano] = useState<string | null>(null)
   const [precos, setPrecos] = useState<Record<string, number|null>>({})
 
@@ -1693,6 +2002,19 @@ export default function DCFPage() {
     setResultadoCustom(null)
   }, [sel, plano])
 
+  // Aplica ajustes do analista às premissas/base antes de calcular
+  const aplicarAjustes = useCallback((e: any, prem: PremissasDCF): [any, PremissasDCF] => {
+    let eAdj = e
+    let pAdj = prem
+    if (ajustes.nao_recorrente_liq !== 0 && e.rec_base != null) {
+      eAdj = { ...e, rec_base: Math.max(100, e.rec_base - ajustes.nao_recorrente_liq) }
+    }
+    if (ajustes.wacc_ajuste !== 0) {
+      pAdj = { ...prem, wacc: Math.max(0.5, prem.wacc + ajustes.wacc_ajuste) }
+    }
+    return [eAdj, pAdj]
+  }, [ajustes])
+
   // Recalcula DCF com debounce de 400ms ao editar premissas
   useEffect(() => {
     if (!premissas || !sel || plano !== 'analista') return
@@ -1701,11 +2023,12 @@ export default function DCFPage() {
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => {
       const pa = precos[sel] ?? e.preco_atual ?? null
-      const res = calcDCFCustom(e, premissas, pa)
+      const [eAdj, pAdj] = aplicarAjustes(e, premissas)
+      const res = calcDCFCustom(eAdj, pAdj, pa)
       setResultadoCustom(res)
     }, 400)
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
-  }, [premissas, sel, plano, precos])
+  }, [premissas, sel, plano, precos, aplicarAjustes])
 
   const calcularDCFAgora = useCallback(() => {
     if (!premissas || !sel || plano !== 'analista') return
@@ -1713,9 +2036,10 @@ export default function DCFPage() {
     if (!e) return
     if (debounceRef.current) clearTimeout(debounceRef.current)
     const pa = precos[sel] ?? e.preco_atual ?? null
-    const res = calcDCFCustom(e, premissas, pa)
+    const [eAdj, pAdj] = aplicarAjustes(e, premissas)
+    const res = calcDCFCustom(eAdj, pAdj, pa)
     setResultadoCustom(res)
-  }, [premissas, sel, plano, precos])
+  }, [premissas, sel, plano, precos, aplicarAjustes])
 
   const fetchCotacoes = useCallback(() => {
     const tickers = Object.keys(dcfData)
@@ -1762,6 +2086,27 @@ export default function DCFPage() {
       div_liq:   t.div_liq   ?? null,
       n_lojas:   t.n_lojas   ?? null,
     })
+  }, [sel])
+
+  // Inicializa ajustes (localStorage) e nextTriInputs (sector defaults) ao trocar empresa
+  useEffect(() => {
+    if (!sel) { setAjustes(AJUSTES_DEFAULT); setNextTriInputs({}); return }
+    // Carregar ajustes do localStorage
+    try {
+      const saved = localStorage.getItem(`dcf_aj_${sel}`)
+      setAjustes(saved ? { ...AJUSTES_DEFAULT, ...JSON.parse(saved) } : AJUSTES_DEFAULT)
+    } catch { setAjustes(AJUSTES_DEFAULT) }
+    // Defaults do setor para os inputs do próximo trimestre
+    const e = dcfData[sel]
+    const setor = detectarSetor(e)
+    const cfg = SETORES_CONFIG[setor]
+    if (cfg) {
+      const defs: Record<string, number> = {}
+      cfg.campos.forEach(c => { defs[c.key] = c.default })
+      setNextTriInputs(defs)
+    } else {
+      setNextTriInputs({})
+    }
   }, [sel])
 
   // Empresas filtradas pela busca (todos os planos com acesso)
@@ -1993,6 +2338,14 @@ export default function DCFPage() {
             resultado={resultadoCustom}
             onReset={() => { setPremissas(premissasDeEmp(emp)); setResultadoCustom(null) }}
             onCalcularAgora={calcularDCFAgora}
+            ajustes={ajustes}
+            setAjustes={aj => {
+              setAjustes(aj)
+              if (sel) { try { localStorage.setItem(`dcf_aj_${sel}`, JSON.stringify(aj)) } catch {} }
+            }}
+            nextTriInputs={nextTriInputs}
+            setNextTriInputs={setNextTriInputs}
+            onEstimarProxTri={resultado => { setLocalEst(resultado); setAba('tri') }}
           />
         )}
       </div>
