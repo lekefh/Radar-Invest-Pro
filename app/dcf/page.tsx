@@ -22,24 +22,6 @@ const fPct = (v: number | null | undefined) => v == null ? '—' : `${v > 0 ? '+
 const corUpside = (v: number | null | undefined) =>
   v == null ? '#6b84a8' : v >= 20 ? '#00d4a0' : v >= 0 ? '#FFD54F' : '#ef4444'
 
-// Retorna o trimestre seguinte (ex: "4T25" → "1T26", "1T26" → "2T26")
-const proximoTrimestre = (periodo: string): string | null => {
-  const m = periodo.match(/^([1-4])T(\d{2})$/)
-  if (!m) return null
-  const q = parseInt(m[1]), y = parseInt(m[2])
-  return q < 4 ? `${q + 1}T${y.toString().padStart(2, '0')}` : `1T${(y + 1).toString().padStart(2, '0')}`
-}
-
-// Estima se o resultado de um trimestre já deveria estar disponível
-// (resultado divulgado ~45 dias após fim do trimestre)
-const trimestreDisponivel = (periodo: string): boolean => {
-  const m = periodo.match(/^([1-4])T(\d{2})$/)
-  if (!m) return false
-  const q = parseInt(m[1]), y = 2000 + parseInt(m[2])
-  const fimTri = new Date(y, q * 3, 1) // 1º dia do próximo trimestre
-  const divulgacao = new Date(fimTri.getTime() + 45 * 24 * 60 * 60 * 1000)
-  return new Date() >= divulgacao
-}
 
 type Aba = 'resumo' | 'historico' | 'linhas' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri' | 'kpis' | 'saude'
 
@@ -1437,6 +1419,189 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
   )
 }
 
+/* ── Modal Atualizar Dados — busca novo resultado no RI ─────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ModalAtualizarDados({ ticker, emp, onClose, onIrParaTri }: {
+  ticker: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  emp: any
+  onClose: () => void
+  onIrParaTri: () => void
+}) {
+  const [estado, setEstado] = useState<'buscando' | 'ok' | 'erro'>('buscando')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [dados, setDados] = useState<any>(null)
+
+  useEffect(() => {
+    fetch(`/api/verificar-resultado?ticker=${ticker}`)
+      .then(r => r.json())
+      .then(d => { setDados(d); setEstado('ok') })
+      .catch(() => setEstado('erro'))
+  }, [ticker])
+
+  const ultimoConf    = dados?.ultimo_confirmado ?? emp?.ultimo_periodo_confirmado ?? '—'
+  const proximoEsp    = dados?.proximo_esperado ?? '—'
+  const novoDetectado = dados?.novo_detectado ?? false
+  const disporData    = dados?.disponivel_por_data ?? false
+  const riUrl         = dados?.ri_url ?? emp?.ri_url ?? null
+  const riCheck       = dados?.ri_check
+  const yahoo         = dados?.yahoo_recente
+  const estimativa    = dados?.estimativa ?? emp?.proximo_tri
+
+  // Badge de status
+  const [statusLabel, statusCor] =
+    estado === 'buscando' ? ['Buscando…', '#6b84a8']
+    : novoDetectado       ? ['Novo resultado detectado', '#00d4a0']
+    : disporData          ? ['Possivelmente disponível', '#FFD54F']
+    :                       ['Aguardando divulgação',    '#6b84a8']
+
+  const bdSty: React.CSSProperties = {
+    position:'fixed',inset:0,background:'rgba(0,0,0,.7)',zIndex:2000,display:'flex',alignItems:'center',justifyContent:'center',backdropFilter:'blur(3px)'
+  }
+  const modalSty: React.CSSProperties = {
+    background:'#0b1729',border:'1px solid rgba(255,255,255,.10)',borderRadius:'16px',padding:'28px 28px 24px',width:'560px',maxWidth:'95vw',maxHeight:'85vh',overflowY:'auto',position:'relative'
+  }
+
+  return (
+    <div style={bdSty} onClick={e => { if (e.target === e.currentTarget) onClose() }}>
+      <div style={modalSty}>
+        {/* Cabeçalho */}
+        <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'20px' }}>
+          <div>
+            <div style={{ fontSize:'11px',fontWeight:700,letterSpacing:'1px',textTransform:'uppercase' as const,color:'#e8a020' }}>Atualizar Dados — {ticker}</div>
+            <div style={{ fontSize:'13px',color:'#b8c4d4',marginTop:'3px' }}>{emp?.nome ?? emp?.company}</div>
+          </div>
+          <button onClick={onClose} style={{ background:'rgba(255,255,255,.07)',border:'none',borderRadius:'8px',color:'#6b84a8',fontSize:'18px',width:'32px',height:'32px',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0 }}>✕</button>
+        </div>
+
+        {/* Status badge */}
+        <div style={{ display:'flex',alignItems:'center',gap:'10px',padding:'12px 14px',background:'rgba(255,255,255,.04)',border:`1px solid ${statusCor}33`,borderRadius:'10px',marginBottom:'20px' }}>
+          {estado === 'buscando' && (
+            <div style={{ width:'14px',height:'14px',border:'2px solid rgba(232,160,32,.3)',borderTopColor:'#e8a020',borderRadius:'50%',animation:'spin .75s linear infinite',flexShrink:0 }} />
+          )}
+          <span style={{ fontSize:'13px',fontWeight:700,color:statusCor }}>{statusLabel}</span>
+        </div>
+
+        {/* Períodos */}
+        <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:'10px',marginBottom:'20px' }}>
+          <div style={{ background:'rgba(255,255,255,.04)',borderRadius:'9px',padding:'12px 14px' }}>
+            <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'4px' }}>Último confirmado</div>
+            <div style={{ fontSize:'18px',fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>{ultimoConf}</div>
+          </div>
+          <div style={{ background: novoDetectado ? 'rgba(0,212,160,.08)' : 'rgba(255,255,255,.04)', border: novoDetectado ? '1px solid rgba(0,212,160,.3)' : '1px solid transparent', borderRadius:'9px',padding:'12px 14px' }}>
+            <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'4px' }}>Próximo esperado</div>
+            <div style={{ fontSize:'18px',fontWeight:700,color: novoDetectado ? '#00d4a0' : '#FFD54F',fontFamily:'var(--font-space),monospace' }}>{proximoEsp}</div>
+          </div>
+        </div>
+
+        {/* Resultado da busca no RI */}
+        {estado === 'ok' && (
+          <>
+            {riCheck && (
+              <div style={{ marginBottom:'16px',padding:'12px 14px',background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',borderRadius:'9px' }}>
+                <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'8px' }}>
+                  Busca no RI da empresa
+                </div>
+                {riCheck.erro ? (
+                  <div style={{ fontSize:'12px',color:'#ef4444' }}>Erro: {riCheck.erro}</div>
+                ) : riCheck.encontrado ? (
+                  <>
+                    <div style={{ fontSize:'13px',color:'#00d4a0',fontWeight:700,marginBottom:'6px' }}>✓ Referências ao {proximoEsp} encontradas na página do RI</div>
+                    {riCheck.titulosReleases.length > 0 && (
+                      <ul style={{ listStyle:'none',padding:0,margin:0 }}>
+                        {riCheck.titulosReleases.map((t: string, i: number) => (
+                          <li key={i} style={{ fontSize:'12px',color:'#b8c4d4',padding:'3px 0',borderBottom:'1px solid rgba(255,255,255,.04)' }}>
+                            › {t}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                ) : (
+                  <div style={{ fontSize:'12px',color:'#6b84a8' }}>Resultado {proximoEsp} ainda não encontrado na página do RI.</div>
+                )}
+              </div>
+            )}
+
+            {/* Yahoo Finance suplementar */}
+            {yahoo && (yahoo.receita_mm != null || yahoo.lucro_mm != null) && (
+              <div style={{ marginBottom:'16px',padding:'12px 14px',background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',borderRadius:'9px' }}>
+                <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'8px' }}>
+                  Yahoo Finance — último resultado
+                  {yahoo.periodo && <span style={{ marginLeft:'8px',color:'#e8a020' }}>{yahoo.periodo}</span>}
+                  {yahoo.endDate && <span style={{ marginLeft:'6px',fontSize:'9px',color:'#3d4f6a' }}>({yahoo.endDate})</span>}
+                </div>
+                <div style={{ display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px' }}>
+                  {[
+                    { label:'Receita', val: yahoo.receita_mm, suffix:'R$ MM' },
+                    { label:'EBIT',    val: yahoo.ebit_mm,    suffix:'R$ MM' },
+                    { label:'LL',      val: yahoo.lucro_mm,   suffix:'R$ MM' },
+                  ].map(item => (
+                    <div key={item.label} style={{ background:'rgba(255,255,255,.03)',borderRadius:'7px',padding:'8px 10px' }}>
+                      <div style={{ fontSize:'9px',color:'#6b84a8',fontWeight:700,textTransform:'uppercase' as const,letterSpacing:'.5px',marginBottom:'3px' }}>{item.label}</div>
+                      <div style={{ fontSize:'13px',fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>
+                        {item.val != null ? `${item.val.toLocaleString('pt-BR')}` : '—'}
+                      </div>
+                      {item.val != null && <div style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'1px' }}>{item.suffix}</div>}
+                    </div>
+                  ))}
+                </div>
+                {yahoo.erro && <div style={{ fontSize:'10px',color:'#6b84a8',marginTop:'6px' }}>⚠ {yahoo.erro}</div>}
+              </div>
+            )}
+
+            {/* Estimativa do modelo */}
+            {estimativa && (
+              <div style={{ marginBottom:'20px',padding:'12px 14px',background:'rgba(232,160,32,.05)',border:'1px solid rgba(232,160,32,.15)',borderRadius:'9px' }}>
+                <div style={{ fontSize:'10px',color:'#e8a020',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'8px' }}>
+                  Estimativa do modelo — {estimativa.periodo ?? proximoEsp}
+                </div>
+                <div style={{ display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'8px' }}>
+                  {[
+                    { label:'Receita', val: estimativa.receita, fmt: (v: number) => `R$ ${v.toLocaleString('pt-BR',{minimumFractionDigits:1})} MM` },
+                    { label:'EBITDA',  val: estimativa.ebitda,  fmt: (v: number) => `R$ ${v.toLocaleString('pt-BR',{minimumFractionDigits:1})} MM` },
+                    { label:'Mg EBITDA', val: estimativa.mg_ebitda, fmt: (v: number) => `${v < 2 ? (v*100).toFixed(1) : v.toFixed(1)}%` },
+                    { label:'Lucro Líq.', val: estimativa.ll, fmt: (v: number) => `R$ ${v.toLocaleString('pt-BR',{minimumFractionDigits:1})} MM` },
+                  ].map(item => (
+                    <div key={item.label} style={{ display:'flex',justifyContent:'space-between',padding:'4px 0',borderBottom:'1px solid rgba(255,255,255,.04)' }}>
+                      <span style={{ fontSize:'12px',color:'#6b84a8' }}>{item.label}</span>
+                      <span style={{ fontSize:'12px',fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>
+                        {item.val != null ? item.fmt(item.val) : '—'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Ações */}
+        <div style={{ display:'flex',flexDirection:'column' as const,gap:'10px' }}>
+          {riUrl && (
+            <a href={riUrl} target="_blank" rel="noreferrer"
+               style={{ display:'block',textAlign:'center',background:'#e8a020',color:'#000',fontWeight:700,fontSize:'13px',padding:'11px',borderRadius:'8px',textDecoration:'none' }}>
+              Abrir RI da empresa →
+            </a>
+          )}
+          <button
+            onClick={onIrParaTri}
+            style={{ background:'rgba(30,106,160,.15)',border:'1px solid rgba(30,106,160,.3)',borderRadius:'8px',color:'#90CAF9',fontWeight:700,fontSize:'13px',padding:'10px',cursor:'pointer' }}
+          >
+            Preencher resultado manualmente (Próx. Trimestre)
+          </button>
+          <button
+            onClick={onClose}
+            style={{ background:'transparent',border:'1px solid rgba(255,255,255,.08)',borderRadius:'8px',color:'#6b84a8',fontSize:'13px',padding:'9px',cursor:'pointer' }}
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── Paywall plano gratuito ──────────────────────────────────────────────── */
 function PaywallDCF() {
   return (
@@ -1482,6 +1647,7 @@ export default function DCFPage() {
   const [sel, setSel] = useState<string|null>(null)
   const [aba, setAba] = useState<Aba>('resumo')
   const [modalRel, setModalRel] = useState<string|null>(null)
+  const [modalAtualizar, setModalAtualizar] = useState(false)
   const [busca, setBusca] = useState('')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [localEst, setLocalEst] = useState<Record<string, any> | null>(null)
@@ -1756,28 +1922,19 @@ export default function DCFPage() {
                   )}
                   {resultadoCustom && <Badge label="⚡ EDITADO" color="#e8a020"/>}
                   <div style={{ marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center' }}>
-                    <button
-                      onClick={() => {
-                        setAtualizando(true)
-                        fetchCotacoes()
-                        setTimeout(() => {
-                          setAtualizando(false)
-                          // Verificar se novo trimestre pode estar disponível
-                          const ultimo = emp?.proximo_tri_ultimo_confirmado ?? emp?.ultimo_periodo_confirmado
-                          if (ultimo && emp?.ri_url) {
-                            const next = proximoTrimestre(ultimo)
-                            if (next && trimestreDisponivel(next)) {
-                              if (window.confirm(`${next} pode estar disponível.\n\nAcessar RI para confirmar o resultado?\n${emp.ri_url}`)) {
-                                window.open(emp.ri_url, '_blank')
-                              }
-                            }
-                          }
-                        }, 2000)
-                      }}
-                      style={{ background:'rgba(0,212,160,.1)',border:'1px solid rgba(0,212,160,.3)',color:'#00d4a0',fontWeight:700,fontSize:'12px',padding:'8px 16px',borderRadius:'7px',cursor:'pointer' }}
-                    >
-                      {atualizando ? '⟳ Atualizando…' : '⟳ Atualizar dados'}
-                    </button>
+                    {isAnalista && (
+                      <button
+                        onClick={() => {
+                          setAtualizando(true)
+                          fetchCotacoes()
+                          setTimeout(() => setAtualizando(false), 1500)
+                          setModalAtualizar(true)
+                        }}
+                        style={{ background:'rgba(0,212,160,.1)',border:'1px solid rgba(0,212,160,.3)',color:'#00d4a0',fontWeight:700,fontSize:'12px',padding:'8px 16px',borderRadius:'7px',cursor:'pointer' }}
+                      >
+                        {atualizando ? '⟳ Atualizando…' : '⟳ Atualizar dados'}
+                      </button>
+                    )}
                     <button className="btn-rel" onClick={() => setModalRel(emp.ticker)}>📄 Gerar Relatório IA</button>
                   </div>
                 </div>
@@ -1839,6 +1996,15 @@ export default function DCFPage() {
           />
         )}
       </div>
+
+      {modalAtualizar && emp && (
+        <ModalAtualizarDados
+          ticker={sel!}
+          emp={emp}
+          onClose={() => setModalAtualizar(false)}
+          onIrParaTri={() => { setAba('tri'); setModalAtualizar(false) }}
+        />
+      )}
 
       {modalRel && (
         <ModalRelatorio
