@@ -4,20 +4,20 @@
     "company": "AZZA3 — Azzas 2154",
     "nome": "Azzas 2154",
     "method": "fcff",
-    "preco_atual": 18.780000686645508,
+    "preco_atual": 17.450000762939453,
     "bear": {
       "preco": 19.25,
-      "upside": 2.5
+      "upside": 10.3
     },
     "base": {
       "preco": 26.31,
-      "upside": 40.1
+      "upside": 50.8
     },
     "bull": {
       "preco": 35.39,
-      "upside": 88.4
+      "upside": 102.8
     },
-    "upside_base_legado": 40.11,
+    "upside_base_legado": 50.78,
     "wacc": 17.09,
     "g_terminal": 5.0,
     "shares": 206489813,
@@ -259,18 +259,18 @@
       ]
     },
     "tir": {
-      "nominal": 32.94,
-      "real": 26.61,
-      "vs_selic": 20.11,
-      "vs_ntnb": 19.31,
+      "nominal": 34.91,
+      "real": 28.49,
+      "vs_selic": 21.99,
+      "vs_ntnb": 21.19,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 2.48,
-      "yield_bruto": 13.19,
-      "nominal": 18.19,
-      "real": 12.56,
-      "vs_ntnb": 5.06,
+      "yield_bruto": 14.19,
+      "nominal": 19.19,
+      "real": 13.51,
+      "vs_ntnb": 6.01,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -279,7 +279,7 @@
       "preco_formula": null,
       "eps": 4.05,
       "vpa": 39.63,
-      "upside_gn": 220.0,
+      "upside_gn": 244.4,
       "detalhe": "EPS=R$4.05 VPA=R$39.63"
     },
     "proximo_tri": {
@@ -290,7 +290,45 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 10868.3294,
+      "ebitda": 990.7222,
+      "mg_ebitda": 9.1,
+      "fcl": -8752.2669,
+      "div_liq": 2181.0,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "varejo",
+    "da_pct": 5.77,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0
+    ],
+    "divida_liquida": 2181.0,
+    "rec_base": 10868.3,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -583,7 +621,46 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 132.1,
+      "ebitda": 9.9,
+      "mg_ebitda": 0.075,
+      "fcl": -138.166,
+      "div_liq": 848.4,
+      "ano": "2025",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "agro",
+    "da_pct": 1.08,
+    "tax_rate": 15.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      10.2,
+      10.2,
+      10.2,
+      10.2,
+      10.2,
+      10.2,
+      10.2
+    ],
+    "divida_liquida": 151.3,
+    "rec_base": 2622.4,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -885,12 +962,12 @@
       "detalhe": "D0=R$4.70 Ke=17.9% g=4.0%"
     },
     "graham": {
-      "preco_gn": 26.1,
+      "preco_gn": 26.46,
       "preco_formula": null,
       "eps": 3.9,
-      "vpa": 7.76,
-      "upside_gn": 76.4,
-      "detalhe": "EPS=R$3.90 VPA=R$7.76"
+      "vpa": 7.98,
+      "upside_gn": 78.8,
+      "detalhe": "EPS=R$3.90 VPA=R$7.98"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -900,7 +977,43 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 3002.0477,
+      "ebitda": 643.1248,
+      "mg_ebitda": 21.4,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "industria",
+    "da_pct": 1.5,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.0,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      30.0,
+      30.0,
+      30.0,
+      30.0,
+      30.0,
+      30.0,
+      30.0
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 3002.0,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1211,25 +1324,63 @@
       "mg_ebitda": 0.2571,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 2025.0,
+      "ebitda": 413.0,
+      "mg_ebitda": 26.0,
+      "div_liq": 4924.12,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "real_estate",
+    "da_pct": 1.5,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      12.7,
+      12.7,
+      12.7,
+      12.7,
+      12.7,
+      12.7,
+      12.7
+    ],
+    "divida_liquida": 4924.1,
+    "rec_base": 9772.3,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "PSSA3": {
     "ticker": "PSSA3",
     "company": "PSSA3 — Porto Seguro",
     "nome": "Porto Seguro",
     "method": "ddm",
-    "preco_atual": 52.81999969482422,
+    "preco_atual": 53.47999954223633,
     "bear": {
       "preco": 41.49,
-      "upside": -21.5
+      "upside": -22.4
     },
     "base": {
       "preco": 47.46,
-      "upside": -10.1
+      "upside": -11.3
     },
     "bull": {
       "preco": 54.71,
-      "upside": 3.6
+      "upside": 2.3
     },
     "upside_base_legado": null,
     "wacc": 17.8,
@@ -1482,28 +1633,28 @@
       ]
     },
     "tir": {
-      "nominal": 27.17,
-      "real": 21.12,
-      "vs_selic": 14.62,
-      "vs_ntnb": 13.82,
+      "nominal": 26.87,
+      "real": 20.83,
+      "vs_selic": 14.33,
+      "vs_ntnb": 13.53,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 3.01,
-      "yield_bruto": 5.7,
-      "nominal": 10.7,
-      "real": 5.43,
-      "vs_ntnb": -2.07,
+      "yield_bruto": 5.63,
+      "nominal": 10.63,
+      "real": 5.36,
+      "vs_ntnb": -2.14,
       "veredito": "Abaixo do RF"
     },
     "gordon": null,
     "graham": {
-      "preco_gn": 55.68,
+      "preco_gn": 55.64,
       "preco_formula": null,
-      "eps": 5.68,
+      "eps": 5.67,
       "vpa": 24.26,
-      "upside_gn": 5.4,
-      "detalhe": "EPS=R$5.68 VPA=R$24.26"
+      "upside_gn": 4.0,
+      "detalhe": "EPS=R$5.67 VPA=R$24.26"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -1513,7 +1664,46 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 11000.0,
+      "ebitda": 3891.9685,
+      "mg_ebitda": 8.5,
+      "fcl": 3891.9685,
+      "div_liq": 0.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "seguro",
+    "da_pct": 26.0,
+    "tax_rate": 10.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 45600.0,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1797,12 +1987,12 @@
       "detalhe": "D0=R$0.19 Ke=19.2% g=5.0%"
     },
     "graham": {
-      "preco_gn": 9.31,
+      "preco_gn": 9.19,
       "preco_formula": null,
       "eps": 0.79,
-      "vpa": 4.87,
-      "upside_gn": 124.9,
-      "detalhe": "EPS=R$0.79 VPA=R$4.87"
+      "vpa": 4.75,
+      "upside_gn": 122.0,
+      "detalhe": "EPS=R$0.79 VPA=R$4.75"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -1812,7 +2002,48 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 9402.0,
+      "ebitda": 400.0,
+      "mg_ebitda": 4.4,
+      "fcl": 1314.3124,
+      "div_liq": 736.0,
+      "ano": "2026*",
+      "periodo": "1T26",
+      "sss": -0.073,
+      "n_lojas": 228.0
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "varejo",
+    "da_pct": 2.5,
+    "tax_rate": 22.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "divida_liquida": 736.0,
+    "rec_base": 42251.2,
+    "bear_factor": 0.65,
+    "bull_factor": 1.35,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2120,7 +2351,45 @@
       "mg_ebitda": 0.6342,
       "metodologia": "YoY+-20% media = R$2,200MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 3200.0,
+      "ebitda": 2100.0,
+      "mg_ebitda": 65.6,
+      "fcl": 8379.5455,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "bolsa",
+    "da_pct": 3.46,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "divida_liquida": -597.0,
+    "rec_base": 11120.0,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2428,7 +2697,44 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 47227.6409,
+      "ebitda": 13480.9398,
+      "mg_ebitda": 28.5,
+      "fcl": 7830.9768,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "energia",
+    "da_pct": 5.4,
+    "tax_rate": 29.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "dcg_pct": [
+      2.7,
+      2.7,
+      2.7,
+      2.7,
+      2.7,
+      2.7,
+      2.7
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 47227.6,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:20"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -2736,7 +3042,46 @@
       "mg_ebitda": 0.4,
       "metodologia": "DDM — soma LL estimado por subsidiaria (ll_total _est_1t26 = ll_prev 1.375 + ll_seg 564 + ll_ban 216 + ll_ser 105); receita proxy = ll_total / 0.40 (margem liquida combinada historica)"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 23171.2963,
+      "ebitda": 9268.5185,
+      "mg_ebitda": 40.0,
+      "fcl": 9268.5185,
+      "div_liq": 0.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "seguro",
+    "da_pct": 2.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 23171.2963,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3044,7 +3389,48 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 27400.0,
+      "ebitda": 3430.0,
+      "mg_ebitda": 12.5,
+      "fcl": 12088.0,
+      "div_liq": 0.0,
+      "ano": "2026*",
+      "periodo": "1T26",
+      "npl": 5.05,
+      "roe": 7.3
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "banco",
+    "da_pct": 2.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 108235.249,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3332,7 +3718,46 @@
       "mg_ebitda": 0.5175,
       "metodologia": "Flat a/a vs 1T25 (rec=9.663, ebitda_ex sob gestao=5.000, ll=-1.788) - baseline pre-resultado, holding SOTP"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 9000.0,
+      "ebitda": 3200.0,
+      "mg_ebitda": 35.6,
+      "fcl": 25744.5283,
+      "div_liq": 11500.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "holding",
+    "da_pct": 5.4,
+    "tax_rate": 27.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "divida_liquida": 11500.0,
+    "rec_base": 37630.86,
+    "bear_factor": 0.85,
+    "bull_factor": 1.15,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3658,14 +4083,52 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 5377.232,
+      "ebitda": 847.2085,
+      "mg_ebitda": 15.8,
+      "fcl": 540.4737,
+      "div_liq": -355.933,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "tecnologia",
+    "da_pct": 2.51,
+    "tax_rate": 22.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      41.6,
+      41.6,
+      41.6,
+      41.6,
+      41.6,
+      41.6,
+      41.6
+    ],
+    "divida_liquida": -355.9,
+    "rec_base": 5377.2,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "KEPL3": {
     "ticker": "KEPL3",
     "company": "KEPL3 — Kepler Weber",
     "nome": "Kepler Weber",
     "method": "fcff",
-    "preco_atual": 6.72,
+    "preco_atual": 6.36,
     "bear": {
       "preco": 6.45,
       "upside": null
@@ -3929,18 +4392,18 @@
       ]
     },
     "tir": {
-      "nominal": 20.6,
-      "real": 14.86,
-      "vs_selic": 8.36,
-      "vs_ntnb": 7.56,
+      "nominal": 21.87,
+      "real": 16.07,
+      "vs_selic": 9.57,
+      "vs_ntnb": 8.77,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 0.43,
-      "yield_bruto": 6.44,
-      "nominal": 10.94,
-      "real": 5.66,
-      "vs_ntnb": -1.84,
+      "yield_bruto": 6.8,
+      "nominal": 11.3,
+      "real": 6.0,
+      "vs_ntnb": -1.5,
       "veredito": "Abaixo do RF"
     },
     "gordon": null,
@@ -3949,7 +4412,7 @@
       "preco_formula": null,
       "eps": 0.85,
       "vpa": 4.57,
-      "upside_gn": 39.1,
+      "upside_gn": 47.0,
       "detalhe": "EPS=R$0.85 VPA=R$4.57"
     },
     "proximo_tri": {
@@ -3960,7 +4423,44 @@
       "mg_ebitda": 0.1734,
       "metodologia": "YoY+-20% media = R$249MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 318.1,
+      "ebitda": 33.7,
+      "mg_ebitda": 10.6,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "agro_industrial",
+    "da_pct": 2.5,
+    "tax_rate": 22.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 1326.7076,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4268,7 +4768,44 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 84095.4286,
+      "ebitda": 28632.1635,
+      "mg_ebitda": 34.1,
+      "div_liq": 0.0,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "banco",
+    "da_pct": 2.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "divida_liquida": 0.0,
+    "rec_base": 84095.4286,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4570,7 +5107,44 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 48862.0408,
+      "ebitda": 31805.0,
+      "mg_ebitda": 65.1,
+      "div_liq": 46040.0,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "energia",
+    "da_pct": 11.17,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      23.0,
+      23.0,
+      23.0,
+      21.0,
+      19.0,
+      17.0,
+      16.0
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "divida_liquida": 46040.0,
+    "rec_base": 48862.0,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -4878,25 +5452,62 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 57980.0088,
+      "ebitda": 14244.3243,
+      "mg_ebitda": 24.6,
+      "div_liq": 47000.0,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "energia",
+    "da_pct": 2.5,
+    "tax_rate": 27.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      15.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "divida_liquida": 47000.0,
+    "rec_base": 57980.0,
+    "bear_factor": 0.85,
+    "bull_factor": 1.15,
+    "bear_margin_factor": 0.97,
+    "bull_margin_factor": 1.03,
+    "atualizado": "21/07/2026 22:21"
   },
   "SUZB3": {
     "ticker": "SUZB3",
     "company": "SUZB3 — Suzano",
     "nome": "Suzano",
     "method": "fcff",
-    "preco_atual": 40.43000030517578,
+    "preco_atual": 41.630001068115234,
     "bear": {
       "preco": 29.82,
-      "upside": -26.2
+      "upside": -28.4
     },
     "base": {
       "preco": 58.92,
-      "upside": 45.7
+      "upside": 41.5
     },
     "bull": {
       "preco": 89.11,
-      "upside": 120.4
+      "upside": 114.1
     },
     "upside_base_legado": 37.75,
     "wacc": 13.16,
@@ -5149,23 +5760,23 @@
       ]
     },
     "tir": {
-      "nominal": 40.2,
-      "real": 33.53,
-      "vs_selic": 27.03,
-      "vs_ntnb": 26.23,
+      "nominal": 39.33,
+      "real": 32.7,
+      "vs_selic": 26.2,
+      "vs_ntnb": 25.4,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 1.12,
-      "yield_bruto": 2.77,
-      "nominal": 6.77,
-      "real": 1.69,
-      "vs_ntnb": -5.81,
+      "yield_bruto": 2.69,
+      "nominal": 6.69,
+      "real": 1.61,
+      "vs_ntnb": -5.89,
       "veredito": "Abaixo do RF"
     },
     "gordon": {
       "preco": 8.33,
-      "upside": -79.4,
+      "upside": -80.0,
       "d0": 1.121,
       "d1": 1.1658,
       "detalhe": "D0=R$1.12 Ke=18.0% g=4.0%"
@@ -5175,7 +5786,7 @@
       "preco_formula": null,
       "eps": 9.19,
       "vpa": 38.86,
-      "upside_gn": 121.7,
+      "upside_gn": 115.3,
       "detalhe": "EPS=R$9.19 VPA=R$38.86"
     },
     "proximo_tri": {
@@ -5186,7 +5797,68 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 47563.1265,
+      "ebitda": 17680.4928,
+      "mg_ebitda": 37.2,
+      "fcl": 13750.5062,
+      "div_liq": 72000.0,
+      "ano": "2026*"
+    },
+    "cel_params": {
+      "vol_base_kt": 12700.0,
+      "vol_growth": 0.03,
+      "papel_base": 10200.0,
+      "papel_growth": 0.04,
+      "bhkp_forecast": [
+        560,
+        600,
+        650,
+        680,
+        700,
+        720,
+        730
+      ],
+      "fx_forecast": [
+        5.1,
+        5.0,
+        5.0,
+        5.0,
+        4.9,
+        4.9,
+        4.9
+      ]
+    },
+    "pet_params": null,
+    "setor": "papel_celulose",
+    "da_pct": 18.0,
+    "tax_rate": 28.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      10.0,
+      9.0,
+      9.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0
+    ],
+    "dcg_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "divida_liquida": 72000.0,
+    "rec_base": 47563.1265,
+    "bear_factor": 0.8,
+    "bull_factor": 1.2,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.08,
+    "atualizado": "21/07/2026 22:21"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5494,7 +6166,45 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 45443.5976,
+      "ebitda": 8031.7281,
+      "mg_ebitda": 17.7,
+      "fcl": -7.1528,
+      "div_liq": 17817.0,
+      "ano": "2026*"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "energia",
+    "da_pct": 3.59,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      14.5,
+      12.0,
+      12.0,
+      11.0,
+      9.0,
+      7.0,
+      7.0
+    ],
+    "dcg_pct": [
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5
+    ],
+    "divida_liquida": 17817.0,
+    "rec_base": 45443.6,
+    "bear_factor": 0.85,
+    "bull_factor": 1.15,
+    "bear_margin_factor": 0.95,
+    "bull_margin_factor": 1.05,
+    "atualizado": "21/07/2026 22:21"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -5781,11 +6491,11 @@
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
-      "dps_ltm": 0.6,
-      "yield_bruto": 5.56,
-      "nominal": 10.56,
-      "real": 5.29,
-      "vs_ntnb": -2.21,
+      "dps_ltm": 0.64,
+      "yield_bruto": 5.91,
+      "nominal": 10.91,
+      "real": 5.63,
+      "vs_ntnb": -1.87,
       "veredito": "Abaixo do RF"
     },
     "gordon": null,
@@ -5805,7 +6515,46 @@
       "mg_ebitda": 0.6502,
       "metodologia": "YoY+-20% media = R$480MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 537.7,
+      "ebitda": 250.6,
+      "mg_ebitda": 46.6,
+      "fcl": 5289.5061,
+      "div_liq": -1700.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "real_estate",
+    "da_pct": 2.97,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      5.0,
+      5.5,
+      6.0,
+      6.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "dcg_pct": [
+      84.0,
+      84.0,
+      84.0,
+      84.0,
+      84.0,
+      84.0,
+      84.0
+    ],
+    "divida_liquida": -1800.0,
+    "rec_base": 2800.0,
+    "bear_factor": 0.81,
+    "bull_factor": 1.34,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -6116,7 +6865,45 @@
       "mg_ebitda": 0.9968,
       "metodologia": "YoY+-20% media = R$1,104MM"
     },
-    "atualizado": "30/06/2026 10:26"
+    "kpis_ltm": {
+      "receita": 1523.0,
+      "ebitda": 6567.1784,
+      "mg_ebitda": 100.0,
+      "div_liq": -1100.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "seguro",
+    "da_pct": 0.97,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "dcg_pct": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "divida_liquida": -1690.0,
+    "rec_base": 5762.0,
+    "bear_factor": 0.77,
+    "bull_factor": 1.37,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -6433,7 +7220,47 @@
       "mg_ebitda": 0.1545,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 3330.0,
+      "ebitda": 650.0,
+      "mg_ebitda": 19.5,
+      "fcl": 1718.376,
+      "div_liq": 200.0,
+      "ano": "2026*",
+      "periodo": "4T25",
+      "sss": 11.0
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "varejo",
+    "da_pct": 4.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "dcg_pct": [
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0
+    ],
+    "divida_liquida": 250.0,
+    "rec_base": 11190.2,
+    "bear_factor": 0.65,
+    "bull_factor": 1.38,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -6735,25 +7562,65 @@
       "mg_ebitda": 0.178,
       "metodologia": "YoY+-20% media = R$1,648MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 1620.0,
+      "ebitda": 245.0,
+      "mg_ebitda": 15.1,
+      "fcl": 1277.5099,
+      "div_liq": 131.0,
+      "ano": "2026*",
+      "periodo": "1T26",
+      "sss": 4.8
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "varejo",
+    "da_pct": 5.5,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      4.0,
+      3.8,
+      3.5,
+      3.5,
+      3.2,
+      3.0,
+      3.0
+    ],
+    "dcg_pct": [
+      8.0,
+      8.0,
+      8.0,
+      7.5,
+      7.5,
+      7.0,
+      7.0
+    ],
+    "divida_liquida": 131.0,
+    "rec_base": 8029.6,
+    "bear_factor": 0.65,
+    "bull_factor": 1.45,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "PETR4": {
     "ticker": "PETR4",
     "company": "PETR4 — Petrobras",
     "nome": "Petrobras",
     "method": "fcff",
-    "preco_atual": 40.88999938964844,
+    "preco_atual": 38.439998626708984,
     "bear": {
-      "preco": 25.46,
-      "upside": -37.7
+      "preco": 24.66,
+      "upside": -35.8
     },
     "base": {
-      "preco": 49.63,
-      "upside": 21.4
+      "preco": 48.45,
+      "upside": 26.0
     },
     "bull": {
-      "preco": 75.54,
-      "upside": 84.7
+      "preco": 73.95,
+      "upside": 92.4
     },
     "upside_base_legado": null,
     "wacc": 15.15,
@@ -6916,23 +7783,23 @@
     "valor_terminal": 441588.5,
     "sensibilidade": null,
     "tir": {
-      "nominal": 29.17,
-      "real": 23.02,
-      "vs_selic": 16.52,
-      "vs_ntnb": 15.72,
+      "nominal": 30.94,
+      "real": 24.7,
+      "vs_selic": 18.2,
+      "vs_ntnb": 17.4,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
       "dps_ltm": 2.99,
-      "yield_bruto": 7.31,
-      "nominal": 11.31,
-      "real": 6.01,
-      "vs_ntnb": -1.49,
+      "yield_bruto": 7.78,
+      "nominal": 11.78,
+      "real": 6.46,
+      "vs_ntnb": -1.04,
       "veredito": "Abaixo do RF"
     },
     "gordon": {
       "preco": 22.54,
-      "upside": -44.9,
+      "upside": -41.4,
       "d0": 2.991,
       "d1": 3.1106,
       "detalhe": "D0=R$2.99 Ke=17.8% g=4.0%"
@@ -6942,7 +7809,7 @@
       "preco_formula": null,
       "eps": 8.13,
       "vpa": 34.54,
-      "upside_gn": 94.4,
+      "upside_gn": 106.8,
       "detalhe": "EPS=R$8.13 VPA=R$34.54"
     },
     "proximo_tri": {
@@ -6953,7 +7820,75 @@
       "mg_ebitda": 0.4714,
       "metodologia": "YoY+-20% media = R$95,760MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 123686.0,
+      "ebitda": 61700.0,
+      "mg_ebitda": 49.9,
+      "fcl": 20100.0,
+      "div_liq": 357075.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": {
+      "prod_base_mboed": 3.14,
+      "brent_forecast": [
+        80,
+        77,
+        75,
+        73,
+        72,
+        72,
+        72
+      ],
+      "producao_forecast": [
+        3.2,
+        3.3,
+        3.4,
+        3.5,
+        3.55,
+        3.55,
+        3.55
+      ],
+      "usdbrl_forecast": [
+        5.75,
+        5.6,
+        5.5,
+        5.45,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setor": "petroleo",
+    "da_pct": 26.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      20.0,
+      20.0,
+      20.0,
+      19.0,
+      18.0,
+      18.0,
+      17.0
+    ],
+    "dcg_pct": [
+      1.5,
+      1.5,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "divida_liquida": 357075.0,
+    "rec_base": 496240.2016,
+    "bear_factor": 0.8,
+    "bull_factor": 1.2,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.08,
+    "atualizado": "21/07/2026 22:21"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -7261,7 +8196,47 @@
       "mg_ebitda": 0.218,
       "metodologia": "YoY+-20% media = R$2,960MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 2875.0,
+      "ebitda": 611.0,
+      "mg_ebitda": 26.0,
+      "fcl": 258.0,
+      "div_liq": -1500.0,
+      "ano": "2026*",
+      "periodo": "1T26",
+      "sss": 3.2
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "varejo",
+    "da_pct": 3.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.5,
+      3.2,
+      3.0,
+      2.8,
+      2.6,
+      2.5,
+      2.5
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "divida_liquida": -1500.0,
+    "rec_base": 12689.7,
+    "bear_factor": 0.75,
+    "bull_factor": 1.25,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -7466,7 +8441,75 @@
       "mg_ebitda": 0.6267,
       "metodologia": "YoY+-20% media = R$2,760MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 6552.0,
+      "ebitda": 4984.0,
+      "mg_ebitda": 76.1,
+      "fcl": 6899.3731,
+      "div_liq": 23985.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": {
+      "prod_base_mboed": 3.14,
+      "brent_forecast": [
+        80,
+        77,
+        75,
+        73,
+        72,
+        72,
+        72
+      ],
+      "producao_forecast": [
+        3.2,
+        3.3,
+        3.4,
+        3.5,
+        3.55,
+        3.55,
+        3.55
+      ],
+      "usdbrl_forecast": [
+        5.75,
+        5.6,
+        5.5,
+        5.45,
+        5.4,
+        5.4,
+        5.4
+      ]
+    },
+    "setor": "petroleo",
+    "da_pct": 26.8,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      12.0,
+      8.0,
+      6.0,
+      5.0,
+      5.0,
+      4.0,
+      4.0
+    ],
+    "dcg_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "divida_liquida": 23985.0,
+    "rec_base": 22422.0,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.88,
+    "bull_margin_factor": 1.08,
+    "atualizado": "21/07/2026 22:21"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -7762,9 +8805,9 @@
       "preco_gn": 7.68,
       "preco_formula": null,
       "eps": 0.18,
-      "vpa": 14.56,
+      "vpa": 14.55,
       "upside_gn": 39.9,
-      "detalhe": "EPS=R$0.18 VPA=R$14.56"
+      "detalhe": "EPS=R$0.18 VPA=R$14.55"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -7774,7 +8817,46 @@
       "mg_ebitda": 0.0802,
       "metodologia": "YoY+-20% media = R$7,307MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 9205.0,
+      "ebitda": 718.0,
+      "mg_ebitda": 7.8,
+      "fcl": -4158.4294,
+      "div_liq": 2000.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "varejo",
+    "da_pct": 3.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      2.5,
+      2.5,
+      2.5,
+      2.5,
+      2.5,
+      2.5,
+      2.5
+    ],
+    "dcg_pct": [
+      15.0,
+      14.0,
+      13.0,
+      12.0,
+      11.0,
+      10.0,
+      10.0
+    ],
+    "divida_liquida": 2000.0,
+    "rec_base": 37940.5,
+    "bear_factor": 0.45,
+    "bull_factor": 1.8,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -8082,7 +9164,46 @@
       "mg_ebitda": 0.2569,
       "metodologia": "YoY+-20% media = R$386MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 372.958,
+      "ebitda": 71.774,
+      "mg_ebitda": 19.24,
+      "fcl": -169.538,
+      "div_liq": 467.727,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "real_estate",
+    "da_pct": 0.04,
+    "tax_rate": 19.6,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "dcg_pct": [
+      65.0,
+      55.0,
+      48.0,
+      42.0,
+      38.0,
+      35.0,
+      32.0
+    ],
+    "divida_liquida": 467.7,
+    "rec_base": 1963.1,
+    "bear_factor": 0.7,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -8390,7 +9511,46 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 655.533,
+      "ebitda": 562.129,
+      "mg_ebitda": 85.75,
+      "fcl": 229.1434,
+      "div_liq": 10204.19,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "energia",
+    "da_pct": 19.0,
+    "tax_rate": 7.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      45.0,
+      40.0,
+      35.0,
+      30.0,
+      25.0,
+      22.0,
+      19.0
+    ],
+    "dcg_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "divida_liquida": 10204.2,
+    "rec_base": 2755.5,
+    "bear_factor": 0.85,
+    "bull_factor": 1.15,
+    "bear_margin_factor": 0.97,
+    "bull_margin_factor": 1.03,
+    "atualizado": "21/07/2026 22:21"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -8698,7 +9858,46 @@
       "mg_ebitda": 0.3313,
       "metodologia": "YoY+-20% media = R$16,160MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 22460.0,
+      "ebitda": 7555.0,
+      "mg_ebitda": 33.6,
+      "fcl": 25324.263,
+      "div_liq": -16500.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "bebidas",
+    "da_pct": 4.5,
+    "tax_rate": 15.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      5.2,
+      5.0,
+      4.8,
+      4.8,
+      4.5,
+      4.5,
+      4.5
+    ],
+    "dcg_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "divida_liquida": -16500.0,
+    "rec_base": 88436.2,
+    "bear_factor": 0.75,
+    "bull_factor": 1.25,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -9006,7 +10205,46 @@
       "mg_ebitda": 0.2186,
       "metodologia": "YoY+-20% media = R$392MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 447.0,
+      "ebitda": 114.0,
+      "mg_ebitda": 25.5,
+      "fcl": 384.406,
+      "div_liq": -37.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "tecnologia",
+    "da_pct": 5.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      5.5,
+      5.5,
+      5.5,
+      5.0,
+      5.0,
+      4.8,
+      4.5
+    ],
+    "dcg_pct": [
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0
+    ],
+    "divida_liquida": -37.0,
+    "rec_base": 1839.7,
+    "bear_factor": 0.7,
+    "bull_factor": 1.35,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -9314,7 +10552,46 @@
       "mg_ebitda": 0.2008,
       "metodologia": "YoY+-20% media = R$1,110MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 1256.0,
+      "ebitda": 249.0,
+      "mg_ebitda": 19.9,
+      "fcl": 1016.0029,
+      "div_liq": 965.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "autopecas",
+    "da_pct": 2.6,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      2.8,
+      2.8,
+      2.7
+    ],
+    "dcg_pct": [
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0
+    ],
+    "divida_liquida": 965.0,
+    "rec_base": 5389.8,
+    "bear_factor": 0.75,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:21"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -9616,6 +10893,45 @@
       "mg_ebitda": 0.5804,
       "metodologia": "YoY+-20% media = R$4,358MM"
     },
-    "atualizado": "30/06/2026 10:27"
+    "kpis_ltm": {
+      "receita": 6021.0,
+      "ebitda": 3786.0,
+      "mg_ebitda": 62.9,
+      "fcl": 876.9793,
+      "div_liq": 32460.0,
+      "ano": "2026*",
+      "periodo": "1T26"
+    },
+    "cel_params": null,
+    "pet_params": null,
+    "setor": "saneamento",
+    "da_pct": 3.5,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "capex_pct": [
+      55.0,
+      52.0,
+      50.0,
+      48.0,
+      45.0,
+      32.0,
+      20.0
+    ],
+    "dcg_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "divida_liquida": 32460.0,
+    "rec_base": 24625.3,
+    "bear_factor": 0.75,
+    "bull_factor": 1.3,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
+    "atualizado": "21/07/2026 22:22"
   }
 }
