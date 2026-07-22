@@ -1,9 +1,10 @@
 'use client'
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 import dcfRaw from '@/lib/dcf.json'
 import { track } from '@vercel/analytics'
+import { type PremissasDCF, type ResultadoDCF, calcDCFCustom, premissasDeEmp } from '@/lib/dcf-engine'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dcfData = dcfRaw as Record<string, any>
@@ -21,7 +22,7 @@ const fPct = (v: number | null | undefined) => v == null ? '—' : `${v > 0 ? '+
 const corUpside = (v: number | null | undefined) =>
   v == null ? '#6b84a8' : v >= 20 ? '#00d4a0' : v >= 0 ? '#FFD54F' : '#ef4444'
 
-type Aba = 'resumo' | 'historico' | 'linhas' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri'
+type Aba = 'resumo' | 'historico' | 'linhas' | 'projecoes' | 'sensibilidade' | 'outros' | 'tri' | 'kpis' | 'saude'
 
 /* ── Componentes menores ──────────────────────────────────────────────────── */
 function Badge({ label, color }: { label: string; color: string }) {
@@ -287,22 +288,29 @@ function ModalRelatorio({ ticker, nome, onClose }: { ticker: string; nome: strin
 
 /* ── Seções da empresa ────────────────────────────────────────────────────── */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function SecResumo({ e, precoLive }: { e: any; precoLive: number|null }) {
-  const bear = e.bear || {}
-  const base = e.base || {}
-  const bull = e.bull || {}
+function SecResumo({ e, precoLive, customResult }: { e: any; precoLive: number|null; customResult?: ResultadoDCF | null }) {
+  const bear = customResult?.bear ?? e.bear ?? {}
+  const base = customResult?.base ?? e.base ?? {}
+  const bull = customResult?.bull ?? e.bull ?? {}
+  const isCustom = !!customResult
 
   const calcUp = (target: number|null, fallback: number|null) =>
     target != null && precoLive != null && precoLive > 0
       ? ((target - precoLive) / precoLive) * 100
       : fallback
 
-  const up_bear = calcUp(bear.preco, bear.upside)
-  const up_base = calcUp(base.preco, base.upside ?? e.upside_base_legado)
-  const up_bull = calcUp(bull.preco, bull.upside)
+  const up_bear = isCustom ? bear.upside : calcUp(bear.preco, bear.upside)
+  const up_base = isCustom ? base.upside : calcUp(base.preco, base.upside ?? e.upside_base_legado)
+  const up_bull = isCustom ? bull.upside : calcUp(bull.preco, bull.upside)
 
   return (
     <>
+      {isCustom && (
+        <div style={{ background: 'rgba(232,160,32,.08)', border: '1px solid rgba(232,160,32,.25)', borderRadius: '8px', padding: '8px 14px', marginBottom: '14px', fontSize: '12px', color: '#e8a020', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span>⚡</span>
+          <span>Premissas editadas — resultado recalculado em tempo real</span>
+        </div>
+      )}
       <SecTitle>Cenários de Valuation</SecTitle>
       <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(120px,1fr))',gap:'10px',marginBottom:'24px' }}>
         <CenCard label="🔴 Pessimista (Bear)" cor="#ef4444" preco={bear.preco} upside={up_bear}/>
@@ -371,12 +379,14 @@ function SecHistorico({ e }: { e: any }) {
   return <Tabela cols={cols} rows={rows}/>
 }
 
-function SecProjecoes({ e }: { e: any }) {
-  const proj: any[] = e.projecoes || []
+function SecProjecoes({ e, customResult }: { e: any; customResult?: ResultadoDCF | null }) {
+  const proj: any[] = customResult?.base.projecoes ?? e.projecoes ?? []
+  const vt = customResult?.base.valor_terminal ?? e.valor_terminal
+  const isCustom = !!customResult
   if (!proj.length) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Projeções não disponíveis. Rode export_dcf.py após calcular no fundamento.py.</p>
   const cols = ['Ano','Receita (R$M)','EBITDA ex','EBIT','NOPAT','CapEx','FCL','VP FCL']
   const rows = [
-    ...proj.map(p => [
+    ...proj.map((p: any) => [
       p.ano,
       p.receita != null ? f2(p.receita) : '—',
       p.ebitda  != null ? f2(p.ebitda)  : '—',
@@ -387,11 +397,16 @@ function SecProjecoes({ e }: { e: any }) {
       p.vp_fcl  != null ? f2(p.vp_fcl)  : '—',
     ]),
     ['Terminal','—','—','—','—','—',
-      e.valor_terminal != null ? `${f2(e.valor_terminal)} (VT)` : '—',
-      e.valor_terminal != null ? f2(e.valor_terminal) : '—',
+      vt != null ? `${f2(vt)} (VT)` : '—',
+      vt != null ? f2(vt) : '—',
     ],
   ]
-  return <Tabela cols={cols} rows={rows}/>
+  return (
+    <>
+      {isCustom && <p style={{ fontSize:'11px',color:'#e8a020',marginBottom:'10px' }}>⚡ Projeções recalculadas com premissas editadas (cenário Base)</p>}
+      <Tabela cols={cols} rows={rows}/>
+    </>
+  )
 }
 
 function SecSensibilidade({ e, precoLive }: { e: any; precoLive?: number|null }) {
@@ -690,6 +705,171 @@ function SecLinhasNegocio({ e }: { e: any }) {
   )
 }
 
+/* ── KPIs Operacionais ────────────────────────────────────────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function SecKPIs({ e, precoLive }: { e: any; precoLive: number|null }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hist: any[] = e.historico || []
+  const ult = hist.length > 0 ? hist[hist.length - 1] : null
+  const kl = e.kpis_ltm ?? {}
+  const prox = e.proximo_tri
+
+  const kpis: { label: string; val: string }[] = []
+
+  if (precoLive != null) kpis.push({ label: 'Cotação atual', val: `R$ ${f2(precoLive)}` })
+  else if (e.preco_atual) kpis.push({ label: 'Cotação (base DCF)', val: `R$ ${f2(e.preco_atual)}` })
+
+  // LTM: preferir kpis_ltm exportado, fallback para historico[-1]
+  const recLtm = kl.receita ?? ult?.receita
+  const ebitdaLtm = kl.ebitda ?? ult?.ebitda
+  const mgLtm = kl.mg_ebitda ?? (ult?.mg_ebitda != null ? ult.mg_ebitda * (ult.mg_ebitda < 1 ? 100 : 1) : null)
+  const fclLtm = kl.fcl ?? ult?.fcl
+  const divLiq = kl.div_liq ?? ult?.div_liq
+
+  const sufixoLtm = kl.periodo ? ` (${kl.periodo})` : ult?.ano ? ` (${ult.ano})` : ''
+
+  if (recLtm != null)   kpis.push({ label: `Receita LTM${sufixoLtm}`, val: `R$ ${f2(recLtm)} MM` })
+  if (ebitdaLtm != null) kpis.push({ label: `EBITDA ex LTM${sufixoLtm}`, val: `R$ ${f2(ebitdaLtm)} MM` })
+  if (mgLtm != null)    kpis.push({ label: `Mg EBITDA LTM${sufixoLtm}`, val: `${f1(mgLtm)}%` })
+  if (fclLtm != null)   kpis.push({ label: `FCL LTM${sufixoLtm}`, val: `R$ ${f2(fclLtm)} MM` })
+  if (divLiq != null)   kpis.push({ label: 'Dívida Líquida', val: `R$ ${f2(divLiq)} MM` })
+
+  // Alavancagem
+  if (divLiq != null && ebitdaLtm != null && ebitdaLtm > 0) {
+    kpis.push({ label: 'DL/EBITDA', val: `${f1(divLiq / ebitdaLtm)}x` })
+  }
+
+  // KPIs setoriais específicos exportados
+  if (kl.sss != null)    kpis.push({ label: 'SSS',              val: `${f1(kl.sss)}%` })
+  if (kl.npl != null)    kpis.push({ label: 'NPL >90d',         val: `${f1(kl.npl)}%` })
+  if (kl.ic  != null)    kpis.push({ label: 'Índice Combinado', val: `${f1(kl.ic)}%` })
+  if (kl.roe != null)    kpis.push({ label: 'ROE',              val: `${f1(kl.roe)}%` })
+  if (kl.bhkp != null)   kpis.push({ label: 'BHKP (USD/t)',     val: `USD ${f2(kl.bhkp)}` })
+  if (kl.brent != null)  kpis.push({ label: 'Brent (USD/bbl)',  val: `USD ${f1(kl.brent)}` })
+  if (kl.n_lojas != null) kpis.push({ label: 'Lojas',           val: String(kl.n_lojas) })
+  if (kl.area_m2 != null) kpis.push({ label: 'Área total (m²)', val: f2(kl.area_m2) })
+
+  // Próximo tri estimado
+  if (prox?.receita) kpis.push({ label: `Receita est. ${prox.periodo ?? 'próx. tri'}`, val: `R$ ${f2(prox.receita)} MM` })
+  if (prox?.ebitda)  kpis.push({ label: `EBITDA est. ${prox.periodo ?? 'próx. tri'}`, val: `R$ ${f2(prox.ebitda)} MM` })
+
+  if (!kpis.length) return (
+    <p style={{ color:'#6b84a8',padding:'20px 0' }}>KPIs não disponíveis. Rode export_dcf.py.</p>
+  )
+
+  return (
+    <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:'10px' }}>
+      {kpis.map(k => (
+        <div key={k.label} style={{ background:'rgba(255,255,255,.03)',border:'1px solid rgba(255,255,255,.07)',borderRadius:'8px',padding:'12px 14px' }}>
+          <div style={{ fontSize:'10.5px',color:'#6b84a8',fontWeight:700,textTransform:'uppercase' as const,letterSpacing:'.5px',marginBottom:'4px' }}>{k.label}</div>
+          <div style={{ fontSize:'16px',fontWeight:700,color:'#e8edf5',fontFamily:'var(--font-space),monospace' }}>{k.val}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/* ── Saúde Financeira ─────────────────────────────────────────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function SecSaude({ e }: { e: any }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hist: any[] = e.historico || []
+  if (hist.length < 2) return (
+    <p style={{ color:'#6b84a8',padding:'20px 0' }}>Histórico insuficiente para calcular saúde financeira. Rode export_dcf.py.</p>
+  )
+
+  const ult = hist[hist.length - 1]
+  const ant = hist[hist.length - 2]
+  const mg = (v: any) => v?.mg_ebitda != null ? v.mg_ebitda * (v.mg_ebitda < 1 ? 100 : 1) : null
+
+  const mgAtual = mg(ult)
+  const mgAnt   = mg(ant)
+  const mgDelta  = mgAtual != null && mgAnt != null ? mgAtual - mgAnt : null
+
+  const fclAtual = ult?.fcl
+  const fclAnt   = ant?.fcl
+
+  const divLiq  = ult?.div_liq
+  const ebitdaU = ult?.ebitda
+  const dlEbitda = divLiq != null && ebitdaU != null && ebitdaU > 0 ? divLiq / ebitdaU : null
+
+  // CAGR receita 3 anos (se possível)
+  const i3 = hist.length >= 4 ? hist[hist.length - 4] : hist[0]
+  const r0 = i3?.receita; const rn = ult?.receita
+  const anos3 = hist.length >= 4 ? 3 : hist.length - 1
+  const cagr = r0 && rn && r0 > 0 && anos3 > 0 ? (Math.pow(rn / r0, 1 / anos3) - 1) * 100 : null
+
+  // Upside base
+  const upBase = e.base?.upside ?? e.upside_base_legado
+
+  const cartoes = [
+    {
+      titulo: 'Lucratividade',
+      cor: mgAtual != null && mgAtual >= 20 ? '#00d4a0' : mgAtual != null && mgAtual >= 10 ? '#FFD54F' : '#ef4444',
+      valor: mgAtual != null ? `${f1(mgAtual)}%` : '—',
+      sub: mgDelta != null ? `${mgDelta >= 0 ? '▲' : '▼'} ${f1(Math.abs(mgDelta))}pp (YoY)` : 'Mg EBITDA',
+      desc: mgAtual != null && mgAtual >= 20 ? 'Margem sólida e estável' : mgAtual != null && mgAtual >= 10 ? 'Margem razoável' : 'Margem pressionada',
+    },
+    {
+      titulo: 'Geração Cx',
+      cor: fclAtual != null && fclAtual > 0 && fclAnt != null && fclAnt > 0 ? '#00d4a0' : fclAtual != null && fclAtual > 0 ? '#FFD54F' : '#ef4444',
+      valor: fclAtual != null ? `${fclAtual > 0 ? '+' : ''}R$ ${f2(fclAtual)} MM` : '—',
+      sub: fclAnt != null ? `Ant: R$ ${f2(fclAnt)} MM` : 'FCL',
+      desc: fclAtual != null && fclAtual > 0 && fclAnt != null && fclAnt > 0 ? 'FCL positivo nos últimos anos' : fclAtual != null && fclAtual > 0 ? 'FCL positivo mas variável' : 'FCL negativo — consumindo caixa',
+    },
+    {
+      titulo: 'Alavancagem',
+      cor: dlEbitda == null ? '#6b84a8' : dlEbitda < 1.5 ? '#00d4a0' : dlEbitda < 3.0 ? '#FFD54F' : '#ef4444',
+      valor: dlEbitda != null ? `${f1(dlEbitda)}x` : '—',
+      sub: 'DL/EBITDA',
+      desc: dlEbitda == null ? '—' : dlEbitda < 1.5 ? 'Alavancagem baixa' : dlEbitda < 3.0 ? 'Alavancagem moderada' : 'Alavancagem elevada',
+    },
+    {
+      titulo: 'Crescimento',
+      cor: cagr == null ? '#6b84a8' : cagr >= 8 ? '#00d4a0' : cagr >= 3 ? '#FFD54F' : '#ef4444',
+      valor: cagr != null ? `+${f1(cagr)}%/ano` : '—',
+      sub: `CAGR ${anos3} anos`,
+      desc: cagr == null ? '—' : cagr >= 8 ? 'Crescimento forte' : cagr >= 3 ? 'Crescimento moderado' : 'Crescimento fraco',
+    },
+    {
+      titulo: 'Valuation',
+      cor: upBase == null ? '#6b84a8' : upBase >= 20 ? '#00d4a0' : upBase >= 0 ? '#FFD54F' : '#ef4444',
+      valor: upBase != null ? fPct(upBase) : '—',
+      sub: 'Upside base',
+      desc: upBase == null ? 'Execute o DCF para ativar' : upBase >= 20 ? 'Desconto significativo' : upBase >= 0 ? 'Próximo do preço justo' : 'Acima do preço justo',
+    },
+  ]
+
+  // Score simples: soma de pontos por cartão
+  const pontos = cartoes.reduce((s, c) => s + (c.cor === '#00d4a0' ? 2 : c.cor === '#FFD54F' ? 1 : 0), 0)
+  const scoreMax = 10
+  const score = Math.min(pontos, scoreMax)
+  const scoreLbl = score >= 8 ? 'FORTE' : score >= 5 ? 'MODERADA' : 'FRACA'
+  const scoreCor = score >= 8 ? '#00d4a0' : score >= 5 ? '#FFD54F' : '#ef4444'
+
+  return (
+    <>
+      <div style={{ display:'flex',alignItems:'center',gap:'16px',marginBottom:'16px' }}>
+        <div style={{ fontSize:'15px',color:'#b8c4d4' }}>Score: <strong style={{ color:'#e8edf5' }}>{score}/{scoreMax}</strong></div>
+        <span style={{ background:scoreCor,color:'#000',fontWeight:700,fontSize:'11px',padding:'4px 12px',borderRadius:'6px',letterSpacing:'.5px' }}>{scoreLbl}</span>
+      </div>
+      <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:'10px' }}>
+        {cartoes.map(c => (
+          <div key={c.titulo} style={{ background:'rgba(255,255,255,.03)',border:`1px solid ${c.cor}33`,borderRadius:'10px',padding:'14px 14px' }}>
+            <div style={{ display:'flex',alignItems:'center',gap:'6px',marginBottom:'8px' }}>
+              <div style={{ width:'8px',height:'8px',borderRadius:'50%',background:c.cor,flexShrink:0 }}/>
+              <div style={{ fontSize:'10.5px',fontWeight:700,color:'#b8c4d4',letterSpacing:'.5px',textTransform:'uppercase' as const }}>{c.titulo}</div>
+            </div>
+            <div style={{ fontSize:'18px',fontWeight:700,color:c.cor,fontFamily:'var(--font-space),monospace',lineHeight:1.2 }}>{c.valor}</div>
+            <div style={{ fontSize:'10px',color:'#6b84a8',marginTop:'3px' }}>{c.sub}</div>
+            <div style={{ fontSize:'11px',color:'#6b84a8',marginTop:'6px',lineHeight:1.4 }}>{c.desc}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+
 function SecProximoTri({ e }: { e: any }) {
   const t = e.proximo_tri
   if (!t) return <p style={{ color:'#6b84a8',padding:'20px 0' }}>Estimativa não disponível.</p>
@@ -719,6 +899,152 @@ function SecProximoTri({ e }: { e: any }) {
         </div>
       )}
     </>
+  )
+}
+
+/* ── Editor de Premissas (plano analista) ────────────────────────────────── */
+function InputPrem({ label, value, onChange, step = 0.1 }: {
+  label: string; value: number; onChange: (v: number) => void; step?: number
+}) {
+  return (
+    <div style={{ marginBottom: '10px' }}>
+      <div style={{ fontSize: '10px', color: '#6b84a8', fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase' as const, marginBottom: '4px' }}>{label}</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+        <input
+          type="number" step={step} value={value}
+          onChange={e => onChange(parseFloat(e.target.value) || 0)}
+          style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.14)', borderRadius: '6px', color: '#e8edf5', fontFamily: 'var(--font-space),monospace', fontSize: '13px', fontWeight: 600, padding: '6px 8px', width: '100%', outline: 'none' }}
+        />
+        <span style={{ fontSize: '12px', color: '#6b84a8', flexShrink: 0 }}>%</span>
+      </div>
+    </div>
+  )
+}
+
+function AnosGrid({ label, values, onChange }: {
+  label: string; values: number[]; onChange: (i: number, v: number) => void
+}) {
+  return (
+    <div style={{ marginBottom: '14px' }}>
+      <div style={{ fontSize: '10px', color: '#6b84a8', fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase' as const, marginBottom: '6px' }}>{label}</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '4px' }}>
+        {values.map((v, i) => (
+          <div key={i} style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: '9px', color: '#3d4f6a', marginBottom: '2px' }}>A{i + 1}</div>
+            <input
+              type="number" step={0.1} value={v}
+              onChange={e => onChange(i, parseFloat(e.target.value) || 0)}
+              style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.10)', borderRadius: '5px', color: '#e8edf5', fontFamily: 'var(--font-space),monospace', fontSize: '11px', fontWeight: 600, padding: '4px 3px', width: '100%', textAlign: 'center', outline: 'none' }}
+            />
+          </div>
+        ))}
+        {/* coluna 8 = terminal */}
+        <div style={{ textAlign: 'center', gridColumn: '4 / span 1' }} />
+      </div>
+    </div>
+  )
+}
+
+function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  emp: any
+  premissas: PremissasDCF
+  setPremissas: (fn: (p: PremissasDCF) => PremissasDCF) => void
+  resultado: ResultadoDCF | null
+  onReset: () => void
+}) {
+  const upd = <K extends keyof PremissasDCF>(key: K, val: PremissasDCF[K]) =>
+    setPremissas(p => ({ ...p, [key]: val }))
+
+  const updArr = (key: 'g_receita' | 'mg_ebitda' | 'capex_pct' | 'dcg_pct', i: number, val: number) =>
+    setPremissas(p => {
+      const arr = [...p[key]]; arr[i] = val; return { ...p, [key]: arr }
+    })
+
+  const f1r = (v: number | null | undefined) => v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+  const f2r = (v: number | null | undefined) => v == null ? '—' : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  const fPr = (v: number | null | undefined) => v == null ? '—' : `${v > 0 ? '+' : ''}${f1r(v)}%`
+  const corU = (v: number | null | undefined) => v == null ? '#6b84a8' : v >= 20 ? '#00d4a0' : v >= 0 ? '#FFD54F' : '#ef4444'
+
+  const [avancado, setAvancado] = useState(false)
+  const hasRecBase = emp?.rec_base != null
+
+  return (
+    <div style={{ width: '256px', flexShrink: 0, background: '#081120', borderLeft: '1px solid rgba(255,255,255,.07)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+      {/* Cabeçalho */}
+      <div style={{ padding: '14px 16px 10px', borderBottom: '1px solid rgba(255,255,255,.07)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
+        <div>
+          <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase' as const, color: '#e8a020' }}>Premissas</div>
+          <div style={{ fontSize: '10px', color: '#3d4f6a', marginTop: '2px' }}>Analista — edite e recalcule</div>
+        </div>
+        <button onClick={onReset} style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.10)', borderRadius: '5px', color: '#6b84a8', fontSize: '10px', fontWeight: 700, padding: '4px 8px', cursor: 'pointer' }}>Resetar</button>
+      </div>
+
+      <div style={{ padding: '14px 16px', flex: 1 }}>
+        {/* Resultado calculado */}
+        {hasRecBase && resultado ? (
+          <div style={{ marginBottom: '16px', background: 'rgba(232,160,32,.05)', border: '1px solid rgba(232,160,32,.18)', borderRadius: '8px', padding: '10px 12px' }}>
+            <div style={{ fontSize: '9.5px', fontWeight: 700, color: '#e8a020', letterSpacing: '.5px', textTransform: 'uppercase' as const, marginBottom: '8px' }}>Resultado calculado</div>
+            {[
+              { label: '🔴 Bear', val: resultado.bear.preco, up: resultado.bear.upside },
+              { label: '🟡 Base', val: resultado.base.preco, up: resultado.base.upside },
+              { label: '🟢 Bull', val: resultado.bull.preco, up: resultado.bull.upside },
+            ].map(c => (
+              <div key={c.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '3px 0', borderBottom: '1px solid rgba(255,255,255,.04)' }}>
+                <span style={{ fontSize: '10.5px', color: '#6b84a8' }}>{c.label}</span>
+                <div style={{ textAlign: 'right' }}>
+                  <span style={{ fontSize: '13px', fontWeight: 700, color: '#e8edf5', fontFamily: 'var(--font-space),monospace' }}>
+                    {c.val > 0 ? `R$ ${f2r(c.val)}` : '—'}
+                  </span>
+                  {c.up != null && (
+                    <span style={{ fontSize: '10px', marginLeft: '6px', color: corU(c.up), fontWeight: 600 }}>{fPr(c.up)}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : !hasRecBase ? (
+          <div style={{ marginBottom: '12px', fontSize: '11px', color: '#3d4f6a', background: 'rgba(255,255,255,.03)', borderRadius: '6px', padding: '8px 10px', lineHeight: 1.5 }}>
+            rec_base não disponível. Rode export_dcf.py para habilitar o recálculo.
+          </div>
+        ) : (
+          <div style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#6b84a8' }}>
+            <div style={{ width: '12px', height: '12px', border: '2px solid rgba(232,160,32,.3)', borderTopColor: '#e8a020', borderRadius: '50%', animation: 'spin .75s linear infinite', flexShrink: 0 }} />
+            Calculando...
+          </div>
+        )}
+
+        {/* Parâmetros gerais */}
+        <div style={{ fontSize: '10px', fontWeight: 700, color: '#e8a020', letterSpacing: '1px', textTransform: 'uppercase' as const, marginBottom: '10px' }}>Parâmetros Gerais</div>
+        <InputPrem label="WACC"               value={premissas.wacc}              onChange={v => upd('wacc', v)} />
+        <InputPrem label="g Terminal"          value={premissas.g_terminal}         onChange={v => upd('g_terminal', v)} />
+        <InputPrem label="IR/CSLL efetivo"     value={premissas.tax_rate}           onChange={v => upd('tax_rate', v)} />
+        <InputPrem label="IR/CSLL perpetuidade" value={premissas.tax_rate_terminal} onChange={v => upd('tax_rate_terminal', v)} />
+        <InputPrem label="D&A / Receita"       value={premissas.da_pct}             onChange={v => upd('da_pct', v)} />
+
+        {/* Crescimento de Receita */}
+        <div style={{ borderTop: '1px solid rgba(255,255,255,.06)', paddingTop: '12px', marginTop: '4px' }}>
+          <AnosGrid label="Crescimento de Receita (%)" values={premissas.g_receita} onChange={(i, v) => updArr('g_receita', i, v)} />
+        </div>
+
+        {/* Margem EBITDA */}
+        <AnosGrid label="Margem EBITDA (%)" values={premissas.mg_ebitda} onChange={(i, v) => updArr('mg_ebitda', i, v)} />
+
+        {/* Avançado: CapEx e NCG */}
+        <button
+          onClick={() => setAvancado(a => !a)}
+          style={{ width: '100%', background: 'transparent', border: '1px solid rgba(255,255,255,.08)', borderRadius: '5px', color: '#6b84a8', fontSize: '10.5px', fontWeight: 600, padding: '5px', cursor: 'pointer', marginBottom: '8px' }}
+        >
+          {avancado ? '▲ Ocultar' : '▼ CapEx / NCG'}
+        </button>
+        {avancado && (
+          <>
+            <AnosGrid label="CapEx / Receita (%)" values={premissas.capex_pct} onChange={(i, v) => updArr('capex_pct', i, v)} />
+            <AnosGrid label="ΔNCG / ΔReceita (%)" values={premissas.dcg_pct}   onChange={(i, v) => updArr('dcg_pct', i, v)} />
+          </>
+        )}
+      </div>
+    </div>
   )
 }
 
@@ -770,6 +1096,12 @@ export default function DCFPage() {
   const [plano, setPlano] = useState<string | null>(null)
   const [precos, setPrecos] = useState<Record<string, number|null>>({})
 
+  // Estado do analista — premissas editáveis e resultado recalculado
+  const [premissas, setPremissas] = useState<PremissasDCF | null>(null)
+  const [resultadoCustom, setResultadoCustom] = useState<ResultadoDCF | null>(null)
+  const [atualizando, setAtualizando] = useState(false)
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   useEffect(() => {
     fetch('/api/auth/me')
       .then(r => r.json())
@@ -793,6 +1125,29 @@ export default function DCFPage() {
   }, [])
 
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState<Date|null>(null)
+
+  // Quando troca de empresa: inicializa premissas com os valores do modelo
+  useEffect(() => {
+    if (!sel || plano !== 'analista') { setPremissas(null); setResultadoCustom(null); return }
+    const e = dcfData[sel]
+    if (!e) return
+    setPremissas(premissasDeEmp(e))
+    setResultadoCustom(null)
+  }, [sel, plano])
+
+  // Recalcula DCF com debounce de 400ms ao editar premissas
+  useEffect(() => {
+    if (!premissas || !sel || plano !== 'analista') return
+    const e = dcfData[sel]
+    if (!e) return
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => {
+      const pa = precos[sel] ?? e.preco_atual ?? null
+      const res = calcDCFCustom(e, premissas, pa)
+      setResultadoCustom(res)
+    }, 400)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [premissas, sel, plano, precos])
 
   const fetchCotacoes = useCallback(() => {
     const tickers = Object.keys(dcfData)
@@ -831,6 +1186,7 @@ export default function DCFPage() {
     ({ fcff:'#3b82f6', ddm:'#a855f7', sotp:'#f59e0b' }[m?.toLowerCase()] ?? '#6b84a8')
 
   const linhasNeg: any[] = emp?.linhas_negocio ?? []
+  const isAnalista = plano === 'analista'
   const ABAS: { id: Aba; label: string; hidden?: boolean }[] = [
     { id:'resumo',        label:'Visão Geral'    },
     { id:'historico',     label:'Histórico'      },
@@ -839,6 +1195,8 @@ export default function DCFPage() {
     { id:'sensibilidade', label:'Sensibilidade'  },
     { id:'outros',        label:'TIR / Gordon / Graham' },
     { id:'tri',           label:'Próx. Trimestre' },
+    { id:'kpis',          label:'KPIs Operac.',   hidden: !isAnalista },
+    { id:'saude',         label:'Saúde Financ.',  hidden: !isAnalista },
   ]
 
   // Plano carregado e é gratuito → paywall
@@ -876,6 +1234,10 @@ export default function DCFPage() {
         .vazio{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#6b84a8;text-align:center}
         .btn-rel{background:#e8a020;color:#000;font-weight:700;font-size:13px;padding:10px 24px;border-radius:8px;border:none;cursor:pointer}
         .btn-rel:hover{background:#f5c55a}
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+        input[type=number]{-moz-appearance:textfield}
+        input[type=number]:focus{border-color:rgba(232,160,32,.5)!important;background:rgba(232,160,32,.06)!important}
+        @keyframes spin{to{transform:rotate(360deg)}}
         @media (max-width: 640px) {
           .sidebar{width:104px}
           .sidebar-hdr{padding:8px 8px}
@@ -945,7 +1307,14 @@ export default function DCFPage() {
                   {upSel != null && (
                     <Badge label={`Base ${upSel > 0 ? '+' : ''}${f1(upSel)}%`} color={corUpside(upSel)}/>
                   )}
-                  <div style={{ marginLeft:'auto' }}>
+                  {resultadoCustom && <Badge label="⚡ EDITADO" color="#e8a020"/>}
+                  <div style={{ marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center' }}>
+                    <button
+                      onClick={() => { setAtualizando(true); fetchCotacoes(); setTimeout(() => setAtualizando(false), 2000) }}
+                      style={{ background:'rgba(0,212,160,.1)',border:'1px solid rgba(0,212,160,.3)',color:'#00d4a0',fontWeight:700,fontSize:'12px',padding:'8px 16px',borderRadius:'7px',cursor:'pointer' }}
+                    >
+                      {atualizando ? '⟳ Atualizando…' : '⟳ Atualizar dados'}
+                    </button>
                     <button className="btn-rel" onClick={() => setModalRel(emp.ticker)}>📄 Gerar Relatório IA</button>
                   </div>
                 </div>
@@ -957,10 +1326,11 @@ export default function DCFPage() {
                       ' · cotação ao vivo'
                     : (emp.atualizado ?? '—')}
                   {precoLive != null
-                    ? ` · Preço no cálculo: R$ ${f2(precoLive)}`
+                    ? ` · R$ ${f2(precoLive)}`
                     : emp.preco_atual
                       ? ` · Preço base: R$ ${f2(emp.preco_atual)}`
                       : ''}
+                  {emp.atualizado && ` · Modelo: ${emp.atualizado}`}
                 </p>
               </div>
 
@@ -974,17 +1344,36 @@ export default function DCFPage() {
               </div>
 
               <div className="content">
-                {aba === 'resumo'        && <SecResumo e={emp} precoLive={precoLive}/>}
+                {aba === 'resumo'        && <SecResumo e={emp} precoLive={precoLive} customResult={resultadoCustom}/>}
                 {aba === 'historico'     && <SecHistorico e={emp}/>}
                 {aba === 'linhas'        && <SecLinhasNegocio e={emp}/>}
-                {aba === 'projecoes'     && <SecProjecoes e={emp}/>}
+                {aba === 'projecoes'     && <SecProjecoes e={emp} customResult={resultadoCustom}/>}
                 {aba === 'sensibilidade' && <SecSensibilidade e={emp} precoLive={precoLive}/>}
                 {aba === 'outros'        && <SecOutros e={emp} precoLive={precoLive}/>}
                 {aba === 'tri'           && <SecProximoTri e={emp}/>}
+                {aba === 'kpis'  && isAnalista && <>
+                  <SecTitle>KPIs Operacionais — Último Período</SecTitle>
+                  <SecKPIs e={emp} precoLive={precoLive}/>
+                </>}
+                {aba === 'saude' && isAnalista && <>
+                  <SecTitle>Saúde Financeira</SecTitle>
+                  <SecSaude e={emp}/>
+                </>}
               </div>
             </>
           )}
         </div>
+
+        {/* PAINEL PREMISSAS — só para analista com empresa selecionada */}
+        {isAnalista && emp && premissas && (
+          <PremissasEditor
+            emp={emp}
+            premissas={premissas}
+            setPremissas={fn => setPremissas(p => p ? fn(p) : p)}
+            resultado={resultadoCustom}
+            onReset={() => { setPremissas(premissasDeEmp(emp)); setResultadoCustom(null) }}
+          />
+        )}
       </div>
 
       {modalRel && (
