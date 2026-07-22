@@ -27,6 +27,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 62.7,
     "wacc_peso_d": 37.3,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       2.0,
       9.0,
@@ -52,8 +54,11 @@
         "ebitda": 1311.7,
         "mg_ebitda": 14.0,
         "ebit": 1109.3,
+        "capex": 443.0,
         "fcl": 1090.4,
-        "div_liq": -74.5
+        "div_liq": -74.5,
+        "n_lojas": 2106.0,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -61,8 +66,11 @@
         "ebitda": -1545.4,
         "mg_ebitda": -14.7,
         "ebit": -1806.6,
+        "capex": 502.3,
         "fcl": -962.6124,
-        "div_liq": 331.4
+        "div_liq": 331.4,
+        "n_lojas": 2130.0,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -70,8 +78,11 @@
         "ebitda": 964.6,
         "mg_ebitda": 8.3,
         "ebit": 631.6,
+        "capex": 554.4,
         "fcl": -1466.8,
-        "div_liq": 1880.1
+        "div_liq": 1880.1,
+        "n_lojas": 2129.0,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -79,8 +90,11 @@
         "ebitda": 1531.1111,
         "mg_ebitda": 13.0,
         "ebit": 1138.2,
+        "capex": 383.7,
         "fcl": 1484.4,
-        "div_liq": 2145.3
+        "div_liq": 2145.3,
+        "n_lojas": 2063.0,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -88,8 +102,11 @@
         "ebitda": 990.7222,
         "mg_ebitda": 9.1,
         "ebit": 702.865,
+        "capex": 280.0464,
         "fcl": -8752.2669,
-        "div_liq": 2181.0
+        "div_liq": 2181.0,
+        "n_lojas": 2042.0,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -328,7 +345,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -358,6 +375,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 37.8,
     "wacc_peso_d": 62.2,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       9.0,
       9.0,
@@ -383,8 +402,11 @@
         "ebitda": 126.44,
         "mg_ebitda": 12.1,
         "ebit": 143.063,
+        "capex": null,
         "fcl": 136.8603,
-        "div_liq": -137.172
+        "div_liq": -137.172,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -392,8 +414,11 @@
         "ebitda": 223.796,
         "mg_ebitda": 12.6,
         "ebit": 186.536,
+        "capex": 262.634,
         "fcl": -127.5494,
-        "div_liq": -38.443
+        "div_liq": -38.443,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -401,8 +426,11 @@
         "ebitda": 283.981,
         "mg_ebitda": 13.7,
         "ebit": 253.511,
+        "capex": 227.05,
         "fcl": -162.923,
-        "div_liq": -163.538
+        "div_liq": -163.538,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -410,8 +438,11 @@
         "ebitda": 183.298,
         "mg_ebitda": 10.0,
         "ebit": 145.119,
+        "capex": 184.275,
         "fcl": -209.1733,
-        "div_liq": -171.232
+        "div_liq": -171.232,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -419,8 +450,11 @@
         "ebitda": 154.064,
         "mg_ebitda": 5.9,
         "ebit": 92.281,
+        "capex": 79.801,
         "fcl": -138.166,
-        "div_liq": 151.324
+        "div_liq": 151.324,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -660,7 +694,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -690,6 +724,8 @@
     "wacc_erp": 4.5,
     "wacc_peso_e": 91.3,
     "wacc_peso_d": 8.7,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       13.0,
       13.0,
@@ -715,8 +751,11 @@
         "ebitda": 138.498,
         "mg_ebitda": 11.7,
         "ebit": 36.296,
+        "capex": 84.935,
         "fcl": 22.6201,
-        "div_liq": 62.534
+        "div_liq": 62.534,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2021",
@@ -724,8 +763,11 @@
         "ebitda": 316.593,
         "mg_ebitda": 17.0,
         "ebit": 325.667,
+        "capex": 132.881,
         "fcl": -20.6082,
-        "div_liq": 236.303
+        "div_liq": 236.303,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -733,8 +775,11 @@
         "ebitda": 476.9155,
         "mg_ebitda": 18.8,
         "ebit": 443.567,
+        "capex": 159.754,
         "fcl": 151.8061,
-        "div_liq": 210.905
+        "div_liq": 210.905,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -742,8 +787,11 @@
         "ebitda": 629.562,
         "mg_ebitda": 22.3,
         "ebit": 542.52,
+        "capex": 138.81,
         "fcl": 361.1234,
-        "div_liq": 63.281
+        "div_liq": 63.281,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -751,8 +799,11 @@
         "ebitda": 664.263,
         "mg_ebitda": 21.8,
         "ebit": 580.489,
+        "capex": 202.977,
         "fcl": 240.4508,
-        "div_liq": 22.625
+        "div_liq": 22.625,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -760,8 +811,11 @@
         "ebitda": 750.0748,
         "mg_ebitda": 21.1,
         "ebit": 753.076,
+        "capex": 241.397,
         "fcl": 361.746,
-        "div_liq": 769.422
+        "div_liq": 769.422,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -769,8 +823,11 @@
         "ebitda": 643.1248,
         "mg_ebitda": 21.4,
         "ebit": 675.444,
+        "capex": 205.0892,
         "fcl": null,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -1013,7 +1070,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1043,6 +1100,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 56.5,
     "wacc_peso_d": 43.5,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       3.5,
       6.0,
@@ -1068,8 +1127,11 @@
         "ebitda": 2256.386,
         "mg_ebitda": 59.0,
         "ebit": 2204.877,
+        "capex": 38.237,
         "fcl": 1708.5596,
-        "div_liq": 861.104
+        "div_liq": 861.104,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2021",
@@ -1077,8 +1139,11 @@
         "ebitda": 1103.114,
         "mg_ebitda": 23.0,
         "ebit": 1062.942,
+        "capex": 47.9083,
         "fcl": null,
-        "div_liq": 1136.756
+        "div_liq": 1136.756,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -1086,8 +1151,11 @@
         "ebitda": 976.559,
         "mg_ebitda": 18.0,
         "ebit": 913.286,
+        "capex": 54.123,
         "fcl": null,
-        "div_liq": 2022.268
+        "div_liq": 2022.268,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -1095,8 +1163,11 @@
         "ebitda": 1216.388,
         "mg_ebitda": 19.4,
         "ebit": 1125.439,
+        "capex": 62.527,
         "fcl": null,
-        "div_liq": 2454.511
+        "div_liq": 2454.511,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -1104,8 +1175,11 @@
         "ebitda": 2092.856,
         "mg_ebitda": 26.3,
         "ebit": 1992.797,
+        "capex": 79.6569,
         "fcl": null,
-        "div_liq": 2921.986
+        "div_liq": 2921.986,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -1113,8 +1187,11 @@
         "ebitda": 2428.756,
         "mg_ebitda": 25.8,
         "ebit": 2296.181,
+        "capex": 94.2349,
         "fcl": null,
-        "div_liq": 4735.705
+        "div_liq": 4735.705,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -1122,8 +1199,11 @@
         "ebitda": 2541.1093,
         "mg_ebitda": 26.0,
         "ebit": 2263.5829,
+        "capex": 97.7234,
         "fcl": null,
-        "div_liq": 4924.12
+        "div_liq": 4924.12,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -1362,7 +1442,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1383,7 +1463,7 @@
       "upside": 2.3
     },
     "upside_base_legado": null,
-    "wacc": 17.8,
+    "wacc": 15.7,
     "g_terminal": 5.0,
     "shares": 646586060,
     "wacc_ke": 15.7,
@@ -1392,6 +1472,8 @@
     "wacc_erp": 4.5,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       12.0,
       12.0,
@@ -1417,8 +1499,11 @@
         "ebitda": 1380.0,
         "mg_ebitda": 5.7,
         "ebit": 1380.0,
+        "capex": null,
         "fcl": 1380.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -1426,8 +1511,11 @@
         "ebitda": 1670.0,
         "mg_ebitda": 6.0,
         "ebit": 1670.0,
+        "capex": null,
         "fcl": 1670.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -1435,8 +1523,11 @@
         "ebitda": 2266.0,
         "mg_ebitda": 7.2,
         "ebit": 2266.0,
+        "capex": null,
         "fcl": 2266.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -1444,8 +1535,11 @@
         "ebitda": 2684.5,
         "mg_ebitda": 7.3,
         "ebit": 2684.5,
+        "capex": null,
         "fcl": 2684.5,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -1453,8 +1547,11 @@
         "ebitda": 3381.3,
         "mg_ebitda": 8.2,
         "ebit": 3381.3,
+        "capex": null,
         "fcl": 3381.3,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -1462,8 +1559,11 @@
         "ebitda": 3891.9685,
         "mg_ebitda": 8.5,
         "ebit": 3891.9685,
+        "capex": null,
         "fcl": 3891.9685,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -1476,7 +1576,7 @@
         "nopat": -8181.7,
         "capex": 1021.4,
         "fcl": 4075.5,
-        "vp_fcl": 3459.7
+        "vp_fcl": 3522.5
       },
       {
         "ano": 2028,
@@ -1486,7 +1586,7 @@
         "nopat": -8906.1,
         "capex": 1144.0,
         "fcl": 4822.0,
-        "vp_fcl": 3474.9
+        "vp_fcl": 3602.1
       },
       {
         "ano": 2029,
@@ -1496,7 +1596,7 @@
         "nopat": -9060.6,
         "capex": 1258.4,
         "fcl": 6040.4,
-        "vp_fcl": 3695.1
+        "vp_fcl": 3900.0
       },
       {
         "ano": 2030,
@@ -1506,7 +1606,7 @@
         "nopat": -9966.6,
         "capex": 1384.3,
         "fcl": 6644.4,
-        "vp_fcl": 3450.5
+        "vp_fcl": 3707.9
       },
       {
         "ano": 2031,
@@ -1516,7 +1616,7 @@
         "nopat": -10764.0,
         "capex": 1495.0,
         "fcl": 7176.0,
-        "vp_fcl": 3163.4
+        "vp_fcl": 3461.1
       },
       {
         "ano": 2032,
@@ -1526,7 +1626,7 @@
         "nopat": -11409.8,
         "capex": 1584.7,
         "fcl": 7606.5,
-        "vp_fcl": 2846.5
+        "vp_fcl": 3170.9
       },
       {
         "ano": 2033,
@@ -1536,11 +1636,11 @@
         "nopat": -11980.3,
         "capex": 1663.9,
         "fcl": 7986.9,
-        "vp_fcl": 2537.2
+        "vp_fcl": 2877.7
       }
     ],
     "projecoes_indicativas": true,
-    "valor_terminal": 29138.5,
+    "valor_terminal": 39534.5,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -1633,10 +1733,10 @@
       ]
     },
     "tir": {
-      "nominal": 26.87,
-      "real": 20.83,
-      "vs_selic": 14.33,
-      "vs_ntnb": 13.53,
+      "nominal": 29.11,
+      "real": 22.96,
+      "vs_selic": 16.46,
+      "vs_ntnb": 15.66,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
@@ -1703,7 +1803,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -1733,6 +1833,8 @@
     "wacc_erp": 6.0,
     "wacc_peso_e": 70.0,
     "wacc_peso_d": 20.9,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       10.0,
       10.0,
@@ -1758,8 +1860,11 @@
         "ebitda": 1589.21,
         "mg_ebitda": 7.3,
         "ebit": 1044.96,
+        "capex": 900.0,
         "fcl": 459.3188,
-        "div_liq": 1200.0
+        "div_liq": 1200.0,
+        "n_lojas": 130.0,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -1767,8 +1872,11 @@
         "ebitda": 2034.52,
         "mg_ebitda": 7.6,
         "ebit": 1365.27,
+        "capex": 1051.0,
         "fcl": 639.6606,
-        "div_liq": 900.0
+        "div_liq": 900.0,
+        "n_lojas": 148.0,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -1776,8 +1884,11 @@
         "ebitda": 2485.32,
         "mg_ebitda": 7.7,
         "ebit": 1683.07,
+        "capex": 1200.0,
         "fcl": 878.8646,
-        "div_liq": 610.0
+        "div_liq": 610.0,
+        "n_lojas": 168.0,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -1785,8 +1896,11 @@
         "ebitda": 2790.54,
         "mg_ebitda": 7.3,
         "ebit": 1830.54,
+        "capex": 1100.0,
         "fcl": 1233.2212,
-        "div_liq": 1100.0
+        "div_liq": 1100.0,
+        "n_lojas": 190.0,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -1794,8 +1908,11 @@
         "ebitda": 1859.5443,
         "mg_ebitda": 4.4,
         "ebit": 1103.5915,
+        "capex": 880.0,
         "fcl": 1314.3124,
-        "div_liq": 736.0
+        "div_liq": 736.0,
+        "n_lojas": 228.0,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -2043,7 +2160,7 @@
     "bull_factor": 1.35,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2073,6 +2190,8 @@
     "wacc_erp": 4.5,
     "wacc_peso_e": 85.0,
     "wacc_peso_d": 1.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       12.0,
       12.0,
@@ -2098,8 +2217,11 @@
         "ebitda": 7253.0,
         "mg_ebitda": 75.8,
         "ebit": 6199.0,
+        "capex": 250.0,
         "fcl": 5391.26,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -2107,8 +2229,11 @@
         "ebitda": 6634.0,
         "mg_ebitda": 65.6,
         "ebit": 5580.0,
+        "capex": 250.0,
         "fcl": 4933.2,
-        "div_liq": -2794.0
+        "div_liq": -2794.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -2116,8 +2241,11 @@
         "ebitda": 6339.0,
         "mg_ebitda": 63.9,
         "ebit": 5250.0,
+        "capex": 250.0,
         "fcl": 4724.0,
-        "div_liq": -1979.0
+        "div_liq": -1979.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -2125,8 +2253,11 @@
         "ebitda": 6617.0,
         "mg_ebitda": 62.6,
         "ebit": 6050.0,
+        "capex": 270.0,
         "fcl": 4774.0,
-        "div_liq": -72.0
+        "div_liq": -72.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -2134,8 +2265,11 @@
         "ebitda": 7025.0,
         "mg_ebitda": 63.2,
         "ebit": 6640.0,
+        "capex": 285.0,
         "fcl": 5013.6,
-        "div_liq": -597.0
+        "div_liq": -597.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -2143,8 +2277,11 @@
         "ebitda": 8677.9412,
         "mg_ebitda": 65.8,
         "ebit": 8287.581,
+        "capex": 301.0563,
         "fcl": 8379.5455,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -2389,7 +2526,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:45"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2419,6 +2556,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 65.2,
     "wacc_peso_d": 34.8,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       5.0,
       5.0,
@@ -2444,8 +2583,11 @@
         "ebitda": 9160.0,
         "mg_ebitda": 23.4,
         "ebit": 7261.0,
+        "capex": 4313.1,
         "fcl": 2741.21,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -2453,8 +2595,11 @@
         "ebitda": 12263.0,
         "mg_ebitda": 31.2,
         "ebit": 10231.0,
+        "capex": 4486.356,
         "fcl": 4827.954,
-        "div_liq": 24000.0
+        "div_liq": 24000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -2462,8 +2607,11 @@
         "ebitda": 12829.0,
         "mg_ebitda": 32.3,
         "ebit": 10579.0,
+        "capex": 4848.646,
         "fcl": 4932.044,
-        "div_liq": 25500.0
+        "div_liq": 25500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -2471,8 +2619,11 @@
         "ebitda": 13133.0,
         "mg_ebitda": 30.8,
         "ebit": 10830.0,
+        "capex": 5200.616,
         "fcl": 4651.084,
-        "div_liq": 26898.0
+        "div_liq": 26898.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -2480,8 +2631,11 @@
         "ebitda": 13453.0,
         "mg_ebitda": 30.3,
         "ebit": 11055.0,
+        "capex": 5368.407,
         "fcl": 4889.843,
-        "div_liq": 30371.0
+        "div_liq": 30371.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -2489,8 +2643,11 @@
         "ebitda": 13480.9398,
         "mg_ebitda": 28.5,
         "ebit": 11000.7756,
+        "capex": 5714.5446,
         "fcl": 7830.9768,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -2734,7 +2891,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:20"
+    "atualizado": "21/07/2026 22:46"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -2764,6 +2921,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       2.3,
       2.9,
@@ -2789,8 +2948,11 @@
         "ebitda": 5430.0,
         "mg_ebitda": 40.0,
         "ebit": 5430.0,
+        "capex": null,
         "fcl": 4072.5,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -2798,8 +2960,11 @@
         "ebitda": 5716.0,
         "mg_ebitda": 40.0,
         "ebit": 5716.0,
+        "capex": null,
         "fcl": 4287.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -2807,8 +2972,11 @@
         "ebitda": 7730.0,
         "mg_ebitda": 40.0,
         "ebit": 7730.0,
+        "capex": null,
         "fcl": 5797.5,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -2816,8 +2984,11 @@
         "ebitda": 8170.0,
         "mg_ebitda": 40.0,
         "ebit": 8170.0,
+        "capex": null,
         "fcl": 6127.5,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -2825,8 +2996,11 @@
         "ebitda": 9100.0,
         "mg_ebitda": 40.0,
         "ebit": 9100.0,
+        "capex": null,
         "fcl": 6825.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -2834,8 +3008,11 @@
         "ebitda": 9268.5185,
         "mg_ebitda": 40.0,
         "ebit": 9268.5185,
+        "capex": null,
         "fcl": 9268.5185,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -3081,7 +3258,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3111,6 +3288,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       3.0,
       6.0,
@@ -3136,8 +3315,11 @@
         "ebitda": 21000.0,
         "mg_ebitda": 32.3,
         "ebit": 21000.0,
+        "capex": null,
         "fcl": 15750.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -3145,8 +3327,11 @@
         "ebitda": 30900.0,
         "mg_ebitda": 39.6,
         "ebit": 30900.0,
+        "capex": null,
         "fcl": 23175.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -3154,8 +3339,11 @@
         "ebitda": 35600.0,
         "mg_ebitda": 38.7,
         "ebit": 35600.0,
+        "capex": null,
         "fcl": 26700.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -3163,8 +3351,11 @@
         "ebitda": 37900.0,
         "mg_ebitda": 36.5,
         "ebit": 37900.0,
+        "capex": null,
         "fcl": 28425.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -3172,8 +3363,11 @@
         "ebitda": 20690.0,
         "mg_ebitda": 20.1,
         "ebit": 20690.0,
+        "capex": null,
         "fcl": 15517.5,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -3181,8 +3375,11 @@
         "ebitda": 12088.0,
         "mg_ebitda": 11.2,
         "ebit": 12088.0,
+        "capex": null,
         "fcl": 12088.0,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -3430,7 +3627,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3460,6 +3657,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 67.1,
     "wacc_peso_d": 32.9,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       5.0,
       5.0,
@@ -3485,8 +3684,11 @@
         "ebitda": 14000.0,
         "mg_ebitda": 60.9,
         "ebit": 12820.0,
+        "capex": 2200.0,
         "fcl": 8595.0,
-        "div_liq": 32000.0
+        "div_liq": 32000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -3494,8 +3696,11 @@
         "ebitda": 19000.0,
         "mg_ebitda": 54.3,
         "ebit": 17410.0,
+        "capex": 3000.0,
         "fcl": 11647.5,
-        "div_liq": 29000.0
+        "div_liq": 29000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -3503,8 +3708,11 @@
         "ebitda": 21510.0,
         "mg_ebitda": 52.4,
         "ebit": 19650.0,
+        "capex": 3800.0,
         "fcl": 12797.5,
-        "div_liq": 25000.0
+        "div_liq": 25000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -3512,8 +3720,11 @@
         "ebitda": 26000.0,
         "mg_ebitda": 59.3,
         "ebit": 23980.0,
+        "capex": 4200.0,
         "fcl": 15805.0,
-        "div_liq": 23500.0
+        "div_liq": 23500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -3521,8 +3732,11 @@
         "ebitda": 20230.0,
         "mg_ebitda": 50.1,
         "ebit": 18050.0,
+        "capex": 4400.0,
         "fcl": 11317.5,
-        "div_liq": 9760.0
+        "div_liq": 9760.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -3530,8 +3744,11 @@
         "ebitda": 30845.0,
         "mg_ebitda": 82.0,
         "ebit": 27800.0,
+        "capex": 4400.0,
         "fcl": 25744.5283,
-        "div_liq": 11500.0
+        "div_liq": 11500.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -3757,7 +3974,7 @@
     "bull_factor": 1.15,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3787,6 +4004,8 @@
     "wacc_erp": 6.0,
     "wacc_peso_e": 70.0,
     "wacc_peso_d": 20.9,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       11.1,
       9.7,
@@ -3812,8 +4031,11 @@
         "ebitda": 202.611,
         "mg_ebitda": 11.9,
         "ebit": 183.929,
+        "capex": 146.222,
         "fcl": 15.9246,
-        "div_liq": -136.06
+        "div_liq": -136.06,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2020",
@@ -3821,8 +4043,11 @@
         "ebitda": 409.785,
         "mg_ebitda": 19.2,
         "ebit": 386.374,
+        "capex": 154.261,
         "fcl": 58.1697,
-        "div_liq": -252.617
+        "div_liq": -252.617,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2021",
@@ -3830,8 +4055,11 @@
         "ebitda": 403.23,
         "mg_ebitda": 13.1,
         "ebit": 362.608,
+        "capex": 351.697,
         "fcl": -955.4248,
-        "div_liq": -501.575
+        "div_liq": -501.575,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -3839,8 +4067,11 @@
         "ebitda": 533.022,
         "mg_ebitda": 12.6,
         "ebit": 463.374,
+        "capex": 499.855,
         "fcl": -129.4283,
-        "div_liq": -496.072
+        "div_liq": -496.072,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -3848,8 +4079,11 @@
         "ebitda": 600.565,
         "mg_ebitda": 14.6,
         "ebit": 521.325,
+        "capex": 510.25,
         "fcl": -12.6295,
-        "div_liq": -392.07
+        "div_liq": -392.07,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -3857,8 +4091,11 @@
         "ebitda": 642.151,
         "mg_ebitda": 13.5,
         "ebit": 544.317,
+        "capex": 528.026,
         "fcl": -691.9987,
-        "div_liq": 35.407
+        "div_liq": 35.407,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -3866,8 +4103,11 @@
         "ebitda": 541.777,
         "mg_ebitda": 12.2,
         "ebit": 425.152,
+        "capex": 270.529,
         "fcl": 442.3796,
-        "div_liq": -211.935
+        "div_liq": -211.935,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -3875,8 +4115,11 @@
         "ebitda": 847.2085,
         "mg_ebitda": 15.8,
         "ebit": 686.7325,
+        "capex": 169.332,
         "fcl": 540.4737,
-        "div_liq": -355.933
+        "div_liq": -355.933,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -4121,7 +4364,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -4151,6 +4394,8 @@
     "wacc_erp": 7.0,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       5.0,
       7.2,
@@ -4176,8 +4421,11 @@
         "ebitda": 232.978,
         "mg_ebitda": 19.0,
         "ebit": 201.0968,
+        "capex": null,
         "fcl": 156.8555,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -4185,8 +4433,11 @@
         "ebitda": 548.1904,
         "mg_ebitda": 30.2,
         "ebit": 500.9952,
+        "capex": null,
         "fcl": null,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -4194,8 +4445,11 @@
         "ebitda": 282.8001,
         "mg_ebitda": 18.7,
         "ebit": 243.4803,
+        "capex": null,
         "fcl": null,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -4203,8 +4457,11 @@
         "ebitda": 325.0217,
         "mg_ebitda": 20.2,
         "ebit": 283.2293,
+        "capex": null,
         "fcl": null,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -4212,8 +4469,11 @@
         "ebitda": 245.6976,
         "mg_ebitda": 16.5,
         "ebit": 206.9524,
+        "capex": null,
         "fcl": null,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -4221,8 +4481,11 @@
         "ebitda": 157.1918,
         "mg_ebitda": 11.8,
         "ebit": 129.7752,
+        "capex": null,
         "fcl": null,
-        "div_liq": null
+        "div_liq": null,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -4460,7 +4723,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4490,6 +4753,8 @@
     "wacc_erp": 4.5,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       14.0,
       12.0,
@@ -4515,8 +4780,11 @@
         "ebitda": 26210.0,
         "mg_ebitda": 52.9,
         "ebit": 26210.0,
+        "capex": null,
         "fcl": 19657.5,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -4524,8 +4792,11 @@
         "ebitda": 20680.0,
         "mg_ebitda": 38.9,
         "ebit": 20680.0,
+        "capex": null,
         "fcl": null,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -4533,8 +4804,11 @@
         "ebitda": 16310.0,
         "mg_ebitda": 28.9,
         "ebit": 16310.0,
+        "capex": null,
         "fcl": null,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -4542,8 +4816,11 @@
         "ebitda": 19590.0,
         "mg_ebitda": 30.1,
         "ebit": 19590.0,
+        "capex": null,
         "fcl": null,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -4551,8 +4828,11 @@
         "ebitda": 24680.0,
         "mg_ebitda": 33.6,
         "ebit": 24680.0,
+        "capex": null,
         "fcl": null,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -4560,8 +4840,11 @@
         "ebitda": 28632.1635,
         "mg_ebitda": 34.1,
         "ebit": 28632.1635,
+        "capex": null,
         "fcl": null,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -4805,7 +5088,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4835,6 +5118,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 77.9,
     "wacc_peso_d": 22.1,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       17.5,
       13.0,
@@ -4860,8 +5145,11 @@
         "ebitda": 14500.0,
         "mg_ebitda": 49.1,
         "ebit": 11600.0,
+        "capex": 6200.0,
         "fcl": 5400.0,
-        "div_liq": 30500.0
+        "div_liq": 30500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -4869,8 +5157,11 @@
         "ebitda": 18500.0,
         "mg_ebitda": 52.9,
         "ebit": 14800.0,
+        "capex": 6900.0,
         "fcl": null,
-        "div_liq": 27500.0
+        "div_liq": 27500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -4878,8 +5169,11 @@
         "ebitda": 20500.0,
         "mg_ebitda": 53.9,
         "ebit": 16400.0,
+        "capex": 7900.0,
         "fcl": null,
-        "div_liq": 36500.0
+        "div_liq": 36500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -4887,8 +5181,11 @@
         "ebitda": 25500.0,
         "mg_ebitda": 63.4,
         "ebit": 20400.0,
+        "capex": 8150.0,
         "fcl": null,
-        "div_liq": 37500.0
+        "div_liq": 37500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -4896,8 +5193,11 @@
         "ebitda": 19670.0,
         "mg_ebitda": 47.6,
         "ebit": 15736.0,
+        "capex": 9600.0,
         "fcl": null,
-        "div_liq": 46480.0
+        "div_liq": 46480.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -4905,8 +5205,11 @@
         "ebitda": 31805.0,
         "mg_ebitda": 65.1,
         "ebit": 25444.0,
+        "capex": 6165.0,
         "fcl": null,
-        "div_liq": 46040.0
+        "div_liq": 46040.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -5144,7 +5447,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -5174,6 +5477,8 @@
     "wacc_erp": 4.5,
     "wacc_peso_e": 50.4,
     "wacc_peso_d": 49.6,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       12.0,
       10.0,
@@ -5199,8 +5504,11 @@
         "ebitda": 5430.0,
         "mg_ebitda": 23.5,
         "ebit": 4115.0,
+        "capex": 3380.0,
         "fcl": 980.1,
-        "div_liq": 13600.0
+        "div_liq": 13600.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -5208,8 +5516,11 @@
         "ebitda": 7360.0,
         "mg_ebitda": 27.1,
         "ebit": 5860.0,
+        "capex": 5300.0,
         "fcl": null,
-        "div_liq": 21600.0
+        "div_liq": 21600.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -5217,8 +5528,11 @@
         "ebitda": 10100.0,
         "mg_ebitda": 24.6,
         "ebit": 8100.0,
+        "capex": 10800.0,
         "fcl": null,
-        "div_liq": 35000.0
+        "div_liq": 35000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -5226,8 +5540,11 @@
         "ebitda": 11000.0,
         "mg_ebitda": 25.1,
         "ebit": 8240.0,
+        "capex": 9100.0,
         "fcl": null,
-        "div_liq": 41900.0
+        "div_liq": 41900.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -5235,8 +5552,11 @@
         "ebitda": 12810.0,
         "mg_ebitda": 24.8,
         "ebit": 9810.0,
+        "capex": 10920.0,
         "fcl": null,
-        "div_liq": 41900.0
+        "div_liq": 41900.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -5244,8 +5564,11 @@
         "ebitda": 14244.3243,
         "mg_ebitda": 24.6,
         "ebit": 11089.5652,
+        "capex": 12249.3913,
         "fcl": null,
-        "div_liq": 47000.0
+        "div_liq": 47000.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -5489,7 +5812,7 @@
     "bull_factor": 1.15,
     "bear_margin_factor": 0.97,
     "bull_margin_factor": 1.03,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5519,6 +5842,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 41.6,
     "wacc_peso_d": 58.4,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       -5.0,
       5.0,
@@ -5544,8 +5869,11 @@
         "ebitda": 23500.0,
         "mg_ebitda": 57.9,
         "ebit": 17500.0,
+        "capex": 12000.0,
         "fcl": 6600.0,
-        "div_liq": 79600.0
+        "div_liq": 79600.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -5553,8 +5881,11 @@
         "ebitda": 20621.0,
         "mg_ebitda": 52.3,
         "ebit": 14121.0,
+        "capex": 12000.0,
         "fcl": 4923.12,
-        "div_liq": 57100.0
+        "div_liq": 57100.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -5562,8 +5893,11 @@
         "ebitda": 18655.0,
         "mg_ebitda": 47.0,
         "ebit": 11555.0,
+        "capex": 11500.0,
         "fcl": 3871.6,
-        "div_liq": 70000.0
+        "div_liq": 70000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -5571,8 +5905,11 @@
         "ebitda": 23800.0,
         "mg_ebitda": 50.3,
         "ebit": 15300.0,
+        "capex": 7500.0,
         "fcl": 11144.0,
-        "div_liq": 79000.0
+        "div_liq": 79000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -5580,8 +5917,11 @@
         "ebitda": 18800.0,
         "mg_ebitda": 37.5,
         "ebit": 9800.0,
+        "capex": 5000.0,
         "fcl": 11312.48,
-        "div_liq": 70000.0
+        "div_liq": 70000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -5589,8 +5929,11 @@
         "ebitda": 17680.4928,
         "mg_ebitda": 37.2,
         "ebit": 8735.5805,
+        "capex": 4285.7143,
         "fcl": 13750.5062,
-        "div_liq": 72000.0
+        "div_liq": 72000.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -5858,7 +6201,7 @@
     "bull_factor": 1.2,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.08,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5888,6 +6231,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 64.4,
     "wacc_peso_d": 35.6,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       7.0,
       7.0,
@@ -5913,8 +6258,11 @@
         "ebitda": 8000.0,
         "mg_ebitda": 23.8,
         "ebit": 6950.0,
+        "capex": 1500.0,
         "fcl": 4762.5,
-        "div_liq": 8814.0
+        "div_liq": 8814.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -5922,8 +6270,11 @@
         "ebitda": 6870.0,
         "mg_ebitda": 19.6,
         "ebit": 5690.0,
+        "capex": 2000.0,
         "fcl": 3442.1,
-        "div_liq": 7394.0
+        "div_liq": 7394.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -5931,8 +6282,11 @@
         "ebitda": 8500.0,
         "mg_ebitda": 23.1,
         "ebit": 7230.0,
+        "capex": 3500.0,
         "fcl": 3179.9,
-        "div_liq": 7519.0
+        "div_liq": 7519.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -5940,8 +6294,11 @@
         "ebitda": 11260.0,
         "mg_ebitda": 28.3,
         "ebit": 9880.0,
+        "capex": 5700.0,
         "fcl": 3016.8,
-        "div_liq": 10023.0
+        "div_liq": 10023.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -5949,8 +6306,11 @@
         "ebitda": 8283.0,
         "mg_ebitda": 19.4,
         "ebit": 6740.0,
+        "capex": 6630.0,
         "fcl": -51.2,
-        "div_liq": 16803.0
+        "div_liq": 16803.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -5958,8 +6318,11 @@
         "ebitda": 8031.7281,
         "mg_ebitda": 17.7,
         "ebit": 6416.8493,
+        "capex": 8085.3659,
         "fcl": -7.1528,
-        "div_liq": 17817.0
+        "div_liq": 17817.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -6204,7 +6567,7 @@
     "bull_factor": 1.15,
     "bear_margin_factor": 0.95,
     "bull_margin_factor": 1.05,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -6234,6 +6597,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 73.2,
     "wacc_peso_d": 26.8,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       6.0,
       6.0,
@@ -6259,8 +6624,11 @@
         "ebitda": 366.0,
         "mg_ebitda": 31.0,
         "ebit": 281.0,
+        "capex": 260.0,
         "fcl": 35.9898,
-        "div_liq": 3800.0
+        "div_liq": 3800.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2021",
@@ -6268,8 +6636,11 @@
         "ebitda": 655.0,
         "mg_ebitda": 39.0,
         "ebit": 535.0,
+        "capex": 320.0,
         "fcl": -878.5166,
-        "div_liq": 4100.0
+        "div_liq": 4100.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -6277,8 +6648,11 @@
         "ebitda": 881.0,
         "mg_ebitda": 43.0,
         "ebit": 726.0,
+        "capex": 380.0,
         "fcl": -480.5,
-        "div_liq": 3600.0
+        "div_liq": 3600.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -6286,8 +6660,11 @@
         "ebitda": 1058.0,
         "mg_ebitda": 46.0,
         "ebit": 878.0,
+        "capex": 420.0,
         "fcl": -331.5,
-        "div_liq": 3200.0
+        "div_liq": 3200.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -6295,8 +6672,11 @@
         "ebitda": 1320.0,
         "mg_ebitda": 48.0,
         "ebit": 1110.0,
+        "capex": 480.0,
         "fcl": 32.1183,
-        "div_liq": 2960.0
+        "div_liq": 2960.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -6304,8 +6684,11 @@
         "ebitda": 5538.0,
         "mg_ebitda": 71.0,
         "ebit": 5306.0,
+        "capex": 350.0,
         "fcl": 4541.024,
-        "div_liq": -1800.0
+        "div_liq": -1800.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -6313,8 +6696,11 @@
         "ebitda": 5711.2049,
         "mg_ebitda": 73.5,
         "ebit": 5351.3989,
+        "capex": 393.75,
         "fcl": 5289.5061,
-        "div_liq": -1700.0
+        "div_liq": -1700.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -6554,7 +6940,7 @@
     "bull_factor": 1.34,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -6584,6 +6970,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       14.0,
       13.0,
@@ -6609,8 +6997,11 @@
         "ebitda": 2378.6667,
         "mg_ebitda": 1.3,
         "ebit": 2358.6667,
+        "capex": 32.0,
         "fcl": 1757.0,
-        "div_liq": -300.0
+        "div_liq": -300.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2021",
@@ -6618,8 +7009,11 @@
         "ebitda": 2552.0,
         "mg_ebitda": 1.1,
         "ebit": 2528.0,
+        "capex": 40.0,
         "fcl": null,
-        "div_liq": -800.0
+        "div_liq": -800.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -6627,8 +7021,11 @@
         "ebitda": 3712.0,
         "mg_ebitda": 1.0,
         "ebit": 3676.0,
+        "capex": 52.0,
         "fcl": null,
-        "div_liq": -500.0
+        "div_liq": -500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -6636,8 +7033,11 @@
         "ebitda": 4686.6667,
         "mg_ebitda": 1.1,
         "ebit": 4642.6667,
+        "capex": 60.0,
         "fcl": null,
-        "div_liq": -700.0
+        "div_liq": -700.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -6645,8 +7045,11 @@
         "ebitda": 5060.0,
         "mg_ebitda": 99.6,
         "ebit": 5008.0,
+        "capex": 72.0,
         "fcl": null,
-        "div_liq": -700.0
+        "div_liq": -700.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -6654,8 +7057,11 @@
         "ebitda": 5808.0,
         "mg_ebitda": 1.0,
         "ebit": 5752.0,
+        "capex": 80.0,
         "fcl": null,
-        "div_liq": -1690.0
+        "div_liq": -1690.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -6663,8 +7069,11 @@
         "ebitda": 6567.1784,
         "mg_ebitda": 1.0,
         "ebit": 6511.6981,
+        "capex": 80.0,
         "fcl": null,
-        "div_liq": -1100.0
+        "div_liq": -1100.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -6903,7 +7312,7 @@
     "bull_factor": 1.37,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -6933,6 +7342,8 @@
     "wacc_erp": 6.0,
     "wacc_peso_e": 71.1,
     "wacc_peso_d": 28.9,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       6.5,
       7.0,
@@ -6958,8 +7369,11 @@
         "ebitda": 580.0,
         "mg_ebitda": 10.8,
         "ebit": 364.8,
+        "capex": 188.3,
         "fcl": 300.5,
-        "div_liq": 1600.0
+        "div_liq": 1600.0,
+        "n_lojas": 385.0,
+        "area_m2": null
       },
       {
         "ano": "2021",
@@ -6967,8 +7381,11 @@
         "ebitda": 830.0,
         "mg_ebitda": 12.2,
         "ebit": 558.0,
+        "capex": 238.0,
         "fcl": 471.5,
-        "div_liq": 1100.0
+        "div_liq": 1100.0,
+        "n_lojas": 395.0,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -6976,8 +7393,11 @@
         "ebitda": 1057.0,
         "mg_ebitda": 12.7,
         "ebit": 725.0,
+        "capex": 290.5,
         "fcl": 527.68,
-        "div_liq": 1500.0
+        "div_liq": 1500.0,
+        "n_lojas": 410.0,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -6985,8 +7405,11 @@
         "ebitda": 1027.0,
         "mg_ebitda": 11.7,
         "ebit": 676.2,
+        "capex": 306.95,
         "fcl": 481.27,
-        "div_liq": 1060.0
+        "div_liq": 1060.0,
+        "n_lojas": 420.0,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -6994,8 +7417,11 @@
         "ebitda": 1488.0,
         "mg_ebitda": 15.5,
         "ebit": 1104.0,
+        "capex": 336.0,
         "fcl": 832.3,
-        "div_liq": 499.0
+        "div_liq": 499.0,
+        "n_lojas": 425.0,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -7003,8 +7429,11 @@
         "ebitda": 1662.0,
         "mg_ebitda": 15.8,
         "ebit": 1242.56,
+        "capex": 367.01,
         "fcl": 921.65,
-        "div_liq": 200.0
+        "div_liq": 200.0,
+        "n_lojas": 432.0,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -7012,8 +7441,11 @@
         "ebitda": 1895.3872,
         "mg_ebitda": 16.9,
         "ebit": 1470.5249,
+        "capex": 391.6574,
         "fcl": 1718.376,
-        "div_liq": 250.0
+        "div_liq": 250.0,
+        "n_lojas": 433.0,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -7260,7 +7692,7 @@
     "bull_factor": 1.38,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -7290,6 +7722,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 97.0,
     "wacc_peso_d": 3.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       6.0,
       8.0,
@@ -7315,8 +7749,11 @@
         "ebitda": 511.0,
         "mg_ebitda": 10.2,
         "ebit": 234.35,
+        "capex": 186.11,
         "fcl": 245.211,
-        "div_liq": 324.0
+        "div_liq": 324.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -7324,8 +7761,11 @@
         "ebitda": 770.0,
         "mg_ebitda": 12.4,
         "ebit": 429.55,
+        "capex": 229.03,
         "fcl": 380.523,
-        "div_liq": 468.0
+        "div_liq": 468.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -7333,8 +7773,11 @@
         "ebitda": 1099.0,
         "mg_ebitda": 16.4,
         "ebit": 729.95,
+        "capex": 248.27,
         "fcl": 548.147,
-        "div_liq": 340.0
+        "div_liq": 340.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -7342,8 +7785,11 @@
         "ebitda": 1312.0,
         "mg_ebitda": 17.2,
         "ebit": 892.35,
+        "capex": 282.31,
         "fcl": 684.691,
-        "div_liq": -75.0
+        "div_liq": -75.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -7351,8 +7797,11 @@
         "ebitda": 1433.0,
         "mg_ebitda": 18.0,
         "ebit": 994.1,
+        "capex": 295.26,
         "fcl": 812.546,
-        "div_liq": -83.0
+        "div_liq": -83.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -7360,8 +7809,11 @@
         "ebitda": 1438.873,
         "mg_ebitda": 17.9,
         "ebit": 996.9777,
+        "capex": 297.0939,
         "fcl": 1277.5099,
-        "div_liq": 131.0
+        "div_liq": 131.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -7602,7 +8054,7 @@
     "bull_factor": 1.45,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -7632,6 +8084,8 @@
     "wacc_erp": 4.8,
     "wacc_peso_e": 59.8,
     "wacc_peso_d": 40.2,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       3.0,
       2.0,
@@ -7657,8 +8111,11 @@
         "ebitda": 234900.0,
         "mg_ebitda": 57.6,
         "ebit": 128924.0,
+        "capex": 43500.0,
         "fcl": 175392.8421,
-        "div_liq": 299000.0
+        "div_liq": 299000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -7666,8 +8123,11 @@
         "ebitda": 340500.0,
         "mg_ebitda": 60.9,
         "ebit": 195160.0,
+        "capex": 62300.0,
         "fcl": 276970.0,
-        "div_liq": 233000.0
+        "div_liq": 233000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -7675,8 +8135,11 @@
         "ebitda": 262200.0,
         "mg_ebitda": 52.7,
         "ebit": 132814.0,
+        "capex": 68500.0,
         "fcl": 191863.8947,
-        "div_liq": 215000.0
+        "div_liq": 215000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -7684,8 +8147,11 @@
         "ebitda": 229400.0,
         "mg_ebitda": 46.8,
         "ebit": 102000.0,
+        "capex": 76500.0,
         "fcl": 90548.3158,
-        "div_liq": 348000.0
+        "div_liq": 348000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -7693,8 +8159,11 @@
         "ebitda": 237200.0,
         "mg_ebitda": 47.7,
         "ebit": 107850.0,
+        "capex": 82000.0,
         "fcl": 154774.0,
-        "div_liq": 357000.0
+        "div_liq": 357000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -7702,8 +8171,11 @@
         "ebitda": 239529.2962,
         "mg_ebitda": 48.3,
         "ebit": 110398.6383,
+        "capex": 114663.3333,
         "fcl": 124979.153,
-        "div_liq": 357075.0
+        "div_liq": 357075.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -7888,7 +8360,7 @@
     "bull_factor": 1.2,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.08,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -7918,6 +8390,8 @@
     "wacc_erp": 4.8,
     "wacc_peso_e": 99.7,
     "wacc_peso_d": 0.3,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       6.0,
       7.0,
@@ -7943,8 +8417,11 @@
         "ebitda": 1880.0,
         "mg_ebitda": 19.3,
         "ebit": 1587.5,
+        "capex": 292.5,
         "fcl": 1190.625,
-        "div_liq": 900.0
+        "div_liq": 900.0,
+        "n_lojas": 583.0,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -7952,8 +8429,11 @@
         "ebitda": 2263.0,
         "mg_ebitda": 19.9,
         "ebit": 1921.63,
+        "capex": 341.37,
         "fcl": 1266.2225,
-        "div_liq": 1800.0
+        "div_liq": 1800.0,
+        "n_lojas": 584.0,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -7961,8 +8441,11 @@
         "ebitda": 2299.0,
         "mg_ebitda": 19.0,
         "ebit": 1935.37,
+        "capex": 363.63,
         "fcl": 1381.5275,
-        "div_liq": 1500.0
+        "div_liq": 1500.0,
+        "n_lojas": 578.0,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -7970,8 +8453,11 @@
         "ebitda": 2686.0,
         "mg_ebitda": 20.5,
         "ebit": 2292.1,
+        "capex": 393.9,
         "fcl": 1589.575,
-        "div_liq": -100.0
+        "div_liq": -100.0,
+        "n_lojas": 571.0,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -7979,8 +8465,11 @@
         "ebitda": 3171.0,
         "mg_ebitda": 22.0,
         "ebit": 2739.33,
+        "capex": 431.67,
         "fcl": 1991.4975,
-        "div_liq": -1400.0
+        "div_liq": -1400.0,
+        "n_lojas": 563.0,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -7988,8 +8477,11 @@
         "ebitda": 3300.8703,
         "mg_ebitda": 26.0,
         "ebit": 2938.8039,
+        "capex": 467.8632,
         "fcl": 3367.8813,
-        "div_liq": -1500.0
+        "div_liq": -1500.0,
+        "n_lojas": 560.0,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -8236,7 +8728,7 @@
     "bull_factor": 1.25,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -8266,6 +8758,8 @@
     "wacc_erp": 4.8,
     "wacc_peso_e": 69.5,
     "wacc_peso_d": 30.5,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       18.0,
       8.0,
@@ -8291,8 +8785,11 @@
         "ebitda": 2222.0,
         "mg_ebitda": 62.4,
         "ebit": 1580.84,
+        "capex": 534.0,
         "fcl": 1150.5144,
-        "div_liq": 7280.0
+        "div_liq": 7280.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -8300,8 +8797,11 @@
         "ebitda": 6060.0,
         "mg_ebitda": 69.7,
         "ebit": 4408.52,
+        "capex": 1040.0,
         "fcl": 3473.3432,
-        "div_liq": 11340.0
+        "div_liq": 11340.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -8309,8 +8809,11 @@
         "ebitda": 7531.0,
         "mg_ebitda": 75.1,
         "ebit": 5468.68,
+        "capex": 2495.0,
         "fcl": 3156.8888,
-        "div_liq": 8820.0
+        "div_liq": 8820.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -8318,8 +8821,11 @@
         "ebitda": 8849.0,
         "mg_ebitda": 70.8,
         "ebit": 5974.28,
+        "capex": 6453.0,
         "fcl": 338.6648,
-        "div_liq": 26230.0
+        "div_liq": 26230.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -8327,8 +8833,11 @@
         "ebitda": 7739.0,
         "mg_ebitda": 52.7,
         "ebit": 3852.2,
+        "capex": 3452.0,
         "fcl": 2970.772,
-        "div_liq": 24725.0
+        "div_liq": 24725.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -8336,8 +8845,11 @@
         "ebitda": 12679.0,
         "mg_ebitda": 56.5,
         "ebit": 6676.81,
+        "capex": 4140.041,
         "fcl": 6899.3731,
-        "div_liq": 23985.0
+        "div_liq": 23985.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -8509,7 +9021,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.88,
     "bull_margin_factor": 1.08,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -8539,6 +9051,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 45.3,
     "wacc_peso_d": 54.7,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       1.0,
       4.0,
@@ -8564,8 +9078,11 @@
         "ebitda": 1472.0,
         "mg_ebitda": 4.2,
         "ebit": 413.7,
+        "capex": 881.9,
         "fcl": 486.675,
-        "div_liq": 2670.0
+        "div_liq": 2670.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -8573,8 +9090,11 @@
         "ebitda": 2096.0,
         "mg_ebitda": 5.6,
         "ebit": 977.0,
+        "capex": 932.5,
         "fcl": 811.5118,
-        "div_liq": 4380.0
+        "div_liq": 4380.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -8582,8 +9102,11 @@
         "ebitda": 2009.0,
         "mg_ebitda": 5.5,
         "ebit": 905.9,
+        "capex": 919.1,
         "fcl": 902.5019,
-        "div_liq": 3980.0
+        "div_liq": 3980.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -8591,8 +9114,11 @@
         "ebitda": 2963.0,
         "mg_ebitda": 7.8,
         "ebit": 1821.8,
+        "capex": 950.9,
         "fcl": 1542.6214,
-        "div_liq": 2420.0
+        "div_liq": 2420.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -8600,8 +9126,11 @@
         "ebitda": 3162.0,
         "mg_ebitda": 8.2,
         "ebit": 2000.9,
+        "capex": 967.7,
         "fcl": 1671.5516,
-        "div_liq": 2910.0
+        "div_liq": 2910.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -8609,8 +9138,11 @@
         "ebitda": 2983.3325,
         "mg_ebitda": 7.9,
         "ebit": 1844.7689,
+        "capex": 948.3295,
         "fcl": -4158.4294,
-        "div_liq": 2000.0
+        "div_liq": 2000.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -8856,7 +9388,7 @@
     "bull_factor": 1.8,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -8886,6 +9418,8 @@
     "wacc_erp": 6.0,
     "wacc_peso_e": 61.3,
     "wacc_peso_d": 38.7,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       14.0,
       12.0,
@@ -8911,8 +9445,11 @@
         "ebitda": 177.3664,
         "mg_ebitda": 29.1,
         "ebit": 176.5634,
+        "capex": 6.0927,
         "fcl": 136.6241,
-        "div_liq": -573.513
+        "div_liq": -573.513,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -8920,8 +9457,11 @@
         "ebitda": 87.397,
         "mg_ebitda": 15.7,
         "ebit": 86.522,
+        "capex": 5.5533,
         "fcl": -350.5746,
-        "div_liq": -494.466
+        "div_liq": -494.466,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -8929,8 +9469,11 @@
         "ebitda": 221.045,
         "mg_ebitda": 24.5,
         "ebit": 220.128,
+        "capex": 9.0333,
         "fcl": -88.7762,
-        "div_liq": -162.882
+        "div_liq": -162.882,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -8938,8 +9481,11 @@
         "ebitda": 398.158,
         "mg_ebitda": 25.7,
         "ebit": 396.963,
+        "capex": 15.493,
         "fcl": -128.1687,
-        "div_liq": -129.169
+        "div_liq": -129.169,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -8947,8 +9493,11 @@
         "ebitda": 473.781,
         "mg_ebitda": 26.9,
         "ebit": 472.961,
+        "capex": 17.614,
         "fcl": -378.9423,
-        "div_liq": 393.535
+        "div_liq": 393.535,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -8956,8 +9505,11 @@
         "ebitda": 362.6714,
         "mg_ebitda": 18.5,
         "ebit": 362.5245,
+        "capex": 19.6315,
         "fcl": -169.538,
-        "div_liq": 467.727
+        "div_liq": 467.727,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -9203,7 +9755,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -9233,6 +9785,8 @@
     "wacc_erp": 4.5,
     "wacc_peso_e": 57.0,
     "wacc_peso_d": 43.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       6.5,
       6.5,
@@ -9258,8 +9812,11 @@
         "ebitda": 1515.751,
         "mg_ebitda": 82.5,
         "ebit": 1255.316,
+        "capex": 975.928,
         "fcl": 407.7001,
-        "div_liq": 6420.062
+        "div_liq": 6420.062,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -9267,8 +9824,11 @@
         "ebitda": 1882.111,
         "mg_ebitda": 84.5,
         "ebit": 1593.481,
+        "capex": 518.96,
         "fcl": 1331.7572,
-        "div_liq": 7073.014
+        "div_liq": 7073.014,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -9276,8 +9836,11 @@
         "ebitda": 2042.731,
         "mg_ebitda": 84.1,
         "ebit": 1710.136,
+        "capex": 2052.36,
         "fcl": -199.0337,
-        "div_liq": 8396.519
+        "div_liq": 8396.519,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -9285,8 +9848,11 @@
         "ebitda": 1871.158,
         "mg_ebitda": 80.3,
         "ebit": 1509.732,
+        "capex": 999.62,
         "fcl": 939.7111,
-        "div_liq": 9048.889
+        "div_liq": 9048.889,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -9294,8 +9860,11 @@
         "ebitda": 2104.433,
         "mg_ebitda": 83.7,
         "ebit": 1649.872,
+        "capex": 1782.833,
         "fcl": 380.71,
-        "div_liq": 9688.696
+        "div_liq": 9688.696,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -9303,8 +9872,11 @@
         "ebitda": 2321.2554,
         "mg_ebitda": 84.2,
         "ebit": 1706.62,
+        "capex": 2078.924,
         "fcl": 229.1434,
-        "div_liq": 10204.19
+        "div_liq": 10204.19,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -9550,7 +10122,7 @@
     "bull_factor": 1.15,
     "bear_margin_factor": 0.97,
     "bull_margin_factor": 1.03,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -9580,6 +10152,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 98.5,
     "wacc_peso_d": 1.5,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       5.5,
       5.4,
@@ -9605,8 +10179,11 @@
         "ebitda": 21900.0,
         "mg_ebitda": 29.0,
         "ebit": 18502.86,
+        "capex": 3925.584,
         "fcl": 15198.987,
-        "div_liq": -17500.0
+        "div_liq": -17500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -9614,8 +10191,11 @@
         "ebitda": 23770.0,
         "mg_ebitda": 31.0,
         "ebit": 20315.125,
+        "capex": 3992.3,
         "fcl": 16737.4313,
-        "div_liq": -18000.0
+        "div_liq": -18000.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -9623,8 +10203,11 @@
         "ebitda": 25461.0,
         "mg_ebitda": 31.5,
         "ebit": 21820.23,
+        "capex": 4207.112,
         "fcl": 17953.7435,
-        "div_liq": -21500.0
+        "div_liq": -21500.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -9632,8 +10215,11 @@
         "ebitda": 29041.0,
         "mg_ebitda": 32.5,
         "ebit": 25025.245,
+        "capex": 4640.428,
         "fcl": 20717.0552,
-        "div_liq": -26300.0
+        "div_liq": -26300.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -9641,8 +10227,11 @@
         "ebitda": 29506.0,
         "mg_ebitda": 33.5,
         "ebit": 25537.0,
+        "capex": 4586.4,
         "fcl": 21066.89,
-        "div_liq": -16900.0
+        "div_liq": -16900.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -9650,8 +10239,11 @@
         "ebitda": 29945.9739,
         "mg_ebitda": 33.9,
         "ebit": 25966.7168,
+        "capex": 4598.685,
         "fcl": 25324.263,
-        "div_liq": -16500.0
+        "div_liq": -16500.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -9897,7 +10489,7 @@
     "bull_factor": 1.25,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -9927,6 +10519,8 @@
     "wacc_erp": 5.0,
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       -5.0,
       2.0,
@@ -9952,8 +10546,11 @@
         "ebitda": 272.0,
         "mg_ebitda": 16.8,
         "ebit": 183.1,
+        "capex": 81.0,
         "fcl": 145.225,
-        "div_liq": 130.0
+        "div_liq": 130.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -9961,8 +10558,11 @@
         "ebitda": 417.0,
         "mg_ebitda": 22.2,
         "ebit": 313.7,
+        "capex": 94.0,
         "fcl": 234.825,
-        "div_liq": 0.0
+        "div_liq": 0.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -9970,8 +10570,11 @@
         "ebitda": 510.0,
         "mg_ebitda": 22.6,
         "ebit": 386.0,
+        "capex": 112.0,
         "fcl": 285.3,
-        "div_liq": -130.0
+        "div_liq": -130.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -9979,8 +10582,11 @@
         "ebitda": 488.0,
         "mg_ebitda": 22.5,
         "ebit": 368.5,
+        "capex": 119.0,
         "fcl": 284.675,
-        "div_liq": -250.0
+        "div_liq": -250.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -9988,8 +10594,11 @@
         "ebitda": 432.0,
         "mg_ebitda": 20.9,
         "ebit": 318.6,
+        "capex": 116.0,
         "fcl": 245.5,
-        "div_liq": -93.0
+        "div_liq": -93.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -9997,8 +10606,11 @@
         "ebitda": 473.5385,
         "mg_ebitda": 25.7,
         "ebit": 372.812,
+        "capex": 102.08,
         "fcl": 384.406,
-        "div_liq": -37.0
+        "div_liq": -37.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -10244,7 +10856,7 @@
     "bull_factor": 1.35,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -10274,6 +10886,8 @@
     "wacc_erp": 5.5,
     "wacc_peso_e": 82.4,
     "wacc_peso_d": 17.6,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       5.0,
       6.0,
@@ -10299,8 +10913,11 @@
         "ebitda": 823.0,
         "mg_ebitda": 22.7,
         "ebit": 728.9,
+        "capex": 100.0,
         "fcl": 475.174,
-        "div_liq": -89.0
+        "div_liq": -89.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -10308,8 +10925,11 @@
         "ebitda": 816.0,
         "mg_ebitda": 19.3,
         "ebit": 706.3,
+        "capex": 120.0,
         "fcl": 419.858,
-        "div_liq": 35.0
+        "div_liq": 35.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -10317,8 +10937,11 @@
         "ebitda": 917.0,
         "mg_ebitda": 21.1,
         "ebit": 804.3,
+        "capex": 130.0,
         "fcl": 493.938,
-        "div_liq": 540.0
+        "div_liq": 540.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -10326,8 +10949,11 @@
         "ebitda": 974.0,
         "mg_ebitda": 21.4,
         "ebit": 855.4,
+        "capex": 145.0,
         "fcl": 525.364,
-        "div_liq": 710.0
+        "div_liq": 710.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -10335,8 +10961,11 @@
         "ebitda": 1044.0,
         "mg_ebitda": 19.3,
         "ebit": 903.4,
+        "capex": 154.0,
         "fcl": 581.244,
-        "div_liq": 998.0
+        "div_liq": 998.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -10344,8 +10973,11 @@
         "ebitda": 1096.8608,
         "mg_ebitda": 20.3,
         "ebit": 956.9315,
+        "capex": 93.9,
         "fcl": 1016.0029,
-        "div_liq": 965.0
+        "div_liq": 965.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -10591,7 +11223,7 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:21"
+    "atualizado": "21/07/2026 22:46"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -10621,6 +11253,8 @@
     "wacc_erp": 5.5,
     "wacc_peso_e": 75.0,
     "wacc_peso_d": 25.0,
+    "wacc_kd_bruto": null,
+    "wacc_kd_at": null,
     "g_receita": [
       10.0,
       9.0,
@@ -10646,8 +11280,11 @@
         "ebitda": 6525.0,
         "mg_ebitda": 33.2,
         "ebit": 5836.3,
+        "capex": 4500.0,
         "fcl": 40.658,
-        "div_liq": 14572.0
+        "div_liq": 14572.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2022",
@@ -10655,8 +11292,11 @@
         "ebitda": 6201.0,
         "mg_ebitda": 31.5,
         "ebit": 5511.9,
+        "capex": 5500.0,
         "fcl": -1246.316,
-        "div_liq": 14100.0
+        "div_liq": 14100.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2023",
@@ -10664,8 +11304,11 @@
         "ebitda": 8191.0,
         "mg_ebitda": 35.9,
         "ebit": 7392.4,
+        "capex": 6300.0,
         "fcl": -728.241,
-        "div_liq": 16271.0
+        "div_liq": 16271.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2024",
@@ -10673,8 +11316,11 @@
         "ebitda": 11320.0,
         "mg_ebitda": 52.1,
         "ebit": 10559.7,
+        "capex": 10000.0,
         "fcl": -2106.163,
-        "div_liq": 19875.0
+        "div_liq": 19875.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2025",
@@ -10682,8 +11328,11 @@
         "ebitda": 13200.0,
         "mg_ebitda": 59.5,
         "ebit": 12423.0,
+        "capex": 12000.0,
         "fcl": -3062.41,
-        "div_liq": 27771.0
+        "div_liq": 27771.0,
+        "n_lojas": null,
+        "area_m2": null
       },
       {
         "ano": "2026*",
@@ -10691,8 +11340,11 @@
         "ebitda": 16614.0957,
         "mg_ebitda": 67.5,
         "ebit": 15761.5159,
+        "capex": 15718.9037,
         "fcl": 876.9793,
-        "div_liq": 32460.0
+        "div_liq": 32460.0,
+        "n_lojas": null,
+        "area_m2": null
       }
     ],
     "linhas_negocio": [],
@@ -10932,6 +11584,6 @@
     "bull_factor": 1.3,
     "bear_margin_factor": 0.9,
     "bull_margin_factor": 1.1,
-    "atualizado": "21/07/2026 22:22"
+    "atualizado": "21/07/2026 22:47"
   }
 }
