@@ -1472,6 +1472,94 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
   const setor = detectarSetor(emp)
   const setorCfg = SETORES_CONFIG[setor]
 
+  /* ── Motores de Receita — Commodities ─────────────────── */
+  const COMMODITY_SETORES = ['celulose', 'petroleo', 'agro'] as const
+  const isCommodity = (COMMODITY_SETORES as readonly string[]).includes(setor)
+
+  const defaultCommodity = setor === 'celulose' ? 650 : setor === 'petroleo' ? 75 : 110
+  const commodityLabel   = setor === 'celulose' ? 'BHKP (USD/t)' : setor === 'petroleo' ? 'Brent (USD/bbl)' : 'Preço Soja (R$/sc)'
+
+  const [commodityAberto, setCommodityAberto] = useState(false)
+  const [fxLoading, setFxLoading]             = useState(false)
+  const [fxFetched, setFxFetched]             = useState(false)
+  const [fxAnos, setFxAnos]                   = useState<number[]>(() => Array(7).fill(5.30))
+  const [commodityAnos, setCommodityAnos]     = useState<number[]>(() => Array(7).fill(defaultCommodity))
+
+  // Reseta preços da commodity quando troca de empresa/setor
+  const empKey = emp?.ticker ?? emp?.nome ?? ''
+  useEffect(() => {
+    const defCom = setor === 'celulose' ? 650 : setor === 'petroleo' ? 75 : 110
+    setCommodityAnos(Array(7).fill(defCom))
+    setCommodityAberto(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [empKey])
+
+  // Busca FOCUS (BRL/USD) uma vez por sessão para setores de commodities
+  useEffect(() => {
+    if (!isCommodity || fxFetched) return
+    setFxFetched(true)
+    setFxLoading(true)
+    fetch('/api/focus')
+      .then(r => r.json())
+      .then(d => {
+        if (d.anos && Object.keys(d.anos).length > 0) {
+          const base = new Date().getFullYear()
+          const vals = Object.keys(d.anos).map(Number)
+          const lastVal = d.anos[Math.max(...vals)]
+          const fx7 = Array(7).fill(null).map((_, i) => {
+            const yr = base + i + 1
+            return (d.anos[yr] ?? lastVal ?? 5.30) as number
+          })
+          setFxAnos(fx7)
+        }
+      })
+      .catch(() => {})
+      .finally(() => setFxLoading(false))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCommodity])
+
+  // Calcula g_receita implícito a partir dos preços de commodity × FX e atualiza premissas
+  const usarCommodityNoDCF = () => {
+    if (!emp?.rec_base || emp.rec_base <= 0) return
+    const kl = emp.kpis_ltm ?? {}
+    const newG = Array(7).fill(0)
+
+    if (setor === 'celulose') {
+      const bhkpRef = kl.bhkp ?? commodityAnos[0] ?? 700
+      const fxRef   = kl.fx   ?? fxAnos[0]    ?? 5.15
+      // Volume implícito constante calibrado pelo LTM
+      const volImp  = bhkpRef > 0 && fxRef > 0 ? (emp.rec_base * 1000) / (bhkpRef * fxRef) : 3000
+      let recPrev = emp.rec_base
+      for (let i = 0; i < 7; i++) {
+        const rec_i = (commodityAnos[i] * volImp * fxAnos[i]) / 1000
+        newG[i] = Math.round(((rec_i / recPrev) - 1) * 1000) / 10
+        recPrev = rec_i
+      }
+    } else if (setor === 'petroleo') {
+      const brentRef = kl.brent ?? commodityAnos[0] ?? 75
+      const fxRef    = kl.fx    ?? fxAnos[0]        ?? 5.15
+      // Crescimento = variação de Brent × FX (produção constante implícita)
+      let bPrev = brentRef, fPrev = fxRef
+      for (let i = 0; i < 7; i++) {
+        const ratio = bPrev > 0 && fPrev > 0 ? (commodityAnos[i] * fxAnos[i]) / (bPrev * fPrev) : 1
+        newG[i] = Math.round((ratio - 1) * 1000) / 10
+        bPrev = commodityAnos[i]; fPrev = fxAnos[i]
+      }
+    } else if (setor === 'agro') {
+      // Preço soja em R$/sc — FX incluso se exportadora
+      const bagRef = kl.bag_price ?? commodityAnos[0] ?? 110
+      const fxRef  = kl.fx        ?? fxAnos[0]        ?? 5.15
+      let bagPrev = bagRef, fPrev = fxRef
+      for (let i = 0; i < 7; i++) {
+        const ratio = bagPrev > 0 && fPrev > 0 ? (commodityAnos[i] * fxAnos[i]) / (bagPrev * fPrev) : 1
+        newG[i] = Math.round((ratio - 1) * 1000) / 10
+        bagPrev = commodityAnos[i]; fPrev = fxAnos[i]
+      }
+    }
+
+    setPremissas(p => ({ ...p, g_receita: newG }))
+  }
+
   const calcularAgora = () => {
     if (calculandoLocal) return
     setCalculandoLocal(true)
@@ -1707,6 +1795,93 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
               </button>
               <p style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'6px',lineHeight:1.5,textAlign:'center' as const }}>
                 SSS = crescimento YoY com lojas já abertas antes | Ramp up = % receita contribuída no 1º tri de operação
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── Motores de Receita — Commodities ─────────────────── */}
+      {isCommodity && (
+        <div style={{ borderTop:'1px solid rgba(255,255,255,.06)' }}>
+          <button
+            onClick={() => setCommodityAberto(a => !a)}
+            style={{ width:'100%',background:'transparent',border:'none',padding:'10px 16px',display:'flex',alignItems:'center',justifyContent:'space-between',cursor:'pointer',color:'#90CAF9',fontSize:'10.5px',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const }}
+          >
+            <span>{commodityAberto ? '▲' : '▼'} Motores de Receita</span>
+            <span style={{ fontSize:'9px',background:'rgba(144,202,249,.15)',color:'#90CAF9',borderRadius:'4px',padding:'1px 5px' }}>COMMODITY</span>
+          </button>
+
+          {commodityAberto && (
+            <div style={{ padding:'0 16px 14px' }}>
+              <p style={{ fontSize:'10px',color:'#3d4f6a',marginBottom:'12px',lineHeight:1.5 }}>
+                Informe os preços por ano — o botão abaixo calcula o g_receita implícito e atualiza as premissas.
+              </p>
+
+              {/* Grid: commodity price */}
+              <div style={{ marginBottom:'14px' }}>
+                <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const,marginBottom:'6px' }}>
+                  {commodityLabel} — previsão por ano
+                </div>
+                <div style={{ display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'4px' }}>
+                  {commodityAnos.map((v, i) => (
+                    <div key={i} style={{ textAlign:'center' }}>
+                      <div style={{ fontSize:'9px',color:'#3d4f6a',marginBottom:'2px' }}>A{i+1}</div>
+                      <input
+                        type="number" step={setor === 'celulose' ? 5 : setor === 'petroleo' ? 1 : 2} value={v}
+                        onChange={e => {
+                          const arr = [...commodityAnos]; arr[i] = parseFloat(e.target.value) || 0
+                          setCommodityAnos(arr)
+                        }}
+                        style={{ background:'rgba(144,202,249,.06)',border:'1px solid rgba(144,202,249,.18)',borderRadius:'5px',color:'#90CAF9',fontFamily:'var(--font-space),monospace',fontSize:'11px',fontWeight:600,padding:'4px 3px',width:'100%',textAlign:'center',outline:'none' }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Grid: BRL/USD — pré-preenchido pelo FOCUS */}
+              <div style={{ marginBottom:'14px' }}>
+                <div style={{ display:'flex',alignItems:'center',gap:'6px',marginBottom:'6px' }}>
+                  <div style={{ fontSize:'10px',color:'#6b84a8',fontWeight:700,letterSpacing:'.5px',textTransform:'uppercase' as const }}>
+                    Câmbio BRL/USD — previsão por ano
+                  </div>
+                  {fxLoading && (
+                    <div style={{ width:'10px',height:'10px',border:'2px solid rgba(232,160,32,.3)',borderTopColor:'#e8a020',borderRadius:'50%',animation:'spin .75s linear infinite',flexShrink:0 }} />
+                  )}
+                  {!fxLoading && (
+                    <span style={{ fontSize:'8px',color:'#3d4f6a' }}>FOCUS/BACEN</span>
+                  )}
+                </div>
+                <div style={{ display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'4px' }}>
+                  {fxAnos.map((v, i) => (
+                    <div key={i} style={{ textAlign:'center' }}>
+                      <div style={{ fontSize:'9px',color:'#3d4f6a',marginBottom:'2px' }}>A{i+1}</div>
+                      <input
+                        type="number" step={0.01} value={v}
+                        onChange={e => {
+                          const arr = [...fxAnos]; arr[i] = parseFloat(e.target.value) || 0
+                          setFxAnos(arr)
+                        }}
+                        style={{ background:'rgba(232,160,32,.05)',border:'1px solid rgba(232,160,32,.18)',borderRadius:'5px',color:'#e8a020',fontFamily:'var(--font-space),monospace',fontSize:'11px',fontWeight:600,padding:'4px 3px',width:'100%',textAlign:'center',outline:'none' }}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'4px' }}>
+                  Pré-preenchido com mediana do relatório Focus (BACEN). Editável.
+                </div>
+              </div>
+
+              {/* Botão Usar no DCF */}
+              <button
+                onClick={usarCommodityNoDCF}
+                style={{ width:'100%',background:'linear-gradient(135deg,#0d3a6e,#1a5fa0)',border:'1px solid rgba(30,106,160,.5)',borderRadius:'7px',color:'#90CAF9',fontWeight:700,fontSize:'12px',padding:'9px',cursor:'pointer',letterSpacing:'.5px' }}
+              >
+                ▶ Usar no DCF (atualiza g_receita)
+              </button>
+              <p style={{ fontSize:'9px',color:'#3d4f6a',marginTop:'6px',lineHeight:1.5,textAlign:'center' as const }}>
+                Derivado via {setor === 'celulose' ? 'BHKP × vol implícito × BRL/USD' : setor === 'petroleo' ? 'Δ(Brent × BRL/USD) com produção constante' : 'Δ(preço soja × BRL/USD)'}
               </p>
             </div>
           )}
