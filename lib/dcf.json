@@ -92,7 +92,129 @@
         "div_liq": 2181.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_bruta",
+        "label": "Rec Bruta",
+        "series": {
+          "2022": 11160.6,
+          "2023": 12779.4,
+          "2024": 14159.8,
+          "2025": 14776.3,
+          "2026": 3118.8
+        }
+      },
+      {
+        "chave": "rec_lp_sellout",
+        "label": "Rec Lp Sellout",
+        "series": {
+          "2022": 3143.8,
+          "2023": 3642.7,
+          "2024": 4243.4,
+          "2025": 4743.7,
+          "2026": 973.9
+        }
+      },
+      {
+        "chave": "bu_shoes_bags",
+        "label": "Calçados e Bolsas",
+        "series": {
+          "2022": 3838.7,
+          "2023": 4315.2,
+          "2024": 4535.8,
+          "2025": 4481.9,
+          "2026": 967.0
+        }
+      },
+      {
+        "chave": "bu_fashion_women",
+        "label": "Moda Feminina",
+        "series": {
+          "2022": 3522.5,
+          "2023": 4086.8,
+          "2024": 4762.9,
+          "2025": 5652.3,
+          "2026": 1299.9
+        }
+      },
+      {
+        "chave": "bu_fashion_men",
+        "label": "Moda Masculina",
+        "series": {
+          "2022": 1253.0,
+          "2023": 1543.9,
+          "2024": 1807.9,
+          "2025": 1942.1,
+          "2026": 349.2
+        }
+      },
+      {
+        "chave": "bu_basic",
+        "label": "Básico / Essencial",
+        "series": {
+          "2022": 2239.8,
+          "2023": 2421.9,
+          "2024": 2620.3,
+          "2025": 2628.0,
+          "2026": 502.3
+        }
+      },
+      {
+        "chave": "canal_lp_sellout",
+        "label": "Canal LP (Sellout)",
+        "series": {
+          "2022": 3143.8,
+          "2023": 3642.7,
+          "2024": 4243.4,
+          "2025": 4743.7,
+          "2026": 973.9
+        }
+      },
+      {
+        "chave": "canal_ecom",
+        "label": "E-commerce",
+        "series": {
+          "2022": 1965.0,
+          "2023": 2326.2,
+          "2024": 2717.5,
+          "2025": 2863.7,
+          "2026": 611.9
+        }
+      },
+      {
+        "chave": "canal_franquia",
+        "label": "Franquia",
+        "series": {
+          "2022": 1951.8,
+          "2023": 2111.5,
+          "2024": 2187.2,
+          "2025": 2028.8,
+          "2026": 405.7
+        }
+      },
+      {
+        "chave": "canal_multimarca",
+        "label": "Multimarca",
+        "series": {
+          "2022": 2610.2,
+          "2023": 3000.3,
+          "2024": 3031.9,
+          "2025": 3266.7,
+          "2026": 726.0
+        }
+      },
+      {
+        "chave": "canal_intl",
+        "label": "Internacional",
+        "series": {
+          "2022": 1113.3,
+          "2023": 1205.1,
+          "2024": 1422.5,
+          "2025": 1721.2,
+          "2026": 386.4
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -282,7 +404,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:04"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -377,7 +499,19 @@
         "div_liq": 151.324
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_financeira",
+        "label": "Rec Financeira",
+        "series": {
+          "2021": 18.5,
+          "2022": 49.7,
+          "2023": 88.3,
+          "2024": 182.7,
+          "2025": 225.8
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2026,
@@ -567,7 +701,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:04"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -680,7 +814,20 @@
         "div_liq": null
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_financeira",
+        "label": "Rec Financeira",
+        "series": {
+          "2020": 46.3,
+          "2021": 88.0,
+          "2022": 125.9,
+          "2023": 86.2,
+          "2024": 108.0,
+          "2025": 243.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -876,7 +1023,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1179,7 +1326,7 @@
       "mg_ebitda": 0.2571,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1479,25 +1626,25 @@
       "mg_ebitda": 0.2569,
       "metodologia": "YoY+-20% media = R$386MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "PSSA3": {
     "ticker": "PSSA3",
     "company": "PSSA3 — Porto Seguro",
     "nome": "Porto Seguro",
     "method": "ddm",
-    "preco_atual": 52.5,
+    "preco_atual": 55.45000076293945,
     "bear": {
       "preco": 41.49,
-      "upside": -21.0
+      "upside": -25.2
     },
     "base": {
       "preco": 47.46,
-      "upside": -9.6
+      "upside": -14.4
     },
     "bull": {
       "preco": 54.71,
-      "upside": 4.2
+      "upside": -1.3
     },
     "upside_base_legado": null,
     "wacc": 17.8,
@@ -1583,7 +1730,47 @@
         "div_liq": 0.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_seg",
+        "label": "Seguros",
+        "series": {
+          "2023": 5000.0,
+          "2024": 10700.0,
+          "2025": 16900.0,
+          "2026": 5700.0
+        }
+      },
+      {
+        "chave": "rec_sau",
+        "label": "Saúde",
+        "series": {
+          "2023": 1069.0,
+          "2024": 3300.0,
+          "2025": 6500.0,
+          "2026": 2300.0
+        }
+      },
+      {
+        "chave": "rec_ban",
+        "label": "Banco",
+        "series": {
+          "2023": 516.0,
+          "2024": 2900.0,
+          "2025": 5700.0,
+          "2026": 1900.0
+        }
+      },
+      {
+        "chave": "rec_ser",
+        "label": "Serviços",
+        "series": {
+          "2024": 1256.0,
+          "2025": 1940.0,
+          "2026": 674.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -1750,10 +1937,10 @@
       ]
     },
     "tir": {
-      "nominal": 27.32,
-      "real": 21.26,
-      "vs_selic": 14.76,
-      "vs_ntnb": 13.96,
+      "nominal": 26.01,
+      "real": 20.01,
+      "vs_selic": 13.51,
+      "vs_ntnb": 12.71,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -1762,7 +1949,7 @@
       "preco_formula": null,
       "eps": 5.67,
       "vpa": 24.26,
-      "upside_gn": 6.0,
+      "upside_gn": 0.3,
       "detalhe": "EPS=R$5.67 VPA=R$24.26"
     },
     "proximo_tri": {
@@ -1773,7 +1960,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2064,7 +2251,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2168,7 +2355,48 @@
         "div_liq": null
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_distrib",
+        "label": "Distribuição",
+        "series": {
+          "2022": 31600.0,
+          "2023": 32400.0,
+          "2024": 34224.0,
+          "2025": 36545.0
+        }
+      },
+      {
+        "chave": "rec_geracao",
+        "label": "Geração",
+        "series": {
+          "2022": 4640.0,
+          "2023": 4780.0,
+          "2024": 5020.0,
+          "2025": 5052.0
+        }
+      },
+      {
+        "chave": "rec_transm",
+        "label": "Transmissão",
+        "series": {
+          "2022": 1850.0,
+          "2023": 1990.0,
+          "2024": 2198.0,
+          "2025": 2070.0
+        }
+      },
+      {
+        "chave": "rec_comerc",
+        "label": "Comercialização",
+        "series": {
+          "2022": 2050.0,
+          "2023": 2280.0,
+          "2024": 3078.0,
+          "2025": 2763.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -2364,7 +2592,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2468,7 +2696,36 @@
         "div_liq": null
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_mercados",
+        "label": "Mercados e Infraestrutura",
+        "series": {
+          "2025": 7400.0
+        }
+      },
+      {
+        "chave": "rec_tech",
+        "label": "Tecnologia",
+        "series": {
+          "2025": 1900.0
+        }
+      },
+      {
+        "chave": "rec_trillia",
+        "label": "Trillia (Dados)",
+        "series": {
+          "2025": 1100.0
+        }
+      },
+      {
+        "chave": "rec_solucoes",
+        "label": "Soluções Financeiras",
+        "series": {
+          "2025": 672.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -2664,7 +2921,7 @@
       "mg_ebitda": 0.6342,
       "metodologia": "YoY+-20% media = R$2,200MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -2768,7 +3025,56 @@
         "div_liq": 0.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_seg",
+        "label": "Seguros",
+        "series": {
+          "2021": 8190.0,
+          "2022": 12051.0,
+          "2023": 13884.0,
+          "2024": 14781.0,
+          "2025": 8069.1,
+          "2026": 1337.7
+        }
+      },
+      {
+        "chave": "rec_sau",
+        "label": "Saúde",
+        "series": {
+          "2021": 2520.0,
+          "2022": 3708.0,
+          "2023": 4272.0,
+          "2024": 4548.0,
+          "2025": 2482.8,
+          "2026": 411.6
+        }
+      },
+      {
+        "chave": "rec_ban",
+        "label": "Banco",
+        "series": {
+          "2021": 7140.0,
+          "2022": 10506.0,
+          "2023": 12104.0,
+          "2024": 12886.0,
+          "2025": 7034.6,
+          "2026": 1166.2
+        }
+      },
+      {
+        "chave": "rec_ser",
+        "label": "Serviços",
+        "series": {
+          "2021": 3150.0,
+          "2022": 4635.0,
+          "2023": 5340.0,
+          "2024": 5685.0,
+          "2025": 3103.5,
+          "2026": 514.5
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -2964,7 +3270,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -3068,7 +3374,56 @@
         "div_liq": 0.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_seg",
+        "label": "Seguros",
+        "series": {
+          "2021": 1357.5,
+          "2022": 1429.0,
+          "2023": 1932.5,
+          "2024": 2042.5,
+          "2025": 2275.0,
+          "2026": 706.0
+        }
+      },
+      {
+        "chave": "rec_sau",
+        "label": "Saúde",
+        "series": {
+          "2021": 3258.0,
+          "2022": 3429.6,
+          "2023": 4638.0,
+          "2024": 4902.0,
+          "2025": 5460.0,
+          "2026": 538.0
+        }
+      },
+      {
+        "chave": "rec_ban",
+        "label": "Banco",
+        "series": {
+          "2021": 543.0,
+          "2022": 571.6,
+          "2023": 773.0,
+          "2024": 817.0,
+          "2025": 910.0,
+          "2026": 875.0
+        }
+      },
+      {
+        "chave": "rec_ser",
+        "label": "Serviços",
+        "series": {
+          "2021": 271.5,
+          "2022": 285.8,
+          "2023": 386.5,
+          "2024": 408.5,
+          "2025": 455.0,
+          "2026": 81.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -3264,7 +3619,7 @@
       "mg_ebitda": 0.4,
       "metodologia": "DDM — soma LL estimado por subsidiaria (ll_total _est_1t26 = ll_prev 1.375 + ll_seg 564 + ll_ban 216 + ll_ser 105); receita proxy = ll_total / 0.40 (margem liquida combinada historica)"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3551,7 +3906,7 @@
       "mg_ebitda": 0.5175,
       "metodologia": "Flat a/a vs 1T25 (rec=9.663, ebitda_ex sob gestao=5.000, ll=-1.788) - baseline pre-resultado, holding SOTP"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3655,7 +4010,92 @@
         "div_liq": null
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_fazendas",
+        "label": "Fazendas",
+        "series": {
+          "2021": 433.6,
+          "2022": 656.0,
+          "2023": 487.0,
+          "2024": 520.0,
+          "2025": 469.7,
+          "2026": 93.4
+        }
+      },
+      {
+        "chave": "rec_agroinds",
+        "label": "Agroindustrial",
+        "series": {
+          "2021": 478.5,
+          "2022": 727.1,
+          "2023": 548.3,
+          "2024": 492.5,
+          "2025": 405.1,
+          "2026": 105.0
+        }
+      },
+      {
+        "chave": "rec_neg_intl",
+        "label": "Negócios Internacionais",
+        "series": {
+          "2021": 126.6,
+          "2022": 170.6,
+          "2023": 111.3,
+          "2024": 199.0,
+          "2025": 237.7,
+          "2026": 60.3
+        }
+      },
+      {
+        "chave": "rec_portos",
+        "label": "Portos",
+        "series": {
+          "2021": 17.6,
+          "2022": 49.6,
+          "2023": 94.7,
+          "2024": 113.5,
+          "2025": 66.9,
+          "2026": 7.5
+        }
+      },
+      {
+        "chave": "rec_repos",
+        "label": "Reposição",
+        "series": {
+          "2021": 169.9,
+          "2022": 211.9,
+          "2023": 271.0,
+          "2024": 282.4,
+          "2025": 310.8,
+          "2026": 51.9
+        }
+      },
+      {
+        "chave": "rec_mi",
+        "label": "Mercado Interno",
+        "series": {
+          "2021": 1099.6,
+          "2022": 1644.6,
+          "2023": 1401.0,
+          "2024": 1408.4,
+          "2025": 1252.5,
+          "2026": 257.8
+        }
+      },
+      {
+        "chave": "rec_me",
+        "label": "Mercado Externo",
+        "series": {
+          "2021": 126.6,
+          "2022": 170.6,
+          "2023": 111.3,
+          "2024": 199.0,
+          "2025": 237.7,
+          "2026": 60.3
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -3845,7 +4285,7 @@
       "mg_ebitda": 0.1734,
       "metodologia": "YoY+-20% media = R$249MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -3967,7 +4407,50 @@
         "div_liq": -355.933
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "seg_seguranca",
+        "label": "Segurança",
+        "series": {
+          "2019": 1006.6,
+          "2020": 1148.3,
+          "2021": 1620.1,
+          "2022": 1981.9,
+          "2023": 1624.8,
+          "2024": 2602.7,
+          "2025": 2730.3,
+          "2026": 690.5
+        }
+      },
+      {
+        "chave": "seg_tic",
+        "label": "Seg Tic",
+        "series": {
+          "2019": 576.0,
+          "2020": 770.9,
+          "2021": 918.0,
+          "2022": 842.8,
+          "2023": 660.6,
+          "2024": 1062.2,
+          "2025": 977.2,
+          "2026": 251.9
+        }
+      },
+      {
+        "chave": "seg_energia",
+        "label": "Energia",
+        "series": {
+          "2019": 115.4,
+          "2020": 215.2,
+          "2021": 549.1,
+          "2022": 1407.9,
+          "2023": 655.9,
+          "2024": 1091.2,
+          "2025": 752.9,
+          "2026": 168.3
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -4163,7 +4646,7 @@
       "mg_ebitda": 0.125,
       "metodologia": "YoY+3% media = R$1,282MM"
     },
-    "atualizado": "22/07/2026 22:49"
+    "atualizado": "22/07/2026 23:05"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4440,7 +4923,13 @@
       "vs_ntnb": 12.15,
       "veredito": "Atrativo vs. RF"
     },
-    "gordon": null,
+    "gordon": {
+      "preco": 11.35,
+      "upside": -35.6,
+      "d0": 1.278,
+      "d1": 1.3419,
+      "detalhe": "D0=R$1.28 Ke=16.8% g=5.0%"
+    },
     "graham": {
       "preco_gn": 28.35,
       "preco_formula": null,
@@ -4457,7 +4946,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "22/07/2026 22:50"
+    "atualizado": "22/07/2026 23:05"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -4561,7 +5050,32 @@
         "div_liq": 46040.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_geracao",
+        "label": "Geração",
+        "series": {
+          "2021": 20650.0,
+          "2022": 24500.0,
+          "2023": 26600.0,
+          "2024": 28140.0,
+          "2025": 28480.0,
+          "2026": 9400.0
+        }
+      },
+      {
+        "chave": "rec_transmissao",
+        "label": "Rec Transmissao",
+        "series": {
+          "2021": 8556.0,
+          "2022": 10150.0,
+          "2023": 11020.0,
+          "2024": 11658.0,
+          "2025": 12400.0,
+          "2026": 3900.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -4751,7 +5265,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "22/07/2026 22:50"
+    "atualizado": "22/07/2026 23:05"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5051,7 +5565,7 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "22/07/2026 22:50"
+    "atualizado": "22/07/2026 23:05"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -5335,7 +5849,14 @@
       "d1": 1.6622,
       "detalhe": "D0=R$1.58 Ke=14.6% g=5.0%"
     },
-    "graham": null,
+    "graham": {
+      "preco_gn": 20.79,
+      "preco_formula": null,
+      "eps": 0.94,
+      "vpa": 20.43,
+      "upside_gn": -46.4,
+      "detalhe": "EPS=R$0.94 VPA=R$20.43"
+    },
     "proximo_tri": {
       "periodo": "2T26",
       "receita": 13768.3,
@@ -5344,7 +5865,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:05"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5644,7 +6165,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:05"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -5944,7 +6465,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:05"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -6057,7 +6578,47 @@
         "div_liq": -1700.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_shoppings",
+        "label": "Shoppings",
+        "series": {
+          "2020": 465.0,
+          "2021": 640.0,
+          "2022": 775.0,
+          "2023": 875.0,
+          "2024": 1070.0,
+          "2025": 1025.0,
+          "2026": 230.0
+        }
+      },
+      {
+        "chave": "rec_hospitalidade",
+        "label": "Hospitalidade",
+        "series": {
+          "2020": 260.0,
+          "2021": 385.0,
+          "2022": 476.0,
+          "2023": 555.0,
+          "2024": 688.0,
+          "2025": 665.0,
+          "2026": 143.0
+        }
+      },
+      {
+        "chave": "rec_incorporacao",
+        "label": "Incorporação",
+        "series": {
+          "2020": 343.0,
+          "2021": 490.0,
+          "2022": 610.0,
+          "2023": 653.0,
+          "2024": 757.0,
+          "2025": 5930.0,
+          "2026": 164.7
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -6247,7 +6808,7 @@
       "mg_ebitda": 0.6502,
       "metodologia": "YoY+-20% media = R$480MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:05"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -6550,7 +7111,7 @@
       "mg_ebitda": 0.9968,
       "metodologia": "YoY+-20% media = R$1,104MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:05"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -6836,13 +7397,7 @@
       "vs_ntnb": 12.23,
       "veredito": "Atrativo vs. RF"
     },
-    "gordon": {
-      "preco": 19.22,
-      "upside": 127.5,
-      "d0": 2.976,
-      "d1": 3.1099,
-      "detalhe": "D0=R$2.98 Ke=20.7% g=4.5%"
-    },
+    "gordon": null,
     "graham": {
       "preco_gn": 26.8,
       "preco_formula": null,
@@ -6859,7 +7414,7 @@
       "mg_ebitda": 0.1545,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -7153,7 +7708,7 @@
       "mg_ebitda": 0.178,
       "metodologia": "YoY+-20% media = R$1,648MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -7453,7 +8008,7 @@
       "mg_ebitda": 0.4714,
       "metodologia": "YoY+-20% media = R$95,760MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -7753,7 +8308,7 @@
       "mg_ebitda": 0.218,
       "metodologia": "YoY+-20% media = R$2,960MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -8047,7 +8602,7 @@
       "mg_ebitda": 0.6267,
       "metodologia": "YoY+-20% media = R$2,760MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -8347,7 +8902,7 @@
       "mg_ebitda": 0.0802,
       "metodologia": "YoY+-20% media = R$7,307MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -8647,7 +9202,7 @@
       "mg_ebitda": 0.3313,
       "metodologia": "YoY+-20% media = R$16,160MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -8751,7 +9306,32 @@
         "div_liq": -37.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_id_gov",
+        "label": "Identidade Gov.",
+        "series": {
+          "2025": 260.0,
+          "2026": 248.6
+        }
+      },
+      {
+        "chave": "rec_pay",
+        "label": "Meios de Pagamento",
+        "series": {
+          "2025": 121.0,
+          "2026": 90.0
+        }
+      },
+      {
+        "chave": "rec_mobile",
+        "label": "Mobile",
+        "series": {
+          "2025": 150.0,
+          "2026": 108.4
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -8931,7 +9511,14 @@
       "d1": 1.5756,
       "detalhe": "D0=R$1.51 Ke=18.3% g=4.0%"
     },
-    "graham": null,
+    "graham": {
+      "preco_gn": 39.1,
+      "preco_formula": null,
+      "eps": 3.1,
+      "vpa": 21.91,
+      "upside_gn": 128.7,
+      "detalhe": "EPS=R$3.10 VPA=R$21.91"
+    },
     "proximo_tri": {
       "periodo": "2T26",
       "receita": 392.0,
@@ -8940,7 +9527,7 @@
       "mg_ebitda": 0.2186,
       "metodologia": "YoY+-20% media = R$392MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:06"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -9044,7 +9631,36 @@
         "div_liq": 965.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_oe_dom",
+        "label": "OE Doméstico",
+        "series": {
+          "2026": 518.1
+        }
+      },
+      {
+        "chave": "rec_oe_exp",
+        "label": "OE Exportação",
+        "series": {
+          "2026": 277.9
+        }
+      },
+      {
+        "chave": "rec_am_dom",
+        "label": "Aftermarket Dom.",
+        "series": {
+          "2026": 388.3
+        }
+      },
+      {
+        "chave": "rec_am_exp",
+        "label": "Aftermarket Exp.",
+        "series": {
+          "2026": 72.1
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -9224,14 +9840,7 @@
       "d1": 2.965,
       "detalhe": "D0=R$2.85 Ke=18.8% g=4.0%"
     },
-    "graham": {
-      "preco_gn": 29.52,
-      "preco_formula": null,
-      "eps": 4.9,
-      "vpa": 7.9,
-      "upside_gn": -11.1,
-      "detalhe": "EPS=R$4.90 VPA=R$7.90"
-    },
+    "graham": null,
     "proximo_tri": {
       "periodo": "2T26",
       "receita": 1109.6,
@@ -9240,7 +9849,7 @@
       "mg_ebitda": 0.2008,
       "metodologia": "YoY+-20% media = R$1,110MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:07"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -9534,28 +10143,28 @@
       "mg_ebitda": 0.5804,
       "metodologia": "YoY+-20% media = R$4,358MM"
     },
-    "atualizado": "22/07/2026 22:51"
+    "atualizado": "22/07/2026 23:07"
   },
   "RENT3": {
     "ticker": "RENT3",
     "company": "RENT3 — Localiza",
     "nome": "Localiza",
     "method": "fcff",
-    "preco_atual": 37.14,
+    "preco_atual": 37.13999938964844,
     "bear": {
-      "preco": 31.01,
-      "upside": -16.5
+      "preco": 30.43,
+      "upside": -18.1
     },
     "base": {
-      "preco": 50.73,
-      "upside": 36.6
+      "preco": 49.94,
+      "upside": 34.5
     },
     "bull": {
-      "preco": 74.17,
-      "upside": 99.7
+      "preco": 73.13,
+      "upside": 96.9
     },
-    "upside_base_legado": null,
-    "wacc": 14.8,
+    "upside_base_legado": 34.46,
+    "wacc": 14.9,
     "g_terminal": 4.5,
     "shares": 1124000000,
     "wacc_ke": 18.3,
@@ -9638,7 +10247,32 @@
         "div_liq": 30200.0
       }
     ],
-    "linhas_negocio": [],
+    "linhas_negocio": [
+      {
+        "chave": "rec_seminovos",
+        "label": "Venda de Seminovos",
+        "series": {
+          "2021": 4450.0,
+          "2022": 7900.0,
+          "2023": 14100.0,
+          "2024": 18738.0,
+          "2025": 21703.0,
+          "2026": 6400.0
+        }
+      },
+      {
+        "chave": "rec_aluguel",
+        "label": "Aluguel de Veículos",
+        "series": {
+          "2021": 6450.0,
+          "2022": 9880.0,
+          "2023": 14800.0,
+          "2024": 18532.0,
+          "2025": 20036.0,
+          "2026": 5884.0
+        }
+      }
+    ],
     "projecoes": [
       {
         "ano": 2027,
@@ -9648,17 +10282,17 @@
         "nopat": 8206.8,
         "capex": 8778.8,
         "fcl": 6374.2,
-        "vp_fcl": 5552.4
+        "vp_fcl": 5547.6
       },
       {
         "ano": 2028,
-        "receita": 62301.3,
+        "receita": 62301.4,
         "ebitda": 21182.5,
         "ebit": 13207.9,
         "nopat": 9245.5,
         "capex": 9345.2,
         "fcl": 7591.7,
-        "vp_fcl": 5760.4
+        "vp_fcl": 5750.4
       },
       {
         "ano": 2029,
@@ -9668,51 +10302,51 @@
         "nopat": 10315.3,
         "capex": 9846.7,
         "fcl": 8880.5,
-        "vp_fcl": 5869.6
+        "vp_fcl": 5854.3
       },
       {
         "ano": 2030,
-        "receita": 73341.1,
+        "receita": 73341.2,
         "ebitda": 25669.4,
         "ebit": 16281.7,
         "nopat": 11397.2,
         "capex": 10267.8,
         "fcl": 10245.5,
-        "vp_fcl": 5898.8
+        "vp_fcl": 5878.3
       },
       {
         "ano": 2031,
-        "receita": 78475.0,
+        "receita": 78475.1,
         "ebitda": 27466.3,
         "ebit": 17421.5,
         "nopat": 12195.0,
         "capex": 10594.1,
         "fcl": 11389.0,
-        "vp_fcl": 5711.8
+        "vp_fcl": 5687.0
       },
       {
         "ano": 2032,
-        "receita": 83183.5,
+        "receita": 83183.6,
         "ebitda": 29114.2,
-        "ebit": 18466.7,
+        "ebit": 18466.8,
         "nopat": 12926.7,
         "capex": 10813.9,
         "fcl": 12524.9,
-        "vp_fcl": 5471.7
+        "vp_fcl": 5443.2
       },
       {
         "ano": 2033,
         "receita": 87342.7,
-        "ebitda": 30569.9,
+        "ebitda": 30570.0,
         "ebit": 19390.1,
         "nopat": 13573.1,
         "capex": 11354.6,
         "fcl": 13190.4,
-        "vp_fcl": 5019.6
+        "vp_fcl": 4989.1
       }
     ],
     "projecoes_indicativas": false,
-    "valor_terminal": 47932.0,
+    "valor_terminal": 47182.7,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -9805,10 +10439,10 @@
       ]
     },
     "tir": {
-      "nominal": 31.88,
-      "real": 25.6,
-      "vs_selic": 19.1,
-      "vs_ntnb": 18.3,
+      "nominal": 31.77,
+      "real": 25.5,
+      "vs_selic": 19.0,
+      "vs_ntnb": 18.2,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": {
@@ -9826,7 +10460,14 @@
       "upside_gn": -9.9,
       "detalhe": "EPS=R$2.07 VPA=R$24.02"
     },
-    "proximo_tri": null,
-    "atualizado": "22/07/2026 22:51"
+    "proximo_tri": {
+      "periodo": "2T26",
+      "receita": 7920.0,
+      "ebitda": 2585.1,
+      "ll": 489.4,
+      "mg_ebitda": 0.3264,
+      "metodologia": "YoY+-20% media = R$7,920MM"
+    },
+    "atualizado": "22/07/2026 23:07"
   }
 }
