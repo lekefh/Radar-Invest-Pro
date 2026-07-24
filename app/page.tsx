@@ -190,13 +190,24 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:48px 6
   .setores-grid{grid-template-columns:repeat(2,1fr)}
   .sobre-inner{grid-template-columns:1fr;gap:32px}
   .sobre-creds{grid-template-columns:1fr}
+  .hero{padding:36px 20px 40px}
+  .hero-badge{margin-bottom:16px;font-size:11px;padding:5px 14px}
+  .hero-line{margin:12px auto 16px}
+  .hero-mission{font-size:15px;margin-bottom:20px;line-height:1.6}
+  .hero-actions{gap:10px;flex-direction:column;align-items:stretch}
+  .btn-primary,.btn-dash{text-align:center;padding:13px 20px;font-size:14px}
+  .btn-ghost{display:none}
+  .hero-cards{margin-top:28px;gap:10px}
+  .mini-card{padding:12px 16px;font-size:12px}
 }
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 `
 
 export default function LandingPage() {
   const [menuMobileAberto, setMenuMobileAberto] = useState(false)
-  const [showExitPopup, setShowExitPopup] = useState(false)
-  const [isMobile, setIsMobile]           = useState(false)
+  const [showExitPopup, setShowExitPopup]       = useState(false)
+  const [isMobile, setIsMobile]                 = useState(false)
+  const [showStickyBar, setShowStickyBar]       = useState(false)
   const exitShown = useRef(false)
 
   useEffect(() => {
@@ -212,8 +223,9 @@ export default function LandingPage() {
       }
     }
 
-    // Mobile: timer de 6 segundos
-    const timer = isMobile ? setTimeout(disparar, 6000) : null
+    // Mobile: sticky bar após 4s, exit popup após 3.5s
+    const stickyTimer = isMobile ? setTimeout(() => setShowStickyBar(true), 4000) : null
+    const timer = isMobile ? setTimeout(disparar, 3500) : null
 
     // Desktop: exit intent pelo topo
     const handleMouseLeave = (e: MouseEvent) => { if (e.clientY <= 10) disparar() }
@@ -225,6 +237,7 @@ export default function LandingPage() {
     document.addEventListener('visibilitychange', handleVisibility)
     return () => {
       if (timer) clearTimeout(timer)
+      if (stickyTimer) clearTimeout(stickyTimer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibility)
     }
@@ -426,6 +439,31 @@ export default function LandingPage() {
         </div>
       )}
 
+      {/* STICKY BOTTOM BAR — mobile only */}
+      {isMobile && showStickyBar && !showExitPopup && (
+        <div style={{
+          position:'fixed', bottom:0, left:0, right:0, zIndex:9998,
+          background:'rgba(5,13,26,.97)', borderTop:'1px solid rgba(232,160,32,.30)',
+          padding:'10px 16px',
+          display:'flex', gap:12, alignItems:'center',
+          animation:'slideUp .3s ease',
+          boxShadow:'0 -4px 24px rgba(0,0,0,.5)',
+        }}>
+          <div style={{flex:1, minWidth:0}}>
+            <div style={{fontSize:11, color:'rgba(255,255,255,.45)', marginBottom:2, letterSpacing:'.3px'}}>Radar Invest Pro</div>
+            <div style={{fontSize:13, fontWeight:700, color:'#fff', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>Análise de ações — grátis</div>
+          </div>
+          <a href="/cadastro" style={{
+            background:'#e8a020', color:'#000', fontWeight:800, fontSize:13,
+            padding:'10px 18px', borderRadius:8, textDecoration:'none', whiteSpace:'nowrap', flexShrink:0,
+          }}>Cadastrar →</a>
+          <button onClick={() => setShowStickyBar(false)} style={{
+            background:'none', border:'none', color:'rgba(255,255,255,.25)', fontSize:20,
+            cursor:'pointer', padding:'4px', lineHeight:1, flexShrink:0,
+          }}>✕</button>
+        </div>
+      )}
+
       {/* TICKER */}
       <div className="ticker-wrap">
         <div className="ticker-inner">
@@ -498,9 +536,12 @@ export default function LandingPage() {
         </h1>
         <div className="hero-line" />
         <p className="hero-mission">
-          Democratizamos a análise de ações da B3 da forma correta —<br />
-          com <strong>DCF, fundamentos e peso de carteira</strong><br />
-          exatamente como os <strong>grandes profissionais de mercado fazem</strong>.
+          {isMobile
+            ? <>Análise de ações B3 com <strong>DCF e fundamentos</strong> — como os <strong>profissionais de mercado</strong> fazem.</>
+            : <>Democratizamos a análise de ações da B3 da forma correta —<br />
+               com <strong>DCF, fundamentos e peso de carteira</strong><br />
+               exatamente como os <strong>grandes profissionais de mercado fazem</strong>.</>
+          }
         </p>
         <div className="hero-actions">
           <Link href="/dashboard" className="btn-dash">Acessar plataforma — Grátis</Link>
