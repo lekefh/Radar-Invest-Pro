@@ -188,13 +188,21 @@ def scrape_investidor10_mes(ano: int, mes: int) -> list[dict]:
     return resultado
 
 
-def buscar_futuros_investidor10() -> list[dict]:
-    """Busca declarados nos próximos 4 meses (mês atual + 3)."""
+def buscar_investidor10_periodo(meses_passados: int = 4, meses_futuros: int = 4) -> list[dict]:
+    """
+    Busca proventos do Investidor10 para um intervalo de meses.
+    meses_passados: quantos meses anteriores ao atual incluir (para data_pagamento histórica)
+    meses_futuros:  quantos meses futuros incluir (declarados)
+    Total = meses_passados + 1 (atual) + meses_futuros - 1
+    """
     hoje  = date.today()
     todos = []
-    for offset in range(4):
+    for offset in range(-meses_passados, meses_futuros):
         mes = hoje.month + offset
         ano = hoje.year
+        while mes < 1:
+            mes += 12
+            ano -= 1
         while mes > 12:
             mes -= 12
             ano += 1
@@ -248,7 +256,7 @@ def main():
                     "valor":          round(float(valor), 4),
                     "data_com":       com_date.isoformat(),
                     "data_ex":        ex_date.isoformat(),
-                    "data_pagamento": None,
+                    "data_pagamento": None,          # preenchido pelo enrich abaixo
                     "yield_pct":      yield_pct,
                     "status":         "pago",
                     "fonte":          "yfinance",
@@ -263,27 +271,47 @@ def main():
 
         time.sleep(0.5)
 
-    # ── Fase 2: declarados futuros via Investidor10 ───────────────────────
-    print(f"\n=== Fase 2: Declarados futuros — Investidor10 (próximos 4 meses) ===")
-    futuros = buscar_futuros_investidor10()
+    # ── Fase 2: Investidor10 — passado (4 meses) + futuro (4 meses) ───────
+    # Passado: preenche data_pagamento dos registros históricos do Yahoo Finance
+    # Futuro:  adiciona eventos declarados ainda não conhecidos pelo Yahoo
+    print(f"\n=== Fase 2: Investidor10 — últimos 4 meses + próximos 4 meses ===")
+    investidor10_todos = buscar_investidor10_periodo(meses_passados=4, meses_futuros=4)
 
     # Calcula yield com preços coletados na fase 1
-    for p in futuros:
+    for p in investidor10_todos:
         preco = precos.get(p["ticker"])
         if preco and preco > 0:
             p["yield_pct"] = round((p["valor"] / preco) * 100, 2)
 
-    # Merge sem duplicatas (chave: ticker + data_ex)
-    chaves = {(p["ticker"], p["data_ex"]) for p in proventos}
-    novos  = 0
-    for p in futuros:
-        chave = (p["ticker"], p["data_ex"])
-        if chave not in chaves:
-            proventos.append(p)
-            chaves.add(chave)
-            novos += 1
+    # Índice por (ticker, data_com) → data_pagamento
+    # Usado para enriquecer registros históricos do Yahoo que não têm data_pagamento
+    pag_por_com: dict[tuple, str | None] = {}
+    for p in investidor10_todos:
+        chave = (p["ticker"], p["data_com"])
+        if p.get("data_pagamento"):
+            pag_por_com[chave] = p["data_pagamento"]
 
-    print(f"  ✓ {len(futuros)} declarados do Investidor10 → {novos} novos adicionados após dedup")
+    # Enriquece histórico Yahoo com data_pagamento do Investidor10
+    enriquecidos = 0
+    for p in proventos:
+        if p["data_pagamento"] is None:
+            chave = (p["ticker"], p["data_com"])
+            pgto  = pag_por_com.get(chave)
+            if pgto:
+                p["data_pagamento"] = pgto
+                enriquecidos += 1
+    print(f"  ✓ {enriquecidos} registros Yahoo enriquecidos com data_pagamento do Investidor10")
+
+    # Merge dos eventos futuros (evita duplicatas)
+    chaves_existentes = {(p["ticker"], p["data_ex"]) for p in proventos}
+    novos = 0
+    for p in investidor10_todos:
+        chave = (p["ticker"], p["data_ex"])
+        if chave not in chaves_existentes:
+            proventos.append(p)
+            chaves_existentes.add(chave)
+            novos += 1
+    print(f"  ✓ {novos} eventos novos do Investidor10 adicionados (futuros/declarados)")
 
     # ── Salva resultado ───────────────────────────────────────────────────
     proventos.sort(key=lambda x: x.get("data_ex", ""), reverse=True)
@@ -291,7 +319,10 @@ def main():
     resultado = {
         "atualizado": datetime.now(BRT).strftime("%d/%m/%Y %H:%M") + " [auto]",
         "total":      len(proventos),
-        "fontes":     {"historico": "Yahoo Finance (18 meses pagos)", "futuros": "Investidor10 (B3/CVM, 4 meses)"},
+        "fontes":     {
+            "historico": "Yahoo Finance (18 meses) + data_pagamento via Investidor10",
+            "futuros":   "Investidor10 (B3/CVM, 4 meses)",
+        },
         "proventos":  proventos,
     }
 

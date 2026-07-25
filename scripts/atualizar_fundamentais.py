@@ -2,7 +2,8 @@
 """
 atualizar_fundamentais.py
 Atualiza métricas fundamentalistas em lib/fundamentais.json via Yahoo Finance.
-Preserva: mr, govRespostas, gov, divEbit, nota (campos que não vêm do yfinance).
+Preserva: mr, govRespostas, gov, nota (campos que não vêm do yfinance).
+divEbit (DL/EBITDA) agora é auto-calculado; evEbit usa EV/EBIT real quando disponível.
 Roda diariamente via GitHub Actions pós-fechamento B3.
 """
 
@@ -23,10 +24,10 @@ ROOT = Path(__file__).parent.parent
 FUND_PATH = ROOT / "lib" / "fundamentais.json"
 
 # Campos que atualizamos do yfinance
-CAMPOS_YFINANCE = {"pl", "pvp", "dy", "roe", "lpa", "vpa", "merc", "evEbit", "max52s"}
+CAMPOS_YFINANCE = {"pl", "pvp", "dy", "roe", "lpa", "vpa", "merc", "evEbit", "divEbit", "max52s"}
 
 # Campos que NUNCA tocamos (dados enriquecidos manualmente ou pelo desktop)
-CAMPOS_PRESERVAR = {"mr", "govRespostas", "gov", "divEbit", "nota", "nome", "setor"}
+CAMPOS_PRESERVAR = {"mr", "govRespostas", "gov", "nota", "nome", "setor"}
 
 def safe_float(v, scale=1.0, minv=None, maxv=None):
     try:
@@ -44,20 +45,40 @@ def fetch_metricas(ticker_sa: str) -> dict:
         if not info or info.get("regularMarketPrice") is None:
             return {}
 
-        dy_raw = info.get("dividendYield")
-        roe_raw = info.get("returnOnEquity")
+        dy_raw   = info.get("dividendYield")
+        roe_raw  = info.get("returnOnEquity")
         merc_raw = info.get("marketCap")
 
+        # EV/EBIT real: tenta enterpriseValue / ebit antes de cair no EV/EBITDA do Yahoo
+        ev_ebit = None
+        ev   = info.get("enterpriseValue")
+        ebit = info.get("ebit")
+        if ev and ebit and ebit > 0:
+            ev_ebit = safe_float(ev / ebit, minv=0, maxv=200)
+        if ev_ebit is None:
+            # Fallback: Yahoo chama de enterpriseToEbitda mas é EV/EBITDA; aceitar como proxy
+            ev_ebit = safe_float(info.get("enterpriseToEbitda"), minv=0, maxv=200)
+
+        # DL/EBITDA: (dívida bruta - caixa) / EBITDA
+        div_ebit = None
+        divida   = info.get("totalDebt") or 0
+        caixa    = (info.get("totalCash") or 0) + (info.get("shortTermInvestments") or 0)
+        ebitda   = info.get("ebitda")
+        if ebitda and ebitda > 0:
+            dl = divida - caixa
+            div_ebit = safe_float(dl / ebitda, minv=-20, maxv=30)
+
         return {
-            "pl":     safe_float(info.get("trailingPE"),         minv=0, maxv=999),
-            "pvp":    safe_float(info.get("priceToBook"),         minv=0, maxv=50),
-            "dy":     safe_float(dy_raw, scale=100,               minv=0, maxv=80) if dy_raw else None,
-            "roe":    safe_float(roe_raw, scale=100,              minv=-200, maxv=500) if roe_raw else None,
-            "lpa":    safe_float(info.get("trailingEps")),
-            "vpa":    safe_float(info.get("bookValue"),           minv=0),
-            "merc":   safe_float(merc_raw, scale=1/1e9,           minv=0) if merc_raw else None,
-            "evEbit": safe_float(info.get("enterpriseToEbitda"),  minv=0, maxv=200),
-            "max52s": safe_float(info.get("fiftyTwoWeekHigh"),    minv=0),
+            "pl":      safe_float(info.get("trailingPE"),  minv=0, maxv=999),
+            "pvp":     safe_float(info.get("priceToBook"), minv=0, maxv=50),
+            "dy":      safe_float(dy_raw,  scale=100, minv=0, maxv=80)    if dy_raw  else None,
+            "roe":     safe_float(roe_raw, scale=100, minv=-200, maxv=500) if roe_raw else None,
+            "lpa":     safe_float(info.get("trailingEps")),
+            "vpa":     safe_float(info.get("bookValue"),   minv=0),
+            "merc":    safe_float(merc_raw, scale=1/1e9,   minv=0)        if merc_raw else None,
+            "evEbit":  ev_ebit,
+            "divEbit": div_ebit,
+            "max52s":  safe_float(info.get("fiftyTwoWeekHigh"), minv=0),
         }
     except Exception as e:
         print(f"  Erro info {ticker_sa}: {e}")
