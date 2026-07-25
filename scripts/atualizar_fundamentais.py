@@ -84,6 +84,32 @@ def fetch_metricas(ticker_sa: str) -> dict:
         print(f"  Erro info {ticker_sa}: {e}")
         return {}
 
+def corrigir_pvp_units(dados: dict) -> int:
+    """
+    Corrige P/VP de ações ON/PN onde o Yahoo usa o bookValue da unit correspondente.
+    Ex: ENGI3 recebe VPA da ENGI11 → P/VP fica artificialmente baixo (0.23x em vez de ~1.0x).
+    Estratégia: se o ticker base+"11" existir no dataset E tiver P/VP > 0.3,
+    usa o P/VP da unit para o ticker individual.
+    Funciona para todos os casos automaticamente sem lista hardcoded.
+    """
+    corrigidos = 0
+    for ticker in list(dados.keys()):
+        # Aplica apenas a ações ON (3) e PN (4/5/6) que têm unit correspondente
+        if not (ticker.endswith("3") or ticker.endswith("4")
+                or ticker.endswith("5") or ticker.endswith("6")):
+            continue
+        unit = ticker[:-1] + "11"
+        if unit not in dados:
+            continue
+        pvp_unit = dados[unit].get("pvp")
+        pvp_atual = dados[ticker].get("pvp")
+        if pvp_unit and pvp_unit > 0.3 and pvp_atual and pvp_atual < 0.6:
+            # P/VP atual suspeito (< 0.6) e unit tem valor confiável → corrigir
+            dados[ticker]["pvp"] = pvp_unit
+            corrigidos += 1
+    return corrigidos
+
+
 def main():
     if not FUND_PATH.exists():
         print(f"Arquivo não encontrado: {FUND_PATH}")
@@ -114,8 +140,12 @@ def main():
             atualizados += 1
             print("✓")
 
-        # Pausa para não sobrecarregar a API do Yahoo Finance
         time.sleep(0.5)
+
+    # Pós-processamento: corrige P/VP de ON/PN que recebem bookValue da unit no Yahoo
+    corrigidos = corrigir_pvp_units(dados)
+    if corrigidos:
+        print(f"\n  ✓ P/VP corrigido em {corrigidos} tickers ON/PN (usou P/VP da unit correspondente)")
 
     with open(FUND_PATH, "w", encoding="utf-8") as f:
         json.dump(dados, f, ensure_ascii=False, indent=2)
