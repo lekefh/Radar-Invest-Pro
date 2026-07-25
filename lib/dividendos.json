@@ -1,8 +1,8 @@
 {
-  "atualizado": "24/07/2026 20:08 [auto]",
-  "total": 587,
+  "atualizado": "25/07/2026 16:46 [auto]",
+  "total": 801,
   "fontes": {
-    "historico": "Yahoo Finance (18 meses pagos)",
+    "historico": "Yahoo Finance (18 meses) + data_pagamento via Investidor10",
     "futuros": "Investidor10 (B3/CVM, 4 meses)"
   },
   "proventos": [
@@ -474,7 +474,7 @@
       "valor": 0.2919,
       "data_com": "2026-07-23",
       "data_ex": "2026-07-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-04",
       "yield_pct": 1.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -507,7 +507,7 @@
       "valor": 0.5347,
       "data_com": "2026-07-21",
       "data_ex": "2026-07-22",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-06",
       "yield_pct": 2.03,
       "status": "pago",
       "fonte": "yfinance"
@@ -518,7 +518,7 @@
       "valor": 0.2801,
       "data_com": "2026-07-21",
       "data_ex": "2026-07-22",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-06",
       "yield_pct": 2.07,
       "status": "pago",
       "fonte": "yfinance"
@@ -573,7 +573,7 @@
       "valor": 0.2516,
       "data_com": "2026-07-16",
       "data_ex": "2026-07-17",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-24",
       "yield_pct": 1.22,
       "status": "pago",
       "fonte": "yfinance"
@@ -672,7 +672,7 @@
       "valor": 0.3154,
       "data_com": "2026-07-03",
       "data_ex": "2026-07-06",
-      "data_pagamento": null,
+      "data_pagamento": "2027-01-29",
       "yield_pct": 1.96,
       "status": "pago",
       "fonte": "yfinance"
@@ -683,7 +683,7 @@
       "valor": 0.3469,
       "data_com": "2026-07-03",
       "data_ex": "2026-07-06",
-      "data_pagamento": null,
+      "data_pagamento": "2027-01-29",
       "yield_pct": 1.88,
       "status": "pago",
       "fonte": "yfinance"
@@ -694,7 +694,7 @@
       "valor": 0.2166,
       "data_com": "2026-07-03",
       "data_ex": "2026-07-06",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-21",
       "yield_pct": 1.44,
       "status": "pago",
       "fonte": "yfinance"
@@ -749,7 +749,7 @@
       "valor": 0.0173,
       "data_com": "2026-07-01",
       "data_ex": "2026-07-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-03",
       "yield_pct": 0.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -760,7 +760,7 @@
       "valor": 0.019,
       "data_com": "2026-07-01",
       "data_ex": "2026-07-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-03",
       "yield_pct": 0.1,
       "status": "pago",
       "fonte": "yfinance"
@@ -771,7 +771,7 @@
       "valor": 0.0692,
       "data_com": "2026-07-01",
       "data_ex": "2026-07-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-10",
       "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
@@ -804,7 +804,7 @@
       "valor": 0.3201,
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-31",
       "yield_pct": 0.59,
       "status": "pago",
       "fonte": "yfinance"
@@ -815,7 +815,7 @@
       "valor": 0.0182,
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-03",
       "yield_pct": 0.04,
       "status": "pago",
       "fonte": "yfinance"
@@ -826,7 +826,7 @@
       "valor": 0.0182,
       "data_com": "2026-06-30",
       "data_ex": "2026-07-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-03",
       "yield_pct": 0.04,
       "status": "pago",
       "fonte": "yfinance"
@@ -843,15 +843,147 @@
       "fonte": "yfinance"
     },
     {
+      "ticker": "CLSC3",
+      "tipo": "JSCP",
+      "valor": 1.93,
+      "data_com": "2026-06-30",
+      "data_ex": "2026-07-01",
+      "data_pagamento": "2027-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CLSC4",
+      "tipo": "JSCP",
+      "valor": 2.12,
+      "data_com": "2026-06-30",
+      "data_ex": "2026-07-01",
+      "data_pagamento": "2027-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CTCA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.2,
+      "data_com": "2026-06-30",
+      "data_ex": "2026-07-01",
+      "data_pagamento": "2026-07-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MULT3",
+      "tipo": "JSCP",
+      "valor": 0.29,
+      "data_com": "2026-06-30",
+      "data_ex": "2026-07-01",
+      "data_pagamento": "2027-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SAUD3",
+      "tipo": "JSCP",
+      "valor": 0.08,
+      "data_com": "2026-06-30",
+      "data_ex": "2026-07-01",
+      "data_pagamento": "2026-11-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
       "ticker": "ABCB4",
       "tipo": "DIVIDENDO/JCP",
       "valor": 1.168,
       "data_com": "2026-06-29",
       "data_ex": "2026-06-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-12",
       "yield_pct": 4.92,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "QUAL3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.01,
+      "data_com": "2026-06-29",
+      "data_ex": "2026-06-30",
+      "data_pagamento": "2026-10-09",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "HYPE3",
+      "tipo": "JSCP",
+      "valor": 0.26,
+      "data_com": "2026-06-26",
+      "data_ex": "2026-06-29",
+      "data_pagamento": "2027-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PNVL3",
+      "tipo": "JSCP",
+      "valor": 0.02,
+      "data_com": "2026-06-26",
+      "data_ex": "2026-06-29",
+      "data_pagamento": "2027-03-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "RENT3",
+      "tipo": "JSCP",
+      "valor": 0.54,
+      "data_com": "2026-06-26",
+      "data_ex": "2026-06-29",
+      "data_pagamento": "2026-08-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "RENT4",
+      "tipo": "JSCP",
+      "valor": 0.54,
+      "data_com": "2026-06-26",
+      "data_ex": "2026-06-29",
+      "data_pagamento": "2026-08-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "TFCO4",
+      "tipo": "JSCP",
+      "valor": 0.09,
+      "data_com": "2026-06-26",
+      "data_ex": "2026-06-29",
+      "data_pagamento": "2027-05-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "VIVT3",
+      "tipo": "JSCP",
+      "valor": 0.07,
+      "data_com": "2026-06-26",
+      "data_ex": "2026-06-29",
+      "data_pagamento": "2027-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "BLAU3",
@@ -859,10 +991,98 @@
       "valor": 0.0758,
       "data_com": "2026-06-25",
       "data_ex": "2026-06-26",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-07",
       "yield_pct": 0.86,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CATA3",
+      "tipo": "JSCP",
+      "valor": 10.32,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-08-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.32,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-07-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA5",
+      "tipo": "DIVIDENDO",
+      "valor": 0.32,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-07-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA6",
+      "tipo": "DIVIDENDO",
+      "valor": 0.32,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-07-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA7",
+      "tipo": "DIVIDENDO",
+      "valor": 0.32,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-07-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "RDOR3",
+      "tipo": "JSCP",
+      "valor": 0.18,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-07-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SHUL3",
+      "tipo": "JSCP",
+      "valor": 0.07,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-10-28",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SHUL4",
+      "tipo": "JSCP",
+      "valor": 0.08,
+      "data_com": "2026-06-25",
+      "data_ex": "2026-06-26",
+      "data_pagamento": "2026-10-28",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "B3SA3",
@@ -876,12 +1096,89 @@
       "fonte": "yfinance"
     },
     {
+      "ticker": "AFLT3",
+      "tipo": "JSCP",
+      "valor": 0.15,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEEB3",
+      "tipo": "JSCP",
+      "valor": 0.5,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEEB5",
+      "tipo": "JSCP",
+      "valor": 0.5,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEEB6",
+      "tipo": "JSCP",
+      "valor": 0.55,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EKTR3",
+      "tipo": "JSCP",
+      "valor": 0.13,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EKTR4",
+      "tipo": "JSCP",
+      "valor": 0.14,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ENJU3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.2,
+      "data_com": "2026-06-24",
+      "data_ex": "2026-06-25",
+      "data_pagamento": "2026-07-06",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
       "ticker": "CMIG3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.2204,
       "data_com": "2026-06-23",
       "data_ex": "2026-06-24",
-      "data_pagamento": null,
+      "data_pagamento": "2027-12-30",
       "yield_pct": 1.33,
       "status": "pago",
       "fonte": "yfinance"
@@ -892,7 +1189,7 @@
       "valor": 0.2204,
       "data_com": "2026-06-23",
       "data_ex": "2026-06-24",
-      "data_pagamento": null,
+      "data_pagamento": "2027-12-30",
       "yield_pct": 2.01,
       "status": "pago",
       "fonte": "yfinance"
@@ -903,7 +1200,7 @@
       "valor": 0.3759,
       "data_com": "2026-06-23",
       "data_ex": "2026-06-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-17",
       "yield_pct": 0.61,
       "status": "pago",
       "fonte": "yfinance"
@@ -914,10 +1211,32 @@
       "valor": 0.2293,
       "data_com": "2026-06-23",
       "data_ex": "2026-06-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-14",
       "yield_pct": 1.73,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "EMBJ3",
+      "tipo": "JSCP",
+      "valor": 0.28,
+      "data_com": "2026-06-23",
+      "data_ex": "2026-06-24",
+      "data_pagamento": "2027-05-24",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "WEST3",
+      "tipo": "DIVIDENDO",
+      "valor": 5.4,
+      "data_com": "2026-06-23",
+      "data_ex": "2026-06-24",
+      "data_pagamento": "2026-07-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "ABEV3",
@@ -925,7 +1244,7 @@
       "valor": 0.0449,
       "data_com": "2026-06-22",
       "data_ex": "2026-06-23",
-      "data_pagamento": null,
+      "data_pagamento": "2026-12-31",
       "yield_pct": 0.29,
       "status": "pago",
       "fonte": "yfinance"
@@ -936,7 +1255,7 @@
       "valor": 0.2919,
       "data_com": "2026-06-22",
       "data_ex": "2026-06-23",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-02",
       "yield_pct": 1.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -947,7 +1266,7 @@
       "valor": 0.5128,
       "data_com": "2026-06-22",
       "data_ex": "2026-06-23",
-      "data_pagamento": null,
+      "data_pagamento": "2027-04-30",
       "yield_pct": 0.94,
       "status": "pago",
       "fonte": "yfinance"
@@ -958,10 +1277,32 @@
       "valor": 0.4666,
       "data_com": "2026-06-22",
       "data_ex": "2026-06-23",
-      "data_pagamento": null,
+      "data_pagamento": "2027-10-15",
       "yield_pct": 1.33,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "MDIA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-06-22",
+      "data_ex": "2026-06-23",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "TIMS3",
+      "tipo": "JSCP",
+      "valor": 0.17,
+      "data_com": "2026-06-22",
+      "data_ex": "2026-06-23",
+      "data_pagamento": "2026-07-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "WEGE3",
@@ -969,7 +1310,7 @@
       "valor": 0.1044,
       "data_com": "2026-06-19",
       "data_ex": "2026-06-22",
-      "data_pagamento": null,
+      "data_pagamento": "2027-03-10",
       "yield_pct": 0.23,
       "status": "pago",
       "fonte": "yfinance"
@@ -980,7 +1321,7 @@
       "valor": 0.138,
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 1.01,
       "status": "pago",
       "fonte": "yfinance"
@@ -991,7 +1332,7 @@
       "valor": 0.138,
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 1.03,
       "status": "pago",
       "fonte": "yfinance"
@@ -1002,7 +1343,7 @@
       "valor": 0.3619,
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 0.81,
       "status": "pago",
       "fonte": "yfinance"
@@ -1013,7 +1354,7 @@
       "valor": 0.3619,
       "data_com": "2026-06-18",
       "data_ex": "2026-06-19",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 0.86,
       "status": "pago",
       "fonte": "yfinance"
@@ -1024,7 +1365,7 @@
       "valor": 0.06,
       "data_com": "2026-06-15",
       "data_ex": "2026-06-16",
-      "data_pagamento": null,
+      "data_pagamento": "2027-12-31",
       "yield_pct": 1.03,
       "status": "pago",
       "fonte": "yfinance"
@@ -1035,10 +1376,65 @@
       "valor": 0.18,
       "data_com": "2026-06-15",
       "data_ex": "2026-06-16",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-10",
       "yield_pct": 0.66,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CGAS3",
+      "tipo": "DIVIDENDO",
+      "valor": 2.29,
+      "data_com": "2026-06-15",
+      "data_ex": "2026-06-16",
+      "data_pagamento": "2026-06-25",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CGAS5",
+      "tipo": "DIVIDENDO",
+      "valor": 2.52,
+      "data_com": "2026-06-15",
+      "data_ex": "2026-06-16",
+      "data_pagamento": "2026-06-25",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR3",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-06-12",
+      "data_ex": "2026-06-15",
+      "data_pagamento": "2026-06-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR5",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-06-12",
+      "data_ex": "2026-06-15",
+      "data_pagamento": "2026-06-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR6",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-06-12",
+      "data_ex": "2026-06-15",
+      "data_pagamento": "2026-06-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "LOGG3",
@@ -1046,10 +1442,43 @@
       "valor": 2.8599,
       "data_com": "2026-06-11",
       "data_ex": "2026-06-12",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 11.07,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "WLMM3",
+      "tipo": "JSCP",
+      "valor": 0.26,
+      "data_com": "2026-06-10",
+      "data_ex": "2026-06-11",
+      "data_pagamento": "2026-06-19",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "WLMM4",
+      "tipo": "JSCP",
+      "valor": 0.29,
+      "data_com": "2026-06-10",
+      "data_ex": "2026-06-11",
+      "data_pagamento": "2026-06-19",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BAZA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.48,
+      "data_com": "2026-06-09",
+      "data_ex": "2026-06-10",
+      "data_pagamento": "2026-06-17",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "SMFT3",
@@ -1063,12 +1492,34 @@
       "fonte": "yfinance"
     },
     {
+      "ticker": "SIMH3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.17,
+      "data_com": "2026-06-03",
+      "data_ex": "2026-06-04",
+      "data_pagamento": "2026-06-15",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SMFT3",
+      "tipo": "JSCP",
+      "valor": 0.07,
+      "data_com": "2026-06-03",
+      "data_ex": "2026-06-04",
+      "data_pagamento": "2026-07-31",
+      "yield_pct": 0.36,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
       "ticker": "BBAS3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.1413,
       "data_com": "2026-06-01",
       "data_ex": "2026-06-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-11",
       "yield_pct": 0.69,
       "status": "pago",
       "fonte": "yfinance"
@@ -1079,7 +1530,7 @@
       "valor": 0.0173,
       "data_com": "2026-06-01",
       "data_ex": "2026-06-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 0.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -1090,7 +1541,7 @@
       "valor": 0.019,
       "data_com": "2026-06-01",
       "data_ex": "2026-06-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 0.1,
       "status": "pago",
       "fonte": "yfinance"
@@ -1101,10 +1552,65 @@
       "valor": 0.701,
       "data_com": "2026-06-01",
       "data_ex": "2026-06-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-09-21",
       "yield_pct": 1.66,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BEES3",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
+      "data_pagamento": "2026-07-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BEES4",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
+      "data_pagamento": "2026-07-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EVEN3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.15,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
+      "data_pagamento": "2026-06-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MTRE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.04,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
+      "data_pagamento": "2026-06-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PETR3",
+      "tipo": "JSCP",
+      "valor": 0.35,
+      "data_com": "2026-06-01",
+      "data_ex": "2026-06-02",
+      "data_pagamento": "2026-08-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "CAML3",
@@ -1112,7 +1618,7 @@
       "valor": 0.0733,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-09",
       "yield_pct": 1.64,
       "status": "pago",
       "fonte": "yfinance"
@@ -1123,7 +1629,7 @@
       "valor": 0.3201,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-30",
       "yield_pct": 0.59,
       "status": "pago",
       "fonte": "yfinance"
@@ -1134,7 +1640,7 @@
       "valor": 0.0242,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 0.18,
       "status": "pago",
       "fonte": "yfinance"
@@ -1145,7 +1651,7 @@
       "valor": 0.0242,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 0.18,
       "status": "pago",
       "fonte": "yfinance"
@@ -1156,7 +1662,7 @@
       "valor": 0.0182,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 0.04,
       "status": "pago",
       "fonte": "yfinance"
@@ -1167,10 +1673,32 @@
       "valor": 0.0182,
       "data_com": "2026-05-29",
       "data_ex": "2026-06-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-07-01",
       "yield_pct": 0.04,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CGRA3",
+      "tipo": "JSCP",
+      "valor": 1.27,
+      "data_com": "2026-05-29",
+      "data_ex": "2026-06-01",
+      "data_pagamento": null,
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CGRA4",
+      "tipo": "JSCP",
+      "valor": 1.27,
+      "data_com": "2026-05-29",
+      "data_ex": "2026-06-01",
+      "data_pagamento": null,
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "JHSF3",
@@ -1178,10 +1706,43 @@
       "valor": 0.0692,
       "data_com": "2026-05-28",
       "data_ex": "2026-05-29",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-09",
       "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "VIVT3",
+      "tipo": "JSCP",
+      "valor": 0.19,
+      "data_com": "2026-05-27",
+      "data_ex": "2026-05-28",
+      "data_pagamento": "2027-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CATA4",
+      "tipo": "JSCP",
+      "valor": 10.27,
+      "data_com": "2026-05-25",
+      "data_ex": "2026-05-26",
+      "data_pagamento": "2026-08-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "VIVT3",
+      "tipo": "DIVIDENDO",
+      "valor": 1.25,
+      "data_com": "2026-05-22",
+      "data_ex": "2026-05-25",
+      "data_pagamento": "2026-07-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "GRND3",
@@ -1189,10 +1750,21 @@
       "valor": 0.0617,
       "data_com": "2026-05-21",
       "data_ex": "2026-05-22",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-10",
       "yield_pct": 1.69,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "MDIA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-05-21",
+      "data_ex": "2026-05-22",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "ALOS3",
@@ -1200,7 +1772,7 @@
       "valor": 0.2919,
       "data_com": "2026-05-19",
       "data_ex": "2026-05-20",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-02",
       "yield_pct": 1.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -1211,10 +1783,76 @@
       "valor": 0.3407,
       "data_com": "2026-05-18",
       "data_ex": "2026-05-19",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-28",
       "yield_pct": 3.22,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BRBI11",
+      "tipo": "DIVIDENDO",
+      "valor": 0.18,
+      "data_com": "2026-05-18",
+      "data_ex": "2026-05-19",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRBI3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.06,
+      "data_com": "2026-05-18",
+      "data_ex": "2026-05-19",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRBI4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.06,
+      "data_com": "2026-05-18",
+      "data_ex": "2026-05-19",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MTRE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.04,
+      "data_com": "2026-05-18",
+      "data_ex": "2026-05-19",
+      "data_pagamento": "2026-05-28",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PEAB3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.53,
+      "data_com": "2026-05-18",
+      "data_ex": "2026-05-19",
+      "data_pagamento": "2026-06-03",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PEAB4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.58,
+      "data_com": "2026-05-18",
+      "data_ex": "2026-05-19",
+      "data_pagamento": "2026-06-03",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "CURY3",
@@ -1222,10 +1860,98 @@
       "valor": 0.5194,
       "data_com": "2026-05-15",
       "data_ex": "2026-05-18",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-28",
       "yield_pct": 1.77,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BMOB3",
+      "tipo": "JSCP",
+      "valor": 0.19,
+      "data_com": "2026-05-15",
+      "data_ex": "2026-05-18",
+      "data_pagamento": "2026-05-27",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ALUP11",
+      "tipo": "DIVIDENDO",
+      "valor": 0.21,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-07-06",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ALUP3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.07,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-07-06",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ALUP4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.07,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-07-06",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "AUAU3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CAMB3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.2,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CAMB4",
+      "tipo": "JSCP",
+      "valor": 0.15,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EZTC3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.1,
+      "data_com": "2026-05-14",
+      "data_ex": "2026-05-15",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "GGBR3",
@@ -1233,7 +1959,7 @@
       "valor": 0.18,
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-09",
       "yield_pct": 0.87,
       "status": "pago",
       "fonte": "yfinance"
@@ -1244,7 +1970,7 @@
       "valor": 0.18,
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-09",
       "yield_pct": 0.74,
       "status": "pago",
       "fonte": "yfinance"
@@ -1255,7 +1981,7 @@
       "valor": 0.08,
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-10",
       "yield_pct": 0.83,
       "status": "pago",
       "fonte": "yfinance"
@@ -1266,7 +1992,7 @@
       "valor": 0.08,
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-10",
       "yield_pct": 0.76,
       "status": "pago",
       "fonte": "yfinance"
@@ -1277,7 +2003,7 @@
       "valor": 0.3642,
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-30",
       "yield_pct": 1.41,
       "status": "pago",
       "fonte": "yfinance"
@@ -1288,7 +2014,7 @@
       "valor": 0.0797,
       "data_com": "2026-05-13",
       "data_ex": "2026-05-14",
-      "data_pagamento": null,
+      "data_pagamento": "2026-12-28",
       "yield_pct": 1.04,
       "status": "pago",
       "fonte": "yfinance"
@@ -1299,7 +2025,7 @@
       "valor": 0.3024,
       "data_com": "2026-05-12",
       "data_ex": "2026-05-13",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-12",
       "yield_pct": 4.31,
       "status": "pago",
       "fonte": "yfinance"
@@ -1310,7 +2036,7 @@
       "valor": 0.1,
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-21",
       "yield_pct": 1.89,
       "status": "pago",
       "fonte": "yfinance"
@@ -1321,7 +2047,7 @@
       "valor": 0.559,
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-26",
       "yield_pct": 1.39,
       "status": "pago",
       "fonte": "yfinance"
@@ -1332,7 +2058,7 @@
       "valor": 0.1863,
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-26",
       "yield_pct": 1.4,
       "status": "pago",
       "fonte": "yfinance"
@@ -1343,7 +2069,7 @@
       "valor": 0.1863,
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-26",
       "yield_pct": 1.36,
       "status": "pago",
       "fonte": "yfinance"
@@ -1354,10 +2080,32 @@
       "valor": 0.1802,
       "data_com": "2026-05-11",
       "data_ex": "2026-05-12",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-29",
       "yield_pct": 1.02,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "EMBJ3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.01,
+      "data_com": "2026-05-11",
+      "data_ex": "2026-05-12",
+      "data_pagamento": "2026-05-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EMBR3",
+      "tipo": "JSCP",
+      "valor": 0.2,
+      "data_com": "2026-05-11",
+      "data_ex": "2026-05-12",
+      "data_pagamento": "2026-05-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "RANI3",
@@ -1365,10 +2113,65 @@
       "valor": 0.0224,
       "data_com": "2026-05-07",
       "data_ex": "2026-05-08",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-20",
       "yield_pct": 0.28,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "ODER3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.02,
+      "data_com": "2026-05-07",
+      "data_ex": "2026-05-08",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ODER4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.02,
+      "data_com": "2026-05-07",
+      "data_ex": "2026-05-08",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "DOHL3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-05-06",
+      "data_ex": "2026-05-07",
+      "data_pagamento": "2026-05-27",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "DOHL4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.04,
+      "data_com": "2026-05-06",
+      "data_ex": "2026-05-07",
+      "data_pagamento": "2026-05-27",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BPAR3",
+      "tipo": "DIVIDENDO",
+      "valor": 3.61,
+      "data_com": "2026-05-05",
+      "data_ex": "2026-05-06",
+      "data_pagamento": "2026-05-21",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "BBDC3",
@@ -1376,7 +2179,7 @@
       "valor": 0.0173,
       "data_com": "2026-05-04",
       "data_ex": "2026-05-05",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-01",
       "yield_pct": 0.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -1387,10 +2190,109 @@
       "valor": 0.019,
       "data_com": "2026-05-04",
       "data_ex": "2026-05-05",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-01",
       "yield_pct": 0.1,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BEES3",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-06-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BEES4",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-06-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.07,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-05-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR5",
+      "tipo": "DIVIDENDO",
+      "valor": 0.09,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-05-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR6",
+      "tipo": "DIVIDENDO",
+      "valor": 0.07,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-05-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EGIE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.49,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-05-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "JOPA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.32,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-07-03",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "JOPA4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.35,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-07-03",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PASS3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.57,
+      "data_com": "2026-05-04",
+      "data_ex": "2026-05-05",
+      "data_pagamento": "2026-06-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "CMIG3",
@@ -1448,12 +2350,276 @@
       "fonte": "yfinance"
     },
     {
+      "ticker": "BALM3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.82,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-12-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BALM4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.82,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-12-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BMKS3",
+      "tipo": "DIVIDENDO",
+      "valor": 10.06,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEBR3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.61,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEBR5",
+      "tipo": "DIVIDENDO",
+      "valor": 0.61,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEBR6",
+      "tipo": "DIVIDENDO",
+      "valor": 0.67,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-08",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CLSC3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.63,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CLSC4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.7,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CMIG3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.12,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": 0.73,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CMIG4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.12,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": 1.09,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CXSE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.33,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-15",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "FIGE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.06,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "FIGE4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.06,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "GEPA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.24,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "GEPA4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.24,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "IRBR3",
+      "tipo": "JSCP",
+      "valor": 0.32,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": 0.59,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ITUB3",
+      "tipo": "JSCP",
+      "valor": 0.02,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-01",
+      "yield_pct": 0.04,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ITUB4",
+      "tipo": "JSCP",
+      "valor": 0.02,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-01",
+      "yield_pct": 0.05,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "LPSB3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.08,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-19",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SOND3",
+      "tipo": "DIVIDENDO",
+      "valor": 6.4,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SOND5",
+      "tipo": "DIVIDENDO",
+      "valor": 7.04,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SOND6",
+      "tipo": "DIVIDENDO",
+      "valor": 7.04,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "TFCO4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.01,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "VTRU3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-04-30",
+      "data_ex": "2026-05-01",
+      "data_pagamento": "2026-06-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
       "ticker": "CBAV3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0442,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-13",
       "yield_pct": 0.4,
       "status": "pago",
       "fonte": "yfinance"
@@ -1464,7 +2630,7 @@
       "valor": 3.7315,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-18",
       "yield_pct": 8.28,
       "status": "pago",
       "fonte": "yfinance"
@@ -1475,7 +2641,7 @@
       "valor": 0.2377,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-09-30",
       "yield_pct": 1.63,
       "status": "pago",
       "fonte": "yfinance"
@@ -1486,7 +2652,7 @@
       "valor": 0.0692,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-11",
       "yield_pct": 0.63,
       "status": "pago",
       "fonte": "yfinance"
@@ -1497,7 +2663,7 @@
       "valor": 2.0363,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-27",
       "yield_pct": 6.52,
       "status": "pago",
       "fonte": "yfinance"
@@ -1519,7 +2685,7 @@
       "valor": 0.9089,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-27",
       "yield_pct": 2.26,
       "status": "pago",
       "fonte": "yfinance"
@@ -1530,7 +2696,7 @@
       "valor": 0.303,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-27",
       "yield_pct": 2.27,
       "status": "pago",
       "fonte": "yfinance"
@@ -1541,10 +2707,175 @@
       "valor": 0.303,
       "data_com": "2026-04-29",
       "data_ex": "2026-04-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-27",
       "yield_pct": 2.22,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CEGR3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.22,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-15",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "COCE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.24,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "COCE5",
+      "tipo": "DIVIDENDO",
+      "valor": 1.48,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "COCE6",
+      "tipo": "DIVIDENDO",
+      "valor": 2.47,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "DESK3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.04,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EALT3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.08,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-06-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EALT4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.08,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-06-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.13,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA5",
+      "tipo": "DIVIDENDO",
+      "valor": 0.13,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA6",
+      "tipo": "DIVIDENDO",
+      "valor": 0.13,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EQPA7",
+      "tipo": "DIVIDENDO",
+      "valor": 0.13,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "LUXM3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.12,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "LUXM4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MELK3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.1,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PPAR3",
+      "tipo": "DIVIDENDO",
+      "valor": 4.0,
+      "data_com": "2026-04-29",
+      "data_ex": "2026-04-30",
+      "data_pagamento": "2026-05-11",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "RAIL3",
@@ -1552,10 +2883,76 @@
       "valor": 0.1084,
       "data_com": "2026-04-28",
       "data_ex": "2026-04-29",
-      "data_pagamento": null,
+      "data_pagamento": "2026-11-30",
       "yield_pct": 0.8,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BEEF3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": "2026-05-13",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CSED3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.21,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": "2026-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PATI3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.43,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PATI4",
+      "tipo": "DIVIDENDO",
+      "valor": 1.86,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "VSTE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.05,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "WIZC3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.31,
+      "data_com": "2026-04-28",
+      "data_ex": "2026-04-29",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "COGN3",
@@ -1563,10 +2960,43 @@
       "valor": 0.0143,
       "data_com": "2026-04-27",
       "data_ex": "2026-04-28",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-29",
       "yield_pct": 0.69,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "VIVT3",
+      "tipo": "JSCP",
+      "valor": 0.19,
+      "data_com": "2026-04-27",
+      "data_ex": "2026-04-28",
+      "data_pagamento": "2027-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "WHRL3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.04,
+      "data_com": "2026-04-27",
+      "data_ex": "2026-04-28",
+      "data_pagamento": "2026-05-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "WHRL4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.04,
+      "data_com": "2026-04-27",
+      "data_ex": "2026-04-28",
+      "data_pagamento": "2026-05-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "ANIM3",
@@ -1574,7 +3004,7 @@
       "valor": 0.0778,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-15",
       "yield_pct": 3.79,
       "status": "pago",
       "fonte": "yfinance"
@@ -1585,7 +3015,7 @@
       "valor": 0.0813,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-08",
       "yield_pct": 1.75,
       "status": "pago",
       "fonte": "yfinance"
@@ -1596,7 +3026,7 @@
       "valor": 0.085,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-08",
       "yield_pct": 1.75,
       "status": "pago",
       "fonte": "yfinance"
@@ -1607,7 +3037,7 @@
       "valor": 0.085,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-08",
       "yield_pct": 1.63,
       "status": "pago",
       "fonte": "yfinance"
@@ -1618,7 +3048,7 @@
       "valor": 0.2591,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-20",
       "yield_pct": 3.26,
       "status": "pago",
       "fonte": "yfinance"
@@ -1629,10 +3059,54 @@
       "valor": 0.5429,
       "data_com": "2026-04-24",
       "data_ex": "2026-04-27",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-05",
       "yield_pct": 5.8,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "ALPK3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.01,
+      "data_com": "2026-04-24",
+      "data_ex": "2026-04-27",
+      "data_pagamento": "2026-05-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BAUH3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.99,
+      "data_com": "2026-04-24",
+      "data_ex": "2026-04-27",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BAUH4",
+      "tipo": "DIVIDENDO",
+      "valor": 1.09,
+      "data_com": "2026-04-24",
+      "data_ex": "2026-04-27",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "HBTS5",
+      "tipo": "DIVIDENDO",
+      "valor": 2.02,
+      "data_com": "2026-04-24",
+      "data_ex": "2026-04-27",
+      "data_pagamento": "2026-06-15",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "GRND3",
@@ -1640,10 +3114,32 @@
       "valor": 0.0921,
       "data_com": "2026-04-23",
       "data_ex": "2026-04-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-13",
       "yield_pct": 2.52,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "MMAQ3",
+      "tipo": "DIVIDENDO",
+      "valor": 102.2,
+      "data_com": "2026-04-23",
+      "data_ex": "2026-04-24",
+      "data_pagamento": null,
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MMAQ4",
+      "tipo": "DIVIDENDO",
+      "valor": 102.2,
+      "data_com": "2026-04-23",
+      "data_ex": "2026-04-24",
+      "data_pagamento": null,
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "ALOS3",
@@ -1651,7 +3147,7 @@
       "valor": 0.2919,
       "data_com": "2026-04-22",
       "data_ex": "2026-04-23",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-05",
       "yield_pct": 1.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -1662,10 +3158,32 @@
       "valor": 0.6631,
       "data_com": "2026-04-22",
       "data_ex": "2026-04-23",
-      "data_pagamento": null,
+      "data_pagamento": "2026-06-22",
       "yield_pct": 1.57,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "MDIA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-04-22",
+      "data_ex": "2026-04-23",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PETR3",
+      "tipo": "JSCP",
+      "valor": 0.31,
+      "data_com": "2026-04-22",
+      "data_ex": "2026-04-23",
+      "data_pagamento": "2026-05-20",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "BRAV3",
@@ -1723,12 +3241,331 @@
       "fonte": "yfinance"
     },
     {
+      "ticker": "BRAV3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.12,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": 0.58,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CATA3",
+      "tipo": "JSCP",
+      "valor": 9.05,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-05-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CATA4",
+      "tipo": "JSCP",
+      "valor": 175.77,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-05-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MILS3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.66,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": 4.28,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MOTV3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.06,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": 0.42,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PINE3",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PINE4",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "JSCP",
+      "valor": 0.53,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-05-07",
+      "yield_pct": 2.01,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SANB3",
+      "tipo": "JSCP",
+      "valor": 0.25,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-05-07",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "JSCP",
+      "valor": 0.28,
+      "data_com": "2026-04-20",
+      "data_ex": "2026-04-21",
+      "data_pagamento": "2026-05-07",
+      "yield_pct": 2.07,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CALI3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.9,
+      "data_com": "2026-04-17",
+      "data_ex": "2026-04-20",
+      "data_pagamento": "2026-05-15",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ISAE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-04-17",
+      "data_ex": "2026-04-20",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ISAE4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-04-17",
+      "data_ex": "2026-04-20",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ALUP11",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-04-16",
+      "data_ex": "2026-04-17",
+      "data_pagamento": "2026-06-10",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ALUP3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.01,
+      "data_com": "2026-04-16",
+      "data_ex": "2026-04-17",
+      "data_pagamento": "2026-06-10",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ALUP4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.01,
+      "data_com": "2026-04-16",
+      "data_ex": "2026-04-17",
+      "data_pagamento": "2026-06-10",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CMIN3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-04-16",
+      "data_ex": "2026-04-17",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "OFSA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.19,
+      "data_com": "2026-04-16",
+      "data_ex": "2026-04-17",
+      "data_pagamento": "2026-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BGIP3",
+      "tipo": "JSCP",
+      "valor": 0.88,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-04-28",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BGIP4",
+      "tipo": "JSCP",
+      "valor": 0.97,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-04-28",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "IGTI11",
+      "tipo": "DIVIDENDO",
+      "valor": 0.17,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "IGTI3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.02,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "IGTI4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.07,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MNPR3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.13,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-06-12",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "OPCT3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.1,
+      "data_com": "2026-04-14",
+      "data_ex": "2026-04-15",
+      "data_pagamento": "2026-04-27",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EKTR3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.96,
+      "data_com": "2026-04-10",
+      "data_ex": "2026-04-13",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EKTR4",
+      "tipo": "DIVIDENDO",
+      "valor": 1.05,
+      "data_com": "2026-04-10",
+      "data_ex": "2026-04-13",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "AFLT3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.24,
+      "data_com": "2026-04-09",
+      "data_ex": "2026-04-10",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "VITT3",
+      "tipo": "DIVIDENDO",
+      "valor": 10.0,
+      "data_com": "2026-04-09",
+      "data_ex": "2026-04-10",
+      "data_pagamento": "2026-04-13",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
       "ticker": "BBDC3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.2703,
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
-      "data_pagamento": null,
+      "data_pagamento": "2026-10-30",
       "yield_pct": 1.68,
       "status": "pago",
       "fonte": "yfinance"
@@ -1739,7 +3576,7 @@
       "valor": 0.2973,
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
-      "data_pagamento": null,
+      "data_pagamento": "2026-10-30",
       "yield_pct": 1.61,
       "status": "pago",
       "fonte": "yfinance"
@@ -1750,7 +3587,7 @@
       "valor": 0.6192,
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-17",
       "yield_pct": 1.15,
       "status": "pago",
       "fonte": "yfinance"
@@ -1772,10 +3609,65 @@
       "valor": 0.4776,
       "data_com": "2026-04-06",
       "data_ex": "2026-04-07",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-29",
       "yield_pct": 4.19,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "GUAR3",
+      "tipo": "JSCP",
+      "valor": 0.1,
+      "data_com": "2026-04-06",
+      "data_ex": "2026-04-07",
+      "data_pagamento": null,
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "RADL3",
+      "tipo": "JSCP",
+      "valor": 0.09,
+      "data_com": "2026-04-06",
+      "data_ex": "2026-04-07",
+      "data_pagamento": "2026-12-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CSUD3",
+      "tipo": "JSCP",
+      "valor": 0.17,
+      "data_com": "2026-04-02",
+      "data_ex": "2026-04-03",
+      "data_pagamento": "2026-04-15",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ISAE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-04-02",
+      "data_ex": "2026-04-03",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ISAE4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-04-02",
+      "data_ex": "2026-04-03",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "BBDC3",
@@ -1783,7 +3675,7 @@
       "valor": 0.0173,
       "data_com": "2026-04-01",
       "data_ex": "2026-04-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-04",
       "yield_pct": 0.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -1794,10 +3686,32 @@
       "valor": 0.019,
       "data_com": "2026-04-01",
       "data_ex": "2026-04-02",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-04",
       "yield_pct": 0.1,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BEES3",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-04-01",
+      "data_ex": "2026-04-02",
+      "data_pagamento": "2026-05-04",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BEES4",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-04-01",
+      "data_ex": "2026-04-02",
+      "data_pagamento": "2026-05-04",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "B3SA3",
@@ -1816,7 +3730,7 @@
       "valor": 0.0182,
       "data_com": "2026-03-31",
       "data_ex": "2026-04-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-04",
       "yield_pct": 0.04,
       "status": "pago",
       "fonte": "yfinance"
@@ -1827,7 +3741,7 @@
       "valor": 0.0182,
       "data_com": "2026-03-31",
       "data_ex": "2026-04-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-04",
       "yield_pct": 0.04,
       "status": "pago",
       "fonte": "yfinance"
@@ -1838,10 +3752,21 @@
       "valor": 0.8861,
       "data_com": "2026-03-31",
       "data_ex": "2026-04-01",
-      "data_pagamento": null,
+      "data_pagamento": "2026-11-30",
       "yield_pct": 1.62,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "HYPE3",
+      "tipo": "JSCP",
+      "valor": 0.26,
+      "data_com": "2026-03-31",
+      "data_ex": "2026-04-01",
+      "data_pagamento": "2027-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "JHSF3",
@@ -1849,7 +3774,7 @@
       "valor": 0.0687,
       "data_com": "2026-03-30",
       "data_ex": "2026-03-31",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-09",
       "yield_pct": 0.62,
       "status": "pago",
       "fonte": "yfinance"
@@ -1860,10 +3785,32 @@
       "valor": 0.5423,
       "data_com": "2026-03-30",
       "data_ex": "2026-03-31",
-      "data_pagamento": null,
+      "data_pagamento": "2027-12-31",
       "yield_pct": 0.99,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "ETER3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.09,
+      "data_com": "2026-03-30",
+      "data_ex": "2026-03-31",
+      "data_pagamento": "2026-06-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MULT3",
+      "tipo": "JSCP",
+      "valor": 0.29,
+      "data_com": "2026-03-30",
+      "data_ex": "2026-03-31",
+      "data_pagamento": "2027-03-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "ALOS3",
@@ -1871,10 +3818,43 @@
       "valor": 0.2925,
       "data_com": "2026-03-27",
       "data_ex": "2026-03-30",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-09",
       "yield_pct": 1.12,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "RENT3",
+      "tipo": "JSCP",
+      "valor": 0.52,
+      "data_com": "2026-03-27",
+      "data_ex": "2026-03-30",
+      "data_pagamento": "2026-05-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "RENT4",
+      "tipo": "JSCP",
+      "valor": 0.52,
+      "data_com": "2026-03-27",
+      "data_ex": "2026-03-30",
+      "data_pagamento": "2026-05-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "TFCO4",
+      "tipo": "JSCP",
+      "valor": 0.08,
+      "data_com": "2026-03-27",
+      "data_ex": "2026-03-30",
+      "data_pagamento": "2027-05-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "VBBR3",
@@ -1882,10 +3862,76 @@
       "valor": 0.33,
       "data_com": "2026-03-26",
       "data_ex": "2026-03-27",
-      "data_pagamento": null,
+      "data_pagamento": "2027-09-15",
       "yield_pct": 0.94,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BEES3",
+      "tipo": "JSCP",
+      "valor": 0.07,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
+      "data_pagamento": "2026-04-13",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BEES4",
+      "tipo": "JSCP",
+      "valor": 0.07,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
+      "data_pagamento": "2026-04-13",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "PNVL3",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
+      "data_pagamento": "2027-03-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "RDOR3",
+      "tipo": "JSCP",
+      "valor": 0.16,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
+      "data_pagamento": "2026-04-07",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SHUL3",
+      "tipo": "JSCP",
+      "valor": 0.07,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
+      "data_pagamento": "2026-08-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SHUL4",
+      "tipo": "JSCP",
+      "valor": 0.08,
+      "data_com": "2026-03-26",
+      "data_ex": "2026-03-27",
+      "data_pagamento": "2026-08-14",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "TOTS3",
@@ -1893,10 +3939,43 @@
       "valor": 0.18,
       "data_com": "2026-03-25",
       "data_ex": "2026-03-26",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-10",
       "yield_pct": 0.66,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CLSC3",
+      "tipo": "JSCP",
+      "valor": 0.95,
+      "data_com": "2026-03-25",
+      "data_ex": "2026-03-26",
+      "data_pagamento": "2027-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CLSC4",
+      "tipo": "JSCP",
+      "valor": 1.04,
+      "data_com": "2026-03-25",
+      "data_ex": "2026-03-26",
+      "data_pagamento": "2027-06-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "VIVT3",
+      "tipo": "JSCP",
+      "valor": 0.06,
+      "data_com": "2026-03-25",
+      "data_ex": "2026-03-26",
+      "data_pagamento": "2027-04-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "CMIG3",
@@ -1904,7 +3983,7 @@
       "valor": 0.345,
       "data_com": "2026-03-24",
       "data_ex": "2026-03-25",
-      "data_pagamento": null,
+      "data_pagamento": "2027-12-30",
       "yield_pct": 2.09,
       "status": "pago",
       "fonte": "yfinance"
@@ -1915,7 +3994,7 @@
       "valor": 0.23,
       "data_com": "2026-03-24",
       "data_ex": "2026-03-25",
-      "data_pagamento": null,
+      "data_pagamento": "2027-12-30",
       "yield_pct": 2.09,
       "status": "pago",
       "fonte": "yfinance"
@@ -1926,7 +4005,7 @@
       "valor": 0.2227,
       "data_com": "2026-03-24",
       "data_ex": "2026-03-25",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-14",
       "yield_pct": 1.68,
       "status": "pago",
       "fonte": "yfinance"
@@ -1937,7 +4016,7 @@
       "valor": 0.0758,
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-02",
       "yield_pct": 0.86,
       "status": "pago",
       "fonte": "yfinance"
@@ -1948,7 +4027,7 @@
       "valor": 0.4684,
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-05-11",
       "yield_pct": 0.76,
       "status": "pago",
       "fonte": "yfinance"
@@ -1959,10 +4038,43 @@
       "valor": 0.0651,
       "data_com": "2026-03-23",
       "data_ex": "2026-03-24",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-30",
       "yield_pct": 0.33,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BNBR3",
+      "tipo": "JSCP",
+      "valor": 4.1,
+      "data_com": "2026-03-23",
+      "data_ex": "2026-03-24",
+      "data_pagamento": "2026-03-30",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MDIA3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-03-23",
+      "data_ex": "2026-03-24",
+      "data_pagamento": "2026-03-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "TIMS3",
+      "tipo": "JSCP",
+      "valor": 0.16,
+      "data_com": "2026-03-23",
+      "data_ex": "2026-03-24",
+      "data_pagamento": "2026-04-22",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "WEGE3",
@@ -1970,7 +4082,7 @@
       "valor": 0.1001,
       "data_com": "2026-03-20",
       "data_ex": "2026-03-23",
-      "data_pagamento": null,
+      "data_pagamento": "2027-03-10",
       "yield_pct": 0.22,
       "status": "pago",
       "fonte": "yfinance"
@@ -1981,7 +4093,7 @@
       "valor": 0.116,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 0.85,
       "status": "pago",
       "fonte": "yfinance"
@@ -1992,7 +4104,7 @@
       "valor": 0.116,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 0.86,
       "status": "pago",
       "fonte": "yfinance"
@@ -2003,7 +4115,7 @@
       "valor": 0.3489,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 0.78,
       "status": "pago",
       "fonte": "yfinance"
@@ -2014,7 +4126,7 @@
       "valor": 0.3489,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
-      "data_pagamento": null,
+      "data_pagamento": "2026-08-31",
       "yield_pct": 0.83,
       "status": "pago",
       "fonte": "yfinance"
@@ -2025,10 +4137,131 @@
       "valor": 0.1667,
       "data_com": "2026-03-19",
       "data_ex": "2026-03-20",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-23",
       "yield_pct": 0.59,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CAMB3",
+      "tipo": "JSCP",
+      "valor": 0.14,
+      "data_com": "2026-03-18",
+      "data_ex": "2026-03-19",
+      "data_pagamento": "2026-03-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ENMT3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.76,
+      "data_com": "2026-03-17",
+      "data_ex": "2026-03-18",
+      "data_pagamento": "2026-04-10",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ENMT4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.76,
+      "data_com": "2026-03-17",
+      "data_ex": "2026-03-18",
+      "data_pagamento": "2026-04-10",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "REDE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.1,
+      "data_com": "2026-03-17",
+      "data_ex": "2026-03-18",
+      "data_pagamento": "2026-04-13",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR3",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-03-13",
+      "data_ex": "2026-03-16",
+      "data_pagamento": "2026-03-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR5",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-03-13",
+      "data_ex": "2026-03-16",
+      "data_pagamento": "2026-03-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BRSR6",
+      "tipo": "JSCP",
+      "valor": 0.22,
+      "data_com": "2026-03-13",
+      "data_ex": "2026-03-16",
+      "data_pagamento": "2026-03-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "GPAR3",
+      "tipo": "DIVIDENDO",
+      "valor": 1.52,
+      "data_com": "2026-03-13",
+      "data_ex": "2026-03-16",
+      "data_pagamento": "2026-03-25",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ISAE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-03-12",
+      "data_ex": "2026-03-13",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "ISAE4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.14,
+      "data_com": "2026-03-12",
+      "data_ex": "2026-03-13",
+      "data_pagamento": "2026-04-29",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MTRE3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.03,
+      "data_com": "2026-03-12",
+      "data_ex": "2026-03-13",
+      "data_pagamento": "2026-03-26",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "GGBR3",
@@ -2036,7 +4269,7 @@
       "valor": 0.1,
       "data_com": "2026-03-10",
       "data_ex": "2026-03-11",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-18",
       "yield_pct": 0.48,
       "status": "pago",
       "fonte": "yfinance"
@@ -2047,7 +4280,7 @@
       "valor": 0.1,
       "data_com": "2026-03-10",
       "data_ex": "2026-03-11",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-18",
       "yield_pct": 0.41,
       "status": "pago",
       "fonte": "yfinance"
@@ -2058,7 +4291,7 @@
       "valor": 0.05,
       "data_com": "2026-03-10",
       "data_ex": "2026-03-11",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-19",
       "yield_pct": 0.52,
       "status": "pago",
       "fonte": "yfinance"
@@ -2069,10 +4302,65 @@
       "valor": 0.05,
       "data_com": "2026-03-10",
       "data_ex": "2026-03-11",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-19",
       "yield_pct": 0.48,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "CEEB3",
+      "tipo": "JSCP",
+      "valor": 0.5,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEEB5",
+      "tipo": "JSCP",
+      "valor": 0.5,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "CEEB6",
+      "tipo": "JSCP",
+      "valor": 0.55,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EKTR3",
+      "tipo": "JSCP",
+      "valor": 0.15,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "EKTR4",
+      "tipo": "JSCP",
+      "valor": 0.16,
+      "data_com": "2026-03-10",
+      "data_ex": "2026-03-11",
+      "data_pagamento": "2026-12-31",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "CSMG3",
@@ -2086,12 +4374,78 @@
       "fonte": "yfinance"
     },
     {
+      "ticker": "BMEB3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.05,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": "2026-03-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BMEB4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.05,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": "2026-03-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BMIN3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.51,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": "2026-03-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BMIN4",
+      "tipo": "DIVIDENDO",
+      "valor": 1.4,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": "2026-03-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MERC3",
+      "tipo": "DIVIDENDO",
+      "valor": 0.18,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": "2026-03-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "MERC4",
+      "tipo": "DIVIDENDO",
+      "valor": 0.53,
+      "data_com": "2026-03-06",
+      "data_ex": "2026-03-09",
+      "data_pagamento": "2026-03-18",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
       "ticker": "RANI3",
       "tipo": "DIVIDENDO/JCP",
       "valor": 0.0416,
       "data_com": "2026-03-05",
       "data_ex": "2026-03-06",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-20",
       "yield_pct": 0.52,
       "status": "pago",
       "fonte": "yfinance"
@@ -2102,7 +4456,7 @@
       "valor": 0.0701,
       "data_com": "2026-03-02",
       "data_ex": "2026-03-03",
-      "data_pagamento": null,
+      "data_pagamento": "2026-03-11",
       "yield_pct": 0.34,
       "status": "pago",
       "fonte": "yfinance"
@@ -2113,7 +4467,7 @@
       "valor": 0.0173,
       "data_com": "2026-03-02",
       "data_ex": "2026-03-03",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-01",
       "yield_pct": 0.11,
       "status": "pago",
       "fonte": "yfinance"
@@ -2124,10 +4478,32 @@
       "valor": 0.019,
       "data_com": "2026-03-02",
       "data_ex": "2026-03-03",
-      "data_pagamento": null,
+      "data_pagamento": "2026-04-01",
       "yield_pct": 0.1,
       "status": "pago",
       "fonte": "yfinance"
+    },
+    {
+      "ticker": "BEES3",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-03-02",
+      "data_ex": "2026-03-03",
+      "data_pagamento": "2026-04-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "BEES4",
+      "tipo": "JSCP",
+      "valor": 0.03,
+      "data_com": "2026-03-02",
+      "data_ex": "2026-03-03",
+      "data_pagamento": "2026-04-01",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
     },
     {
       "ticker": "CAML3",
@@ -6438,28 +8814,6 @@
       "data_ex": "2025-01-24",
       "data_pagamento": null,
       "yield_pct": 0.35,
-      "status": "pago",
-      "fonte": "yfinance"
-    },
-    {
-      "ticker": "SANB11",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.4025,
-      "data_com": "2025-01-22",
-      "data_ex": "2025-01-23",
-      "data_pagamento": null,
-      "yield_pct": 1.53,
-      "status": "pago",
-      "fonte": "yfinance"
-    },
-    {
-      "ticker": "SANB4",
-      "tipo": "DIVIDENDO/JCP",
-      "valor": 0.2108,
-      "data_com": "2025-01-22",
-      "data_ex": "2025-01-23",
-      "data_pagamento": null,
-      "yield_pct": 1.56,
       "status": "pago",
       "fonte": "yfinance"
     }
