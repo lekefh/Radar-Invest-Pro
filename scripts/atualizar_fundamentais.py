@@ -115,7 +115,7 @@ def main():
         print(f"Arquivo não encontrado: {FUND_PATH}")
         sys.exit(1)
 
-    with open(FUND_PATH, "r", encoding="utf-8") as f:
+    with open(FUND_PATH, "r", encoding="utf-8-sig") as f:
         dados = json.load(f)
 
     tickers = list(dados.keys())
