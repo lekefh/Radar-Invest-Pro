@@ -29,6 +29,15 @@ CAMPOS_YFINANCE = {"pl", "pvp", "dy", "roe", "lpa", "vpa", "merc", "evEbit", "di
 # Campos que NUNCA tocamos (dados enriquecidos manualmente ou pelo desktop)
 CAMPOS_PRESERVAR = {"mr", "govRespostas", "gov", "nota", "nome", "setor"}
 
+# Tickers onde o Yahoo Finance retorna bookValue/priceToBook da unit (SAPR11, etc.)
+# em vez da ação individual ON/PN, gerando pvp e vpa errados.
+# A unit correspondente não está no dataset, então corrigir_pvp_units() não resolve.
+# Valores confirmados pelo Fundamentus — revisar a cada revisão tarifária relevante.
+PVP_VPA_OVERRIDE: dict[str, dict] = {
+    "SAPR3": {"pvp": 0.96, "vpa": 8.40},   # Fundamentus 24/07/2026
+    "SAPR4": {"pvp": 0.96, "vpa": 8.40},   # mesmo negócio, PN sem liquidez
+}
+
 def safe_float(v, scale=1.0, minv=None, maxv=None):
     try:
         f = float(v) * scale
@@ -146,6 +155,15 @@ def main():
     corrigidos = corrigir_pvp_units(dados)
     if corrigidos:
         print(f"\n  ✓ P/VP corrigido em {corrigidos} tickers ON/PN (usou P/VP da unit correspondente)")
+
+    # Override manual: tickers onde a unit não está no dataset e Yahoo retorna dados errados
+    for ticker, vals in PVP_VPA_OVERRIDE.items():
+        if ticker in dados:
+            for campo, valor in vals.items():
+                dados[ticker][campo] = valor
+    if PVP_VPA_OVERRIDE:
+        tickers_ov = [t for t in PVP_VPA_OVERRIDE if t in dados]
+        print(f"  ✓ Override manual aplicado: {', '.join(tickers_ov)}")
 
     with open(FUND_PATH, "w", encoding="utf-8") as f:
         json.dump(dados, f, ensure_ascii=False, indent=2)
