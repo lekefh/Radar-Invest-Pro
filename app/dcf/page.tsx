@@ -469,7 +469,7 @@ function ModalRelatorio({ ticker, nome, onClose }: { ticker: string; nome: strin
 
 /* ── Seções da empresa ────────────────────────────────────────────────────── */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function SecResumo({ e, precoLive, customResult }: { e: any; precoLive: number|null; customResult?: ResultadoDCF | null }) {
+function SecResumo({ e, precoLive, customResult, premissas }: { e: any; precoLive: number|null; customResult?: ResultadoDCF | null; premissas?: PremissasDCF | null }) {
   const bear = customResult?.bear ?? e.bear ?? {}
   const base = customResult?.base ?? e.base ?? {}
   const bull = customResult?.bull ?? e.bull ?? {}
@@ -501,8 +501,8 @@ function SecResumo({ e, precoLive, customResult }: { e: any; precoLive: number|n
 
       <SecTitle>Parâmetros do Modelo</SecTitle>
       <div style={{ display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(100px,1fr))',gap:'10px',marginBottom:'24px' }}>
-        <ParamCard label="WACC" val={e.wacc != null ? f1(e.wacc) + '%' : '—'}/>
-        <ParamCard label="g Terminal" val={e.g_terminal != null ? f1(e.g_terminal) + '%' : '—'}/>
+        <ParamCard label="WACC" val={(premissas?.wacc ?? e.wacc) != null ? f1(premissas?.wacc ?? e.wacc) + '%' : '—'}/>
+        <ParamCard label="g Terminal" val={(premissas?.g_terminal ?? e.g_terminal) != null ? f1(premissas?.g_terminal ?? e.g_terminal) + '%' : '—'}/>
         <ParamCard label="Ke (Custo Capital)" val={e.wacc_ke != null ? f1(e.wacc_ke) + '%' : '—'}/>
         <ParamCard label="Rf (NTN-B)" val={e.wacc_rf != null ? f1(e.wacc_rf) + '%' : '—'}/>
         <ParamCard label="Beta" val={e.wacc_beta != null ? f2(e.wacc_beta) : '—'}/>
@@ -513,15 +513,18 @@ function SecResumo({ e, precoLive, customResult }: { e: any; precoLive: number|n
         <>
           <SecTitle>Crescimento de Receita Projetado</SecTitle>
           <div style={{ display:'flex',gap:'8px',flexWrap:'wrap',marginBottom:'20px' }}>
-            {(e.g_receita as number[]).map((g, i) => (
-              <div key={i} style={{ background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'8px 14px',textAlign:'center' }}>
-                <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'2px' }}>Ano {i+1}</div>
-                <div style={{ fontSize:'14px',fontWeight:700,color:'#00d4a0' }}>{g != null ? f1(g) + '%' : '—'}</div>
-              </div>
-            ))}
+            {(e.g_receita as number[]).map((g, i) => {
+              const gVal = premissas?.g_receita?.[i] ?? g
+              return (
+                <div key={i} style={{ background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'8px 14px',textAlign:'center' }}>
+                  <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'2px' }}>Ano {i+1}</div>
+                  <div style={{ fontSize:'14px',fontWeight:700,color:'#00d4a0' }}>{gVal != null ? f1(gVal) + '%' : '—'}</div>
+                </div>
+              )
+            })}
             <div style={{ background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'8px 14px',textAlign:'center' }}>
               <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'2px' }}>Terminal</div>
-              <div style={{ fontSize:'14px',fontWeight:700,color:'#e8a020' }}>{f1(e.g_terminal)}%</div>
+              <div style={{ fontSize:'14px',fontWeight:700,color:'#e8a020' }}>{f1(premissas?.g_terminal ?? e.g_terminal)}%</div>
             </div>
           </div>
         </>
@@ -531,12 +534,15 @@ function SecResumo({ e, precoLive, customResult }: { e: any; precoLive: number|n
         <>
           <SecTitle>Margens EBITDA Projetadas</SecTitle>
           <div style={{ display:'flex',gap:'8px',flexWrap:'wrap' }}>
-            {(e.mg_ebitda as number[]).map((m, i) => (
-              <div key={i} style={{ background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'8px 14px',textAlign:'center' }}>
-                <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'2px' }}>Ano {i+1}</div>
-                <div style={{ fontSize:'14px',fontWeight:700,color:'#e8edf5' }}>{m != null ? f1(m) + '%' : '—'}</div>
-              </div>
-            ))}
+            {(e.mg_ebitda as number[]).map((m, i) => {
+              const mVal = premissas?.mg_ebitda?.[i] ?? m
+              return (
+                <div key={i} style={{ background:'rgba(255,255,255,.04)',borderRadius:'6px',padding:'8px 14px',textAlign:'center' }}>
+                  <div style={{ fontSize:'10px',color:'#6b84a8',marginBottom:'2px' }}>Ano {i+1}</div>
+                  <div style={{ fontSize:'14px',fontWeight:700,color:'#e8edf5' }}>{mVal != null ? f1(mVal) + '%' : '—'}</div>
+                </div>
+              )
+            })}
           </div>
         </>
       )}
@@ -2488,7 +2494,7 @@ export default function DCFPage() {
               </div>
 
               <div className="content">
-                {aba === 'resumo'        && <SecResumo e={emp} precoLive={precoLive} customResult={resultadoCustom}/>}
+                {aba === 'resumo'        && <SecResumo e={emp} precoLive={precoLive} customResult={resultadoCustom} premissas={premissas}/>}
                 {aba === 'historico'     && <SecHistorico e={emp}/>}
                 {aba === 'linhas'        && <SecLinhasNegocio e={emp}/>}
                 {aba === 'projecoes'     && <SecProjecoes e={emp} customResult={resultadoCustom}/>}
