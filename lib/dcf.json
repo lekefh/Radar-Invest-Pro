@@ -18,6 +18,8 @@
       "upside": 88.4
     },
     "upside_base_legado": 38.12,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 10868.3,
     "divida_liquida": 2181.0,
     "bear_factor": 0.7,
@@ -408,7 +410,7 @@
       "mg_ebitda": 0.1051,
       "metodologia": "YoY+-20% media = R$2,321MM + R$4MM novas lojas"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:34"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -429,6 +431,8 @@
       "upside": 92.0
     },
     "upside_base_legado": 40.98,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 2622.4,
     "divida_liquida": 151.3,
     "bear_factor": 0.7,
@@ -709,7 +713,7 @@
       "mg_ebitda": 0.1017,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:34"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -730,6 +734,8 @@
       "upside": 24.1
     },
     "upside_base_legado": -15.49,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 3002.0,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -1035,7 +1041,7 @@
       "mg_ebitda": 0.2153,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1056,6 +1062,8 @@
       "upside": 48.5
     },
     "upside_base_legado": 14.85,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 9772.3,
     "divida_liquida": 4924.1,
     "bear_factor": 0.7,
@@ -1342,7 +1350,7 @@
       "mg_ebitda": 0.2571,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1363,6 +1371,8 @@
       "upside": 73.1
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.lavvi.com.br/informacoes-financeiras/central-de-resultados/",
     "rec_base": 1963.1,
     "divida_liquida": 467.7,
     "bear_factor": 0.7,
@@ -1646,27 +1656,29 @@
       "mg_ebitda": 0.2569,
       "metodologia": "YoY+-20% media = R$386MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "PSSA3": {
     "ticker": "PSSA3",
     "company": "PSSA3 — Porto Seguro",
     "nome": "Porto Seguro",
     "method": "ddm",
-    "preco_atual": 53.810001373291016,
+    "preco_atual": 54.90999984741211,
     "bear": {
       "preco": 41.49,
-      "upside": -22.9
+      "upside": -24.4
     },
     "base": {
       "preco": 47.46,
-      "upside": -11.8
+      "upside": -13.6
     },
     "bull": {
       "preco": 54.71,
-      "upside": 1.7
+      "upside": -0.4
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": "https://ri.portoseguro.com.br/resultados-e-comunicados/central-de-resultados/",
     "rec_base": 45600.0,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -1961,10 +1973,10 @@
       ]
     },
     "tir": {
-      "nominal": 26.73,
-      "real": 20.69,
-      "vs_selic": 14.19,
-      "vs_ntnb": 13.39,
+      "nominal": 26.24,
+      "real": 20.23,
+      "vs_selic": 13.73,
+      "vs_ntnb": 12.93,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -1973,7 +1985,7 @@
       "preco_formula": null,
       "eps": 5.68,
       "vpa": 24.26,
-      "upside_gn": 3.5,
+      "upside_gn": 1.4,
       "detalhe": "EPS=R$5.68 VPA=R$24.26"
     },
     "proximo_tri": {
@@ -1984,7 +1996,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2005,6 +2017,8 @@
       "upside": 98.8
     },
     "upside_base_legado": 35.0,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 42251.2,
     "divida_liquida": 736.0,
     "bear_factor": 0.65,
@@ -2279,7 +2293,7 @@
       "mg_ebitda": 0.0707,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2300,6 +2314,8 @@
       "upside": 46.5
     },
     "upside_base_legado": 40.86,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 47227.6,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -2624,7 +2640,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2645,6 +2661,8 @@
       "upside": 23.9
     },
     "upside_base_legado": -5.09,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 11120.0,
     "divida_liquida": -597.0,
     "bear_factor": 0.7,
@@ -2957,7 +2975,7 @@
       "mg_ebitda": 0.6342,
       "metodologia": "YoY+-20% media = R$2,200MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -2978,6 +2996,8 @@
       "upside": 117.0
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.bb.com.br/",
     "rec_base": 108235.249,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -3310,7 +3330,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -3331,6 +3351,8 @@
       "upside": 22.6
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 23171.2963,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -3663,7 +3685,7 @@
       "mg_ebitda": 0.4,
       "metodologia": "DDM — soma LL estimado por subsidiaria (ll_total _est_1t26 = ll_prev 1.375 + ll_seg 564 + ll_ban 216 + ll_ser 105); receita proxy = ll_total / 0.40 (margem liquida combinada historica)"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3684,6 +3706,8 @@
       "upside": 173.9
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 37630.86,
     "divida_liquida": 11500.0,
     "bear_factor": 0.85,
@@ -3954,7 +3978,7 @@
       "mg_ebitda": 0.5175,
       "metodologia": "Flat a/a vs 1T25 (rec=9.663, ebitda_ex sob gestao=5.000, ll=-1.788) - baseline pre-resultado, holding SOTP"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -3975,6 +3999,8 @@
       "upside": null
     },
     "upside_base_legado": 2.89,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 1326.7076,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -4337,27 +4363,29 @@
       "mg_ebitda": 0.1734,
       "metodologia": "YoY+-20% media = R$249MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "INTB3": {
     "ticker": "INTB3",
     "company": "INTB3 — Intelbras",
     "nome": "Intelbras",
     "method": "fcff",
-    "preco_atual": 13.4399995803833,
+    "preco_atual": 13.5,
     "bear": {
       "preco": 14.99,
-      "upside": 11.5
+      "upside": 11.0
     },
     "base": {
       "preco": 18.33,
-      "upside": 36.4
+      "upside": 35.8
     },
     "bull": {
       "preco": 22.74,
-      "upside": 69.2
+      "upside": 68.4
     },
-    "upside_base_legado": 36.4,
+    "upside_base_legado": 35.8,
+    "ultimo_periodo_confirmado": "2T26",
+    "ri_url": "https://ri.intelbras.com.br/informacoes-financeiras/central-de-resultados/",
     "rec_base": 5377.2,
     "divida_liquida": -355.9,
     "bear_factor": 0.7,
@@ -4673,15 +4701,15 @@
       ]
     },
     "tir": {
-      "nominal": 20.3,
-      "real": 14.57,
-      "vs_selic": 8.07,
-      "vs_ntnb": 7.27,
+      "nominal": 20.2,
+      "real": 14.48,
+      "vs_selic": 7.98,
+      "vs_ntnb": 7.18,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": {
       "preco": 9.24,
-      "upside": -31.3,
+      "upside": -31.6,
       "d0": 1.128,
       "d1": 1.1844,
       "detalhe": "D0=R$1.13 Ke=17.8% g=5.0%"
@@ -4691,18 +4719,18 @@
       "preco_formula": null,
       "eps": 1.76,
       "vpa": 9.61,
-      "upside_gn": 45.1,
+      "upside_gn": 44.4,
       "detalhe": "EPS=R$1.76 VPA=R$9.61"
     },
     "proximo_tri": {
       "periodo": "3T26",
-      "receita": 1281.7,
-      "ebitda": 160.2,
-      "ll": 139.6,
-      "mg_ebitda": 0.125,
-      "metodologia": "YoY+3% media = R$1,282MM"
+      "receita": 1175.9,
+      "ebitda": 168.1,
+      "ll": 157.5,
+      "mg_ebitda": 0.143,
+      "metodologia": "Por segmento vs 3T25: Seg +5.0% (R$737,5MM) + TIC +12.0% (R$278,7MM) + Ener -7.9% (R$159,7MM) = R$1.175,9MM | Mg 14,3%"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -4723,6 +4751,8 @@
       "upside": 28.3
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 84095.4286,
     "divida_liquida": 0.0,
     "bear_factor": 0.7,
@@ -5006,7 +5036,7 @@
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -5027,6 +5057,8 @@
       "upside": 80.3
     },
     "upside_base_legado": 23.16,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 48862.0,
     "divida_liquida": 46040.0,
     "bear_factor": 0.7,
@@ -5329,7 +5361,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5350,6 +5382,8 @@
       "upside": 120.4
     },
     "upside_base_legado": 37.75,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 47563.1265,
     "divida_liquida": 72000.0,
     "bear_factor": 0.8,
@@ -5633,7 +5667,7 @@
       "mg_ebitda": 0.4305,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -5654,6 +5688,8 @@
       "upside": 14.4
     },
     "upside_base_legado": -9.49,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 57980.0,
     "divida_liquida": 47000.0,
     "bear_factor": 0.85,
@@ -5937,7 +5973,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -5958,6 +5994,8 @@
       "upside": 9.3
     },
     "upside_base_legado": -14.13,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 45443.6,
     "divida_liquida": 17817.0,
     "bear_factor": 0.85,
@@ -6241,7 +6279,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -6262,6 +6300,8 @@
       "upside": 0.2
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.taesa.com.br/divulgacao-ao-mercado/central-de-resultados/",
     "rec_base": 2755.5,
     "divida_liquida": 10204.2,
     "bear_factor": 0.85,
@@ -6545,7 +6585,7 @@
       "mg_ebitda": 0.305,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -6566,6 +6606,8 @@
       "upside": 27.7
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 2800.0,
     "divida_liquida": -1800.0,
     "bear_factor": 0.811,
@@ -6892,7 +6934,7 @@
       "mg_ebitda": 0.6502,
       "metodologia": "YoY+-20% media = R$480MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -6913,6 +6955,8 @@
       "upside": null
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": null,
     "rec_base": 5762.0,
     "divida_liquida": -1690.0,
     "bear_factor": 0.77,
@@ -7199,7 +7243,7 @@
       "mg_ebitda": 0.9968,
       "metodologia": "YoY+-20% media = R$1,104MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -7220,6 +7264,8 @@
       "upside": 65.7
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": null,
+    "ri_url": null,
     "rec_base": 11190.2,
     "divida_liquida": 250.0,
     "bear_factor": 0.65,
@@ -7512,7 +7558,7 @@
       "mg_ebitda": 0.1545,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -7533,6 +7579,8 @@
       "upside": 116.7
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.cea.com.br/en/results-center/",
     "rec_base": 8029.6,
     "divida_liquida": 131.0,
     "bear_factor": 0.65,
@@ -7810,7 +7858,7 @@
       "mg_ebitda": 0.178,
       "metodologia": "YoY+-20% media = R$1,648MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -7831,6 +7879,8 @@
       "upside": 84.7
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.petrobras.com.br/pt/resultados-e-relatorios/central-de-resultados/",
     "rec_base": 496240.2016,
     "divida_liquida": 357075.0,
     "bear_factor": 0.8,
@@ -8114,7 +8164,7 @@
       "mg_ebitda": 0.4714,
       "metodologia": "YoY+-20% media = R$95,760MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -8135,6 +8185,8 @@
       "upside": 17.9
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.lojasrenner.com.br/info-aos-investidores/central-de-resultados/",
     "rec_base": 12689.7,
     "divida_liquida": -1500.0,
     "bear_factor": 0.75,
@@ -8418,7 +8470,7 @@
       "mg_ebitda": 0.218,
       "metodologia": "YoY+-20% media = R$2,960MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -8439,6 +8491,8 @@
       "upside": 49.9
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.prio3.com.br/en/financial-information/results-central/",
     "rec_base": 22422.0,
     "divida_liquida": 23985.0,
     "bear_factor": 0.7,
@@ -8716,7 +8770,7 @@
       "mg_ebitda": 0.6267,
       "metodologia": "YoY+-20% media = R$2,760MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -8737,6 +8791,8 @@
       "upside": 115.3
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.magazineluiza.com.br/resultados-financeiros",
     "rec_base": 37940.5,
     "divida_liquida": 2000.0,
     "bear_factor": 0.45,
@@ -9020,7 +9076,7 @@
       "mg_ebitda": 0.0802,
       "metodologia": "YoY+-20% media = R$7,307MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -9041,6 +9097,8 @@
       "upside": -1.0
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.ambev.com.br/central-de-resultados/",
     "rec_base": 88436.2,
     "divida_liquida": -16500.0,
     "bear_factor": 0.75,
@@ -9324,7 +9382,7 @@
       "mg_ebitda": 0.3313,
       "metodologia": "YoY+-20% media = R$16,160MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -9345,6 +9403,8 @@
       "upside": 33.3
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.valid.com.br/central-de-resultados/",
     "rec_base": 1839.7,
     "divida_liquida": -37.0,
     "bear_factor": 0.7,
@@ -9653,7 +9713,7 @@
       "mg_ebitda": 0.2186,
       "metodologia": "YoY+-20% media = R$392MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -9674,6 +9734,8 @@
       "upside": 28.7
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.mahle.com.br/central-de-resultados/",
     "rec_base": 5389.8,
     "divida_liquida": 965.0,
     "bear_factor": 0.75,
@@ -9986,7 +10048,7 @@
       "mg_ebitda": 0.2008,
       "metodologia": "YoY+-20% media = R$1,110MM"
     },
-    "atualizado": "29/07/2026 22:42"
+    "atualizado": "29/07/2026 23:35"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -10007,6 +10069,8 @@
       "upside": -51.2
     },
     "upside_base_legado": null,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.sabesp.com.br/informacoes-financeiras/central-de-resultados/",
     "rec_base": 24625.3,
     "divida_liquida": 32460.0,
     "bear_factor": 0.75,
@@ -10284,7 +10348,7 @@
       "mg_ebitda": 0.5804,
       "metodologia": "YoY+-20% media = R$4,358MM"
     },
-    "atualizado": "29/07/2026 22:43"
+    "atualizado": "29/07/2026 23:35"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -10305,6 +10369,8 @@
       "upside": 96.9
     },
     "upside_base_legado": 34.46,
+    "ultimo_periodo_confirmado": "1T26",
+    "ri_url": "https://ri.localiza.com/",
     "rec_base": 50569.3,
     "divida_liquida": 30200.0,
     "bear_factor": 0.75,
@@ -10613,6 +10679,6 @@
       "mg_ebitda": 0.3264,
       "metodologia": "YoY+-20% media = R$7,920MM"
     },
-    "atualizado": "29/07/2026 22:43"
+    "atualizado": "29/07/2026 23:35"
   }
 }
