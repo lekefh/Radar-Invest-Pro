@@ -2162,14 +2162,24 @@ export default function DCFPage() {
 
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState<Date|null>(null)
 
-  // Quando troca de empresa: inicializa premissas com os valores do modelo
+  // Quando troca de empresa: inicializa premissas (localStorage > modelo)
   useEffect(() => {
     if (!sel || plano !== 'analista') { setPremissas(null); setResultadoCustom(null); return }
     const e = dcfData[sel]
     if (!e) return
+    try {
+      const saved = localStorage.getItem(`dcf_prem_v1_${sel}`)
+      if (saved) { setPremissas(JSON.parse(saved) as PremissasDCF); return }
+    } catch {}
     setPremissas(premissasDeEmp(e))
     setResultadoCustom(null)
   }, [sel, plano])
+
+  // Persiste premissas no localStorage para sobreviver a recarregamentos da página
+  useEffect(() => {
+    if (!premissas || !sel || plano !== 'analista') return
+    try { localStorage.setItem(`dcf_prem_v1_${sel}`, JSON.stringify(premissas)) } catch {}
+  }, [premissas, sel, plano])
 
   // Aplica ajustes do analista às premissas/base antes de calcular
   const aplicarAjustes = useCallback((e: any, prem: PremissasDCF): [any, PremissasDCF] => {
@@ -2505,7 +2515,7 @@ export default function DCFPage() {
             premissas={premissas}
             setPremissas={fn => setPremissas(p => p ? fn(p) : p)}
             resultado={resultadoCustom}
-            onReset={() => { setPremissas(premissasDeEmp(emp)); setResultadoCustom(null) }}
+            onReset={() => { try { localStorage.removeItem(`dcf_prem_v1_${sel}`) } catch {}; setPremissas(premissasDeEmp(emp)); setResultadoCustom(null) }}
             onCalcularAgora={calcularDCFAgora}
             ajustes={ajustes}
             setAjustes={aj => {
