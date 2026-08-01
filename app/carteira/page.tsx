@@ -220,6 +220,7 @@ function FormPosicao({ posicao, onSave, onClose }: {
   const [notas,     setNotas]     = useState(posicao?.notas ?? '')
   const [vencimento, setVencimento] = useState(posicao?.data_vencimento?.slice(0,10) ?? '')
   const [lancador,  setLancador]  = useState((posicao?.quantidade ?? 0) < 0 ? true : false)
+  const [tipoOp,    setTipoOp]    = useState<'C'|'V'>('C')
   const [salvando,  setSalvando]  = useState(false)
   const [erro,      setErro]      = useState('')
 
@@ -230,23 +231,27 @@ function FormPosicao({ posicao, onSave, onClose }: {
   const salvar = async () => {
     setErro(''); setSalvando(true)
     const qtdeParsed = parseFloat(qtde.replace(',','.'))
-    const qtdeFinal  = isOpcao && lancador ? -qtdeParsed : qtdeParsed
-    const body: Record<string, unknown> = {
-      ticker:          tickerUp,
-      quantidade:      qtdeFinal,
-      preco_medio:     parseFloat(preco.replace(',','.')),
-      data_compra:     data || null,
-      notas:           notas || null,
-      data_vencimento: isOpcao && vencimento ? vencimento : null,
-    }
-    if (!body.ticker || isNaN(qtdeParsed) || isNaN(body.preco_medio as number)) {
+    const precoParsed = parseFloat(preco.replace(',','.'))
+    if (!tickerUp || isNaN(qtdeParsed) || isNaN(precoParsed)) {
       setErro('Ticker, quantidade e preço são obrigatórios.'); setSalvando(false); return
     }
     if (isOpcao && !vencimento) {
       setErro('Informe o vencimento da opção.'); setSalvando(false); return
     }
-    const url    = isEdit ? `/api/carteira/${posicao!.id}` : '/api/carteira'
-    const method = isEdit ? 'PUT' : 'POST'
+
+    let url: string; let method: string; let body: Record<string, unknown>
+
+    if (!isEdit && tipoOp === 'V') {
+      // VENDA — chama /api/carteira/operacao com tipo V
+      url = '/api/carteira/operacao'; method = 'POST'
+      body = { ticker: tickerUp, tipo: 'V', quantidade: qtdeParsed, preco: precoParsed, data_compra: data || null, notas: notas || null }
+    } else {
+      const qtdeFinal = isOpcao && lancador ? -qtdeParsed : qtdeParsed
+      body = { ticker: tickerUp, quantidade: qtdeFinal, preco_medio: precoParsed, data_compra: data || null, notas: notas || null, data_vencimento: isOpcao && vencimento ? vencimento : null }
+      url = isEdit ? `/api/carteira/${posicao!.id}` : '/api/carteira'
+      method = isEdit ? 'PUT' : 'POST'
+    }
+
     try {
       /* timeout de 30s — Neon pode ter cold start de ~5s na 1ª requisição */
       const controller = new AbortController()
@@ -276,6 +281,19 @@ function FormPosicao({ posicao, onSave, onClose }: {
 
   return (
     <div style={{ display:'flex',flexDirection:'column',gap:'16px' }}>
+
+      {/* Toggle COMPRA / VENDA — só para nova posição */}
+      {!isEdit && (
+        <div style={{ display:'flex',gap:'8px' }}>
+          <button type="button" onClick={() => setTipoOp('C')} style={{ flex:1,padding:'10px 0',borderRadius:'7px',border: tipoOp==='C' ? '2px solid #00d4a0' : '1px solid rgba(255,255,255,.12)',background: tipoOp==='C' ? 'rgba(0,212,160,.14)' : 'transparent',color: tipoOp==='C' ? '#00d4a0' : '#6b84a8',fontWeight:800,fontSize:14,cursor:'pointer',fontFamily:'inherit' }}>
+            ↑ COMPRA
+          </button>
+          <button type="button" onClick={() => setTipoOp('V')} style={{ flex:1,padding:'10px 0',borderRadius:'7px',border: tipoOp==='V' ? '2px solid #ef4444' : '1px solid rgba(255,255,255,.12)',background: tipoOp==='V' ? 'rgba(239,68,68,.14)' : 'transparent',color: tipoOp==='V' ? '#ef4444' : '#6b84a8',fontWeight:800,fontSize:14,cursor:'pointer',fontFamily:'inherit' }}>
+            ↓ VENDA
+          </button>
+        </div>
+      )}
+
       {!isEdit && (
         <div>
           <span style={lbl}>Ticker *</span>
@@ -321,12 +339,12 @@ function FormPosicao({ posicao, onSave, onClose }: {
           <input style={inp} placeholder="100" type="number" min="0" value={qtde} onChange={e=>setQtde(e.target.value)} />
         </div>
         <div>
-          <span style={lbl}>{isOpcao ? 'Prêmio Médio (R$) *' : 'Preço Médio (R$) *'}</span>
+          <span style={lbl}>{isOpcao ? 'Prêmio Médio (R$) *' : tipoOp === 'V' ? 'Preço de Venda (R$) *' : 'Preço Médio (R$) *'}</span>
           <input style={inp} placeholder="2,50" type="number" min="0" step="0.01" value={preco} onChange={e=>setPreco(e.target.value)} />
         </div>
       </div>
       <div>
-        <span style={lbl}>Data de Compra</span>
+        <span style={lbl}>{tipoOp === 'V' && !isEdit ? 'Data da Venda' : 'Data de Compra'}</span>
         <input style={inp} type="date" value={data} onChange={e=>setData(e.target.value)} />
       </div>
       <div>
@@ -337,7 +355,7 @@ function FormPosicao({ posicao, onSave, onClose }: {
       <div style={{ display:'flex',gap:'10px',justifyContent:'flex-end',paddingTop:'8px',borderTop:'1px solid rgba(255,255,255,.06)' }}>
         <button onClick={onClose} style={{ background:'transparent',border:'1px solid rgba(255,255,255,.15)',color:'#6b84a8',padding:'9px 20px',borderRadius:'7px',cursor:'pointer',fontSize:'13px',fontWeight:600 }}>Cancelar</button>
         <button onClick={salvar} disabled={salvando} style={{ background:'#e8a020',color:'#000',padding:'9px 24px',borderRadius:'7px',cursor:salvando?'wait':'pointer',fontSize:'13px',fontWeight:700,border:'none',opacity:salvando?.6:1 }}>
-          {salvando ? 'Salvando…' : isEdit ? 'Salvar Alterações' : '+ Adicionar'}
+          {salvando ? 'Salvando…' : isEdit ? 'Salvar Alterações' : tipoOp === 'V' ? '↓ Registrar Venda' : '+ Adicionar'}
         </button>
       </div>
     </div>
