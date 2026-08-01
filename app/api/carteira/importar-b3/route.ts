@@ -101,6 +101,7 @@ export async function POST(req: NextRequest) {
     const operacoes: {
       tipo: string; ticker: string; quantidade: number; preco: number
       data: string; notas: string; mercado?: string; vencimento?: string | null
+      opcao_original?: string | null
     }[] = []
     const erros: string[] = []
 
@@ -144,7 +145,35 @@ export async function POST(req: NextRequest) {
         // "Compra - Exercício de Opção de Venda" = lançador de put assigned → comprou ação-objeto
         // "Venda - Exercício de Opção de Compra" = lançador de call assigned → vendeu ação-objeto
         const acoeTicker = underlyingDaOpcao(tickerRaw)
-        operacoes.push({ tipo, ticker: acoeTicker, quantidade, preco, data, notas: `${notas} — Exercício de ${tickerRaw}`, mercado: 'exercicio' })
+
+        // Ticker original da opção: CYREP295E → CYREP295 (remove 'E' final se resultar em opção válida)
+        const opcaoOriginal = (tickerRaw.endsWith('E') && tickerRaw.length > 5 && isOpcaoTicker(tickerRaw.slice(0, -1)))
+          ? tickerRaw.slice(0, -1)
+          : null
+
+        operacoes.push({
+          tipo, ticker: acoeTicker, quantidade, preco, data,
+          notas: `${notas} — Exercício de ${tickerRaw}`,
+          mercado: 'exercicio',
+          opcao_original: opcaoOriginal,
+        })
+
+        // Gera fechamento automático da posição da opção original para não ficar na carteira
+        if (opcaoOriginal) {
+          // Lançador vendeu a opção (posição negativa) → fecha com compra; titular o contrário
+          const opOrigLote = operacoes.find(op => op.ticker === opcaoOriginal && op.mercado === 'opcao')
+          const tipoFechamento = opOrigLote ? (opOrigLote.tipo === 'V' ? 'C' : 'V') : 'C'
+          operacoes.push({
+            tipo: tipoFechamento,
+            ticker: opcaoOriginal,
+            quantidade,
+            preco: 0,  // será ajustado para o prêmio original em confirmar-import
+            data,
+            notas: `${notas} — Baixa automática por exercício (${tickerRaw})`,
+            mercado: 'opcao_exercida',
+            opcao_original: opcaoOriginal,
+          })
+        }
       } else if (isOpcaoTicker(tickerRaw)) {
         // Opção regular: preserva vencimento real da planilha B3
         operacoes.push({ tipo, ticker: tickerRaw, quantidade, preco, data, notas, mercado: 'opcao', vencimento })
