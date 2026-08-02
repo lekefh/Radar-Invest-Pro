@@ -2049,17 +2049,37 @@ export default function CarteiraPage() {
                       ))}
                     </div>
 
-                    {/* Resultado latente */}
+                    {/* Resultado latente + líquido — 3 métricas em linha */}
                     <div style={{ background:'#0a1628', border:'1px solid rgba(255,255,255,.06)', borderRadius:8, padding:'13px 18px', marginBottom:14 }}>
-                      <div className="perf-latente">
-                        <div>
-                          <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Carteira em Aberto — Resultado Latente</div>
-                          <div style={{ display:'flex', alignItems:'baseline', gap:10 }}>
+                      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:0 }}>
+                        {/* Realizado */}
+                        <div style={{ padding:'4px 16px 4px 0', borderRight:'1px solid rgba(255,255,255,.07)' }}>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Realizado</div>
+                          <div style={{ display:'flex', alignItems:'baseline', gap:6, flexWrap:'wrap' }}>
+                            <span style={{ fontSize:18, fontWeight:800, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444', fontVariantNumeric:'tabular-nums' }}>{fBRL2(totalRealizado)}</span>
+                          </div>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginTop:3 }}>{realizadoFiltrado.filter(t => t.n_ops > 0).length} ativos · {perfData.operacoes.n_vendas} vendas</div>
+                        </div>
+                        {/* Latente */}
+                        <div style={{ padding:'4px 16px', borderRight:'1px solid rgba(255,255,255,.07)' }}>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Latente (aberto)</div>
+                          <div style={{ display:'flex', alignItems:'baseline', gap:6, flexWrap:'wrap' }}>
                             <span className="perf-latente-val" style={{ color: naoRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(naoRealizado)}</span>
                             <span className="perf-latente-pct" style={{ color: naoRealizadoPct >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct(naoRealizadoPct)}</span>
                           </div>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginTop:3 }}>{posComTipo.length} posições abertas</div>
                         </div>
-                        <div style={{ fontSize:11, color:'#4a5d73' }}>{posComTipo.length} posições abertas</div>
+                        {/* Líquido total */}
+                        <div style={{ padding:'4px 0 4px 16px' }}>
+                          <div style={{ fontSize:10, color:'#eab838', marginBottom:4, textTransform:'uppercase', letterSpacing:.5, fontWeight:700 }}>Líquido Total ◆</div>
+                          <div style={{ display:'flex', alignItems:'baseline', gap:6, flexWrap:'wrap' }}>
+                            <span style={{ fontSize:18, fontWeight:800, color: totalGeral >= 0 ? '#00d4a0' : '#ef4444', fontVariantNumeric:'tabular-nums' }}>{fBRL2(totalGeral)}</span>
+                            {custoAtual > 0 && (
+                              <span style={{ fontSize:13, fontWeight:600, color: totalGeral >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct((totalGeral / custoAtual) * 100)}</span>
+                            )}
+                          </div>
+                          <div style={{ fontSize:10, color:'#4a5d73', marginTop:3 }}>Realizado + Latente</div>
+                        </div>
                       </div>
                     </div>
 
