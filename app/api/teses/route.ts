@@ -270,6 +270,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'VLID3': { nome: 'Valid Soluções S.A.',                           setor: 'tecnologia'   },
   'LEVE3': { nome: 'Mahle Metal Leve S.A.',                        setor: 'autopecas'    },
   'SBSP3': { nome: 'Sabesp — Cia. de Saneamento Básico do Estado de SP', setor: 'saneamento' },
+  'RANI3': { nome: 'Irani Papel e Embalagem S.A.', setor: 'celulose' },
 }
 
 async function ensureTables() {
@@ -501,6 +502,17 @@ async function ensureTables() {
       VALUES ('VLID3','1T26',
         248.6, 25.5, 447, 90.0, -37, 56, 4.3,
         'Receita R$447MM (-10,7% a/a). EBITDA R$114MM (Mg 25,5%). LL R$56MM recorrente (reportado R$73,6MM com benefício fiscal não-recorrente). Caixa Líquido R$37MM. Segmentos: ID & Gov Digital R$248,6MM (+1,7% a/a — CIN em expansão); Pay R$90MM (-31,5% a/a — pressão Argentina + digital); Mobile R$108,4MM (-13,3% a/a). EV/EBITDA LTM 3,2x (deep value — peers globais 8-12x). P/L 5,7x. DCF base R$32/ação (+83% upside vs R$17,70); Bear R$23 (+29%); Bull R$43 (+146%). TIR Real implícita ~12,3% vs NTN-B real 8,0% (+4,3pp — VERDE). Gordon DDM R$12 (Ke=18,2% — severo) / R$21 (Ke=12% mkt implícito). Graham Number R$38 (+116%). Tese: COMPRA — Valid é uma empresa de identidade digital em transição: legacy (Pay/Mobile) caindo mas Gov Digital crescendo, net cash, payout ~50%, valuation em mínimas históricas. Novos Negócios (VSoft biometria + serviços gov.) +53% a/a em 2025 já respondem por 16% da receita e 27% do EBITDA. Catalisadores: expansão CIN para todos os estados, contratos gov. digitais (SPs, RJs), estabilização Pay. Stop: Rec ID&Gov cai por 2 tri consecutivos. Fonte: Release 1T26 Valid — mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial RANI3 2T26
+  const rani3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='RANI3' AND trimestre='2T26'`
+  if (!rani3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('RANI3','2T26',
+        null, null, 431.9, 113.5, 2.07, 30.9, 10.4,
+        'Receita R$431,9MM (+4,4% a/a). EBITDA R$131,6MM (Mg 30,5%). Lucro R$30,9MM. DL/EBITDA 2,07x (DL R$1.070MM). LTM 2T26: Rec R$1.691MM | EBITDA R$521MM | Mg 30,8%. Gaia XI (reforma MP5 R$89,7MM): MP5 reiniciada mar/2026, ramp-up em andamento — maior produção histórica. Gaia XII (MP7+São Luzia R$453MM net, opercional Q4/2028): +36kt/ano de capacidade (+60% na unidade), dobra market share Neos de 4% → 8% até 2034. Shares: 230,5M | MktCap ~R$1,92B. DCF base: R$12,63/ação (Upside +51,4% vs R$8,34; Bear R$8,84 / Bull R$16,42). TIR Real implícita ~10,4% vs NTN-B real 7,0% (+3,4pp — VERDE). Gordon DDM: R$10,8 (Ke=12.8%, g=4%). Graham Number: R$8,89. Tese: COMPRA — empresa de papel embalagem de baixo custo em ciclo de expansão de capacidade (Gaia XI+XII). Moat = custo de celulose integrado, floresta própria, menor lifting cost do setor. Catalisadores: ramp-up pleno MP5 (2T-3T26), aprovação Gaia XII e volumes crescentes. Principal risco: queda sustentada do preço de papelão ondulado (<R$4,50/kg) ou atraso Gaia XII. Stops: Mg EBITDA <25% por 2 tri | DL/EBITDA >3,0x. Fonte: Releases 1T26+2T26 Irani | ago/2026.')
     `
   }
 }
