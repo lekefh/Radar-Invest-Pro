@@ -2310,7 +2310,10 @@ export default function DCFPage() {
     target != null && precoLive != null && precoLive > 0
       ? ((target - precoLive) / precoLive) * 100
       : fallback
-  const upSel = emp ? upsideLive(emp.base?.preco, emp.base?.upside ?? emp.upside_base_legado) : null
+  const upSel = emp ? upsideLive(
+    resultadoCustom?.base?.preco ?? emp.base?.preco,
+    emp.base?.upside ?? emp.upside_base_legado
+  ) : null
   const metodoBadge = (m: string) =>
     ({ fcff:'#3b82f6', ddm:'#a855f7', sotp:'#f59e0b' }[m?.toLowerCase()] ?? '#6b84a8')
 
@@ -2411,9 +2414,11 @@ export default function DCFPage() {
             </div>
           ) : empresasFiltradas.map((e: any) => {
             const pLive = precos[e.ticker] ?? null
-            const up = pLive != null && e.base?.preco != null && pLive > 0
-              ? ((e.base.preco - pLive) / pLive) * 100
-              : (e.base?.upside ?? e.upside_base_legado)
+            const isSelected = e.ticker === sel
+            const basePreco = (isSelected && resultadoCustom?.base?.preco) ? resultadoCustom.base.preco : e.base?.preco
+            const up = pLive != null && basePreco != null && pLive > 0
+              ? ((basePreco - pLive) / pLive) * 100
+              : (isSelected && resultadoCustom?.base?.upside != null ? resultadoCustom.base.upside : (e.base?.upside ?? e.upside_base_legado))
             return (
               <div key={e.ticker}
                    className={`emp-item${sel === e.ticker ? ' ativo' : ''}`}
