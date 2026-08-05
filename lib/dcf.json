@@ -10688,18 +10688,18 @@
     "method": "fcff",
     "preco_atual": 8.34000015258789,
     "bear": {
-      "preco": 7.66,
-      "upside": -8.2
+      "preco": 6.16,
+      "upside": -26.2
     },
     "base": {
-      "preco": 11.06,
-      "upside": 32.6
+      "preco": 8.60,
+      "upside": 3.2
     },
     "bull": {
-      "preco": 15.06,
-      "upside": 80.6
+      "preco": 11.43,
+      "upside": 37.0
     },
-    "upside_base_legado": 32.67,
+    "upside_base_legado": 3.2,
     "ultimo_periodo_confirmado": "2T26",
     "ri_url": "https://ri.irani.com.br/servicos-aos-investidores/central-de-resultados/",
     "rec_base": 1696.6,
