@@ -8464,13 +8464,28 @@
     },
     "proximo_tri": {
       "periodo": "2T26",
-      "receita": 2960.0,
-      "ebitda": 645.2,
-      "ll": 298.6,
-      "mg_ebitda": 0.218,
-      "metodologia": "YoY+-20% media = R$2,960MM"
+      "receita": 3885.0,
+      "ebitda": 944.0,
+      "ll": 437.0,
+      "mg_ebitda": 24.3,
+      "sss": 5.0,
+      "npl": null,
+      "metodologia": "YoY +5-8% | Base 2T25 forte (SSS +19%) | _est_2t26 do modelo"
     },
-    "atualizado": "04/08/2026 23:16"
+    "atualizado": "04/08/2026 23:16",
+    "kpis_ltm": {
+      "periodo": "2T26",
+      "receita": 3689,
+      "ebitda": 845,
+      "ll": 405,
+      "mg_ebitda": 22.9,
+      "sss": 0.5,
+      "npl": null,
+      "bhkp": null,
+      "brent": null,
+      "roe": null,
+      "div_liq": -1200
+    }
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -10692,7 +10707,7 @@
       "upside": -26.2
     },
     "base": {
-      "preco": 8.60,
+      "preco": 8.6,
       "upside": 3.2
     },
     "bull": {
