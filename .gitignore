@@ -229,3 +229,13 @@ Senhas e APIs.txt
 
 # Landing page substituída por app/page.tsx
 index.html
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+
+!.env.example
