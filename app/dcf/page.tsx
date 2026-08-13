@@ -1299,7 +1299,7 @@ function ModalWACC({ emp, taxRate, onAplicar, onClose }: {
   const [beta,    setBeta]    = useState<number>(emp.wacc_beta      ?? 1.0)
   const [erp,     setErp]     = useState<number>(emp.wacc_erp       ?? 5.0)
   const [kdBruto, setKdBruto] = useState<number>(emp.wacc_kd_bruto  ?? emp.wacc_ke ?? 14.0)
-  const [pesoE,   setPesoE]   = useState<number>((emp.wacc_peso_e ?? 1.0) * 100)
+  const [pesoE,   setPesoE]   = useState<number>(emp.wacc_peso_e ?? 100)
 
   const ke     = rf + beta * erp
   const kdAt   = kdBruto * (1 - taxRate / 100)
@@ -1683,7 +1683,7 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
               {emp.wacc_rf != null && `Rf=${f1(emp.wacc_rf)}% · `}
               {emp.wacc_beta != null && `β=${f2(emp.wacc_beta)} · `}
               {emp.wacc_ke != null && `Ke=${f1(emp.wacc_ke)}%`}
-              {emp.wacc_peso_e != null && ` · E=${f1((emp.wacc_peso_e) * 100)}%`}
+              {emp.wacc_peso_e != null && ` · E=${f1(emp.wacc_peso_e)}%`}
             </div>
           )}
         </div>
