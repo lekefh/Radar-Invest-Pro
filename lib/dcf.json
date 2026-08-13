@@ -18,7 +18,7 @@
       "upside": 124.1
     },
     "upside_base_legado": 67.03,
-    "ultimo_periodo_confirmado": "1T26",
+    "ultimo_periodo_confirmado": "2T26",
     "ri_url": "https://ri.azzas2154.com.br/resultados-e-apresentacoes/central-de-resultados/",
     "rec_base": 10860.4,
     "divida_liquida": 2131.7,
@@ -395,22 +395,26 @@
     },
     "gordon": null,
     "graham": {
-      "preco_gn": 60.1,
+      "preco_gn": 58.75,
       "preco_formula": null,
-      "eps": 4.05,
+      "eps": 3.87,
       "vpa": 39.63,
-      "upside_gn": 278.5,
-      "detalhe": "EPS=R$4.05 VPA=R$39.63"
+      "upside_gn": 270.0,
+      "detalhe": "EPS=R$3.87 VPA=R$39.63"
     },
     "proximo_tri": {
-      "periodo": "2T26",
-      "receita": 2325.2,
-      "ebitda": 244.4,
-      "ll": 105.9,
-      "mg_ebitda": 10.51,
+      "periodo": "3T26",
+      "receita": 2792.0,
+      "ebitda": 335.0,
+      "ll": 130.0,
+      "mg_ebitda": 12.0,
       "sss": null,
       "npl": null,
-      "metodologia": "YoY -20% s/ 2T25 | sell-in rebalanceamento"
+      "sell_out": 1680.0,
+      "sell_in": 1050.0,
+      "sell_out_yoy": -1.0,
+      "sell_in_yoy": -8.0,
+      "metodologia": "YoY -6% s/ 3T25 (R$2.970M) | sell-in gradualmente normaliza | Mg ex-IFRS16 12% (vs 11,7% 2T26) | sell-out ex-Basic esperado estável a levemente positivo | sell-in ainda em normalização mas acelerando (vs -13,6% em 2T26 e -10,9% em 1T26)"
     },
     "kpis_ltm": {
       "periodo": "2T26",
@@ -423,9 +427,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 2126.9
+      "div_liq": 2126.9,
+      "sell_out": 1748.1,
+      "sell_in": 1117.4,
+      "sell_out_yoy": -1.9,
+      "sell_in_yoy": -13.6,
+      "rec_sellout_lp": 1139.2,
+      "rec_ecom": 608.9,
+      "rec_franquia": 404.6,
+      "rec_multimarca": 712.8
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -728,6 +740,10 @@
       "mg_ebitda": 10.17,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "Commodity×Volume + YoY+42% media = R$52MM"
     },
     "kpis_ltm": {
@@ -741,9 +757,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 848.4
+      "div_liq": 848.4,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -1071,10 +1095,14 @@
       "mg_ebitda": 21.53,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+17% media = R$1,045MM"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1383,6 +1411,10 @@
       "mg_ebitda": 25.71,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-10% s/ 2T25 × VGV adj +0%"
     },
     "kpis_ltm": {
@@ -1396,9 +1428,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1704,6 +1744,10 @@
       "mg_ebitda": 25.69,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$386MM"
     },
     "kpis_ltm": {
@@ -1717,9 +1761,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 467.727
+      "div_liq": 467.727,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -2070,9 +2122,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2369,6 +2429,10 @@
       "mg_ebitda": 7.07,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$6,836MM"
     },
     "kpis_ltm": {
@@ -2382,9 +2446,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 736
+      "div_liq": 736,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2731,10 +2803,14 @@
       "mg_ebitda": 30.5,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -3046,7 +3122,13 @@
       "vs_ntnb": 0.45,
       "veredito": "Atrativo vs. RF"
     },
-    "gordon": null,
+    "gordon": {
+      "preco": 1.38,
+      "upside": -91.5,
+      "d0": 0.161,
+      "d1": 0.1674,
+      "detalhe": "D0=R$0.16 Ke=16.1% g=4.0%"
+    },
     "graham": {
       "preco_gn": 9.05,
       "preco_formula": null,
@@ -3063,6 +3145,10 @@
       "mg_ebitda": 63.42,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$2,200MM"
     },
     "kpis_ltm": {
@@ -3076,9 +3162,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3410,20 +3504,14 @@
       "vs_ntnb": 24.47,
       "veredito": "Atrativo vs. RF"
     },
-    "gordon": {
-      "preco": 6.27,
-      "upside": -67.5,
-      "d0": 0.573,
-      "d1": 0.5959,
-      "detalhe": "D0=R$0.57 Ke=13.5% g=4.0%"
-    },
+    "gordon": null,
     "graham": {
-      "preco_gn": 40.32,
+      "preco_gn": 39.68,
       "preco_formula": null,
-      "eps": 2.22,
+      "eps": 2.15,
       "vpa": 32.55,
-      "upside_gn": 108.9,
-      "detalhe": "EPS=R$2.22 VPA=R$32.55"
+      "upside_gn": 105.6,
+      "detalhe": "EPS=R$2.15 VPA=R$32.55"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -3444,9 +3532,17 @@
       "bhkp": null,
       "brent": null,
       "roe": 7.3,
-      "div_liq": 0
+      "div_liq": 0,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:16"
+    "atualizado": "13/08/2026 14:10"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -3801,6 +3897,10 @@
       "mg_ebitda": 40.0,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "DDM — soma LL estimado por subsidiaria (ll_total _est_1t26 = ll_prev 1.375 + ll_seg 564 + ll_ban 216 + ll_ser 105); receita proxy = ll_total / 0.40 (margem liquida combinada historica)"
     },
     "kpis_ltm": {
@@ -3814,9 +3914,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -4109,6 +4217,10 @@
       "mg_ebitda": 51.75,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "Flat a/a vs 1T25 (rec=9.663, ebitda_ex sob gestao=5.000, ll=-1.788) - baseline pre-resultado, holding SOTP"
     },
     "kpis_ltm": {
@@ -4122,16 +4234,24 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "KEPL3": {
     "ticker": "KEPL3",
     "company": "KEPL3 — Kepler Weber",
     "nome": "Kepler Weber",
     "method": "fcff",
-    "preco_atual": 5.84,
+    "preco_atual": 5.71,
     "bear": {
       "preco": 6.45,
       "upside": null
@@ -4486,10 +4606,10 @@
       ]
     },
     "tir": {
-      "nominal": 23.9,
-      "real": 18.0,
-      "vs_selic": 11.5,
-      "vs_ntnb": 10.7,
+      "nominal": 24.44,
+      "real": 18.51,
+      "vs_selic": 12.01,
+      "vs_ntnb": 11.21,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -4498,7 +4618,7 @@
       "preco_formula": null,
       "eps": 0.85,
       "vpa": 4.57,
-      "upside_gn": 60.1,
+      "upside_gn": 63.7,
       "detalhe": "EPS=R$0.85 VPA=R$4.57"
     },
     "proximo_tri": {
@@ -4509,6 +4629,10 @@
       "mg_ebitda": 17.34,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$249MM"
     },
     "kpis_ltm": {
@@ -4522,9 +4646,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -4891,6 +5023,10 @@
       "mg_ebitda": 14.3,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "Por segmento vs 3T25: Seg +5.0% (R$737,5MM) + TIC +12.0% (R$278,7MM) + Ener -7.9% (R$159,7MM) = R$1.175,9MM | Mg 14,3%"
     },
     "kpis_ltm": {
@@ -4904,9 +5040,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5213,7 +5357,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -5538,10 +5682,14 @@
       "mg_ebitda": 30.5,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5824,20 +5972,14 @@
       "vs_ntnb": 26.23,
       "veredito": "Atrativo vs. RF"
     },
-    "gordon": {
-      "preco": 8.33,
-      "upside": -79.4,
-      "d0": 1.121,
-      "d1": 1.1658,
-      "detalhe": "D0=R$1.12 Ke=18.0% g=4.0%"
-    },
+    "gordon": null,
     "graham": {
-      "preco_gn": 89.64,
+      "preco_gn": 75.97,
       "preco_formula": null,
-      "eps": 9.19,
+      "eps": 6.6,
       "vpa": 38.86,
-      "upside_gn": 121.7,
-      "detalhe": "EPS=R$9.19 VPA=R$38.86"
+      "upside_gn": 87.9,
+      "detalhe": "EPS=R$6.60 VPA=R$38.86"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -5847,10 +5989,14 @@
       "mg_ebitda": 43.05,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6156,10 +6302,14 @@
       "mg_ebitda": 30.5,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -6465,10 +6615,14 @@
       "mg_ebitda": 30.5,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -6768,6 +6922,10 @@
       "mg_ebitda": 30.5,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": {
@@ -6781,9 +6939,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 10204.19
+      "div_liq": 10204.19,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -7132,6 +7298,10 @@
       "mg_ebitda": 65.02,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$480MM"
     },
     "kpis_ltm": {
@@ -7145,9 +7315,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -7456,6 +7634,10 @@
       "mg_ebitda": 99.68,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$1,104MM"
     },
     "kpis_ltm": {
@@ -7469,9 +7651,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -7780,6 +7970,10 @@
       "mg_ebitda": 15.45,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$2,024MM"
     },
     "kpis_ltm": {
@@ -7793,9 +7987,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 200
+      "div_liq": 200,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -8095,6 +8297,10 @@
       "mg_ebitda": 17.8,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$1,648MM"
     },
     "kpis_ltm": {
@@ -8108,9 +8314,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 131
+      "div_liq": 131,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -8393,14 +8607,20 @@
       "vs_ntnb": 19.67,
       "veredito": "Atrativo vs. RF"
     },
-    "gordon": null,
+    "gordon": {
+      "preco": 27.64,
+      "upside": -32.4,
+      "d0": 3.667,
+      "d1": 3.8137,
+      "detalhe": "D0=R$3.67 Ke=17.8% g=4.0%"
+    },
     "graham": {
-      "preco_gn": 88.68,
+      "preco_gn": 89.25,
       "preco_formula": null,
-      "eps": 10.12,
+      "eps": 10.25,
       "vpa": 34.54,
-      "upside_gn": 116.9,
-      "detalhe": "EPS=R$10.12 VPA=R$34.54"
+      "upside_gn": 118.3,
+      "detalhe": "EPS=R$10.25 VPA=R$34.54"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -8410,6 +8630,10 @@
       "mg_ebitda": 47.14,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$95,760MM"
     },
     "kpis_ltm": {
@@ -8423,9 +8647,17 @@
       "bhkp": null,
       "brent": 80.61,
       "roe": null,
-      "div_liq": 357075
+      "div_liq": 357075,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -8710,12 +8942,12 @@
     },
     "gordon": null,
     "graham": {
-      "preco_gn": 18.93,
+      "preco_gn": 18.96,
       "preco_formula": null,
       "eps": 1.5,
-      "vpa": 10.62,
-      "upside_gn": 52.8,
-      "detalhe": "EPS=R$1.50 VPA=R$10.62"
+      "vpa": 10.65,
+      "upside_gn": 53.0,
+      "detalhe": "EPS=R$1.50 VPA=R$10.65"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -8725,6 +8957,10 @@
       "mg_ebitda": 24.3,
       "sss": 5.0,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY +5-8% | Base 2T25 forte (SSS +19%) | _est_2t26 do modelo"
     },
     "kpis_ltm": {
@@ -8738,9 +8974,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": -1200
+      "div_liq": -1200,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -9040,6 +9284,10 @@
       "mg_ebitda": 62.67,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$2,760MM"
     },
     "kpis_ltm": {
@@ -9053,9 +9301,17 @@
       "bhkp": null,
       "brent": 80.6,
       "roe": null,
-      "div_liq": 23985
+      "div_liq": 23985,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -9340,12 +9596,12 @@
     },
     "gordon": null,
     "graham": {
-      "preco_gn": 6.27,
+      "preco_gn": 6.0,
       "preco_formula": null,
-      "eps": 0.12,
+      "eps": 0.11,
       "vpa": 14.56,
-      "upside_gn": 14.2,
-      "detalhe": "EPS=R$0.12 VPA=R$14.56"
+      "upside_gn": 9.3,
+      "detalhe": "EPS=R$0.11 VPA=R$14.56"
     },
     "proximo_tri": {
       "periodo": "2T26",
@@ -9355,6 +9611,10 @@
       "mg_ebitda": 8.02,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$7,307MM"
     },
     "kpis_ltm": {
@@ -9368,9 +9628,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 2000
+      "div_liq": 2000,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -9676,6 +9944,10 @@
       "mg_ebitda": 33.13,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$16,160MM"
     },
     "kpis_ltm": {
@@ -9689,9 +9961,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": null
+      "div_liq": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -10022,6 +10302,10 @@
       "mg_ebitda": 21.86,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$392MM"
     },
     "kpis_ltm": {
@@ -10035,9 +10319,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": -37
+      "div_liq": -37,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -10372,6 +10664,10 @@
       "mg_ebitda": 20.08,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$1,110MM"
     },
     "kpis_ltm": {
@@ -10385,9 +10681,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 965
+      "div_liq": 965,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -10687,6 +10991,10 @@
       "mg_ebitda": 58.04,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$4,358MM"
     },
     "kpis_ltm": {
@@ -10700,9 +11008,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 32460
+      "div_liq": 32460,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:10"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -11033,6 +11349,10 @@
       "mg_ebitda": 32.64,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$7,920MM"
     },
     "kpis_ltm": {
@@ -11046,9 +11366,17 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 30200
+      "div_liq": 30200,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:11"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -11354,6 +11682,10 @@
       "mg_ebitda": 30.63,
       "sss": null,
       "npl": null,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
       "metodologia": "YoY+-20% media = R$347MM"
     },
     "kpis_ltm": {
@@ -11367,8 +11699,16 @@
       "bhkp": null,
       "brent": null,
       "roe": null,
-      "div_liq": 1070.0
+      "div_liq": 1070.0,
+      "sell_out": null,
+      "sell_in": null,
+      "sell_out_yoy": null,
+      "sell_in_yoy": null,
+      "rec_sellout_lp": null,
+      "rec_ecom": null,
+      "rec_franquia": null,
+      "rec_multimarca": null
     },
-    "atualizado": "12/08/2026 20:17"
+    "atualizado": "13/08/2026 14:11"
   }
 }
