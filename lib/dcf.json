@@ -403,14 +403,14 @@
       "detalhe": "EPS=R$4.05 VPA=R$39.63"
     },
     "proximo_tri": {
-      "periodo": "3T26",
-      "receita": 2792.0,
-      "ebitda": 335.0,
-      "ll": 130.0,
-      "mg_ebitda": 12.0,
+      "periodo": "2T26",
+      "receita": 2325.2,
+      "ebitda": 244.4,
+      "ll": 105.9,
+      "mg_ebitda": 10.51,
       "sss": null,
       "npl": null,
-      "metodologia": "YoY -6% s/ 3T25 (R$2.970M) | sell-in gradualmente normaliza | Mg ex-IFRS16 12% (vs 11,7% no 2T26) | SG&A controlado segue beneficiando"
+      "metodologia": "YoY -20% s/ 2T25 | sell-in rebalanceamento"
     },
     "kpis_ltm": {
       "periodo": "2T26",
@@ -425,7 +425,7 @@
       "roe": null,
       "div_liq": 2126.9
     },
-    "atualizado": "12/08/2026 20:00"
+    "atualizado": "12/08/2026 20:06"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -743,7 +743,7 @@
       "roe": null,
       "div_liq": 848.4
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -1074,7 +1074,7 @@
       "metodologia": "YoY+17% media = R$1,045MM"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1398,7 +1398,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1719,7 +1719,7 @@
       "roe": null,
       "div_liq": 467.727
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -2072,7 +2072,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2384,7 +2384,7 @@
       "roe": null,
       "div_liq": 736
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2734,7 +2734,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -3078,7 +3078,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3446,7 +3446,7 @@
       "roe": 7.3,
       "div_liq": 0
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -3816,7 +3816,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -4124,7 +4124,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -4524,7 +4524,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -4906,7 +4906,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5213,7 +5213,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -5541,7 +5541,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5850,7 +5850,7 @@
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6159,7 +6159,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -6468,7 +6468,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -6783,7 +6783,7 @@
       "roe": null,
       "div_liq": 10204.19
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -7147,7 +7147,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -7471,7 +7471,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -7795,7 +7795,7 @@
       "roe": null,
       "div_liq": 200
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -8110,7 +8110,7 @@
       "roe": null,
       "div_liq": 131
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -8425,7 +8425,7 @@
       "roe": null,
       "div_liq": 357075
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:06"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -8740,7 +8740,7 @@
       "roe": null,
       "div_liq": -1200
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -9055,7 +9055,7 @@
       "roe": null,
       "div_liq": 23985
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -9370,7 +9370,7 @@
       "roe": null,
       "div_liq": 2000
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -9691,7 +9691,7 @@
       "roe": null,
       "div_liq": null
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -10037,7 +10037,7 @@
       "roe": null,
       "div_liq": -37
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -10387,7 +10387,7 @@
       "roe": null,
       "div_liq": 965
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -10702,7 +10702,7 @@
       "roe": null,
       "div_liq": 32460
     },
-    "atualizado": "12/08/2026 20:01"
+    "atualizado": "12/08/2026 20:07"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -11048,7 +11048,7 @@
       "roe": null,
       "div_liq": 30200
     },
-    "atualizado": "12/08/2026 20:02"
+    "atualizado": "12/08/2026 20:07"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -11369,6 +11369,6 @@
       "roe": null,
       "div_liq": 1070.0
     },
-    "atualizado": "12/08/2026 20:02"
+    "atualizado": "12/08/2026 20:07"
   }
 }
