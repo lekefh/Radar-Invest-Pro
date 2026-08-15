@@ -51,6 +51,29 @@
       14.0,
       14.0
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0,
+      25.0
+    ],
+    "da_pct": 5.77,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2022",
@@ -437,7 +460,7 @@
       "rec_franquia": 404.6,
       "rec_multimarca": 712.8
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -491,6 +514,29 @@
       10.7,
       10.9
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      10.2,
+      10.2,
+      10.2,
+      10.2,
+      10.2,
+      10.2,
+      10.2
+    ],
+    "da_pct": 1.08,
+    "tax_rate": 15.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -767,7 +813,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -821,6 +867,29 @@
       25.3,
       25.7
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.0,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      30.0,
+      30.0,
+      30.0,
+      30.0,
+      30.0,
+      30.0,
+      30.0
+    ],
+    "da_pct": 1.5,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2020",
@@ -1102,7 +1171,7 @@
       "metodologia": "YoY+17% media = R$1,045MM"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1156,6 +1225,29 @@
       28.5,
       28.5
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      12.7,
+      12.7,
+      12.7,
+      12.7,
+      12.7,
+      12.7,
+      12.7
+    ],
+    "da_pct": 1.5,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2020",
@@ -1438,7 +1530,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1492,6 +1584,29 @@
       28.0,
       28.0
     ],
+    "capex_pct": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "dcg_pct": [
+      65.0,
+      55.0,
+      48.0,
+      42.0,
+      38.0,
+      35.0,
+      32.0
+    ],
+    "da_pct": 0.04,
+    "tax_rate": 19.6,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -1771,7 +1886,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -1825,6 +1940,29 @@
       10.0,
       10.0
     ],
+    "capex_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "da_pct": 26.0,
+    "tax_rate": 10.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -2132,7 +2270,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2186,6 +2324,29 @@
       7.3,
       7.3
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8,
+      0.8
+    ],
+    "da_pct": 2.5,
+    "tax_rate": 22.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2022",
@@ -2456,7 +2617,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2510,6 +2671,29 @@
       24.0,
       24.0
     ],
+    "capex_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "dcg_pct": [
+      2.7,
+      2.7,
+      2.7,
+      2.7,
+      2.7,
+      2.7,
+      2.7
+    ],
+    "da_pct": 5.4,
+    "tax_rate": 29.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -2810,7 +2994,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -2864,6 +3048,29 @@
       74.5,
       75.8
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.3,
+      3.3,
+      3.0,
+      2.8,
+      2.5
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "da_pct": 3.46,
+    "tax_rate": 20.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -3172,7 +3379,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3226,6 +3433,29 @@
       39.0,
       39.0
     ],
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "da_pct": 2.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -3542,7 +3772,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -3596,6 +3826,29 @@
       41.0,
       41.0
     ],
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "da_pct": 2.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -3924,7 +4177,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -3978,6 +4231,29 @@
       59.1,
       60.1
     ],
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "da_pct": 5.4,
+    "tax_rate": 27.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -4244,7 +4520,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -4298,6 +4574,29 @@
       19.5,
       19.8
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "da_pct": 2.5,
+    "tax_rate": 22.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -4656,7 +4955,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -4710,6 +5009,29 @@
       18.0,
       18.0
     ],
+    "capex_pct": [
+      1.8,
+      1.8,
+      1.8,
+      1.8,
+      1.8,
+      1.8,
+      1.8
+    ],
+    "dcg_pct": [
+      41.6,
+      41.6,
+      41.6,
+      41.6,
+      41.6,
+      41.6,
+      41.6
+    ],
+    "da_pct": 2.51,
+    "tax_rate": 22.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2019",
@@ -5050,7 +5372,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5104,6 +5426,29 @@
       40.2,
       40.9
     ],
+    "capex_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "dcg_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "da_pct": 2.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -5357,7 +5702,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -5411,6 +5756,29 @@
       76.8,
       78.1
     ],
+    "capex_pct": [
+      23.0,
+      23.0,
+      23.0,
+      21.0,
+      19.0,
+      17.0,
+      16.0
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "da_pct": 11.17,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -5689,7 +6057,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5743,6 +6111,29 @@
       43.9,
       44.6
     ],
+    "capex_pct": [
+      10.0,
+      9.0,
+      9.0,
+      8.0,
+      8.0,
+      8.0,
+      8.0
+    ],
+    "dcg_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "da_pct": 18.0,
+    "tax_rate": 28.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.08,
     "historico": [
       {
         "ano": "2021",
@@ -5996,7 +6387,7 @@
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:30"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6050,6 +6441,29 @@
       29.0,
       29.5
     ],
+    "capex_pct": [
+      15.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "da_pct": 2.5,
+    "tax_rate": 27.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.97,
+    "bull_margin_factor": 1.03,
     "historico": [
       {
         "ano": "2021",
@@ -6303,7 +6717,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -6357,6 +6771,29 @@
       24.0,
       24.0
     ],
+    "capex_pct": [
+      14.5,
+      12.0,
+      12.0,
+      11.0,
+      9.0,
+      7.0,
+      7.0
+    ],
+    "dcg_pct": [
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5,
+      1.5
+    ],
+    "da_pct": 3.59,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.95,
+    "bull_margin_factor": 1.05,
     "historico": [
       {
         "ano": "2021",
@@ -6610,7 +7047,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -6664,6 +7101,29 @@
       86.0,
       86.0
     ],
+    "capex_pct": [
+      45.0,
+      40.0,
+      35.0,
+      30.0,
+      25.0,
+      22.0,
+      19.0
+    ],
+    "dcg_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "da_pct": 19.0,
+    "tax_rate": 7.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.97,
+    "bull_margin_factor": 1.03,
     "historico": [
       {
         "ano": "2021",
@@ -6937,7 +7397,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -6991,6 +7451,29 @@
       46.0,
       46.0
     ],
+    "capex_pct": [
+      5.0,
+      5.5,
+      6.0,
+      6.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "dcg_pct": [
+      84.0,
+      84.0,
+      84.0,
+      84.0,
+      84.0,
+      84.0,
+      84.0
+    ],
+    "da_pct": 2.97,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2020",
@@ -7313,7 +7796,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -7367,6 +7850,29 @@
       118.9,
       121.0
     ],
+    "capex_pct": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "dcg_pct": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "da_pct": 0.97,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2020",
@@ -7649,7 +8155,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -7703,6 +8209,29 @@
       14.0,
       14.0
     ],
+    "capex_pct": [
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5,
+      3.5
+    ],
+    "dcg_pct": [
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0
+    ],
+    "da_pct": 4.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2020",
@@ -7985,7 +8514,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -8039,6 +8568,29 @@
       19.0,
       19.0
     ],
+    "capex_pct": [
+      4.0,
+      3.8,
+      3.5,
+      3.5,
+      3.2,
+      3.0,
+      3.0
+    ],
+    "dcg_pct": [
+      8.0,
+      8.0,
+      8.0,
+      7.5,
+      7.5,
+      7.0,
+      7.0
+    ],
+    "da_pct": 5.5,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -8312,7 +8864,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -8366,6 +8918,29 @@
       53.0,
       54.0
     ],
+    "capex_pct": [
+      20.0,
+      20.0,
+      20.0,
+      19.0,
+      18.0,
+      18.0,
+      17.0
+    ],
+    "dcg_pct": [
+      1.5,
+      1.5,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "da_pct": 26.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.08,
     "historico": [
       {
         "ano": "2021",
@@ -8645,7 +9220,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -8699,6 +9274,29 @@
       24.2,
       24.3
     ],
+    "capex_pct": [
+      3.5,
+      3.2,
+      3.0,
+      2.8,
+      2.6,
+      2.5,
+      2.5
+    ],
+    "dcg_pct": [
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0,
+      10.0
+    ],
+    "da_pct": 3.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -8972,7 +9570,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -9026,6 +9624,29 @@
       51.5,
       51.5
     ],
+    "capex_pct": [
+      12.0,
+      8.0,
+      6.0,
+      5.0,
+      5.0,
+      4.0,
+      4.0
+    ],
+    "dcg_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "da_pct": 26.8,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.88,
+    "bull_margin_factor": 1.08,
     "historico": [
       {
         "ano": "2021",
@@ -9299,7 +9920,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -9353,6 +9974,29 @@
       8.0,
       8.0
     ],
+    "capex_pct": [
+      2.5,
+      2.5,
+      2.5,
+      2.5,
+      2.5,
+      2.5,
+      2.5
+    ],
+    "dcg_pct": [
+      15.0,
+      14.0,
+      13.0,
+      12.0,
+      11.0,
+      10.0,
+      10.0
+    ],
+    "da_pct": 3.0,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -9626,7 +10270,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -9680,6 +10324,29 @@
       33.0,
       33.0
     ],
+    "capex_pct": [
+      5.2,
+      5.0,
+      4.8,
+      4.8,
+      4.5,
+      4.5,
+      4.5
+    ],
+    "dcg_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "da_pct": 4.5,
+    "tax_rate": 15.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -9959,7 +10626,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -10013,6 +10680,29 @@
       22.5,
       22.5
     ],
+    "capex_pct": [
+      5.5,
+      5.5,
+      5.5,
+      5.0,
+      5.0,
+      4.8,
+      4.5
+    ],
+    "dcg_pct": [
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0
+    ],
+    "da_pct": 5.5,
+    "tax_rate": 25.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -10317,7 +11007,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -10371,6 +11061,29 @@
       22.0,
       22.0
     ],
+    "capex_pct": [
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      2.8,
+      2.8,
+      2.7
+    ],
+    "dcg_pct": [
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0,
+      4.0
+    ],
+    "da_pct": 2.6,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -10673,7 +11386,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -10727,6 +11440,29 @@
       65.0,
       65.0
     ],
+    "capex_pct": [
+      55.0,
+      52.0,
+      50.0,
+      48.0,
+      45.0,
+      32.0,
+      20.0
+    ],
+    "dcg_pct": [
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "da_pct": 3.5,
+    "tax_rate": 34.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -10994,7 +11730,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -11048,6 +11784,29 @@
       35.0,
       35.0
     ],
+    "capex_pct": [
+      15.5,
+      15.0,
+      14.5,
+      14.0,
+      13.5,
+      13.0,
+      13.0
+    ],
+    "dcg_pct": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "da_pct": 12.8,
+    "tax_rate": 30.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -11352,7 +12111,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -11406,6 +12165,29 @@
       32.0,
       32.0
     ],
+    "capex_pct": [
+      15.5,
+      16.0,
+      14.0,
+      10.0,
+      8.0,
+      8.0,
+      8.0
+    ],
+    "dcg_pct": [
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0,
+      18.0
+    ],
+    "da_pct": 10.0,
+    "tax_rate": 30.0,
+    "tax_rate_terminal": 34.0,
+    "bear_margin_factor": 0.9,
+    "bull_margin_factor": 1.1,
     "historico": [
       {
         "ano": "2021",
@@ -11685,6 +12467,6 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:05"
+    "atualizado": "14/08/2026 22:31"
   }
 }
