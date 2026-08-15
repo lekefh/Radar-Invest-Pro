@@ -1290,16 +1290,29 @@ function SecProximoTri({ e, plano, localEst, setLocalEst }: { e: any; plano: str
   )
 }
 
+/* ── WACC Componentes — estado persistente dentro da sessão ──────────────── */
+interface WaccComp { rf: number; beta: number; erp: number; kdBruto: number; pesoE: number }
+function waccCompDeEmp(emp: any): WaccComp {
+  return {
+    rf:      emp?.wacc_rf      ?? 13.0,
+    beta:    emp?.wacc_beta    ?? 1.0,
+    erp:     emp?.wacc_erp     ?? 5.0,
+    kdBruto: emp?.wacc_kd_bruto ?? emp?.wacc_ke ?? 14.0,
+    pesoE:   emp?.wacc_peso_e  ?? 100,
+  }
+}
+
 /* ── Modal WACC — Ke / Kd / Pesos ───────────────────────────────────────── */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function ModalWACC({ emp, taxRate, onAplicar, onClose }: {
-  emp: any; taxRate: number; onAplicar: (wacc: number) => void; onClose: () => void
+function ModalWACC({ emp, initComp, taxRate, onAplicar, onClose }: {
+  emp: any; initComp: WaccComp; taxRate: number
+  onAplicar: (wacc: number, comp: WaccComp) => void; onClose: () => void
 }) {
-  const [rf,      setRf]      = useState<number>(emp.wacc_rf       ?? 13.6)
-  const [beta,    setBeta]    = useState<number>(emp.wacc_beta      ?? 1.0)
-  const [erp,     setErp]     = useState<number>(emp.wacc_erp       ?? 5.0)
-  const [kdBruto, setKdBruto] = useState<number>(emp.wacc_kd_bruto  ?? emp.wacc_ke ?? 14.0)
-  const [pesoE,   setPesoE]   = useState<number>(emp.wacc_peso_e ?? 100)
+  const [rf,      setRf]      = useState<number>(initComp.rf)
+  const [beta,    setBeta]    = useState<number>(initComp.beta)
+  const [erp,     setErp]     = useState<number>(initComp.erp)
+  const [kdBruto, setKdBruto] = useState<number>(initComp.kdBruto)
+  const [pesoE,   setPesoE]   = useState<number>(initComp.pesoE)
 
   const ke     = rf + beta * erp
   const kdAt   = kdBruto * (1 - taxRate / 100)
@@ -1400,7 +1413,7 @@ function ModalWACC({ emp, taxRate, onAplicar, onClose }: {
           <button onClick={onClose} style={{ flex:1,background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',fontWeight:600,fontSize:'13px',padding:'10px',borderRadius:'7px',cursor:'pointer' }}>
             Cancelar
           </button>
-          <button onClick={() => { onAplicar(Math.round(waccCalc * 100) / 100); onClose() }}
+          <button onClick={() => { onAplicar(Math.round(waccCalc * 100) / 100, { rf, beta, erp, kdBruto, pesoE }); onClose() }}
             style={{ flex:2,background:'#e8a020',color:'#000',fontWeight:700,fontSize:'13px',padding:'10px',borderRadius:'7px',border:'none',cursor:'pointer' }}>
             Aplicar WACC ao modelo ({f2(waccCalc)}%)
           </button>
@@ -1483,6 +1496,7 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
 
   const [avancado, setAvancado] = useState(false)
   const [waccModal, setWaccModal] = useState(false)
+  const [waccComp, setWaccComp] = useState<WaccComp>(() => waccCompDeEmp(emp))
   const [calculandoLocal, setCalculandoLocal] = useState(false)
   const [ajAberto, setAjAberto] = useState(false)
   const [proxTriAberto, setProxTriAberto] = useState(false)
@@ -1509,6 +1523,12 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
     const defCom = setor === 'celulose' ? 650 : setor === 'petroleo' ? 75 : 110
     setCommodityAnos(Array(7).fill(defCom))
     setCommodityAberto(false)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [empKey])
+
+  // Reseta os componentes do WACC (Rf/Beta/ERP) quando troca de empresa
+  useEffect(() => {
+    setWaccComp(waccCompDeEmp(emp))
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [empKey])
 
@@ -1904,8 +1924,9 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
       {waccModal && (
         <ModalWACC
           emp={emp}
+          initComp={waccComp}
           taxRate={premissas.tax_rate}
-          onAplicar={wacc => upd('wacc', wacc)}
+          onAplicar={(wacc, comp) => { upd('wacc', wacc); setWaccComp(comp) }}
           onClose={() => setWaccModal(false)}
         />
       )}
