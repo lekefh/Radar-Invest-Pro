@@ -437,7 +437,7 @@
       "rec_franquia": 404.6,
       "rec_multimarca": 712.8
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -767,7 +767,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -1102,7 +1102,7 @@
       "metodologia": "YoY+17% media = R$1,045MM"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1438,7 +1438,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1771,7 +1771,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -2132,7 +2132,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2456,7 +2456,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2810,7 +2810,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -3172,25 +3172,25 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "BBAS3": {
     "ticker": "BBAS3",
     "company": "BBAS3 — Banco do Brasil",
     "nome": "Banco do Brasil",
     "method": "ddm",
-    "preco_atual": 19.299999237060547,
+    "preco_atual": 18.3799991607666,
     "bear": {
       "preco": 18.89,
-      "upside": -2.1
+      "upside": 2.8
     },
     "base": {
       "preco": 28.22,
-      "upside": 46.2
+      "upside": 53.5
     },
     "bull": {
       "preco": 41.88,
-      "upside": 117.0
+      "upside": 127.9
     },
     "upside_base_legado": null,
     "ultimo_periodo_confirmado": "1T26",
@@ -3498,10 +3498,10 @@
       ]
     },
     "tir": {
-      "nominal": 38.36,
-      "real": 31.77,
-      "vs_selic": 25.27,
-      "vs_ntnb": 24.47,
+      "nominal": 39.74,
+      "real": 33.09,
+      "vs_selic": 26.59,
+      "vs_ntnb": 25.79,
       "veredito": "Atrativo vs. RF"
     },
     "gordon": null,
@@ -3510,7 +3510,7 @@
       "preco_formula": null,
       "eps": 2.15,
       "vpa": 32.2,
-      "upside_gn": 104.5,
+      "upside_gn": 114.7,
       "detalhe": "EPS=R$2.15 VPA=R$32.20"
     },
     "proximo_tri": {
@@ -3542,7 +3542,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -3924,7 +3924,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -4244,7 +4244,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -4656,7 +4656,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -5050,7 +5050,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5357,7 +5357,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -5689,7 +5689,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -5996,7 +5996,7 @@
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6303,7 +6303,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -6610,7 +6610,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -6937,7 +6937,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -7313,7 +7313,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -7649,7 +7649,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -7985,7 +7985,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -8312,7 +8312,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -8645,7 +8645,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -8972,7 +8972,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -9299,7 +9299,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -9626,7 +9626,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -9959,7 +9959,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -10317,7 +10317,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -10673,7 +10673,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -10994,7 +10994,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -11352,7 +11352,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -11685,6 +11685,6 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "14/08/2026 22:02"
+    "atualizado": "14/08/2026 22:05"
   }
 }
