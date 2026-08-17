@@ -2174,6 +2174,8 @@ export default function DCFPage() {
   // Estado do analista — premissas editáveis e resultado recalculado
   const [premissas, setPremissas] = useState<PremissasDCF | null>(null)
   const [resultadoCustom, setResultadoCustom] = useState<ResultadoDCF | null>(null)
+  // Upsides pré-computados para TODAS as empresas (usa premissas do localStorage)
+  const [resultadosTodas, setResultadosTodas] = useState<Record<string, ResultadoDCF | null>>({})
   const [atualizando, setAtualizando] = useState(false)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -2244,6 +2246,8 @@ export default function DCFPage() {
       const [eAdj, pAdj] = aplicarAjustes(e, premissas)
       const res = calcDCFCustom(eAdj, pAdj, pa)
       setResultadoCustom(res)
+      // Atualiza cache do sidebar para empresa selecionada
+      if (sel && res) setResultadosTodas(prev => ({ ...prev, [sel]: res }))
     }, 400)
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [premissas, sel, plano, precos, aplicarAjustes])
@@ -2257,6 +2261,8 @@ export default function DCFPage() {
     const [eAdj, pAdj] = aplicarAjustes(e, premissas)
     const res = calcDCFCustom(eAdj, pAdj, pa)
     setResultadoCustom(res)
+    // Atualiza cache do sidebar para empresa selecionada
+    if (res) setResultadosTodas(prev => ({ ...prev, [sel]: res }))
   }, [premissas, sel, plano, precos, aplicarAjustes])
 
   const fetchCotacoes = useCallback(() => {
@@ -2284,6 +2290,25 @@ export default function DCFPage() {
     document.addEventListener('visibilitychange', onVisible)
     return () => { clearInterval(timer); document.removeEventListener('visibilitychange', onVisible) }
   }, [fetchCotacoes])
+
+  // Pré-computa DCF de todas as empresas com premissas do localStorage (sidebar consistente)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (Object.keys(precos).length === 0 && Object.keys(dcfData).length === 0) return
+    const results: Record<string, ResultadoDCF | null> = {}
+    for (const ticker of Object.keys(dcfData)) {
+      const emp = dcfData[ticker]
+      try {
+        const savedStr = localStorage.getItem(`dcf_prem_v1_${ticker}`)
+        const prem: PremissasDCF = savedStr ? JSON.parse(savedStr) : premissasDeEmp(emp)
+        const pa = (precos[ticker] ?? (emp.preco_atual as number | null)) ?? null
+        results[ticker] = calcDCFCustom(emp, prem, pa)
+      } catch {
+        results[ticker] = null
+      }
+    }
+    setResultadosTodas(results)
+  }, [precos])
 
   // Inicializa localEst ao trocar de empresa (pré-popula com proximo_tri)
   useEffect(() => {
@@ -2448,10 +2473,12 @@ export default function DCFPage() {
           ) : empresasFiltradas.map((e: any) => {
             const pLive = precos[e.ticker] ?? null
             const isSelected = e.ticker === sel
-            const basePreco = (isSelected && resultadoCustom?.base?.preco) ? resultadoCustom.base.preco : e.base?.preco
+            // Usa: 1) resultado editado (empresa selecionada), 2) pré-computado com premissas localStorage, 3) estático do JSON
+            const computedResult = isSelected ? (resultadoCustom ?? resultadosTodas[e.ticker]) : resultadosTodas[e.ticker]
+            const basePreco = computedResult?.base?.preco ?? e.base?.preco
             const up = pLive != null && basePreco != null && pLive > 0
               ? ((basePreco - pLive) / pLive) * 100
-              : (isSelected && resultadoCustom?.base?.upside != null ? resultadoCustom.base.upside : (e.base?.upside ?? e.upside_base_legado))
+              : (computedResult?.base?.upside ?? e.base?.upside ?? e.upside_base_legado)
             return (
               <div key={e.ticker}
                    className={`emp-item${sel === e.ticker ? ' ativo' : ''}`}
