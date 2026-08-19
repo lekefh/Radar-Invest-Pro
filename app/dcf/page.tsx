@@ -2240,6 +2240,8 @@ export default function DCFPage() {
     if (!premissas || !sel || plano !== 'analista') return
     const e = dcfData[sel]
     if (!e) return
+    // DDM/SOTP: engine FCFF não se aplica — mantém valores pré-computados do JSON
+    if (e.method === 'ddm' || e.method === 'sotp') { setResultadoCustom(null); return }
     if (debounceRef.current) clearTimeout(debounceRef.current)
     debounceRef.current = setTimeout(() => {
       const pa = precos[sel] ?? e.preco_atual ?? null
@@ -2256,6 +2258,8 @@ export default function DCFPage() {
     if (!premissas || !sel || plano !== 'analista') return
     const e = dcfData[sel]
     if (!e) return
+    // DDM/SOTP: engine FCFF não se aplica — mantém valores pré-computados do JSON
+    if (e.method === 'ddm' || e.method === 'sotp') { setResultadoCustom(null); return }
     if (debounceRef.current) clearTimeout(debounceRef.current)
     const pa = precos[sel] ?? e.preco_atual ?? null
     const [eAdj, pAdj] = aplicarAjustes(e, premissas)
