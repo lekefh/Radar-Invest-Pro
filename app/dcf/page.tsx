@@ -2302,6 +2302,11 @@ export default function DCFPage() {
     const results: Record<string, ResultadoDCF | null> = {}
     for (const ticker of Object.keys(dcfData)) {
       const emp = dcfData[ticker]
+      // DDM/SOTP: valores pré-computados do JSON — não recalcular via FCFF
+      if (emp.method === 'ddm' || emp.method === 'sotp') {
+        results[ticker] = null
+        continue
+      }
       try {
         const savedStr = localStorage.getItem(`dcf_prem_v1_${ticker}`)
         const prem: PremissasDCF = savedStr ? JSON.parse(savedStr) : premissasDeEmp(emp)
