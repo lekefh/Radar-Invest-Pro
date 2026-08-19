@@ -416,6 +416,7 @@
       "vs_ntnb": 20.36,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 310.23,
@@ -460,7 +461,7 @@
       "rec_franquia": 404.6,
       "rec_multimarca": 712.8
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -769,6 +770,7 @@
       "vs_ntnb": 19.71,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 4.12,
@@ -813,7 +815,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -1141,6 +1143,13 @@
       "vs_ntnb": 3.39,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.2179,
+      "nominal": 0.2579,
+      "real": 0.198,
+      "vs_ntnb": 12.3,
+      "veredito": "TIR real acima da NTN-B 10Y — atrativo vs renda fixa"
+    },
     "gordon": {
       "preco": 24.15,
       "upside": 63.2,
@@ -1171,7 +1180,7 @@
       "metodologia": "YoY+17% media = R$1,045MM"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1486,6 +1495,7 @@
       "vs_ntnb": 14.28,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 50.5,
@@ -1530,7 +1540,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1836,6 +1846,13 @@
       "vs_ntnb": 13.87,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.1267,
+      "nominal": 0.1717,
+      "real": 0.1159,
+      "vs_ntnb": 4.09,
+      "veredito": "TIR real acima da NTN-B 10Y — atrativo vs renda fixa"
+    },
     "gordon": {
       "preco": 9.25,
       "upside": -16.6,
@@ -1886,7 +1903,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -2232,6 +2249,13 @@
       "vs_ntnb": 13.64,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.1092,
+      "nominal": 0.1592,
+      "real": 0.104,
+      "vs_ntnb": 2.9,
+      "veredito": "TIR real próxima da NTN-B 10Y — neutro"
+    },
     "gordon": null,
     "graham": {
       "preco_gn": 56.05,
@@ -2270,7 +2294,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2567,6 +2591,13 @@
       "vs_ntnb": 13.04,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0307,
+      "nominal": 0.0807,
+      "real": 0.0292,
+      "vs_ntnb": -4.58,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 0.93,
       "upside": -76.6,
@@ -2617,7 +2648,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -2964,6 +2995,13 @@
       "vs_ntnb": 7.04,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0915,
+      "nominal": 0.1315,
+      "real": 0.0776,
+      "vs_ntnb": 0.26,
+      "veredito": "TIR real próxima da NTN-B 10Y — neutro"
+    },
     "gordon": {
       "preco": 27.72,
       "upside": -36.4,
@@ -2994,7 +3032,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -3329,6 +3367,13 @@
       "vs_ntnb": 0.45,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0769,
+      "nominal": 0.1169,
+      "real": 0.0637,
+      "vs_ntnb": -1.13,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 2.63,
       "upside": -83.8,
@@ -3379,7 +3424,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:16"
+    "atualizado": "19/08/2026 10:27"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3426,8 +3471,8 @@
     ],
     "mg_ebitda": [
       14.1,
-      10.0,
-      10.0,
+      15.0,
+      18.0,
       20.0,
       25.0,
       30.0,
@@ -3576,22 +3621,22 @@
       {
         "ano": 2028,
         "receita": 111502.6,
-        "ebitda": 11150.3,
-        "ebit": 8362.7,
-        "nopat": 6272.0,
+        "ebitda": 16725.4,
+        "ebit": 13937.8,
+        "nopat": 10453.4,
         "capex": null,
-        "fcl": 9059.6,
-        "vp_fcl": 7032.6
+        "fcl": 13240.9,
+        "vp_fcl": 10278.4
       },
       {
         "ano": 2029,
         "receita": 117077.8,
-        "ebitda": 11707.8,
-        "ebit": 8780.8,
-        "nopat": 6585.6,
+        "ebitda": 21074.0,
+        "ebit": 18147.1,
+        "nopat": 13610.3,
         "capex": null,
-        "fcl": 9512.6,
-        "vp_fcl": 6505.9
+        "fcl": 16537.2,
+        "vp_fcl": 11310.3
       },
       {
         "ano": 2030,
@@ -3648,91 +3693,98 @@
         {
           "wacc": 10.0,
           "valores": [
-            50.6,
-            55.96,
-            63.12,
-            73.14,
-            88.18
+            52.12,
+            57.49,
+            64.65,
+            74.67,
+            89.7
           ]
         },
         {
           "wacc": 11.0,
           "valores": [
-            44.19,
-            48.14,
-            53.23,
-            60.01,
-            69.5
+            45.68,
+            49.63,
+            54.72,
+            61.5,
+            70.99
           ]
         },
         {
           "wacc": 12.0,
           "valores": [
-            39.09,
-            42.09,
-            45.84,
-            50.66,
-            57.08
+            40.55,
+            43.54,
+            47.29,
+            52.11,
+            58.53
           ]
         },
         {
           "wacc": 13.0,
           "valores": [
-            34.94,
-            37.27,
-            40.11,
-            43.67,
-            48.23
+            36.37,
+            38.69,
+            41.53,
+            45.09,
+            49.65
           ]
         },
         {
           "wacc": 13.5,
           "valores": [
-            33.15,
-            35.21,
-            37.71,
-            40.8,
-            44.7
+            34.55,
+            36.62,
+            39.11,
+            42.2,
+            46.11
           ]
         },
         {
           "wacc": 14.0,
           "valores": [
-            31.51,
-            33.35,
-            35.55,
-            38.25,
-            41.62
+            32.9,
+            34.74,
+            36.94,
+            39.64,
+            43.01
           ]
         },
         {
           "wacc": 15.0,
           "valores": [
-            28.62,
-            30.1,
-            31.84,
-            33.94,
-            36.49
+            29.98,
+            31.46,
+            33.2,
+            35.29,
+            37.85
           ]
         },
         {
           "wacc": 16.0,
           "valores": [
-            26.16,
-            27.36,
-            28.77,
-            30.42,
-            32.41
+            27.49,
+            28.69,
+            30.09,
+            31.75,
+            33.74
           ]
         }
       ]
     },
     "tir": {
-      "nominal": 28.51,
-      "real": 22.39,
-      "vs_selic": 15.89,
-      "vs_ntnb": 15.09,
+      "nominal": 29.8,
+      "real": 23.62,
+      "vs_selic": 17.12,
+      "vs_ntnb": 16.32,
       "veredito": "Atrativo vs. RF"
+    },
+    "tir_acionista": {
+      "yield_bruto": 0.0456,
+      "nominal": 0.0856,
+      "real": 0.0339,
+      "vs_ntnb": -4.11,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
     },
     "gordon": {
       "preco": 7.06,
@@ -3778,7 +3830,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -4133,6 +4185,13 @@
       "vs_ntnb": 2.36,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.1313,
+      "nominal": 0.1713,
+      "real": 0.1155,
+      "vs_ntnb": 4.05,
+      "veredito": "TIR real acima da NTN-B 10Y — atrativo vs renda fixa"
+    },
     "gordon": {
       "preco": 43.22,
       "upside": 26.7,
@@ -4183,7 +4242,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -4489,6 +4548,7 @@
       "vs_ntnb": 90.18,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": null,
     "proximo_tri": {
@@ -4526,14 +4586,14 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "KEPL3": {
     "ticker": "KEPL3",
     "company": "KEPL3 — Kepler Weber",
     "nome": "Kepler Weber",
     "method": "fcff",
-    "preco_atual": 5.71,
+    "preco_atual": 5.69,
     "bear": {
       "preco": 6.45,
       "upside": null
@@ -4911,19 +4971,20 @@
       ]
     },
     "tir": {
-      "nominal": 27.33,
-      "real": 21.27,
-      "vs_selic": 14.77,
-      "vs_ntnb": 13.97,
+      "nominal": 27.42,
+      "real": 21.35,
+      "vs_selic": 14.85,
+      "vs_ntnb": 14.05,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 9.16,
       "preco_formula": null,
       "eps": 0.81,
       "vpa": 4.6,
-      "upside_gn": 60.4,
+      "upside_gn": 61.0,
       "detalhe": "EPS=R$0.81 VPA=R$4.60"
     },
     "proximo_tri": {
@@ -4961,7 +5022,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -5328,6 +5389,13 @@
       "vs_ntnb": 7.18,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.089,
+      "nominal": 0.139,
+      "real": 0.0848,
+      "vs_ntnb": 0.98,
+      "veredito": "TIR real próxima da NTN-B 10Y — neutro"
+    },
     "gordon": {
       "preco": 9.84,
       "upside": -27.1,
@@ -5378,7 +5446,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5684,6 +5752,13 @@
       "vs_ntnb": 9.01,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0749,
+      "nominal": 0.1249,
+      "real": 0.0713,
+      "vs_ntnb": -0.37,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 11.73,
       "upside": -33.5,
@@ -5708,7 +5783,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -6039,6 +6114,7 @@
       "vs_ntnb": 12.44,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 70.83,
@@ -6063,7 +6139,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -6369,6 +6445,13 @@
       "vs_ntnb": 26.23,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0277,
+      "nominal": 0.0677,
+      "real": 0.0169,
+      "vs_ntnb": -5.81,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 8.33,
       "upside": -79.4,
@@ -6399,7 +6482,7 @@
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6705,6 +6788,13 @@
       "vs_ntnb": 12.04,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0408,
+      "nominal": 0.0908,
+      "real": 0.0389,
+      "vs_ntnb": -3.61,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 17.31,
       "upside": -55.3,
@@ -6735,7 +6825,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -7041,6 +7131,13 @@
       "vs_ntnb": 8.63,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.1094,
+      "nominal": 0.1594,
+      "real": 0.1042,
+      "vs_ntnb": 2.92,
+      "veredito": "TIR real próxima da NTN-B 10Y — neutro"
+    },
     "gordon": {
       "preco": 10.74,
       "upside": -4.2,
@@ -7071,7 +7168,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -7377,6 +7474,7 @@
       "vs_ntnb": 7.23,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 28.66,
@@ -7421,7 +7519,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -7776,6 +7874,7 @@
       "vs_ntnb": 0.34,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 27.18,
@@ -7820,7 +7919,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -8129,6 +8228,13 @@
       ]
     },
     "tir": null,
+    "tir_acionista": {
+      "yield_bruto": 0.0387,
+      "nominal": 0.0887,
+      "real": 0.0369,
+      "vs_ntnb": -3.81,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 6.54,
       "upside": -62.9,
@@ -8179,7 +8285,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -8494,6 +8600,7 @@
       "vs_ntnb": 12.23,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 27.22,
@@ -8538,7 +8645,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -8844,6 +8951,7 @@
       "vs_ntnb": 22.37,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 23.03,
@@ -8888,7 +8996,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -9194,6 +9302,13 @@
       "vs_ntnb": 19.74,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0897,
+      "nominal": 0.1297,
+      "real": 0.0759,
+      "vs_ntnb": 0.09,
+      "veredito": "TIR real próxima da NTN-B 10Y — neutro"
+    },
     "gordon": {
       "preco": 27.64,
       "upside": -32.4,
@@ -9244,7 +9359,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -9550,6 +9665,13 @@
       "vs_ntnb": 9.04,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0726,
+      "nominal": 0.1126,
+      "real": 0.0597,
+      "vs_ntnb": -1.53,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 5.78,
       "upside": -53.4,
@@ -9600,7 +9722,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:27"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -9906,6 +10028,7 @@
       "vs_ntnb": 3.56,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 61.66,
@@ -9950,7 +10073,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -10256,6 +10379,13 @@
       "vs_ntnb": 30.2,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0148,
+      "nominal": 0.0598,
+      "real": 0.0093,
+      "vs_ntnb": -6.57,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 0.4,
       "upside": -92.7,
@@ -10306,7 +10436,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -10612,6 +10742,13 @@
       "vs_ntnb": -3.25,
       "veredito": "Abaixo do RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.045,
+      "nominal": 0.09,
+      "real": 0.0381,
+      "vs_ntnb": -3.69,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 7.63,
       "upside": -53.0,
@@ -10662,7 +10799,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -10993,6 +11130,13 @@
       "vs_ntnb": 7.88,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0885,
+      "nominal": 0.1285,
+      "real": 0.0747,
+      "vs_ntnb": -0.03,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 11.0,
       "upside": -35.7,
@@ -11043,7 +11187,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -11378,6 +11522,7 @@
       "vs_ntnb": 9.1,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": null,
     "gordon": null,
     "graham": {
       "preco_gn": 30.23,
@@ -11422,7 +11567,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -11722,6 +11867,13 @@
       ]
     },
     "tir": null,
+    "tir_acionista": {
+      "yield_bruto": 0.0247,
+      "nominal": 0.0647,
+      "real": 0.014,
+      "vs_ntnb": -6.1,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 5.48,
       "upside": -79.6,
@@ -11772,7 +11924,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -12103,6 +12255,13 @@
       "vs_ntnb": 18.2,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0562,
+      "nominal": 0.1012,
+      "real": 0.0488,
+      "vs_ntnb": -2.62,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 15.81,
       "upside": -57.4,
@@ -12153,7 +12312,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -12459,6 +12618,13 @@
       "vs_ntnb": 11.12,
       "veredito": "Atrativo vs. RF"
     },
+    "tir_acionista": {
+      "yield_bruto": 0.0482,
+      "nominal": 0.0882,
+      "real": 0.0364,
+      "vs_ntnb": -3.86,
+      "veredito": "TIR real abaixo da NTN-B 10Y — aguardar normalização"
+    },
     "gordon": {
       "preco": 3.1,
       "upside": -62.9,
@@ -12509,6 +12675,6 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 10:17"
+    "atualizado": "19/08/2026 10:28"
   }
 }
