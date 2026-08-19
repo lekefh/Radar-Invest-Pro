@@ -1653,6 +1653,10 @@ function PremissasEditor({ emp, premissas, setPremissas, resultado, onReset, onC
               </div>
             ))}
           </div>
+        ) : (emp.method === 'ddm' || emp.method === 'sotp') ? (
+          <div style={{ marginBottom: '12px', fontSize: '11px', color: '#6b84a8', background: 'rgba(168,85,247,.05)', border: '1px solid rgba(168,85,247,.2)', borderRadius: '6px', padding: '8px 10px', lineHeight: 1.5 }}>
+            Modelo {emp.method?.toUpperCase()} — valuation pré-computado. Edite as premissas no app e rode export_dcf.py para atualizar.
+          </div>
         ) : !hasRecBase ? (
           <div style={{ marginBottom: '12px', fontSize: '11px', color: '#3d4f6a', background: 'rgba(255,255,255,.03)', borderRadius: '6px', padding: '8px 10px', lineHeight: 1.5 }}>
             rec_base não disponível. Rode export_dcf.py para habilitar o recálculo.
