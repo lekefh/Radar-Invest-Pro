@@ -461,7 +461,7 @@
       "rec_franquia": 404.6,
       "rec_multimarca": 712.8
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -815,7 +815,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -1180,7 +1180,7 @@
       "metodologia": "YoY+17% media = R$1,045MM"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1540,7 +1540,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1903,7 +1903,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -2294,7 +2294,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2648,7 +2648,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -3032,7 +3032,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -3424,7 +3424,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3433,16 +3433,16 @@
     "method": "ddm",
     "preco_atual": 18.170000076293945,
     "bear": {
-      "preco": 14.31,
-      "upside": -21.2
+      "preco": 14.93,
+      "upside": -17.8
     },
     "base": {
-      "preco": 15.81,
-      "upside": -13.0
+      "preco": 16.67,
+      "upside": -8.3
     },
     "bull": {
-      "preco": 17.45,
-      "upside": -4.0
+      "preco": 18.6,
+      "upside": 2.4
     },
     "upside_base_legado": null,
     "ultimo_periodo_confirmado": "2T26",
@@ -3461,7 +3461,7 @@
     "wacc_peso_e": 100.0,
     "wacc_peso_d": 0.0,
     "g_receita": [
-      3.0,
+      4.0,
       9.0,
       9.0,
       6.0,
@@ -3610,77 +3610,77 @@
     "projecoes": [
       {
         "ano": 2027,
-        "receita": 106193.0,
-        "ebitda": 14973.2,
-        "ebit": 12318.4,
-        "nopat": 9238.8,
+        "receita": 107224.0,
+        "ebitda": 15118.6,
+        "ebit": 12438.0,
+        "nopat": 9328.5,
         "capex": null,
-        "fcl": 11893.6,
-        "vp_fcl": 10479.0
+        "fcl": 12009.1,
+        "vp_fcl": 10580.7
       },
       {
         "ano": 2028,
-        "receita": 115750.4,
-        "ebitda": 17362.6,
-        "ebit": 14468.8,
-        "nopat": 10851.6,
+        "receita": 116874.2,
+        "ebitda": 17531.1,
+        "ebit": 14609.3,
+        "nopat": 10957.0,
         "capex": null,
-        "fcl": 13745.4,
-        "vp_fcl": 10670.0
+        "fcl": 13878.8,
+        "vp_fcl": 10773.6
       },
       {
         "ano": 2029,
-        "receita": 126167.9,
-        "ebitda": 22710.2,
-        "ebit": 19556.0,
-        "nopat": 14667.0,
+        "receita": 127392.8,
+        "ebitda": 22930.7,
+        "ebit": 19745.9,
+        "nopat": 14809.4,
         "capex": null,
-        "fcl": 17821.2,
-        "vp_fcl": 12188.5
+        "fcl": 17994.2,
+        "vp_fcl": 12306.8
       },
       {
         "ano": 2030,
-        "receita": 133738.0,
-        "ebitda": 26747.6,
-        "ebit": 23404.1,
-        "nopat": 17553.1,
+        "receita": 135036.4,
+        "ebitda": 27007.3,
+        "ebit": 23631.4,
+        "nopat": 17723.5,
         "capex": null,
-        "fcl": 20896.6,
-        "vp_fcl": 12591.9
+        "fcl": 21099.4,
+        "vp_fcl": 12714.2
       },
       {
         "ano": 2031,
-        "receita": 141762.3,
-        "ebitda": 35440.6,
-        "ebit": 31896.5,
-        "nopat": 23922.4,
+        "receita": 143138.6,
+        "ebitda": 35784.6,
+        "ebit": 32206.2,
+        "nopat": 24154.6,
         "capex": null,
-        "fcl": 27466.4,
-        "vp_fcl": 14582.2
+        "fcl": 27733.1,
+        "vp_fcl": 14723.8
       },
       {
         "ano": 2032,
-        "receita": 150268.0,
-        "ebitda": 45080.4,
-        "ebit": 41323.7,
-        "nopat": 30992.8,
+        "receita": 151726.9,
+        "ebitda": 45518.1,
+        "ebit": 41724.9,
+        "nopat": 31293.7,
         "capex": null,
-        "fcl": 34749.5,
-        "vp_fcl": 16254.5
+        "fcl": 35086.8,
+        "vp_fcl": 16412.3
       },
       {
         "ano": 2033,
-        "receita": 159284.1,
-        "ebitda": 47785.2,
-        "ebit": 43803.1,
-        "nopat": 32852.3,
+        "receita": 160830.5,
+        "ebitda": 48249.2,
+        "ebit": 44228.4,
+        "nopat": 33171.3,
         "capex": null,
-        "fcl": 36834.4,
-        "vp_fcl": 15180.4
+        "fcl": 37192.1,
+        "vp_fcl": 15327.8
       }
     ],
     "projecoes_indicativas": true,
-    "valor_terminal": 157396.5,
+    "valor_terminal": 158924.7,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -3693,90 +3693,90 @@
         {
           "wacc": 10.0,
           "valores": [
-            55.94,
-            61.73,
-            69.44,
-            80.24,
-            96.44
+            56.49,
+            62.33,
+            70.12,
+            81.02,
+            97.38
           ]
         },
         {
           "wacc": 11.0,
           "valores": [
-            49.0,
-            53.27,
-            58.75,
-            66.05,
-            76.28
+            49.48,
+            53.78,
+            59.32,
+            66.69,
+            77.02
           ]
         },
         {
           "wacc": 12.0,
           "valores": [
-            43.48,
-            46.71,
-            50.75,
-            55.94,
-            62.86
+            43.9,
+            47.16,
+            51.24,
+            56.48,
+            63.47
           ]
         },
         {
           "wacc": 13.0,
           "valores": [
-            38.97,
-            41.48,
-            44.54,
-            48.37,
-            53.3
+            39.35,
+            41.88,
+            44.98,
+            48.84,
+            53.81
           ]
         },
         {
           "wacc": 13.5,
           "valores": [
-            37.02,
-            39.25,
-            41.94,
-            45.26,
-            49.48
+            37.38,
+            39.63,
+            42.35,
+            45.7,
+            49.96
           ]
         },
         {
           "wacc": 14.0,
           "valores": [
-            35.24,
-            37.22,
-            39.6,
-            42.5,
-            46.14
+            35.58,
+            37.58,
+            39.98,
+            42.92,
+            46.58
           ]
         },
         {
           "wacc": 15.0,
           "valores": [
-            32.1,
-            33.69,
-            35.57,
-            37.82,
-            40.58
+            32.41,
+            34.02,
+            35.91,
+            38.19,
+            40.98
           ]
         },
         {
           "wacc": 16.0,
           "valores": [
-            29.42,
-            30.71,
-            32.22,
-            34.01,
-            36.15
+            29.7,
+            31.01,
+            32.54,
+            34.34,
+            36.5
           ]
         }
       ]
     },
     "tir": {
-      "nominal": 32.19,
-      "real": 25.89,
-      "vs_selic": 19.39,
-      "vs_ntnb": 18.59,
+      "nominal": 32.42,
+      "real": 26.12,
+      "vs_selic": 19.62,
+      "vs_ntnb": 18.82,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": {
@@ -3803,9 +3803,9 @@
     },
     "proximo_tri": {
       "periodo": "3T26",
-      "receita": 27870.6,
-      "ebitda": 3112.7,
-      "ll": 3112.7,
+      "receita": 28141.2,
+      "ebitda": 3142.9,
+      "ll": 3142.9,
       "mg_ebitda": null,
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
@@ -3830,7 +3830,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -4242,7 +4242,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -4586,7 +4586,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -5022,7 +5022,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -5446,7 +5446,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5783,7 +5783,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -6139,7 +6139,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -6482,7 +6482,7 @@
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6825,7 +6825,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -7168,7 +7168,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -7519,7 +7519,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -7919,7 +7919,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:02"
+    "atualizado": "19/08/2026 11:03"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -8996,7 +8996,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -9359,7 +9359,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -9722,7 +9722,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -10073,7 +10073,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -10436,7 +10436,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -10799,7 +10799,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -11187,7 +11187,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -11567,7 +11567,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -11924,7 +11924,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -12312,7 +12312,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -12675,6 +12675,6 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "19/08/2026 11:03"
+    "atualizado": "19/08/2026 11:04"
   }
 }
