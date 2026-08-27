@@ -27,7 +27,7 @@
       "g11": "—"
     },
     "nota": 8.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:47",
       "alerta": false,
@@ -138,7 +138,7 @@
     "divEbit": -0.5748,
     "vpa": 5.715,
     "merc": 235.0008,
-    "evEbit": 8.279,
+    "evEbit": 8.239,
     "max52s": 17.04,
     "gov": 2.0,
     "govRespostas": {
@@ -155,7 +155,7 @@
       "g11": "—"
     },
     "nota": 5.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:48",
       "alerta": false,
@@ -305,7 +305,7 @@
       "g11": "—"
     },
     "nota": 6.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:50",
       "alerta": false,
@@ -444,7 +444,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:51",
       "alerta": true,
@@ -599,7 +599,7 @@
     "divEbit": 3.3483,
     "vpa": 6.398,
     "merc": 1.0316,
-    "evEbit": 4.609,
+    "evEbit": 4.606,
     "max52s": 5.39,
     "gov": 2.0,
     "govRespostas": {
@@ -616,7 +616,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:53",
       "alerta": true,
@@ -744,7 +744,7 @@
       "g11": "—"
     },
     "nota": 3.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:54",
       "alerta": false,
@@ -994,7 +994,7 @@
     "divEbit": 2.7368,
     "vpa": 39.769,
     "merc": 3.0104,
-    "evEbit": 5.418,
+    "evEbit": 5.464,
     "max52s": 35.93,
     "gov": 2.0,
     "govRespostas": {
@@ -1011,7 +1011,7 @@
       "g10": "Sim"
     },
     "nota": 8.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:57",
       "alerta": true,
@@ -1161,7 +1161,7 @@
       "g11": "—"
     },
     "nota": 5.6,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:58",
       "alerta": true,
@@ -1333,7 +1333,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:59",
       "alerta": true,
@@ -1461,7 +1461,7 @@
       "g11": "—"
     },
     "nota": 7.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:01",
       "alerta": false,
@@ -1571,7 +1571,7 @@
     "lpa": 2.19,
     "divEbit": null,
     "vpa": 17.149,
-    "merc": 184.727,
+    "merc": 185.0495,
     "evEbit": 7.9,
     "max52s": 22.12,
     "gov": 1.6,
@@ -1589,7 +1589,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:02",
       "alerta": false,
@@ -1722,7 +1722,7 @@
     "divEbit": -0.6484,
     "vpa": 5.61,
     "merc": 76.5046,
-    "evEbit": 6.918,
+    "evEbit": 7.018,
     "max52s": 42.84,
     "gov": 2.0,
     "govRespostas": {
@@ -1739,7 +1739,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:04",
       "alerta": false,
@@ -1883,7 +1883,7 @@
     "divEbit": -0.0892,
     "vpa": 10.104,
     "merc": 2.095,
-    "evEbit": 5.859,
+    "evEbit": 5.743,
     "max52s": 14.5,
     "gov": 2.3,
     "govRespostas": {
@@ -1900,7 +1900,7 @@
       "g11": "—"
     },
     "nota": 7.6,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:05",
       "alerta": false,
@@ -2017,7 +2017,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:06",
       "alerta": false,
@@ -2156,7 +2156,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:08",
       "alerta": false,
@@ -2328,7 +2328,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:09",
       "alerta": false,
@@ -2445,7 +2445,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:10",
       "alerta": false,
@@ -2540,7 +2540,7 @@
       "g11": "—"
     },
     "nota": 6.8,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -2596,7 +2596,7 @@
     "divEbit": 3.0468,
     "vpa": 26.44,
     "merc": 8.2317,
-    "evEbit": 4.839,
+    "evEbit": 4.792,
     "max52s": 22.28,
     "gov": 1.9,
     "govRespostas": {
@@ -2613,7 +2613,7 @@
       "g11": "—"
     },
     "nota": 3.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:08",
       "alerta": false,
@@ -2719,7 +2719,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -2792,7 +2792,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 15:08",
       "alerta": true,
@@ -2859,7 +2859,7 @@
     "divEbit": 1.9483,
     "vpa": 7.778,
     "merc": 7.292,
-    "evEbit": 6.98,
+    "evEbit": 6.988,
     "max52s": 11.19,
     "gov": 1.6,
     "govRespostas": {
@@ -2876,7 +2876,7 @@
       "g11": "—"
     },
     "nota": 1.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": true,
@@ -2932,7 +2932,7 @@
     "divEbit": 1.9369,
     "vpa": 12.676,
     "merc": 2.3551,
-    "evEbit": 4.329,
+    "evEbit": 4.284,
     "max52s": 18.82,
     "gov": 2.3,
     "govRespostas": {
@@ -2949,7 +2949,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3016,7 +3016,7 @@
     "divEbit": 2.4927,
     "vpa": 10.201,
     "merc": 46.6005,
-    "evEbit": 8.345,
+    "evEbit": 8.399,
     "max52s": 19.96,
     "gov": 0.9,
     "govRespostas": {
@@ -3033,7 +3033,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3089,7 +3089,7 @@
     "divEbit": 2.4927,
     "vpa": 10.201,
     "merc": 30.0372,
-    "evEbit": 6.304,
+    "evEbit": 6.3,
     "max52s": 13.87,
     "gov": 0.9,
     "govRespostas": {
@@ -3106,7 +3106,7 @@
       "g11": "—"
     },
     "nota": 5.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:16",
       "alerta": false,
@@ -3239,7 +3239,7 @@
     "divEbit": 2.5186,
     "vpa": 6.868,
     "merc": 4.4643,
-    "evEbit": 4.555,
+    "evEbit": 4.611,
     "max52s": 4.75,
     "gov": 1.9,
     "govRespostas": {
@@ -3256,7 +3256,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:17",
       "alerta": false,
@@ -3378,7 +3378,7 @@
     "divEbit": 2.3489,
     "vpa": 19.715,
     "merc": 51.3329,
-    "evEbit": 6.086,
+    "evEbit": 6.112,
     "max52s": 57.21,
     "gov": 1.9,
     "govRespostas": {
@@ -3395,7 +3395,7 @@
       "g10": "Sim"
     },
     "nota": 6.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:18",
       "alerta": false,
@@ -3556,7 +3556,7 @@
       "g11": "—"
     },
     "nota": 3.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:19",
       "alerta": false,
@@ -3651,7 +3651,7 @@
       "g11": "—"
     },
     "nota": 3.6,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:21",
       "alerta": true,
@@ -3806,7 +3806,7 @@
     "divEbit": 2.7668,
     "vpa": 23.349,
     "merc": 20.8929,
-    "evEbit": 10.057,
+    "evEbit": 10.005,
     "max52s": 67.82,
     "gov": 1.6,
     "govRespostas": {
@@ -3823,7 +3823,7 @@
       "g11": "—"
     },
     "nota": 3.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:23",
       "alerta": true,
@@ -3995,7 +3995,7 @@
       "g11": "—"
     },
     "nota": 8.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:24",
       "alerta": false,
@@ -4128,7 +4128,7 @@
     "divEbit": 3.1033,
     "vpa": 25.629,
     "merc": 8.8244,
-    "evEbit": 10.62,
+    "evEbit": 10.446,
     "max52s": 39.06,
     "gov": 2.4,
     "govRespostas": {
@@ -4145,7 +4145,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:26",
       "alerta": true,
@@ -4289,7 +4289,7 @@
     "divEbit": 3.1033,
     "vpa": 25.629,
     "merc": 10.46,
-    "evEbit": 10.345,
+    "evEbit": 10.109,
     "max52s": 30.6,
     "gov": 1.8,
     "govRespostas": {
@@ -4306,7 +4306,7 @@
       "g11": "—"
     },
     "nota": 7.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:26",
       "alerta": false,
@@ -4379,7 +4379,7 @@
       "g11": "—"
     },
     "nota": 5.8,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:28",
       "alerta": false,
@@ -4501,7 +4501,7 @@
     "divEbit": 4.3192,
     "vpa": 51.042,
     "merc": 14.5699,
-    "evEbit": 6.886,
+    "evEbit": 6.901,
     "max52s": 59.25,
     "gov": 2.1,
     "govRespostas": {
@@ -4518,7 +4518,7 @@
       "g11": "—"
     },
     "nota": 5.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:29",
       "alerta": false,
@@ -4618,7 +4618,7 @@
     "divEbit": 4.3192,
     "vpa": 51.042,
     "merc": 44.653,
-    "evEbit": 5.266,
+    "evEbit": 5.273,
     "max52s": 14.47,
     "gov": 2.1,
     "govRespostas": {
@@ -4635,7 +4635,7 @@
       "g11": "—"
     },
     "nota": 4.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:30",
       "alerta": false,
@@ -4730,7 +4730,7 @@
       "g11": "—"
     },
     "nota": 2.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:31",
       "alerta": false,
@@ -4869,7 +4869,7 @@
       "g11": "—"
     },
     "nota": 8.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:32",
       "alerta": false,
@@ -4964,7 +4964,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:34",
       "alerta": false,
@@ -5075,7 +5075,7 @@
     "divEbit": 1.6437,
     "vpa": 9.087,
     "merc": 6.4064,
-    "evEbit": 8.707,
+    "evEbit": 8.632,
     "max52s": 25.84,
     "gov": 2.3,
     "govRespostas": {
@@ -5092,7 +5092,7 @@
       "g11": "—"
     },
     "nota": 4.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:35",
       "alerta": false,
@@ -5181,7 +5181,7 @@
     "divEbit": 0.9728,
     "vpa": 27.274,
     "merc": 38.5754,
-    "evEbit": 4.717,
+    "evEbit": 4.854,
     "max52s": 22.62,
     "gov": 1.8,
     "govRespostas": {
@@ -5198,7 +5198,7 @@
       "g11": "—"
     },
     "nota": 4.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:36",
       "alerta": false,
@@ -5298,7 +5298,7 @@
     "divEbit": 0.9728,
     "vpa": 27.274,
     "merc": 44.8935,
-    "evEbit": 5.402,
+    "evEbit": 5.487,
     "max52s": 26.44,
     "gov": 1.8,
     "govRespostas": {
@@ -5315,7 +5315,7 @@
       "g11": "—"
     },
     "nota": 4.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:37",
       "alerta": true,
@@ -5448,7 +5448,7 @@
     "divEbit": 2.2086,
     "vpa": 4.723,
     "merc": 10.5937,
-    "evEbit": 7.19,
+    "evEbit": 7.151,
     "max52s": 7.39,
     "gov": 2.3,
     "govRespostas": {
@@ -5465,7 +5465,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:39",
       "alerta": true,
@@ -5626,7 +5626,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:40",
       "alerta": false,
@@ -5721,7 +5721,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:41",
       "alerta": false,
@@ -5860,7 +5860,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:42",
       "alerta": false,
@@ -5999,7 +5999,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:45",
       "alerta": false,
@@ -6121,7 +6121,7 @@
     "divEbit": -7.5517,
     "vpa": 65.28,
     "merc": 4.3344,
-    "evEbit": 0.251,
+    "evEbit": 0.318,
     "max52s": 66.65,
     "gov": 1.3,
     "govRespostas": {
@@ -6138,7 +6138,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:46",
       "alerta": true,
@@ -6288,7 +6288,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:47",
       "alerta": false,
@@ -6427,7 +6427,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:49",
       "alerta": false,
@@ -6555,7 +6555,7 @@
       "g11": "—"
     },
     "nota": 6.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:50",
       "alerta": false,
@@ -6672,7 +6672,7 @@
       "g11": "—"
     },
     "nota": 6.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:51",
       "alerta": false,
@@ -6794,7 +6794,7 @@
     "divEbit": 1.2156,
     "vpa": 11.325,
     "merc": 6.8926,
-    "evEbit": 4.752,
+    "evEbit": 4.756,
     "max52s": 14.5,
     "gov": 2.3,
     "govRespostas": {
@@ -6811,7 +6811,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:54",
       "alerta": true,
@@ -6933,7 +6933,7 @@
     "divEbit": -0.0697,
     "vpa": 4.604,
     "merc": 1.1296,
-    "evEbit": 5.957,
+    "evEbit": 6.07,
     "max52s": 10.52,
     "gov": 2.3,
     "govRespostas": {
@@ -6950,7 +6950,7 @@
       "g11": "—"
     },
     "nota": 8.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:55",
       "alerta": true,
@@ -7039,7 +7039,7 @@
     "divEbit": 3.9899,
     "vpa": 7.709,
     "merc": 132.9544,
-    "evEbit": 8.423,
+    "evEbit": 8.418,
     "max52s": 21.25,
     "gov": 2.2,
     "govRespostas": {
@@ -7056,7 +7056,7 @@
       "g11": "—"
     },
     "nota": 3.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:57",
       "alerta": false,
@@ -7206,7 +7206,7 @@
       "g11": "—"
     },
     "nota": 8.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:58",
       "alerta": false,
@@ -7328,7 +7328,7 @@
     "divEbit": 1.1977,
     "vpa": 7.114,
     "merc": 4.3847,
-    "evEbit": 5.83,
+    "evEbit": 5.742,
     "max52s": 37.86,
     "gov": 2.4,
     "govRespostas": {
@@ -7345,7 +7345,7 @@
       "g11": "—"
     },
     "nota": 7.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 16:59",
       "alerta": false,
@@ -7451,7 +7451,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:01",
       "alerta": false,
@@ -7573,7 +7573,7 @@
     "divEbit": 0.5892,
     "vpa": 10.785,
     "merc": 10.3779,
-    "evEbit": 5.166,
+    "evEbit": 5.051,
     "max52s": 17.54,
     "gov": 2.0,
     "govRespostas": {
@@ -7590,7 +7590,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:02",
       "alerta": false,
@@ -7729,7 +7729,7 @@
       "g11": "—"
     },
     "nota": 2.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:04",
       "alerta": true,
@@ -7884,7 +7884,7 @@
     "divEbit": 4.6663,
     "vpa": 14.396,
     "merc": 3.6534,
-    "evEbit": 7.101,
+    "evEbit": 7.192,
     "max52s": 11.5524,
     "gov": 2.5,
     "govRespostas": {
@@ -7901,7 +7901,7 @@
       "g11": "—"
     },
     "nota": 6.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:05",
       "alerta": true,
@@ -8012,7 +8012,7 @@
     "divEbit": 1.2768,
     "vpa": 8.278,
     "merc": 3.5701,
-    "evEbit": 5.034,
+    "evEbit": 5.015,
     "max52s": 15.96,
     "gov": 2.0,
     "govRespostas": {
@@ -8029,7 +8029,7 @@
       "g11": "—"
     },
     "nota": 7.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:06",
       "alerta": false,
@@ -8168,7 +8168,7 @@
       "g11": "—"
     },
     "nota": 5.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -8212,8 +8212,8 @@
     "lpa": 1.21,
     "divEbit": 3.6498,
     "vpa": 9.729,
-    "merc": 2.8835,
-    "evEbit": 4.152,
+    "merc": 2.9059,
+    "evEbit": 4.137,
     "max52s": 14.97,
     "gov": 2.3,
     "govRespostas": {
@@ -8230,7 +8230,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:09",
       "alerta": false,
@@ -8358,7 +8358,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:10",
       "alerta": false,
@@ -8458,7 +8458,7 @@
     "divEbit": 1.2869,
     "vpa": 37.316,
     "merc": 566.3515,
-    "evEbit": 3.484,
+    "evEbit": 3.489,
     "max52s": 50.69,
     "gov": 0.6,
     "govRespostas": {
@@ -8475,7 +8475,7 @@
       "g11": "—"
     },
     "nota": 6.6,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:12",
       "alerta": true,
@@ -8636,7 +8636,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:13",
       "alerta": false,
@@ -8753,7 +8753,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:14",
       "alerta": false,
@@ -8864,7 +8864,7 @@
     "divEbit": 1.7253,
     "vpa": 35.348,
     "merc": 48.4554,
-    "evEbit": 5.577,
+    "evEbit": 5.569,
     "max52s": 72.98,
     "gov": 2.0,
     "govRespostas": {
@@ -8881,7 +8881,7 @@
       "g11": "—"
     },
     "nota": 2.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:16",
       "alerta": false,
@@ -9075,7 +9075,7 @@
       "g10": "Sim"
     },
     "nota": 6.6,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:17",
       "alerta": false,
@@ -9218,7 +9218,7 @@
     "lpa": 0.66,
     "divEbit": 3.1551,
     "vpa": 7.797,
-    "merc": 27.0749,
+    "merc": 27.077,
     "evEbit": 6.77,
     "max52s": 17.45,
     "gov": 2.0,
@@ -9236,7 +9236,7 @@
       "g10": "Sim"
     },
     "nota": 3.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:19",
       "alerta": true,
@@ -9391,7 +9391,7 @@
     "divEbit": 2.4169,
     "vpa": 6.383,
     "merc": 1.7691,
-    "evEbit": 6.204,
+    "evEbit": 6.165,
     "max52s": 10.12,
     "gov": 2.3,
     "govRespostas": {
@@ -9408,7 +9408,7 @@
       "g11": "—"
     },
     "nota": 6.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:20",
       "alerta": false,
@@ -9518,7 +9518,7 @@
     "lpa": 1.7,
     "divEbit": 1.18,
     "vpa": 15.107,
-    "merc": 3.0385,
+    "merc": 3.0434,
     "evEbit": 3.499,
     "max52s": 14.64,
     "gov": 2.0,
@@ -9536,7 +9536,7 @@
       "g11": "—"
     },
     "nota": 7.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:22",
       "alerta": false,
@@ -9702,7 +9702,7 @@
     "divEbit": 2.1142,
     "vpa": 10.762,
     "merc": 3.4693,
-    "evEbit": 5.064,
+    "evEbit": 5.005,
     "max52s": 11.9,
     "gov": 2.4,
     "govRespostas": {
@@ -9719,7 +9719,7 @@
       "g11": "—"
     },
     "nota": 9.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -9797,7 +9797,7 @@
     "divEbit": 4.4406,
     "vpa": 13.405,
     "merc": 0.5329,
-    "evEbit": 8.598,
+    "evEbit": 8.527,
     "max52s": 8.92,
     "gov": 2.3,
     "govRespostas": {
@@ -9814,7 +9814,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:23",
       "alerta": false,
@@ -9953,7 +9953,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:24",
       "alerta": false,
@@ -10081,7 +10081,7 @@
       "g11": "—"
     },
     "nota": 7.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:25",
       "alerta": false,
@@ -10176,7 +10176,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:27",
       "alerta": true,
@@ -10276,7 +10276,7 @@
     "divEbit": 3.494,
     "vpa": 14.833,
     "merc": 1.9168,
-    "evEbit": 5.969,
+    "evEbit": 5.911,
     "max52s": 16.0,
     "gov": 2.0,
     "govRespostas": {
@@ -10293,7 +10293,7 @@
       "g11": "—"
     },
     "nota": 5.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:28",
       "alerta": false,
@@ -10404,7 +10404,7 @@
     "divEbit": 2.249,
     "vpa": 12.821,
     "merc": 88.1286,
-    "evEbit": 7.976,
+    "evEbit": 8.061,
     "max52s": 35.318,
     "gov": 1.9,
     "govRespostas": {
@@ -10421,7 +10421,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:29",
       "alerta": false,
@@ -10593,7 +10593,7 @@
       "g11": "—"
     },
     "nota": 8.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:31",
       "alerta": false,
@@ -10710,7 +10710,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:32",
       "alerta": false,
@@ -10838,7 +10838,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-06-08 14:00",
       "alerta": false,
@@ -10949,7 +10949,7 @@
     "divEbit": 2.3751,
     "vpa": 22.851,
     "merc": 6.0133,
-    "evEbit": 4.304,
+    "evEbit": 4.322,
     "max52s": 21.7,
     "gov": 2.3,
     "govRespostas": {
@@ -10966,7 +10966,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:35",
       "alerta": false,
@@ -11099,7 +11099,7 @@
     "divEbit": 4.7035,
     "vpa": 9.437,
     "merc": 0.9451,
-    "evEbit": 9.954,
+    "evEbit": 9.811,
     "max52s": 10.8332,
     "gov": 2.3,
     "govRespostas": {
@@ -11116,7 +11116,7 @@
       "g11": "—"
     },
     "nota": 4.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:36",
       "alerta": false,
@@ -11266,7 +11266,7 @@
       "g10": "Sim"
     },
     "nota": 6.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:39",
       "alerta": false,
@@ -11471,7 +11471,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:41",
       "alerta": false,
@@ -11610,7 +11610,7 @@
       "g11": "—"
     },
     "nota": 4.8,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:42",
       "alerta": false,
@@ -11716,7 +11716,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:43",
       "alerta": false,
@@ -11816,7 +11816,7 @@
     "divEbit": 0.4711,
     "vpa": 12.555,
     "merc": 3.9319,
-    "evEbit": 5.651,
+    "evEbit": 5.438,
     "max52s": 37.94,
     "gov": 2.0,
     "govRespostas": {
@@ -11833,7 +11833,7 @@
       "g11": "—"
     },
     "nota": 7.6,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:44",
       "alerta": false,
@@ -11966,7 +11966,7 @@
     "divEbit": 2.0854,
     "vpa": 9.522,
     "merc": 18.5887,
-    "evEbit": 15.105,
+    "evEbit": 15.045,
     "max52s": 48.4,
     "gov": 2.5,
     "govRespostas": {
@@ -11983,7 +11983,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:46",
       "alerta": false,
@@ -12133,7 +12133,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:47",
       "alerta": false,
@@ -12221,7 +12221,7 @@
     "lpa": 3.28,
     "divEbit": 1.1289,
     "vpa": 15.411,
-    "merc": 35.6021,
+    "merc": 35.6556,
     "evEbit": 5.295,
     "max52s": 35.14,
     "gov": 2.5,
@@ -12239,7 +12239,7 @@
       "g11": "—"
     },
     "nota": 6.8,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:48",
       "alerta": true,
@@ -12383,7 +12383,7 @@
     "divEbit": 2.7223,
     "vpa": 16.811,
     "merc": 6.5243,
-    "evEbit": 10.465,
+    "evEbit": 10.328,
     "max52s": 78.0,
     "gov": 1.6,
     "govRespostas": {
@@ -12400,7 +12400,7 @@
       "g11": "—"
     },
     "nota": 4.2,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:50",
       "alerta": false,
@@ -12489,7 +12489,7 @@
     "divEbit": -0.1751,
     "vpa": 16.858,
     "merc": 8.2596,
-    "evEbit": 5.062,
+    "evEbit": 5.26,
     "max52s": 10.95,
     "gov": 1.3,
     "govRespostas": {
@@ -12506,7 +12506,7 @@
       "g11": "—"
     },
     "nota": 6.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:50",
       "alerta": false,
@@ -12590,7 +12590,7 @@
       "g11": "—"
     },
     "nota": 3.9,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:52",
       "alerta": false,
@@ -12751,7 +12751,7 @@
       "g11": "—"
     },
     "nota": 5.3,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:53",
       "alerta": true,
@@ -12934,7 +12934,7 @@
       "g11": "—"
     },
     "nota": 8.0,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:55",
       "alerta": false,
@@ -13084,7 +13084,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:56",
       "alerta": false,
@@ -13200,13 +13200,13 @@
     "setor": "Industrials",
     "dy": 2.92,
     "pl": 33.8389,
-    "pvp": 11.2169,
+    "pvp": 12.1465,
     "roe": 30.791,
     "lpa": 1.49,
     "divEbit": -0.3493,
-    "vpa": 4.495,
+    "vpa": 4.151,
     "merc": 211.5537,
-    "evEbit": 24.306,
+    "evEbit": 24.721,
     "max52s": 54.53,
     "gov": 2.5,
     "govRespostas": {
@@ -13223,7 +13223,7 @@
       "g11": "—"
     },
     "nota": 5.1,
-    "atualizado": "26/08/2026 22:38 [auto]",
+    "atualizado": "27/08/2026 00:01 [auto]",
     "mr": {
       "data": "2026-05-24 17:58",
       "alerta": false,
