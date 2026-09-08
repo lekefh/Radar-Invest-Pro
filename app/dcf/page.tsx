@@ -2208,12 +2208,17 @@ export default function DCFPage() {
   const [ultimaAtualizacao, setUltimaAtualizacao] = useState<Date|null>(null)
 
   // Quando troca de empresa: inicializa premissas (localStorage > modelo)
+  // A chave inclui um hash dos parâmetros-chave do modelo para invalidar cache
+  // automaticamente quando o dcf.json for atualizado com novos valores.
   useEffect(() => {
     if (!sel || plano !== 'analista') { setPremissas(null); setResultadoCustom(null); return }
     const e = dcfData[sel]
     if (!e) return
+    // Hash simples baseado nos parâmetros que mudam quando o modelo é atualizado
+    const modelHash = `${e.wacc}_${e.tax_rate}_${e.da_pct}_${e.g_terminal}`
+    const storageKey = `dcf_prem_v2_${sel}_${modelHash}`
     try {
-      const saved = localStorage.getItem(`dcf_prem_v1_${sel}`)
+      const saved = localStorage.getItem(storageKey)
       if (saved) { setPremissas(JSON.parse(saved) as PremissasDCF); return }
     } catch {}
     setPremissas(premissasDeEmp(e))
@@ -2223,7 +2228,11 @@ export default function DCFPage() {
   // Persiste premissas no localStorage para sobreviver a recarregamentos da página
   useEffect(() => {
     if (!premissas || !sel || plano !== 'analista') return
-    try { localStorage.setItem(`dcf_prem_v1_${sel}`, JSON.stringify(premissas)) } catch {}
+    const e = dcfData[sel]
+    if (!e) return
+    const modelHash = `${e.wacc}_${e.tax_rate}_${e.da_pct}_${e.g_terminal}`
+    const storageKey = `dcf_prem_v2_${sel}_${modelHash}`
+    try { localStorage.setItem(storageKey, JSON.stringify(premissas)) } catch {}
   }, [premissas, sel, plano])
 
   // Aplica ajustes do analista às premissas/base antes de calcular
@@ -2312,7 +2321,8 @@ export default function DCFPage() {
         continue
       }
       try {
-        const savedStr = localStorage.getItem(`dcf_prem_v1_${ticker}`)
+        const modelHash = `${emp.wacc}_${emp.tax_rate}_${emp.da_pct}_${emp.g_terminal}`
+        const savedStr = localStorage.getItem(`dcf_prem_v2_${ticker}_${modelHash}`)
         const prem: PremissasDCF = savedStr ? JSON.parse(savedStr) : premissasDeEmp(emp)
         const pa = (precos[ticker] ?? (emp.preco_atual as number | null)) ?? null
         results[ticker] = calcDCFCustom(emp, prem, pa)
