@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 type Plano = 'gratuito' | 'essencial' | 'pro' | 'analista'
@@ -228,6 +228,117 @@ function ModalConfirmExclusao({ usuario, excluindo, onCancel, onConfirm }: {
   )
 }
 
+/* ── Linha swipável (mobile) ─────────────────────────────────────────────────── */
+function LinhaSwipe({ u, idx, total, acao, onAlterarPlano, onToggleAtivo, onCarteira, onExcluir, aberto, setAberto }: {
+  u: Usuario; idx: number; total: number
+  acao: Record<number, string>
+  onAlterarPlano: (uid: number, plano: Plano) => void
+  onToggleAtivo:  (uid: number, ativo: number) => void
+  onCarteira:     (u: Usuario) => void
+  onExcluir:      (u: Usuario) => void
+  aberto: number | null
+  setAberto: (id: number | null) => void
+}) {
+  const PANEL_W = 220
+  const touchX   = useRef<number | null>(null)
+  const isOpen   = aberto === u.id
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchX.current = e.touches[0].clientX
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchX.current === null) return
+    const delta = touchX.current - e.changedTouches[0].clientX
+    if (delta > 50)  setAberto(u.id)   // swipe left → abre
+    if (delta < -30) setAberto(null)    // swipe right → fecha
+    touchX.current = null
+  }
+
+  const saving = !!acao[u.id]
+  const dataFmt = u.criado_em?.slice(0, 10) || '—'
+
+  return (
+    <div
+      style={{ position:'relative', overflow:'hidden', borderBottom: idx < total - 1 ? '1px solid rgba(255,255,255,.05)' : 'none' }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Painel de ações (desliza da direita) */}
+      <div style={{
+        position:'absolute', right:0, top:0, bottom:0, width:`${PANEL_W}px`,
+        display:'flex', flexDirection:'column', justifyContent:'center', gap:'7px',
+        padding:'10px 12px', background:'#0d1828',
+        transform: isOpen ? 'translateX(0)' : `translateX(${PANEL_W}px)`,
+        transition:'transform 0.22s ease',
+        borderLeft:'1px solid rgba(255,255,255,.07)',
+        zIndex:2,
+      }}>
+        {/* Selector de plano */}
+        <select
+          value={u.plano}
+          disabled={saving}
+          onChange={e => onAlterarPlano(u.id, e.target.value as Plano)}
+          style={{
+            background:'#1a2632', border:`1px solid ${PLANO_COLOR[u.plano]}55`,
+            color: PLANO_COLOR[u.plano], borderRadius:'6px',
+            padding:'6px 10px', fontSize:'13px', fontWeight:700,
+            cursor:'pointer', outline:'none', width:'100%',
+          }}
+        >
+          {PLANOS.map(p => <option key={p} value={p}>{p}</option>)}
+        </select>
+        {/* Botões */}
+        <div style={{ display:'flex', gap:'6px' }}>
+          <button onClick={() => onCarteira(u)}
+            style={{ flex:1, ...btnStyle, background:'rgba(232,160,32,.15)', color:'#e8a020', fontSize:'11px', padding:'6px 0' }}>
+            📊 Carteira
+          </button>
+          <button onClick={() => onToggleAtivo(u.id, u.ativo)} disabled={saving}
+            style={{ flex:1, ...btnStyle, fontSize:'11px', padding:'6px 0',
+              background: u.ativo ? 'rgba(239,83,80,.15)' : 'rgba(76,175,80,.15)',
+              color:      u.ativo ? '#ef5350' : '#66BB6A' }}>
+            {saving ? '…' : u.ativo ? 'Desativar' : 'Ativar'}
+          </button>
+          <button onClick={() => onExcluir(u)} disabled={saving}
+            style={{ ...btnStyle, fontSize:'13px', padding:'6px 9px', background:'rgba(239,83,80,.1)', color:'#ef9090' }}>
+            🗑
+          </button>
+        </div>
+      </div>
+
+      {/* Conteúdo da linha (se desloca para a esquerda) */}
+      <div style={{
+        display:'flex', alignItems:'center', gap:'10px',
+        padding:'13px 14px',
+        transform: isOpen ? `translateX(-${PANEL_W}px)` : 'translateX(0)',
+        transition:'transform 0.22s ease',
+        background: isOpen ? '#0e1b2e' : 'transparent',
+      }}
+        onClick={() => isOpen && setAberto(null)}
+      >
+        <span style={{ fontSize:'11px', color:'#3d4f6a', width:'22px', flexShrink:0 }}>{u.id}</span>
+        <div style={{ flex:1, minWidth:0 }}>
+          <div style={{ fontSize:'13px', fontWeight:700, color:'#e0e0e0', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>
+            {u.nome}
+          </div>
+          <div style={{ fontSize:'11px', color:'#4a5d73', marginTop:'2px' }}>@{u.username}</div>
+        </div>
+        <div style={{ display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'4px', flexShrink:0 }}>
+          <span style={{
+            fontSize:'11px', fontWeight:700, color: PLANO_COLOR[u.plano],
+            background:`${PLANO_COLOR[u.plano]}18`, border:`1px solid ${PLANO_COLOR[u.plano]}40`,
+            borderRadius:'4px', padding:'2px 7px',
+          }}>{u.plano}</span>
+          <span style={{ fontSize:'10px', color: u.ativo ? '#66BB6A' : '#ef5350' }}>
+            {u.ativo ? '● Ativo' : '○ Inativo'} · {dataFmt}
+          </span>
+        </div>
+        <span style={{ fontSize:'16px', color:'#3d4f6a', flexShrink:0, paddingLeft:'4px' }}>‹</span>
+      </div>
+    </div>
+  )
+}
+
 /* ── Página Admin ───────────────────────────────────────────────────────────── */
 export default function AdminUsuariosPage() {
   const router = useRouter()
@@ -237,6 +348,7 @@ export default function AdminUsuariosPage() {
   const [acao, setAcao]             = useState<Record<number, string>>({})
   const [carteiraUser, setCarteiraUser] = useState<Usuario | null>(null)
   const [excluirUser, setExcluirUser] = useState<Usuario | null>(null)
+  const [swipeOpen, setSwipeOpen]     = useState<number | null>(null)
 
   useEffect(() => { carregar() }, [])
 
@@ -287,6 +399,10 @@ export default function AdminUsuariosPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#050d1a', padding: '32px 24px' }}>
+      <style>{`
+        @media (max-width: 768px) { .admin-desktop { display: none !important; } }
+        @media (min-width: 769px) { .admin-mobile  { display: none !important; } }
+      `}</style>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
           <h1 style={{ color: '#fff', fontSize: '20px', fontWeight: 700, margin: 0 }}>
@@ -309,7 +425,7 @@ export default function AdminUsuariosPage() {
         {carregando ? (
           <div style={{ color: '#6b84a8', textAlign: 'center', padding: '60px', fontSize: '14px' }}>Carregando...</div>
         ) : (
-          <div style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflow: 'hidden' }}>
+          <div className="admin-desktop" style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflow: 'hidden' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
@@ -390,6 +506,32 @@ export default function AdminUsuariosPage() {
                 Nenhum usuário cadastrado.
               </div>
             )}
+          </div>
+
+          {/* ── Lista mobile (swipe) ── */}
+          <div className="admin-mobile" style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflow: 'hidden' }}>
+            <div style={{ padding:'12px 14px 8px', fontSize:'10px', color:'#3d4f6a', letterSpacing:'1px', textTransform:'uppercase', borderBottom:'1px solid rgba(255,255,255,.05)' }}>
+              ← Arraste para a esquerda para ver opções
+            </div>
+            {usuarios.length === 0 ? (
+              <div style={{ textAlign:'center', padding:'48px', color:'#4a5d73', fontSize:'14px' }}>
+                Nenhum usuário cadastrado.
+              </div>
+            ) : usuarios.map((u, i) => (
+              <LinhaSwipe
+                key={u.id}
+                u={u}
+                idx={i}
+                total={usuarios.length}
+                acao={acao}
+                onAlterarPlano={alterarPlano}
+                onToggleAtivo={toggleAtivo}
+                onCarteira={setCarteiraUser}
+                onExcluir={setExcluirUser}
+                aberto={swipeOpen}
+                setAberto={setSwipeOpen}
+              />
+            ))}
           </div>
         )}
 
