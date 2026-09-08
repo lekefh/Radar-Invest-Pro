@@ -27,7 +27,7 @@
       "g11": "—"
     },
     "nota": 8.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:47",
       "alerta": false,
@@ -155,7 +155,7 @@
       "g11": "—"
     },
     "nota": 5.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:48",
       "alerta": false,
@@ -282,13 +282,13 @@
     "setor": "Consumer Defensive",
     "dy": 4.11,
     "pl": -127.3,
-    "pvp": 0.9405,
-    "roe": -0.702,
+    "pvp": 0.9478,
+    "roe": -4.283,
     "lpa": -0.9,
     "divEbit": -80.02,
-    "vpa": 20.489,
+    "vpa": 20.331,
     "merc": 1.9196,
-    "evEbit": -191.6,
+    "evEbit": 118.942,
     "max52s": 22.75,
     "gov": 2.1,
     "govRespostas": {
@@ -305,7 +305,7 @@
       "g11": "—"
     },
     "nota": 6.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:50",
       "alerta": false,
@@ -427,7 +427,7 @@
     "divEbit": 3.4026,
     "vpa": 25.7,
     "merc": 14.4091,
-    "evEbit": 10.29,
+    "evEbit": 10.24,
     "max52s": 34.17,
     "gov": 2.0,
     "govRespostas": {
@@ -444,7 +444,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:51",
       "alerta": true,
@@ -599,7 +599,7 @@
     "divEbit": 3.3483,
     "vpa": 6.398,
     "merc": 1.1071,
-    "evEbit": 4.654,
+    "evEbit": 4.666,
     "max52s": 5.39,
     "gov": 2.0,
     "govRespostas": {
@@ -616,7 +616,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:53",
       "alerta": true,
@@ -744,7 +744,7 @@
       "g11": "—"
     },
     "nota": 3.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:54",
       "alerta": false,
@@ -994,8 +994,8 @@
     "divEbit": 2.7368,
     "vpa": 39.769,
     "merc": 3.5765,
-    "evEbit": 5.865,
-    "max52s": 34.43,
+    "evEbit": 5.977,
+    "max52s": 34.25,
     "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
@@ -1011,7 +1011,7 @@
       "g10": "Sim"
     },
     "nota": 8.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:57",
       "alerta": true,
@@ -1144,7 +1144,7 @@
     "divEbit": -0.0273,
     "vpa": 3.742,
     "merc": 86.6924,
-    "evEbit": 11.92,
+    "evEbit": 11.934,
     "max52s": 20.33,
     "gov": 2.0,
     "govRespostas": {
@@ -1161,7 +1161,7 @@
       "g11": "—"
     },
     "nota": 5.6,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:58",
       "alerta": true,
@@ -1333,7 +1333,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:59",
       "alerta": true,
@@ -1461,7 +1461,7 @@
       "g11": "—"
     },
     "nota": 7.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:01",
       "alerta": false,
@@ -1571,7 +1571,7 @@
     "lpa": 2.19,
     "divEbit": null,
     "vpa": 17.149,
-    "merc": 194.6211,
+    "merc": 194.961,
     "evEbit": 7.9,
     "max52s": 22.12,
     "gov": 1.6,
@@ -1589,7 +1589,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:02",
       "alerta": false,
@@ -1722,8 +1722,8 @@
     "divEbit": -0.6484,
     "vpa": 5.61,
     "merc": 81.843,
-    "evEbit": 7.461,
-    "max52s": 42.84,
+    "evEbit": 7.553,
+    "max52s": 42.98,
     "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
@@ -1739,7 +1739,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:04",
       "alerta": false,
@@ -1900,7 +1900,7 @@
       "g11": "—"
     },
     "nota": 7.6,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:05",
       "alerta": false,
@@ -2001,7 +2001,7 @@
     "vpa": 7.859,
     "merc": 3.8453,
     "evEbit": 11.28,
-    "max52s": 5.98,
+    "max52s": 6.02,
     "gov": 1.5,
     "govRespostas": {
       "g01": "Não",
@@ -2017,7 +2017,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:06",
       "alerta": false,
@@ -2156,7 +2156,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:08",
       "alerta": false,
@@ -2328,7 +2328,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:09",
       "alerta": false,
@@ -2445,7 +2445,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:10",
       "alerta": false,
@@ -2540,7 +2540,7 @@
       "g11": "—"
     },
     "nota": 6.8,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -2588,7 +2588,7 @@
   "BRAV3": {
     "nome": "Brava Energia S.A.",
     "setor": "Energy",
-    "dy": 66.0,
+    "dy": 69.0,
     "pl": 178.8,
     "pvp": 0.6762,
     "roe": 0.444,
@@ -2613,7 +2613,7 @@
       "g11": "—"
     },
     "nota": 3.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:08",
       "alerta": false,
@@ -2702,7 +2702,7 @@
     "divEbit": 5.5537,
     "vpa": 8.763,
     "merc": 1.6849,
-    "evEbit": 7.697,
+    "evEbit": 7.638,
     "max52s": 7.4,
     "gov": 2.3,
     "govRespostas": {
@@ -2719,7 +2719,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -2775,7 +2775,7 @@
     "divEbit": -1.1212,
     "vpa": 3.793,
     "merc": 0.5604,
-    "evEbit": 5.277,
+    "evEbit": 5.007,
     "max52s": 6.0,
     "gov": 2.3,
     "govRespostas": {
@@ -2792,7 +2792,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 15:08",
       "alerta": true,
@@ -2851,7 +2851,7 @@
   "CBAV3": {
     "nome": "Companhia Brasileira de Alumínio",
     "setor": "Basic Materials",
-    "dy": 39.0,
+    "dy": 40.0,
     "pl": 12.1196,
     "pvp": 1.4335,
     "roe": 14.575,
@@ -2859,7 +2859,7 @@
     "divEbit": 1.9483,
     "vpa": 7.778,
     "merc": 7.2595,
-    "evEbit": 6.988,
+    "evEbit": 6.966,
     "max52s": 11.26,
     "gov": 1.6,
     "govRespostas": {
@@ -2876,7 +2876,7 @@
       "g11": "—"
     },
     "nota": 1.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": true,
@@ -2949,7 +2949,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3016,7 +3016,7 @@
     "divEbit": 2.4927,
     "vpa": 10.201,
     "merc": 48.746,
-    "evEbit": 8.566,
+    "evEbit": 8.671,
     "max52s": 19.96,
     "gov": 0.9,
     "govRespostas": {
@@ -3033,7 +3033,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -3089,7 +3089,7 @@
     "divEbit": 2.4927,
     "vpa": 10.201,
     "merc": 32.2113,
-    "evEbit": 6.547,
+    "evEbit": 6.576,
     "max52s": 13.87,
     "gov": 0.9,
     "govRespostas": {
@@ -3106,7 +3106,7 @@
       "g11": "—"
     },
     "nota": 5.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:16",
       "alerta": false,
@@ -3239,7 +3239,7 @@
     "divEbit": 2.9032,
     "vpa": 6.862,
     "merc": 4.8847,
-    "evEbit": 5.498,
+    "evEbit": 5.542,
     "max52s": 4.75,
     "gov": 1.9,
     "govRespostas": {
@@ -3256,7 +3256,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:17",
       "alerta": false,
@@ -3378,7 +3378,7 @@
     "divEbit": 2.3489,
     "vpa": 19.715,
     "merc": 53.9601,
-    "evEbit": 6.293,
+    "evEbit": 6.301,
     "max52s": 57.21,
     "gov": 1.9,
     "govRespostas": {
@@ -3395,7 +3395,7 @@
       "g10": "Sim"
     },
     "nota": 6.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:18",
       "alerta": false,
@@ -3539,7 +3539,7 @@
     "divEbit": 2.9711,
     "vpa": 7.602,
     "merc": 47.0683,
-    "evEbit": 10.306,
+    "evEbit": 10.338,
     "max52s": 17.13,
     "gov": 1.9,
     "govRespostas": {
@@ -3556,7 +3556,7 @@
       "g11": "—"
     },
     "nota": 3.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:19",
       "alerta": false,
@@ -3651,7 +3651,7 @@
       "g11": "—"
     },
     "nota": 3.6,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:21",
       "alerta": true,
@@ -3823,7 +3823,7 @@
       "g11": "—"
     },
     "nota": 3.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:23",
       "alerta": true,
@@ -3978,7 +3978,7 @@
     "divEbit": -0.1458,
     "vpa": 5.373,
     "merc": 10.2303,
-    "evEbit": 6.721,
+    "evEbit": 6.804,
     "max52s": 41.76,
     "gov": 2.4,
     "govRespostas": {
@@ -3995,7 +3995,7 @@
       "g11": "—"
     },
     "nota": 8.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:24",
       "alerta": false,
@@ -4121,14 +4121,14 @@
     "nome": "Cyrela Brazil Realty S.A. Empreendimentos e Participações",
     "setor": "Consumer Cyclical",
     "dy": 11.79,
-    "pl": 5.5172,
+    "pl": 5.5054,
     "pvp": 0.9989,
     "roe": 20.593,
-    "lpa": 4.64,
+    "lpa": 4.65,
     "divEbit": 3.1033,
     "vpa": 25.629,
     "merc": 9.3776,
-    "evEbit": 10.785,
+    "evEbit": 10.856,
     "max52s": 39.06,
     "gov": 2.4,
     "govRespostas": {
@@ -4145,7 +4145,7 @@
       "g11": "—"
     },
     "nota": 7.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:26",
       "alerta": true,
@@ -4289,7 +4289,7 @@
     "divEbit": 3.1033,
     "vpa": 25.629,
     "merc": 10.46,
-    "evEbit": 10.329,
+    "evEbit": 10.451,
     "max52s": 30.6,
     "gov": 1.8,
     "govRespostas": {
@@ -4306,7 +4306,7 @@
       "g11": "—"
     },
     "nota": 7.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:26",
       "alerta": false,
@@ -4379,7 +4379,7 @@
       "g11": "—"
     },
     "nota": 5.8,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:28",
       "alerta": false,
@@ -4501,7 +4501,7 @@
     "divEbit": 4.3192,
     "vpa": 51.042,
     "merc": 15.7521,
-    "evEbit": 7.074,
+    "evEbit": 7.077,
     "max52s": 59.25,
     "gov": 2.1,
     "govRespostas": {
@@ -4518,7 +4518,7 @@
       "g11": "—"
     },
     "nota": 5.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:29",
       "alerta": false,
@@ -4635,7 +4635,7 @@
       "g11": "—"
     },
     "nota": 4.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:30",
       "alerta": false,
@@ -4713,7 +4713,7 @@
     "divEbit": 4.8094,
     "vpa": 20.818,
     "merc": 49.1967,
-    "evEbit": 9.213,
+    "evEbit": 9.239,
     "max52s": 46.32,
     "gov": 2.0,
     "govRespostas": {
@@ -4730,7 +4730,7 @@
       "g11": "—"
     },
     "nota": 2.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:31",
       "alerta": false,
@@ -4846,13 +4846,13 @@
     "setor": "Communication Services",
     "dy": 11.64,
     "pl": 8.0656,
-    "pvp": 1.7131,
+    "pvp": 1.5759,
     "roe": 18.126,
     "lpa": 0.61,
     "divEbit": 1.0555,
-    "vpa": 2.872,
+    "vpa": 3.122,
     "merc": 1.9161,
-    "evEbit": 4.391,
+    "evEbit": 4.357,
     "max52s": 7.76,
     "gov": 2.3,
     "govRespostas": {
@@ -4869,7 +4869,7 @@
       "g11": "—"
     },
     "nota": 8.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:32",
       "alerta": false,
@@ -4947,7 +4947,7 @@
     "divEbit": 1.777,
     "vpa": 9.177,
     "merc": 10.9649,
-    "evEbit": 7.374,
+    "evEbit": 7.394,
     "max52s": 20.46,
     "gov": 2.0,
     "govRespostas": {
@@ -4964,7 +4964,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:34",
       "alerta": false,
@@ -5075,7 +5075,7 @@
     "divEbit": 1.6437,
     "vpa": 9.087,
     "merc": 6.2816,
-    "evEbit": 8.526,
+    "evEbit": 8.496,
     "max52s": 25.84,
     "gov": 2.3,
     "govRespostas": {
@@ -5092,7 +5092,7 @@
       "g11": "—"
     },
     "nota": 4.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:35",
       "alerta": false,
@@ -5181,7 +5181,7 @@
     "divEbit": 0.9728,
     "vpa": 27.274,
     "merc": 42.2838,
-    "evEbit": 5.192,
+    "evEbit": 5.225,
     "max52s": 22.62,
     "gov": 1.8,
     "govRespostas": {
@@ -5198,7 +5198,7 @@
       "g11": "—"
     },
     "nota": 4.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:36",
       "alerta": false,
@@ -5298,7 +5298,7 @@
     "divEbit": 0.9728,
     "vpa": 27.274,
     "merc": 49.7203,
-    "evEbit": 5.931,
+    "evEbit": 5.97,
     "max52s": 26.44,
     "gov": 1.8,
     "govRespostas": {
@@ -5315,7 +5315,7 @@
       "g11": "—"
     },
     "nota": 4.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:37",
       "alerta": true,
@@ -5448,8 +5448,8 @@
     "divEbit": 2.2086,
     "vpa": 4.857,
     "merc": 11.2155,
-    "evEbit": 7.345,
-    "max52s": 7.39,
+    "evEbit": 7.413,
+    "max52s": 7.32,
     "gov": 2.3,
     "govRespostas": {
       "g01": "Sim",
@@ -5465,7 +5465,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:39",
       "alerta": true,
@@ -5609,7 +5609,7 @@
     "divEbit": 0.9851,
     "vpa": 14.54,
     "merc": 13.174,
-    "evEbit": 5.832,
+    "evEbit": 5.834,
     "max52s": 10.49,
     "gov": 1.6,
     "govRespostas": {
@@ -5626,7 +5626,7 @@
       "g11": "—"
     },
     "nota": 6.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:40",
       "alerta": false,
@@ -5704,7 +5704,7 @@
     "divEbit": 0.9851,
     "vpa": 14.54,
     "merc": 14.7744,
-    "evEbit": 5.987,
+    "evEbit": 5.996,
     "max52s": 11.56,
     "gov": 1.6,
     "govRespostas": {
@@ -5721,7 +5721,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:41",
       "alerta": false,
@@ -5860,7 +5860,7 @@
       "g11": "—"
     },
     "nota": 8.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:42",
       "alerta": false,
@@ -5999,7 +5999,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:45",
       "alerta": false,
@@ -6121,7 +6121,7 @@
     "divEbit": -7.5517,
     "vpa": 65.28,
     "merc": 5.0495,
-    "evEbit": 1.21,
+    "evEbit": 1.617,
     "max52s": 66.65,
     "gov": 1.3,
     "govRespostas": {
@@ -6138,7 +6138,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:46",
       "alerta": true,
@@ -6288,7 +6288,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:47",
       "alerta": false,
@@ -6402,7 +6402,7 @@
   "ITSA4": {
     "nome": "Itaúsa S.A.",
     "setor": "Industrials",
-    "dy": 71.0,
+    "dy": 70.0,
     "pl": 8.6111,
     "pvp": 1.6669,
     "roe": 18.925,
@@ -6427,7 +6427,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:49",
       "alerta": false,
@@ -6530,7 +6530,7 @@
   "ITUB3": {
     "nome": "Itaú Unibanco Holding S.A.",
     "setor": "Financial Services",
-    "dy": 49.0,
+    "dy": 48.0,
     "pl": 10.8857,
     "pvp": 2.3139,
     "roe": 21.476,
@@ -6555,7 +6555,7 @@
       "g11": "—"
     },
     "nota": 6.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:50",
       "alerta": false,
@@ -6672,7 +6672,7 @@
       "g11": "—"
     },
     "nota": 6.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:51",
       "alerta": false,
@@ -6794,7 +6794,7 @@
     "divEbit": 1.2156,
     "vpa": 11.325,
     "merc": 7.5885,
-    "evEbit": 5.161,
+    "evEbit": 5.094,
     "max52s": 14.5,
     "gov": 2.3,
     "govRespostas": {
@@ -6811,7 +6811,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:54",
       "alerta": true,
@@ -6926,14 +6926,14 @@
     "nome": "Kepler Weber S.A.",
     "setor": "Industrials",
     "dy": 6.66,
-    "pl": 8.2469,
+    "pl": 8.35,
     "pvp": 1.4509,
     "roe": 18.312,
-    "lpa": 0.81,
+    "lpa": 0.8,
     "divEbit": -0.0697,
     "vpa": 4.604,
     "merc": 1.1574,
-    "evEbit": 6.145,
+    "evEbit": 6.22,
     "max52s": 10.52,
     "gov": 2.3,
     "govRespostas": {
@@ -6950,7 +6950,7 @@
       "g11": "—"
     },
     "nota": 8.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:55",
       "alerta": true,
@@ -7056,7 +7056,7 @@
       "g11": "—"
     },
     "nota": 3.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:57",
       "alerta": false,
@@ -7206,7 +7206,7 @@
       "g11": "—"
     },
     "nota": 8.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:58",
       "alerta": false,
@@ -7345,7 +7345,7 @@
       "g11": "—"
     },
     "nota": 7.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 16:59",
       "alerta": false,
@@ -7451,7 +7451,7 @@
       "g11": "—"
     },
     "nota": 6.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:01",
       "alerta": false,
@@ -7573,7 +7573,7 @@
     "divEbit": 0.5892,
     "vpa": 10.785,
     "merc": 10.9064,
-    "evEbit": 5.299,
+    "evEbit": 5.278,
     "max52s": 17.54,
     "gov": 2.0,
     "govRespostas": {
@@ -7590,7 +7590,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:02",
       "alerta": false,
@@ -7712,7 +7712,7 @@
     "divEbit": 4.8369,
     "vpa": 8.234,
     "merc": 24.6496,
-    "evEbit": 7.463,
+    "evEbit": 7.374,
     "max52s": 27.66,
     "gov": 2.1,
     "govRespostas": {
@@ -7729,7 +7729,7 @@
       "g11": "—"
     },
     "nota": 2.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:04",
       "alerta": true,
@@ -7876,7 +7876,7 @@
   "MGLU3": {
     "nome": "Magazine Luiza S.A.",
     "setor": "Consumer Cyclical",
-    "dy": 47.0,
+    "dy": 45.0,
     "pl": 52.6364,
     "pvp": 0.4022,
     "roe": 0.796,
@@ -7884,7 +7884,7 @@
     "divEbit": 4.6663,
     "vpa": 14.396,
     "merc": 4.4911,
-    "evEbit": 7.648,
+    "evEbit": 7.771,
     "max52s": 11.5524,
     "gov": 2.5,
     "govRespostas": {
@@ -7901,7 +7901,7 @@
       "g11": "—"
     },
     "nota": 6.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:05",
       "alerta": true,
@@ -8011,8 +8011,8 @@
     "lpa": 1.88,
     "divEbit": 1.2768,
     "vpa": 8.278,
-    "merc": 3.5982,
-    "evEbit": 5.027,
+    "merc": 3.5975,
+    "evEbit": 5.044,
     "max52s": 15.96,
     "gov": 2.0,
     "govRespostas": {
@@ -8029,7 +8029,7 @@
       "g11": "—"
     },
     "nota": 7.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:06",
       "alerta": false,
@@ -8151,7 +8151,7 @@
     "divEbit": 3.6925,
     "vpa": 8.828,
     "merc": 33.7268,
-    "evEbit": 7.351,
+    "evEbit": 7.422,
     "max52s": 17.81,
     "gov": 1.8,
     "govRespostas": {
@@ -8168,7 +8168,7 @@
       "g11": "—"
     },
     "nota": 5.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -8212,8 +8212,8 @@
     "lpa": 1.21,
     "divEbit": 3.6498,
     "vpa": 9.729,
-    "merc": 3.2524,
-    "evEbit": 4.175,
+    "merc": 3.2778,
+    "evEbit": 4.199,
     "max52s": 14.97,
     "gov": 2.3,
     "govRespostas": {
@@ -8230,7 +8230,7 @@
       "g11": "—"
     },
     "nota": 5.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:09",
       "alerta": false,
@@ -8341,8 +8341,8 @@
     "divEbit": 2.8979,
     "vpa": 27.347,
     "merc": 1.4692,
-    "evEbit": 4.408,
-    "max52s": 14.3,
+    "evEbit": 4.428,
+    "max52s": 14.15,
     "gov": 2.3,
     "govRespostas": {
       "g01": "Sim",
@@ -8358,7 +8358,7 @@
       "g11": "—"
     },
     "nota": 5.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:10",
       "alerta": false,
@@ -8451,14 +8451,14 @@
     "nome": "Petróleo Brasileiro S.A. - Petrobras",
     "setor": "Energy",
     "dy": 6.95,
-    "pl": 4.669,
+    "pl": 4.6644,
     "pvp": 1.2625,
     "roe": 30.274,
-    "lpa": 10.09,
+    "lpa": 10.1,
     "divEbit": 1.2869,
     "vpa": 37.316,
     "merc": 643.6869,
-    "evEbit": 3.813,
+    "evEbit": 3.789,
     "max52s": 50.69,
     "gov": 0.6,
     "govRespostas": {
@@ -8475,7 +8475,7 @@
       "g11": "—"
     },
     "nota": 6.6,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:12",
       "alerta": true,
@@ -8619,7 +8619,7 @@
     "divEbit": 1.2859,
     "vpa": 3.416,
     "merc": 5.2883,
-    "evEbit": 4.974,
+    "evEbit": 4.94,
     "max52s": 7.7091,
     "gov": 2.1,
     "govRespostas": {
@@ -8636,7 +8636,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:13",
       "alerta": false,
@@ -8736,7 +8736,7 @@
     "divEbit": 1.2859,
     "vpa": 3.416,
     "merc": 5.6856,
-    "evEbit": 5.194,
+    "evEbit": 5.211,
     "max52s": 9.0182,
     "gov": 2.1,
     "govRespostas": {
@@ -8753,7 +8753,7 @@
       "g11": "—"
     },
     "nota": 8.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:14",
       "alerta": false,
@@ -8864,7 +8864,7 @@
     "divEbit": 1.7253,
     "vpa": 35.348,
     "merc": 48.0008,
-    "evEbit": 5.616,
+    "evEbit": 5.533,
     "max52s": 72.98,
     "gov": 2.0,
     "govRespostas": {
@@ -8881,7 +8881,7 @@
       "g11": "—"
     },
     "nota": 2.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:16",
       "alerta": false,
@@ -9058,7 +9058,7 @@
     "divEbit": -2.5355,
     "vpa": 25.158,
     "merc": 33.1137,
-    "evEbit": 3.673,
+    "evEbit": 3.724,
     "max52s": 55.72,
     "gov": 2.4,
     "govRespostas": {
@@ -9075,7 +9075,7 @@
       "g10": "Sim"
     },
     "nota": 6.6,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:17",
       "alerta": false,
@@ -9211,15 +9211,15 @@
   "RAIL3": {
     "nome": "Rumo S.A.",
     "setor": "Industrials",
-    "dy": 74.0,
+    "dy": 75.0,
     "pl": 22.0455,
     "pvp": 1.8661,
     "roe": 8.81,
     "lpa": 0.66,
     "divEbit": 3.1551,
     "vpa": 7.797,
-    "merc": 27.0007,
-    "evEbit": 6.84,
+    "merc": 27.0028,
+    "evEbit": 6.775,
     "max52s": 17.45,
     "gov": 2.0,
     "govRespostas": {
@@ -9236,7 +9236,7 @@
       "g10": "Sim"
     },
     "nota": 3.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:19",
       "alerta": true,
@@ -9391,7 +9391,7 @@
     "divEbit": 2.4169,
     "vpa": 6.234,
     "merc": 1.7599,
-    "evEbit": 6.141,
+    "evEbit": 6.146,
     "max52s": 10.12,
     "gov": 2.3,
     "govRespostas": {
@@ -9408,7 +9408,7 @@
       "g11": "—"
     },
     "nota": 6.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:20",
       "alerta": false,
@@ -9518,8 +9518,8 @@
     "lpa": 1.7,
     "divEbit": 1.18,
     "vpa": 15.107,
-    "merc": 3.27,
-    "evEbit": 3.685,
+    "merc": 3.2753,
+    "evEbit": 3.624,
     "max52s": 14.64,
     "gov": 2.0,
     "govRespostas": {
@@ -9536,7 +9536,7 @@
       "g11": "—"
     },
     "nota": 7.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:22",
       "alerta": false,
@@ -9719,7 +9719,7 @@
       "g11": "—"
     },
     "nota": 9.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 15:00",
       "alerta": false,
@@ -9797,7 +9797,7 @@
     "divEbit": 4.4406,
     "vpa": 13.405,
     "merc": 0.5553,
-    "evEbit": 8.634,
+    "evEbit": 8.698,
     "max52s": 8.92,
     "gov": 2.3,
     "govRespostas": {
@@ -9814,7 +9814,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:23",
       "alerta": false,
@@ -9953,7 +9953,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:24",
       "alerta": false,
@@ -10081,7 +10081,7 @@
       "g11": "—"
     },
     "nota": 7.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:25",
       "alerta": false,
@@ -10159,7 +10159,7 @@
     "divEbit": 0.8877,
     "vpa": 8.4,
     "merc": 11.6212,
-    "evEbit": 1.683,
+    "evEbit": 1.685,
     "max52s": 11.79,
     "gov": 1.6,
     "govRespostas": {
@@ -10176,7 +10176,7 @@
       "g11": "—"
     },
     "nota": 6.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:27",
       "alerta": true,
@@ -10276,7 +10276,7 @@
     "divEbit": 3.494,
     "vpa": 13.888,
     "merc": 2.0852,
-    "evEbit": 6.108,
+    "evEbit": 6.123,
     "max52s": 16.0,
     "gov": 2.0,
     "govRespostas": {
@@ -10293,7 +10293,7 @@
       "g11": "—"
     },
     "nota": 5.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:28",
       "alerta": false,
@@ -10404,7 +10404,7 @@
     "divEbit": 2.249,
     "vpa": 12.821,
     "merc": 93.2982,
-    "evEbit": 8.337,
+    "evEbit": 8.402,
     "max52s": 35.318,
     "gov": 1.9,
     "govRespostas": {
@@ -10421,7 +10421,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:29",
       "alerta": false,
@@ -10576,7 +10576,7 @@
     "divEbit": 1.7921,
     "vpa": 11.9,
     "merc": 1.7311,
-    "evEbit": 4.509,
+    "evEbit": 4.542,
     "max52s": 14.13,
     "gov": 2.3,
     "govRespostas": {
@@ -10593,7 +10593,7 @@
       "g11": "—"
     },
     "nota": 8.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:31",
       "alerta": false,
@@ -10693,7 +10693,7 @@
     "divEbit": 4.4165,
     "vpa": 10.93,
     "merc": 8.1396,
-    "evEbit": 8.267,
+    "evEbit": 8.25,
     "max52s": 19.48,
     "gov": 2.3,
     "govRespostas": {
@@ -10710,7 +10710,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:32",
       "alerta": false,
@@ -10821,7 +10821,7 @@
     "divEbit": 4.3182,
     "vpa": 9.863,
     "merc": 11.0284,
-    "evEbit": 8.6,
+    "evEbit": 8.656,
     "max52s": 27.52,
     "gov": 2.5,
     "govRespostas": {
@@ -10838,7 +10838,7 @@
       "g11": "—"
     },
     "nota": 4.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-06-08 14:00",
       "alerta": false,
@@ -10949,7 +10949,7 @@
     "divEbit": 2.3751,
     "vpa": 22.851,
     "merc": 6.6491,
-    "evEbit": 4.49,
+    "evEbit": 4.528,
     "max52s": 21.7,
     "gov": 2.3,
     "govRespostas": {
@@ -10966,7 +10966,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:35",
       "alerta": false,
@@ -11099,7 +11099,7 @@
     "divEbit": 4.7035,
     "vpa": 9.437,
     "merc": 1.1116,
-    "evEbit": 10.647,
+    "evEbit": 10.699,
     "max52s": 10.8332,
     "gov": 2.3,
     "govRespostas": {
@@ -11116,7 +11116,7 @@
       "g11": "—"
     },
     "nota": 4.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:36",
       "alerta": false,
@@ -11266,7 +11266,7 @@
       "g10": "Sim"
     },
     "nota": 6.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:39",
       "alerta": false,
@@ -11447,14 +11447,14 @@
     "nome": "Transmissora Aliança de Energia Elétrica S.A.",
     "setor": "Utilities",
     "dy": 8.01,
-    "pl": 39.1792,
-    "pvp": 1.7975,
+    "pl": 39.5524,
+    "pvp": 1.7727,
     "roe": 20.859,
-    "lpa": 1.06,
+    "lpa": 1.05,
     "divEbit": 4.356,
-    "vpa": 23.104,
+    "vpa": 23.428,
     "merc": 42.9213,
-    "evEbit": 10.125,
+    "evEbit": 10.123,
     "max52s": 46.11,
     "gov": 1.8,
     "govRespostas": {
@@ -11471,7 +11471,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:41",
       "alerta": false,
@@ -11587,13 +11587,13 @@
     "setor": "Utilities",
     "dy": 8.16,
     "pl": 8.6835,
-    "pvp": 1.7975,
+    "pvp": 1.7727,
     "roe": 20.859,
     "lpa": 1.58,
     "divEbit": 4.356,
     "vpa": 23.428,
     "merc": 14.1796,
-    "evEbit": 6.267,
+    "evEbit": 6.261,
     "max52s": 15.2,
     "gov": 1.8,
     "govRespostas": {
@@ -11610,7 +11610,7 @@
       "g11": "—"
     },
     "nota": 4.8,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:42",
       "alerta": false,
@@ -11693,13 +11693,13 @@
     "setor": "Utilities",
     "dy": 8.0,
     "pl": 8.8924,
-    "pvp": 1.7975,
+    "pvp": 1.7727,
     "roe": 20.859,
     "lpa": 1.58,
     "divEbit": 4.356,
     "vpa": 23.428,
     "merc": 14.5206,
-    "evEbit": 6.287,
+    "evEbit": 6.307,
     "max52s": 15.49,
     "gov": 1.8,
     "govRespostas": {
@@ -11716,7 +11716,7 @@
       "g11": "—"
     },
     "nota": 5.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:43",
       "alerta": false,
@@ -11816,7 +11816,7 @@
     "divEbit": 0.4711,
     "vpa": 12.555,
     "merc": 4.2471,
-    "evEbit": 5.68,
+    "evEbit": 5.837,
     "max52s": 37.94,
     "gov": 2.0,
     "govRespostas": {
@@ -11833,7 +11833,7 @@
       "g11": "—"
     },
     "nota": 7.6,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:44",
       "alerta": false,
@@ -11966,7 +11966,7 @@
     "divEbit": 2.0854,
     "vpa": 9.522,
     "merc": 19.6721,
-    "evEbit": 15.928,
+    "evEbit": 15.801,
     "max52s": 48.4,
     "gov": 2.5,
     "govRespostas": {
@@ -11983,7 +11983,7 @@
       "g11": "—"
     },
     "nota": 4.4,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:46",
       "alerta": false,
@@ -12133,7 +12133,7 @@
       "g11": "—"
     },
     "nota": 7.7,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:47",
       "alerta": false,
@@ -12221,9 +12221,9 @@
     "lpa": 3.28,
     "divEbit": 1.1289,
     "vpa": 15.411,
-    "merc": 39.8156,
-    "evEbit": 5.626,
-    "max52s": 37.59,
+    "merc": 39.8755,
+    "evEbit": 5.74,
+    "max52s": 37.6,
     "gov": 2.5,
     "govRespostas": {
       "g01": "Sim",
@@ -12239,7 +12239,7 @@
       "g11": "—"
     },
     "nota": 6.8,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:48",
       "alerta": true,
@@ -12400,7 +12400,7 @@
       "g11": "—"
     },
     "nota": 4.2,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:50",
       "alerta": false,
@@ -12506,7 +12506,7 @@
       "g11": "—"
     },
     "nota": 6.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:50",
       "alerta": false,
@@ -12566,10 +12566,10 @@
     "nome": "Vale S.A.",
     "setor": "Basic Materials",
     "dy": 7.01,
-    "pl": 30.8314,
+    "pl": 30.7109,
     "pvp": 1.7016,
     "roe": 4.115,
-    "lpa": 2.55,
+    "lpa": 2.56,
     "divEbit": 1.0366,
     "vpa": 46.204,
     "merc": 334.5881,
@@ -12590,7 +12590,7 @@
       "g11": "—"
     },
     "nota": 3.9,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:52",
       "alerta": false,
@@ -12734,8 +12734,8 @@
     "divEbit": 1.5224,
     "vpa": 18.221,
     "merc": 44.2479,
-    "evEbit": 5.722,
-    "max52s": 37.16,
+    "evEbit": 5.735,
+    "max52s": 37.2,
     "gov": 2.0,
     "govRespostas": {
       "g01": "Sim",
@@ -12751,7 +12751,7 @@
       "g11": "—"
     },
     "nota": 5.3,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:53",
       "alerta": true,
@@ -12917,7 +12917,7 @@
     "divEbit": 0.4781,
     "vpa": 21.353,
     "merc": 1.3983,
-    "evEbit": 4.505,
+    "evEbit": 4.527,
     "max52s": 23.7,
     "gov": 2.0,
     "govRespostas": {
@@ -12934,7 +12934,7 @@
       "g11": "—"
     },
     "nota": 8.0,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:55",
       "alerta": false,
@@ -13084,7 +13084,7 @@
       "g11": "—"
     },
     "nota": 7.5,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:56",
       "alerta": false,
@@ -13200,13 +13200,13 @@
     "setor": "Industrials",
     "dy": 80.0,
     "pl": 34.7248,
-    "pvp": 11.5106,
+    "pvp": 12.4645,
     "roe": 30.791,
     "lpa": 1.49,
     "divEbit": -0.3493,
-    "vpa": 4.495,
+    "vpa": 4.151,
     "merc": 217.0922,
-    "evEbit": 25.531,
+    "evEbit": 25.373,
     "max52s": 54.53,
     "gov": 2.5,
     "govRespostas": {
@@ -13223,7 +13223,7 @@
       "g11": "—"
     },
     "nota": 5.1,
-    "atualizado": "04/09/2026 20:50 [auto]",
+    "atualizado": "07/09/2026 21:05 [auto]",
     "mr": {
       "data": "2026-05-24 17:58",
       "alerta": false,
