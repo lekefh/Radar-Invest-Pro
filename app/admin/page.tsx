@@ -425,6 +425,7 @@ export default function AdminUsuariosPage() {
         {carregando ? (
           <div style={{ color: '#6b84a8', textAlign: 'center', padding: '60px', fontSize: '14px' }}>Carregando...</div>
         ) : (
+          <>
           <div className="admin-desktop" style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflow: 'hidden' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
@@ -533,6 +534,7 @@ export default function AdminUsuariosPage() {
               />
             ))}
           </div>
+          </>
         )}
 
         <div style={{ marginTop: '16px', fontSize: '12px', color: '#3d4f6a' }}>
