@@ -201,6 +201,98 @@ export async function ensureIRTables() {
   await sql`CREATE INDEX IF NOT EXISTS idx_ir_darfs_user ON ir_darfs(user_id)`
 }
 
+/** Cria/garante as tabelas do módulo de Finanças Pessoais (idempotente). */
+export async function ensureFinancasTables() {
+  const sql = getDb()
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS extrato_batches (
+      id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      user_id          INTEGER NOT NULL REFERENCES usuarios_web(id) ON DELETE CASCADE,
+      banco            TEXT,
+      importado_em     TIMESTAMPTZ DEFAULT NOW(),
+      total_transacoes INTEGER DEFAULT 0,
+      data_inicio      DATE,
+      data_fim         DATE,
+      descricao        TEXT,
+      revertido        BOOLEAN DEFAULT FALSE,
+      revertido_em     TIMESTAMPTZ
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS transacoes_pessoais (
+      id               SERIAL PRIMARY KEY,
+      user_id          INTEGER NOT NULL REFERENCES usuarios_web(id) ON DELETE CASCADE,
+      data             DATE NOT NULL,
+      historico        TEXT NOT NULL,
+      descricao        TEXT DEFAULT '',
+      valor            NUMERIC(14,2) NOT NULL,
+      tipo_lancamento  TEXT NOT NULL DEFAULT 'despesa',
+      tipo_extrato     TEXT DEFAULT 'conta',
+      categoria        TEXT DEFAULT '',
+      banco            TEXT,
+      periodo          TEXT,
+      ignorar          BOOLEAN DEFAULT FALSE,
+      batch_id         UUID REFERENCES extrato_batches(id),
+      criado_em        TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS categorias_pessoais (
+      id       SERIAL PRIMARY KEY,
+      user_id  INTEGER REFERENCES usuarios_web(id) ON DELETE CASCADE,
+      nome     TEXT NOT NULL,
+      tipo     TEXT DEFAULT 'despesa',
+      cor      TEXT,
+      oculta   BOOLEAN DEFAULT FALSE
+    )
+  `
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS financas_config (
+      user_id       INTEGER PRIMARY KEY REFERENCES usuarios_web(id) ON DELETE CASCADE,
+      saldo_inicial NUMERIC(14,2) DEFAULT 0,
+      atualizado_em TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  await sql`CREATE UNIQUE INDEX IF NOT EXISTS idx_cat_pessoais_sistema ON categorias_pessoais(nome) WHERE user_id IS NULL`
+  await sql`CREATE INDEX IF NOT EXISTS idx_tp_user_data ON transacoes_pessoais(user_id, data)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_tp_user_cat  ON transacoes_pessoais(user_id, categoria)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_eb_user      ON extrato_batches(user_id)`
+
+  // Seed categorias do sistema (user_id IS NULL) — idempotente via unique index
+  const categorias: [string, string][] = [
+    ['Mercado',                'despesa'],
+    ['Restaurante',            'despesa'],
+    ['Plataformas Digitais',   'despesa'],
+    ['Combustível',            'despesa'],
+    ['Transporte',             'despesa'],
+    ['Saúde / Farmácia',      'despesa'],
+    ['Educação',              'despesa'],
+    ['Lazer / Entretenimento', 'despesa'],
+    ['Moradia',                'despesa'],
+    ['Vestuário / Compras',   'despesa'],
+    ['Seguros',                'despesa'],
+    ['Investimentos / Resgate','despesa'],
+    ['Transferências / PIX',  'despesa'],
+    ['Pagamento Cartão',      'despesa'],
+    ['Impostos / Taxas',       'despesa'],
+    ['Receita / Entrada',      'receita'],
+    ['Alimentação',           'despesa'],
+    ['Outros',                 'despesa'],
+  ]
+  for (const [nome, tipo] of categorias) {
+    await sql`
+      INSERT INTO categorias_pessoais (user_id, nome, tipo)
+      VALUES (NULL, ${nome}, ${tipo})
+      ON CONFLICT (nome) WHERE user_id IS NULL DO NOTHING
+    `
+  }
+}
+
 /**
  * Reconstrói a tabela carteira a partir da posição base + todas as movimentações restantes.
  * Processamento em memória (JS) — apenas 3 queries no banco, independente do volume.

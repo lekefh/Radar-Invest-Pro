@@ -18,14 +18,36 @@ const PLANOS = [
       'Nota de qualidade 0–10',
     ],
     bloqueados: [
+      'Finanças Pessoais',
       'Carteira ilimitada',
       'Valuation DCF completo',
       'TIR Real implícita vs NTN-B',
       'Relatórios PDF',
       'Alertas de variação −15% e −30%',
-      'Análise detalhada da carteira',
-      'Indicar empresa para análise',
       'Suporte WhatsApp',
+    ],
+  },
+  {
+    id: 'starter',
+    nome: 'Starter',
+    preco: 19.90,
+    precoAnual: 199,
+    cor: '#4dd0e1',
+    destaque: false,
+    recursos: [
+      'Finanças Pessoais completo',
+      '  · Importar extratos CSV e PDF',
+      '  · Categorização automática',
+      '  · Controle de saldo (caixa inicial/final)',
+      '  · Gráficos e relatórios mensais',
+      '2 ações monitoradas',
+      'Dashboard fundamentalista',
+    ],
+    bloqueados: [
+      'Carteira ilimitada',
+      'Valuation DCF completo',
+      'TIR Real implícita vs NTN-B',
+      'Relatórios PDF',
     ],
   },
   {
@@ -116,7 +138,7 @@ export default function PlanosPage() {
           .planos-nav { padding: 0 16px !important; }
           .planos-nav-logo-text { font-size: 14px !important; }
           .planos-nav-actions a { padding: 7px 12px !important; font-size: 12px !important; }
-          .planos-compare-row { grid-template-columns: 1.5fr 1fr 1fr 1fr !important; }
+          .planos-compare-row { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr !important; }
           .planos-compare-row > div { padding: 10px 6px !important; font-size: 11.5px !important; }
           .planos-compare-row > div:first-child { padding-left: 12px !important; }
         }
@@ -270,53 +292,53 @@ export default function PlanosPage() {
       </div>
 
       {/* Comparativo detalhado */}
-      <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 80px' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 80px' }}>
         <h2 style={{ textAlign: 'center', fontFamily: 'Space Grotesk, sans-serif', fontSize: 26, fontWeight: 700, marginBottom: 32, color: '#e8edf4' }}>
           Comparativo completo
         </h2>
         <div style={{ background: 'rgba(255,255,255,.025)', border: '1px solid rgba(255,255,255,.07)', borderRadius: 12, overflow: 'hidden' }}>
+          {/* Header do comparativo */}
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
+            <div style={{ padding: '12px 20px', fontSize: 12, color: '#6b84a8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>Recurso</div>
+            {[['Gratuito','#6b84a8'],['Starter','#4dd0e1'],['Essencial','#e8a020'],['Pro','#66BB6A']].map(([n, c]) => (
+              <div key={n} style={{ padding: '12px 12px', textAlign: 'center', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, color: c }}>{n}</div>
+            ))}
+          </div>
           {[
-            { recurso: 'Ações monitoradas',             gratuito: '2',    essencial: 'Ilimitadas', pro: 'Ilimitadas' },
-            { recurso: 'Dashboard fundamentalista',      gratuito: '✓',    essencial: '✓',          pro: '✓' },
-            { recurso: 'Score de Governança',            gratuito: '✓',    essencial: '✓',          pro: '✓' },
-            { recurso: 'Nota de qualidade 0–10',         gratuito: '✓',    essencial: '✓',          pro: '✓' },
-            { recurso: 'Valuation DCF completo',         gratuito: '—',    essencial: '✓',          pro: '✓' },
-            { recurso: 'TIR Real implícita vs NTN-B',    gratuito: '—',    essencial: '✓',          pro: '✓' },
-            { recurso: 'Relatórios PDF',                 gratuito: '—',    essencial: '2/mês',      pro: '8/mês' },
-            { recurso: 'Alertas de variação',            gratuito: '—',    essencial: '✓',          pro: '✓' },
-            { recurso: 'Notícias e Fatos Relevantes',   gratuito: '—',    essencial: '✓',          pro: '✓' },
-            { recurso: 'Concentração da carteira',       gratuito: '—',    essencial: '—',          pro: '✓' },
-            { recurso: 'Métricas ponderadas',            gratuito: '—',    essencial: '—',          pro: '✓' },
-            { recurso: 'Nota média da carteira',         gratuito: '—',    essencial: '—',          pro: '✓' },
-            { recurso: 'Indicar empresa para análise',   gratuito: '—',    essencial: '—',          pro: '1/mês' },
-            { recurso: 'Suporte WhatsApp prioritário',   gratuito: '—',    essencial: '—',          pro: '✓' },
+            { recurso: 'Finanças Pessoais',             g: '—', s: '✓',   e: '✓',          p: '✓' },
+            { recurso: 'Importar extrato CSV/PDF',       g: '—', s: '✓',   e: '✓',          p: '✓' },
+            { recurso: 'Saldo inicial / final',          g: '—', s: '✓',   e: '✓',          p: '✓' },
+            { recurso: 'Ações monitoradas',              g: '2', s: '2',   e: 'Ilimitadas', p: 'Ilimitadas' },
+            { recurso: 'Dashboard fundamentalista',      g: '✓', s: '✓',   e: '✓',          p: '✓' },
+            { recurso: 'Valuation DCF completo',         g: '—', s: '—',   e: '✓',          p: '✓' },
+            { recurso: 'TIR Real implícita vs NTN-B',    g: '—', s: '—',   e: '✓',          p: '✓' },
+            { recurso: 'Relatórios PDF',                 g: '—', s: '—',   e: '2/mês',      p: '8/mês' },
+            { recurso: 'Alertas de variação',            g: '—', s: '—',   e: '✓',          p: '✓' },
+            { recurso: 'Notícias e Fatos Relevantes',    g: '—', s: '—',   e: '✓',          p: '✓' },
+            { recurso: 'Análise detalhada da carteira',  g: '—', s: '—',   e: '—',          p: '✓' },
+            { recurso: 'Indicar empresa para análise',   g: '—', s: '—',   e: '—',          p: '1/mês' },
+            { recurso: 'Suporte WhatsApp prioritário',   g: '—', s: '—',   e: '—',          p: '✓' },
           ].map((row, i) => (
-            <div key={row.recurso} className="planos-compare-row" style={{
-              display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr',
+            <div key={row.recurso} style={{
+              display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr',
               borderBottom: i < 12 ? '1px solid rgba(255,255,255,.05)' : 'none',
               background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,.015)',
             }}>
-              <div style={{ padding: '13px 20px', fontSize: 13.5, color: '#b8c4d4' }}>{row.recurso}</div>
-              {[row.gratuito, row.essencial, row.pro].map((v, j) => (
-                <div key={j} style={{ padding: '13px 12px', textAlign: 'center', fontSize: 13, fontWeight: 600,
-                  color: v === '—' ? 'rgba(255,255,255,.2)' : v === '✓' || v.includes('/') || v === 'Ilimitadas' || v === '2'
-                    ? (j === 2 ? '#66BB6A' : j === 1 ? '#e8a020' : '#6b84a8')
-                    : '#6b84a8'
+              <div style={{ padding: '12px 20px', fontSize: 13, color: '#b8c4d4' }}>{row.recurso}</div>
+              {[
+                [row.g, '#6b84a8'],
+                [row.s, '#4dd0e1'],
+                [row.e, '#e8a020'],
+                [row.p, '#66BB6A'],
+              ].map(([v, c], j) => (
+                <div key={j} style={{ padding: '12px 12px', textAlign: 'center', fontSize: 13, fontWeight: 600,
+                  color: v === '—' ? 'rgba(255,255,255,.2)' : c,
                 }}>
                   {v}
                 </div>
               ))}
             </div>
           ))}
-          {/* Header do comparativo */}
-          <div className="planos-compare-row" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)', order: -1 }}>
-            <div style={{ padding: '12px 20px', fontSize: 12, color: '#6b84a8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>Recurso</div>
-            {['Gratuito', 'Essencial', 'Pro'].map((n, i) => (
-              <div key={n} style={{ padding: '12px 12px', textAlign: 'center', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1,
-                color: i === 2 ? '#66BB6A' : i === 1 ? '#e8a020' : '#6b84a8'
-              }}>{n}</div>
-            ))}
-          </div>
         </div>
       </div>
 
