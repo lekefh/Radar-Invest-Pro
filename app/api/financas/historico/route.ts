@@ -15,16 +15,23 @@ export async function GET(req: NextRequest) {
     const sql    = getDb()
     const userId = Number(session.sub)
 
-    const params  = req.nextUrl.searchParams
-    const meses   = Math.min(24, Number(params.get('meses') || 12))
+    const params     = req.nextUrl.searchParams
+    const meses      = Math.min(24, Number(params.get('meses') || 12))
+    const categorias = params.get('categorias') || '' // vírgula-separado
 
-    // Evolução mensal (últimos N meses)
+    // Evolução mensal filtrada por categorias (se fornecidas)
     const evolucao = await sql`
       SELECT
         periodo,
-        SUM(CASE WHEN tipo_lancamento = 'receita'          AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
-        SUM(CASE WHEN tipo_lancamento = 'despesa'          AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas,
-        SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao
+        SUM(CASE WHEN tipo_lancamento = 'receita' AND NOT ignorar
+              AND (${categorias} = '' OR categoria = ANY(string_to_array(${categorias}, ',')))
+            THEN ABS(valor) ELSE 0 END)::float AS entradas,
+        SUM(CASE WHEN tipo_lancamento = 'despesa' AND NOT ignorar
+              AND (${categorias} = '' OR categoria = ANY(string_to_array(${categorias}, ',')))
+            THEN ABS(valor) ELSE 0 END)::float AS saidas,
+        SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao' AND NOT ignorar
+              AND (${categorias} = '' OR categoria = ANY(string_to_array(${categorias}, ',')))
+            THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao
       FROM transacoes_pessoais
       WHERE user_id = ${userId}
         AND data >= NOW() - (${meses} || ' months')::interval

@@ -184,14 +184,15 @@ export default function FinancasPage() {
   // ── Gráficos ────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (aba !== 'graficos' || !plano) return
+    const cats = filCatsGraf.join(',')
     Promise.all([
-      fetch('/api/financas/historico?meses=12').then(r => r.json()),
+      fetch(`/api/financas/historico?meses=12&categorias=${encodeURIComponent(cats)}`).then(r => r.json()),
       fetch(`/api/financas/historico?meses=12&periodo=${periodoGraf}`).then(r => r.json()),
-    ]).then(([evo, cats]) => {
+    ]).then(([evo, topData]) => {
       setHistoricoEvo(evo.evolucao || [])
-      setTopCats(cats.top_categorias || [])
+      setTopCats(topData.top_categorias || [])
     })
-  }, [aba, plano, periodoGraf])
+  }, [aba, plano, periodoGraf, filCatsGraf])
 
   // ── Upload ───────────────────────────────────────────────────────────────────
   async function handleUpload() {
@@ -925,36 +926,57 @@ export default function FinancasPage() {
               ) : (
                 <div style={{ overflowX: 'auto' }}>
                   {(() => {
-                    // Zera entradas no gráfico se só categorias de despesa estão selecionadas
-                    const soDespesa = filCatsGraf.length > 0 &&
-                      filCatsGraf.every(c => {
-                        const found = resumo?.por_categoria?.find(p => p.categoria === c)
-                        return !found || found.tipo_lancamento !== 'receita'
-                      })
-                    const maxVal = Math.max(...historicoEvo.map(x => Math.max(soDespesa ? 0 : x.entradas, x.saidas)), 1)
+                    const temEntradas = historicoEvo.some(m => m.entradas > 0)
+                    const maxVal = Math.max(...historicoEvo.map(x => Math.max(x.entradas, x.saidas)), 1)
+                    const fmtK = (v: number) => v >= 1000 ? `${(v / 1000).toFixed(1)}k` : v.toFixed(0)
                     return (
-                      <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', minWidth: historicoEvo.length * 60, height: 180, paddingBottom: 24, position: 'relative' }}>
-                        <div style={{ position: 'absolute', bottom: 24, left: 0, right: 0, height: 1, background: 'rgba(255,255,255,.1)' }} />
-                        {historicoEvo.map(m => {
-                          const hE = Math.round(((soDespesa ? 0 : m.entradas) / maxVal) * 130)
-                          const hS = Math.round((m.saidas / maxVal) * 130)
-                          return (
-                            <div key={m.periodo} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minWidth: 50 }}>
-                              <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 130 }}>
-                                {!soDespesa && <div title={`Entradas: ${fmt(m.entradas)}`} style={{ width: 14, height: hE, background: 'rgba(102,187,106,.75)', borderRadius: '2px 2px 0 0', cursor: 'default' }} />}
-                                <div title={`Saídas: ${fmt(m.saidas)}`} style={{ width: 14, height: hS, background: 'rgba(239,83,80,.75)', borderRadius: '2px 2px 0 0', cursor: 'default' }} />
+                      <div>
+                        <div style={{ display: 'flex', gap: 4, alignItems: 'flex-end', minWidth: historicoEvo.length * 72, height: 200, paddingBottom: 0, position: 'relative' }}>
+                          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 1, background: 'rgba(255,255,255,.1)' }} />
+                          {historicoEvo.map(m => {
+                            const hE = Math.round((m.entradas / maxVal) * 130)
+                            const hS = Math.round((m.saidas / maxVal) * 130)
+                            return (
+                              <div key={m.periodo} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minWidth: 60 }}>
+                                {/* Valores acima das barras */}
+                                <div style={{ display: 'flex', gap: 2, fontSize: 8, marginBottom: 2, width: '100%', justifyContent: 'center' }}>
+                                  {temEntradas && m.entradas > 0 && (
+                                    <span style={{ color: '#66BB6A', fontWeight: 700 }}>{fmtK(m.entradas)}</span>
+                                  )}
+                                  {m.saidas > 0 && (
+                                    <span style={{ color: '#ef5350', fontWeight: 700 }}>{fmtK(m.saidas)}</span>
+                                  )}
+                                </div>
+                                {/* Barras */}
+                                <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 130 }}>
+                                  {temEntradas && (
+                                    <div
+                                      title={`Entradas: ${fmt(m.entradas)}`}
+                                      style={{ width: 14, height: Math.max(hE, m.entradas > 0 ? 2 : 0), background: 'rgba(102,187,106,.75)', borderRadius: '2px 2px 0 0', cursor: 'default', transition: 'height .3s' }}
+                                    />
+                                  )}
+                                  <div
+                                    title={`Saídas: ${fmt(m.saidas)}`}
+                                    style={{ width: 14, height: Math.max(hS, m.saidas > 0 ? 2 : 0), background: 'rgba(239,83,80,.75)', borderRadius: '2px 2px 0 0', cursor: 'default', transition: 'height .3s' }}
+                                  />
+                                </div>
+                                {/* Rótulo do mês */}
+                                <div style={{ fontSize: 9, color: '#6b84a8', marginTop: 4, textAlign: 'center' }}>{m.periodo.substring(5)}</div>
+                                {/* Total saída pequeno */}
+                                <div style={{ fontSize: 8, color: '#4a5d73', textAlign: 'center', marginTop: 1 }}>
+                                  {m.saidas > 0 ? fmt(m.saidas).replace('R$ ','R$') : ''}
+                                </div>
                               </div>
-                              <div style={{ fontSize: 9, color: '#6b84a8', marginTop: 4, textAlign: 'center' }}>{m.periodo.substring(5)}</div>
-                            </div>
-                          )
-                        })}
+                            )
+                          })}
+                        </div>
+                        <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 12 }}>
+                          {temEntradas && <span style={{ color: '#66BB6A' }}>■ Entradas</span>}
+                          <span style={{ color: '#ef5350' }}>■ Saídas</span>
+                        </div>
                       </div>
                     )
                   })()}
-                  <div style={{ display: 'flex', gap: 16, marginTop: 4, fontSize: 12 }}>
-                    <span style={{ color: '#66BB6A' }}>■ Entradas</span>
-                    <span style={{ color: '#ef5350' }}>■ Saídas</span>
-                  </div>
                 </div>
               )}
             </div>
