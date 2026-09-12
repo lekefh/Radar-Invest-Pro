@@ -408,7 +408,7 @@ export default function FinancasPage() {
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                   <input
                     ref={fileRef}
-                    type="file" accept=".csv,.txt,.pdf"
+                    type="file" accept=".csv,.txt,.pdf,.xls,.xlsx"
                     onChange={e => setArquivo(e.target.files?.[0] || null)}
                     style={{ display: 'none' }}
                   />
@@ -422,7 +422,7 @@ export default function FinancasPage() {
                 <button onClick={handleUpload} disabled={!arquivo || uploadando} style={{ ...btnPrimary, opacity: (!arquivo || uploadando) ? 0.5 : 1 }}>
                   {uploadando ? 'Processando…' : 'Analisar arquivo'}
                 </button>
-                <span style={{ fontSize: 12, color: '#6b84a8' }}>Aceita CSV, TXT ou PDF</span>
+                <span style={{ fontSize: 12, color: '#6b84a8' }}>Aceita CSV, TXT, PDF, XLS ou XLSX</span>
               </div>
 
               {msgUpload && (

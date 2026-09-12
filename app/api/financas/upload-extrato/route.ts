@@ -1,8 +1,111 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
+import * as XLSX from 'xlsx'
 import { getSession } from '@/lib/auth'
 import { ensureFinancasTables } from '@/lib/db'
 import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, TransacaoPreview } from '@/lib/financas-utils'
+
+// ── Parser de valor para células Excel ────────────────────────────────────────
+function parseValorXLS(s: string | number): number {
+  if (typeof s === 'number') return s
+  const clean = String(s || '').trim().replace(/[R$\s()]/g, '')
+  if (!clean || clean === '-') return 0
+  if (clean.includes('.') && clean.includes(','))
+    return parseFloat(clean.replace(/\./g, '').replace(',', '.')) || 0
+  if (clean.includes(','))
+    return parseFloat(clean.replace(',', '.')) || 0
+  return parseFloat(clean) || 0
+}
+
+// ── Parser XLS/XLSX Bradesco (conta corrente e fatura) ───────────────────────
+function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
+  const wb   = XLSX.read(buffer, { type: 'buffer' })
+  const ws   = wb.Sheets[wb.SheetNames[0]]
+  const rows = XLSX.utils.sheet_to_json<string[]>(ws, { header: 1, raw: false, defval: '' }) as string[][]
+
+  let headerIdx = -1
+  let anoBase   = new Date().getFullYear()
+
+  // Encontra linha de cabeçalho e tenta extrair o ano das primeiras 20 linhas
+  for (let i = 0; i < Math.min(rows.length, 20); i++) {
+    const joined  = rows[i].join(' ')
+    const yearM   = joined.match(/\b(20\d{2})\b/)
+    if (yearM) anoBase = parseInt(yearM[1])
+
+    const c0 = String(rows[i][0] || '').toLowerCase().trim()
+    const c1 = String(rows[i][1] || '').toLowerCase().trim()
+    if (c0 === 'data' && (c1.includes('hist') || c1.includes('desc'))) {
+      headerIdx = i
+      break
+    }
+  }
+
+  if (headerIdx < 0) return []
+
+  const header = rows[headerIdx].map(h => String(h || '').toLowerCase().trim())
+  const hasCred   = header.some(h => h.includes('cr') && h.includes('r$'))
+  const hasValorR = header.some(h => h.includes('valor') && h.includes('r$'))
+  const isFatura  = !hasCred && hasValorR
+
+  const iCred  = hasCred   ? header.findIndex(h => h.includes('cr') && h.includes('r$')) : -1
+  const iDebi  = hasCred   ? header.findIndex(h => h.includes('r$') && !h.includes('cr') && h.includes('d')) : -1
+  const iValR  = hasValorR ? header.findIndex(h => h.includes('valor') && h.includes('r$')) : -1
+
+  const bancoFinal  = banco || 'Bradesco'
+  const transacoes: TransacaoPreview[] = []
+
+  for (let i = headerIdx + 1; i < rows.length; i++) {
+    const cols    = rows[i]
+    const dataRaw = String(cols[0] || '').trim()
+    const hist    = String(cols[1] || '').trim()
+
+    // Linha sem data válida → detalhe/continuação ou rodapé
+    if (!dataRaw.match(/^\d{1,2}\//)) continue
+    if (!hist) continue
+
+    const hl = hist.toLowerCase()
+    if (hl === 'saldo anterior' || hl.startsWith('saldo invest')) continue
+    if (hl.startsWith('sac ') || hl.startsWith('alô bradesco') || hl.startsWith('ouvidoria')) break
+    if (hl.includes('total da fatura') || hl.includes('cotação do dólar') || hl.includes('cotacao')) break
+
+    // Data: DD/MM/AA, DD/MM/AAAA ou DD/MM
+    const dm = dataRaw.match(/^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?/)
+    if (!dm) continue
+    const d  = dm[1].padStart(2, '0')
+    const mo = dm[2].padStart(2, '0')
+    const yr = dm[3]
+      ? (dm[3].length === 2 ? '20' + dm[3] : dm[3])
+      : String(anoBase)
+    const data = `${yr}-${mo}-${d}`
+
+    let valor = 0
+    if (isFatura && iValR >= 0) {
+      valor = -Math.abs(parseValorXLS(cols[iValR]))
+    } else if (!isFatura) {
+      const cred = iCred >= 0 ? parseValorXLS(cols[iCred]) : 0
+      const debi = iDebi >= 0 ? parseValorXLS(cols[iDebi]) : 0
+      if (cred > 0)    valor = cred
+      else if (debi !== 0) valor = -Math.abs(debi)
+    }
+
+    if (valor === 0) continue
+
+    const tipo_lancamento = detectarTipo(hist, valor)
+    transacoes.push({
+      data,
+      historico: hist,
+      descricao: '',
+      valor,
+      tipo_lancamento: isFatura && tipo_lancamento !== 'pagamento_cartao' ? 'despesa' : tipo_lancamento,
+      tipo_extrato: isFatura ? 'cartao' : 'conta',
+      categoria: categorizar(hist),
+      banco: bancoFinal,
+      periodo: data.substring(0, 7),
+    })
+  }
+
+  return transacoes
+}
 
 // ── Prompt 1: extração inicial ────────────────────────────────────────────────
 const PROMPT_EXTRATO = `Você é um especialista em extratos bancários e faturas de cartão de crédito brasileiros.
@@ -99,6 +202,35 @@ export async function POST(req: NextRequest) {
       }
 
       return NextResponse.json({ transacoes, total: transacoes.length, banco: banco || 'Não informado' })
+    }
+
+    // ── XLS / XLSX ───────────────────────────────────────────────────────────
+    if (nome.endsWith('.xls') || nome.endsWith('.xlsx')) {
+      const bytes     = await file.arrayBuffer()
+      const buffer    = Buffer.from(bytes)
+      const transacoes = parseXLSBradesco(buffer, banco || 'Bradesco')
+
+      if (transacoes.length === 0) {
+        return NextResponse.json({ erro: 'Nenhuma transação encontrada no arquivo Excel. Verifique se é um extrato Bradesco Internet Banking.' }, { status: 422 })
+      }
+
+      // Mesma validação de mismatch do CSV
+      const tiposDetectados = new Set(transacoes.map(t => t.tipo_extrato))
+      const arquivoEhCartao = tiposDetectados.has('cartao') && !tiposDetectados.has('conta')
+      const arquivoEhConta  = tiposDetectados.has('conta')  && !tiposDetectados.has('cartao')
+
+      if (tipoExtratoForm === 'cartao' && arquivoEhConta) {
+        return NextResponse.json({
+          erro: 'Arquivo detectado como extrato de conta corrente, mas você selecionou "Fatura Cartão de Crédito". Altere o tipo e tente novamente.',
+        }, { status: 422 })
+      }
+      if (tipoExtratoForm === 'conta' && arquivoEhCartao) {
+        return NextResponse.json({
+          erro: 'Arquivo detectado como fatura de cartão de crédito, mas você selecionou "Conta Corrente / Poupança". Altere o tipo e tente novamente.',
+        }, { status: 422 })
+      }
+
+      return NextResponse.json({ transacoes, total: transacoes.length, banco: banco || 'Bradesco' })
     }
 
     // ── PDF ───────────────────────────────────────────────────────────────────
