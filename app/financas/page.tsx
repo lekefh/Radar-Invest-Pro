@@ -261,6 +261,15 @@ export default function FinancasPage() {
     carregarTransacoes()
   }
 
+  async function toggleIgnorar(t: Transacao) {
+    await fetch(`/api/financas/transacoes/${t.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ignorar: !t.ignorar }),
+    })
+    setTransacoes(ts => ts.map(x => x.id === t.id ? { ...x, ignorar: !x.ignorar } : x))
+  }
+
   async function excluirTransacao(id: number) {
     if (!confirm('Excluir este lançamento?')) return
     await fetch(`/api/financas/transacoes/${id}`, { method: 'DELETE' })
@@ -606,8 +615,8 @@ export default function FinancasPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                     <thead>
                       <tr style={{ background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
-                        {['Data','Histórico','Banco','Categoria','Tipo','Valor',''].map(h => (
-                          <th key={h} style={{ padding: '9px 12px', textAlign: 'left', color: '#6b84a8', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{h}</th>
+                        {['Data','Histórico','Banco','Categoria','Tipo','Valor','Ações'].map(h => (
+                          <th key={h} style={{ padding: '9px 12px', textAlign: h === 'Valor' || h === 'Ações' ? 'right' : 'left', color: '#6b84a8', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
@@ -647,7 +656,19 @@ export default function FinancasPage() {
                           <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 700, color: t.valor >= 0 ? '#66BB6A' : '#ef5350', whiteSpace: 'nowrap' }}>
                             {fmt(Math.abs(t.valor))}
                           </td>
-                          <td style={{ padding: '8px 12px', textAlign: 'center' }}>
+                          <td style={{ padding: '8px 12px', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                            <button
+                              onClick={() => toggleIgnorar(t)}
+                              title={t.ignorar ? 'Incluir no saldo' : 'Ignorar no saldo'}
+                              style={{
+                                background: t.ignorar ? 'rgba(232,160,32,.15)' : 'rgba(255,255,255,.05)',
+                                border: t.ignorar ? '1px solid rgba(232,160,32,.4)' : '1px solid rgba(255,255,255,.1)',
+                                borderRadius: 5, color: t.ignorar ? '#e8a020' : '#6b84a8',
+                                cursor: 'pointer', fontSize: 11, padding: '3px 8px', marginRight: 4, fontWeight: t.ignorar ? 700 : 400,
+                              }}
+                            >
+                              {t.ignorar ? '👁 Ignorado' : '👁 Ignorar'}
+                            </button>
                             <button onClick={() => excluirTransacao(t.id)} title="Excluir" style={{ background: 'none', border: 'none', color: '#ef5350', cursor: 'pointer', fontSize: 14, padding: '2px 6px' }}>
                               ✕
                             </button>
@@ -876,6 +897,15 @@ export default function FinancasPage() {
                         </div>
                       )
                     })}
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,.07)', margin: '4px 0' }} />
+                    <div style={{ padding: '8px 14px' }}>
+                      <button
+                        onClick={() => setPainelCats(false)}
+                        style={{ ...btnPrimary, width: '100%', fontSize: 12, padding: '6px' }}
+                      >
+                        ✓ Aplicar
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -894,24 +924,33 @@ export default function FinancasPage() {
                 <div style={{ color: '#6b84a8', fontSize: 13 }}>Sem dados.</div>
               ) : (
                 <div style={{ overflowX: 'auto' }}>
-                  <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', minWidth: historicoEvo.length * 60, height: 180, paddingBottom: 24, position: 'relative' }}>
-                    {/* Linha de zero */}
-                    <div style={{ position: 'absolute', bottom: 24, left: 0, right: 0, height: 1, background: 'rgba(255,255,255,.1)' }} />
-                    {historicoEvo.map(m => {
-                      const maxVal = Math.max(...historicoEvo.map(x => Math.max(x.entradas, x.saidas)), 1)
-                      const hE = Math.round((m.entradas / maxVal) * 130)
-                      const hS = Math.round((m.saidas / maxVal) * 130)
-                      return (
-                        <div key={m.periodo} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minWidth: 50 }}>
-                          <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 130 }}>
-                            <div title={`Entradas: ${fmt(m.entradas)}`} style={{ width: 14, height: hE, background: 'rgba(102,187,106,.75)', borderRadius: '2px 2px 0 0', cursor: 'default' }} />
-                            <div title={`Saídas: ${fmt(m.saidas)}`} style={{ width: 14, height: hS, background: 'rgba(239,83,80,.75)', borderRadius: '2px 2px 0 0', cursor: 'default' }} />
-                          </div>
-                          <div style={{ fontSize: 9, color: '#6b84a8', marginTop: 4, textAlign: 'center' }}>{m.periodo.substring(5)}</div>
-                        </div>
-                      )
-                    })}
-                  </div>
+                  {(() => {
+                    // Zera entradas no gráfico se só categorias de despesa estão selecionadas
+                    const soDespesa = filCatsGraf.length > 0 &&
+                      filCatsGraf.every(c => {
+                        const found = resumo?.por_categoria?.find(p => p.categoria === c)
+                        return !found || found.tipo_lancamento !== 'receita'
+                      })
+                    const maxVal = Math.max(...historicoEvo.map(x => Math.max(soDespesa ? 0 : x.entradas, x.saidas)), 1)
+                    return (
+                      <div style={{ display: 'flex', gap: 6, alignItems: 'flex-end', minWidth: historicoEvo.length * 60, height: 180, paddingBottom: 24, position: 'relative' }}>
+                        <div style={{ position: 'absolute', bottom: 24, left: 0, right: 0, height: 1, background: 'rgba(255,255,255,.1)' }} />
+                        {historicoEvo.map(m => {
+                          const hE = Math.round(((soDespesa ? 0 : m.entradas) / maxVal) * 130)
+                          const hS = Math.round((m.saidas / maxVal) * 130)
+                          return (
+                            <div key={m.periodo} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minWidth: 50 }}>
+                              <div style={{ display: 'flex', gap: 2, alignItems: 'flex-end', height: 130 }}>
+                                {!soDespesa && <div title={`Entradas: ${fmt(m.entradas)}`} style={{ width: 14, height: hE, background: 'rgba(102,187,106,.75)', borderRadius: '2px 2px 0 0', cursor: 'default' }} />}
+                                <div title={`Saídas: ${fmt(m.saidas)}`} style={{ width: 14, height: hS, background: 'rgba(239,83,80,.75)', borderRadius: '2px 2px 0 0', cursor: 'default' }} />
+                              </div>
+                              <div style={{ fontSize: 9, color: '#6b84a8', marginTop: 4, textAlign: 'center' }}>{m.periodo.substring(5)}</div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )
+                  })()}
                   <div style={{ display: 'flex', gap: 16, marginTop: 4, fontSize: 12 }}>
                     <span style={{ color: '#66BB6A' }}>■ Entradas</span>
                     <span style={{ color: '#ef5350' }}>■ Saídas</span>
