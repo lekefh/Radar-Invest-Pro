@@ -19,20 +19,21 @@ const REGRAS: { palavras: string[]; categoria: string }[] = [
   { palavras: ['MERCADO','SUPER ','ASSAI','ATACADAO','ATACADÃO','CARREFOUR','EXTRA','WALMART','SUPERMERCADO','HIPER'], categoria: 'Mercado' },
   { palavras: ['RESTAURANTE','PIZZARIA','LANCHONETE','IFOOD','RAPPI','99FOOD','BURGER','MCDONALDS','SUBWAY','BURGUER','FOODIE','DELIVERY'], categoria: 'Restaurante' },
   { palavras: ['NETFLIX','SPOTIFY','AMAZON PRIME','YOUTUBE','DISNEY','GLOBOPLAY','PARAMOUNT','HBOMAX','APPLE TV','PRIME VIDEO','DEEZER','MICROSOFT','GOOGLE ONE'], categoria: 'Plataformas Digitais' },
-  { palavras: ['POSTO','SHELL','PETROBRAS AUTO','IPIRANGA','BR DISTRIBUI','COMBUSTIVEL','COMBUSTÍVEL','GASOLINA','ETANOL','DIESEL','ARLA'], categoria: 'Combustível' },
-  { palavras: ['UBER','99 TAXI','CABIFY','METRO ','METRÔ','ONIBUS','ÔNIBUS','PASSAGEM','TAXI ','TÁXI','BRT','BILHETE UNICO','PASSAGEM AREA'], categoria: 'Transporte' },
+  { palavras: ['POSTO','SHELL','PETROBRAS AUTO','IPIRANGA','BR DISTRIBUI','COMBUSTIVEL','COMBUSTÍVEL','GASOLINA','ETANOL','DIESEL'], categoria: 'Combustível' },
+  { palavras: ['UBER','99 TAXI','CABIFY','METRO ','METRÔ','ONIBUS','ÔNIBUS','PASSAGEM','TAXI ','TÁXI','BRT','BILHETE UNICO'], categoria: 'Transporte' },
   { palavras: ['FARMACIA','FARMÁCIA','DROGARIA','DROGASIL','ULTRAFARMA','RAIA','PANVEL','MEDICO','MÉDICO','HOSPITAL','CLINICA','CLÍNICA','PLANO SAUDE','UNIMED','HAPVIDA','AMIL','BRADESCO SAUDE','SULAMERICA'], categoria: 'Saúde / Farmácia' },
-  { palavras: ['ESCOLA','FACULDADE','UNIVERSIDADE','CURSO','MENSALIDADE','COLEGIO','COLÉGIO','UDEMY','ALURA','COURSERA','WIZARD','CCAA','INGLES','INGLÊS'], categoria: 'Educação' },
+  { palavras: ['ESCOLA','FACULDADE','UNIVERSIDADE','CURSO','MENSALIDADE','COLEGIO','COLÉGIO','UDEMY','ALURA','COURSERA','WIZARD','CCAA','IDIOMAS'], categoria: 'Educação' },
   { palavras: ['CINEMA','TEATRO','SHOW','INGRESSOS','TICKETMASTER','BILHETERIA','INGRESSO','BOATE','CLUBE','LAZER'], categoria: 'Lazer / Entretenimento' },
-  { palavras: ['ALUGUEL','CONDOMINIO','CONDOMÍNIO','AGUA ','ÁGUA ','SABESP','COPASA','COSERN','LUZ ','ENERGIA','CELESC','CEMIG','ENEL','LIGHT ','CPFL','GAS ','GÁS ','COMGAS','CÔMGAS','INTERNET','CLARO ','VIVO ','TIM ','OI ','NET ','IPTU','IMÓVEL','IMOVEL'], categoria: 'Moradia' },
-  { palavras: ['RENNER','C&A','RIACHUELO','MARISA','AMERICANAS','MAGAZINE LUIZA','MAGALU','SHOPEE','MERCADOLIVRE','MERCADO LIVRE','ZARA','H&M','VIVARA','RESERVA','COMPRAS','SHEIN','LOJAS'], categoria: 'Vestuário / Compras' },
-  { palavras: ['SEGURO','SUSEP','PORTO SEGURO','TOKIO MARINE','MAPFRE','LIBERTY','ZURICH'], categoria: 'Seguros' },
-  { palavras: ['XPINVEST','XP INVEST','CLEAR','BTG PACTUAL','NUINVEST','CORRETORA','TESOURO DIRETO','CDB','LCI','LCA','FUNDO','RESGATE','APLICACAO','APLICAÇÃO','RENDA FIXA','PREVIDENCIA','PREVIDÊNCIA','MODAL MAIS','RICO INVEST'], categoria: 'Investimentos / Resgate' },
-  { palavras: ['PIX ENVIADO','PIX RECEBIDO','TRANSF PIX','TED ','DOC ','TRANSFERENCIA','TRANSFERÊNCIA'], categoria: 'Transferências / PIX' },
-  { palavras: ['FATURA','PGTO FAT','PAGAMENTO FATURA','PAGTO FATURA','PAGAMENTO CARTAO','PAGAMENTO CARTÃO','CARTAO CREDITO','CARTÃO CRÉDITO'], categoria: 'Pagamento Cartão' },
-  { palavras: ['IMPOSTO','DARF','INSS','FGTS','IOF ','IRPF','IRRF','TAXA ','TRIBUTO','DAS ','MEI ','SIMPLES NACIONAL'], categoria: 'Impostos / Taxas' },
+  { palavras: ['ALUGUEL','CONDOMINIO','CONDOMÍNIO','AGUA ','ÁGUA ','SABESP','COPASA','COSERN','LUZ ','ENERGIA','CELESC','CEMIG','ENEL','LIGHT ','CPFL','GAS ','GÁS ','COMGAS','INTERNET','CLARO ','VIVO ','TIM ','OI ','NET ','IPTU'], categoria: 'Moradia' },
+  { palavras: ['RENNER','C&A','RIACHUELO','MARISA','AMERICANAS','MAGAZINE LUIZA','MAGALU','SHOPEE','MERCADOLIVRE','MERCADO LIVRE','ZARA','SHEIN','LOJAS'], categoria: 'Vestuário / Compras' },
+  { palavras: ['SEGURO','SUSEP','PORTO SEGURO','TOKIO MARINE','MAPFRE','LIBERTY'], categoria: 'Seguros' },
+  { palavras: ['XPINVEST','XP INVEST','CLEAR','BTG','NUINVEST','CORRETORA','TESOURO DIRETO','CDB','LCI','LCA','FUNDO','RESGATE RDB','RESGATE','APLICACAO','APLICAÇÃO','RENDA FIXA','PREVIDENCIA','PREVIDÊNCIA'], categoria: 'Investimentos / Resgate' },
+  { palavras: ['PIX ENVIADO','TRANSF PIX','TED ','DOC ','TRANSFERENCIA','TRANSFERÊNCIA','TRANSFERÊNCIA ENVIADA','TRANSFERÊNCIA RECEBIDA'], categoria: 'Transferências / PIX' },
+  { palavras: ['FATURA','PGTO FAT','PAGAMENTO FATURA','PAGTO FATURA','PAGAMENTO CARTAO','PAGAMENTO CARTÃO','CARTAO CREDITO'], categoria: 'Pagamento Cartão' },
+  { palavras: ['IMPOSTO','DARF','INSS','FGTS','IOF ','IRPF','IRRF','TAXA ','TRIBUTO','DAS ','MEI '], categoria: 'Impostos / Taxas' },
   { palavras: ['SALARIO','SALÁRIO','ORDENADO','REMUNERACAO','REMUNERAÇÃO','VENCIMENTO','FOLHA','PROLABORE','PRO LABORE','CREDITO SALARIO','CRÉDITO SALÁRIO'], categoria: 'Receita / Entrada' },
-  { palavras: ['PADARIA','CAFE ','CAFETERIA','AÇAI','ACAI','SORVETERIA','PANIFICADORA','CONFEITARIA','PASTELARIA','SALGADERIA'], categoria: 'Alimentação' },
+  { palavras: ['PADARIA','CAFE ','CAFETERIA','AÇAI','ACAI','SORVETERIA','PANIFICADORA','PASTELARIA'], categoria: 'Alimentação' },
+  { palavras: ['PANORAMA','IMPORTS','CABELEI','PRESENTES','AVIAMENTOS'], categoria: 'Vestuário / Compras' },
 ]
 
 export function categorizar(texto: string): string {
@@ -46,88 +47,169 @@ export function categorizar(texto: string): string {
 export function detectarTipo(historico: string, valor: number): 'despesa' | 'receita' | 'pagamento_cartao' {
   const upper = historico.toUpperCase()
   if (
-    upper.includes('FATURA') ||
-    upper.includes('PGTO FAT') ||
-    upper.includes('PAGAMENTO FATURA') ||
-    upper.includes('PAGTO FATURA') ||
-    upper.includes('PAGAMENTO CARTAO') ||
-    upper.includes('PAGAMENTO CARTÃO') ||
-    upper.includes('PAG CART') ||
-    upper.includes('PGTO CART')
+    upper.includes('FATURA') || upper.includes('PGTO FAT') ||
+    upper.includes('PAGAMENTO FATURA') || upper.includes('PAGTO FATURA') ||
+    upper.includes('PAGAMENTO CARTAO') || upper.includes('PAGAMENTO CARTÃO') ||
+    upper.includes('PAG CART') || upper.includes('PGTO CART')
   ) return 'pagamento_cartao'
   if (valor >= 0) return 'receita'
   return 'despesa'
 }
 
-// ── Parser CSV Bradesco ───────────────────────────────────────────────────────
-// Formato: Data;Lançamento;Histórico;Valor ou Data;Histórico;Valor
-function parseDateBR(s: string): string {
-  const [d, m, y] = s.trim().split('/')
-  if (!d || !m || !y) return s
-  return `${y.length === 2 ? '20' + y : y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}`
+// ── Parser de linha CSV com suporte a campos entre aspas ──────────────────────
+function parseLinha(linha: string, sep: string): string[] {
+  const result: string[] = []
+  let current = ''
+  let inQuotes = false
+  for (let i = 0; i < linha.length; i++) {
+    const ch = linha[i]
+    if (ch === '"') {
+      inQuotes = !inQuotes
+    } else if (ch === sep && !inQuotes) {
+      result.push(current.trim())
+      current = ''
+    } else {
+      current += ch
+    }
+  }
+  result.push(current.trim())
+  return result
 }
 
-function parseValor(s: string): number {
-  const limpo = s.trim().replace(/\./g,'').replace(',','.')
-  return parseFloat(limpo) || 0
+// ── Parser de valor inteligente ───────────────────────────────────────────────
+// Detecta formato: 1.265,30 (BR) | 1265.06 (US) | 152,30 (BR sem mil)
+function parseValorSmart(s: string | number | null | undefined): number {
+  if (typeof s === 'number') return s
+  const clean = String(s || '').trim().replace(/[R$\s]/g, '').replace(/^['"]+|['"]+$/g, '')
+  if (!clean) return 0
+  // Ambos . e , presentes → European/BR (. = milhar, , = decimal)
+  if (clean.includes('.') && clean.includes(',')) {
+    return parseFloat(clean.replace(/\./g, '').replace(',', '.')) || 0
+  }
+  // Só vírgula → decimal BR (152,30)
+  if (clean.includes(',')) {
+    return parseFloat(clean.replace(',', '.')) || 0
+  }
+  // Só ponto (US) ou sem separador decimal
+  return parseFloat(clean) || 0
 }
 
+// ── Converter data para YYYY-MM-DD ────────────────────────────────────────────
+function toISO(s: string): string | null {
+  if (!s) return null
+  // Já está em YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.substring(0, 10)
+  // DD/MM/YYYY ou DD-MM-YYYY
+  const br = s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/)
+  if (br) {
+    const [, d, m, y] = br
+    const ano = y.length === 2 ? '20' + y : y
+    return `${ano}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
+  }
+  return null
+}
+
+// ── Parser CSV principal ──────────────────────────────────────────────────────
 export function parseCSV(conteudo: string, banco: string): TransacaoPreview[] {
-  const linhas = conteudo.split('\n').map(l => l.trim()).filter(Boolean)
-  const transacoes: TransacaoPreview[] = []
+  const linhas = conteudo.split('\n').map(l => l.replace(/\r$/, '').trim()).filter(Boolean)
+  if (linhas.length < 2) return []
 
-  // Detecta separador
-  const sep = conteudo.includes(';') ? ';' : ','
+  // Detecta separador (prioriza ; , depois ,)
+  const sep = linhas.slice(0, 5).join('\n').includes(';') ? ';' : ','
 
-  // Encontra linha de cabeçalho
+  // Encontra linha de cabeçalho (primeiras 15 linhas)
   let headerIdx = 0
-  for (let i = 0; i < Math.min(linhas.length, 10); i++) {
+  for (let i = 0; i < Math.min(linhas.length, 15); i++) {
     const lower = linhas[i].toLowerCase()
-    if (lower.includes('data') && (lower.includes('hist') || lower.includes('valor') || lower.includes('lança'))) {
+    if (
+      lower.includes('data') || lower.includes('date') ||
+      lower.includes('hist') || lower.includes('valor') || lower.includes('amount')
+    ) {
       headerIdx = i
       break
     }
   }
 
-  const header = linhas[headerIdx].split(sep).map(h => h.trim().toLowerCase().replace(/['"]/g,''))
+  const header = parseLinha(linhas[headerIdx], sep).map(h => h.toLowerCase().replace(/['"]/g, '').trim())
+  const transacoes: TransacaoPreview[] = []
 
-  const idxData     = header.findIndex(h => h === 'data' || h.startsWith('data'))
-  const idxHistorico = header.findIndex(h =>
-    h.includes('hist') || h.includes('desc') || h.includes('lançamento') || h.includes('lancamento') || h.includes('memo')
+  // ── NUBANK FATURA: date,title,amount ────────────────────────────────────────
+  if (header[0] === 'date' && header[1] === 'title' && header[2] === 'amount') {
+    const bancoFinal = banco || 'Nubank'
+    for (let i = headerIdx + 1; i < linhas.length; i++) {
+      const cols = parseLinha(linhas[i], sep)
+      if (cols.length < 3) continue
+      const data = toISO(cols[0])
+      if (!data) continue
+      const hist  = cols[1].trim()
+      const valor = -Math.abs(parseValorSmart(cols[2])) // fatura = sempre despesa
+      transacoes.push({
+        data, historico: hist, descricao: '', valor,
+        tipo_lancamento: 'despesa', tipo_extrato: 'cartao',
+        categoria: categorizar(hist), banco: bancoFinal,
+        periodo: data.substring(0, 7),
+      })
+    }
+    return transacoes
+  }
+
+  // ── NUBANK CONTA: Data,Valor,Identificador,Descrição ────────────────────────
+  const idxDesc = header.findIndex(h => h.includes('descriç') || h.includes('descri') || h === 'memo')
+  const idxId   = header.findIndex(h => h.includes('identif') || h.includes('id'))
+  if (idxDesc >= 0 && idxId >= 0) {
+    const idxData  = header.findIndex(h => h === 'data' || h.startsWith('data '))
+    const idxValor = header.findIndex(h => h === 'valor')
+    const bancoFinal = banco || 'Nubank'
+    for (let i = headerIdx + 1; i < linhas.length; i++) {
+      const cols = parseLinha(linhas[i], sep)
+      if (cols.length < 3) continue
+      const dataRaw = cols[idxData >= 0 ? idxData : 0]
+      const valorStr = cols[idxValor >= 0 ? idxValor : 1]
+      const hist = cols[idxDesc].trim()
+      if (!dataRaw || !hist) continue
+      const data = toISO(dataRaw)
+      if (!data) continue
+      const valor = parseValorSmart(valorStr) // já tem sinal
+      transacoes.push({
+        data, historico: hist, descricao: '', valor,
+        tipo_lancamento: detectarTipo(hist, valor),
+        tipo_extrato: 'conta',
+        categoria: categorizar(hist), banco: bancoFinal,
+        periodo: data.substring(0, 7),
+      })
+    }
+    return transacoes
+  }
+
+  // ── FORMATO BRADESCO / GENÉRICO ──────────────────────────────────────────────
+  const idxData  = header.findIndex(h => h === 'data' || h.startsWith('data'))
+  const idxHist  = header.findIndex(h =>
+    h.includes('hist') || h.includes('desc') || h.includes('lançamento') || h.includes('lancamento') || h === 'memo'
   )
-  const idxValor     = header.findIndex(h => h.includes('valor') || h.includes('montante') || h.includes('quantia'))
-  const idxTipo      = header.findIndex(h => h.includes('lança') || h.includes('lanca') || h.includes('tipo') || h.includes('credito') || h.includes('débito'))
+  const idxValor = header.findIndex(h => h.includes('valor') || h.includes('montante') || h.includes('quantia'))
+  const idxTipo  = header.findIndex(h => h.includes('lança') || h.includes('lanca') || h.includes('tipo'))
 
-  if (idxData < 0 || idxHistorico < 0 || idxValor < 0) {
-    // Fallback: tenta formato Bradesco com colunas fixas Data;Lançamento;Histórico;Valor
+  if (idxData < 0 || idxHist < 0 || idxValor < 0) {
+    // Fallback: tenta colunas fixas (Data;Lançamento;Histórico;Valor)
     return parseBradescoFixo(linhas.slice(headerIdx + 1), sep, banco)
   }
 
+  const bancoFinal = banco || 'Não informado'
   for (let i = headerIdx + 1; i < linhas.length; i++) {
-    const cols = linhas[i].split(sep).map(c => c.trim().replace(/^["']|["']$/g,''))
+    const cols = parseLinha(linhas[i], sep)
     if (cols.length < 3) continue
-
-    const dataRaw = cols[idxData] || ''
-    const hist    = cols[idxHistorico] || ''
-    const valRaw  = cols[idxValor] || '0'
-    const tipoRaw = idxTipo >= 0 ? (cols[idxTipo] || '') : ''
-
+    const dataRaw = cols[idxData]?.trim()
+    const hist    = cols[idxHist]?.trim()
     if (!dataRaw || !hist) continue
-
-    const data  = dataRaw.includes('/') ? parseDateBR(dataRaw) : dataRaw
-    let valor   = parseValor(valRaw)
-
-    // Bradesco: "Debitado" indica débito → negativo
-    if (tipoRaw && tipoRaw.toLowerCase().includes('debit') && valor > 0) valor = -valor
-
-    const periodo = data.substring(0, 7)
-    const tipo_lancamento = detectarTipo(hist, valor)
-    const categoria = categorizar(hist)
-
+    const data = toISO(dataRaw)
+    if (!data) continue
+    let valor = parseValorSmart(cols[idxValor])
+    if (idxTipo >= 0 && cols[idxTipo]?.toLowerCase().includes('debit') && valor > 0) valor = -valor
     transacoes.push({
-      data, historico: hist, descricao: '',
-      valor, tipo_lancamento, tipo_extrato: 'conta',
-      categoria, banco, periodo,
+      data, historico: hist, descricao: '', valor,
+      tipo_lancamento: detectarTipo(hist, valor), tipo_extrato: 'conta',
+      categoria: categorizar(hist), banco: bancoFinal,
+      periodo: data.substring(0, 7),
     })
   }
   return transacoes
@@ -135,37 +217,29 @@ export function parseCSV(conteudo: string, banco: string): TransacaoPreview[] {
 
 function parseBradescoFixo(linhas: string[], sep: string, banco: string): TransacaoPreview[] {
   const transacoes: TransacaoPreview[] = []
+  const bancoFinal = banco || 'Bradesco'
   for (const linha of linhas) {
-    const cols = linha.split(sep).map(c => c.trim().replace(/^["']|["']$/g,''))
+    const cols = parseLinha(linha, sep)
     if (cols.length < 3) continue
-
-    const dataRaw = cols[0]
+    const dataRaw = cols[0]?.trim()
     if (!dataRaw || !dataRaw.includes('/')) continue
-
-    let hist  = ''
-    let valor = 0
-
+    let hist = '', valor = 0
     if (cols.length >= 4) {
-      // Data;Lançamento;Histórico;Valor
       hist  = cols[2] || cols[1]
-      valor = parseValor(cols[3])
+      valor = parseValorSmart(cols[3])
       if ((cols[1] || '').toLowerCase().includes('debit') && valor > 0) valor = -valor
     } else {
-      // Data;Histórico;Valor
       hist  = cols[1]
-      valor = parseValor(cols[2])
+      valor = parseValorSmart(cols[2])
     }
-
     if (!hist) continue
-    const data    = parseDateBR(dataRaw)
-    const periodo = data.substring(0, 7)
-    const tipo_lancamento = detectarTipo(hist, valor)
-    const categoria = categorizar(hist)
-
+    const data = toISO(dataRaw)
+    if (!data) continue
     transacoes.push({
-      data, historico: hist, descricao: '',
-      valor, tipo_lancamento, tipo_extrato: 'conta',
-      categoria, banco, periodo,
+      data, historico: hist, descricao: '', valor,
+      tipo_lancamento: detectarTipo(hist, valor), tipo_extrato: 'conta',
+      categoria: categorizar(hist), banco: bancoFinal,
+      periodo: data.substring(0, 7),
     })
   }
   return transacoes

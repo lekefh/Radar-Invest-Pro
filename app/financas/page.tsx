@@ -37,6 +37,16 @@ interface Resumo {
   periodos: string[]
 }
 
+interface BatchItem {
+  id: string
+  banco: string
+  importado_em: string
+  total_transacoes: number
+  data_inicio: string
+  data_fim: string
+  revertido: boolean
+}
+
 type Aba = 'importar' | 'transacoes' | 'resumo' | 'graficos'
 
 const fmt = (v: number) =>
@@ -98,6 +108,10 @@ export default function FinancasPage() {
   const [historicoEvo, setHistoricoEvo]   = useState<{ periodo: string; entradas: number; saidas: number }[]>([])
   const [topCats, setTopCats]             = useState<{ categoria: string; total: number }[]>([])
   const [periodoGraf, setPeriodoGraf]     = useState('')
+
+  // Batches (histórico de importações)
+  const [batches, setBatches]             = useState<BatchItem[]>([])
+  const [loadingBatches, setLoadingBatches] = useState(false)
 
   // ── Auth ────────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -226,6 +240,31 @@ export default function FinancasPage() {
     setTotalTrans(n => n - 1)
   }
 
+  const carregarBatches = useCallback(() => {
+    setLoadingBatches(true)
+    fetch('/api/financas/batches')
+      .then(r => r.json())
+      .then(d => { setBatches(d.batches || []); setLoadingBatches(false) })
+      .catch(() => setLoadingBatches(false))
+  }, [])
+
+  useEffect(() => {
+    if (aba === 'importar' && plano) carregarBatches()
+  }, [aba, plano, carregarBatches])
+
+  async function excluirBatch(id: string) {
+    if (!confirm('Excluir esta importação e TODOS os seus lançamentos? Esta ação não pode ser desfeita.')) return
+    const r = await fetch('/api/financas/batches', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ batch_id: id }),
+    })
+    const d = await r.json()
+    if (d.erro) { alert('Erro: ' + d.erro); return }
+    setBatches(bs => bs.filter(b => b.id !== id))
+    setMsgUpload(`✓ Importação removida. ${d.removidas || 0} lançamentos excluídos.`)
+  }
+
   async function salvarSaldo() {
     const v = parseFloat(novoSaldo.replace(',', '.')) || 0
     await fetch('/api/financas/config', {
@@ -352,6 +391,63 @@ export default function FinancasPage() {
                   color: msgUpload.startsWith('Erro') ? '#ef5350' : '#66BB6A',
                 }}>
                   {msgUpload}
+                </div>
+              )}
+            </div>
+
+            {/* Histórico de importações */}
+            <div style={card()}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b8c4d4' }}>
+                  Histórico de Importações
+                </h3>
+                <button onClick={carregarBatches} style={{ ...btnSecondary, padding: '5px 12px', fontSize: 12 }}>
+                  {loadingBatches ? 'Carregando…' : '↺ Atualizar'}
+                </button>
+              </div>
+              {batches.length === 0 ? (
+                <p style={{ color: '#4a5d73', fontSize: 13 }}>
+                  {loadingBatches ? 'Carregando…' : 'Nenhuma importação encontrada.'}
+                </p>
+              ) : (
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
+                    <thead>
+                      <tr style={{ background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
+                        {['Banco','Data de importação','Período','Lançamentos',''].map(h => (
+                          <th key={h} style={{ padding: '8px 10px', textAlign: 'left', color: '#6b84a8', fontWeight: 600, fontSize: 11, textTransform: 'uppercase' }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {batches.map(b => (
+                        <tr key={b.id} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', opacity: b.revertido ? 0.45 : 1 }}>
+                          <td style={{ padding: '8px 10px', fontWeight: 600 }}>{b.banco || '—'}</td>
+                          <td style={{ padding: '8px 10px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>
+                            {new Date(b.importado_em).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' })}
+                          </td>
+                          <td style={{ padding: '8px 10px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>
+                            {b.data_inicio && b.data_fim ? `${b.data_inicio} → ${b.data_fim}` : '—'}
+                          </td>
+                          <td style={{ padding: '8px 10px' }}>
+                            <span style={{ fontWeight: 700, color: '#e8a020' }}>{b.total_transacoes}</span>
+                          </td>
+                          <td style={{ padding: '8px 10px', textAlign: 'right' }}>
+                            {b.revertido ? (
+                              <span style={{ fontSize: 11, color: '#4a5d73' }}>Removida</span>
+                            ) : (
+                              <button
+                                onClick={() => excluirBatch(b.id)}
+                                style={{ background: 'rgba(239,83,80,.15)', color: '#ef5350', border: '1px solid rgba(239,83,80,.3)', borderRadius: 5, padding: '4px 12px', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}
+                              >
+                                🗑 Excluir
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               )}
             </div>
