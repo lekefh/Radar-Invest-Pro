@@ -98,9 +98,10 @@ export default function FinancasPage() {
   const [editando, setEditando]         = useState<Record<number, string>>({})
 
   // Modal lançamento manual
-  const FORM_VAZIO = { data: new Date().toISOString().slice(0,10), historico: '', valor: '', tipo_lancamento: 'despesa' as const, tipo_extrato: 'conta' as const, categoria: 'Outros', banco: 'Nubank', descricao: '' }
+  interface FormLanc { data: string; historico: string; valor: string; tipo_lancamento: 'despesa'|'receita'|'pagamento_cartao'; tipo_extrato: 'conta'|'cartao'; categoria: string; banco: string; descricao: string }
+  const FORM_VAZIO: FormLanc = { data: new Date().toISOString().slice(0,10), historico: '', valor: '', tipo_lancamento: 'despesa', tipo_extrato: 'conta', categoria: 'Outros', banco: 'Nubank', descricao: '' }
   const [modalAberto, setModalAberto]   = useState(false)
-  const [formLanc, setFormLanc]         = useState({ ...FORM_VAZIO })
+  const [formLanc, setFormLanc]         = useState<FormLanc>({ ...FORM_VAZIO })
   const [salvandoLanc, setSalvandoLanc] = useState(false)
   const [erroLanc, setErroLanc]         = useState('')
 
