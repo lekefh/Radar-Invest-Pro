@@ -95,7 +95,7 @@ export default function FinancasPage() {
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
-  const [editando, setEditando]         = useState<Record<number, string>>({})
+  const [editando, setEditando]         = useState<Record<number, { cat: string; tipo: string }>>({})
   const [sortCol, setSortCol]           = useState<'data'|'valor'|'tipo'|'categoria'|'banco'|'historico'|''>('')
   const [sortDir, setSortDir]           = useState<'asc'|'desc'>('desc')
 
@@ -236,13 +236,17 @@ export default function FinancasPage() {
   }
 
   // ── Atualizar categoria na tabela ────────────────────────────────────────────
-  async function salvarCategoria(id: number, categoria: string) {
+  async function salvarEdicao(id: number) {
+    const ed = editando[id]
+    if (!ed) return
     await fetch(`/api/financas/transacoes/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ categoria }),
+      body: JSON.stringify({ categoria: ed.cat, tipo_lancamento: ed.tipo }),
     })
-    setTransacoes(ts => ts.map(t => t.id === id ? { ...t, categoria } : t))
+    setTransacoes(ts => ts.map(t =>
+      t.id === id ? { ...t, categoria: ed.cat, tipo_lancamento: ed.tipo as Transacao['tipo_lancamento'] } : t
+    ))
     setEditando(e => { const n = { ...e }; delete n[id]; return n })
   }
 
@@ -678,18 +682,18 @@ export default function FinancasPage() {
                             {editando[t.id] !== undefined ? (
                               <div style={{ display: 'flex', gap: 4 }}>
                                 <select
-                                  value={editando[t.id]}
-                                  onChange={e => setEditando(prev => ({ ...prev, [t.id]: e.target.value }))}
+                                  value={editando[t.id].cat}
+                                  onChange={e => setEditando(prev => ({ ...prev, [t.id]: { ...prev[t.id], cat: e.target.value } }))}
                                   style={{ ...selectSt, width: 'auto', fontSize: 12, padding: '3px 6px' }}
                                 >
                                   {categorias.map(c => <option key={c} value={c}>{c}</option>)}
                                 </select>
-                                <button onClick={() => salvarCategoria(t.id, editando[t.id])} style={{ ...btnPrimary, padding: '3px 8px', fontSize: 11 }}>✓</button>
+                                <button onClick={() => salvarEdicao(t.id)} style={{ ...btnPrimary, padding: '3px 8px', fontSize: 11 }}>✓</button>
                                 <button onClick={() => setEditando(e => { const n = {...e}; delete n[t.id]; return n })} style={{ ...btnSecondary, padding: '3px 8px', fontSize: 11 }}>✕</button>
                               </div>
                             ) : (
                               <span
-                                onClick={() => setEditando(e => ({ ...e, [t.id]: t.categoria }))}
+                                onClick={() => setEditando(e => ({ ...e, [t.id]: { cat: t.categoria, tipo: t.tipo_lancamento } }))}
                                 style={{ cursor: 'pointer', fontSize: 12, padding: '2px 8px', borderRadius: 4, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', whiteSpace: 'nowrap' }}
                               >
                                 {t.categoria || 'Outros'} ✎
@@ -697,9 +701,21 @@ export default function FinancasPage() {
                             )}
                           </td>
                           <td style={{ padding: '8px 12px' }}>
-                            <span style={{ fontSize: 11, fontWeight: 700, color: COR_TIPO[t.tipo_lancamento], whiteSpace: 'nowrap' }}>
-                              {LABEL_TIPO[t.tipo_lancamento]}
-                            </span>
+                            {editando[t.id] !== undefined ? (
+                              <select
+                                value={editando[t.id].tipo}
+                                onChange={e => setEditando(prev => ({ ...prev, [t.id]: { ...prev[t.id], tipo: e.target.value } }))}
+                                style={{ ...selectSt, width: 'auto', fontSize: 12, padding: '3px 6px' }}
+                              >
+                                <option value="despesa">Despesa</option>
+                                <option value="receita">Receita</option>
+                                <option value="pagamento_cartao">Pgto Cartão</option>
+                              </select>
+                            ) : (
+                              <span style={{ fontSize: 11, fontWeight: 700, color: COR_TIPO[t.tipo_lancamento], whiteSpace: 'nowrap' }}>
+                                {LABEL_TIPO[t.tipo_lancamento]}
+                              </span>
+                            )}
                           </td>
                           <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 700, color: t.valor >= 0 ? '#66BB6A' : '#ef5350', whiteSpace: 'nowrap' }}>
                             {fmt(Math.abs(t.valor))}
