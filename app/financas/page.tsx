@@ -96,6 +96,8 @@ export default function FinancasPage() {
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
   const [editando, setEditando]         = useState<Record<number, string>>({})
+  const [sortCol, setSortCol]           = useState<'data'|'valor'|'tipo'|'categoria'|'banco'|'historico'|''>('')
+  const [sortDir, setSortDir]           = useState<'asc'|'desc'>('desc')
 
   // Modal lançamento manual
   interface FormLanc { data: string; historico: string; valor: string; tipo_lancamento: 'despesa'|'receita'|'pagamento_cartao'; tipo_extrato: 'conta'|'cartao'; categoria: string; banco: string; descricao: string }
@@ -343,6 +345,26 @@ export default function FinancasPage() {
       Carregando…
     </div>
   )
+
+  // ── Ordenação da tabela de transações ──────────────────────────────────────
+  function toggleSort(col: typeof sortCol) {
+    if (sortCol === col) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+    else { setSortCol(col); setSortDir(col === 'data' ? 'desc' : 'asc') }
+  }
+
+  const sortedTransacoes = [...transacoes].sort((a, b) => {
+    if (!sortCol) return 0
+    let va: string | number = '', vb: string | number = ''
+    if (sortCol === 'data')      { va = a.data;               vb = b.data }
+    else if (sortCol === 'valor') { va = Math.abs(a.valor);   vb = Math.abs(b.valor) }
+    else if (sortCol === 'tipo')  { va = a.tipo_lancamento;   vb = b.tipo_lancamento }
+    else if (sortCol === 'categoria') { va = a.categoria||''; vb = b.categoria||'' }
+    else if (sortCol === 'banco') { va = a.banco||'';         vb = b.banco||'' }
+    else if (sortCol === 'historico') { va = a.historico||''; vb = b.historico||'' }
+    if (va < vb) return sortDir === 'asc' ? -1 : 1
+    if (va > vb) return sortDir === 'asc' ? 1 : -1
+    return 0
+  })
 
   // ── Cálculo dos 7 cards (espelho do app local) ──────────────────────────────
   const entradas      = resumo?.totais?.entradas      || 0
@@ -616,13 +638,38 @@ export default function FinancasPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                     <thead>
                       <tr style={{ background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
-                        {['Data','Histórico','Banco','Categoria','Tipo','Valor','Ações'].map(h => (
-                          <th key={h} style={{ padding: '9px 12px', textAlign: h === 'Valor' || h === 'Ações' ? 'right' : 'left', color: '#6b84a8', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{h}</th>
-                        ))}
+                        {([
+                          { label: 'Data',      col: 'data'      },
+                          { label: 'Histórico', col: 'historico' },
+                          { label: 'Banco',     col: 'banco'     },
+                          { label: 'Categoria', col: 'categoria' },
+                          { label: 'Tipo',      col: 'tipo'      },
+                          { label: 'Valor',     col: 'valor'     },
+                          { label: 'Ações',     col: ''          },
+                        ] as { label: string; col: typeof sortCol }[]).map(({ label, col }) => {
+                          const ativo = sortCol === col && col !== ''
+                          const alinhaDireita = label === 'Valor' || label === 'Ações'
+                          return (
+                            <th
+                              key={label}
+                              onClick={col ? () => toggleSort(col) : undefined}
+                              style={{
+                                padding: '9px 12px',
+                                textAlign: alinhaDireita ? 'right' : 'left',
+                                color: ativo ? '#e8a020' : '#6b84a8',
+                                fontWeight: 600, fontSize: 11, textTransform: 'uppercase',
+                                whiteSpace: 'nowrap', userSelect: 'none',
+                                cursor: col ? 'pointer' : 'default',
+                              }}
+                            >
+                              {label}{col ? (ativo ? (sortDir === 'asc' ? ' ↑' : ' ↓') : ' ⇅') : ''}
+                            </th>
+                          )
+                        })}
                       </tr>
                     </thead>
                     <tbody>
-                      {transacoes.map(t => (
+                      {sortedTransacoes.map(t => (
                         <tr key={t.id} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', opacity: t.ignorar ? 0.4 : 1 }}>
                           <td style={{ padding: '8px 12px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>{t.data}</td>
                           <td style={{ padding: '8px 12px', maxWidth: 280, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={t.historico}>{t.historico}</td>
