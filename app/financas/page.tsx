@@ -847,6 +847,18 @@ export default function FinancasPage() {
           </div>
         )}
       </div>
+
+      {/* Garante legibilidade dos options em qualquer OS/browser */}
+      <style jsx global>{`
+        .financas-select option {
+          background: #0f1923;
+          color: #e8edf4;
+        }
+        select option {
+          background: #0f1923;
+          color: #e8edf4;
+        }
+      `}</style>
     </div>
   )
 }
