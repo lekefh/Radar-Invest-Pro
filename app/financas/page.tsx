@@ -31,8 +31,8 @@ interface TransacaoPreview {
 }
 
 interface Resumo {
-  totais: { entradas: number; saidas: number; pgto_cartao: number }
-  mensal: { periodo: string; entradas: number; saidas: number; pgto_cartao: number; total_lancamentos: number }[]
+  totais: { entradas: number; saidas_conta: number; fatura_cartao: number; pgto_cartao: number }
+  mensal: { periodo: string; entradas: number; saidas_conta: number; fatura_cartao: number; pgto_cartao: number; total_lancamentos: number }[]
   por_categoria: { categoria: string; tipo_lancamento: string; total: number; qtd: number }[]
   periodos: string[]
 }
@@ -108,6 +108,8 @@ export default function FinancasPage() {
   const [historicoEvo, setHistoricoEvo]   = useState<{ periodo: string; entradas: number; saidas: number }[]>([])
   const [topCats, setTopCats]             = useState<{ categoria: string; total: number }[]>([])
   const [periodoGraf, setPeriodoGraf]     = useState('')
+  const [filCatsGraf, setFilCatsGraf]     = useState<string[]>([])
+  const [painelCats, setPainelCats]       = useState(false)
 
   // Batches (histórico de importações)
   const [batches, setBatches]             = useState<BatchItem[]>([])
@@ -306,11 +308,14 @@ export default function FinancasPage() {
     </div>
   )
 
-  // ── Cálculo caixa final ─────────────────────────────────────────────────────
-  const entradas   = resumo?.totais?.entradas   || 0
-  const saidas     = resumo?.totais?.saidas     || 0
-  const pgtoCartao = resumo?.totais?.pgto_cartao || 0
-  const saldoFinal = saldoInicial + entradas - saidas - pgtoCartao
+  // ── Cálculo dos 7 cards (espelho do app local) ──────────────────────────────
+  const entradas      = resumo?.totais?.entradas      || 0
+  const saidasConta   = resumo?.totais?.saidas_conta  || 0
+  const faturaCartao  = resumo?.totais?.fatura_cartao || 0
+  const pgtoCartao    = resumo?.totais?.pgto_cartao   || 0
+  const totalDespesas = saidasConta + faturaCartao
+  const recXDesp      = entradas - totalDespesas
+  const caixaFinal    = saldoInicial + entradas - saidasConta - pgtoCartao
 
   return (
     <div style={{ background: '#050d1a', minHeight: '100vh', color: '#e8edf4', fontFamily: 'Inter,sans-serif' }}>
@@ -675,23 +680,28 @@ export default function FinancasPage() {
               </div>
             </div>
 
-            {/* Cards de resumo */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
-              {[
-                { label: 'Entradas', valor: entradas,   cor: '#66BB6A' },
-                { label: 'Saídas',   valor: saidas,     cor: '#ef5350' },
-                { label: 'Pgto Cartão', valor: pgtoCartao, cor: '#e8a020' },
-                { label: 'Saldo Final', valor: saldoFinal,
-                  cor: saldoFinal >= 0 ? '#4dd0e1' : '#ef5350',
-                  border: '1px solid rgba(77,208,225,.3)',
-                },
-              ].map(item => (
-                <div key={item.label} style={{ ...card({ padding: '16px 20px' }), border: item.border || '1px solid rgba(255,255,255,.07)' }}>
-                  <div style={{ fontSize: 11, color: '#6b84a8', marginBottom: 6, textTransform: 'uppercase', fontWeight: 600, letterSpacing: 0.5 }}>
+            {/* Cards de resumo — 7 cards espelhando o app local */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 10 }}>
+              {([
+                { label: 'Entradas Conta',   valor: entradas,      cor: '#66BB6A', bg: 'rgba(102,187,106,.08)',  brd: 'rgba(102,187,106,.25)' },
+                { label: 'Saídas Conta',     valor: saidasConta,   cor: '#ef5350', bg: 'rgba(239,83,80,.08)',    brd: 'rgba(239,83,80,.25)' },
+                { label: 'Fatura Cartão',    valor: faturaCartao,  cor: '#ce93d8', bg: 'rgba(206,147,216,.08)',  brd: 'rgba(206,147,216,.25)' },
+                { label: 'Pgto. Cartão',     valor: pgtoCartao,    cor: '#64b5f6', bg: 'rgba(100,181,246,.08)',  brd: 'rgba(100,181,246,.25)' },
+                { label: 'Total Despesas',   valor: totalDespesas, cor: '#ffa726', bg: 'rgba(255,167,38,.08)',   brd: 'rgba(255,167,38,.25)' },
+                { label: 'Receita × Despesa', valor: recXDesp,    cor: recXDesp  >= 0 ? '#66BB6A' : '#ef5350', bg: 'rgba(255,255,255,.04)', brd: 'rgba(255,255,255,.1)' },
+                { label: 'Caixa Final',      valor: caixaFinal,   cor: caixaFinal >= 0 ? '#4dd0e1' : '#ef5350', bg: 'rgba(77,208,225,.06)', brd: 'rgba(77,208,225,.4)', destaque: true },
+              ] as { label: string; valor: number; cor: string; bg: string; brd: string; destaque?: boolean }[]).map(item => (
+                <div key={item.label} style={{
+                  background: item.bg,
+                  border: `1px solid ${item.brd}`,
+                  borderRadius: 10, padding: '14px 16px',
+                  boxShadow: item.destaque ? `0 0 16px ${item.brd}` : undefined,
+                }}>
+                  <div style={{ fontSize: 10, color: '#6b84a8', marginBottom: 6, textTransform: 'uppercase', fontWeight: 700, letterSpacing: 0.6 }}>
                     {item.label}
                   </div>
-                  <div style={{ fontSize: 22, fontWeight: 800, fontFamily: 'Space Grotesk,sans-serif', color: item.cor }}>
-                    {fmt(item.valor)}
+                  <div style={{ fontSize: 20, fontWeight: 800, fontFamily: 'Space Grotesk,sans-serif', color: item.cor }}>
+                    {item.valor < 0 ? '-' : ''}{fmt(Math.abs(item.valor))}
                   </div>
                 </div>
               ))}
@@ -707,22 +717,26 @@ export default function FinancasPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                     <thead>
                       <tr style={{ background: 'rgba(255,255,255,.03)', borderBottom: '1px solid rgba(255,255,255,.07)' }}>
-                        {['Período','Entradas','Saídas','Pgto Cartão','Saldo','Lançamentos'].map(h => (
-                          <th key={h} style={{ padding: '9px 14px', textAlign: h === 'Período' || h === 'Lançamentos' ? 'left' : 'right', color: '#6b84a8', fontWeight: 600, fontSize: 11, textTransform: 'uppercase' }}>{h}</th>
+                        {['Período','Entradas','Saídas Conta','Fatura Cartão','Pgto Cartão','Rec×Desp','Caixa Final','Lançtos'].map(h => (
+                          <th key={h} style={{ padding: '9px 12px', textAlign: h === 'Período' || h === 'Lançtos' ? 'left' : 'right', color: '#6b84a8', fontWeight: 600, fontSize: 10, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {resumo.mensal.map(m => {
-                        const saldo = m.entradas - m.saidas - m.pgto_cartao
+                        const totDesp = (m.saidas_conta || 0) + (m.fatura_cartao || 0)
+                        const rxd     = m.entradas - totDesp
+                        const caixa   = saldoInicial + m.entradas - (m.saidas_conta || 0) - m.pgto_cartao
                         return (
                           <tr key={m.periodo} style={{ borderBottom: '1px solid rgba(255,255,255,.04)' }}>
-                            <td style={{ padding: '8px 14px', fontWeight: 600 }}>{m.periodo}</td>
-                            <td style={{ padding: '8px 14px', textAlign: 'right', color: '#66BB6A' }}>{fmt(m.entradas)}</td>
-                            <td style={{ padding: '8px 14px', textAlign: 'right', color: '#ef5350' }}>{fmt(m.saidas)}</td>
-                            <td style={{ padding: '8px 14px', textAlign: 'right', color: '#e8a020' }}>{fmt(m.pgto_cartao)}</td>
-                            <td style={{ padding: '8px 14px', textAlign: 'right', fontWeight: 700, color: saldo >= 0 ? '#4dd0e1' : '#ef5350' }}>{fmt(saldo)}</td>
-                            <td style={{ padding: '8px 14px', color: '#6b84a8' }}>{m.total_lancamentos}</td>
+                            <td style={{ padding: '8px 12px', fontWeight: 600 }}>{m.periodo}</td>
+                            <td style={{ padding: '8px 12px', textAlign: 'right', color: '#66BB6A' }}>{fmt(m.entradas)}</td>
+                            <td style={{ padding: '8px 12px', textAlign: 'right', color: '#ef5350' }}>{fmt(m.saidas_conta || 0)}</td>
+                            <td style={{ padding: '8px 12px', textAlign: 'right', color: '#ce93d8' }}>{fmt(m.fatura_cartao || 0)}</td>
+                            <td style={{ padding: '8px 12px', textAlign: 'right', color: '#64b5f6' }}>{fmt(m.pgto_cartao)}</td>
+                            <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 700, color: rxd >= 0 ? '#66BB6A' : '#ef5350' }}>{rxd < 0 ? '-' : ''}{fmt(Math.abs(rxd))}</td>
+                            <td style={{ padding: '8px 12px', textAlign: 'right', fontWeight: 700, color: caixa >= 0 ? '#4dd0e1' : '#ef5350' }}>{caixa < 0 ? '-' : ''}{fmt(Math.abs(caixa))}</td>
+                            <td style={{ padding: '8px 12px', color: '#6b84a8' }}>{m.total_lancamentos}</td>
                           </tr>
                         )
                       })}
@@ -773,15 +787,72 @@ export default function FinancasPage() {
         {/* ── ABA GRÁFICOS ──────────────────────────────────────────────────── */}
         {aba === 'graficos' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            {/* Filtro período */}
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            {/* Filtros */}
+            <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
               <div>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Período para categorias</label>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Período</label>
                 <select value={periodoGraf} onChange={e => setPeriodoGraf(e.target.value)} style={{ ...selectSt, width: 140 }}>
                   <option value="">Todos</option>
                   {periodosDisp.map(p => <option key={p} value={p}>{p}</option>)}
                 </select>
               </div>
+
+              {/* Multi-select categorias */}
+              <div style={{ position: 'relative' }}>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Categorias</label>
+                <button
+                  onClick={() => setPainelCats(v => !v)}
+                  style={{ ...btnSecondary, minWidth: 200, textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                >
+                  <span>
+                    {filCatsGraf.length === 0
+                      ? 'Todas as categorias'
+                      : `${filCatsGraf.length} selecionada${filCatsGraf.length > 1 ? 's' : ''}`}
+                  </span>
+                  <span style={{ opacity: 0.5, fontSize: 10 }}>{painelCats ? '▲' : '▼'}</span>
+                </button>
+                {painelCats && (
+                  <div style={{
+                    position: 'absolute', top: '100%', left: 0, zIndex: 50, marginTop: 4,
+                    background: '#0f1923', border: '1px solid rgba(255,255,255,.12)',
+                    borderRadius: 8, padding: '8px 0', minWidth: 240,
+                    boxShadow: '0 8px 24px rgba(0,0,0,.5)', maxHeight: 300, overflowY: 'auto',
+                  }}>
+                    <div
+                      onClick={() => setFilCatsGraf([])}
+                      style={{ padding: '7px 14px', fontSize: 12, color: filCatsGraf.length === 0 ? '#e8a020' : '#6b84a8', cursor: 'pointer', fontWeight: filCatsGraf.length === 0 ? 700 : 400 }}
+                    >
+                      ✓ Todas as categorias
+                    </div>
+                    <div style={{ borderTop: '1px solid rgba(255,255,255,.07)', margin: '4px 0' }} />
+                    {topCats.map(c => {
+                      const sel = filCatsGraf.includes(c.categoria)
+                      return (
+                        <div
+                          key={c.categoria}
+                          onClick={() => setFilCatsGraf(prev =>
+                            sel ? prev.filter(x => x !== c.categoria) : [...prev, c.categoria]
+                          )}
+                          style={{ padding: '7px 14px', fontSize: 12, color: sel ? '#e8edf4' : '#6b84a8', cursor: 'pointer', display: 'flex', gap: 8, alignItems: 'center' }}
+                        >
+                          <span style={{
+                            width: 14, height: 14, border: `1px solid ${sel ? '#e8a020' : 'rgba(255,255,255,.2)'}`,
+                            borderRadius: 3, background: sel ? '#e8a020' : 'transparent',
+                            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 10, color: '#000',
+                          }}>{sel ? '✓' : ''}</span>
+                          {c.categoria}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {filCatsGraf.length > 0 && (
+                <button onClick={() => setFilCatsGraf([])} style={{ ...btnSecondary, fontSize: 12, color: '#e8a020', alignSelf: 'flex-end' }}>
+                  ✕ Limpar filtro
+                </button>
+              )}
             </div>
 
             {/* Evolução mensal */}
@@ -817,32 +888,39 @@ export default function FinancasPage() {
               )}
             </div>
 
-            {/* Top categorias (despesa) */}
-            <div style={card()}>
+            {/* Top categorias (despesa) — com filtro */}
+            <div style={card()} onClick={() => setPainelCats(false)}>
               <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: '#b8c4d4' }}>Top Categorias de Despesa</h3>
               {topCats.length === 0 ? (
                 <div style={{ color: '#6b84a8', fontSize: 13 }}>Sem dados.</div>
-              ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                  {topCats.map(c => {
-                    const max = topCats[0].total || 1
-                    const pct = Math.round((c.total / max) * 100)
-                    return (
-                      <div key={c.categoria} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                        <div style={{ width: 160, fontSize: 12, color: '#b8c4d4', flexShrink: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {c.categoria}
+              ) : (() => {
+                const lista = filCatsGraf.length > 0
+                  ? topCats.filter(c => filCatsGraf.includes(c.categoria))
+                  : topCats
+                const max = lista[0]?.total || 1
+                return lista.length === 0 ? (
+                  <div style={{ color: '#6b84a8', fontSize: 13 }}>Nenhuma categoria selecionada corresponde aos dados.</div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                    {lista.map(c => {
+                      const pct = Math.round((c.total / max) * 100)
+                      return (
+                        <div key={c.categoria} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                          <div style={{ width: 160, fontSize: 12, color: '#b8c4d4', flexShrink: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {c.categoria}
+                          </div>
+                          <div style={{ flex: 1, background: 'rgba(255,255,255,.05)', borderRadius: 4, height: 18, overflow: 'hidden' }}>
+                            <div style={{ height: '100%', width: pct + '%', background: 'rgba(239,83,80,.6)', borderRadius: 4, transition: 'width .3s' }} />
+                          </div>
+                          <div style={{ width: 100, textAlign: 'right', fontSize: 12, fontWeight: 700, color: '#ef5350', flexShrink: 0 }}>
+                            {fmt(c.total)}
+                          </div>
                         </div>
-                        <div style={{ flex: 1, background: 'rgba(255,255,255,.05)', borderRadius: 4, height: 18, overflow: 'hidden', position: 'relative' }}>
-                          <div style={{ height: '100%', width: pct + '%', background: 'rgba(239,83,80,.6)', borderRadius: 4, transition: 'width .3s' }} />
-                        </div>
-                        <div style={{ width: 100, textAlign: 'right', fontSize: 12, fontWeight: 700, color: '#ef5350', flexShrink: 0 }}>
-                          {fmt(c.total)}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              )}
+                      )
+                    })}
+                  </div>
+                )
+              })()}
             </div>
           </div>
         )}

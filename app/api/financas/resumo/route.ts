@@ -18,13 +18,14 @@ export async function GET(req: NextRequest) {
     const params  = req.nextUrl.searchParams
     const periodo = params.get('periodo') // YYYY-MM, opcional
 
-    // Resumo por mês — últimos 12 meses ou mês específico
+    // Resumo por mês — últimos 24 meses ou mês específico
     const mensal = await sql`
       SELECT
         periodo,
-        SUM(CASE WHEN tipo_lancamento = 'receita'         AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
-        SUM(CASE WHEN tipo_lancamento = 'despesa'         AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas,
-        SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao,
+        SUM(CASE WHEN tipo_lancamento = 'receita'           AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
+        SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'conta'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas_conta,
+        SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS fatura_cartao,
+        SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao,
         COUNT(*)::int AS total_lancamentos
       FROM transacoes_pessoais
       WHERE user_id = ${userId}
@@ -49,12 +50,13 @@ export async function GET(req: NextRequest) {
       ORDER BY total DESC
     `
 
-    // Totais gerais (período filtrado ou tudo)
+    // Totais gerais — divididos por tipo_extrato para os 7 cards
     const [totais] = await sql`
       SELECT
-        SUM(CASE WHEN tipo_lancamento = 'receita'          AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
-        SUM(CASE WHEN tipo_lancamento = 'despesa'          AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas,
-        SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao
+        SUM(CASE WHEN tipo_lancamento = 'receita'           AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
+        SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'conta'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas_conta,
+        SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS fatura_cartao,
+        SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao
       FROM transacoes_pessoais
       WHERE user_id = ${userId}
         AND (${periodo || ''} = '' OR periodo = ${periodo || ''})

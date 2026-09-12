@@ -78,11 +78,24 @@ export async function POST(req: NextRequest) {
       const texto = await file.text()
       const transacoes = parseCSV(texto, banco || 'Não informado')
 
-      if (tipoExtratoForm === 'cartao') {
-        for (const t of transacoes) {
-          t.tipo_extrato = 'cartao'
-          if (t.tipo_lancamento !== 'pagamento_cartao') t.tipo_lancamento = 'despesa'
-        }
+      if (transacoes.length === 0) {
+        return NextResponse.json({ erro: 'Nenhuma transação encontrada no arquivo. Verifique o formato.' }, { status: 422 })
+      }
+
+      // Detecta se o arquivo é fatura ou conta pelo que o parser identificou
+      const tiposDetectados = new Set(transacoes.map(t => t.tipo_extrato))
+      const arquivoEhCartao = tiposDetectados.has('cartao') && !tiposDetectados.has('conta')
+      const arquivoEhConta  = tiposDetectados.has('conta')  && !tiposDetectados.has('cartao')
+
+      if (tipoExtratoForm === 'cartao' && arquivoEhConta) {
+        return NextResponse.json({
+          erro: 'Arquivo detectado como extrato de conta corrente, mas você selecionou "Fatura Cartão de Crédito". Altere o tipo para "Conta Corrente / Poupança" e tente novamente.',
+        }, { status: 422 })
+      }
+      if (tipoExtratoForm === 'conta' && arquivoEhCartao) {
+        return NextResponse.json({
+          erro: 'Arquivo detectado como fatura de cartão de crédito, mas você selecionou "Conta Corrente / Poupança". Altere o tipo para "Fatura Cartão de Crédito" e tente novamente.',
+        }, { status: 422 })
       }
 
       return NextResponse.json({ transacoes, total: transacoes.length, banco: banco || 'Não informado' })
