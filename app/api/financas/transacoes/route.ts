@@ -74,3 +74,46 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ erro: String(e) }, { status: 500 })
   }
 }
+
+export async function POST(req: NextRequest) {
+  try {
+    const session = await getSession()
+    if (!session?.sub) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
+    if (!PLANOS_FINANCAS.includes(String(session.plano || 'gratuito'))) {
+      return NextResponse.json({ erro: 'Sem acesso' }, { status: 403 })
+    }
+
+    await ensureFinancasTables()
+    const sql    = getDb()
+    const userId = Number(session.sub)
+
+    const body = await req.json()
+    const { data, historico, valor, tipo_lancamento, tipo_extrato, categoria, banco, descricao } = body
+
+    if (!data || !historico || valor === undefined || valor === null) {
+      return NextResponse.json({ erro: 'data, historico e valor são obrigatórios' }, { status: 400 })
+    }
+
+    const periodo = String(data).substring(0, 7) // YYYY-MM
+    const valorNum = Number(tipo_lancamento === 'despesa' || tipo_lancamento === 'pagamento_cartao'
+      ? -Math.abs(Number(valor))
+      : Math.abs(Number(valor)))
+
+    const [nova] = await sql`
+      INSERT INTO transacoes_pessoais
+        (user_id, data, historico, descricao, valor, tipo_lancamento, tipo_extrato, categoria, banco, periodo)
+      VALUES (
+        ${userId}, ${data}, ${historico}, ${descricao || ''},
+        ${valorNum}, ${tipo_lancamento || 'despesa'}, ${tipo_extrato || 'conta'},
+        ${categoria || 'Outros'}, ${banco || ''}, ${periodo}
+      )
+      RETURNING id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar
+    `
+
+    return NextResponse.json({ transacao: nova })
+
+  } catch (e: unknown) {
+    console.error('[transacoes POST]', e)
+    return NextResponse.json({ erro: String(e) }, { status: 500 })
+  }
+}

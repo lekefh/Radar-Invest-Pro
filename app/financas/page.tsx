@@ -97,6 +97,13 @@ export default function FinancasPage() {
   const [loadingTrans, setLoadingTrans] = useState(false)
   const [editando, setEditando]         = useState<Record<number, string>>({})
 
+  // Modal lançamento manual
+  const FORM_VAZIO = { data: new Date().toISOString().slice(0,10), historico: '', valor: '', tipo_lancamento: 'despesa' as const, tipo_extrato: 'conta' as const, categoria: 'Outros', banco: 'Nubank', descricao: '' }
+  const [modalAberto, setModalAberto]   = useState(false)
+  const [formLanc, setFormLanc]         = useState({ ...FORM_VAZIO })
+  const [salvandoLanc, setSalvandoLanc] = useState(false)
+  const [erroLanc, setErroLanc]         = useState('')
+
   // Resumo
   const [resumo, setResumo]         = useState<Resumo | null>(null)
   const [periodoResumo, setPeriodoResumo] = useState('')
@@ -233,6 +240,24 @@ export default function FinancasPage() {
     })
     setTransacoes(ts => ts.map(t => t.id === id ? { ...t, categoria } : t))
     setEditando(e => { const n = { ...e }; delete n[id]; return n })
+  }
+
+  async function salvarLancamentoManual() {
+    if (!formLanc.data || !formLanc.historico || !formLanc.valor) {
+      setErroLanc('Preencha data, histórico e valor.'); return
+    }
+    setSalvandoLanc(true); setErroLanc('')
+    const r = await fetch('/api/financas/transacoes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...formLanc, valor: parseFloat(String(formLanc.valor).replace(',', '.')) }),
+    })
+    const d = await r.json()
+    setSalvandoLanc(false)
+    if (d.erro) { setErroLanc(d.erro); return }
+    setModalAberto(false)
+    setFormLanc({ ...FORM_VAZIO })
+    carregarTransacoes()
   }
 
   async function excluirTransacao(id: number) {
@@ -553,8 +578,14 @@ export default function FinancasPage() {
                   style={inputSt}
                 />
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
                 <button onClick={carregarTransacoes} style={btnPrimary}>Buscar</button>
+                <button
+                  onClick={() => { setFormLanc({ ...FORM_VAZIO }); setErroLanc(''); setModalAberto(true) }}
+                  style={{ ...btnSecondary, color: '#66BB6A', borderColor: 'rgba(102,187,106,.3)', fontWeight: 700, whiteSpace: 'nowrap' }}
+                >
+                  ＋ Novo lançamento
+                </button>
               </div>
             </div>
 
@@ -925,6 +956,91 @@ export default function FinancasPage() {
           </div>
         )}
       </div>
+
+      {/* ── MODAL: lançamento manual ────────────────────────────────────────── */}
+      {modalAberto && (
+        <div
+          onClick={() => setModalAberto(false)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.65)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.12)', borderRadius: 12, padding: 28, width: '100%', maxWidth: 540, boxShadow: '0 24px 64px rgba(0,0,0,.7)' }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Space Grotesk,sans-serif' }}>＋ Novo Lançamento Manual</h3>
+              <button onClick={() => setModalAberto(false)} style={{ background: 'none', border: 'none', color: '#6b84a8', fontSize: 18, cursor: 'pointer' }}>✕</button>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+              {/* Data */}
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Data *</label>
+                <input type="date" value={formLanc.data} onChange={e => setFormLanc(f => ({ ...f, data: e.target.value }))} style={{ ...inputSt, colorScheme: 'dark' }} />
+              </div>
+              {/* Valor */}
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Valor (R$) *</label>
+                <input type="number" step="0.01" min="0" placeholder="0,00" value={formLanc.valor} onChange={e => setFormLanc(f => ({ ...f, valor: e.target.value }))} style={inputSt} />
+              </div>
+              {/* Histórico — full width */}
+              <div style={{ gridColumn: 'span 2' }}>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Histórico / Descrição *</label>
+                <input placeholder="Ex: Aluguel agosto, Salário, Supermercado…" value={formLanc.historico} onChange={e => setFormLanc(f => ({ ...f, historico: e.target.value }))} style={inputSt} />
+              </div>
+              {/* Tipo lançamento */}
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Tipo de Lançamento</label>
+                <select value={formLanc.tipo_lancamento} onChange={e => setFormLanc(f => ({ ...f, tipo_lancamento: e.target.value as 'despesa'|'receita'|'pagamento_cartao' }))} style={selectSt}>
+                  <option value="despesa">Despesa</option>
+                  <option value="receita">Receita</option>
+                  <option value="pagamento_cartao">Pagamento de Fatura</option>
+                </select>
+              </div>
+              {/* Tipo extrato */}
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Tipo de Extrato</label>
+                <select value={formLanc.tipo_extrato} onChange={e => setFormLanc(f => ({ ...f, tipo_extrato: e.target.value as 'conta'|'cartao' }))} style={selectSt}>
+                  <option value="conta">Conta Corrente / Poupança</option>
+                  <option value="cartao">Cartão de Crédito</option>
+                </select>
+              </div>
+              {/* Categoria */}
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Categoria</label>
+                <select value={formLanc.categoria} onChange={e => setFormLanc(f => ({ ...f, categoria: e.target.value }))} style={selectSt}>
+                  {categorias.map(c => <option key={c} value={c}>{c}</option>)}
+                </select>
+              </div>
+              {/* Banco */}
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Banco</label>
+                <select value={formLanc.banco} onChange={e => setFormLanc(f => ({ ...f, banco: e.target.value }))} style={selectSt}>
+                  {BANCOS.map(b => <option key={b} value={b}>{b}</option>)}
+                </select>
+              </div>
+              {/* Obs (opcional) */}
+              <div style={{ gridColumn: 'span 2' }}>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 4 }}>Observação (opcional)</label>
+                <input placeholder="Nota adicional…" value={formLanc.descricao} onChange={e => setFormLanc(f => ({ ...f, descricao: e.target.value }))} style={inputSt} />
+              </div>
+            </div>
+
+            {erroLanc && (
+              <div style={{ marginTop: 14, padding: '8px 12px', background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)', borderRadius: 6, color: '#ef5350', fontSize: 13 }}>
+                {erroLanc}
+              </div>
+            )}
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 20 }}>
+              <button onClick={() => setModalAberto(false)} style={btnSecondary}>Cancelar</button>
+              <button onClick={salvarLancamentoManual} disabled={salvandoLanc} style={{ ...btnPrimary, opacity: salvandoLanc ? 0.6 : 1 }}>
+                {salvandoLanc ? 'Salvando…' : '✓ Salvar lançamento'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Garante legibilidade dos options em qualquer OS/browser */}
       <style jsx global>{`
