@@ -3,7 +3,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import * as XLSX from 'xlsx'
 import { getSession } from '@/lib/auth'
 import { ensureFinancasTables } from '@/lib/db'
-import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, TransacaoPreview } from '@/lib/financas-utils'
+import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, deveIgnorar, TransacaoPreview } from '@/lib/financas-utils'
 
 // ── Parser de valor para células Excel ────────────────────────────────────────
 function parseValorXLS(s: string | number): number {
@@ -101,6 +101,7 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
       categoria: categorizar(hist),
       banco: bancoFinal,
       periodo: data.substring(0, 7),
+      ignorar: deveIgnorar(hist),
     })
   }
 
@@ -322,6 +323,7 @@ export async function POST(req: NextRequest) {
             categoria:       categorizar(t.historico),
             banco:           bancoFinal,
             periodo:         t.data.substring(0, 7),
+            ignorar:         deveIgnorar(t.historico),
           }
         })
 

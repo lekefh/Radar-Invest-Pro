@@ -12,6 +12,26 @@ export interface TransacaoPreview {
   categoria: string
   banco: string
   periodo: string
+  ignorar?: boolean     // true = marcado como ignorado automaticamente na importação
+}
+
+// ── Padrões de auto-ignorar na importação ────────────────────────────────────
+// Transações que aparecem duplicadas no extrato de conta quando a fatura do
+// cartão também é importada separadamente (ex: "Gasto c Credito" do Bradesco)
+const AUTO_IGNORAR: string[] = [
+  'GASTO C CREDITO',
+  'GASTO COM CREDITO',
+  'GASTO CARTAO',
+  'GASTO CARTÃO',
+  'GASTO C/ CARTAO',
+  'GASTO C/ CARTÃO',
+  'COMPRA CARTAO',
+  'COMPRA CARTÃO',
+]
+
+export function deveIgnorar(historico: string): boolean {
+  const upper = historico.toUpperCase()
+  return AUTO_IGNORAR.some(p => upper.includes(p))
 }
 
 // ── Regras de categorização por palavras-chave ────────────────────────────────

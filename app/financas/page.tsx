@@ -28,6 +28,7 @@ interface TransacaoPreview {
   categoria: string
   banco: string
   periodo: string
+  ignorar?: boolean
 }
 
 interface Resumo {
@@ -534,14 +535,14 @@ export default function FinancasPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                     <thead>
                       <tr style={{ background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
-                        {['Data','Histórico','Categoria','Tipo','Valor'].map(h => (
+                        {['Data','Histórico','Categoria','Tipo','Valor',''].map(h => (
                           <th key={h} style={{ padding: '8px 10px', textAlign: 'left', color: '#6b84a8', fontWeight: 600, fontSize: 11, textTransform: 'uppercase' }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {preview.map((t, i) => (
-                        <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,.04)' }}>
+                        <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', opacity: t.ignorar ? 0.55 : 1 }}>
                           <td style={{ padding: '7px 10px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>{t.data}</td>
                           <td style={{ padding: '7px 10px', maxWidth: 260, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.historico}</td>
                           <td style={{ padding: '7px 10px' }}>
@@ -560,6 +561,13 @@ export default function FinancasPage() {
                           </td>
                           <td style={{ padding: '7px 10px', textAlign: 'right', fontWeight: 700, color: t.valor >= 0 ? '#66BB6A' : '#ef5350', whiteSpace: 'nowrap' }}>
                             {fmt(Math.abs(t.valor))}
+                          </td>
+                          <td style={{ padding: '7px 10px', whiteSpace: 'nowrap' }}>
+                            {t.ignorar && (
+                              <span style={{ fontSize: 10, fontWeight: 700, color: '#e8a020', background: 'rgba(232,160,32,.12)', border: '1px solid rgba(232,160,32,.3)', padding: '2px 7px', borderRadius: 4 }}>
+                                👁 Auto-ignorado
+                              </span>
+                            )}
                           </td>
                         </tr>
                       ))}

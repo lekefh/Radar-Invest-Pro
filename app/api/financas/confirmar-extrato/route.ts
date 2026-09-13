@@ -53,12 +53,12 @@ export async function POST(req: NextRequest) {
     for (const t of novas) {
       await sql`
         INSERT INTO transacoes_pessoais
-          (user_id, data, historico, descricao, valor, tipo_lancamento, tipo_extrato, categoria, banco, periodo, batch_id)
+          (user_id, data, historico, descricao, valor, tipo_lancamento, tipo_extrato, categoria, banco, periodo, batch_id, ignorar)
         VALUES
           (${userId}, ${t.data}, ${t.historico}, ${t.descricao || ''},
            ${t.valor}, ${t.tipo_lancamento}, ${t.tipo_extrato},
            ${t.categoria || ''}, ${banco}, ${t.periodo || t.data.substring(0,7)},
-           ${batch.id})
+           ${batch.id}, ${t.ignorar ?? false})
       `
     }
 
