@@ -353,29 +353,44 @@ export default function FinancasPage() {
     </div>
   )
 
-  // ── Exportação CSV (abre no Excel) ──────────────────────────────────────────
-  function exportarExcel() {
-    const lista = sortedTransacoes.filter(t => selecionados.has(t.id))
-    if (!lista.length) return
-    const header = ['Data', 'Histórico', 'Banco', 'Categoria', 'Tipo', 'Valor (R$)', 'Ignorado']
-    const rows = lista.map(t => [
-      t.data,
-      `"${t.historico.replace(/"/g, '""')}"`,
-      t.banco,
-      t.categoria || 'Outros',
-      LABEL_TIPO[t.tipo_lancamento] || t.tipo_lancamento,
-      Math.abs(t.valor).toFixed(2).replace('.', ','),
-      t.ignorar ? 'Sim' : 'Não',
-    ])
-    const csv = [header.join(';'), ...rows.map(r => r.join(';'))].join('\r\n')
-    const bom  = '﻿' // BOM para Excel reconhecer UTF-8
-    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' })
-    const url  = URL.createObjectURL(blob)
-    const a    = document.createElement('a')
-    a.href = url
-    a.download = `transacoes_${new Date().toISOString().slice(0,10)}.csv`
-    a.click()
-    URL.revokeObjectURL(url)
+  // ── Exportação CSV (abre no Excel) — busca TODOS os filtrados ───────────────
+  const [exportando, setExportando] = useState(false)
+
+  async function exportarExcel() {
+    setExportando(true)
+    try {
+      const p = new URLSearchParams({
+        periodo: filPeriodo, categoria: filCategoria, tipo: filTipo,
+        extrato: filExtrato, banco: filBanco, busca: filBusca, exportar: '1',
+      })
+      const res  = await fetch(`/api/financas/transacoes?${p}`)
+      const data = await res.json()
+      const lista: Transacao[] = data.transacoes || []
+      if (!lista.length) { alert('Nenhum lançamento para exportar com os filtros atuais.'); return }
+
+      const header = ['Data', 'Histórico', 'Banco', 'Categoria', 'Tipo', 'Extrato', 'Valor (R$)', 'Ignorado']
+      const rows = lista.map(t => [
+        t.data,
+        `"${(t.historico || '').replace(/"/g, '""')}"`,
+        t.banco,
+        t.categoria || 'Outros',
+        LABEL_TIPO[t.tipo_lancamento] || t.tipo_lancamento,
+        t.tipo_extrato === 'cartao' ? 'Fatura Cartão' : 'Conta Corrente',
+        Math.abs(t.valor).toFixed(2).replace('.', ','),
+        t.ignorar ? 'Sim' : 'Não',
+      ])
+      const csv  = [header.join(';'), ...rows.map(r => r.join(';'))].join('\r\n')
+      const bom  = '﻿' // BOM UTF-8 para Excel
+      const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' })
+      const url  = URL.createObjectURL(blob)
+      const a    = document.createElement('a')
+      a.href = url
+      a.download = `transacoes_${new Date().toISOString().slice(0, 10)}.csv`
+      a.click()
+      URL.revokeObjectURL(url)
+    } finally {
+      setExportando(false)
+    }
   }
 
   function toggleSelecionado(id: number) {
@@ -688,18 +703,18 @@ export default function FinancasPage() {
                 </button>
                 <button
                   onClick={exportarExcel}
-                  disabled={selecionados.size === 0}
-                  title={selecionados.size === 0 ? 'Marque linhas na tabela para exportar' : `Exportar ${selecionados.size} lançamento(s)`}
+                  disabled={exportando}
+                  title={`Exportar todos os ${totalTrans} lançamento(s) com os filtros atuais`}
                   style={{
                     ...btnSecondary,
-                    color: selecionados.size > 0 ? '#22c55e' : '#4a5568',
-                    borderColor: selecionados.size > 0 ? 'rgba(34,197,94,.4)' : 'rgba(255,255,255,.1)',
+                    color: '#22c55e',
+                    borderColor: 'rgba(34,197,94,.4)',
                     whiteSpace: 'nowrap',
-                    opacity: selecionados.size === 0 ? 0.5 : 1,
-                    cursor: selecionados.size === 0 ? 'not-allowed' : 'pointer',
+                    opacity: exportando ? 0.6 : 1,
+                    cursor: exportando ? 'wait' : 'pointer',
                   }}
                 >
-                  ⬇ Excel{selecionados.size > 0 ? ` (${selecionados.size})` : ''}
+                  {exportando ? '⏳ Exportando…' : `⬇ Excel (${totalTrans})`}
                 </button>
               </div>
             </div>

@@ -22,23 +22,41 @@ export async function GET(req: NextRequest) {
     const extrato   = params.get('extrato')    // conta|cartao
     const banco     = params.get('banco')
     const busca     = params.get('busca')
+    const exportAll = params.get('exportar') === '1'  // sem paginação
     const page      = Math.max(1, Number(params.get('page') || 1))
-    const limit    = 50
-    const offset   = (page - 1) * limit
+    const limit     = 50
+    const offset    = (page - 1) * limit
 
-    const rows = await sql`
-      SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
-      FROM transacoes_pessoais
-      WHERE user_id = ${userId}
-        AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
-        AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
-        AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
-        AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
-        AND (${banco || ''} = '' OR banco = ${banco || ''})
-        AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
-      ORDER BY data DESC, id DESC
-      LIMIT ${limit} OFFSET ${offset}
-    `
+    const rows = exportAll
+      ? await sql`
+          SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar
+          FROM transacoes_pessoais
+          WHERE user_id = ${userId}
+            AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
+            AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
+            AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
+            AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
+            AND (${banco || ''} = '' OR banco = ${banco || ''})
+            AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
+          ORDER BY data DESC, id DESC
+        `
+      : await sql`
+          SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
+          FROM transacoes_pessoais
+          WHERE user_id = ${userId}
+            AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
+            AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
+            AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
+            AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
+            AND (${banco || ''} = '' OR banco = ${banco || ''})
+            AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
+          ORDER BY data DESC, id DESC
+          LIMIT ${limit} OFFSET ${offset}
+        `
+
+    if (exportAll) {
+      return NextResponse.json({ transacoes: rows, total: rows.length })
+    }
 
     // Total para paginação
     const [countRow] = await sql`
