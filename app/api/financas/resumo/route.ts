@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
         periodo,
         SUM(CASE WHEN tipo_lancamento = 'receita'           AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
         SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'conta'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas_conta,
-        SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS fatura_cartao,
+        SUM(CASE WHEN tipo_extrato = 'cartao' AND tipo_lancamento != 'pagamento_cartao' AND NOT ignorar THEN -valor ELSE 0 END)::float AS fatura_cartao,
         SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao,
         COUNT(*)::int AS total_lancamentos
       FROM transacoes_pessoais
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
       SELECT
         SUM(CASE WHEN tipo_lancamento = 'receita'           AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS entradas,
         SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'conta'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS saidas_conta,
-        SUM(CASE WHEN tipo_lancamento = 'despesa' AND tipo_extrato = 'cartao' AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS fatura_cartao,
+        SUM(CASE WHEN tipo_extrato = 'cartao' AND tipo_lancamento != 'pagamento_cartao' AND NOT ignorar THEN -valor ELSE 0 END)::float AS fatura_cartao,
         SUM(CASE WHEN tipo_lancamento = 'pagamento_cartao'  AND NOT ignorar THEN ABS(valor) ELSE 0 END)::float AS pgto_cartao
       FROM transacoes_pessoais
       WHERE user_id = ${userId}

@@ -161,13 +161,17 @@ export function parseCSV(conteudo: string, banco: string): TransacaoPreview[] {
       if (cols.length < 3) continue
       const data = toISO(cols[0])
       if (!data) continue
-      const hist  = cols[1].trim()
-      const valor = -Math.abs(parseValorSmart(cols[2])) // fatura = sempre despesa
+      const hist     = cols[1].trim()
+      // Nubank CSV: compras = positivo, estornos = negativo → invertemos o sinal
+      // Compra: +150 → -150 (despesa) | Estorno: -150 → +150 (receita)
+      const valor    = -parseValorSmart(cols[2])
+      const tipo_lanc = detectarTipo(hist, valor)
       transacoes.push({
         data, historico: hist, descricao: '', valor,
-        tipo_lancamento: 'despesa', tipo_extrato: 'cartao',
+        tipo_lancamento: tipo_lanc, tipo_extrato: 'cartao',
         categoria: categorizar(hist), banco: bancoFinal,
         periodo: data.substring(0, 7),
+        ignorar: deveIgnorar(hist),
       })
     }
     return transacoes

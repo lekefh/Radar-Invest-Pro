@@ -97,6 +97,7 @@ export default function FinancasPage() {
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
   const [editando, setEditando]         = useState<Record<number, { cat: string; tipo: string }>>({})
+  const [selecionados, setSelecionados] = useState<Set<number>>(new Set())
   const [sortCol, setSortCol]           = useState<'data'|'valor'|'tipo'|'categoria'|'banco'|'historico'|''>('')
   const [sortDir, setSortDir]           = useState<'asc'|'desc'>('desc')
 
@@ -350,6 +351,47 @@ export default function FinancasPage() {
       Carregando…
     </div>
   )
+
+  // ── Exportação CSV (abre no Excel) ──────────────────────────────────────────
+  function exportarExcel() {
+    const lista = sortedTransacoes.filter(t => selecionados.has(t.id))
+    if (!lista.length) return
+    const header = ['Data', 'Histórico', 'Banco', 'Categoria', 'Tipo', 'Valor (R$)', 'Ignorado']
+    const rows = lista.map(t => [
+      t.data,
+      `"${t.historico.replace(/"/g, '""')}"`,
+      t.banco,
+      t.categoria || 'Outros',
+      LABEL_TIPO[t.tipo_lancamento] || t.tipo_lancamento,
+      Math.abs(t.valor).toFixed(2).replace('.', ','),
+      t.ignorar ? 'Sim' : 'Não',
+    ])
+    const csv = [header.join(';'), ...rows.map(r => r.join(';'))].join('\r\n')
+    const bom  = '﻿' // BOM para Excel reconhecer UTF-8
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' })
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
+    a.href = url
+    a.download = `transacoes_${new Date().toISOString().slice(0,10)}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function toggleSelecionado(id: number) {
+    setSelecionados(prev => {
+      const n = new Set(prev)
+      n.has(id) ? n.delete(id) : n.add(id)
+      return n
+    })
+  }
+
+  function toggleTodos() {
+    if (selecionados.size === sortedTransacoes.length) {
+      setSelecionados(new Set())
+    } else {
+      setSelecionados(new Set(sortedTransacoes.map(t => t.id)))
+    }
+  }
 
   // ── Ordenação da tabela de transações ──────────────────────────────────────
   function toggleSort(col: typeof sortCol) {
@@ -623,7 +665,7 @@ export default function FinancasPage() {
                   style={inputSt}
                 />
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, flexWrap: 'wrap' }}>
                 <button onClick={carregarTransacoes} style={btnPrimary}>Buscar</button>
                 <button
                   onClick={() => { setFormLanc({ ...FORM_VAZIO }); setErroLanc(''); setModalAberto(true) }}
@@ -631,6 +673,14 @@ export default function FinancasPage() {
                 >
                   ＋ Novo lançamento
                 </button>
+                {selecionados.size > 0 && (
+                  <button
+                    onClick={exportarExcel}
+                    style={{ ...btnPrimary, background: 'rgba(34,197,94,.15)', border: '1px solid rgba(34,197,94,.4)', color: '#22c55e', whiteSpace: 'nowrap' }}
+                  >
+                    ⬇ Exportar Excel ({selecionados.size})
+                  </button>
+                )}
               </div>
             </div>
 
@@ -650,6 +700,14 @@ export default function FinancasPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
                     <thead>
                       <tr style={{ background: 'rgba(255,255,255,.04)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
+                        <th style={{ padding: '9px 12px', width: 36 }}>
+                          <input
+                            type="checkbox"
+                            checked={sortedTransacoes.length > 0 && selecionados.size === sortedTransacoes.length}
+                            onChange={toggleTodos}
+                            style={{ cursor: 'pointer', accentColor: '#e8a020' }}
+                          />
+                        </th>
                         {([
                           { label: 'Data',      col: 'data'      },
                           { label: 'Histórico', col: 'historico' },
@@ -682,7 +740,15 @@ export default function FinancasPage() {
                     </thead>
                     <tbody>
                       {sortedTransacoes.map(t => (
-                        <tr key={t.id} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', opacity: t.ignorar ? 0.4 : 1 }}>
+                        <tr key={t.id} style={{ borderBottom: '1px solid rgba(255,255,255,.04)', opacity: t.ignorar ? 0.4 : 1, background: selecionados.has(t.id) ? 'rgba(232,160,32,.06)' : undefined }}>
+                          <td style={{ padding: '8px 12px', width: 36 }}>
+                            <input
+                              type="checkbox"
+                              checked={selecionados.has(t.id)}
+                              onChange={() => toggleSelecionado(t.id)}
+                              style={{ cursor: 'pointer', accentColor: '#e8a020' }}
+                            />
+                          </td>
                           <td style={{ padding: '8px 12px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>{t.data}</td>
                           <td style={{ padding: '8px 12px', maxWidth: 280, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={t.historico}>{t.historico}</td>
                           <td style={{ padding: '8px 12px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>{t.banco}</td>
