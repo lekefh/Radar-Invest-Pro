@@ -49,7 +49,7 @@ export async function PATCH(req: NextRequest) {
       UPDATE transacoes_pessoais
       SET categoria = ${para.trim()}
       WHERE user_id = ${userId} AND categoria = ${de.trim()}
-    `
+    ` as unknown as { count?: number }
 
     return NextResponse.json({ ok: true, atualizados: result.count ?? 0 })
 
