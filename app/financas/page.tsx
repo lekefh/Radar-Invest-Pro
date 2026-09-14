@@ -108,6 +108,9 @@ export default function FinancasPage() {
   interface FormLanc { data: string; historico: string; valor: string; tipo_lancamento: 'despesa'|'receita'|'pagamento_cartao'; tipo_extrato: 'conta'|'cartao'; categoria: string; banco: string; descricao: string }
   const FORM_VAZIO: FormLanc = { data: new Date().toISOString().slice(0,10), historico: '', valor: '', tipo_lancamento: 'despesa', tipo_extrato: 'conta', categoria: 'Outros', banco: 'Nubank', descricao: '' }
   const [modalAberto, setModalAberto]   = useState(false)
+  const [modalCat, setModalCat]         = useState(false)
+  const [novaCategoriaNome, setNovaCategoriaNome] = useState('')
+  const [renomeando, setRenomeando]     = useState<Record<string, string>>({}) // old → new
   const [formLanc, setFormLanc]         = useState<FormLanc>({ ...FORM_VAZIO })
   const [salvandoLanc, setSalvandoLanc] = useState(false)
   const [erroLanc, setErroLanc]         = useState('')
@@ -716,6 +719,13 @@ export default function FinancasPage() {
                   style={{ ...btnSecondary, color: '#66BB6A', borderColor: 'rgba(102,187,106,.3)', fontWeight: 700, whiteSpace: 'nowrap' }}
                 >
                   ＋ Novo lançamento
+                </button>
+                <button
+                  onClick={() => { setRenomeando({}); setNovaCategoriaNome(''); setModalCat(true) }}
+                  style={{ ...btnSecondary, whiteSpace: 'nowrap' }}
+                  title="Adicionar ou renomear categorias"
+                >
+                  🏷 Categorias
                 </button>
                 <button
                   onClick={exportarExcel}
@@ -1327,6 +1337,117 @@ export default function FinancasPage() {
               <button onClick={salvarLancamentoManual} disabled={salvandoLanc} style={{ ...btnPrimary, opacity: salvandoLanc ? 0.6 : 1 }}>
                 {salvandoLanc ? 'Salvando…' : '✓ Salvar lançamento'}
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── MODAL: gerenciar categorias ─────────────────────────────────────── */}
+      {modalCat && (
+        <div
+          onClick={() => setModalCat(false)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.65)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.12)', borderRadius: 12, padding: 28, width: '100%', maxWidth: 480, boxShadow: '0 24px 64px rgba(0,0,0,.7)', maxHeight: '80vh', display: 'flex', flexDirection: 'column' }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Space Grotesk,sans-serif' }}>🏷 Gerenciar Categorias</h3>
+              <button onClick={() => setModalCat(false)} style={{ background: 'none', border: 'none', color: '#6b84a8', fontSize: 18, cursor: 'pointer' }}>✕</button>
+            </div>
+
+            {/* Adicionar nova */}
+            <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
+              <input
+                value={novaCategoriaNome}
+                onChange={e => setNovaCategoriaNome(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && novaCategoriaNome.trim()) {
+                    const nome = novaCategoriaNome.trim()
+                    if (!categorias.includes(nome)) setCategorias(cs => [...cs, nome].sort())
+                    setNovaCategoriaNome('')
+                  }
+                }}
+                placeholder="Nome da nova categoria…"
+                style={{ ...inputSt, flex: 1 }}
+              />
+              <button
+                onClick={() => {
+                  const nome = novaCategoriaNome.trim()
+                  if (!nome) return
+                  if (!categorias.includes(nome)) setCategorias(cs => [...cs, nome].sort())
+                  setNovaCategoriaNome('')
+                }}
+                style={btnPrimary}
+              >
+                ＋ Adicionar
+              </button>
+            </div>
+
+            <p style={{ fontSize: 11, color: '#6b84a8', marginBottom: 10 }}>
+              Clique em ✎ para renomear — renomear atualiza todos os lançamentos com essa categoria.
+            </p>
+
+            {/* Lista de categorias */}
+            <div style={{ overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {categorias.map(cat => (
+                <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 10px', background: 'rgba(255,255,255,.04)', borderRadius: 6 }}>
+                  {renomeando[cat] !== undefined ? (
+                    <>
+                      <input
+                        autoFocus
+                        value={renomeando[cat]}
+                        onChange={e => setRenomeando(r => ({ ...r, [cat]: e.target.value }))}
+                        onKeyDown={async e => {
+                          if (e.key === 'Enter') {
+                            const para = renomeando[cat].trim()
+                            if (!para || para === cat) { setRenomeando(r => { const n = { ...r }; delete n[cat]; return n }); return }
+                            await fetch('/api/financas/categorias', {
+                              method: 'PATCH',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ de: cat, para }),
+                            })
+                            setCategorias(cs => [...cs.filter(c => c !== cat), para].sort())
+                            setTransacoes(ts => ts.map(t => t.categoria === cat ? { ...t, categoria: para } : t))
+                            setRenomeando(r => { const n = { ...r }; delete n[cat]; return n })
+                          }
+                          if (e.key === 'Escape') setRenomeando(r => { const n = { ...r }; delete n[cat]; return n })
+                        }}
+                        style={{ ...inputSt, flex: 1, fontSize: 13, padding: '3px 8px' }}
+                      />
+                      <button
+                        onClick={async () => {
+                          const para = renomeando[cat].trim()
+                          if (!para || para === cat) { setRenomeando(r => { const n = { ...r }; delete n[cat]; return n }); return }
+                          await fetch('/api/financas/categorias', {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ de: cat, para }),
+                          })
+                          setCategorias(cs => [...cs.filter(c => c !== cat), para].sort())
+                          setTransacoes(ts => ts.map(t => t.categoria === cat ? { ...t, categoria: para } : t))
+                          setRenomeando(r => { const n = { ...r }; delete n[cat]; return n })
+                        }}
+                        style={{ ...btnPrimary, padding: '3px 10px', fontSize: 12 }}
+                      >✓</button>
+                      <button
+                        onClick={() => setRenomeando(r => { const n = { ...r }; delete n[cat]; return n })}
+                        style={{ ...btnSecondary, padding: '3px 8px', fontSize: 12 }}
+                      >✕</button>
+                    </>
+                  ) : (
+                    <>
+                      <span style={{ flex: 1, fontSize: 13 }}>{cat}</span>
+                      <button
+                        onClick={() => setRenomeando(r => ({ ...r, [cat]: cat }))}
+                        style={{ background: 'none', border: 'none', color: '#6b84a8', cursor: 'pointer', fontSize: 13, padding: '2px 6px' }}
+                        title="Renomear"
+                      >✎</button>
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
