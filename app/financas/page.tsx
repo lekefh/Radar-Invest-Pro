@@ -98,7 +98,8 @@ export default function FinancasPage() {
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
-  const [editando, setEditando]         = useState<Record<number, { cat: string; tipo: string }>>({})
+  const [editando, setEditando]         = useState<Record<number, { cat: string; tipo: string; novaCat: boolean }>>({})
+  const [editData, setEditData]         = useState<Record<number, string>>({})
   const [selecionados, setSelecionados] = useState<Set<number>>(new Set())
   const [sortCol, setSortCol]           = useState<'data'|'valor'|'tipo'|'categoria'|'banco'|'historico'|''>('')
   const [sortDir, setSortDir]           = useState<'asc'|'desc'>('desc')
@@ -239,19 +240,35 @@ export default function FinancasPage() {
     setPreview(p => p.map((t, i) => i === idx ? { ...t, [campo]: campo === 'valor' ? Number(valor) : valor } : t))
   }
 
-  // ── Atualizar categoria na tabela ────────────────────────────────────────────
+  // ── Atualizar categoria / tipo ────────────────────────────────────────────────
   async function salvarEdicao(id: number) {
     const ed = editando[id]
     if (!ed) return
+    const cat = ed.cat.trim() || 'Outros'
     await fetch(`/api/financas/transacoes/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ categoria: ed.cat, tipo_lancamento: ed.tipo }),
+      body: JSON.stringify({ categoria: cat, tipo_lancamento: ed.tipo }),
     })
     setTransacoes(ts => ts.map(t =>
-      t.id === id ? { ...t, categoria: ed.cat, tipo_lancamento: ed.tipo as Transacao['tipo_lancamento'] } : t
+      t.id === id ? { ...t, categoria: cat, tipo_lancamento: ed.tipo as Transacao['tipo_lancamento'] } : t
     ))
+    if (cat && !categorias.includes(cat)) setCategorias(cs => [...cs, cat].sort())
     setEditando(e => { const n = { ...e }; delete n[id]; return n })
+  }
+
+  // ── Atualizar data ────────────────────────────────────────────────────────────
+  async function salvarData(id: number, novaData: string) {
+    if (!novaData) { setEditData(e => { const n = { ...e }; delete n[id]; return n }); return }
+    await fetch(`/api/financas/transacoes/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: novaData }),
+    })
+    setTransacoes(ts => ts.map(t =>
+      t.id === id ? { ...t, data: novaData, periodo: novaData.substring(0, 7) } : t
+    ))
+    setEditData(e => { const n = { ...e }; delete n[id]; return n })
   }
 
   async function salvarLancamentoManual() {
@@ -783,25 +800,65 @@ export default function FinancasPage() {
                               style={{ cursor: 'pointer', accentColor: '#e8a020' }}
                             />
                           </td>
-                          <td style={{ padding: '8px 12px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>{t.data}</td>
+                          {/* Data — clique para editar */}
+                          <td style={{ padding: '8px 12px', whiteSpace: 'nowrap' }}>
+                            {editData[t.id] !== undefined ? (
+                              <input
+                                type="date"
+                                value={editData[t.id]}
+                                autoFocus
+                                onChange={e => setEditData(prev => ({ ...prev, [t.id]: e.target.value }))}
+                                onBlur={e => salvarData(t.id, e.target.value)}
+                                onKeyDown={e => { if (e.key === 'Enter') salvarData(t.id, editData[t.id]); if (e.key === 'Escape') setEditData(ed => { const n = { ...ed }; delete n[t.id]; return n }) }}
+                                style={{ ...inputSt, width: 130, fontSize: 12, padding: '2px 6px' }}
+                              />
+                            ) : (
+                              <span
+                                onClick={() => setEditData(prev => ({ ...prev, [t.id]: t.data }))}
+                                title="Clique para editar a data"
+                                style={{ cursor: 'pointer', color: '#8fa0b4', borderBottom: '1px dashed rgba(255,255,255,.15)', paddingBottom: 1 }}
+                              >
+                                {t.data}
+                              </span>
+                            )}
+                          </td>
                           <td style={{ padding: '8px 12px', maxWidth: 280, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={t.historico}>{t.historico}</td>
                           <td style={{ padding: '8px 12px', color: '#8fa0b4', whiteSpace: 'nowrap' }}>{t.banco}</td>
+                          {/* Categoria — select + opção de nova categoria */}
                           <td style={{ padding: '8px 12px' }}>
                             {editando[t.id] !== undefined ? (
-                              <div style={{ display: 'flex', gap: 4 }}>
-                                <select
-                                  value={editando[t.id].cat}
-                                  onChange={e => setEditando(prev => ({ ...prev, [t.id]: { ...prev[t.id], cat: e.target.value } }))}
-                                  style={{ ...selectSt, width: 'auto', fontSize: 12, padding: '3px 6px' }}
-                                >
-                                  {categorias.map(c => <option key={c} value={c}>{c}</option>)}
-                                </select>
+                              <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                                {editando[t.id].novaCat ? (
+                                  <input
+                                    autoFocus
+                                    value={editando[t.id].cat}
+                                    onChange={e => setEditando(prev => ({ ...prev, [t.id]: { ...prev[t.id], cat: e.target.value } }))}
+                                    onKeyDown={e => { if (e.key === 'Enter') salvarEdicao(t.id) }}
+                                    placeholder="Nome da categoria…"
+                                    style={{ ...inputSt, fontSize: 12, padding: '3px 6px', width: 160 }}
+                                  />
+                                ) : (
+                                  <select
+                                    value={editando[t.id].cat}
+                                    onChange={e => {
+                                      if (e.target.value === '__nova__') {
+                                        setEditando(prev => ({ ...prev, [t.id]: { ...prev[t.id], cat: '', novaCat: true } }))
+                                      } else {
+                                        setEditando(prev => ({ ...prev, [t.id]: { ...prev[t.id], cat: e.target.value } }))
+                                      }
+                                    }}
+                                    style={{ ...selectSt, width: 'auto', fontSize: 12, padding: '3px 6px' }}
+                                  >
+                                    {categorias.map(c => <option key={c} value={c}>{c}</option>)}
+                                    <option value="__nova__">➕ Nova categoria…</option>
+                                  </select>
+                                )}
                                 <button onClick={() => salvarEdicao(t.id)} style={{ ...btnPrimary, padding: '3px 8px', fontSize: 11 }}>✓</button>
                                 <button onClick={() => setEditando(e => { const n = {...e}; delete n[t.id]; return n })} style={{ ...btnSecondary, padding: '3px 8px', fontSize: 11 }}>✕</button>
                               </div>
                             ) : (
                               <span
-                                onClick={() => setEditando(e => ({ ...e, [t.id]: { cat: t.categoria, tipo: t.tipo_lancamento } }))}
+                                onClick={() => setEditando(e => ({ ...e, [t.id]: { cat: t.categoria, tipo: t.tipo_lancamento, novaCat: false } }))}
                                 style={{ cursor: 'pointer', fontSize: 12, padding: '2px 8px', borderRadius: 4, background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', whiteSpace: 'nowrap' }}
                               >
                                 {t.categoria || 'Outros'} ✎

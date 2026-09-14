@@ -23,10 +23,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (body.ignorar   !== undefined)       updates.ignorar         = body.ignorar
     if (body.descricao !== undefined)       updates.descricao       = body.descricao
     if (body.tipo_lancamento !== undefined) updates.tipo_lancamento = body.tipo_lancamento
+    if (body.data !== undefined)            updates.data            = body.data
 
     if (!Object.keys(updates).length) return NextResponse.json({ ok: true })
 
-    // Atualiza apenas campos fornecidos — usando updates simples
     if (updates.categoria !== undefined) {
       await sql`UPDATE transacoes_pessoais SET categoria = ${updates.categoria as string} WHERE id = ${Number(id)} AND user_id = ${userId}`
       campos.push('categoria')
@@ -42,6 +42,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (updates.tipo_lancamento !== undefined) {
       await sql`UPDATE transacoes_pessoais SET tipo_lancamento = ${updates.tipo_lancamento as string} WHERE id = ${Number(id)} AND user_id = ${userId}`
       campos.push('tipo_lancamento')
+    }
+    if (updates.data !== undefined) {
+      await sql`UPDATE transacoes_pessoais SET data = ${updates.data as string}, periodo = ${(updates.data as string).substring(0, 7)} WHERE id = ${Number(id)} AND user_id = ${userId}`
+      campos.push('data')
     }
 
     return NextResponse.json({ ok: true, campos })
