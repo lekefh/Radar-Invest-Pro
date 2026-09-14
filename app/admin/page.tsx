@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
-type Plano = 'gratuito' | 'essencial' | 'pro' | 'analista'
+type Plano = 'gratuito' | 'essencial' | 'pro' | 'analista' | 'financas'
 
 interface Usuario {
   id:         number
@@ -26,13 +26,14 @@ interface Posicao {
   variacao?:        number | null
 }
 
-const PLANOS: Plano[] = ['gratuito', 'essencial', 'pro', 'analista']
+const PLANOS: Plano[] = ['gratuito', 'essencial', 'pro', 'analista', 'financas']
 
 const PLANO_COLOR: Record<Plano, string> = {
   gratuito: '#546E7A',
   essencial: '#1565C0',
   pro:       '#6A1B9A',
   analista:  '#e8a020',
+  financas:  '#2e7d32',
 }
 
 const f2 = (v: number | null | undefined) =>
