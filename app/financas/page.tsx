@@ -626,55 +626,59 @@ export default function FinancasPage() {
         {aba === 'transacoes' && (
           <div>
             {/* Filtros */}
-            <div style={{ ...card(), marginBottom: 12, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 10 }}>
-              <div>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Período</label>
-                <select value={filPeriodo} onChange={e => { setFilPeriodo(e.target.value); setPageTrans(1) }} style={selectSt}>
-                  <option value="">Todos</option>
-                  {periodosDisp.map(p => <option key={p} value={p}>{p}</option>)}
-                </select>
+            <div style={{ ...card(), marginBottom: 12 }}>
+              {/* Linha 1 — selects */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10, marginBottom: 10 }}>
+                <div>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Período</label>
+                  <select value={filPeriodo} onChange={e => { setFilPeriodo(e.target.value); setPageTrans(1) }} style={{ ...selectSt, width: '100%' }}>
+                    <option value="">Todos</option>
+                    {periodosDisp.map(p => <option key={p} value={p}>{p}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Categoria</label>
+                  <select value={filCategoria} onChange={e => { setFilCategoria(e.target.value); setPageTrans(1) }} style={{ ...selectSt, width: '100%' }}>
+                    <option value="">Todas</option>
+                    {categorias.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Tipo</label>
+                  <select value={filTipo} onChange={e => { setFilTipo(e.target.value); setPageTrans(1) }} style={{ ...selectSt, width: '100%' }}>
+                    <option value="">Todos</option>
+                    <option value="receita">Receita</option>
+                    <option value="despesa">Despesa</option>
+                    <option value="pagamento_cartao">Pgto Cartão</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Extrato</label>
+                  <select value={filExtrato} onChange={e => { setFilExtrato(e.target.value); setPageTrans(1) }} style={{ ...selectSt, width: '100%' }}>
+                    <option value="">Todos</option>
+                    <option value="conta">Conta Corrente</option>
+                    <option value="cartao">Fatura Cartão</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Banco</label>
+                  <select value={filBanco} onChange={e => { setFilBanco(e.target.value); setPageTrans(1) }} style={{ ...selectSt, width: '100%' }}>
+                    <option value="">Todos</option>
+                    {bancosUsados.map(b => <option key={b} value={b}>{b}</option>)}
+                  </select>
+                </div>
               </div>
-              <div>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Categoria</label>
-                <select value={filCategoria} onChange={e => { setFilCategoria(e.target.value); setPageTrans(1) }} style={selectSt}>
-                  <option value="">Todas</option>
-                  {categorias.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </div>
-              <div>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Tipo</label>
-                <select value={filTipo} onChange={e => { setFilTipo(e.target.value); setPageTrans(1) }} style={selectSt}>
-                  <option value="">Todos</option>
-                  <option value="receita">Receita</option>
-                  <option value="despesa">Despesa</option>
-                  <option value="pagamento_cartao">Pgto Cartão</option>
-                </select>
-              </div>
-              <div>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Extrato</label>
-                <select value={filExtrato} onChange={e => { setFilExtrato(e.target.value); setPageTrans(1) }} style={selectSt}>
-                  <option value="">Todos</option>
-                  <option value="conta">Conta Corrente</option>
-                  <option value="cartao">Fatura Cartão</option>
-                </select>
-              </div>
-              <div>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Banco</label>
-                <select value={filBanco} onChange={e => { setFilBanco(e.target.value); setPageTrans(1) }} style={selectSt}>
-                  <option value="">Todos</option>
-                  {bancosUsados.map(b => <option key={b} value={b}>{b}</option>)}
-                </select>
-              </div>
-              <div style={{ gridColumn: 'span 2' }}>
-                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Buscar</label>
-                <input
-                  value={filBusca}
-                  onChange={e => { setFilBusca(e.target.value); setPageTrans(1) }}
-                  placeholder="Palavras-chave no histórico…"
-                  style={inputSt}
-                />
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, flexWrap: 'wrap' }}>
+              {/* Linha 2 — busca + ações */}
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
+                <div style={{ flex: 1 }}>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Buscar no histórico</label>
+                  <input
+                    value={filBusca}
+                    onChange={e => { setFilBusca(e.target.value); setPageTrans(1) }}
+                    placeholder="Palavras-chave…"
+                    style={{ ...inputSt, width: '100%' }}
+                  />
+                </div>
                 <button onClick={carregarTransacoes} style={btnPrimary}>Buscar</button>
                 <button
                   onClick={() => { setFormLanc({ ...FORM_VAZIO }); setErroLanc(''); setModalAberto(true) }}
@@ -682,14 +686,21 @@ export default function FinancasPage() {
                 >
                   ＋ Novo lançamento
                 </button>
-                {selecionados.size > 0 && (
-                  <button
-                    onClick={exportarExcel}
-                    style={{ ...btnPrimary, background: 'rgba(34,197,94,.15)', border: '1px solid rgba(34,197,94,.4)', color: '#22c55e', whiteSpace: 'nowrap' }}
-                  >
-                    ⬇ Exportar Excel ({selecionados.size})
-                  </button>
-                )}
+                <button
+                  onClick={exportarExcel}
+                  disabled={selecionados.size === 0}
+                  title={selecionados.size === 0 ? 'Marque linhas na tabela para exportar' : `Exportar ${selecionados.size} lançamento(s)`}
+                  style={{
+                    ...btnSecondary,
+                    color: selecionados.size > 0 ? '#22c55e' : '#4a5568',
+                    borderColor: selecionados.size > 0 ? 'rgba(34,197,94,.4)' : 'rgba(255,255,255,.1)',
+                    whiteSpace: 'nowrap',
+                    opacity: selecionados.size === 0 ? 0.5 : 1,
+                    cursor: selecionados.size === 0 ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  ⬇ Excel{selecionados.size > 0 ? ` (${selecionados.size})` : ''}
+                </button>
               </div>
             </div>
 
