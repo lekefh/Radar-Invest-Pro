@@ -80,7 +80,8 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
 
     let valor = 0
     if (isFatura && iValR >= 0) {
-      valor = -Math.abs(parseValorXLS(cols[iValR]))
+      // Fatura: compras são positivas no XLS → negativar; estornos são negativos → ficam positivos
+      valor = -parseValorXLS(cols[iValR])
     } else if (!isFatura) {
       const cred = iCred >= 0 ? parseValorXLS(cols[iCred]) : 0
       const debi = iDebi >= 0 ? parseValorXLS(cols[iDebi]) : 0
@@ -96,7 +97,7 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
       historico: hist,
       descricao: '',
       valor,
-      tipo_lancamento: isFatura && tipo_lancamento !== 'pagamento_cartao' ? 'despesa' : tipo_lancamento,
+      tipo_lancamento: tipo_lancamento,
       tipo_extrato: isFatura ? 'cartao' : 'conta',
       categoria: categorizar(hist),
       banco: bancoFinal,
@@ -318,7 +319,7 @@ export async function POST(req: NextRequest) {
             historico:       t.historico,
             descricao:       '',
             valor:           t.valor,
-            tipo_lancamento: tipoExtrato === 'cartao' && tipo_lancamento !== 'pagamento_cartao' ? 'despesa' : tipo_lancamento,
+            tipo_lancamento: tipo_lancamento,
             tipo_extrato:    tipoExtrato,
             categoria:       categorizar(t.historico),
             banco:           bancoFinal,
