@@ -87,6 +87,7 @@ export default function FinancasPage() {
   const [transacoes, setTransacoes]     = useState<Transacao[]>([])
   const [totalTrans, setTotalTrans]     = useState(0)
   const [pageTrans, setPageTrans]       = useState(1)
+  const [exportando, setExportando]    = useState(false)
   const [filPeriodo, setFilPeriodo]     = useState('')
   const [filCategoria, setFilCategoria] = useState('')
   const [filTipo, setFilTipo]           = useState('')
@@ -354,8 +355,6 @@ export default function FinancasPage() {
   )
 
   // ── Exportação CSV (abre no Excel) — busca TODOS os filtrados ───────────────
-  const [exportando, setExportando] = useState(false)
-
   async function exportarExcel() {
     setExportando(true)
     try {
