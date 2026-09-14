@@ -90,6 +90,7 @@ export default function FinancasPage() {
   const [filPeriodo, setFilPeriodo]     = useState('')
   const [filCategoria, setFilCategoria] = useState('')
   const [filTipo, setFilTipo]           = useState('')
+  const [filExtrato, setFilExtrato]     = useState('')
   const [filBanco, setFilBanco]         = useState('')
   const [filBusca, setFilBusca]         = useState('')
   const [categorias, setCategorias]     = useState<string[]>([])
@@ -157,7 +158,7 @@ export default function FinancasPage() {
     setLoadingTrans(true)
     const p = new URLSearchParams({
       periodo: filPeriodo, categoria: filCategoria, tipo: filTipo,
-      banco: filBanco, busca: filBusca, page: String(pageTrans),
+      extrato: filExtrato, banco: filBanco, busca: filBusca, page: String(pageTrans),
     })
     fetch(`/api/financas/transacoes?${p}`).then(r => r.json()).then(d => {
       setTransacoes(d.transacoes || [])
@@ -169,7 +170,7 @@ export default function FinancasPage() {
       }
       setLoadingTrans(false)
     })
-  }, [filPeriodo, filCategoria, filTipo, filBanco, filBusca, pageTrans])
+  }, [filPeriodo, filCategoria, filTipo, filExtrato, filBanco, filBusca, pageTrans])
 
   useEffect(() => {
     if (aba === 'transacoes' && plano) carregarTransacoes()
@@ -647,6 +648,14 @@ export default function FinancasPage() {
                   <option value="receita">Receita</option>
                   <option value="despesa">Despesa</option>
                   <option value="pagamento_cartao">Pgto Cartão</option>
+                </select>
+              </div>
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Extrato</label>
+                <select value={filExtrato} onChange={e => { setFilExtrato(e.target.value); setPageTrans(1) }} style={selectSt}>
+                  <option value="">Todos</option>
+                  <option value="conta">Conta Corrente</option>
+                  <option value="cartao">Fatura Cartão</option>
                 </select>
               </div>
               <div>

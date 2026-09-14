@@ -15,46 +15,30 @@ export async function GET(req: NextRequest) {
     const sql    = getDb()
     const userId = Number(session.sub)
 
-    const params   = req.nextUrl.searchParams
-    const periodo  = params.get('periodo')   // YYYY-MM
+    const params    = req.nextUrl.searchParams
+    const periodo   = params.get('periodo')   // YYYY-MM
     const categoria = params.get('categoria')
-    const tipo     = params.get('tipo')       // despesa|receita|pagamento_cartao
-    const banco    = params.get('banco')
-    const busca    = params.get('busca')
-    const page     = Math.max(1, Number(params.get('page') || 1))
+    const tipo      = params.get('tipo')       // despesa|receita|pagamento_cartao
+    const extrato   = params.get('extrato')    // conta|cartao
+    const banco     = params.get('banco')
+    const busca     = params.get('busca')
+    const page      = Math.max(1, Number(params.get('page') || 1))
     const limit    = 50
     const offset   = (page - 1) * limit
 
-    let rows
-    if (periodo && categoria && tipo && banco && busca) {
-      rows = await sql`
-        SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
-        FROM transacoes_pessoais
-        WHERE user_id = ${userId}
-          AND (${periodo} = '' OR periodo = ${periodo})
-          AND (${categoria} = '' OR categoria = ${categoria})
-          AND (${tipo} = '' OR tipo_lancamento = ${tipo})
-          AND (${banco} = '' OR banco = ${banco})
-          AND (${busca} = '' OR LOWER(historico) LIKE ${'%' + busca.toLowerCase() + '%'})
-        ORDER BY data DESC, id DESC
-        LIMIT ${limit} OFFSET ${offset}
-      `
-    } else {
-      // Build query with only provided filters
-      let baseRows = await sql`
-        SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
-        FROM transacoes_pessoais
-        WHERE user_id = ${userId}
-          AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
-          AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
-          AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
-          AND (${banco || ''} = '' OR banco = ${banco || ''})
-          AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
-        ORDER BY data DESC, id DESC
-        LIMIT ${limit} OFFSET ${offset}
-      `
-      rows = baseRows
-    }
+    const rows = await sql`
+      SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
+      FROM transacoes_pessoais
+      WHERE user_id = ${userId}
+        AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
+        AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
+        AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
+        AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
+        AND (${banco || ''} = '' OR banco = ${banco || ''})
+        AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
+      ORDER BY data DESC, id DESC
+      LIMIT ${limit} OFFSET ${offset}
+    `
 
     // Total para paginação
     const [countRow] = await sql`
@@ -63,6 +47,7 @@ export async function GET(req: NextRequest) {
         AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
         AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
         AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
+        AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
         AND (${banco || ''} = '' OR banco = ${banco || ''})
         AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
     `
