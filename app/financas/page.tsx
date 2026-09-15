@@ -67,6 +67,46 @@ const LABEL_TIPO: Record<string, string> = {
 
 const BANCOS = ['Bradesco','Itaú','Nubank','Santander','Caixa','BB','Inter','C6','XP','Sicredi','Outro']
 
+// ── Paywall ────────────────────────────────────────────────────────────────────
+function PaywallFinancas() {
+  return (
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 24px' }}>
+      <div style={{ background: '#0d1a2e', border: '1px solid rgba(232,160,32,.25)', borderRadius: '20px', padding: '52px 48px', maxWidth: '520px', textAlign: 'center' }}>
+        <div style={{ fontSize: '48px', marginBottom: '20px' }}>🔒</div>
+        <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#e8a020', marginBottom: '12px' }}>Recurso Exclusivo</div>
+        <h2 style={{ fontFamily: 'var(--font-space),Space Grotesk,sans-serif', fontSize: '26px', fontWeight: 700, color: '#e8edf5', marginBottom: '16px', lineHeight: 1.3 }}>
+          Finanças Pessoais disponível<br />no plano <span style={{ color: '#e8a020' }}>Starter ou superior</span>
+        </h2>
+        <p style={{ fontSize: '15px', color: '#6b84a8', lineHeight: 1.7, marginBottom: '32px' }}>
+          Importe extratos bancários, categorize seus gastos e veja resumos mensais com o controle financeiro completo disponível a partir do plano <strong style={{ color: '#e8edf5' }}>Starter</strong>.
+        </p>
+        <div style={{ background: 'rgba(232,160,32,.06)', border: '1px solid rgba(232,160,32,.15)', borderRadius: '12px', padding: '20px', marginBottom: '32px' }}>
+          <div style={{ fontSize: '12px', color: '#6b84a8', marginBottom: '12px', fontWeight: 600, letterSpacing: '.5px', textTransform: 'uppercase' }}>O que você terá acesso</div>
+          {[
+            '📥 Importação de extratos bancários (OFX/CSV)',
+            '🏷️ Categorização inteligente de gastos',
+            '📊 Resumo mensal e gráficos de evolução',
+            '🔍 Filtros por banco, categoria e período',
+            '📤 Exportação de lançamentos para Excel',
+          ].map(item => (
+            <div key={item} style={{ fontSize: '13.5px', color: '#a0b4cc', padding: '6px 0', textAlign: 'left' }}>{item}</div>
+          ))}
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <a href="/planos"
+             style={{ background: '#e8a020', color: '#000', fontWeight: 700, fontSize: '15px', padding: '14px 32px', borderRadius: '8px', textDecoration: 'none', display: 'block' }}>
+            Ver planos e fazer upgrade
+          </a>
+          <a href="/dashboard"
+             style={{ background: 'transparent', border: '1px solid rgba(255,255,255,.12)', color: '#a0b4cc', fontSize: '14px', padding: '12px 32px', borderRadius: '8px', textDecoration: 'none', display: 'block' }}>
+            Voltar ao Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ── Componente principal ──────────────────────────────────────────────────────
 export default function FinancasPage() {
   const router   = useRouter()
@@ -137,12 +177,7 @@ export default function FinancasPage() {
   useEffect(() => {
     fetch('/api/auth/me').then(r => r.json()).then(d => {
       if (!d?.id) { router.push('/login'); return }
-      const p = d.plano || 'gratuito'
-      if (!['starter','essencial','pro','analista'].includes(p)) {
-        router.push('/planos?upgrade=starter')
-        return
-      }
-      setPlano(p)
+      setPlano(d.plano || 'gratuito')
     })
   }, [router])
 
@@ -371,6 +406,13 @@ export default function FinancasPage() {
   if (!plano) return (
     <div style={{ background: '#050d1a', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#6b84a8' }}>
       Carregando…
+    </div>
+  )
+
+  if (!['starter','essencial','pro','analista'].includes(plano)) return (
+    <div style={{ background: '#050d1a', minHeight: '100vh' }}>
+      <NavBar />
+      <PaywallFinancas />
     </div>
   )
 

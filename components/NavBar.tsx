@@ -49,9 +49,8 @@ export default function NavBar() {
 
   const ehAnalista  = usuario?.plano === 'analista'
   const ehPro       = usuario?.plano === 'pro' || ehAnalista
-  const ehFinancas  = ['starter','essencial','pro','analista'].includes(usuario?.plano || '')
   const inicial     = usuario?.nome?.[0]?.toUpperCase() || '?'
-  const todosLinks  = [...LINKS, ...(ehFinancas ? LINKS_FINANCAS : []), ...(ehPro ? LINKS_PRO : [])]
+  const todosLinks  = [...LINKS, ...LINKS_FINANCAS, ...(ehPro ? LINKS_PRO : [])]
 
   function renderLink(l: { href: string; label: string; soon?: boolean }, mobile = false) {
     const ativo = path === l.href || path.startsWith(l.href + '/')
