@@ -505,13 +505,28 @@ export default function FinancasPage() {
 
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '24px 16px' }}>
         {/* Header */}
-        <div style={{ marginBottom: 20 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 700, fontFamily: 'Space Grotesk,sans-serif', marginBottom: 4 }}>
-            💰 Finanças Pessoais
-          </h1>
-          <p style={{ color: '#6b84a8', fontSize: 13 }}>
-            Controle de receitas, despesas e saldo bancário
-          </p>
+        <div style={{ marginBottom: 20, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+          <div>
+            <h1 style={{ fontSize: 22, fontWeight: 700, fontFamily: 'Space Grotesk,sans-serif', marginBottom: 4 }}>
+              💰 Finanças Pessoais
+            </h1>
+            <p style={{ color: '#6b84a8', fontSize: 13 }}>
+              Controle de receitas, despesas e saldo bancário
+            </p>
+          </div>
+          <a
+            href="/ajuda"
+            title="Manual do módulo Finanças"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 6,
+              background: 'rgba(107,132,168,.1)', border: '1px solid rgba(107,132,168,.25)',
+              borderRadius: 8, padding: '6px 12px', textDecoration: 'none',
+              color: '#6b84a8', fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap',
+              flexShrink: 0, marginTop: 2,
+            }}
+          >
+            <span style={{ fontSize: 14 }}>❓</span> Manual de uso
+          </a>
         </div>
 
         {/* Abas */}
