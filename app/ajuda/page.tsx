@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
+import type { ReactNode, CSSProperties } from 'react'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 
@@ -89,10 +89,15 @@ const NAV_ITEMS = [
 ]
 
 export default function AjudaPage() {
-  const tbl: React.CSSProperties = { width: '100%', borderCollapse: 'collapse', fontSize: 13, marginTop: 14 }
+  const tbl: CSSProperties = { width: '100%', borderCollapse: 'collapse', fontSize: 13, marginTop: 14 }
 
   return (
     <div style={{ background: '#050d1a', minHeight: '100vh', color: '#e8edf5', fontFamily: 'Inter,sans-serif' }}>
+      <style>{`
+        .ajuda-nav-link { display:block; padding:7px 20px; font-size:12.5px; color:#6b84a8; text-decoration:none; border-left:2px solid transparent; transition:all .15s; }
+        .ajuda-nav-link:hover { color:#eab838; border-left-color:#eab838; background:rgba(234,184,56,.06); }
+        details summary::-webkit-details-marker { display:none; }
+      `}</style>
       <NavBar />
 
       {/* Top bar */}
@@ -109,9 +114,7 @@ export default function AjudaPage() {
         <nav style={{ width: 230, flexShrink: 0, borderRight: '1px solid rgba(255,255,255,.07)', padding: '24px 0', position: 'sticky', top: 86, height: 'calc(100vh - 86px)', overflowY: 'auto' }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.2, textTransform: 'uppercase', color: '#3d4f6a', padding: '0 20px 8px' }}>Conteúdo</div>
           {NAV_ITEMS.map(item => (
-            <a key={item.href} href={item.href} style={{ display: 'block', padding: '7px 20px', fontSize: 12.5, color: '#6b84a8', textDecoration: 'none', borderLeft: '2px solid transparent', transition: 'all .15s' }}
-               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#eab838'; (e.currentTarget as HTMLElement).style.borderLeftColor = '#eab838'; (e.currentTarget as HTMLElement).style.background = 'rgba(234,184,56,.06)' }}
-               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#6b84a8'; (e.currentTarget as HTMLElement).style.borderLeftColor = 'transparent'; (e.currentTarget as HTMLElement).style.background = 'transparent' }}>
+            <a key={item.href} href={item.href} className="ajuda-nav-link">
               {item.label}
             </a>
           ))}
