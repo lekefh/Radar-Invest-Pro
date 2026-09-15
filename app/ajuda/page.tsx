@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 import NavBar from '@/components/NavBar'
 
@@ -7,10 +8,8 @@ export const metadata: Metadata = {
   description: 'Guia completo do módulo de Finanças Pessoais: como importar extratos, categorizar gastos, visualizar resumos e gráficos.',
 }
 
-const MANUAL_URL = '/ajuda'
-
 function Section({ id, num, icon, title, children, color = 'gold' }: {
-  id: string; num: string; icon: string; title: string; children: React.ReactNode; color?: 'gold'|'green'|'blue'
+  id: string; num: string; icon: string; title: string; children: ReactNode; color?: 'gold'|'green'|'blue'
 }) {
   const colors = {
     gold:  { bg: 'rgba(234,184,56,.12)',  border: 'rgba(234,184,56,.3)',  text: '#eab838' },
@@ -46,7 +45,7 @@ function Step({ num, title, desc }: { num: number; title: string; desc: string }
   )
 }
 
-function Box({ type, icon, children }: { type: 'tip'|'info'|'warn'|'ok'; icon: string; children: React.ReactNode }) {
+function Box({ type, icon, children }: { type: 'tip'|'info'|'warn'|'ok'; icon: string; children: ReactNode }) {
   const styles = {
     tip:  { bg: 'rgba(234,184,56,.07)', border: 'rgba(234,184,56,.2)' },
     info: { bg: 'rgba(59,130,246,.07)', border: 'rgba(59,130,246,.2)' },
@@ -67,10 +66,10 @@ function Badge({ label, color }: { label: string; color: 'green'|'red'|'gold'|'b
   return <span style={{ background: c[color][0], color: c[color][1], borderRadius: 100, padding: '2px 9px', fontSize: 11, fontWeight: 700 }}>{label}</span>
 }
 
-function Th({ children }: { children: React.ReactNode }) {
+function Th({ children }: { children: ReactNode }) {
   return <th style={{ textAlign: 'left', padding: '8px 14px', fontSize: 10.5, fontWeight: 700, letterSpacing: '.5px', textTransform: 'uppercase', color: '#6b84a8', borderBottom: '2px solid rgba(255,255,255,.08)' }}>{children}</th>
 }
-function Td({ children, gold }: { children: React.ReactNode; gold?: boolean }) {
+function Td({ children, gold }: { children: ReactNode; gold?: boolean }) {
   return <td style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,.06)', color: gold ? '#eab838' : '#6b84a8', fontWeight: gold ? 600 : 400, verticalAlign: 'top' }}>{children}</td>
 }
 
