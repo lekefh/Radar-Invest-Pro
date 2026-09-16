@@ -64,6 +64,66 @@ export function categorizar(texto: string): string {
   return 'Outros'
 }
 
+// ── Aprendizado de categorias ─────────────────────────────────────────────────
+
+// Termos genéricos bancários que não identificam o estabelecimento
+const STOPWORDS_REGRAS = new Set([
+  'PIX','TED','DOC','ENVIADO','RECEBIDA','RECEBIDO','PAGAMENTO','PGTO','PAG',
+  'COMPRA','DEBITO','CREDITO','DEBITO','CREDITO','DEBIT','CREDIT',
+  'TRANSFERENCIA','TRANSFERENCIA','BANCO','CONTA','CARTAO','CARTAO',
+  'FATURA','PARCELA','ENTRADA','SAIDA','LANCAMENTO','LANCTO',
+  'LTDA','EIRELI','EIRELI','EIRELI','LTDA','LTDA','SERV','SERVICOS',
+  'BRASIL','BRASIL','NATIONAL','ONLINE','STORE','SHOP','LOJA','LOJAS',
+  'COMERCIO','COMERCIAL','INDUSTRIA','SOLUCOES','SISTEMA','SISTEMAS',
+  'INVESTIMENTO','APLICACAO','RESGATE','SALDO','EXTRATO',
+])
+
+/**
+ * Extrai palavras-chave significativas de um histórico bancário.
+ * Ignora stopwords bancárias e palavras menores que 4 chars.
+ * Ordena pela mais longa (mais específica) primeiro.
+ */
+export function extrairPalavrasChave(historico: string): string[] {
+  const normalizado = historico
+    .toUpperCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '') // remove acentos
+    .replace(/[^A-Z0-9\s]/g, ' ')                     // só letras/números
+    .replace(/\s+/g, ' ').trim()
+
+  const palavras = normalizado
+    .split(' ')
+    .filter(w => w.length >= 4 && !STOPWORDS_REGRAS.has(w))
+    // Prioriza palavras com 5+ chars (nomes de estabelecimentos)
+    .sort((a, b) => b.length - a.length)
+    .slice(0, 5) // máximo 5 keywords por lançamento
+
+  return [...new Set(palavras)] // deduplica
+}
+
+/**
+ * Aplica regras salvas pelo usuário sobre um historico.
+ * Retorna a categoria salva ou null se nenhuma regra bater.
+ * A regra com a palavra-chave mais longa vence (mais específica).
+ */
+export function aplicarRegrasUsuario(
+  historico: string,
+  regras: { palavra_chave: string; categoria: string }[],
+): string | null {
+  if (!regras.length) return null
+
+  const normalizado = historico
+    .toUpperCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+
+  // Ordena pela palavra-chave mais longa (mais específica ganha)
+  const ordenadas = [...regras].sort((a, b) => b.palavra_chave.length - a.palavra_chave.length)
+
+  for (const { palavra_chave, categoria } of ordenadas) {
+    if (normalizado.includes(palavra_chave)) return categoria
+  }
+  return null
+}
+
 export function detectarTipo(historico: string, valor: number): 'despesa' | 'receita' | 'pagamento_cartao' {
   const upper = historico.toUpperCase()
   if (

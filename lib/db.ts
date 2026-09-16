@@ -258,10 +258,21 @@ export async function ensureFinancasTables() {
     )
   `
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS financas_regras_usuario (
+      user_id       INTEGER NOT NULL REFERENCES usuarios_web(id) ON DELETE CASCADE,
+      palavra_chave TEXT    NOT NULL,
+      categoria     TEXT    NOT NULL,
+      atualizado_em TIMESTAMPTZ DEFAULT NOW(),
+      PRIMARY KEY (user_id, palavra_chave)
+    )
+  `
+
   await sql`CREATE UNIQUE INDEX IF NOT EXISTS idx_cat_pessoais_sistema ON categorias_pessoais(nome) WHERE user_id IS NULL`
   await sql`CREATE INDEX IF NOT EXISTS idx_tp_user_data ON transacoes_pessoais(user_id, data)`
   await sql`CREATE INDEX IF NOT EXISTS idx_tp_user_cat  ON transacoes_pessoais(user_id, categoria)`
   await sql`CREATE INDEX IF NOT EXISTS idx_eb_user      ON extrato_batches(user_id)`
+  await sql`CREATE INDEX IF NOT EXISTS idx_regras_user  ON financas_regras_usuario(user_id)`
 
   // Seed categorias do sistema (user_id IS NULL) — idempotente via unique index
   const categorias: [string, string][] = [

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getSession } from '@/lib/auth'
 import { getDb } from '@/lib/db'
-import { PLANOS_FINANCAS } from '@/lib/financas-utils'
+import { PLANOS_FINANCAS, extrairPalavrasChave } from '@/lib/financas-utils'
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -30,6 +30,21 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
     if (updates.categoria !== undefined) {
       await sql`UPDATE transacoes_pessoais SET categoria = ${updates.categoria as string} WHERE id = ${Number(id)} AND user_id = ${userId}`
       campos.push('categoria')
+
+      // Aprende a regra: salva palavras-chave do historico → categoria escolhida
+      const rows = await sql`SELECT historico FROM transacoes_pessoais WHERE id = ${Number(id)} AND user_id = ${userId}`
+      const tx = rows[0] as { historico: string } | undefined
+      if (tx?.historico) {
+        const palavras = extrairPalavrasChave(tx.historico)
+        for (const palavra of palavras) {
+          await sql`
+            INSERT INTO financas_regras_usuario (user_id, palavra_chave, categoria, atualizado_em)
+            VALUES (${userId}, ${palavra}, ${updates.categoria as string}, NOW())
+            ON CONFLICT (user_id, palavra_chave)
+            DO UPDATE SET categoria = EXCLUDED.categoria, atualizado_em = NOW()
+          `
+        }
+      }
     }
     if (updates.ignorar !== undefined) {
       await sql`UPDATE transacoes_pessoais SET ignorar = ${updates.ignorar as boolean} WHERE id = ${Number(id)} AND user_id = ${userId}`

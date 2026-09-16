@@ -2,8 +2,24 @@ import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import * as XLSX from 'xlsx'
 import { getSession } from '@/lib/auth'
-import { ensureFinancasTables } from '@/lib/db'
-import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, deveIgnorar, TransacaoPreview } from '@/lib/financas-utils'
+import { ensureFinancasTables, getDb } from '@/lib/db'
+import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, deveIgnorar, aplicarRegrasUsuario, TransacaoPreview } from '@/lib/financas-utils'
+
+// ── Aplica regras aprendidas do usuário sobre o lote de transações ─────────────
+async function enriquecerComRegras(transacoes: TransacaoPreview[], userId: number): Promise<TransacaoPreview[]> {
+  try {
+    const sql = getDb()
+    const regrasRaw = await sql`SELECT palavra_chave, categoria FROM financas_regras_usuario WHERE user_id = ${userId}`
+    const regras = regrasRaw as { palavra_chave: string; categoria: string }[]
+    if (!regras.length) return transacoes
+    return transacoes.map(t => ({
+      ...t,
+      categoria: aplicarRegrasUsuario(t.historico, regras) ?? t.categoria,
+    }))
+  } catch {
+    return transacoes // falha silenciosa — não bloqueia a importação
+  }
+}
 
 // ── Parser de valor para células Excel ────────────────────────────────────────
 function parseValorXLS(s: string | number): number {
@@ -292,6 +308,7 @@ export async function POST(req: NextRequest) {
 
     await ensureFinancasTables()
 
+    const userId = Number(session.sub)
     const form   = await req.formData()
     const file   = form.get('file') as File | null
     const banco  = String(form.get('banco') || '')
@@ -311,7 +328,8 @@ export async function POST(req: NextRequest) {
       }
 
       const bancoFinal = banco || transacoes[0]?.banco || 'Banco'
-      return NextResponse.json({ transacoes, total: transacoes.length, banco: bancoFinal })
+      const enriquecidas = await enriquecerComRegras(transacoes, userId)
+      return NextResponse.json({ transacoes: enriquecidas, total: enriquecidas.length, banco: bancoFinal })
     }
 
     // ── CSV / TXT ─────────────────────────────────────────────────────────────
@@ -339,7 +357,8 @@ export async function POST(req: NextRequest) {
         }, { status: 422 })
       }
 
-      return NextResponse.json({ transacoes, total: transacoes.length, banco: banco || 'Não informado' })
+      const enriquecidas = await enriquecerComRegras(transacoes, userId)
+      return NextResponse.json({ transacoes: enriquecidas, total: enriquecidas.length, banco: banco || 'Não informado' })
     }
 
     // ── XLS / XLSX ───────────────────────────────────────────────────────────
@@ -371,7 +390,8 @@ export async function POST(req: NextRequest) {
         }, { status: 422 })
       }
 
-      return NextResponse.json({ transacoes, total: transacoes.length, banco: banco || 'Bradesco' })
+      const enriquecidas = await enriquecerComRegras(transacoes, userId)
+      return NextResponse.json({ transacoes: enriquecidas, total: enriquecidas.length, banco: banco || 'Bradesco' })
     }
 
     // ── PDF ───────────────────────────────────────────────────────────────────
@@ -467,7 +487,8 @@ export async function POST(req: NextRequest) {
           }
         })
 
-      return NextResponse.json({ transacoes, total: transacoes.length, banco: bancoFinal })
+      const enriquecidas = await enriquecerComRegras(transacoes, userId)
+      return NextResponse.json({ transacoes: enriquecidas, total: enriquecidas.length, banco: bancoFinal })
     }
 
     return NextResponse.json({ erro: 'Formato não suportado. Use OFX, CSV, XLS, XLSX ou PDF.' }, { status: 400 })
