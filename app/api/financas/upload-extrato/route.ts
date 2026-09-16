@@ -17,6 +17,129 @@ function parseValorXLS(s: string | number): number {
   return parseFloat(clean) || 0
 }
 
+// ── Parser OFX (Banco do Brasil, Itaú, Bradesco e outros) ────────────────────
+function parseOFX(text: string, banco: string): TransacaoPreview[] {
+  const transacoes: TransacaoPreview[] = []
+
+  // Detecta banco pelo cabeçalho OFX quando não informado
+  let bancoFinal = banco
+  if (!bancoFinal) {
+    const orgM = text.match(/<ORG>([^<\n]+)/i)
+    bancoFinal = orgM ? orgM[1].trim() : 'Banco'
+  }
+
+  // Extrai todos os blocos <STMTTRN>...</STMTTRN>
+  const blocos = text.match(/<STMTTRN>[\s\S]*?<\/STMTTRN>/gi) || []
+
+  for (const bloco of blocos) {
+    const getTag = (tag: string) => {
+      const m = bloco.match(new RegExp(`<${tag}>([^<\\n\\r]+)`, 'i'))
+      return m ? m[1].trim() : ''
+    }
+
+    const dtRaw  = getTag('DTPOSTED')
+    const amtRaw = getTag('TRNAMT')
+    const nome   = getTag('NAME') || getTag('MEMO') || ''
+
+    if (!dtRaw || !amtRaw) continue
+
+    // Data: 20260803000000[-3:BRT] → 2026-08-03
+    const dtM = dtRaw.match(/^(\d{4})(\d{2})(\d{2})/)
+    if (!dtM) continue
+    const data = `${dtM[1]}-${dtM[2]}-${dtM[3]}`
+
+    const valor = parseFloat(amtRaw.replace(',', '.')) || 0
+    if (valor === 0) continue
+
+    const nomeLower = nome.toLowerCase()
+    if (nomeLower.includes('saldo anterior') || nomeLower.includes('saldo do dia')) continue
+
+    transacoes.push({
+      data,
+      historico: nome || getTag('TRNTYPE'),
+      descricao: '',
+      valor,
+      tipo_lancamento: detectarTipo(nome, valor),
+      tipo_extrato: 'conta',
+      categoria: categorizar(nome),
+      banco: bancoFinal,
+      periodo: data.substring(0, 7),
+      ignorar: deveIgnorar(nome),
+    })
+  }
+
+  return transacoes
+}
+
+// ── Parser XLSX Banco do Brasil (conta corrente) ──────────────────────────────
+function parseXLSBB(buffer: Buffer, banco: string): TransacaoPreview[] {
+  const wb   = XLSX.read(buffer, { type: 'buffer' })
+  const ws   = wb.Sheets[wb.SheetNames[0]]
+  const rows = XLSX.utils.sheet_to_json<string[]>(ws, { header: 1, raw: false, defval: '' }) as string[][]
+
+  let headerIdx = -1
+  for (let i = 0; i < Math.min(rows.length, 20); i++) {
+    const c0 = String(rows[i][0] || '').toLowerCase().trim()
+    const c1 = String(rows[i][1] || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim()
+    if (c0 === 'data' && (c1.includes('lanc') || c1.includes('hist') || c1.includes('desc'))) {
+      headerIdx = i
+      break
+    }
+  }
+  if (headerIdx < 0) return []
+
+  const header   = rows[headerIdx].map(h => String(h || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim())
+  const iValor   = header.findIndex(h => h === 'valor' || (h.includes('valor') && !h.includes('r$')))
+  const iTipo    = header.findIndex(h => h.includes('tipo'))
+  const iDet     = header.findIndex(h => h.includes('det'))
+  const bancoFinal = banco || 'Banco do Brasil'
+  const transacoes: TransacaoPreview[] = []
+
+  for (let i = headerIdx + 1; i < rows.length; i++) {
+    const cols    = rows[i]
+    const dataRaw = String(cols[0] || '').trim()
+    const hist    = String(cols[1] || '').trim()
+
+    // Pula linhas sem data válida ou com data inválida (00/00/0000)
+    if (!dataRaw.match(/^\d{2}\/\d{2}\/\d{4}$/) || dataRaw.startsWith('00')) continue
+    if (!hist) continue
+
+    const hl = hist.toLowerCase()
+    if (hl.includes('saldo') || hl.includes('total')) continue
+
+    const dm = dataRaw.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
+    if (!dm) continue
+    const data = `${dm[3]}-${dm[2]}-${dm[1]}`
+
+    const valorRaw  = iValor >= 0 ? String(cols[iValor] || '') : ''
+    const tipoLanc  = iTipo  >= 0 ? String(cols[iTipo]  || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '') : ''
+    const detalhes  = iDet   >= 0 ? String(cols[iDet]   || '').trim() : ''
+
+    let valor = parseValorXLS(valorRaw)
+    if (tipoLanc.includes('saida') || tipoLanc.includes('saída')) valor = -Math.abs(valor)
+    else if (tipoLanc.includes('entrada'))                          valor =  Math.abs(valor)
+
+    if (valor === 0) continue
+
+    const historico = detalhes && detalhes !== ' ' ? `${hist} — ${detalhes}` : hist
+
+    transacoes.push({
+      data,
+      historico,
+      descricao: '',
+      valor,
+      tipo_lancamento: detectarTipo(hist, valor),
+      tipo_extrato: 'conta',
+      categoria: categorizar(hist),
+      banco: bancoFinal,
+      periodo: data.substring(0, 7),
+      ignorar: deveIgnorar(hist),
+    })
+  }
+
+  return transacoes
+}
+
 // ── Parser XLS/XLSX Bradesco (conta corrente e fatura) ───────────────────────
 function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
   const wb   = XLSX.read(buffer, { type: 'buffer' })
@@ -178,6 +301,19 @@ export async function POST(req: NextRequest) {
 
     const nome = file.name.toLowerCase()
 
+    // ── OFX ──────────────────────────────────────────────────────────────────
+    if (nome.endsWith('.ofx') || nome.endsWith('.qfx')) {
+      const texto     = await file.text()
+      const transacoes = parseOFX(texto, banco || '')
+
+      if (transacoes.length === 0) {
+        return NextResponse.json({ erro: 'Nenhuma transação encontrada no arquivo OFX.' }, { status: 422 })
+      }
+
+      const bancoFinal = banco || transacoes[0]?.banco || 'Banco'
+      return NextResponse.json({ transacoes, total: transacoes.length, banco: bancoFinal })
+    }
+
     // ── CSV / TXT ─────────────────────────────────────────────────────────────
     if (nome.endsWith('.csv') || nome.endsWith('.txt')) {
       const texto = await file.text()
@@ -208,12 +344,15 @@ export async function POST(req: NextRequest) {
 
     // ── XLS / XLSX ───────────────────────────────────────────────────────────
     if (nome.endsWith('.xls') || nome.endsWith('.xlsx')) {
-      const bytes     = await file.arrayBuffer()
-      const buffer    = Buffer.from(bytes)
-      const transacoes = parseXLSBradesco(buffer, banco || 'Bradesco')
+      const bytes  = await file.arrayBuffer()
+      const buffer = Buffer.from(bytes)
+
+      // Tenta Bradesco primeiro, depois BB, depois retorna erro
+      let transacoes = parseXLSBradesco(buffer, banco || 'Bradesco')
+      if (transacoes.length === 0) transacoes = parseXLSBB(buffer, banco || '')
 
       if (transacoes.length === 0) {
-        return NextResponse.json({ erro: 'Nenhuma transação encontrada no arquivo Excel. Verifique se é um extrato Bradesco Internet Banking.' }, { status: 422 })
+        return NextResponse.json({ erro: 'Nenhuma transação encontrada no arquivo Excel. Formatos suportados: Bradesco e Banco do Brasil (Internet Banking).' }, { status: 422 })
       }
 
       // Mesma validação de mismatch do CSV
@@ -331,7 +470,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ transacoes, total: transacoes.length, banco: bancoFinal })
     }
 
-    return NextResponse.json({ erro: 'Formato não suportado. Use CSV, TXT ou PDF.' }, { status: 400 })
+    return NextResponse.json({ erro: 'Formato não suportado. Use OFX, CSV, XLS, XLSX ou PDF.' }, { status: 400 })
 
   } catch (e: unknown) {
     console.error('[upload-extrato]', e)

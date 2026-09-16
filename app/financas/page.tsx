@@ -569,7 +569,7 @@ export default function FinancasPage() {
                 <div style={{ display: 'flex', alignItems: 'flex-end' }}>
                   <input
                     ref={fileRef}
-                    type="file" accept=".csv,.txt,.pdf,.xls,.xlsx"
+                    type="file" accept=".ofx,.qfx,.csv,.txt,.pdf,.xls,.xlsx"
                     onChange={e => setArquivo(e.target.files?.[0] || null)}
                     style={{ display: 'none' }}
                   />
