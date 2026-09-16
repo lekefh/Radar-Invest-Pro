@@ -3,21 +3,25 @@ import Anthropic from '@anthropic-ai/sdk'
 import * as XLSX from 'xlsx'
 import { getSession } from '@/lib/auth'
 import { ensureFinancasTables, getDb } from '@/lib/db'
-import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, deveIgnorar, aplicarRegrasUsuario, TransacaoPreview } from '@/lib/financas-utils'
+import { PLANOS_FINANCAS, parseCSV, categorizar, detectarTipo, deveIgnorar, ehLinhaSaldo, aplicarRegrasUsuario, TransacaoPreview } from '@/lib/financas-utils'
 
 // ── Aplica regras aprendidas do usuário sobre o lote de transações ─────────────
+// Também remove linhas de saldo que possam ter escapado de algum parser (ex: PDF)
 async function enriquecerComRegras(transacoes: TransacaoPreview[], userId: number): Promise<TransacaoPreview[]> {
+  // Pós-filtro global: remove qualquer linha de saldo/resumo que tenha escapado
+  const semSaldo = transacoes.filter(t => !ehLinhaSaldo(t.historico))
+
   try {
     const sql = getDb()
     const regrasRaw = await sql`SELECT palavra_chave, categoria FROM financas_regras_usuario WHERE user_id = ${userId}`
     const regras = regrasRaw as { palavra_chave: string; categoria: string }[]
-    if (!regras.length) return transacoes
-    return transacoes.map(t => ({
+    if (!regras.length) return semSaldo
+    return semSaldo.map(t => ({
       ...t,
       categoria: aplicarRegrasUsuario(t.historico, regras) ?? t.categoria,
     }))
   } catch {
-    return transacoes // falha silenciosa — não bloqueia a importação
+    return semSaldo // falha silenciosa — não bloqueia a importação
   }
 }
 
@@ -67,8 +71,7 @@ function parseOFX(text: string, banco: string): TransacaoPreview[] {
     const valor = parseFloat(amtRaw.replace(',', '.')) || 0
     if (valor === 0) continue
 
-    const nomeLower = nome.toLowerCase()
-    if (nomeLower.includes('saldo anterior') || nomeLower.includes('saldo do dia')) continue
+    if (ehLinhaSaldo(nome)) continue
 
     transacoes.push({
       data,
@@ -202,8 +205,8 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
     if (!dataRaw.match(/^\d{1,2}\//)) continue
     if (!hist) continue
 
+    if (ehLinhaSaldo(hist)) continue
     const hl = hist.toLowerCase()
-    if (hl === 'saldo anterior' || hl.startsWith('saldo invest')) continue
     if (hl.startsWith('sac ') || hl.startsWith('alô bradesco') || hl.startsWith('ouvidoria')) break
     if (hl.includes('total da fatura') || hl.includes('cotação do dólar') || hl.includes('cotacao')) break
 

@@ -34,6 +34,26 @@ export function deveIgnorar(historico: string): boolean {
   return AUTO_IGNORAR.some(p => upper.includes(p))
 }
 
+/**
+ * Retorna true para linhas de saldo/resumo que NÃO são transações.
+ * Deve ser usada para excluir completamente a linha da importação.
+ * Ex: "Saldo Anterior", "Saldo do dia", "Total Lançamentos", etc.
+ */
+export function ehLinhaSaldo(historico: string): boolean {
+  const h = historico
+    .toUpperCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .trim()
+  return (
+    h.includes('SALDO') ||
+    h === 'TOTAL' ||
+    h.startsWith('TOTAL ') ||
+    h.startsWith('RESUMO') ||
+    h.startsWith('EXTRATO PERIODO') ||
+    h.startsWith('EXTRATO PERÍODO')
+  )
+}
+
 // ── Regras de categorização por palavras-chave ────────────────────────────────
 const REGRAS: { palavras: string[]; categoria: string }[] = [
   { palavras: ['MERCADO','SUPER ','ASSAI','ATACADAO','ATACADÃO','CARREFOUR','EXTRA','WALMART','SUPERMERCADO','HIPER'], categoria: 'Mercado' },
@@ -222,6 +242,7 @@ export function parseCSV(conteudo: string, banco: string): TransacaoPreview[] {
       const data = toISO(cols[0])
       if (!data) continue
       const hist     = cols[1].trim()
+      if (ehLinhaSaldo(hist)) continue
       // Nubank CSV: compras = positivo, estornos = negativo → invertemos o sinal
       // Compra: +150 → -150 (despesa) | Estorno: -150 → +150 (receita)
       const valor    = -parseValorSmart(cols[2])
@@ -251,6 +272,7 @@ export function parseCSV(conteudo: string, banco: string): TransacaoPreview[] {
       const valorStr = cols[idxValor >= 0 ? idxValor : 1]
       const hist = cols[idxDesc].trim()
       if (!dataRaw || !hist) continue
+      if (ehLinhaSaldo(hist)) continue
       const data = toISO(dataRaw)
       if (!data) continue
       const valor = parseValorSmart(valorStr) // já tem sinal
@@ -285,6 +307,7 @@ export function parseCSV(conteudo: string, banco: string): TransacaoPreview[] {
     const dataRaw = cols[idxData]?.trim()
     const hist    = cols[idxHist]?.trim()
     if (!dataRaw || !hist) continue
+    if (ehLinhaSaldo(hist)) continue
     const data = toISO(dataRaw)
     if (!data) continue
     let valor = parseValorSmart(cols[idxValor])
@@ -308,6 +331,7 @@ function parseBradescoFixo(linhas: string[], sep: string, banco: string): Transa
     const dataRaw = cols[0]?.trim()
     if (!dataRaw || !dataRaw.includes('/')) continue
     let hist = '', valor = 0
+    // (filtro de saldo aplicado abaixo, após montar hist)
     if (cols.length >= 4) {
       hist  = cols[2] || cols[1]
       valor = parseValorSmart(cols[3])
@@ -317,6 +341,7 @@ function parseBradescoFixo(linhas: string[], sep: string, banco: string): Transa
       valor = parseValorSmart(cols[2])
     }
     if (!hist) continue
+    if (ehLinhaSaldo(hist)) continue
     const data = toISO(dataRaw)
     if (!data) continue
     transacoes.push({
