@@ -184,22 +184,28 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
 
   if (headerIdx < 0) return []
 
-  const header = rows[headerIdx].map(h => String(h || '').toLowerCase().trim())
+  const header = rows[headerIdx].map(h => String(h || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim())
   const hasCred   = header.some(h => h.includes('cr') && h.includes('r$'))
   const hasValorR = header.some(h => h.includes('valor') && h.includes('r$'))
   const isFatura  = !hasCred && hasValorR
 
+  // Índices dinâmicos para não depender de posição fixa das colunas
+  const iData  = header.findIndex(h => h === 'data' || h.startsWith('data'))
+  const iHist  = header.findIndex(h => h.includes('hist') || h.includes('lancamento') || h.includes('descri'))
   const iCred  = hasCred   ? header.findIndex(h => h.includes('cr') && h.includes('r$')) : -1
-  const iDebi  = hasCred   ? header.findIndex(h => h.includes('r$') && !h.includes('cr') && h.includes('d')) : -1
+  const iDebi  = hasCred   ? header.findIndex(h => h.includes('r$') && !h.includes('cr') && h.includes('d') && !h.includes('da')) : -1
   const iValR  = hasValorR ? header.findIndex(h => h.includes('valor') && h.includes('r$')) : -1
+
+  const iDataFinal = iData >= 0 ? iData : 0
+  const iHistFinal = iHist >= 0 ? iHist : 1
 
   const bancoFinal  = banco || 'Bradesco'
   const transacoes: TransacaoPreview[] = []
 
   for (let i = headerIdx + 1; i < rows.length; i++) {
     const cols    = rows[i]
-    const dataRaw = String(cols[0] || '').trim()
-    const hist    = String(cols[1] || '').trim()
+    const dataRaw = String(cols[iDataFinal] || '').trim()
+    const hist    = String(cols[iHistFinal] || '').trim()
 
     // Linha sem data válida → detalhe/continuação ou rodapé
     if (!dataRaw.match(/^\d{1,2}\//)) continue

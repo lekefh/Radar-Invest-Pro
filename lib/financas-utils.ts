@@ -333,7 +333,7 @@ function parseBradescoFixo(linhas: string[], sep: string, banco: string): Transa
     let hist = '', valor = 0
     // (filtro de saldo aplicado abaixo, após montar hist)
     if (cols.length >= 4) {
-      hist  = cols[2] || cols[1]
+      hist  = cols[1] || cols[2]  // col 1 = Histórico, col 2 = Docto. (fallback)
       valor = parseValorSmart(cols[3])
       if ((cols[1] || '').toLowerCase().includes('debit') && valor > 0) valor = -valor
     } else {

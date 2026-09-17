@@ -143,6 +143,9 @@ export default function FinancasPage() {
   const [selecionados, setSelecionados] = useState<Set<number>>(new Set())
   const [sortCol, setSortCol]           = useState<'data'|'valor'|'tipo'|'categoria'|'banco'|'historico'|''>('')
   const [sortDir, setSortDir]           = useState<'asc'|'desc'>('desc')
+  const [modalLote, setModalLote]       = useState(false)
+  const [catLote, setCatLote]           = useState('')
+  const [aplicandoLote, setAplicandoLote] = useState(false)
 
   // Modal lançamento manual
   interface FormLanc { data: string; historico: string; valor: string; tipo_lancamento: 'despesa'|'receita'|'pagamento_cartao'; tipo_extrato: 'conta'|'cartao'; categoria: string; banco: string; descricao: string }
@@ -293,6 +296,27 @@ export default function FinancasPage() {
     ))
     if (cat && !categorias.includes(cat)) setCategorias(cs => [...cs, cat].sort())
     setEditando(e => { const n = { ...e }; delete n[id]; return n })
+  }
+
+  // ── Edição em lote de categoria ───────────────────────────────────────────────
+  async function aplicarLote() {
+    const cat = catLote.trim()
+    if (!cat || selecionados.size === 0) return
+    setAplicandoLote(true)
+    const ids = [...selecionados]
+    await Promise.all(ids.map(id =>
+      fetch(`/api/financas/transacoes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ categoria: cat }),
+      })
+    ))
+    setTransacoes(ts => ts.map(t => selecionados.has(t.id) ? { ...t, categoria: cat } : t))
+    if (!categorias.includes(cat)) setCategorias(cs => [...cs, cat].sort())
+    setSelecionados(new Set())
+    setModalLote(false)
+    setCatLote('')
+    setAplicandoLote(false)
   }
 
   // ── Atualizar data ────────────────────────────────────────────────────────────
@@ -977,6 +1001,33 @@ export default function FinancasPage() {
               )}
             </div>
 
+            {/* Barra de ações em lote — aparece quando há selecionados */}
+            {selecionados.size > 0 && (
+              <div style={{
+                position: 'sticky', bottom: 16, zIndex: 50,
+                background: '#1a2d4a', border: '1px solid rgba(232,160,32,.4)',
+                borderRadius: 10, padding: '10px 16px',
+                display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+                boxShadow: '0 4px 20px rgba(0,0,0,.5)',
+              }}>
+                <span style={{ color: '#e8a020', fontWeight: 700, fontSize: 13 }}>
+                  {selecionados.size} selecionado(s)
+                </span>
+                <button
+                  onClick={() => { setCatLote(categorias[0] || ''); setModalLote(true) }}
+                  style={{ ...btnPrimary, fontSize: 12, padding: '5px 14px' }}
+                >
+                  🏷 Alterar categoria
+                </button>
+                <button
+                  onClick={() => setSelecionados(new Set())}
+                  style={{ ...btnSecondary, fontSize: 12, padding: '5px 12px' }}
+                >
+                  Limpar seleção
+                </button>
+              </div>
+            )}
+
             {/* Paginação */}
             {totalTrans > 50 && (
               <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 12, alignItems: 'center' }}>
@@ -1315,6 +1366,54 @@ export default function FinancasPage() {
       </div>
 
       {/* ── MODAL: lançamento manual ────────────────────────────────────────── */}
+      {/* ── Modal edição em lote ──────────────────────────────────────────── */}
+      {modalLote && (
+        <div
+          onClick={() => setModalLote(false)}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.65)', zIndex: 300, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: '#0f1923', border: '1px solid rgba(232,160,32,.3)', borderRadius: 12, padding: 28, width: '100%', maxWidth: 420, boxShadow: '0 24px 64px rgba(0,0,0,.7)' }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h3 style={{ margin: 0, color: '#e8a020', fontSize: 16 }}>🏷 Alterar categoria em lote</h3>
+              <button onClick={() => setModalLote(false)} style={{ background: 'none', border: 'none', color: '#6b84a8', fontSize: 18, cursor: 'pointer' }}>✕</button>
+            </div>
+            <p style={{ color: '#a0b4cc', fontSize: 13, marginBottom: 16 }}>
+              Aplicar nova categoria para <strong style={{ color: '#fff' }}>{selecionados.size} lançamento(s)</strong> selecionado(s).
+            </p>
+            <label style={{ fontSize: 12, color: '#6b84a8', display: 'block', marginBottom: 6 }}>Nova categoria</label>
+            <select
+              value={catLote}
+              onChange={e => setCatLote(e.target.value)}
+              style={{ ...selectSt, width: '100%', marginBottom: 8 }}
+            >
+              {categorias.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <p style={{ fontSize: 11, color: '#6b84a8', marginBottom: 20 }}>
+              Ou digite uma nova categoria:
+            </p>
+            <input
+              value={catLote}
+              onChange={e => setCatLote(e.target.value)}
+              placeholder="Nome da categoria…"
+              style={{ ...inputSt, width: '100%', marginBottom: 20, boxSizing: 'border-box' }}
+            />
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+              <button onClick={() => setModalLote(false)} style={btnSecondary}>Cancelar</button>
+              <button
+                onClick={aplicarLote}
+                disabled={aplicandoLote || !catLote.trim()}
+                style={{ ...btnPrimary, opacity: (aplicandoLote || !catLote.trim()) ? 0.6 : 1 }}
+              >
+                {aplicandoLote ? '⏳ Salvando…' : `✓ Aplicar para ${selecionados.size}`}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {modalAberto && (
         <div
           onClick={() => setModalAberto(false)}
