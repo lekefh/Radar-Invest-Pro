@@ -134,6 +134,7 @@ export default function FinancasPage() {
   const [filExtrato, setFilExtrato]     = useState('')
   const [filBanco, setFilBanco]         = useState('')
   const [filBusca, setFilBusca]         = useState('')
+  const [filValor, setFilValor]         = useState('')
   const [categorias, setCategorias]     = useState<string[]>([])
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
@@ -201,7 +202,7 @@ export default function FinancasPage() {
     setLoadingTrans(true)
     const p = new URLSearchParams({
       periodo: filPeriodo, categoria: filCategoria, tipo: filTipo,
-      extrato: filExtrato, banco: filBanco, busca: filBusca, page: String(pageTrans),
+      extrato: filExtrato, banco: filBanco, busca: filBusca, valor: filValor, page: String(pageTrans),
     })
     fetch(`/api/financas/transacoes?${p}`).then(r => r.json()).then(d => {
       setTransacoes(d.transacoes || [])
@@ -213,7 +214,7 @@ export default function FinancasPage() {
       }
       setLoadingTrans(false)
     })
-  }, [filPeriodo, filCategoria, filTipo, filExtrato, filBanco, filBusca, pageTrans])
+  }, [filPeriodo, filCategoria, filTipo, filExtrato, filBanco, filBusca, filValor, pageTrans])
 
   useEffect(() => {
     if (aba === 'transacoes' && plano) carregarTransacoes()
@@ -446,7 +447,7 @@ export default function FinancasPage() {
     try {
       const p = new URLSearchParams({
         periodo: filPeriodo, categoria: filCategoria, tipo: filTipo,
-        extrato: filExtrato, banco: filBanco, busca: filBusca, exportar: '1',
+        extrato: filExtrato, banco: filBanco, busca: filBusca, valor: filValor, exportar: '1',
       })
       const res  = await fetch(`/api/financas/transacoes?${p}`)
       const data = await res.json()
@@ -791,6 +792,16 @@ export default function FinancasPage() {
                     value={filBusca}
                     onChange={e => { setFilBusca(e.target.value); setPageTrans(1) }}
                     placeholder="Palavras-chave…"
+                    style={{ ...inputSt, width: '100%' }}
+                  />
+                </div>
+                <div style={{ width: 160 }}>
+                  <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Valor (R$)</label>
+                  <input
+                    value={filValor}
+                    onChange={e => { setFilValor(e.target.value); setPageTrans(1) }}
+                    placeholder="Ex: 140,00"
+                    type="text"
                     style={{ ...inputSt, width: '100%' }}
                   />
                 </div>

@@ -22,6 +22,8 @@ export async function GET(req: NextRequest) {
     const extrato   = params.get('extrato')    // conta|cartao
     const banco     = params.get('banco')
     const busca     = params.get('busca')
+    const valorRaw  = params.get('valor')
+    const valorNum  = valorRaw ? parseFloat(valorRaw.replace(',', '.')) : null
     const exportAll = params.get('exportar') === '1'  // sem paginação
     const page      = Math.max(1, Number(params.get('page') || 1))
     const limit     = 50
@@ -38,6 +40,7 @@ export async function GET(req: NextRequest) {
             AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
             AND (${banco || ''} = '' OR banco = ${banco || ''})
             AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
+            AND (${valorNum === null} OR ROUND(ABS(valor)::numeric, 2) = ${valorNum ?? 0})
           ORDER BY data DESC, id DESC
         `
       : await sql`
@@ -50,6 +53,7 @@ export async function GET(req: NextRequest) {
             AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
             AND (${banco || ''} = '' OR banco = ${banco || ''})
             AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
+            AND (${valorNum === null} OR ROUND(ABS(valor)::numeric, 2) = ${valorNum ?? 0})
           ORDER BY data DESC, id DESC
           LIMIT ${limit} OFFSET ${offset}
         `
@@ -68,6 +72,7 @@ export async function GET(req: NextRequest) {
         AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
         AND (${banco || ''} = '' OR banco = ${banco || ''})
         AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
+        AND (${valorNum === null} OR ROUND(ABS(valor)::numeric, 2) = ${valorNum ?? 0})
     `
 
     return NextResponse.json({ transacoes: rows, total: countRow.total, page, limit })
