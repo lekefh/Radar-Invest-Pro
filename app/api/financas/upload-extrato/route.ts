@@ -199,9 +199,6 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
     : -1
   const iValR  = hasValorR ? header.findIndex(h => h.includes('valor') && h.includes('r$')) : -1
 
-  console.error('[BRAD-DEBUG] header:', header)
-  console.error('[BRAD-DEBUG] hasCred:', hasCred, 'iCred:', iCred, 'iDebi:', iDebi, 'isFatura:', isFatura)
-
   const iDataFinal = iData >= 0 ? iData : 0
   const iHistFinal = iHist >= 0 ? iHist : 1
 
@@ -237,13 +234,8 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
       // Fatura: compras são positivas no XLS → negativar; estornos são negativos → ficam positivos
       valor = -parseValorXLS(cols[iValR])
     } else if (!isFatura) {
-      const rawCred = cols[iCred]
-      const rawDebi = cols[iDebi]
-      const cred = iCred >= 0 ? parseValorXLS(rawCred) : 0
-      const debi = iDebi >= 0 ? parseValorXLS(rawDebi) : 0
-      if (hist.includes('PIX ENVIADO') || hist.includes('ENVIADO')) {
-        console.error('[BRAD-DEBUG] ROW:', hist, '| rawCred:', rawCred, '| rawDebi:', rawDebi, '| cred:', cred, '| debi:', debi)
-      }
+      const cred = iCred >= 0 ? parseValorXLS(cols[iCred]) : 0
+      const debi = iDebi >= 0 ? parseValorXLS(cols[iDebi]) : 0
       if (cred > 0)        valor = cred             // crédito positivo
       else if (cred < 0)   valor = cred             // alguns Bradesco: débito como negativo na col Crédito
       else if (debi !== 0) valor = -Math.abs(debi)  // débito em coluna separada

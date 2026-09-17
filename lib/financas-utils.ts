@@ -333,9 +333,13 @@ function parseBradescoFixo(linhas: string[], sep: string, banco: string): Transa
     let hist = '', valor = 0
     // (filtro de saldo aplicado abaixo, após montar hist)
     if (cols.length >= 4) {
-      hist  = cols[1] || cols[2]  // col 1 = Histórico, col 2 = Docto. (fallback)
-      valor = parseValorSmart(cols[3])
-      if ((cols[1] || '').toLowerCase().includes('debit') && valor > 0) valor = -valor
+      hist = cols[1] || cols[2]  // col 1 = Histórico, col 2 = Docto. (fallback)
+      // Formato Bradesco: Data;Histórico;Docto.;Crédito;Débito;Saldo
+      // col 3 = Crédito (positivo para receitas), col 4 = Débito (positivo para despesas)
+      const cred = parseValorSmart(cols[3] || '')
+      const debi = cols.length >= 5 ? parseValorSmart(cols[4] || '') : 0
+      if (cred !== 0)      valor = cred
+      else if (debi !== 0) valor = -Math.abs(debi)
     } else {
       hist  = cols[1]
       valor = parseValorSmart(cols[2])
