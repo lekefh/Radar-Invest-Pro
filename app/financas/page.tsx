@@ -176,6 +176,7 @@ export default function FinancasPage() {
   // Batches (histórico de importações)
   const [batches, setBatches]             = useState<BatchItem[]>([])
   const [loadingBatches, setLoadingBatches] = useState(false)
+  const [historicoExpandido, setHistoricoExpandido] = useState(false)
 
   // ── Auth ────────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -624,15 +625,23 @@ export default function FinancasPage() {
 
             {/* Histórico de importações */}
             <div style={card()}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b8c4d4' }}>
-                  Histórico de Importações
-                </h3>
-                <button onClick={carregarBatches} style={{ ...btnSecondary, padding: '5px 12px', fontSize: 12 }}>
-                  {loadingBatches ? 'Carregando…' : '↺ Atualizar'}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: historicoExpandido ? 12 : 0 }}>
+                <button
+                  onClick={() => { setHistoricoExpandido(v => !v); if (!historicoExpandido && batches.length === 0) carregarBatches() }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, padding: 0 }}
+                >
+                  <span style={{ fontSize: 12, color: '#6b84a8', transition: 'transform .2s', display: 'inline-block', transform: historicoExpandido ? 'rotate(90deg)' : 'rotate(0deg)' }}>▶</span>
+                  <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b8c4d4', margin: 0 }}>
+                    Histórico de Importações
+                  </h3>
                 </button>
+                {historicoExpandido && (
+                  <button onClick={carregarBatches} style={{ ...btnSecondary, padding: '5px 12px', fontSize: 12 }}>
+                    {loadingBatches ? 'Carregando…' : '↺ Atualizar'}
+                  </button>
+                )}
               </div>
-              {batches.length === 0 ? (
+              {historicoExpandido && (batches.length === 0 ? (
                 <p style={{ color: '#4a5d73', fontSize: 13 }}>
                   {loadingBatches ? 'Carregando…' : 'Nenhuma importação encontrada.'}
                 </p>
@@ -676,7 +685,7 @@ export default function FinancasPage() {
                     </tbody>
                   </table>
                 </div>
-              )}
+              ))}
             </div>
 
             {/* Preview */}
