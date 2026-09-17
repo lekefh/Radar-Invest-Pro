@@ -192,8 +192,11 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
   // Índices dinâmicos para não depender de posição fixa das colunas
   const iData  = header.findIndex(h => h === 'data' || h.startsWith('data'))
   const iHist  = header.findIndex(h => h.includes('hist') || h.includes('lancamento') || h.includes('descri'))
-  const iCred  = hasCred   ? header.findIndex(h => h.includes('cr') && h.includes('r$')) : -1
-  const iDebi  = hasCred   ? header.findIndex(h => h.includes('r$') && !h.includes('cr') && h.includes('d') && !h.includes('da')) : -1
+  const iCred  = hasCred ? header.findIndex(h => h.includes('cr') && h.includes('r$')) : -1
+  // Débito: primeira coluna com 'r$' que vem DEPOIS do crédito e não é saldo
+  const iDebi  = (hasCred && iCred >= 0)
+    ? header.findIndex((h, idx) => idx > iCred && h.includes('r$') && !h.includes('sal') && !h.includes('cr'))
+    : -1
   const iValR  = hasValorR ? header.findIndex(h => h.includes('valor') && h.includes('r$')) : -1
 
   const iDataFinal = iData >= 0 ? iData : 0
