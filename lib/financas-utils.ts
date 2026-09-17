@@ -342,6 +342,7 @@ function parseBradescoFixo(linhas: string[], sep: string, banco: string): Transa
     }
     if (!hist) continue
     if (ehLinhaSaldo(hist)) continue
+    if (valor === 0) continue
     const data = toISO(dataRaw)
     if (!data) continue
     transacoes.push({

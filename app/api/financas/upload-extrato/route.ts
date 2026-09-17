@@ -233,8 +233,9 @@ function parseXLSBradesco(buffer: Buffer, banco: string): TransacaoPreview[] {
     } else if (!isFatura) {
       const cred = iCred >= 0 ? parseValorXLS(cols[iCred]) : 0
       const debi = iDebi >= 0 ? parseValorXLS(cols[iDebi]) : 0
-      if (cred > 0)    valor = cred
-      else if (debi !== 0) valor = -Math.abs(debi)
+      if (cred > 0)        valor = cred             // crédito positivo
+      else if (cred < 0)   valor = cred             // alguns Bradesco: débito como negativo na col Crédito
+      else if (debi !== 0) valor = -Math.abs(debi)  // débito em coluna separada
     }
 
     if (valor === 0) continue
@@ -479,7 +480,7 @@ export async function POST(req: NextRequest) {
       const listaRaw      = (parsed as { transacoes: { data: string; historico: string; valor: number }[] }).transacoes
 
       const transacoes: TransacaoPreview[] = listaRaw
-        .filter(t => t.historico && t.data)
+        .filter(t => t.historico && t.data && t.valor !== 0)
         .map(t => {
           const tipo_lancamento = detectarTipo(t.historico, t.valor)
           return {
