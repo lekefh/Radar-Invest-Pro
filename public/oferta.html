@@ -111,6 +111,19 @@ body {
   transition: background .18s, transform .15s;
 }
 .btn-primary:hover { background: #f5cc55; transform: translateY(-2px); }
+.btn-outline {
+  display: inline-block;
+  background: transparent;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 15px 32px;
+  border-radius: 8px;
+  border: 2px solid rgba(234,184,56,.5);
+  text-decoration: none;
+  transition: border-color .18s, background .18s;
+}
+.btn-outline:hover { border-color: var(--gold); background: rgba(234,184,56,.08); }
 .btn-secondary {
   display: inline-block;
   color: var(--muted);
@@ -505,7 +518,7 @@ footer a { color: var(--muted); }
     </svg>
     Radar Invest Pro
   </a>
-  <a href="https://radarinvestpro.com.br" target="_blank" class="topbar-cta">Começar grátis</a>
+  <a href="https://radarinvestpro.com.br/cadastro" target="_blank" class="topbar-cta">Começar grátis</a>
 </nav>
 
 <!-- HERO -->
@@ -515,7 +528,10 @@ footer a { color: var(--muted); }
   <p class="hero-sub">
     <strong>101 ações da B3 monitoradas em tempo real.</strong> Valuation DCF em 3 cenários, carteira inteligente, mapa de dividendos, apuração automática de IR e <strong>controle completo das suas finanças pessoais</strong> — tudo em um único lugar.
   </p>
-  <a href="https://radarinvestpro.com.br" target="_blank" class="btn-primary">Acessar a plataforma — Grátis</a>
+  <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center;">
+    <a href="https://radarinvestpro.com.br/cadastro" target="_blank" class="btn-primary">Acessar a plataforma — Grátis</a>
+    <a href="#planos" class="btn-outline">Conheça os planos ↓</a>
+  </div>
   <br>
   <span class="hero-note"><span>✓</span> Sem cartão de crédito &nbsp;·&nbsp; <span>✓</span> Acesso imediato &nbsp;·&nbsp; <span>✓</span> Cancele quando quiser</span>
 </section>
@@ -936,7 +952,7 @@ footer a { color: var(--muted); }
 </section>
 
 <!-- PRICING -->
-<section class="pricing-section">
+<section class="pricing-section" id="planos">
   <div class="container">
     <div class="tag" style="display:block;text-align:center">◆ Planos</div>
     <h2>Comece grátis.<br><em class="gold">Escale quando quiser.</em></h2>
@@ -1056,7 +1072,7 @@ footer a { color: var(--muted); }
   <div class="tag">◆ Comece hoje</div>
   <h2>Pare de investir no escuro.<br><em class="gold">Comece agora, de graça.</em></h2>
   <p>Acesse a mesma qualidade de análise que profissionais de mercado usam — sem pagar R$ milhões em terminal.</p>
-  <a href="https://radarinvestpro.com.br" target="_blank" class="btn-primary" style="font-size:18px;padding:18px 48px;">
+  <a href="https://radarinvestpro.com.br/cadastro" target="_blank" class="btn-primary" style="font-size:18px;padding:18px 48px;">
     Criar conta gratuita →
   </a>
   <p class="hero-note" style="margin-top:18px;"><span>✓</span> Sem cartão de crédito &nbsp;·&nbsp; <span>✓</span> Acesso imediato &nbsp;·&nbsp; <span>✓</span> Cancele quando quiser</p>
