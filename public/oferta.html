@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<title>Radar Invest Pro</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;900&display=swap">
+<style>
+:root {
+  --bg:       #080e1c;
+  --surface:  #0e1d33;
+  --surface2: #122240;
+  --gold:     #eab838;
+  --gold-dim: #c99a20;
+  --white:    #ffffff;
+  --muted:    rgba(255,255,255,0.58);
+  --green:    #22c55e;
+  --red:      #ef4444;
+  --border:   rgba(255,255,255,0.08);
+  --radius:   12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── UTILS ── */
+.container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+.gold { color: var(--gold); }
+.green { color: var(--green); }
+.muted { color: var(--muted); }
+.center { text-align: center; }
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(234,184,56,.35);
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin-bottom: 20px;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: rgba(8,14,28,.92);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 700; color: var(--white); text-decoration: none;
+}
+.logo svg { flex-shrink: 0; }
+.topbar-cta {
+  background: var(--gold); color: #080e1c;
+  font-size: 13px; font-weight: 700;
+  border: none; border-radius: 6px;
+  padding: 9px 20px; cursor: pointer; white-space: nowrap;
+  text-decoration: none; display: inline-block;
+}
+.topbar-cta:hover { background: #f5cc55; }
+
+/* ── HERO ── */
+.hero {
+  padding: 72px 20px 56px;
+  text-align: center;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(234,184,56,.08) 0%, transparent 70%);
+}
+.hero-eyebrow { margin-bottom: 24px; }
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 8vw, 80px);
+  line-height: 1;
+  letter-spacing: .02em;
+  text-wrap: balance;
+  margin-bottom: 24px;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 19px);
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.hero-sub strong { color: var(--white); }
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: #080e1c;
+  font-weight: 800;
+  font-size: 16px;
+  padding: 16px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none; cursor: pointer;
+  transition: background .18s, transform .15s;
+}
+.btn-primary:hover { background: #f5cc55; transform: translateY(-2px); }
+.btn-secondary {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+  margin-top: 14px;
+}
+.btn-secondary:hover { color: var(--white); }
+.hero-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.hero-note span { color: var(--green); font-weight: 600; }
+
+/* ── VIDEO ── */
+.video-section { padding: 0 20px 72px; }
+.video-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 32px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(234,184,56,.12);
+  aspect-ratio: 16/9;
+  background: var(--surface);
+  position: relative;
+}
+.video-wrap iframe {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+  border: none;
+}
+
+/* ── PROBLEM ── */
+.problem-section {
+  padding: 72px 20px;
+  background: linear-gradient(180deg, transparent 0%, rgba(14,29,51,.6) 30%, rgba(14,29,51,.6) 70%, transparent 100%);
+}
+.problem-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: .02em;
+  text-align: center;
+  margin-bottom: 48px;
+  text-wrap: balance;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 760px;
+  margin: 0 auto 48px;
+}
+.problem-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.problem-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: rgba(239,68,68,.12);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.problem-card p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.problem-card p strong { color: var(--white); }
+
+/* ── COMPARISON TABLE ── */
+.compare-section { padding: 72px 20px; }
+.compare-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: .02em;
+  text-align: center;
+  margin-bottom: 48px;
+  text-wrap: balance;
+}
+.compare-table-wrap { overflow-x: auto; max-width: 820px; margin: 0 auto; }
+.compare-table {
+  width: 100%; border-collapse: collapse; min-width: 560px;
+}
+.compare-table th {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+.compare-table th.highlight {
+  background: rgba(234,184,56,.08);
+  color: var(--gold);
+  border: 1px solid rgba(234,184,56,.2);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+}
+.compare-table th:first-child { text-align: left; }
+.compare-table td {
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+.compare-table td:first-child {
+  text-align: left;
+  color: var(--white);
+  font-weight: 500;
+}
+.compare-table td.highlight {
+  background: rgba(234,184,56,.05);
+  border-left: 1px solid rgba(234,184,56,.2);
+  border-right: 1px solid rgba(234,184,56,.2);
+  color: var(--white);
+  font-weight: 600;
+}
+.compare-table tr:last-child td.highlight {
+  border-bottom: 1px solid rgba(234,184,56,.2);
+  border-radius: 0 0 10px 10px;
+}
+.check { color: var(--green); font-size: 18px; }
+.cross { color: var(--red); font-size: 18px; }
+
+/* ── FEATURES ── */
+.features-section { padding: 72px 20px; }
+.features-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: .02em;
+  text-align: center;
+  margin-bottom: 16px;
+  text-wrap: balance;
+}
+.features-sub {
+  text-align: center;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 56px;
+}
+.feature-block {
+  max-width: 820px;
+  margin: 0 auto 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.feature-block.reverse { direction: rtl; }
+.feature-block.reverse > * { direction: ltr; }
+.feature-info {
+  padding: 40px 36px;
+  background: var(--surface);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.feature-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: rgba(234,184,56,.18);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.feature-info h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.feature-info p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.feature-info ul {
+  margin-top: 16px;
+  list-style: none;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.feature-info li {
+  font-size: 13px;
+  color: var(--muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.feature-info li::before {
+  content: '◆';
+  color: var(--gold);
+  font-size: 8px;
+  flex-shrink: 0;
+}
+.feature-screen {
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  min-height: 220px;
+  padding: 24px;
+}
+.screen-mock {
+  width: 100%;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  font-size: 11px;
+}
+.screen-mock .mock-bar {
+  background: rgba(255,255,255,.04);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+.mock-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.15); }
+.mock-title { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; margin-left: 4px; }
+.screen-mock .mock-body { padding: 12px; }
+.mock-row {
+  display: flex; gap: 6px; margin-bottom: 5px; align-items: center;
+}
+.mock-cell {
+  background: rgba(255,255,255,.05);
+  border-radius: 3px;
+  height: 14px;
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap; overflow: hidden;
+  font-variant-numeric: tabular-nums;
+}
+.mock-cell.ticker { flex: 0.7; color: var(--white); font-weight: 600; background: rgba(234,184,56,.08); }
+.mock-cell.up { color: #22c55e; background: rgba(34,197,94,.08); }
+.mock-cell.down { color: #ef4444; background: rgba(239,68,68,.08); }
+.mock-cell.gold { color: var(--gold); background: rgba(234,184,56,.08); }
+
+/* ── STATS ── */
+.stats-section {
+  padding: 72px 20px;
+  background: linear-gradient(180deg, transparent 0%, rgba(234,184,56,.03) 50%, transparent 100%);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: var(--gold);
+  line-height: 1;
+}
+.stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ── PRICING ── */
+.pricing-section { padding: 72px 20px; }
+.pricing-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  letter-spacing: .02em;
+  text-align: center;
+  margin-bottom: 12px;
+  text-wrap: balance;
+}
+.pricing-sub { text-align: center; color: var(--muted); margin-bottom: 48px; }
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  display: flex; flex-direction: column;
+}
+.pricing-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(145deg, rgba(234,184,56,.08), var(--surface));
+  position: relative;
+}
+.pricing-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: #080e1c;
+  font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 16px; border-radius: 20px;
+  white-space: nowrap;
+}
+.plan-name { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+.plan-price { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--white); line-height: 1; }
+.plan-price span { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 700; color: var(--muted); vertical-align: top; margin-top: 8px; display: inline-block; }
+.plan-period { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.plan-features { list-style: none; flex: 1; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.plan-features li { font-size: 14px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.plan-features li .check { font-size: 14px; }
+.btn-plan {
+  display: block; text-align: center; text-decoration: none;
+  font-weight: 700; font-size: 14px;
+  padding: 13px 24px; border-radius: 8px;
+  transition: all .18s;
+}
+.btn-plan.outline {
+  border: 1px solid var(--border);
+  color: var(--white);
+}
+.btn-plan.outline:hover { border-color: var(--gold); color: var(--gold); }
+.btn-plan.solid {
+  background: var(--gold); color: #080e1c;
+  border: none;
+}
+.btn-plan.solid:hover { background: #f5cc55; transform: translateY(-1px); }
+
+/* ── FAQ ── */
+.faq-section { padding: 72px 20px; }
+.faq-section h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  letter-spacing: .02em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.faq-list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 18px 20px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  color: var(--white); font-size: 15px; font-weight: 600;
+  text-align: left;
+}
+.faq-arrow { color: var(--gold); font-size: 18px; transition: transform .2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a {
+  max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s;
+  padding: 0 20px;
+  font-size: 14px; color: var(--muted); line-height: 1.7;
+}
+.faq-item.open .faq-a { max-height: 300px; padding: 0 20px 18px; }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  padding: 80px 20px;
+  text-align: center;
+  background: radial-gradient(ellipse 60% 60% at 50% 100%, rgba(234,184,56,.1) 0%, transparent 70%);
+}
+.final-cta h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 6vw, 64px);
+  letter-spacing: .02em;
+  text-wrap: balance;
+  margin-bottom: 20px;
+}
+.final-cta p { color: var(--muted); font-size: 17px; max-width: 480px; margin: 0 auto 40px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+footer a { color: var(--muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .feature-block { grid-template-columns: 1fr; }
+  .feature-block.reverse { direction: ltr; }
+  .feature-screen { min-height: 160px; }
+  .topbar-cta { font-size: 12px; padding: 8px 14px; }
+}
+</style>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <a href="https://radarinvestpro.com.br" class="logo" target="_blank">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+      <circle cx="14" cy="14" r="12" stroke="#eab838" stroke-width="1.5" opacity=".25"/>
+      <circle cx="14" cy="14" r="8.5" stroke="#eab838" stroke-width="1.8" opacity=".5"/>
+      <circle cx="14" cy="14" r="4.5" stroke="#eab838" stroke-width="2" opacity=".8"/>
+      <circle cx="14" cy="14" r="1.6" fill="#eab838"/>
+      <line x1="14" y1="14" x2="20" y2="8" stroke="#eab838" stroke-width="1.2" opacity=".35" stroke-linecap="round"/>
+    </svg>
+    Radar Invest Pro
+  </a>
+  <a href="https://radarinvestpro.com.br" target="_blank" class="topbar-cta">Começar grátis</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="tag">◆ Plataforma de análise · Acesso gratuito</div>
+  <h1>Invista com as <em>mesmas ferramentas</em> que os profissionais de mercado</h1>
+  <p class="hero-sub">
+    <strong>101 ações da B3 monitoradas em tempo real.</strong> Valuation DCF em 3 cenários, carteira inteligente, mapa de dividendos, apuração automática de IR e <strong>controle completo das suas finanças pessoais</strong> — tudo em um único lugar.
+  </p>
+  <a href="https://radarinvestpro.com.br" target="_blank" class="btn-primary">Acessar a plataforma — Grátis</a>
+  <br>
+  <span class="hero-note"><span>✓</span> Sem cartão de crédito &nbsp;·&nbsp; <span>✓</span> Acesso imediato &nbsp;·&nbsp; <span>✓</span> Cancele quando quiser</span>
+</section>
+
+<!-- VIDEO -->
+<div class="video-section">
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/8FcR0Wt8C7c?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
+<!-- FINPESSOAIS DESTAQUE -->
+<section style="padding:0 20px 64px;">
+  <div style="max-width:820px;margin:0 auto;background:linear-gradient(135deg,rgba(14,29,51,.9) 0%,rgba(18,34,64,.9) 100%);border:1px solid rgba(234,184,56,.2);border-radius:16px;padding:40px 40px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:240px;">
+      <div class="tag" style="margin-bottom:16px">◆ Exclusivo — Plano Pro</div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,40px);letter-spacing:.02em;line-height:1.1;margin-bottom:14px;">Finanças pessoais<br><span class="gold">integradas à sua carteira</span></h3>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;max-width:380px;">Importe o extrato do seu banco — Bradesco, Itaú, Nubank, Santander, Inter, C6, BTG, Caixa e outros — em CSV, PDF ou Excel. Categorização automática sem digitar um único lançamento. Veja onde seu dinheiro vai, para sobrar mais para investir.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;">
+        <span style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:#22c55e;font-weight:600;">🏦 Bradesco · Itaú · Nubank · Santander · Inter · C6 · BTG · Caixa</span>
+        <span style="background:rgba(234,184,56,.1);border:1px solid rgba(234,184,56,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--gold);font-weight:600;">📁 CSV · PDF · Excel</span>
+        <span style="background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:4px 14px;font-size:12px;color:var(--muted);">🔄 Categorização automática</span>
+      </div>
+    </div>
+    <div style="flex:0 0 220px;">
+      <div class="screen-mock" style="font-size:11px;">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">Finanças — Set/2026</span>
+        </div>
+        <div class="mock-body" style="padding:10px;">
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;justify-content:space-between;background:rgba(34,197,94,.07);border-radius:4px;padding:6px 10px;">
+              <span style="font-size:10px;color:var(--muted)">💰 Entradas</span>
+              <span style="font-size:10px;color:#22c55e;font-weight:600;">R$ 8.200</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:6px 10px;">
+              <span style="font-size:10px;color:var(--muted)">🍔 Alimentação</span>
+              <span style="font-size:10px;color:#ef4444;">R$ 1.140</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:6px 10px;">
+              <span style="font-size:10px;color:var(--muted)">🚗 Transporte</span>
+              <span style="font-size:10px;color:#ef4444;">R$ 380</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:6px 10px;">
+              <span style="font-size:10px;color:var(--muted)">💳 Cartão</span>
+              <span style="font-size:10px;color:#ef4444;">R$ 2.310</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(234,184,56,.1);border:1px solid rgba(234,184,56,.25);border-radius:4px;padding:6px 10px;">
+              <span style="font-size:10px;color:var(--gold);font-weight:700;">Para investir</span>
+              <span style="font-size:11px;color:var(--gold);font-weight:700;">R$ 4.370</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem-section">
+  <div class="container">
+    <h2>A maioria dos investidores <em class="gold">opera no escuro</em></h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📊</div>
+        <p><strong>Compra sem saber o preço justo.</strong> Toma decisão por dica ou impulso, sem valuation.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <p><strong>Gasta sem saber onde o dinheiro foi.</strong> Sem controle das finanças pessoais, sobra cada vez menos para investir.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📋</div>
+        <p><strong>Apura o IR numa planilha cheia de erros.</strong> Ou paga mais do que devia, ou arriscam a multa da Receita.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🔍</div>
+        <p><strong>Analisa empresa por empresa manualmente.</strong> Horas abertas em terminais caros, sem visão consolidada da B3.</p>
+      </div>
+    </div>
+    <p class="center muted" style="max-width:520px;margin:0 auto;font-size:15px;">Isso não é falta de esforço. É falta de <strong style="color:var(--white)">ferramentas adequadas</strong>. O Radar Invest Pro muda isso.</p>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-section">
+  <div class="container">
+    <div class="tag center" style="display:block;text-align:center">◆ Comparativo</div>
+    <h2>O que você analisa vs<br><em class="gold">o que um profissional analisa</em></h2>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>O que você analisa</th>
+            <th>Você hoje</th>
+            <th>Profissional<br>de mercado</th>
+            <th class="highlight">◎ Radar<br>Invest Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Valuation</td>
+            <td>P/L superficial</td>
+            <td>DCF multicenários</td>
+            <td class="highlight"><span class="check">✓</span> DCF multicenários</td>
+          </tr>
+          <tr>
+            <td>Fundamentos</td>
+            <td>1–2 indicadores</td>
+            <td>KPIs por setor</td>
+            <td class="highlight"><span class="check">✓</span> KPIs por setor</td>
+          </tr>
+          <tr>
+            <td>Governança</td>
+            <td>—</td>
+            <td>Score ESG / Governança</td>
+            <td class="highlight"><span class="check">✓</span> Score Governança</td>
+          </tr>
+          <tr>
+            <td>Carteira</td>
+            <td>Planilha manual</td>
+            <td>Peso por risco</td>
+            <td class="highlight"><span class="check">✓</span> Peso por risco</td>
+          </tr>
+          <tr>
+            <td>Próx. resultado</td>
+            <td>—</td>
+            <td>Estimativa de resultados</td>
+            <td class="highlight"><span class="check">✓</span> Estimativa automática</td>
+          </tr>
+          <tr>
+            <td>Custo</td>
+            <td>R$0 (sem análise)</td>
+            <td>R$ milhões em terminal</td>
+            <td class="highlight"><span class="check" style="color:var(--gold)">★</span> Acessível</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="container">
+    <div class="tag" style="display:block;text-align:center">◆ 6 módulos integrados</div>
+    <h2>Uma plataforma.<br><em class="gold">Tudo que você precisa.</em></h2>
+    <p class="features-sub">Cada aba foi construída com o rigor de um terminal institucional — no preço de um café por dia.</p>
+  </div>
+
+  <!-- Módulo 1 -->
+  <div class="feature-block" style="max-width:820px;margin:0 auto 24px;">
+    <div class="feature-info">
+      <div class="feature-num">01</div>
+      <h3>Monitoramento de Ações</h3>
+      <p>101 empresas da B3 com dados fundamentalistas atualizados em tempo real. Score de Governança de 0 a 11, Nota geral e alertas automáticos.</p>
+      <ul>
+        <li>P/L, P/VP, DY, ROE, LPA em uma tela</li>
+        <li>Score de Governança por empresa</li>
+        <li>Filtro por setor, preço e indicador</li>
+        <li>Alertas de queda crítica (−30%)</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <div class="screen-mock">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">Monitoramento</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-row" style="margin-bottom:8px">
+            <div class="mock-cell" style="flex:0.8;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">TICKER</div>
+            <div class="mock-cell" style="flex:0.6;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">P/L</div>
+            <div class="mock-cell" style="flex:0.6;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">DY</div>
+            <div class="mock-cell" style="flex:0.6;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">ROE</div>
+            <div class="mock-cell" style="flex:0.7;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">NOTA</div>
+          </div>
+          <div class="mock-row"><div class="mock-cell ticker">WEGE3</div><div class="mock-cell">28,4x</div><div class="mock-cell gold">2,1%</div><div class="mock-cell up">26,3%</div><div class="mock-cell gold">9,2</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">ITUB4</div><div class="mock-cell">8,1x</div><div class="mock-cell gold">4,8%</div><div class="mock-cell up">18,9%</div><div class="mock-cell gold">8,7</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">PETR4</div><div class="mock-cell">5,3x</div><div class="mock-cell gold">9,2%</div><div class="mock-cell up">31,1%</div><div class="mock-cell gold">7,4</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">MGLU3</div><div class="mock-cell down">—</div><div class="mock-cell">0,0%</div><div class="mock-cell down">−4,2%</div><div class="mock-cell">3,1</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">VALE3</div><div class="mock-cell">7,8x</div><div class="mock-cell gold">6,3%</div><div class="mock-cell up">14,7%</div><div class="mock-cell gold">8,1</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Módulo 2 -->
+  <div class="feature-block reverse" style="max-width:820px;margin:0 auto 24px;">
+    <div class="feature-info">
+      <div class="feature-num">02</div>
+      <h3>Carteira Inteligente</h3>
+      <p>Acompanhe todos os seus ativos em tempo real. Importe pela nota de corretagem ou pela planilha da B3.</p>
+      <ul>
+        <li>Preço médio e cotação ao vivo</li>
+        <li>Resultado por ação e resultado total</li>
+        <li>Peso ideal calculado automaticamente</li>
+        <li>Importação de nota de corretagem</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <div class="screen-mock">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">Carteira</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-row" style="margin-bottom:8px">
+            <div class="mock-cell" style="flex:0.8;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">ATIVO</div>
+            <div class="mock-cell" style="flex:0.7;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">P. MÉDIO</div>
+            <div class="mock-cell" style="flex:0.6;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">ATUAL</div>
+            <div class="mock-cell" style="flex:0.7;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">RESULTADO</div>
+          </div>
+          <div class="mock-row"><div class="mock-cell ticker">WEGE3</div><div class="mock-cell">R$31,40</div><div class="mock-cell">R$38,20</div><div class="mock-cell up">+21,7%</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">ITUB4</div><div class="mock-cell">R$22,10</div><div class="mock-cell">R$27,80</div><div class="mock-cell up">+25,8%</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">VALE3</div><div class="mock-cell">R$64,50</div><div class="mock-cell">R$58,30</div><div class="mock-cell down">−9,6%</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">MXRF11</div><div class="mock-cell">R$10,20</div><div class="mock-cell">R$11,05</div><div class="mock-cell up">+8,3%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Módulo 3 -->
+  <div class="feature-block" style="max-width:820px;margin:0 auto 24px;">
+    <div class="feature-info">
+      <div class="feature-num">03</div>
+      <h3>Mapa de Dividendos</h3>
+      <p>720 registros dos últimos 18 meses. 193 empresas pagadoras da B3. Filtre por ticker, tipo e data de pagamento.</p>
+      <ul>
+        <li>Dividendos, JCP e rendimentos de FII</li>
+        <li>Ordenação por yield, empresa ou data</li>
+        <li>Próximos pagamentos programados</li>
+        <li>Atualizado automaticamente</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <div class="screen-mock">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">Mapa de Dividendos</span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-row" style="margin-bottom:8px">
+            <div class="mock-cell" style="flex:0.8;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">EMPRESA</div>
+            <div class="mock-cell" style="flex:0.5;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">TIPO</div>
+            <div class="mock-cell" style="flex:0.6;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">VALOR</div>
+            <div class="mock-cell" style="flex:0.6;background:rgba(255,255,255,.04);color:var(--muted);font-size:8px;">DY</div>
+          </div>
+          <div class="mock-row"><div class="mock-cell ticker">TAEE11</div><div class="mock-cell">JCP</div><div class="mock-cell">R$0,48</div><div class="mock-cell gold">11,2%</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">BBSE3</div><div class="mock-cell">DIV</div><div class="mock-cell">R$0,62</div><div class="mock-cell gold">8,7%</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">MXRF11</div><div class="mock-cell">REND</div><div class="mock-cell">R$0,10</div><div class="mock-cell gold">12,1%</div></div>
+          <div class="mock-row"><div class="mock-cell ticker">ITUB4</div><div class="mock-cell">JCP</div><div class="mock-cell">R$0,39</div><div class="mock-cell gold">5,6%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Módulo 4 -->
+  <div class="feature-block reverse" style="max-width:820px;margin:0 auto 24px;">
+    <div class="feature-info">
+      <div class="feature-num">04</div>
+      <h3>Valuation DCF</h3>
+      <p>O mesmo método que os maiores profissionais de mercado usam. Três cenários com WACC, crescimento terminal e TIR real implícita.</p>
+      <ul>
+        <li>Cenário pessimista, base e otimista</li>
+        <li>WACC calculado automaticamente</li>
+        <li>TIR Real vs NTN-B — caro ou barato?</li>
+        <li>Tabela de sensibilidade WACC × g</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <div class="screen-mock">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">DCF — INTB3</span>
+        </div>
+        <div class="mock-body" style="padding:10px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;">
+            <div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);border-radius:6px;padding:8px;text-align:center;">
+              <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">BEAR</div>
+              <div style="font-size:13px;font-weight:700;color:#ef4444;font-family:'Bebas Neue',sans-serif;">R$14,99</div>
+              <div style="font-size:8px;color:var(--muted)">+1,4%</div>
+            </div>
+            <div style="background:rgba(234,184,56,.1);border:1px solid rgba(234,184,56,.3);border-radius:6px;padding:8px;text-align:center;">
+              <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">BASE</div>
+              <div style="font-size:13px;font-weight:700;color:var(--gold);font-family:'Bebas Neue',sans-serif;">R$18,33</div>
+              <div style="font-size:8px;color:var(--muted)">+24,0%</div>
+            </div>
+            <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.2);border-radius:6px;padding:8px;text-align:center;">
+              <div style="font-size:8px;color:var(--muted);margin-bottom:3px;">BULL</div>
+              <div style="font-size:13px;font-weight:700;color:#22c55e;font-family:'Bebas Neue',sans-serif;">R$22,74</div>
+              <div style="font-size:8px;color:var(--muted)">+53,9%</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">
+            <div class="mock-cell" style="height:18px;font-size:9px;flex:none;">WACC: 15,1%</div>
+            <div class="mock-cell" style="height:18px;font-size:9px;flex:none;">G Terminal: 5,0%</div>
+            <div class="mock-cell" style="height:18px;font-size:9px;flex:none;">Beta: 0,70</div>
+            <div class="mock-cell gold" style="height:18px;font-size:9px;flex:none;">TIR Real: 8,3%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Módulo 5 -->
+  <div class="feature-block" style="max-width:820px;margin:0 auto 24px;">
+    <div class="feature-info">
+      <div class="feature-num">05</div>
+      <h3>Apuração de IR</h3>
+      <p>Selecione o mês, clique em calcular. O sistema apura o imposto em swing trade, day trade e opções — separando o que é isento do que precisa de DARF.</p>
+      <ul>
+        <li>Swing trade, day trade e opções</li>
+        <li>Histórico de prejuízo para compensação</li>
+        <li>DARF gerado automaticamente</li>
+        <li>Sem planilha. Sem cálculo manual.</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <div class="screen-mock">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">Apuração IR — Ago/2026</span>
+        </div>
+        <div class="mock-body" style="padding:10px;">
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:7px 10px;align-items:center;">
+              <span style="font-size:10px;color:var(--muted)">Swing Trade</span>
+              <span style="font-size:10px;color:#22c55e;font-weight:600;">R$ 3.240,00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:7px 10px;align-items:center;">
+              <span style="font-size:10px;color:var(--muted)">Day Trade</span>
+              <span style="font-size:10px;color:#ef4444;font-weight:600;">R$ 420,00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:7px 10px;align-items:center;">
+              <span style="font-size:10px;color:var(--muted)">Isento (&lt;R$20k)</span>
+              <span style="font-size:10px;color:var(--muted)">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(234,184,56,.08);border:1px solid rgba(234,184,56,.2);border-radius:4px;padding:7px 10px;align-items:center;">
+              <span style="font-size:10px;color:var(--gold);font-weight:700;">IR Devido</span>
+              <span style="font-size:11px;color:var(--gold);font-weight:700;">R$ 648,00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Módulo 6 -->
+  <div class="feature-block reverse" style="max-width:820px;margin:0 auto 0;">
+    <div class="feature-info">
+      <div class="feature-num">06</div>
+      <h3>Finanças Pessoais</h3>
+      <p>Importe o extrato do seu banco em segundos. Bradesco, Itaú, Nubank, Santander, Inter, C6, BTG, Caixa e outros — em CSV, PDF ou Excel. Sem digitar um único lançamento.</p>
+      <ul>
+        <li>Categorização automática por IA</li>
+        <li>Alimentação, transporte, saúde, lazer</li>
+        <li>Fatura e pagamento de cartão integrados</li>
+        <li>Evolução mês a mês no painel</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <div class="screen-mock">
+        <div class="mock-bar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <span class="mock-title">Finanças Pessoais — Set</span>
+        </div>
+        <div class="mock-body" style="padding:10px;">
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;justify-content:space-between;background:rgba(34,197,94,.07);border-radius:4px;padding:7px 10px;">
+              <span style="font-size:10px;color:var(--muted)">Entradas</span>
+              <span style="font-size:10px;color:#22c55e;font-weight:600;">R$ 8.200,00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:7px 10px;">
+              <span style="font-size:10px;color:var(--muted)">🍔 Alimentação</span>
+              <span style="font-size:10px;color:#ef4444">R$ 1.140,00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:7px 10px;">
+              <span style="font-size:10px;color:var(--muted)">🚗 Transporte</span>
+              <span style="font-size:10px;color:#ef4444">R$ 380,00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(255,255,255,.04);border-radius:4px;padding:7px 10px;">
+              <span style="font-size:10px;color:var(--muted)">💳 Fatura cartão</span>
+              <span style="font-size:10px;color:#ef4444">R$ 2.310,00</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;background:rgba(234,184,56,.08);border:1px solid rgba(234,184,56,.2);border-radius:4px;padding:7px 10px;">
+              <span style="font-size:10px;color:var(--gold);font-weight:700;">Caixa final</span>
+              <span style="font-size:11px;color:var(--gold);font-weight:700;">R$ 4.370,00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div>
+      <div class="stat-num">101</div>
+      <div class="stat-label">empresas da B3<br>monitoradas em tempo real</div>
+    </div>
+    <div>
+      <div class="stat-num">720</div>
+      <div class="stat-label">registros de dividendos<br>dos últimos 18 meses</div>
+    </div>
+    <div>
+      <div class="stat-num">6</div>
+      <div class="stat-label">módulos integrados<br>em uma única plataforma</div>
+    </div>
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">cenários de valuation<br>DCF por empresa</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="tag" style="display:block;text-align:center">◆ Planos</div>
+    <h2>Comece grátis.<br><em class="gold">Escale quando quiser.</em></h2>
+    <p class="pricing-sub">Sem cartão de crédito. Sem compromisso. Acesso imediato.</p>
+    <div class="pricing-cards" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+      <!-- GRATUITO -->
+      <div class="pricing-card">
+        <div class="plan-name">Gratuito</div>
+        <div class="plan-price">R$<span style="font-family:'Inter';font-size:36px;font-weight:900;color:var(--white);vertical-align:baseline;margin:0">0</span></div>
+        <div class="plan-period">para sempre</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Monitoramento básico</li>
+          <li><span class="check">✓</span> Carteira até 5 ativos</li>
+          <li><span class="check">✓</span> Mapa de dividendos</li>
+          <li><span class="check">✓</span> DCF — 1 empresa</li>
+          <li style="color:rgba(255,255,255,.25)"><span style="color:rgba(255,255,255,.2)">✕</span> Apuração de IR</li>
+          <li style="color:rgba(255,255,255,.25)"><span style="color:rgba(255,255,255,.2)">✕</span> Finanças pessoais</li>
+        </ul>
+        <a href="https://radarinvestpro.com.br" target="_blank" class="btn-plan outline">Criar conta grátis</a>
+      </div>
+      <!-- STARTER -->
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><span>R$</span>19<span style="font-family:'Inter';font-size:16px;font-weight:700;color:var(--muted);vertical-align:baseline">,99</span></div>
+        <div class="plan-period">por mês</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Monitoramento completo</li>
+          <li><span class="check">✓</span> Carteira ilimitada</li>
+          <li><span class="check">✓</span> Mapa de dividendos completo</li>
+          <li><span class="check">✓</span> DCF — todas as empresas</li>
+          <li style="color:rgba(255,255,255,.25)"><span style="color:rgba(255,255,255,.2)">✕</span> Apuração de IR</li>
+          <li style="color:rgba(255,255,255,.25)"><span style="color:rgba(255,255,255,.2)">✕</span> Finanças pessoais</li>
+        </ul>
+        <a href="https://radarinvestpro.com.br" target="_blank" class="btn-plan outline">Assinar Starter</a>
+      </div>
+      <!-- ESSENCIAL -->
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Mais popular</div>
+        <div class="plan-name">Essencial</div>
+        <div class="plan-price"><span>R$</span>49<span style="font-family:'Inter';font-size:16px;font-weight:700;color:var(--muted);vertical-align:baseline">,99</span></div>
+        <div class="plan-period">por mês</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Tudo do Starter</li>
+          <li><span class="check">✓</span> Apuração de IR automática</li>
+          <li><span class="check">✓</span> Geração de DARF</li>
+          <li><span class="check">✓</span> Histórico de prejuízos</li>
+          <li><span class="check">✓</span> Foco em ações + opções</li>
+          <li style="color:rgba(255,255,255,.25)"><span style="color:rgba(255,255,255,.2)">✕</span> Finanças pessoais</li>
+        </ul>
+        <a href="https://radarinvestpro.com.br" target="_blank" class="btn-plan solid">Assinar Essencial →</a>
+      </div>
+      <!-- PRO -->
+      <div class="pricing-card" style="border-color:rgba(234,184,56,.4);background:linear-gradient(145deg,rgba(234,184,56,.06),var(--surface))">
+        <div class="plan-name" style="color:var(--gold)">Pro</div>
+        <div class="plan-price"><span>R$</span>99<span style="font-family:'Inter';font-size:16px;font-weight:700;color:var(--muted);vertical-align:baseline">,99</span></div>
+        <div class="plan-period">por mês</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Tudo do Essencial</li>
+          <li><span class="check">✓</span> Finanças pessoais</li>
+          <li><span class="check">✓</span> Importação de extratos</li>
+          <li><span class="check">✓</span> Categorização automática</li>
+          <li><span class="check">✓</span> Painel mês a mês</li>
+          <li><span class="check" style="color:var(--gold)">★</span> Suporte prioritário</li>
+        </ul>
+        <a href="https://radarinvestpro.com.br" target="_blank" class="btn-plan outline" style="border-color:rgba(234,184,56,.4);color:var(--gold)">Assinar Pro →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <h2>Perguntas frequentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          Preciso ter experiência em investimentos para usar a plataforma?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Não. A plataforma foi construída para ser intuitiva tanto para quem está começando quanto para investidores experientes. Os dados são apresentados de forma clara, com explicações sobre cada indicador.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          Como funciona a apuração de imposto de renda?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">O foco da plataforma é no investidor de <strong style="color:var(--white)">ações para o longo prazo</strong> e operações com <strong style="color:var(--white)">opções</strong>. Você seleciona o mês e clica em Calcular. O sistema apura automaticamente o imposto em swing trade e opções — separando o que é isento (vendas mensais abaixo de R$20 mil em ações) do que precisa gerar DARF. O histórico de prejuízos fica salvo para compensação nos meses seguintes.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          O Valuation DCF é confiável? Como é calculado?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">O DCF (Fluxo de Caixa Descontado) é o método padrão de profissionais de mercado para estimar o preço justo de uma ação. Usamos WACC calculado via CAPM com dados do BACEN (SELIC, IPCA) e premissas macroeconômicas reais. Os 3 cenários (pessimista, base e otimista) permitem que você entenda o range de valor antes de tomar uma decisão.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          Quais bancos são suportados no módulo de Finanças Pessoais?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Você pode importar extratos do Bradesco, Itaú, Nubank, Santander, Inter, C6, BTG, Caixa e outros bancos nos formatos CSV, PDF ou Excel. O sistema categoriza automaticamente as transações: alimentação, transporte, saúde, lazer e muito mais.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          Posso cancelar quando quiser?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Sim. Não há fidelidade nem multa. Você pode cancelar a qualquer momento pelo painel da sua conta. E a conta gratuita é para sempre — sem prazo de expiração.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="tag">◆ Comece hoje</div>
+  <h2>Pare de investir no escuro.<br><em class="gold">Comece agora, de graça.</em></h2>
+  <p>Acesse a mesma qualidade de análise que profissionais de mercado usam — sem pagar R$ milhões em terminal.</p>
+  <a href="https://radarinvestpro.com.br" target="_blank" class="btn-primary" style="font-size:18px;padding:18px 48px;">
+    Criar conta gratuita →
+  </a>
+  <p class="hero-note" style="margin-top:18px;"><span>✓</span> Sem cartão de crédito &nbsp;·&nbsp; <span>✓</span> Acesso imediato &nbsp;·&nbsp; <span>✓</span> Cancele quando quiser</p>
+</section>
+
+<footer>
+  <div style="margin-bottom:12px;">
+    <a href="https://radarinvestpro.com.br" target="_blank" style="color:var(--gold);font-weight:700;text-decoration:none;font-size:14px;">radarinvestpro.com.br</a>
+  </div>
+  Radar Invest Pro · INPI nº 943514495<br>
+  <a href="https://radarinvestpro.com.br/termos">Termos de uso</a> · <a href="https://radarinvestpro.com.br/privacidade">Política de privacidade</a><br><br>
+  <em style="font-size:11px;">As informações desta plataforma têm caráter educacional e informativo. Não constituem recomendação de investimento. Invista com responsabilidade.</em>
+</footer>
+
+<script>
+function toggle(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
