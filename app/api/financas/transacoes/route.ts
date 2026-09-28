@@ -12,86 +12,101 @@ export async function GET(req: NextRequest) {
     }
 
     await ensureFinancasTables()
-    const sqlTpl = getDb()
-    // Cast necessário: neon suporta (string, params[]) em runtime mas o tipo TS só expõe template literal
-    const sql    = sqlTpl as unknown as (q: string, p?: (string | number | boolean | null)[]) => Promise<Record<string, unknown>[]>
+    const sql    = getDb()
     const userId = Number(session.sub)
 
     const params    = req.nextUrl.searchParams
-    const periodo   = params.get('periodo')   // YYYY-MM
-    const categoria = params.get('categoria')
-    const tipo      = params.get('tipo')       // despesa|receita|pagamento_cartao
-    const extrato   = params.get('extrato')    // conta|cartao
-    const banco     = params.get('banco')
-    const busca     = params.get('busca')
-    const valorRaw  = (params.get('valor') || '').trim().replace(',', '.')  // "17,50" → "17.50"
-    const exportAll = params.get('exportar') === '1'  // sem paginação
+    const periodo   = params.get('periodo')   || ''
+    const categoria = params.get('categoria') || ''
+    const tipo      = params.get('tipo')      || ''
+    const extrato   = params.get('extrato')   || ''
+    const banco     = params.get('banco')     || ''
+    const busca     = params.get('busca')     || ''
+    const valorRaw  = (params.get('valor') || '').trim().replace(',', '.')
+    const exportAll = params.get('exportar') === '1'
     const page      = Math.max(1, Number(params.get('page') || 1))
     const limit     = 50
     const offset    = (page - 1) * limit
 
-    // Ordenação server-side com whitelist (sem risco de SQL injection)
-    const COLUNAS_VALIDAS: Record<string, string> = {
-      data: 'data', valor: 'ABS(valor)', tipo: 'tipo_lancamento',
-      categoria: 'categoria', banco: 'banco', historico: 'historico',
-    }
-    const sortColParam  = params.get('sort_col') || 'data'
-    const sortDirParam  = params.get('sort_dir') || 'desc'
-    const orderCol      = COLUNAS_VALIDAS[sortColParam] || 'data'
-    const orderDir      = sortDirParam === 'asc' ? 'ASC' : 'DESC'
-    // $1=userId $2=periodo $3=categoria $4=tipo $5=extrato $6=banco
-    // $7=busca  $8=buscaLike  $9=valorRaw  $10=valorLike
-    const buscaLike = '%' + (busca || '').toLowerCase() + '%'
+    const COLUNAS_VALIDAS = ['data', 'valor', 'tipo', 'categoria', 'banco', 'historico']
+    const sc = COLUNAS_VALIDAS.includes(params.get('sort_col') || '') ? (params.get('sort_col') || 'data') : 'data'
+    const sd = params.get('sort_dir') === 'asc' ? 'asc' : 'desc'
+    const buscaLike = '%' + busca.toLowerCase() + '%'
     const valorLike = '%' + valorRaw + '%'
 
-    const whereParams = [
-      userId,
-      periodo   || '',
-      categoria || '',
-      tipo      || '',
-      extrato   || '',
-      banco     || '',
-      busca     || '',
-      buscaLike,
-      valorRaw,
-      valorLike,
-    ]
-
-    const WHERE = `
-      WHERE user_id = $1
-        AND ($2 = '' OR periodo = $2)
-        AND ($3 = '' OR categoria = $3)
-        AND ($4 = '' OR tipo_lancamento = $4)
-        AND ($5 = '' OR tipo_extrato = $5)
-        AND ($6 = '' OR banco = $6)
-        AND ($7 = '' OR LOWER(historico) LIKE $8)
-        AND ($9 = '' OR CAST(ROUND(ABS(valor)::numeric, 2) AS TEXT) LIKE $10)
-    `
-
+    // ORDER BY dinâmico via CASE WHEN — único padrão compatível com neon template literals
     const rows = exportAll
-      ? await sql(
-          `SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar
-           FROM transacoes_pessoais ${WHERE}
-           ORDER BY ${orderCol} ${orderDir}, id DESC`,
-          whereParams,
-        )
-      : await sql(
-          `SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
-           FROM transacoes_pessoais ${WHERE}
-           ORDER BY ${orderCol} ${orderDir}, id DESC
-           LIMIT $11 OFFSET $12`,
-          [...whereParams, limit, offset],
-        )
+      ? await sql`
+          SELECT id, data::text, historico, descricao, valor::float,
+                 tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar
+          FROM transacoes_pessoais
+          WHERE user_id = ${userId}
+            AND (${periodo}   = '' OR periodo        = ${periodo})
+            AND (${categoria} = '' OR categoria      = ${categoria})
+            AND (${tipo}      = '' OR tipo_lancamento= ${tipo})
+            AND (${extrato}   = '' OR tipo_extrato   = ${extrato})
+            AND (${banco}     = '' OR banco          = ${banco})
+            AND (${busca}     = '' OR LOWER(historico) LIKE ${buscaLike})
+            AND (${valorRaw}  = '' OR CAST(ROUND(ABS(valor)::numeric,2) AS TEXT) LIKE ${valorLike})
+          ORDER BY
+            CASE WHEN ${sc}='data'      AND ${sd}='asc'  THEN data                END ASC  NULLS LAST,
+            CASE WHEN ${sc}='data'      AND ${sd}='desc' THEN data                END DESC NULLS LAST,
+            CASE WHEN ${sc}='valor'     AND ${sd}='asc'  THEN ABS(valor)          END ASC  NULLS LAST,
+            CASE WHEN ${sc}='valor'     AND ${sd}='desc' THEN ABS(valor)          END DESC NULLS LAST,
+            CASE WHEN ${sc}='tipo'      AND ${sd}='asc'  THEN tipo_lancamento     END ASC  NULLS LAST,
+            CASE WHEN ${sc}='tipo'      AND ${sd}='desc' THEN tipo_lancamento     END DESC NULLS LAST,
+            CASE WHEN ${sc}='categoria' AND ${sd}='asc'  THEN categoria           END ASC  NULLS LAST,
+            CASE WHEN ${sc}='categoria' AND ${sd}='desc' THEN categoria           END DESC NULLS LAST,
+            CASE WHEN ${sc}='banco'     AND ${sd}='asc'  THEN banco               END ASC  NULLS LAST,
+            CASE WHEN ${sc}='banco'     AND ${sd}='desc' THEN banco               END DESC NULLS LAST,
+            CASE WHEN ${sc}='historico' AND ${sd}='asc'  THEN historico           END ASC  NULLS LAST,
+            CASE WHEN ${sc}='historico' AND ${sd}='desc' THEN historico           END DESC NULLS LAST,
+            id DESC
+        `
+      : await sql`
+          SELECT id, data::text, historico, descricao, valor::float,
+                 tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
+          FROM transacoes_pessoais
+          WHERE user_id = ${userId}
+            AND (${periodo}   = '' OR periodo        = ${periodo})
+            AND (${categoria} = '' OR categoria      = ${categoria})
+            AND (${tipo}      = '' OR tipo_lancamento= ${tipo})
+            AND (${extrato}   = '' OR tipo_extrato   = ${extrato})
+            AND (${banco}     = '' OR banco          = ${banco})
+            AND (${busca}     = '' OR LOWER(historico) LIKE ${buscaLike})
+            AND (${valorRaw}  = '' OR CAST(ROUND(ABS(valor)::numeric,2) AS TEXT) LIKE ${valorLike})
+          ORDER BY
+            CASE WHEN ${sc}='data'      AND ${sd}='asc'  THEN data                END ASC  NULLS LAST,
+            CASE WHEN ${sc}='data'      AND ${sd}='desc' THEN data                END DESC NULLS LAST,
+            CASE WHEN ${sc}='valor'     AND ${sd}='asc'  THEN ABS(valor)          END ASC  NULLS LAST,
+            CASE WHEN ${sc}='valor'     AND ${sd}='desc' THEN ABS(valor)          END DESC NULLS LAST,
+            CASE WHEN ${sc}='tipo'      AND ${sd}='asc'  THEN tipo_lancamento     END ASC  NULLS LAST,
+            CASE WHEN ${sc}='tipo'      AND ${sd}='desc' THEN tipo_lancamento     END DESC NULLS LAST,
+            CASE WHEN ${sc}='categoria' AND ${sd}='asc'  THEN categoria           END ASC  NULLS LAST,
+            CASE WHEN ${sc}='categoria' AND ${sd}='desc' THEN categoria           END DESC NULLS LAST,
+            CASE WHEN ${sc}='banco'     AND ${sd}='asc'  THEN banco               END ASC  NULLS LAST,
+            CASE WHEN ${sc}='banco'     AND ${sd}='desc' THEN banco               END DESC NULLS LAST,
+            CASE WHEN ${sc}='historico' AND ${sd}='asc'  THEN historico           END ASC  NULLS LAST,
+            CASE WHEN ${sc}='historico' AND ${sd}='desc' THEN historico           END DESC NULLS LAST,
+            id DESC
+          LIMIT ${limit} OFFSET ${offset}
+        `
 
     if (exportAll) {
       return NextResponse.json({ transacoes: rows, total: rows.length })
     }
 
-    // Total para paginação (usa mesmos parâmetros do WHERE)
-    const countRows = await sql(
-      `SELECT COUNT(*)::int AS total FROM transacoes_pessoais ${WHERE}`,
-      whereParams,
-    )
+    const countRows = await sql`
+      SELECT COUNT(*)::int AS total FROM transacoes_pessoais
+      WHERE user_id = ${userId}
+        AND (${periodo}   = '' OR periodo        = ${periodo})
+        AND (${categoria} = '' OR categoria      = ${categoria})
+        AND (${tipo}      = '' OR tipo_lancamento= ${tipo})
+        AND (${extrato}   = '' OR tipo_extrato   = ${extrato})
+        AND (${banco}     = '' OR banco          = ${banco})
+        AND (${busca}     = '' OR LOWER(historico) LIKE ${buscaLike})
+        AND (${valorRaw}  = '' OR CAST(ROUND(ABS(valor)::numeric,2) AS TEXT) LIKE ${valorLike})
+    `
     const countRow = countRows[0]
 
     return NextResponse.json({ transacoes: rows, total: countRow.total, page, limit })
