@@ -1643,7 +1643,7 @@ export default function FinancasPage() {
 
           // Agrupamento para exibição
           const comMeta  = orcamento.filter(l => l.meta > 0)
-          const semMeta  = orcamento.filter(l => l.meta === 0 && l.real > 0)
+          const semMeta  = orcamento.filter(l => l.meta === 0)
 
           function renderLinha(l: LinhaOrcamento) {
             const pct      = l.pct ?? (l.meta === 0 && l.real > 0 ? 100 : 0)
