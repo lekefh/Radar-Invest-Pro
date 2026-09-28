@@ -1643,7 +1643,6 @@ export default function FinancasPage() {
             const quaseNo  = pct >= 80 && pct <= 100
             const cor      = estourou ? '#ef5350' : quaseNo ? '#e8a020' : '#22c55e'
             const corGrupo = GRUPOS_CORES[l.grupo] || GRUPOS_CORES.outros
-            const editando = cat => cat in editMeta
             const emEdit   = l.categoria in editMeta
 
             return (
