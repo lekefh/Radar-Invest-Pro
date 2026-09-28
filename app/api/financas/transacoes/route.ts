@@ -28,34 +28,58 @@ export async function GET(req: NextRequest) {
     const limit     = 50
     const offset    = (page - 1) * limit
 
+    // Ordenação server-side com whitelist (sem risco de SQL injection)
+    const COLUNAS_VALIDAS: Record<string, string> = {
+      data: 'data', valor: 'ABS(valor)', tipo: 'tipo_lancamento',
+      categoria: 'categoria', banco: 'banco', historico: 'historico',
+    }
+    const sortColParam  = params.get('sort_col') || 'data'
+    const sortDirParam  = params.get('sort_dir') || 'desc'
+    const orderCol      = COLUNAS_VALIDAS[sortColParam] || 'data'
+    const orderDir      = sortDirParam === 'asc' ? 'ASC' : 'DESC'
+    // $1=userId $2=periodo $3=categoria $4=tipo $5=extrato $6=banco
+    // $7=busca  $8=buscaLike  $9=valorRaw  $10=valorLike
+    const buscaLike = '%' + (busca || '').toLowerCase() + '%'
+    const valorLike = '%' + valorRaw + '%'
+
+    const whereParams = [
+      userId,
+      periodo   || '',
+      categoria || '',
+      tipo      || '',
+      extrato   || '',
+      banco     || '',
+      busca     || '',
+      buscaLike,
+      valorRaw,
+      valorLike,
+    ]
+
+    const WHERE = `
+      WHERE user_id = $1
+        AND ($2 = '' OR periodo = $2)
+        AND ($3 = '' OR categoria = $3)
+        AND ($4 = '' OR tipo_lancamento = $4)
+        AND ($5 = '' OR tipo_extrato = $5)
+        AND ($6 = '' OR banco = $6)
+        AND ($7 = '' OR LOWER(historico) LIKE $8)
+        AND ($9 = '' OR CAST(ROUND(ABS(valor)::numeric, 2) AS TEXT) LIKE $10)
+    `
+
     const rows = exportAll
-      ? await sql`
-          SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar
-          FROM transacoes_pessoais
-          WHERE user_id = ${userId}
-            AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
-            AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
-            AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
-            AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
-            AND (${banco || ''} = '' OR banco = ${banco || ''})
-            AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
-            AND (${valorRaw} = '' OR CAST(ROUND(ABS(valor)::numeric, 2) AS TEXT) LIKE ${'%' + valorRaw + '%'})
-          ORDER BY data DESC, id DESC
-        `
-      : await sql`
-          SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
-          FROM transacoes_pessoais
-          WHERE user_id = ${userId}
-            AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
-            AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
-            AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
-            AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
-            AND (${banco || ''} = '' OR banco = ${banco || ''})
-            AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
-            AND (${valorRaw} = '' OR CAST(ROUND(ABS(valor)::numeric, 2) AS TEXT) LIKE ${'%' + valorRaw + '%'})
-          ORDER BY data DESC, id DESC
-          LIMIT ${limit} OFFSET ${offset}
-        `
+      ? await sql(
+          `SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar
+           FROM transacoes_pessoais ${WHERE}
+           ORDER BY ${orderCol} ${orderDir}, id DESC`,
+          whereParams,
+        )
+      : await sql(
+          `SELECT id, data::text, historico, descricao, valor::float, tipo_lancamento, tipo_extrato, categoria, banco, periodo, ignorar, batch_id, criado_em::text
+           FROM transacoes_pessoais ${WHERE}
+           ORDER BY ${orderCol} ${orderDir}, id DESC
+           LIMIT $11 OFFSET $12`,
+          [...whereParams, limit, offset],
+        )
 
     if (exportAll) {
       return NextResponse.json({ transacoes: rows, total: rows.length })

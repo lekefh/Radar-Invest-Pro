@@ -249,7 +249,10 @@ export default function FinancasPage() {
     setLoadingTrans(true)
     const p = new URLSearchParams({
       periodo: filPeriodo, categoria: filCategoria, tipo: filTipo,
-      extrato: filExtrato, banco: filBanco, busca: filBusca, valor: filValor, page: String(pageTrans),
+      extrato: filExtrato, banco: filBanco, busca: filBusca, valor: filValor,
+      page: String(pageTrans),
+      sort_col: sortCol || 'data',
+      sort_dir: sortDir,
     })
     fetch(`/api/financas/transacoes?${p}`).then(r => r.json()).then(d => {
       setTransacoes(d.transacoes || [])
@@ -261,7 +264,7 @@ export default function FinancasPage() {
       }
       setLoadingTrans(false)
     })
-  }, [filPeriodo, filCategoria, filTipo, filExtrato, filBanco, filBusca, filValor, pageTrans])
+  }, [filPeriodo, filCategoria, filTipo, filExtrato, filBanco, filBusca, filValor, pageTrans, sortCol, sortDir])
 
   useEffect(() => {
     if (aba === 'transacoes' && plano) carregarTransacoes()
@@ -587,25 +590,19 @@ export default function FinancasPage() {
     }
   }
 
-  // ── Ordenação da tabela de transações ──────────────────────────────────────
+  // ── Ordenação server-side — envia sort_col/sort_dir para a API ─────────────
   function toggleSort(col: typeof sortCol) {
-    if (sortCol === col) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
-    else { setSortCol(col); setSortDir(col === 'data' ? 'desc' : 'asc') }
+    if (sortCol === col) {
+      setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortCol(col)
+      setSortDir(col === 'data' ? 'desc' : 'asc')
+    }
+    setPageTrans(1)  // volta à página 1 ao trocar ordenação
   }
 
-  const sortedTransacoes = [...transacoes].sort((a, b) => {
-    if (!sortCol) return 0
-    let va: string | number = '', vb: string | number = ''
-    if (sortCol === 'data')      { va = a.data;               vb = b.data }
-    else if (sortCol === 'valor') { va = Math.abs(a.valor);   vb = Math.abs(b.valor) }
-    else if (sortCol === 'tipo')  { va = a.tipo_lancamento;   vb = b.tipo_lancamento }
-    else if (sortCol === 'categoria') { va = a.categoria||''; vb = b.categoria||'' }
-    else if (sortCol === 'banco') { va = a.banco||'';         vb = b.banco||'' }
-    else if (sortCol === 'historico') { va = a.historico||''; vb = b.historico||'' }
-    if (va < vb) return sortDir === 'asc' ? -1 : 1
-    if (va > vb) return sortDir === 'asc' ? 1 : -1
-    return 0
-  })
+  // Transações já chegam ordenadas do servidor; alias mantido para compatibilidade
+  const sortedTransacoes = transacoes
 
   // ── Cálculo dos 7 cards (espelho do app local) ──────────────────────────────
   const entradas      = resumo?.totais?.entradas      || 0
