@@ -1730,12 +1730,24 @@ export default function FinancasPage() {
                   <h2 style={{ fontSize: 16, fontWeight: 700, color: '#e8edf4', margin: 0 }}>Orçamento Mensal</h2>
                   <p style={{ fontSize: 12, color: '#6b84a8', margin: '2px 0 0' }}>Meta vs realizado por categoria. Clique em qualquer meta para editar.</p>
                 </div>
-                <input
-                  type="month"
-                  value={periodoOrc}
-                  onChange={e => setPeriodoOrc(e.target.value)}
-                  style={{ ...inputSt, width: 'auto', cursor: 'pointer' }}
-                />
+                {/* Seletor de mês com setas */}
+                {(() => {
+                  const [ano, mes] = periodoOrc.split('-').map(Number)
+                  const label = new Date(ano, mes - 1, 1).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
+                  function moverMes(delta: number) {
+                    const d = new Date(ano, mes - 1 + delta, 1)
+                    setPeriodoOrc(d.toISOString().slice(0, 7))
+                  }
+                  return (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 0, background: 'rgba(255,255,255,.06)', borderRadius: 8, border: '1px solid rgba(255,255,255,.1)', overflow: 'hidden' }}>
+                      <button onClick={() => moverMes(-1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 16, lineHeight: 1, transition: 'color .15s' }}
+                        onMouseEnter={e => (e.currentTarget.style.color = '#e8a020')} onMouseLeave={e => (e.currentTarget.style.color = '#8fa0b4')}>‹</button>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: '#e8edf4', padding: '7px 4px', minWidth: 150, textAlign: 'center', textTransform: 'capitalize' }}>{label}</span>
+                      <button onClick={() => moverMes(1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 16, lineHeight: 1, transition: 'color .15s' }}
+                        onMouseEnter={e => (e.currentTarget.style.color = '#e8a020')} onMouseLeave={e => (e.currentTarget.style.color = '#8fa0b4')}>›</button>
+                    </div>
+                  )
+                })()}
               </div>
 
               {/* Cards totais */}
