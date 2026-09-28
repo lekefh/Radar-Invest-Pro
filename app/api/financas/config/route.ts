@@ -43,9 +43,11 @@ export async function PUT(req: NextRequest) {
     const valor = Number(saldo_inicial) ?? 0
 
     if (grupos_config !== undefined) {
+      // Não inclui saldo_inicial aqui: INSERT usa o DEFAULT da tabela (0),
+      // ON CONFLICT preserva o valor já salvo — evita sobrescrever com NaN.
       await sql`
-        INSERT INTO financas_config (user_id, saldo_inicial, grupos_config, atualizado_em)
-        VALUES (${userId}, ${valor}, ${JSON.stringify(grupos_config)}, NOW())
+        INSERT INTO financas_config (user_id, grupos_config, atualizado_em)
+        VALUES (${userId}, ${JSON.stringify(grupos_config)}, NOW())
         ON CONFLICT (user_id) DO UPDATE SET grupos_config = ${JSON.stringify(grupos_config)}, atualizado_em = NOW()
       `
     } else {
