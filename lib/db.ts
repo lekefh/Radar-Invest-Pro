@@ -270,6 +270,18 @@ export async function ensureFinancasTables() {
 
   await sql`ALTER TABLE categorias_pessoais ADD COLUMN IF NOT EXISTS grupo TEXT DEFAULT 'outros'`
   await sql`ALTER TABLE financas_config ADD COLUMN IF NOT EXISTS grupos_config JSONB`
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS orcamento_categorias (
+      id         SERIAL PRIMARY KEY,
+      user_id    INTEGER NOT NULL REFERENCES usuarios_web(id) ON DELETE CASCADE,
+      categoria  TEXT NOT NULL,
+      valor_meta NUMERIC(14,2) NOT NULL DEFAULT 0,
+      UNIQUE (user_id, categoria)
+    )
+  `
+  await sql`CREATE INDEX IF NOT EXISTS idx_orc_user ON orcamento_categorias(user_id)`
+
   await sql`CREATE UNIQUE INDEX IF NOT EXISTS idx_cat_pessoais_sistema ON categorias_pessoais(nome) WHERE user_id IS NULL`
   await sql`CREATE INDEX IF NOT EXISTS idx_tp_user_data ON transacoes_pessoais(user_id, data)`
   await sql`CREATE INDEX IF NOT EXISTS idx_tp_user_cat  ON transacoes_pessoais(user_id, categoria)`

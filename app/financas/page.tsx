@@ -48,7 +48,16 @@ interface BatchItem {
   revertido: boolean
 }
 
-type Aba = 'importar' | 'transacoes' | 'resumo' | 'graficos' | 'grupos'
+type Aba = 'importar' | 'transacoes' | 'resumo' | 'graficos' | 'grupos' | 'orcamento'
+
+interface LinhaOrcamento {
+  categoria: string
+  grupo: string
+  meta: number
+  real: number
+  diff: number
+  pct: number | null
+}
 
 const GRUPOS_LABELS: Record<string, string> = {
   necessidades: 'Necessidades',
@@ -158,6 +167,14 @@ export default function FinancasPage() {
   const [gruposDados, setGruposDados]   = useState<{grupo: string; total: number; pct_real: number}[]>([])
   const [periodoGrupos, setPeriodoGrupos] = useState('')
   const [salvandoGrupos, setSalvandoGrupos] = useState(false)
+
+  // Orçamento
+  const [orcamento, setOrcamento]           = useState<LinhaOrcamento[]>([])
+  const [orcTotalMeta, setOrcTotalMeta]     = useState(0)
+  const [orcTotalReal, setOrcTotalReal]     = useState(0)
+  const [periodoOrc, setPeriodoOrc]         = useState(() => new Date().toISOString().slice(0, 7))
+  const [editMeta, setEditMeta]             = useState<Record<string, string>>({})
+  const [salvandoMeta, setSalvandoMeta]     = useState<Record<string, boolean>>({})
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
@@ -259,6 +276,36 @@ export default function FinancasPage() {
       if (d.periodos) setPeriodosDisp(d.periodos)
     })
   }, [aba, plano, periodoResumo])
+
+  // ── Orçamento ──────────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (aba !== 'orcamento' || !plano) return
+    fetch(`/api/financas/orcamento?periodo=${periodoOrc}`).then(r => r.json()).then(d => {
+      if (d.linhas) setOrcamento(d.linhas)
+      setOrcTotalMeta(d.totalMeta || 0)
+      setOrcTotalReal(d.totalReal || 0)
+    })
+  }, [aba, plano, periodoOrc])
+
+  async function salvarMeta(cat: string) {
+    const val = parseFloat(String(editMeta[cat] || '0').replace(',', '.')) || 0
+    setSalvandoMeta(p => ({ ...p, [cat]: true }))
+    await fetch('/api/financas/orcamento', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ categoria: cat, valor_meta: val }),
+    })
+    setOrcamento(prev => prev.map(l => l.categoria === cat
+      ? { ...l, meta: val, diff: val - l.real, pct: val > 0 ? Math.round((l.real / val) * 1000) / 10 : null }
+      : l
+    ))
+    setOrcTotalMeta(prev => {
+      const old = orcamento.find(l => l.categoria === cat)?.meta ?? 0
+      return prev - old + val
+    })
+    setEditMeta(p => { const n = { ...p }; delete n[cat]; return n })
+    setSalvandoMeta(p => ({ ...p, [cat]: false }))
+  }
 
   // ── Grupos ─────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -601,8 +648,8 @@ export default function FinancasPage() {
 
         {/* Abas */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.07)', paddingBottom: 0 }}>
-          {(['importar','transacoes','resumo','graficos','grupos'] as Aba[]).map(a => {
-            const labels: Record<Aba, string> = { importar: '📥 Importar', transacoes: '📋 Transações', resumo: '📊 Resumo', graficos: '📈 Gráficos', grupos: '🎯 Grupos' }
+          {(['importar','transacoes','resumo','graficos','grupos','orcamento'] as Aba[]).map(a => {
+            const labels: Record<Aba, string> = { importar: '📥 Importar', transacoes: '📋 Transações', resumo: '📊 Resumo', graficos: '📈 Gráficos', grupos: '🎯 Grupos', orcamento: '💰 Orçamento' }
             return (
               <button key={a} onClick={() => setAba(a)} style={{
                 background: 'transparent', border: 'none', borderBottom: aba === a ? '2px solid #e8a020' : '2px solid transparent',
@@ -1579,6 +1626,184 @@ export default function FinancasPage() {
           </div>
         </div>
       )}
+
+        {/* ── ABA ORÇAMENTO ───────────────────────────────────────────────── */}
+        {aba === 'orcamento' && (() => {
+          const GRUPO_ORDER = ['necessidades','conforto','investimentos','imprevistos','outros']
+          const saldo = orcTotalMeta - orcTotalReal
+          const pctGeral = orcTotalMeta > 0 ? (orcTotalReal / orcTotalMeta) * 100 : 0
+
+          // Agrupamento para exibição
+          const comMeta  = orcamento.filter(l => l.meta > 0)
+          const semMeta  = orcamento.filter(l => l.meta === 0 && l.real > 0)
+
+          function renderLinha(l: LinhaOrcamento) {
+            const pct      = l.pct ?? (l.meta === 0 && l.real > 0 ? 100 : 0)
+            const estourou = pct > 100
+            const quaseNo  = pct >= 80 && pct <= 100
+            const cor      = estourou ? '#ef5350' : quaseNo ? '#e8a020' : '#22c55e'
+            const corGrupo = GRUPOS_CORES[l.grupo] || GRUPOS_CORES.outros
+            const editando = cat => cat in editMeta
+            const emEdit   = l.categoria in editMeta
+
+            return (
+              <div key={l.categoria} style={{
+                display: 'grid', gridTemplateColumns: '18px 1fr 130px 100px 90px 130px',
+                gap: 12, alignItems: 'center', padding: '10px 14px',
+                borderRadius: 7, background: 'rgba(255,255,255,.025)',
+                border: `1px solid ${estourou ? 'rgba(239,83,80,.2)' : 'rgba(255,255,255,.05)'}`,
+              }}>
+                {/* Dot grupo */}
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: corGrupo, flexShrink: 0, display: 'inline-block', justifySelf: 'center' }} />
+
+                {/* Nome */}
+                <span style={{ fontSize: 13, color: '#e8edf4', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={l.categoria}>
+                  {l.categoria}
+                </span>
+
+                {/* Meta (editável) */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  {emEdit ? (
+                    <>
+                      <input
+                        autoFocus
+                        type="number" min={0} step={10}
+                        value={editMeta[l.categoria]}
+                        onChange={e => setEditMeta(p => ({ ...p, [l.categoria]: e.target.value }))}
+                        onKeyDown={e => { if (e.key === 'Enter') salvarMeta(l.categoria); if (e.key === 'Escape') setEditMeta(p => { const n = {...p}; delete n[l.categoria]; return n }) }}
+                        style={{ ...inputSt, width: 80, padding: '4px 8px', fontSize: 12, textAlign: 'right' }}
+                      />
+                      <button onClick={() => salvarMeta(l.categoria)} disabled={salvandoMeta[l.categoria]}
+                        style={{ background: '#22c55e22', border: 'none', borderRadius: 4, color: '#22c55e', padding: '4px 6px', cursor: 'pointer', fontSize: 11, fontWeight: 700 }}>
+                        ✓
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={() => setEditMeta(p => ({ ...p, [l.categoria]: String(l.meta || '') }))}
+                      title="Clique para editar a meta"
+                      style={{ background: 'none', border: '1px dashed rgba(255,255,255,.15)', borderRadius: 5, color: l.meta > 0 ? '#e8edf4' : '#4a5d73', padding: '3px 10px', cursor: 'pointer', fontSize: 12, textAlign: 'right', width: '100%', fontVariantNumeric: 'tabular-nums' }}>
+                      {l.meta > 0 ? fmt(l.meta) : '+ meta'}
+                    </button>
+                  )}
+                </div>
+
+                {/* Real */}
+                <span style={{ fontSize: 12, fontWeight: 700, color: l.real > 0 ? '#e8edf4' : '#3d4f6a', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+                  {l.real > 0 ? fmt(l.real) : '—'}
+                </span>
+
+                {/* Diferença */}
+                <span style={{ fontSize: 12, fontWeight: 700, color: l.meta === 0 ? '#4a5d73' : cor, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
+                  {l.meta === 0 ? '—' : (saldo >= 0 ? '+' : '') + fmt(l.diff).replace('R$\xa0', 'R$ ')}
+                </span>
+
+                {/* Barra */}
+                <div style={{ position: 'relative', height: 8, background: 'rgba(255,255,255,.07)', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{
+                    position: 'absolute', left: 0, top: 0, bottom: 0,
+                    width: `${Math.min(pct, 100)}%`,
+                    background: cor,
+                    borderRadius: 4, transition: 'width .3s',
+                  }} />
+                  {estourou && (
+                    <div style={{ position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)', fontSize: 9, color: '#fff', fontWeight: 700 }}>
+                      {Math.round(pct)}%
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          }
+
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+              {/* Cabeçalho */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+                <div>
+                  <h2 style={{ fontSize: 16, fontWeight: 700, color: '#e8edf4', margin: 0 }}>Orçamento Mensal</h2>
+                  <p style={{ fontSize: 12, color: '#6b84a8', margin: '2px 0 0' }}>Meta vs realizado por categoria. Clique em qualquer meta para editar.</p>
+                </div>
+                <input
+                  type="month"
+                  value={periodoOrc}
+                  onChange={e => setPeriodoOrc(e.target.value)}
+                  style={{ ...inputSt, width: 'auto', cursor: 'pointer' }}
+                />
+              </div>
+
+              {/* Cards totais */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+                {[
+                  { label: 'Meta Total', valor: orcTotalMeta, cor: '#e8a020' },
+                  { label: 'Realizado', valor: orcTotalReal, cor: orcTotalReal > orcTotalMeta && orcTotalMeta > 0 ? '#ef5350' : '#e8edf4' },
+                  { label: 'Saldo', valor: Math.abs(saldo), cor: saldo >= 0 ? '#22c55e' : '#ef5350', prefix: saldo < 0 ? '−' : '+' },
+                ].map(({ label, valor, cor, prefix }) => (
+                  <div key={label} style={{ ...card(), textAlign: 'center' }}>
+                    <div style={{ fontSize: 11, color: '#6b84a8', fontWeight: 600, letterSpacing: '.5px', textTransform: 'uppercase', marginBottom: 6 }}>{label}</div>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: cor, fontVariantNumeric: 'tabular-nums' }}>
+                      {prefix}{fmt(valor)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Barra geral */}
+              {orcTotalMeta > 0 && (
+                <div style={card()}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 12 }}>
+                    <span style={{ color: '#6b84a8' }}>Progresso geral</span>
+                    <span style={{ fontWeight: 700, color: pctGeral > 100 ? '#ef5350' : pctGeral >= 80 ? '#e8a020' : '#22c55e' }}>
+                      {Math.round(pctGeral)}%
+                    </span>
+                  </div>
+                  <div style={{ height: 12, background: 'rgba(255,255,255,.07)', borderRadius: 6, overflow: 'hidden' }}>
+                    <div style={{
+                      height: '100%', width: `${Math.min(pctGeral, 100)}%`,
+                      background: pctGeral > 100 ? '#ef5350' : pctGeral >= 80 ? '#e8a020' : '#22c55e',
+                      borderRadius: 6, transition: 'width .4s',
+                    }} />
+                  </div>
+                </div>
+              )}
+
+              {/* Header tabela */}
+              <div style={{ display: 'grid', gridTemplateColumns: '18px 1fr 130px 100px 90px 130px', gap: 12, padding: '6px 14px' }}>
+                {['', 'Categoria', 'Meta mensal', 'Realizado', 'Saldo', 'Progresso'].map(h => (
+                  <span key={h} style={{ fontSize: 10, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', textAlign: h === '' ? 'center' : h === 'Progresso' ? 'left' : 'right', ...( h === 'Categoria' ? { textAlign: 'left' } : {}) }}>
+                    {h}
+                  </span>
+                ))}
+              </div>
+
+              {/* Com meta */}
+              {comMeta.length > 0 && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  {comMeta.map(renderLinha)}
+                </div>
+              )}
+
+              {/* Sem meta mas com gastos */}
+              {semMeta.length > 0 && (
+                <div style={card({ background: 'transparent', border: '1px dashed rgba(255,255,255,.08)' })}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', marginBottom: 10 }}>
+                    Categorias sem meta definida — {semMeta.length}
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {semMeta.map(renderLinha)}
+                  </div>
+                </div>
+              )}
+
+              {orcamento.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '48px 24px', color: '#4a5d73', fontSize: 14 }}>
+                  Nenhum dado para este período. Importe extratos ou defina metas clicando em <strong style={{ color: '#e8a020' }}>+ meta</strong>.
+                </div>
+              )}
+            </div>
+          )
+        })()}
 
         {/* ── ABA GRUPOS ──────────────────────────────────────────────────── */}
         {aba === 'grupos' && (
