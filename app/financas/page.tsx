@@ -1760,7 +1760,7 @@ export default function FinancasPage() {
           }
 
           return (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 960, width: '100%', margin: '0 auto' }}>
 
               {/* Modal confirmação — replicar mês anterior */}
               {showConfirmReplica && (() => {
