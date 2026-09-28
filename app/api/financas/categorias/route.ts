@@ -15,14 +15,27 @@ export async function GET() {
     const sql    = getDb()
     const userId = Number(session.sub)
 
-    const rows = await sql`
-      SELECT DISTINCT ON (nome) id, user_id, nome, tipo, cor, oculta, COALESCE(grupo, 'outros') as grupo
+    // Categorias com grupo definido em categorias_pessoais
+    const cpRows = await sql`
+      SELECT DISTINCT ON (nome) nome, COALESCE(grupo, 'outros') as grupo
       FROM categorias_pessoais
       WHERE user_id IS NULL OR user_id = ${userId}
       ORDER BY nome, user_id NULLS LAST
     `
+    const grupoMap: Record<string, string> = {}
+    for (const r of cpRows) grupoMap[r.nome as string] = r.grupo as string
 
-    return NextResponse.json({ categorias: rows })
+    // Todas as categorias usadas em transações (podem não estar em categorias_pessoais)
+    const txRows = await sql`
+      SELECT DISTINCT categoria as nome FROM transacoes_pessoais
+      WHERE user_id = ${userId} AND categoria IS NOT NULL AND categoria != ''
+    `
+
+    // União: categorias de transações recebem o grupo de categorias_pessoais se disponível
+    const allNomes = [...new Set([...cpRows.map(r => r.nome as string), ...txRows.map(r => r.nome as string)])].sort()
+    const categorias = allNomes.map(nome => ({ nome, grupo: grupoMap[nome] || 'outros' }))
+
+    return NextResponse.json({ categorias })
 
   } catch (e: unknown) {
     return NextResponse.json({ erro: String(e) }, { status: 500 })
