@@ -225,8 +225,8 @@ export default function FinancasPage() {
     })
   }, [router])
 
-  // ── Carrega categorias uma vez ──────────────────────────────────────────────
-  useEffect(() => {
+  // ── Carrega categorias (na montagem e toda vez que entra em grupos/orcamento) ─
+  const carregarCategorias = useCallback(() => {
     if (!plano) return
     fetch('/api/financas/categorias').then(r => r.json()).then(d => {
       if (d.categorias) {
@@ -234,6 +234,10 @@ export default function FinancasPage() {
         setCategoriasObj(d.categorias.map((c: {nome: string; grupo: string}) => ({ nome: c.nome, grupo: c.grupo || 'outros' })))
       }
     })
+  }, [plano])
+
+  useEffect(() => {
+    carregarCategorias()
     fetch('/api/financas/config').then(r => r.json()).then(d => {
       setSaldoInicial(d.saldo_inicial || 0)
       setNovoSaldo(String(d.saldo_inicial || 0))
@@ -242,7 +246,12 @@ export default function FinancasPage() {
         setGruposEdit(d.grupos_config)
       }
     })
-  }, [plano])
+  }, [plano]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Recarrega categorias ao entrar nas abas que dependem delas
+  useEffect(() => {
+    if (aba === 'grupos' || aba === 'orcamento') carregarCategorias()
+  }, [aba, carregarCategorias])
 
   // ── Transações ──────────────────────────────────────────────────────────────
   const carregarTransacoes = useCallback(() => {
