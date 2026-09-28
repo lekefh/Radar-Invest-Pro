@@ -16,10 +16,10 @@ export async function GET() {
     const userId = Number(session.sub)
 
     const rows = await sql`
-      SELECT id, user_id, nome, tipo, cor, oculta, COALESCE(grupo, 'outros') as grupo
+      SELECT DISTINCT ON (nome) id, user_id, nome, tipo, cor, oculta, COALESCE(grupo, 'outros') as grupo
       FROM categorias_pessoais
       WHERE user_id IS NULL OR user_id = ${userId}
-      ORDER BY tipo, nome
+      ORDER BY nome, user_id NULLS LAST
     `
 
     return NextResponse.json({ categorias: rows })
