@@ -686,15 +686,16 @@ export default function FinancasPage() {
           </a>
         </div>
 
-        {/* Abas */}
-        <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.07)', paddingBottom: 0 }}>
+        {/* Abas — overflow-x scroll no mobile */}
+        <div style={{ display: 'flex', gap: 0, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.07)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' as never }}>
           {(['importar','transacoes','resumo','graficos','grupos','orcamento'] as Aba[]).map(a => {
             const labels: Record<Aba, string> = { importar: '📥 Importar', transacoes: '📋 Transações', resumo: '📊 Resumo', graficos: '📈 Gráficos', grupos: '🎯 Grupos', orcamento: '💰 Orçamento' }
             return (
               <button key={a} onClick={() => setAba(a)} style={{
                 background: 'transparent', border: 'none', borderBottom: aba === a ? '2px solid #e8a020' : '2px solid transparent',
                 color: aba === a ? '#e8a020' : '#6b84a8', fontWeight: aba === a ? 700 : 500,
-                padding: '8px 16px', cursor: 'pointer', fontSize: 13, marginBottom: -1,
+                padding: '8px 14px', cursor: 'pointer', fontSize: 13, marginBottom: -1,
+                flexShrink: 0, whiteSpace: 'nowrap',
               }}>
                 {labels[a]}
               </button>
@@ -883,8 +884,8 @@ export default function FinancasPage() {
           <div>
             {/* Filtros */}
             <div style={{ ...card(), marginBottom: 12 }}>
-              {/* Linha 1 — selects */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10, marginBottom: 10 }}>
+              {/* Linha 1 — selects: auto-wrap em telas menores */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 10, marginBottom: 10 }}>
                 <div>
                   <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Período</label>
                   <select value={filPeriodo} onChange={e => { setFilPeriodo(e.target.value); setPageTrans(1) }} style={{ ...selectSt, width: '100%' }}>
@@ -924,9 +925,9 @@ export default function FinancasPage() {
                   </select>
                 </div>
               </div>
-              {/* Linha 2 — busca + ações */}
-              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
-                <div style={{ flex: 1 }}>
+              {/* Linha 2 — busca + ações: wrap no mobile */}
+              <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+                <div style={{ flex: '1 1 200px', minWidth: 0 }}>
                   <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Buscar no histórico</label>
                   <input
                     value={filBusca}
@@ -935,7 +936,7 @@ export default function FinancasPage() {
                     style={{ ...inputSt, width: '100%' }}
                   />
                 </div>
-                <div style={{ width: 160 }}>
+                <div style={{ flex: '0 0 140px' }}>
                   <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Valor (R$)</label>
                   <input
                     value={filValor}
@@ -1791,13 +1792,13 @@ export default function FinancasPage() {
               })()}
 
               {/* Cabeçalho */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-                <div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12 }}>
+                <div style={{ flex: '1 1 200px', minWidth: 0 }}>
                   <h2 style={{ fontSize: 16, fontWeight: 700, color: '#e8edf4', margin: 0 }}>Orçamento Mensal</h2>
                   <p style={{ fontSize: 12, color: '#6b84a8', margin: '2px 0 0' }}>Meta vs realizado por categoria. Clique em qualquer meta para editar.</p>
                 </div>
-                {/* Controles à direita: botão replicar + seletor de mês */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                {/* Controles: botão replicar + seletor de mês */}
+                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, flexShrink: 0 }}>
                 <button onClick={() => setShowConfirmReplica(true)}
                   title="Definir metas com base nos gastos do mês anterior"
                   style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 8, color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 12, whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 6 }}
