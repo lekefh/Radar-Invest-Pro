@@ -45,7 +45,7 @@ export function ehLinhaSaldo(historico: string): boolean {
     .normalize('NFD').replace(/[̀-ͯ]/g, '')
     .trim()
   return (
-    h.includes('SALDO') ||
+    h.startsWith('SALDO') ||   // "Saldo Anterior", "Saldo do dia" etc. — nunca "TRANSF SALDO..."
     h === 'TOTAL' ||
     h.startsWith('TOTAL ') ||
     h.startsWith('RESUMO') ||
