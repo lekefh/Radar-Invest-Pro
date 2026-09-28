@@ -1691,7 +1691,7 @@ export default function FinancasPage() {
 
             return (
               <div key={l.categoria} style={{
-                display: 'grid', gridTemplateColumns: '18px 1fr 120px 95px 85px 120px',
+                display: 'grid', gridTemplateColumns: '18px minmax(0, 1fr) 120px 95px 85px 120px',
                 gap: 10, alignItems: 'center', padding: '10px 14px',
                 borderRadius: 7, background: 'rgba(255,255,255,.025)',
                 border: `1px solid ${estourou ? 'rgba(239,83,80,.2)' : 'rgba(255,255,255,.05)'}`,
@@ -1907,11 +1907,11 @@ export default function FinancasPage() {
               )}
 
               {/* Tabela — scroll horizontal no mobile */}
-              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' as never }}>
+              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' as never, width: '100%', minWidth: 0 }}>
                 <div style={{ minWidth: 560 }}>
 
                   {/* Header tabela */}
-                  <div style={{ display: 'grid', gridTemplateColumns: '18px 1fr 120px 95px 85px 120px', gap: 10, padding: '6px 14px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '18px minmax(0, 1fr) 120px 95px 85px 120px', gap: 10, padding: '6px 14px' }}>
                     {['', 'Categoria', 'Meta mensal', 'Realizado', 'Saldo', 'Progresso'].map(h => (
                       <span key={h} style={{ fontSize: 10, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', textAlign: h === '' ? 'center' : h === 'Progresso' ? 'left' : 'right', ...( h === 'Categoria' ? { textAlign: 'left' } : {}) }}>
                         {h}
