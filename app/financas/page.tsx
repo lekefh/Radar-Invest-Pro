@@ -179,6 +179,7 @@ export default function FinancasPage() {
   const [salvandoMeta, setSalvandoMeta]     = useState<Record<string, boolean>>({})
   const [showConfirmReplica, setShowConfirmReplica] = useState(false)
   const [replicando, setReplicando]         = useState(false)
+  const [erroReplica, setErroReplica]       = useState('')
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
@@ -333,6 +334,7 @@ export default function FinancasPage() {
       ? `${ano - 1}-12`
       : `${ano}-${String(mes - 1).padStart(2, '0')}`
     setReplicando(true)
+    setErroReplica('')
     try {
       const r = await fetch('/api/financas/orcamento', {
         method: 'PATCH',
@@ -340,7 +342,7 @@ export default function FinancasPage() {
         body: JSON.stringify({ periodo_ref: periodoRef }),
       })
       const d = await r.json()
-      if (d.erro) { alert(d.erro); return }
+      if (d.erro) { setErroReplica(d.erro); return }
       // Recarrega o orçamento do mês atual com as novas metas
       const r2 = await fetch(`/api/financas/orcamento?periodo=${periodoOrc}`)
       const d2 = await r2.json()
@@ -348,6 +350,7 @@ export default function FinancasPage() {
       setOrcTotalMeta(d2.totalMeta || 0)
       setOrcTotalReal(d2.totalReal || 0)
       setShowConfirmReplica(false)
+      setErroReplica('')
     } finally {
       setReplicando(false)
     }
@@ -1735,7 +1738,7 @@ export default function FinancasPage() {
 
                 {/* Diferença */}
                 <span style={{ fontSize: 12, fontWeight: 700, color: l.meta === 0 ? '#4a5d73' : cor, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>
-                  {l.meta === 0 ? '—' : (saldo >= 0 ? '+' : '') + fmt(l.diff).replace('R$\xa0', 'R$ ')}
+                  {l.meta === 0 ? '—' : (l.diff >= 0 ? '+' : '') + fmt(Math.abs(l.diff)).replace('R$\xa0', 'R$ ')}
                 </span>
 
                 {/* Barra */}
@@ -1767,17 +1770,22 @@ export default function FinancasPage() {
                   .toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
                 return (
                   <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                    onClick={() => !replicando && setShowConfirmReplica(false)}>
+                    onClick={() => { if (!replicando) { setShowConfirmReplica(false); setErroReplica('') } }}>
                     <div style={{ background: '#0e1d33', border: '1px solid rgba(255,255,255,.12)', borderRadius: 14, padding: 28, maxWidth: 420, width: '90%', boxShadow: '0 16px 48px rgba(0,0,0,.6)' }}
                       onClick={e => e.stopPropagation()}>
                       <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#e8edf4' }}>Replicar orçamento</h3>
-                      <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8fa0b4', lineHeight: 1.6 }}>
+                      <p style={{ margin: '0 0 16px', fontSize: 13, color: '#8fa0b4', lineHeight: 1.6 }}>
                         As metas de todas as categorias serão <strong style={{ color: '#e8edf4' }}>substituídas</strong> pelos gastos reais de{' '}
                         <strong style={{ color: '#e8a020', textTransform: 'capitalize' }}>{labelRef}</strong>.
                         Categorias sem despesa naquele mês não serão alteradas.
                       </p>
+                      {erroReplica && (
+                        <div style={{ background: 'rgba(239,83,80,.12)', border: '1px solid rgba(239,83,80,.3)', borderRadius: 8, padding: '10px 14px', marginBottom: 16, fontSize: 12, color: '#ef5350' }}>
+                          ⚠ {erroReplica}
+                        </div>
+                      )}
                       <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
-                        <button onClick={() => setShowConfirmReplica(false)} disabled={replicando}
+                        <button onClick={() => { setShowConfirmReplica(false); setErroReplica('') }} disabled={replicando}
                           style={{ background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 8, color: '#8fa0b4', cursor: 'pointer', padding: '8px 18px', fontSize: 13 }}>
                           Cancelar
                         </button>
