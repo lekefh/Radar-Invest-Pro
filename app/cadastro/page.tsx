@@ -13,8 +13,16 @@ const DEPOIMENTOS = [
   },
 ]
 
+function mascaraTelefone(v: string): string {
+  const d = v.replace(/\D/g, '').slice(0, 11)
+  if (d.length <= 2)  return d.length ? `(${d}` : ''
+  if (d.length <= 6)  return `(${d.slice(0,2)}) ${d.slice(2)}`
+  if (d.length <= 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`
+  return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`
+}
+
 export default function CadastroPage() {
-  const [form, setForm]             = useState({ nome: '', email: '', senha: '' })
+  const [form, setForm]             = useState({ nome: '', email: '', senha: '', telefone: '' })
   const [erro, setErro]             = useState('')
   const [carregando, setCarregando] = useState(false)
   const [pendente, setPendente]     = useState(false)
@@ -50,22 +58,32 @@ export default function CadastroPage() {
   }, [])
 
   function set(campo: string, valor: string) {
-    setForm(f => ({ ...f, [campo]: valor }))
+    if (campo === 'telefone') {
+      setForm(f => ({ ...f, telefone: mascaraTelefone(valor) }))
+    } else {
+      setForm(f => ({ ...f, [campo]: valor }))
+    }
     setErro('')
   }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setErro('')
+    const digitos = form.telefone.replace(/\D/g, '')
+    if (digitos.length < 10) {
+      setErro('Informe um celular válido com DDD.')
+      return
+    }
     setCarregando(true)
     try {
       const res = await fetch('/api/auth/register', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
-          nome:  form.nome.trim(),
-          email: form.email.trim().toLowerCase(),
-          senha: form.senha,
+          nome:     form.nome.trim(),
+          email:    form.email.trim().toLowerCase(),
+          senha:    form.senha,
+          telefone: form.telefone.trim(),
         }),
       })
       const data = await res.json()
@@ -75,9 +93,7 @@ export default function CadastroPage() {
         return
       }
 
-      // Conta criada — aguardando confirmação de e-mail
       setPendente(true)
-      // Meta Pixel: dispara CompleteRegistration
       if (typeof window !== 'undefined' && (window as any).fbq) {
         (window as any).fbq('track', 'CompleteRegistration', { status: 'pendente_email' })
       }
@@ -238,6 +254,20 @@ export default function CadastroPage() {
               required
               placeholder="seu@email.com"
               style={inputStyle}
+            />
+          </div>
+
+          {/* Celular */}
+          <div>
+            <label style={labelStyle}>Celular <span style={{ color: '#ef4444', fontSize: '10px' }}>*obrigatório</span></label>
+            <input
+              type="tel"
+              value={form.telefone}
+              onChange={e => set('telefone', e.target.value)}
+              required
+              placeholder="(65) 99999-9999"
+              style={inputStyle}
+              inputMode="numeric"
             />
           </div>
 

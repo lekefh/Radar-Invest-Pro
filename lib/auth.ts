@@ -58,6 +58,7 @@ export async function initUsersTable() {
       criado_em        TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `
+  await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS telefone TEXT`
 }
 
 export async function countUsers(): Promise<number> {
@@ -94,16 +95,17 @@ export async function createUser(params: {
   nome: string; username: string; email: string; senha: string
   plano: string; ativo: boolean; emailConfirmado: boolean
   token: string | null; tokenExpira: Date | null
+  telefone?: string
 }) {
   const sql = db()
   const hash = await bcrypt.hash(params.senha, 12)
   const r = await sql`
     INSERT INTO usuarios_web
-      (nome, username, email, senha_hash, plano, ativo, email_confirmado, token_conf, token_expira)
+      (nome, username, email, senha_hash, plano, ativo, email_confirmado, token_conf, token_expira, telefone)
     VALUES
       (${params.nome}, ${params.username}, ${params.email}, ${hash},
        ${params.plano}, ${params.ativo}, ${params.emailConfirmado},
-       ${params.token}, ${params.tokenExpira})
+       ${params.token}, ${params.tokenExpira}, ${params.telefone ?? null})
     RETURNING *
   `
   return r[0]
@@ -129,7 +131,7 @@ export async function confirmEmail(token: string): Promise<boolean> {
 export async function listUsers() {
   const sql = db()
   return sql`
-    SELECT id, username, nome, email, plano, ativo, email_confirmado, criado_em
+    SELECT id, username, nome, email, plano, ativo, email_confirmado, telefone, criado_em
     FROM usuarios_web ORDER BY id
   `
 }

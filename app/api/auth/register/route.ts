@@ -15,15 +15,23 @@ function gerarUsername(nome: string): string {
   return base || 'usuario'
 }
 
+function apenasDigitos(v: string): string {
+  return v.replace(/\D/g, '')
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { nome, email, senha } = await req.json()
+    const { nome, email, senha, telefone } = await req.json()
 
-    if (!nome?.trim() || !email?.trim() || !senha) {
+    if (!nome?.trim() || !email?.trim() || !senha || !telefone?.trim()) {
       return NextResponse.json({ erro: 'Preencha todos os campos.' }, { status: 400 })
     }
     if (senha.length < 6) {
       return NextResponse.json({ erro: 'Senha deve ter pelo menos 6 caracteres.' }, { status: 400 })
+    }
+    const digitos = apenasDigitos(telefone)
+    if (digitos.length < 10 || digitos.length > 11) {
+      return NextResponse.json({ erro: 'Informe um celular válido com DDD.' }, { status: 400 })
     }
 
     await initUsersTable()
@@ -32,7 +40,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ erro: 'E-mail já cadastrado.' }, { status: 409 })
     }
 
-    // Username gerado automaticamente do nome, com sufixo numérico se já existir
     const base = gerarUsername(nome.trim())
     let username = base
     let sufixo = 2
@@ -41,7 +48,7 @@ export async function POST(req: NextRequest) {
     }
 
     const confirmToken = generateToken()
-    const tokenExpira  = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24h
+    const tokenExpira  = new Date(Date.now() + 24 * 60 * 60 * 1000)
 
     await createUser({
       nome:            nome.trim(),
@@ -53,9 +60,9 @@ export async function POST(req: NextRequest) {
       emailConfirmado: false,
       token:           confirmToken,
       tokenExpira,
+      telefone:        telefone.trim(),
     })
 
-    // E-mail de ativação (não-bloqueante)
     try {
       const resend = new Resend(process.env.RESEND_API_KEY || 'placeholder')
       const host   = process.env.NEXT_PUBLIC_URL || 'https://radarinvestpro.com.br'
