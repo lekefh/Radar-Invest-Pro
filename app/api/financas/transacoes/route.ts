@@ -12,7 +12,9 @@ export async function GET(req: NextRequest) {
     }
 
     await ensureFinancasTables()
-    const sql    = getDb()
+    const sqlTpl = getDb()
+    // Cast necessário: neon suporta (string, params[]) em runtime mas o tipo TS só expõe template literal
+    const sql    = sqlTpl as unknown as (q: string, p?: (string | number | boolean | null)[]) => Promise<Record<string, unknown>[]>
     const userId = Number(session.sub)
 
     const params    = req.nextUrl.searchParams
@@ -85,18 +87,12 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ transacoes: rows, total: rows.length })
     }
 
-    // Total para paginação
-    const [countRow] = await sql`
-      SELECT COUNT(*)::int AS total FROM transacoes_pessoais
-      WHERE user_id = ${userId}
-        AND (${periodo || ''} = '' OR periodo = ${periodo || ''})
-        AND (${categoria || ''} = '' OR categoria = ${categoria || ''})
-        AND (${tipo || ''} = '' OR tipo_lancamento = ${tipo || ''})
-        AND (${extrato || ''} = '' OR tipo_extrato = ${extrato || ''})
-        AND (${banco || ''} = '' OR banco = ${banco || ''})
-        AND (${busca || ''} = '' OR LOWER(historico) LIKE ${'%' + (busca || '').toLowerCase() + '%'})
-        AND (${valorRaw} = '' OR CAST(ROUND(ABS(valor)::numeric, 2) AS TEXT) LIKE ${'%' + valorRaw + '%'})
-    `
+    // Total para paginação (usa mesmos parâmetros do WHERE)
+    const countRows = await sql(
+      `SELECT COUNT(*)::int AS total FROM transacoes_pessoais ${WHERE}`,
+      whereParams,
+    )
+    const countRow = countRows[0]
 
     return NextResponse.json({ transacoes: rows, total: countRow.total, page, limit })
 
