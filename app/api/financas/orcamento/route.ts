@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
     const realMap: Record<string, number> = {}
     for (const r of reaisRows) realMap[r.categoria as string] = Number(r.total)
 
-    // 3. Grupos das categorias
+    // 3. Grupos das categorias (categorias_pessoais + todas de transações)
     const cats = await sql`
       SELECT DISTINCT ON (nome) nome, COALESCE(grupo, 'outros') as grupo
       FROM categorias_pessoais
@@ -50,8 +50,17 @@ export async function GET(req: NextRequest) {
     const grupoMap: Record<string, string> = {}
     for (const c of cats) grupoMap[c.nome as string] = c.grupo as string
 
-    // 4. União de todas as categorias (com meta OU com gasto)
-    const todasCats = new Set([...Object.keys(metaMap), ...Object.keys(realMap)])
+    // 4. Todas as categorias: com meta + com gasto no período + com gasto em qualquer período (despesa)
+    const todasTxRows = await sql`
+      SELECT DISTINCT categoria as nome FROM transacoes_pessoais
+      WHERE user_id = ${userId} AND tipo_lancamento = 'despesa' AND ignorar = FALSE
+        AND categoria IS NOT NULL AND categoria != ''
+    `
+    const todasCats = new Set([
+      ...Object.keys(metaMap),
+      ...Object.keys(realMap),
+      ...todasTxRows.map(r => r.nome as string),
+    ])
 
     const linhas = [...todasCats].map(cat => ({
       categoria: cat,

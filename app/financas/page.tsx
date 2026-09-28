@@ -173,6 +173,8 @@ export default function FinancasPage() {
   const [orcTotalMeta, setOrcTotalMeta]     = useState(0)
   const [orcTotalReal, setOrcTotalReal]     = useState(0)
   const [periodoOrc, setPeriodoOrc]         = useState(() => new Date().toISOString().slice(0, 7))
+  const [showOrcPicker, setShowOrcPicker]   = useState(false)
+  const [pickerAno, setPickerAno]           = useState(() => new Date().getFullYear())
   const [editMeta, setEditMeta]             = useState<Record<string, string>>({})
   const [salvandoMeta, setSalvandoMeta]     = useState<Record<string, boolean>>({})
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
@@ -1730,21 +1732,57 @@ export default function FinancasPage() {
                   <h2 style={{ fontSize: 16, fontWeight: 700, color: '#e8edf4', margin: 0 }}>Orçamento Mensal</h2>
                   <p style={{ fontSize: 12, color: '#6b84a8', margin: '2px 0 0' }}>Meta vs realizado por categoria. Clique em qualquer meta para editar.</p>
                 </div>
-                {/* Seletor de mês com setas */}
+                {/* Seletor de mês com setas + grade ao clicar */}
                 {(() => {
                   const [ano, mes] = periodoOrc.split('-').map(Number)
                   const label = new Date(ano, mes - 1, 1).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
+                  const MESES_CURTOS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
                   function moverMes(delta: number) {
                     const d = new Date(ano, mes - 1 + delta, 1)
                     setPeriodoOrc(d.toISOString().slice(0, 7))
                   }
+                  function selecionarMes(m: number) {
+                    setPeriodoOrc(`${pickerAno}-${String(m).padStart(2,'0')}`)
+                    setShowOrcPicker(false)
+                  }
                   return (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 0, background: 'rgba(255,255,255,.06)', borderRadius: 8, border: '1px solid rgba(255,255,255,.1)', overflow: 'hidden' }}>
-                      <button onClick={() => moverMes(-1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 16, lineHeight: 1, transition: 'color .15s' }}
-                        onMouseEnter={e => (e.currentTarget.style.color = '#e8a020')} onMouseLeave={e => (e.currentTarget.style.color = '#8fa0b4')}>‹</button>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: '#e8edf4', padding: '7px 4px', minWidth: 150, textAlign: 'center', textTransform: 'capitalize' }}>{label}</span>
-                      <button onClick={() => moverMes(1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 16, lineHeight: 1, transition: 'color .15s' }}
-                        onMouseEnter={e => (e.currentTarget.style.color = '#e8a020')} onMouseLeave={e => (e.currentTarget.style.color = '#8fa0b4')}>›</button>
+                    <div style={{ position: 'relative' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 0, background: 'rgba(255,255,255,.06)', borderRadius: 8, border: '1px solid rgba(255,255,255,.1)', overflow: 'hidden' }}>
+                        <button onClick={() => moverMes(-1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 16, lineHeight: 1 }}
+                          onMouseEnter={e => (e.currentTarget.style.color='#e8a020')} onMouseLeave={e => (e.currentTarget.style.color='#8fa0b4')}>‹</button>
+                        <button onClick={() => { setPickerAno(ano); setShowOrcPicker(v => !v) }}
+                          style={{ background: 'none', border: 'none', color: '#e8edf4', cursor: 'pointer', padding: '7px 4px', minWidth: 150, textAlign: 'center', textTransform: 'capitalize', fontSize: 13, fontWeight: 600 }}>
+                          {label} ▾
+                        </button>
+                        <button onClick={() => moverMes(1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 16, lineHeight: 1 }}
+                          onMouseEnter={e => (e.currentTarget.style.color='#e8a020')} onMouseLeave={e => (e.currentTarget.style.color='#8fa0b4')}>›</button>
+                      </div>
+                      {showOrcPicker && (
+                        <div style={{ position: 'absolute', top: '110%', right: 0, zIndex: 100, background: '#0e1d33', border: '1px solid rgba(255,255,255,.12)', borderRadius: 10, padding: 12, minWidth: 220, boxShadow: '0 8px 32px rgba(0,0,0,.5)' }}>
+                          {/* Seletor de ano */}
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                            <button onClick={() => setPickerAno(y => y - 1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', fontSize: 16, padding: '0 8px' }}>‹</button>
+                            <span style={{ fontSize: 13, fontWeight: 700, color: '#e8edf4' }}>{pickerAno}</span>
+                            <button onClick={() => setPickerAno(y => y + 1)} style={{ background: 'none', border: 'none', color: '#8fa0b4', cursor: 'pointer', fontSize: 16, padding: '0 8px' }}>›</button>
+                          </div>
+                          {/* Grade de meses 4×3 */}
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}>
+                            {MESES_CURTOS.map((m, i) => {
+                              const mNum = i + 1
+                              const ativo = pickerAno === ano && mNum === mes
+                              return (
+                                <button key={m} onClick={() => selecionarMes(mNum)}
+                                  style={{ background: ativo ? '#e8a020' : 'rgba(255,255,255,.05)', border: 'none', borderRadius: 6, color: ativo ? '#080e1c' : '#b8c4d4', cursor: 'pointer', padding: '6px 4px', fontSize: 12, fontWeight: ativo ? 700 : 400, transition: 'background .15s' }}
+                                  onMouseEnter={e => { if (!ativo) e.currentTarget.style.background='rgba(232,160,32,.2)' }}
+                                  onMouseLeave={e => { if (!ativo) e.currentTarget.style.background='rgba(255,255,255,.05)' }}>
+                                  {m}
+                                </button>
+                              )
+                            })}
+                          </div>
+                          <button onClick={() => setShowOrcPicker(false)} style={{ marginTop: 8, width: '100%', background: 'none', border: 'none', color: '#6b84a8', cursor: 'pointer', fontSize: 11, padding: '4px 0' }}>Fechar</button>
+                        </div>
+                      )}
                     </div>
                   )
                 })()}
