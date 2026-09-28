@@ -177,6 +177,8 @@ export default function FinancasPage() {
   const [pickerAno, setPickerAno]           = useState(() => new Date().getFullYear())
   const [editMeta, setEditMeta]             = useState<Record<string, string>>({})
   const [salvandoMeta, setSalvandoMeta]     = useState<Record<string, boolean>>({})
+  const [showConfirmReplica, setShowConfirmReplica] = useState(false)
+  const [replicando, setReplicando]         = useState(false)
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
@@ -323,6 +325,32 @@ export default function FinancasPage() {
     })
     setEditMeta(p => { const n = { ...p }; delete n[cat]; return n })
     setSalvandoMeta(p => ({ ...p, [cat]: false }))
+  }
+
+  async function replicarMesAnterior() {
+    const [ano, mes] = periodoOrc.split('-').map(Number)
+    const periodoRef = mes === 1
+      ? `${ano - 1}-12`
+      : `${ano}-${String(mes - 1).padStart(2, '0')}`
+    setReplicando(true)
+    try {
+      const r = await fetch('/api/financas/orcamento', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ periodo_ref: periodoRef }),
+      })
+      const d = await r.json()
+      if (d.erro) { alert(d.erro); return }
+      // Recarrega o orçamento do mês atual com as novas metas
+      const r2 = await fetch(`/api/financas/orcamento?periodo=${periodoOrc}`)
+      const d2 = await r2.json()
+      if (d2.linhas) setOrcamento(d2.linhas)
+      setOrcTotalMeta(d2.totalMeta || 0)
+      setOrcTotalReal(d2.totalReal || 0)
+      setShowConfirmReplica(false)
+    } finally {
+      setReplicando(false)
+    }
   }
 
   // ── Grupos ─────────────────────────────────────────────────────────────────
@@ -1730,12 +1758,53 @@ export default function FinancasPage() {
           return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
+              {/* Modal confirmação — replicar mês anterior */}
+              {showConfirmReplica && (() => {
+                const [ano, mes] = periodoOrc.split('-').map(Number)
+                const pRef = mes === 1 ? `${ano - 1}-12` : `${ano}-${String(mes - 1).padStart(2, '0')}`
+                const labelRef = new Date(Number(pRef.split('-')[0]), Number(pRef.split('-')[1]) - 1, 1)
+                  .toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
+                return (
+                  <div style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    onClick={() => !replicando && setShowConfirmReplica(false)}>
+                    <div style={{ background: '#0e1d33', border: '1px solid rgba(255,255,255,.12)', borderRadius: 14, padding: 28, maxWidth: 420, width: '90%', boxShadow: '0 16px 48px rgba(0,0,0,.6)' }}
+                      onClick={e => e.stopPropagation()}>
+                      <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 700, color: '#e8edf4' }}>Replicar orçamento</h3>
+                      <p style={{ margin: '0 0 20px', fontSize: 13, color: '#8fa0b4', lineHeight: 1.6 }}>
+                        As metas de todas as categorias serão <strong style={{ color: '#e8edf4' }}>substituídas</strong> pelos gastos reais de{' '}
+                        <strong style={{ color: '#e8a020', textTransform: 'capitalize' }}>{labelRef}</strong>.
+                        Categorias sem despesa naquele mês não serão alteradas.
+                      </p>
+                      <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+                        <button onClick={() => setShowConfirmReplica(false)} disabled={replicando}
+                          style={{ background: 'rgba(255,255,255,.07)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 8, color: '#8fa0b4', cursor: 'pointer', padding: '8px 18px', fontSize: 13 }}>
+                          Cancelar
+                        </button>
+                        <button onClick={replicarMesAnterior} disabled={replicando}
+                          style={{ background: replicando ? '#3d4f6a' : '#e8a020', border: 'none', borderRadius: 8, color: replicando ? '#6b84a8' : '#080e1c', cursor: replicando ? 'not-allowed' : 'pointer', padding: '8px 20px', fontSize: 13, fontWeight: 700 }}>
+                          {replicando ? 'Replicando...' : 'Replicar'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
+
               {/* Cabeçalho */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
                 <div>
                   <h2 style={{ fontSize: 16, fontWeight: 700, color: '#e8edf4', margin: 0 }}>Orçamento Mensal</h2>
                   <p style={{ fontSize: 12, color: '#6b84a8', margin: '2px 0 0' }}>Meta vs realizado por categoria. Clique em qualquer meta para editar.</p>
                 </div>
+                {/* Controles à direita: botão replicar + seletor de mês */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <button onClick={() => setShowConfirmReplica(true)}
+                  title="Definir metas com base nos gastos do mês anterior"
+                  style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 8, color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 12, whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 6 }}
+                  onMouseEnter={e => { e.currentTarget.style.color='#e8edf4'; e.currentTarget.style.borderColor='rgba(232,160,32,.4)' }}
+                  onMouseLeave={e => { e.currentTarget.style.color='#8fa0b4'; e.currentTarget.style.borderColor='rgba(255,255,255,.1)' }}>
+                  ↩ Replicar mês anterior
+                </button>
                 {/* Seletor de mês com setas + grade ao clicar */}
                 {(() => {
                   const [ano, mes] = periodoOrc.split('-').map(Number)
@@ -1790,6 +1859,7 @@ export default function FinancasPage() {
                     </div>
                   )
                 })()}
+                </div>{/* fim controles direita */}
               </div>
 
               {/* Cards totais */}

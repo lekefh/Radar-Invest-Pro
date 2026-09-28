@@ -95,6 +95,50 @@ export async function GET(req: NextRequest) {
   }
 }
 
+// Replicar gastos reais de um mês como novas metas de orçamento
+export async function PATCH(req: NextRequest) {
+  try {
+    const session = await getSession()
+    if (!session?.sub) return NextResponse.json({ erro: 'Não autenticado' }, { status: 401 })
+    if (!PLANOS_FINANCAS.includes(String(session.plano || 'gratuito'))) {
+      return NextResponse.json({ erro: 'Sem acesso' }, { status: 403 })
+    }
+
+    await ensureFinancasTables()
+    const sql    = getDb()
+    const userId = Number(session.sub)
+
+    const { periodo_ref } = await req.json()
+    if (!periodo_ref || !/^\d{4}-\d{2}$/.test(periodo_ref)) {
+      return NextResponse.json({ erro: 'periodo_ref obrigatório (YYYY-MM)' }, { status: 400 })
+    }
+
+    const gastos = await sql`
+      SELECT categoria, ROUND(SUM(ABS(valor))::numeric, 2)::float AS total
+      FROM transacoes_pessoais
+      WHERE user_id = ${userId} AND tipo_lancamento = 'despesa' AND ignorar = FALSE
+        AND periodo = ${periodo_ref} AND categoria IS NOT NULL AND categoria != ''
+      GROUP BY categoria
+    `
+
+    if (gastos.length === 0) {
+      return NextResponse.json({ erro: `Nenhuma despesa encontrada em ${periodo_ref}` }, { status: 404 })
+    }
+
+    for (const g of gastos) {
+      await sql`
+        INSERT INTO orcamento_categorias (user_id, categoria, valor_meta)
+        VALUES (${userId}, ${g.categoria as string}, ${g.total as number})
+        ON CONFLICT (user_id, categoria) DO UPDATE SET valor_meta = EXCLUDED.valor_meta
+      `
+    }
+
+    return NextResponse.json({ ok: true, categorias: gastos.length })
+  } catch (e: unknown) {
+    return NextResponse.json({ erro: String(e) }, { status: 500 })
+  }
+}
+
 export async function PUT(req: NextRequest) {
   try {
     const session = await getSession()
