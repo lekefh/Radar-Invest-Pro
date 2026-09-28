@@ -1391,38 +1391,56 @@ export default function FinancasPage() {
               )}
             </div>
 
-            {/* Top categorias (despesa) — com filtro */}
+            {/* Top categorias (despesa) — ordenado por grupo com cores */}
             <div style={card()} onClick={() => setPainelCats(false)}>
               <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: '#b8c4d4' }}>Top Categorias de Despesa</h3>
               {topCats.length === 0 ? (
                 <div style={{ color: '#6b84a8', fontSize: 13 }}>Sem dados.</div>
               ) : (() => {
-                const lista = filCatsGraf.length > 0
+                const GRUPO_ORDER = ['necessidades','conforto','investimentos','imprevistos','outros']
+                const grupoMap = Object.fromEntries(categoriasObj.map(c => [c.nome, c.grupo]))
+                const lista = (filCatsGraf.length > 0
                   ? topCats.filter(c => filCatsGraf.includes(c.categoria))
                   : topCats
-                const max = lista[0]?.total || 1
-                return lista.length === 0 ? (
-                  <div style={{ color: '#6b84a8', fontSize: 13 }}>Nenhuma categoria selecionada corresponde aos dados.</div>
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                    {lista.map(c => {
-                      const pct = Math.round((c.total / max) * 100)
-                      return (
-                        <div key={c.categoria} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                          <div style={{ width: 160, fontSize: 12, color: '#b8c4d4', flexShrink: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                            {c.categoria}
-                          </div>
-                          <div style={{ flex: 1, background: 'rgba(255,255,255,.05)', borderRadius: 4, height: 18, overflow: 'hidden' }}>
-                            <div style={{ height: '100%', width: pct + '%', background: 'rgba(239,83,80,.6)', borderRadius: 4, transition: 'width .3s' }} />
-                          </div>
-                          <div style={{ width: 100, textAlign: 'right', fontSize: 12, fontWeight: 700, color: '#ef5350', flexShrink: 0 }}>
-                            {fmt(c.total)}
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                )
+                ).map(c => ({ ...c, grupo: grupoMap[c.categoria] || 'outros' }))
+                  .sort((a, b) => {
+                    const ga = GRUPO_ORDER.indexOf(a.grupo)
+                    const gb = GRUPO_ORDER.indexOf(b.grupo)
+                    return ga !== gb ? ga - gb : b.total - a.total
+                  })
+                if (lista.length === 0) return <div style={{ color: '#6b84a8', fontSize: 13 }}>Nenhuma categoria selecionada corresponde aos dados.</div>
+                const max = Math.max(...lista.map(c => c.total), 1)
+                const elementos: React.ReactNode[] = []
+                let ultimoGrupo = ''
+                for (const c of lista) {
+                  if (c.grupo !== ultimoGrupo) {
+                    ultimoGrupo = c.grupo
+                    elementos.push(
+                      <div key={`sep-${c.grupo}`} style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: elementos.length > 0 ? 12 : 0, marginBottom: 4 }}>
+                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: GRUPOS_CORES[c.grupo], flexShrink: 0, display: 'inline-block' }} />
+                        <span style={{ fontSize: 11, fontWeight: 700, color: GRUPOS_CORES[c.grupo], textTransform: 'uppercase', letterSpacing: '.6px' }}>
+                          {GRUPOS_LABELS[c.grupo]}
+                        </span>
+                      </div>
+                    )
+                  }
+                  const pct = Math.round((c.total / max) * 100)
+                  const cor = GRUPOS_CORES[c.grupo]
+                  elementos.push(
+                    <div key={c.categoria} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                      <div style={{ width: 160, fontSize: 12, color: '#b8c4d4', flexShrink: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {c.categoria}
+                      </div>
+                      <div style={{ flex: 1, background: 'rgba(255,255,255,.05)', borderRadius: 4, height: 18, overflow: 'hidden' }}>
+                        <div style={{ height: '100%', width: pct + '%', background: cor + 'aa', borderRadius: 4, transition: 'width .3s' }} />
+                      </div>
+                      <div style={{ width: 100, textAlign: 'right', fontSize: 12, fontWeight: 700, color: cor, flexShrink: 0 }}>
+                        {fmt(c.total)}
+                      </div>
+                    </div>
+                  )
+                }
+                return <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>{elementos}</div>
               })()}
             </div>
           </div>
