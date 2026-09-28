@@ -536,11 +536,16 @@ export default function FinancasPage() {
 
   async function salvarSaldo() {
     const v = parseFloat(novoSaldo.replace(',', '.')) || 0
-    await fetch('/api/financas/config', {
+    const r = await fetch('/api/financas/config', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ saldo_inicial: v }),
     })
+    const d = await r.json()
+    if (!r.ok || d.erro) {
+      alert('Erro ao salvar saldo inicial: ' + (d.erro || r.status))
+      return
+    }
     setSaldoInicial(v)
     setEditSaldo(false)
   }
