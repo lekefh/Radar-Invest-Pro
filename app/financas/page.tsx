@@ -1962,7 +1962,18 @@ export default function FinancasPage() {
 
         {/* ── ABA GRUPOS ──────────────────────────────────────────────────── */}
         {aba === 'grupos' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 960, width: '100%', margin: '0 auto' }}>
+
+            {/* Filtro de período */}
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+              <div>
+                <label style={{ fontSize: 11, color: '#6b84a8', display: 'block', marginBottom: 3 }}>Período</label>
+                <select value={periodoGrupos} onChange={e => setPeriodoGrupos(e.target.value)} style={{ ...selectSt, width: 160 }}>
+                  <option value="">Todos os períodos</option>
+                  {periodosDisp.map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+              </div>
+            </div>
 
             {/* Config de metas */}
             <div style={card()}>
@@ -2019,17 +2030,7 @@ export default function FinancasPage() {
 
             {/* Resumo real vs meta */}
             <div style={card()}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
-                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b8c4d4', margin: 0 }}>📊 Real vs Meta</h3>
-                <select
-                  value={periodoGrupos}
-                  onChange={e => setPeriodoGrupos(e.target.value)}
-                  style={{ ...selectSt, width: 'auto' }}
-                >
-                  <option value="">Todos os períodos</option>
-                  {periodosDisp.map(p => <option key={p} value={p}>{p}</option>)}
-                </select>
-              </div>
+              <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b8c4d4', marginBottom: 16 }}>📊 Real vs Meta</h3>
               {gruposDados.length === 0 ? (
                 <div style={{ color: '#6b84a8', fontSize: 13, textAlign: 'center', padding: '24px 0' }}>
                   Sem despesas categorizadas no período.
