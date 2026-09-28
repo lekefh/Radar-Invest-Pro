@@ -48,7 +48,23 @@ interface BatchItem {
   revertido: boolean
 }
 
-type Aba = 'importar' | 'transacoes' | 'resumo' | 'graficos'
+type Aba = 'importar' | 'transacoes' | 'resumo' | 'graficos' | 'grupos'
+
+const GRUPOS_LABELS: Record<string, string> = {
+  necessidades: 'Necessidades',
+  conforto: 'Conforto',
+  investimentos: 'Investimentos',
+  imprevistos: 'Imprevistos',
+  outros: 'Sem grupo',
+}
+
+const GRUPOS_CORES: Record<string, string> = {
+  necessidades: '#e8a020',
+  conforto:     '#1565C0',
+  investimentos:'#22c55e',
+  imprevistos:  '#9c27b0',
+  outros:       '#546E7A',
+}
 
 const fmt = (v: number) =>
   v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
@@ -136,6 +152,12 @@ export default function FinancasPage() {
   const [filBusca, setFilBusca]         = useState('')
   const [filValor, setFilValor]         = useState('')
   const [categorias, setCategorias]     = useState<string[]>([])
+  const [categoriasObj, setCategoriasObj] = useState<{nome: string; grupo: string}[]>([])
+  const [gruposConfig, setGruposConfig] = useState({ necessidades: 50, conforto: 25, investimentos: 20, imprevistos: 5 })
+  const [gruposEdit, setGruposEdit]     = useState({ necessidades: 50, conforto: 25, investimentos: 20, imprevistos: 5 })
+  const [gruposDados, setGruposDados]   = useState<{grupo: string; total: number; pct_real: number}[]>([])
+  const [periodoGrupos, setPeriodoGrupos] = useState('')
+  const [salvandoGrupos, setSalvandoGrupos] = useState(false)
   const [bancosUsados, setBancosUsados] = useState<string[]>([])
   const [periodosDisp, setPeriodosDisp] = useState<string[]>([])
   const [loadingTrans, setLoadingTrans] = useState(false)
@@ -190,11 +212,18 @@ export default function FinancasPage() {
   useEffect(() => {
     if (!plano) return
     fetch('/api/financas/categorias').then(r => r.json()).then(d => {
-      if (d.categorias) setCategorias([...new Set(d.categorias.map((c: { nome: string }) => c.nome))] as string[])
+      if (d.categorias) {
+        setCategorias([...new Set(d.categorias.map((c: { nome: string }) => c.nome))] as string[])
+        setCategoriasObj(d.categorias.map((c: {nome: string; grupo: string}) => ({ nome: c.nome, grupo: c.grupo || 'outros' })))
+      }
     })
     fetch('/api/financas/config').then(r => r.json()).then(d => {
       setSaldoInicial(d.saldo_inicial || 0)
       setNovoSaldo(String(d.saldo_inicial || 0))
+      if (d.grupos_config) {
+        setGruposConfig(d.grupos_config)
+        setGruposEdit(d.grupos_config)
+      }
     })
   }, [plano])
 
@@ -230,6 +259,21 @@ export default function FinancasPage() {
       if (d.periodos) setPeriodosDisp(d.periodos)
     })
   }, [aba, plano, periodoResumo])
+
+  // ── Grupos ─────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    if (aba !== 'grupos' || !plano) return
+    const p = new URLSearchParams({ periodo: periodoGrupos })
+    fetch(`/api/financas/grupos?${p}`).then(r => r.json()).then(d => {
+      if (d.grupos) setGruposDados(d.grupos)
+    })
+    // Carrega períodos disponíveis se ainda não tiver
+    if (periodosDisp.length === 0) {
+      fetch('/api/financas/resumo').then(r => r.json()).then(d => {
+        if (d.periodos) setPeriodosDisp(d.periodos)
+      })
+    }
+  }, [aba, plano, periodoGrupos])
 
   // ── Gráficos ────────────────────────────────────────────────────────────────
   useEffect(() => {
@@ -557,8 +601,8 @@ export default function FinancasPage() {
 
         {/* Abas */}
         <div style={{ display: 'flex', gap: 4, marginBottom: 20, borderBottom: '1px solid rgba(255,255,255,.07)', paddingBottom: 0 }}>
-          {(['importar','transacoes','resumo','graficos'] as Aba[]).map(a => {
-            const labels: Record<Aba, string> = { importar: '📥 Importar', transacoes: '📋 Transações', resumo: '📊 Resumo', graficos: '📈 Gráficos' }
+          {(['importar','transacoes','resumo','graficos','grupos'] as Aba[]).map(a => {
+            const labels: Record<Aba, string> = { importar: '📥 Importar', transacoes: '📋 Transações', resumo: '📊 Resumo', graficos: '📈 Gráficos', grupos: '🎯 Grupos' }
             return (
               <button key={a} onClick={() => setAba(a)} style={{
                 background: 'transparent', border: 'none', borderBottom: aba === a ? '2px solid #e8a020' : '2px solid transparent',
@@ -1517,6 +1561,157 @@ export default function FinancasPage() {
           </div>
         </div>
       )}
+
+        {/* ── ABA GRUPOS ──────────────────────────────────────────────────── */}
+        {aba === 'grupos' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+            {/* Config de metas */}
+            <div style={card()}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4, color: '#b8c4d4' }}>🎯 Metas de Orçamento</h3>
+              <p style={{ fontSize: 12, color: '#6b84a8', marginBottom: 16 }}>
+                Defina o percentual-alvo de cada grupo sobre o total de despesas. A soma deve ser 100%.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 16 }}>
+                {(['necessidades','conforto','investimentos','imprevistos'] as const).map(g => (
+                  <div key={g}>
+                    <label style={{ fontSize: 11, color: GRUPOS_CORES[g], display: 'block', marginBottom: 4, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.5px' }}>
+                      {GRUPOS_LABELS[g]}
+                    </label>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <input
+                        type="number" min={0} max={100}
+                        value={gruposEdit[g]}
+                        onChange={e => setGruposEdit(prev => ({ ...prev, [g]: Number(e.target.value) }))}
+                        style={{ ...inputSt, width: 70, textAlign: 'center' }}
+                      />
+                      <span style={{ color: '#6b84a8', fontSize: 13 }}>%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {(() => {
+                const soma = gruposEdit.necessidades + gruposEdit.conforto + gruposEdit.investimentos + gruposEdit.imprevistos
+                const ok = soma === 100
+                return (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <span style={{ fontSize: 12, color: ok ? '#22c55e' : '#ef5350' }}>
+                      {ok ? '✓ Soma: 100%' : `⚠ Soma: ${soma}% (deve ser 100%)`}
+                    </span>
+                    <button
+                      disabled={!ok || salvandoGrupos}
+                      onClick={async () => {
+                        setSalvandoGrupos(true)
+                        await fetch('/api/financas/config', {
+                          method: 'PUT',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ grupos_config: gruposEdit }),
+                        })
+                        setGruposConfig({ ...gruposEdit })
+                        setSalvandoGrupos(false)
+                      }}
+                      style={{ ...btnPrimary, opacity: (!ok || salvandoGrupos) ? 0.5 : 1 }}
+                    >
+                      {salvandoGrupos ? 'Salvando…' : 'Salvar metas'}
+                    </button>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* Resumo real vs meta */}
+            <div style={card()}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b8c4d4', margin: 0 }}>📊 Real vs Meta</h3>
+                <select
+                  value={periodoGrupos}
+                  onChange={e => setPeriodoGrupos(e.target.value)}
+                  style={{ ...selectSt, width: 'auto' }}
+                >
+                  <option value="">Todos os períodos</option>
+                  {periodosDisp.map(p => <option key={p} value={p}>{p}</option>)}
+                </select>
+              </div>
+              {gruposDados.length === 0 ? (
+                <div style={{ color: '#6b84a8', fontSize: 13, textAlign: 'center', padding: '24px 0' }}>
+                  Sem despesas categorizadas no período.
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                  {(['necessidades','conforto','investimentos','imprevistos'] as const).map(g => {
+                    const dado = gruposDados.find(d => d.grupo === g)
+                    const pctReal  = dado?.pct_real ?? 0
+                    const pctMeta  = gruposConfig[g]
+                    const total    = dado?.total ?? 0
+                    const cor      = GRUPOS_CORES[g]
+                    const ok       = pctReal <= pctMeta
+                    return (
+                      <div key={g}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+                          <span style={{ fontSize: 13, fontWeight: 700, color: '#e8edf4' }}>{GRUPOS_LABELS[g]}</span>
+                          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                            <span style={{ fontSize: 12, color: '#6b84a8' }}>Meta: {pctMeta}%</span>
+                            <span style={{ fontSize: 12, fontWeight: 700, color: ok ? '#22c55e' : '#ef5350' }}>
+                              Real: {pctReal.toFixed(1)}%
+                            </span>
+                            <span style={{ fontSize: 12, color: '#6b84a8' }}>{fmt(total)}</span>
+                          </div>
+                        </div>
+                        {/* Barra */}
+                        <div style={{ position: 'relative', height: 10, background: 'rgba(255,255,255,.07)', borderRadius: 5, overflow: 'hidden' }}>
+                          <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: `${Math.min(pctReal, 100)}%`, background: ok ? cor : '#ef5350', borderRadius: 5, transition: 'width .4s' }} />
+                          {/* Linha da meta */}
+                          <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${Math.min(pctMeta, 100)}%`, width: 2, background: 'rgba(255,255,255,.5)', borderRadius: 1 }} />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Atribuição de grupos às categorias */}
+            <div style={card()}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 4, color: '#b8c4d4' }}>🏷 Categorias por Grupo</h3>
+              <p style={{ fontSize: 12, color: '#6b84a8', marginBottom: 16 }}>
+                Atribua cada categoria a um grupo de orçamento.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, maxHeight: 360, overflowY: 'auto' }}>
+                {categoriasObj.map(cat => (
+                  <div key={cat.nome} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', background: 'rgba(255,255,255,.03)', borderRadius: 6, gap: 12 }}>
+                    <span style={{ fontSize: 13, color: '#e8edf4', flex: 1 }}>{cat.nome}</span>
+                    <select
+                      value={cat.grupo}
+                      onChange={async e => {
+                        const novoGrupo = e.target.value
+                        setCategoriasObj(prev => prev.map(c => c.nome === cat.nome ? { ...c, grupo: novoGrupo } : c))
+                        await fetch('/api/financas/categorias', {
+                          method: 'PUT',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ nome: cat.nome, grupo: novoGrupo }),
+                        })
+                        // Recarrega dados do gráfico
+                        const p = new URLSearchParams({ periodo: periodoGrupos })
+                        fetch(`/api/financas/grupos?${p}`).then(r => r.json()).then(d => {
+                          if (d.grupos) setGruposDados(d.grupos)
+                        })
+                      }}
+                      style={{ ...selectSt, width: 'auto', fontSize: 12 }}
+                    >
+                      <option value="necessidades">Necessidades</option>
+                      <option value="conforto">Conforto</option>
+                      <option value="investimentos">Investimentos</option>
+                      <option value="imprevistos">Imprevistos</option>
+                      <option value="outros">Sem grupo</option>
+                    </select>
+                    <span style={{ fontSize: 10, width: 8, height: 8, borderRadius: '50%', background: GRUPOS_CORES[cat.grupo] || GRUPOS_CORES.outros, flexShrink: 0 }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        )}
 
       {/* ── MODAL: gerenciar categorias ─────────────────────────────────────── */}
       {modalCat && (
