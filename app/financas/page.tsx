@@ -1688,8 +1688,8 @@ export default function FinancasPage() {
 
             return (
               <div key={l.categoria} style={{
-                display: 'grid', gridTemplateColumns: '18px 1fr 130px 100px 90px 130px',
-                gap: 12, alignItems: 'center', padding: '10px 14px',
+                display: 'grid', gridTemplateColumns: '18px 1fr 120px 95px 85px 120px',
+                gap: 10, alignItems: 'center', padding: '10px 14px',
                 borderRadius: 7, background: 'rgba(255,255,255,.025)',
                 border: `1px solid ${estourou ? 'rgba(239,83,80,.2)' : 'rgba(255,255,255,.05)'}`,
               }}>
@@ -1798,7 +1798,7 @@ export default function FinancasPage() {
                   <p style={{ fontSize: 12, color: '#6b84a8', margin: '2px 0 0' }}>Meta vs realizado por categoria. Clique em qualquer meta para editar.</p>
                 </div>
                 {/* Controles: botão replicar + seletor de mês */}
-                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, flexShrink: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 8, minWidth: 0 }}>
                 <button onClick={() => setShowConfirmReplica(true)}
                   title="Definir metas com base nos gastos do mês anterior"
                   style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 8, color: '#8fa0b4', cursor: 'pointer', padding: '7px 14px', fontSize: 12, whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 6 }}
@@ -1898,33 +1898,40 @@ export default function FinancasPage() {
                 </div>
               )}
 
-              {/* Header tabela */}
-              <div style={{ display: 'grid', gridTemplateColumns: '18px 1fr 130px 100px 90px 130px', gap: 12, padding: '6px 14px' }}>
-                {['', 'Categoria', 'Meta mensal', 'Realizado', 'Saldo', 'Progresso'].map(h => (
-                  <span key={h} style={{ fontSize: 10, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', textAlign: h === '' ? 'center' : h === 'Progresso' ? 'left' : 'right', ...( h === 'Categoria' ? { textAlign: 'left' } : {}) }}>
-                    {h}
-                  </span>
-                ))}
+              {/* Tabela — scroll horizontal no mobile */}
+              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' as never }}>
+                <div style={{ minWidth: 560 }}>
+
+                  {/* Header tabela */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '18px 1fr 120px 95px 85px 120px', gap: 10, padding: '6px 14px' }}>
+                    {['', 'Categoria', 'Meta mensal', 'Realizado', 'Saldo', 'Progresso'].map(h => (
+                      <span key={h} style={{ fontSize: 10, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', textAlign: h === '' ? 'center' : h === 'Progresso' ? 'left' : 'right', ...( h === 'Categoria' ? { textAlign: 'left' } : {}) }}>
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Com meta */}
+                  {comMeta.length > 0 && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                      {comMeta.map(renderLinha)}
+                    </div>
+                  )}
+
+                  {/* Sem meta mas com gastos */}
+                  {semMeta.length > 0 && (
+                    <div style={{ border: '1px dashed rgba(255,255,255,.08)', borderRadius: 8, padding: '12px 14px', marginTop: 8 }}>
+                      <div style={{ fontSize: 11, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', marginBottom: 10 }}>
+                        Categorias sem meta definida — {semMeta.length}
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        {semMeta.map(renderLinha)}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
               </div>
-
-              {/* Com meta */}
-              {comMeta.length > 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  {comMeta.map(renderLinha)}
-                </div>
-              )}
-
-              {/* Sem meta mas com gastos */}
-              {semMeta.length > 0 && (
-                <div style={card({ background: 'transparent', border: '1px dashed rgba(255,255,255,.08)' })}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#4a5d73', textTransform: 'uppercase', letterSpacing: '.5px', marginBottom: 10 }}>
-                    Categorias sem meta definida — {semMeta.length}
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                    {semMeta.map(renderLinha)}
-                  </div>
-                </div>
-              )}
 
               {orcamento.length === 0 && (
                 <div style={{ textAlign: 'center', padding: '48px 24px', color: '#4a5d73', fontSize: 14 }}>
