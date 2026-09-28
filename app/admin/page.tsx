@@ -12,6 +12,7 @@ interface Usuario {
   plano:      Plano
   ativo:      number
   criado_em:  string
+  telefone:   string | null
 }
 
 interface Posicao {
@@ -431,7 +432,7 @@ export default function AdminUsuariosPage() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
-                  {['ID', 'Nome', 'Usuário', 'E-mail', 'Plano', 'Status', 'Cadastro', 'Ações'].map(h => (
+                  {['ID', 'Nome', 'Usuário', 'E-mail', 'Telefone', 'Plano', 'Status', 'Cadastro', 'Ações'].map(h => (
                     <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: '#4a5d73', letterSpacing: '.8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {h}
                     </th>
@@ -445,6 +446,12 @@ export default function AdminUsuariosPage() {
                     <td style={{ ...tdStyle, color: '#e0e0e0', fontWeight: 600 }}>{u.nome}</td>
                     <td style={{ ...tdStyle, color: '#6b84a8' }}>@{u.username}</td>
                     <td style={{ ...tdStyle, color: '#6b84a8', fontSize: '12px' }}>{u.email}</td>
+                    <td style={{ ...tdStyle, fontSize: '12px', whiteSpace: 'nowrap' }}>
+                      {u.telefone
+                        ? <span style={{ color: '#8a9bb5' }}>{u.telefone}</span>
+                        : <span style={{ color: '#3d4f6a', fontStyle: 'italic' }}>—</span>
+                      }
+                    </td>
                     <td style={tdStyle}>
                       <select
                         value={u.plano}
