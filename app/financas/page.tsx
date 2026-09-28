@@ -248,6 +248,10 @@ export default function FinancasPage() {
         setGruposEdit(d.grupos_config)
       }
     })
+    // Períodos disponíveis — carrega uma vez para todos os filtros/abas
+    fetch('/api/financas/resumo').then(r => r.json()).then(d => {
+      if (d.periodos) setPeriodosDisp(d.periodos)
+    })
   }, [plano]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Recarrega categorias ao entrar nas abas que dependem delas
