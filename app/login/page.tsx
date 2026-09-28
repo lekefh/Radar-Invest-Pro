@@ -60,7 +60,11 @@ function LoginForm() {
       }
 
       localStorage.setItem('radar_usuario', JSON.stringify(data.usuario))
-      window.location.href = redirect
+      if (!data.usuario.telefone) {
+        window.location.href = '/completar-perfil'
+      } else {
+        window.location.href = redirect
+      }
     } catch {
       setErro('Erro de conexão. Tente novamente.')
     } finally {

@@ -53,10 +53,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       usuario: {
-        id:       usuario.id,
-        nome:     usuario.nome,
-        username: usuario.username,
-        plano:    usuario.plano,
+        id:        usuario.id,
+        nome:      usuario.nome,
+        username:  usuario.username,
+        plano:     usuario.plano,
+        telefone:  usuario.telefone ?? null,
       },
     })
   } catch (e) {
