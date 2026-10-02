@@ -30,7 +30,7 @@ const PLANOS = [
   {
     id: 'starter',
     nome: 'Starter',
-    preco: 19.90,
+    preco: 19.99,
     precoAnual: 199,
     cor: '#4dd0e1',
     destaque: false,

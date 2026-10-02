@@ -4,7 +4,7 @@ import { getSession } from '@/lib/auth'
 import { getDb } from '@/lib/db'
 
 const PLANOS = {
-  starter:  { nome: 'Starter',  mensal: 19.90, anual: 199.00 },
+  starter:  { nome: 'Starter',  mensal: 19.99, anual: 199.99 },
   essencial: { nome: 'Essencial', mensal: 49.90, anual: 499.00 },
   pro:       { nome: 'Pro',       mensal: 99.90, anual: 999.00 },
 } as const
