@@ -145,7 +145,7 @@ export default function OfertaFinancas() {
           </div>
           <div style={{ marginTop: 20, paddingTop: 18, borderTop: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <span style={{ fontSize: 13, color: 'rgba(255,255,255,.65)' }}>
-              Com o plano <strong style={{ color: C.gold }}>Starter (R$&nbsp;19,99/mês)</strong> você desbloqueia a aba Finanças e carteira ilimitada.
+              Com o plano <strong style={{ color: C.gold }}>Starter (R$&nbsp;19,99/mês)</strong> você desbloqueia a aba Finanças completa com importação ilimitada de extratos.
             </span>
             <a href="/planos" style={{ fontSize: 13, fontWeight: 600, color: C.gold, textDecoration: 'none' }}>Ver todos os planos →</a>
           </div>
