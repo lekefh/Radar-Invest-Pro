@@ -63,7 +63,7 @@ export default function OfertaFinancas() {
         </h1>
 
         <p style={{ fontSize: 'clamp(16px,2vw,20px)', color: C.muted, lineHeight: 1.7, maxWidth: 640, margin: '0 auto 36px' }}>
-          A aba Finanças do Radar Invest Pro transforma qualquer extrato bancário em um plano claro: você vê exatamente onde o dinheiro está indo — e sobra para investir todo mês.
+          A aba Finanças do Radar Invest Pro transforma qualquer extrato bancário em um plano claro: você vê exatamente onde o dinheiro está indo — e quanto sobra para investir todo mês.
         </p>
 
         {/* Fluxo visual */}
