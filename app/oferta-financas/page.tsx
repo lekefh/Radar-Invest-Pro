@@ -18,7 +18,7 @@ export default function OfertaFinancas() {
   const features = [
     { icon: '📥', titulo: 'Importação de extratos', desc: 'OFX, CSV, PDF e XLS de qualquer banco — Bradesco, Itaú, Nubank, Caixa e mais.' },
     { icon: '🏷️', titulo: 'Categorização inteligente', desc: 'Classifique despesas por categoria e veja onde seu dinheiro está indo.' },
-    { icon: '📊', titulo: 'Resumo mensal visual', desc: 'Cards de entradas, despesas, fatura do cartão e saldo final — tudo de um jeito claro.' },
+    { icon: '📊', titulo: 'Resumo mensal visual', desc: 'Cards de entradas, despesas, fatura do cartão, saldo final — e quanto sobra para investir todo mês.' },
     { icon: '🎯', titulo: 'Sistema de grupos (50/25/20/5)', desc: 'Configure suas metas por necessidades, conforto, investimentos e imprevistos.' },
     { icon: '📈', titulo: 'Gráficos de evolução', desc: 'Veja como seu saldo e despesas evoluíram nos últimos 12 meses.' },
     { icon: '💰', titulo: 'Orçamento por categoria', desc: 'Defina metas mensais e acompanhe o real vs planejado em tempo real.' },
@@ -91,10 +91,6 @@ export default function OfertaFinancas() {
           </div>
         </div>
 
-        <a href="/cadastro" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 16, padding: '16px 36px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
-          ▶ Assista agora — R$&nbsp;19,99/mês
-        </a>
-        <p style={{ fontSize: 12, color: C.muted, marginTop: 10 }}>Sem fidelidade · Cancele quando quiser</p>
       </section>
 
       {/* ── VÍDEO ─────────────────────────────────────────────────────────── */}
@@ -111,6 +107,48 @@ export default function OfertaFinancas() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
+        </div>
+      </section>
+
+      {/* ── CTA PÓS-VÍDEO + FERRAMENTAS GRATUITAS ────────────────────────── */}
+      <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 56px', textAlign: 'center' }}>
+
+        {/* Botão principal */}
+        <a href="/cadastro" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 17, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
+          Cadastre-se agora
+        </a>
+        <p style={{ fontSize: 12, color: C.muted, marginTop: 10, marginBottom: 44 }}>Sem fidelidade · Cancele quando quiser</p>
+
+        {/* Ferramentas gratuitas incluídas */}
+        <div style={{ background: C.card, border: `1px solid rgba(34,197,94,.2)`, borderRadius: 16, padding: '28px 32px', textAlign: 'left' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+            <span style={{ background: 'rgba(34,197,94,.12)', border: '1px solid rgba(34,197,94,.3)', borderRadius: 6, padding: '3px 12px', fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: '.08em', textTransform: 'uppercase' }}>
+              Incluído na conta gratuita
+            </span>
+            <span style={{ fontSize: 13, color: C.muted }}>— mesmo sem assinar, você já acessa:</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 14 }}>
+            {[
+              { icon: '📊', titulo: 'Monitoramento de ações', desc: 'Acompanhe cotações em tempo real com indicadores fundamentalistas: P/L, P/VP, ROE, DY e mais.' },
+              { icon: '💼', titulo: 'Carteira com até 2 ações', desc: 'Monte sua carteira inicial, acompanhe o desempenho e receba alertas de variação.' },
+              { icon: '📰', titulo: 'Notícias do mercado', desc: 'Feed de notícias da B3, macro e empresas — curado para o investidor individual.' },
+              { icon: '📈', titulo: 'Teses de investimento', desc: 'Acesse análises e teses de empresas listadas na B3, atualizadas pela equipe Radar.' },
+            ].map((item, i) => (
+              <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 22, flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>{item.titulo}</div>
+                  <div style={{ fontSize: 12, color: C.muted, lineHeight: 1.6 }}>{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 20, paddingTop: 18, borderTop: `1px solid ${C.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+            <span style={{ fontSize: 13, color: 'rgba(255,255,255,.65)' }}>
+              Com o plano <strong style={{ color: C.gold }}>Starter (R$&nbsp;19,99/mês)</strong> você desbloqueia a aba Finanças e carteira ilimitada.
+            </span>
+            <a href="/planos" style={{ fontSize: 13, fontWeight: 600, color: C.gold, textDecoration: 'none' }}>Ver todos os planos →</a>
+          </div>
         </div>
       </section>
 
