@@ -144,7 +144,7 @@ export async function confirmEmail(token: string): Promise<boolean> {
 export async function listUsers() {
   const sql = db()
   return sql`
-    SELECT id, username, nome, email, plano, ativo, email_confirmado, telefone, criado_em
+    SELECT id, username, nome, email, plano, plano_expira, ativo, email_confirmado, telefone, criado_em
     FROM usuarios_web ORDER BY id
   `
 }

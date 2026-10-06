@@ -5,14 +5,21 @@ import { useRouter } from 'next/navigation'
 type Plano = 'gratuito' | 'starter' | 'essencial' | 'pro' | 'analista'
 
 interface Usuario {
-  id:         number
-  username:   string
-  nome:       string
-  email:      string
-  plano:      Plano
-  ativo:      number
-  criado_em:  string
-  telefone:   string | null
+  id:           number
+  username:     string
+  nome:         string
+  email:        string
+  plano:        Plano
+  plano_expira: string | null
+  ativo:        number
+  criado_em:    string
+  telefone:     string | null
+}
+
+function diasRestantes(expira: string | null): number | null {
+  if (!expira) return null
+  const diff = new Date(expira).getTime() - Date.now()
+  return Math.ceil(diff / (1000 * 60 * 60 * 24))
 }
 
 interface Posicao {
@@ -350,7 +357,11 @@ export default function AdminUsuariosPage() {
   const [acao, setAcao]             = useState<Record<number, string>>({})
   const [carteiraUser, setCarteiraUser] = useState<Usuario | null>(null)
   const [excluirUser, setExcluirUser] = useState<Usuario | null>(null)
-  const [swipeOpen, setSwipeOpen]     = useState<number | null>(null)
+  const [swipeOpen, setSwipeOpen]         = useState<number | null>(null)
+  const [enviandoEmail, setEnviandoEmail] = useState(false)
+  const [msgEmail, setMsgEmail]           = useState('')
+  const [downgrading, setDowngrading]     = useState(false)
+  const [msgDowngrade, setMsgDowngrade]   = useState('')
 
   useEffect(() => { carregar() }, [])
 
@@ -391,6 +402,33 @@ export default function AdminUsuariosPage() {
     setAcao(a => ({ ...a, [uid]: '' }))
   }
 
+  async function enviarBoasVindas() {
+    setEnviandoEmail(true); setMsgEmail('')
+    try {
+      const r = await fetch('/api/admin/enviar-boas-vindas', { method: 'POST' })
+      const d = await r.json()
+      if (!r.ok) { setMsgEmail(`Erro: ${d.erro}`); return }
+      setMsgEmail(`✅ ${d.enviados} e-mail(s) enviado(s) de ${d.total} usuário(s)${d.erros?.length ? ` · ${d.erros.length} erro(s)` : ''}`)
+    } catch { setMsgEmail('Erro de conexão.') }
+    finally { setEnviandoEmail(false) }
+  }
+
+  async function downgradeTodos() {
+    setDowngrading(true); setMsgDowngrade('')
+    try {
+      const r = await fetch('/api/admin/downgrade-expirados', { method: 'POST' })
+      const d = await r.json()
+      if (!r.ok) { setMsgDowngrade(`Erro: ${d.erro}`); return }
+      if (d.rebaixados === 0) {
+        setMsgDowngrade('✅ Nenhum trial expirado encontrado.')
+      } else {
+        setMsgDowngrade(`⬇️ ${d.rebaixados} usuário(s) rebaixado(s) para gratuito.`)
+        await carregar()
+      }
+    } catch { setMsgDowngrade('Erro de conexão.') }
+    finally { setDowngrading(false) }
+  }
+
   async function excluir(uid: number) {
     setAcao(a => ({ ...a, [uid]: 'excluindo' }))
     await fetch(`/api/admin/usuarios/${uid}`, { method: 'DELETE' })
@@ -413,10 +451,33 @@ export default function AdminUsuariosPage() {
           <span style={{ background: 'rgba(232,160,32,.1)', border: '1px solid rgba(232,160,32,.3)', color: '#e8a020', fontSize: '12px', fontWeight: 700, padding: '3px 10px', borderRadius: '20px' }}>
             ADMIN
           </span>
-          <button onClick={carregar} style={{ marginLeft: 'auto', background: '#1a2632', border: '1px solid rgba(255,255,255,.1)', color: '#6b84a8', padding: '7px 16px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px' }}>
-            ↻ Atualizar
-          </button>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <button onClick={enviarBoasVindas} disabled={enviandoEmail} style={{ background: 'rgba(34,197,94,.12)', border: '1px solid rgba(34,197,94,.3)', color: '#22c55e', padding: '7px 14px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
+              {enviandoEmail ? '⏳ Enviando...' : '📧 Enviar boas-vindas'}
+            </button>
+            <button onClick={downgradeTodos} disabled={downgrading} style={{ background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)', color: '#ef5350', padding: '7px 14px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
+              {downgrading ? '⏳ Processando...' : '⬇️ Downgrade expirados'}
+            </button>
+            <button onClick={carregar} style={{ background: '#1a2632', border: '1px solid rgba(255,255,255,.1)', color: '#6b84a8', padding: '7px 16px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px' }}>
+              ↻ Atualizar
+            </button>
+          </div>
         </div>
+
+        {(msgEmail || msgDowngrade) && (
+          <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
+            {msgEmail && (
+              <div style={{ background: 'rgba(34,197,94,.08)', border: '1px solid rgba(34,197,94,.25)', color: '#22c55e', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', flex: 1 }}>
+                {msgEmail}
+              </div>
+            )}
+            {msgDowngrade && (
+              <div style={{ background: 'rgba(232,160,32,.08)', border: '1px solid rgba(232,160,32,.25)', color: '#e8a020', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', flex: 1 }}>
+                {msgDowngrade}
+              </div>
+            )}
+          </div>
+        )}
 
         {erro && (
           <div style={{ background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)', color: '#ef5350', padding: '14px 18px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>
@@ -432,7 +493,7 @@ export default function AdminUsuariosPage() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
-                  {['ID', 'Nome', 'Usuário', 'E-mail', 'Telefone', 'Plano', 'Status', 'Cadastro', 'Ações'].map(h => (
+                  {['ID', 'Nome', 'Usuário', 'E-mail', 'Telefone', 'Plano', 'Trial', 'Status', 'Cadastro', 'Ações'].map(h => (
                     <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: '#4a5d73', letterSpacing: '.8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {h}
                     </th>
@@ -466,6 +527,22 @@ export default function AdminUsuariosPage() {
                       >
                         {PLANOS.map(p => <option key={p} value={p}>{p}</option>)}
                       </select>
+                    </td>
+                    <td style={tdStyle}>
+                      {(() => {
+                        const dias = diasRestantes(u.plano_expira)
+                        if (dias === null) return <span style={{ color: '#3d4f6a', fontSize: '12px' }}>—</span>
+                        if (dias < 0) return (
+                          <span style={{ fontSize: '11px', fontWeight: 700, color: '#ef5350', background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)', borderRadius: '4px', padding: '2px 7px' }}>
+                            Expirado
+                          </span>
+                        )
+                        return (
+                          <span style={{ fontSize: '11px', fontWeight: 700, color: dias <= 7 ? '#f97316' : '#22c55e', background: dias <= 7 ? 'rgba(249,115,22,.1)' : 'rgba(34,197,94,.1)', border: `1px solid ${dias <= 7 ? 'rgba(249,115,22,.3)' : 'rgba(34,197,94,.3)'}`, borderRadius: '4px', padding: '2px 7px' }}>
+                            {dias}d restantes
+                          </span>
+                        )
+                      })()}
                     </td>
                     <td style={tdStyle}>
                       <span style={{
