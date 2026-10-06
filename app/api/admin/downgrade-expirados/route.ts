@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSession, initUsersTable } from '@/lib/auth'
-import { db } from '@/lib/db'
+import { getDb } from '@/lib/db'
 
 export async function POST() {
   const session = await getSession()
@@ -9,7 +9,7 @@ export async function POST() {
   }
 
   await initUsersTable()
-  const sql = db()
+  const sql = getDb()
 
   const resultado = await sql`
     UPDATE usuarios_web

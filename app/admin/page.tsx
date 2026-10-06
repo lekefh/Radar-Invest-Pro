@@ -443,7 +443,7 @@ export default function AdminUsuariosPage() {
         @media (max-width: 768px) { .admin-desktop { display: none !important; } }
         @media (min-width: 769px) { .admin-mobile  { display: none !important; } }
       `}</style>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px' }}>
           <h1 style={{ color: '#fff', fontSize: '20px', fontWeight: 700, margin: 0 }}>
             👥 Gestão de Usuários
@@ -489,8 +489,8 @@ export default function AdminUsuariosPage() {
           <div style={{ color: '#6b84a8', textAlign: 'center', padding: '60px', fontSize: '14px' }}>Carregando...</div>
         ) : (
           <>
-          <div className="admin-desktop" style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflow: 'hidden' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div className="admin-desktop" style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflowX: 'auto' }}>
+            <table style={{ width: '100%', minWidth: '1100px', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
                   {['ID', 'Nome', 'Usuário', 'E-mail', 'Telefone', 'Plano', 'Trial', 'Status', 'Cadastro', 'Ações'].map(h => (
