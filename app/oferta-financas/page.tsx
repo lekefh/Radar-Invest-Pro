@@ -25,17 +25,18 @@ export default function OfertaFinancas() {
   ]
 
   const faqs = [
+    { p: 'O acesso é realmente grátis por 30 dias?', r: 'Sim. Você acessa a plataforma completa — incluindo a aba Finanças — por 30 dias sem pagar nada e sem precisar cadastrar cartão de crédito. Só depois do período gratuito você decide se continua pelo Starter (R$19,99/mês).' },
     { p: 'Preciso saber de investimentos para usar?', r: 'Não. A aba Finanças é para quem quer organizar o dinheiro primeiro — antes de qualquer investimento. Você importa o extrato do banco e a plataforma já mostra tudo categorizado.' },
     { p: 'Funciona com qualquer banco?', r: 'Sim. Aceita arquivos OFX (gerado por Bradesco, Itaú, Santander, Caixa, BB, Sicredi e outros), CSV, TXT, PDF, XLS e XLSX. Se seu banco exporta extrato, funciona.' },
-    { p: 'Posso cancelar quando quiser?', r: 'Sim, sem multa e sem fidelidade. Cancele em um clique no painel — o acesso continua até o fim do período pago.' },
-    { p: 'O plano Starter inclui apenas Finanças?', r: 'Não. Com R$19,99/mês você acessa a aba Finanças + Carteira de ações + Notícias + Teses de investimento. É a plataforma completa no plano de entrada.' },
+    { p: 'Posso cancelar quando quiser?', r: 'Sim, sem multa e sem fidelidade. Cancele em um clique no painel — o acesso continua até o fim do período. Nos 30 dias grátis você pode sair a qualquer momento sem custo algum.' },
+    { p: 'O que acontece após os 30 dias?', r: 'Você recebe um aviso antes do fim do período gratuito. Se quiser continuar com a aba Finanças, o plano Starter custa R$19,99/mês. Se não assinar, sua conta passa para o plano gratuito com acesso limitado.' },
     { p: 'Meus dados bancários ficam seguros?', r: 'Você importa apenas o arquivo de extrato — nunca conectamos ao seu banco nem pedimos senha. Os dados ficam no seu perfil privado, protegidos por autenticação.' },
   ]
 
   return (
     <div style={{ background: C.bg, minHeight: '100vh', color: C.white, fontFamily: 'var(--font-inter,Inter,sans-serif)' }}>
 
-      {/* ── NAVBAR MÍNIMA ─────────────────────────────────────────────────── */}
+      {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
       <nav style={{ borderBottom: `1px solid ${C.border}`, padding: '14px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: 1100, margin: '0 auto' }}>
         <a href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 8 }}>
           <svg width="28" height="28" viewBox="0 0 32 32">
@@ -47,19 +48,19 @@ export default function OfertaFinancas() {
           <span style={{ fontFamily: 'var(--font-space,Space Grotesk,sans-serif)', fontWeight: 700, fontSize: 16, color: C.white }}>Radar Invest Pro</span>
         </a>
         <a href="/cadastro" style={{ background: C.gold, color: '#000', fontWeight: 700, fontSize: 13, padding: '8px 20px', borderRadius: 8, textDecoration: 'none' }}>
-          Começar agora
+          Acesse grátis
         </a>
       </nav>
 
       {/* ── HERO ──────────────────────────────────────────────────────────── */}
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '60px 24px 40px', textAlign: 'center' }}>
-        <div style={{ display: 'inline-block', background: 'rgba(239,68,68,.12)', border: '1px solid rgba(239,68,68,.3)', borderRadius: 20, padding: '5px 16px', fontSize: 12, fontWeight: 700, color: '#f87171', letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 20 }}>
-          82% das famílias brasileiras estão endividadas
+        <div style={{ display: 'inline-block', background: 'rgba(34,197,94,.12)', border: '1px solid rgba(34,197,94,.3)', borderRadius: 20, padding: '5px 16px', fontSize: 12, fontWeight: 700, color: C.green, letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 12 }}>
+          🎁 30 dias grátis — sem cartão de crédito
         </div>
 
         <h1 style={{ fontFamily: 'var(--font-space,Space Grotesk,sans-serif)', fontSize: 'clamp(32px,5vw,56px)', fontWeight: 800, lineHeight: 1.1, marginBottom: 20 }}>
           Saia das Dívidas e se Torne<br />
-          <span style={{ color: C.gold }}>um Investidor</span> por R$&nbsp;19,99/mês
+          <span style={{ color: C.gold }}>um Investidor</span>
         </h1>
 
         <p style={{ fontSize: 'clamp(16px,2vw,20px)', color: C.muted, lineHeight: 1.7, maxWidth: 640, margin: '0 auto 36px' }}>
@@ -115,9 +116,9 @@ export default function OfertaFinancas() {
 
         {/* Botão principal */}
         <a href="/cadastro" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 17, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
-          Cadastre-se agora
+          Acesse grátis por 30 dias
         </a>
-        <p style={{ fontSize: 12, color: C.muted, marginTop: 10, marginBottom: 44 }}>Sem fidelidade · Cancele quando quiser</p>
+        <p style={{ fontSize: 12, color: C.muted, marginTop: 10, marginBottom: 44 }}>Sem cartão de crédito · Sem fidelidade · Cancele quando quiser</p>
 
         {/* Ferramentas gratuitas incluídas */}
         <div style={{ background: C.card, border: `1px solid rgba(34,197,94,.2)`, borderRadius: 16, padding: '28px 32px', textAlign: 'left' }}>
@@ -125,7 +126,7 @@ export default function OfertaFinancas() {
             <span style={{ background: 'rgba(34,197,94,.12)', border: '1px solid rgba(34,197,94,.3)', borderRadius: 6, padding: '3px 12px', fontSize: 11, fontWeight: 700, color: C.green, letterSpacing: '.08em', textTransform: 'uppercase' }}>
               Incluído na conta gratuita
             </span>
-            <span style={{ fontSize: 13, color: C.muted }}>— mesmo sem assinar, você já acessa:</span>
+            <span style={{ fontSize: 13, color: C.muted }}>— mesmo após o trial, você já acessa:</span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 14 }}>
             {[
@@ -199,6 +200,10 @@ export default function OfertaFinancas() {
         <div style={{ maxWidth: 480, margin: '0 auto', textAlign: 'center' }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', color: C.gold, textTransform: 'uppercase', marginBottom: 16 }}>Plano Starter</div>
           <div style={{ background: '#050d1a', border: `2px solid rgba(232,160,32,.35)`, borderRadius: 20, padding: '36px 40px' }}>
+            <div style={{ display: 'inline-block', background: 'rgba(34,197,94,.12)', border: '1px solid rgba(34,197,94,.3)', borderRadius: 20, padding: '4px 14px', fontSize: 12, fontWeight: 700, color: C.green, letterSpacing: '.06em', textTransform: 'uppercase', marginBottom: 16 }}>
+              30 dias grátis
+            </div>
+            <div style={{ fontSize: 14, color: C.muted, marginBottom: 4 }}>depois apenas</div>
             <div style={{ fontSize: 48, fontWeight: 900, color: C.white, lineHeight: 1 }}>R$&nbsp;19,99</div>
             <div style={{ fontSize: 14, color: C.muted, marginBottom: 28 }}>/mês · sem fidelidade</div>
             {[
@@ -214,10 +219,10 @@ export default function OfertaFinancas() {
               </div>
             ))}
             <a href="/cadastro" style={{ display: 'block', background: C.gold, color: '#000', fontWeight: 800, fontSize: 16, padding: '16px', borderRadius: 10, textDecoration: 'none', marginTop: 28, letterSpacing: '.01em' }}>
-              Começar agora por R$&nbsp;19,99/mês
+              Começar 30 dias grátis
             </a>
             <p style={{ fontSize: 12, color: C.muted, marginTop: 12 }}>
-              Cancele quando quiser — sem burocracia
+              Sem cartão de crédito · Cancele quando quiser
             </p>
           </div>
         </div>
@@ -226,7 +231,7 @@ export default function OfertaFinancas() {
       {/* ── COMPARATIVO ───────────────────────────────────────────────────── */}
       <section style={{ maxWidth: 760, margin: '0 auto', padding: '60px 24px' }}>
         <h2 style={{ fontFamily: 'var(--font-space,Space Grotesk,sans-serif)', fontSize: 'clamp(22px,3vw,30px)', fontWeight: 700, textAlign: 'center', marginBottom: 36 }}>
-          R$&nbsp;19,99/mês ou continuar perdendo dinheiro?
+          30 dias grátis ou continuar perdendo dinheiro?
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
           <div style={{ background: 'rgba(239,68,68,.06)', border: '1px solid rgba(239,68,68,.2)', borderRadius: 14, padding: '24px' }}>
@@ -272,12 +277,12 @@ export default function OfertaFinancas() {
           Comece hoje. Resultado no fim do mês.
         </h2>
         <p style={{ fontSize: 17, color: C.muted, marginBottom: 36, maxWidth: 520, margin: '0 auto 36px' }}>
-          R$&nbsp;19,99/mês é menos que uma refeição. E pode ser o começo da sua liberdade financeira.
+          30 dias grátis, sem cartão. Depois de experimentar, você decide se continua.
         </p>
         <a href="/cadastro" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 18, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
-          Criar conta e acessar a aba Finanças
+          Acessar grátis por 30 dias
         </a>
-        <p style={{ fontSize: 13, color: C.muted, marginTop: 14 }}>Acesso imediato · Cancele quando quiser</p>
+        <p style={{ fontSize: 13, color: C.muted, marginTop: 14 }}>Sem cartão de crédito · Acesso imediato · Cancele quando quiser</p>
       </section>
 
       {/* ── FOOTER ────────────────────────────────────────────────────────── */}
