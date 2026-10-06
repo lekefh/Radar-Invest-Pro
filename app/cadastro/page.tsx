@@ -1,5 +1,7 @@
 'use client'
 import { useState, FormEvent, useEffect, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import Link from 'next/link'
 
 const DEPOIMENTOS = [
@@ -21,7 +23,9 @@ function mascaraTelefone(v: string): string {
   return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`
 }
 
-export default function CadastroPage() {
+function CadastroPageInner() {
+  const searchParams = useSearchParams()
+  const trial = searchParams.get('trial') ?? ''
   const [form, setForm]             = useState({ nome: '', email: '', senha: '', telefone: '' })
   const [erro, setErro]             = useState('')
   const [carregando, setCarregando] = useState(false)
@@ -84,6 +88,7 @@ export default function CadastroPage() {
           email:    form.email.trim().toLowerCase(),
           senha:    form.senha,
           telefone: form.telefone.trim(),
+          trial:    trial || undefined,
         }),
       })
       const data = await res.json()
@@ -349,6 +354,14 @@ export default function CadastroPage() {
       </div>
 
     </div>
+  )
+}
+
+export default function CadastroPage() {
+  return (
+    <Suspense>
+      <CadastroPageInner />
+    </Suspense>
   )
 }
 

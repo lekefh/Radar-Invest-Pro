@@ -59,6 +59,7 @@ export async function initUsersTable() {
     )
   `
   await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS telefone TEXT`
+  await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS plano_expira TIMESTAMPTZ`
 }
 
 export async function countUsers(): Promise<number> {
@@ -95,20 +96,32 @@ export async function createUser(params: {
   nome: string; username: string; email: string; senha: string
   plano: string; ativo: boolean; emailConfirmado: boolean
   token: string | null; tokenExpira: Date | null
-  telefone?: string
+  telefone?: string; planoExpira?: Date | null
 }) {
   const sql = db()
   const hash = await bcrypt.hash(params.senha, 12)
   const r = await sql`
     INSERT INTO usuarios_web
-      (nome, username, email, senha_hash, plano, ativo, email_confirmado, token_conf, token_expira, telefone)
+      (nome, username, email, senha_hash, plano, ativo, email_confirmado, token_conf, token_expira, telefone, plano_expira)
     VALUES
       (${params.nome}, ${params.username}, ${params.email}, ${hash},
        ${params.plano}, ${params.ativo}, ${params.emailConfirmado},
-       ${params.token}, ${params.tokenExpira}, ${params.telefone ?? null})
+       ${params.token}, ${params.tokenExpira}, ${params.telefone ?? null},
+       ${params.planoExpira ?? null})
     RETURNING *
   `
   return r[0]
+}
+
+export async function downgradeExpiredTrial(userId: number) {
+  const sql = db()
+  await sql`
+    UPDATE usuarios_web
+    SET plano = 'gratuito', plano_expira = NULL
+    WHERE id = ${userId}
+      AND plano_expira IS NOT NULL
+      AND plano_expira < NOW()
+  `
 }
 
 export async function verifyPassword(senha: string, hash: string): Promise<boolean> {

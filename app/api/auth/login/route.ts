@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import {
   initUsersTable, findByEmail, findByUsername,
-  verifyPassword, createToken
+  verifyPassword, createToken, downgradeExpiredTrial
 } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
@@ -24,6 +24,13 @@ export async function POST(req: NextRequest) {
     const senhaOk = await verifyPassword(senha, usuario.senha_hash)
     if (!senhaOk) {
       return NextResponse.json({ erro: 'Credenciais inválidas.' }, { status: 401 })
+    }
+
+    // Downgrade automático se trial expirou
+    if (usuario.plano_expira && new Date(usuario.plano_expira) < new Date()) {
+      await downgradeExpiredTrial(usuario.id)
+      usuario.plano = 'gratuito'
+      usuario.plano_expira = null
     }
 
     if (!usuario.ativo) {

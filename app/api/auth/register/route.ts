@@ -21,7 +21,7 @@ function apenasDigitos(v: string): string {
 
 export async function POST(req: NextRequest) {
   try {
-    const { nome, email, senha, telefone } = await req.json()
+    const { nome, email, senha, telefone, trial } = await req.json()
 
     if (!nome?.trim() || !email?.trim() || !senha || !telefone?.trim()) {
       return NextResponse.json({ erro: 'Preencha todos os campos.' }, { status: 400 })
@@ -50,17 +50,23 @@ export async function POST(req: NextRequest) {
     const confirmToken = generateToken()
     const tokenExpira  = new Date(Date.now() + 24 * 60 * 60 * 1000)
 
+    const ehTrial = trial === 'starter'
+    const planoExpira = ehTrial
+      ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      : null
+
     await createUser({
       nome:            nome.trim(),
       username,
       email:           email.toLowerCase().trim(),
       senha,
-      plano:           'gratuito',
+      plano:           ehTrial ? 'starter' : 'gratuito',
       ativo:           false,
       emailConfirmado: false,
       token:           confirmToken,
       tokenExpira,
       telefone:        telefone.trim(),
+      planoExpira,
     })
 
     try {

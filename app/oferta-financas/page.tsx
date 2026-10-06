@@ -47,7 +47,7 @@ export default function OfertaFinancas() {
           </svg>
           <span style={{ fontFamily: 'var(--font-space,Space Grotesk,sans-serif)', fontWeight: 700, fontSize: 16, color: C.white }}>Radar Invest Pro</span>
         </a>
-        <a href="/cadastro" style={{ background: C.gold, color: '#000', fontWeight: 700, fontSize: 13, padding: '8px 20px', borderRadius: 8, textDecoration: 'none' }}>
+        <a href="/cadastro?trial=starter" style={{ background: C.gold, color: '#000', fontWeight: 700, fontSize: 13, padding: '8px 20px', borderRadius: 8, textDecoration: 'none' }}>
           Acesse grátis
         </a>
       </nav>
@@ -115,7 +115,7 @@ export default function OfertaFinancas() {
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 56px', textAlign: 'center' }}>
 
         {/* Botão principal */}
-        <a href="/cadastro" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 17, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
+        <a href="/cadastro?trial=starter" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 17, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
           Acesse grátis por 30 dias
         </a>
         <p style={{ fontSize: 12, color: C.muted, marginTop: 10, marginBottom: 44 }}>Sem cartão de crédito · Sem fidelidade · Cancele quando quiser</p>
@@ -218,7 +218,7 @@ export default function OfertaFinancas() {
                 {item}
               </div>
             ))}
-            <a href="/cadastro" style={{ display: 'block', background: C.gold, color: '#000', fontWeight: 800, fontSize: 16, padding: '16px', borderRadius: 10, textDecoration: 'none', marginTop: 28, letterSpacing: '.01em' }}>
+            <a href="/cadastro?trial=starter" style={{ display: 'block', background: C.gold, color: '#000', fontWeight: 800, fontSize: 16, padding: '16px', borderRadius: 10, textDecoration: 'none', marginTop: 28, letterSpacing: '.01em' }}>
               Começar 30 dias grátis
             </a>
             <p style={{ fontSize: 12, color: C.muted, marginTop: 12 }}>
@@ -279,7 +279,7 @@ export default function OfertaFinancas() {
         <p style={{ fontSize: 17, color: C.muted, marginBottom: 36, maxWidth: 520, margin: '0 auto 36px' }}>
           30 dias grátis, sem cartão. Depois de experimentar, você decide se continua.
         </p>
-        <a href="/cadastro" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 18, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
+        <a href="/cadastro?trial=starter" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 18, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
           Acessar grátis por 30 dias
         </a>
         <p style={{ fontSize: 13, color: C.muted, marginTop: 14 }}>Sem cartão de crédito · Acesso imediato · Cancele quando quiser</p>
