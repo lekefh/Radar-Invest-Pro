@@ -133,14 +133,8 @@ export default function OfertaFinancas() {
         </div>
       </section>
 
-      {/* ── CTA PÓS-VÍDEO + FERRAMENTAS GRATUITAS ────────────────────────── */}
+      {/* ── FERRAMENTAS GRATUITAS ─────────────────────────────────────────── */}
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 56px', textAlign: 'center' }}>
-
-        {/* Botão principal pós-vídeo */}
-        <a href="/cadastro?trial=starter" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.green, color: '#fff', fontWeight: 800, fontSize: 18, padding: '18px 48px', borderRadius: 12, textDecoration: 'none', letterSpacing: '.01em', boxShadow: '0 4px 24px rgba(34,197,94,.35)' }}>
-          Começar 30 dias grátis →
-        </a>
-        <p style={{ fontSize: 12, color: C.muted, marginTop: 10, marginBottom: 44 }}>Sem cartão de crédito · Sem fidelidade · Cancele quando quiser</p>
 
         {/* Ferramentas gratuitas incluídas */}
         <div style={{ background: C.card, border: `1px solid rgba(34,197,94,.2)`, borderRadius: 16, padding: '28px 32px', textAlign: 'left' }}>
