@@ -42,10 +42,23 @@ function CarrosselApp() {
 
   return (
     <div onMouseEnter={() => setPausado(true)} onMouseLeave={() => setPausado(false)} style={{ position: 'relative', userSelect: 'none' }}>
-      <div style={{ position: 'relative', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(232,160,32,.18)', boxShadow: '0 20px 60px rgba(0,0,0,.6)', background: '#0b1829' }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img key={atual} src={SLIDES[atual].src} alt={SLIDES[atual].label} style={{ width: '100%', display: 'block' }} />
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(0deg,rgba(5,13,26,.95) 0%,transparent 100%)', padding: '28px 20px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+      {/* container com aspect-ratio fixo: elimina salto de layout na troca de slide */}
+      <div style={{ position: 'relative', paddingBottom: '62.5%', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(232,160,32,.18)', boxShadow: '0 20px 60px rgba(0,0,0,.6)', background: '#0b1829' }}>
+        {SLIDES.map((s, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={s.src}
+            src={s.src}
+            alt={s.label}
+            style={{
+              position: 'absolute', top: 0, left: 0,
+              width: '100%', height: '100%', objectFit: 'cover',
+              opacity: i === atual ? 1 : 0,
+              transition: 'opacity .45s ease',
+            }}
+          />
+        ))}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 1, background: 'linear-gradient(0deg,rgba(5,13,26,.95) 0%,transparent 100%)', padding: '28px 20px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
           <div>
             <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.1em', color: '#e8a020', textTransform: 'uppercase' }}>Aba {SLIDES[atual].label}</span>
             <div style={{ fontSize: 13, color: 'rgba(255,255,255,.70)', marginTop: 2 }}>{SLIDES[atual].desc}</div>
@@ -141,14 +154,11 @@ export default function OfertaFinancas() {
           <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>Sem cartao de credito - Cancele quando quiser</p>
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', margin: 0 }}>57 profissionais ja utilizam a plataforma</p>
         </div>
-      </section>
 
-      <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 32px 64px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', color: C.gold, textTransform: 'uppercase', marginBottom: 10 }}>Veja a plataforma</div>
-          <h2 style={{ fontFamily: 'var(--font-space,Space Grotesk,sans-serif)', fontSize: 'clamp(20px,3vw,28px)', fontWeight: 700 }}>4 abas que mudam sua relacao com o dinheiro</h2>
+        <div style={{ marginTop: 48, marginBottom: 8 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', color: C.muted, textTransform: 'uppercase', marginBottom: 20, textAlign: 'center' }}>Veja como funciona na pratica</div>
+          <CarrosselApp />
         </div>
-        <CarrosselApp />
       </section>
 
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 60px' }}>
