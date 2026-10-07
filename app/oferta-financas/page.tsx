@@ -63,8 +63,8 @@ export default function OfertaFinancas() {
           <span style={{ color: C.gold }}>um Investidor</span>
         </h1>
 
-        <p style={{ fontSize: 'clamp(16px,2vw,20px)', color: C.muted, lineHeight: 1.7, maxWidth: 640, margin: '0 auto 36px' }}>
-          A aba Finanças do Radar Invest Pro transforma qualquer extrato bancário em um plano claro: você vê exatamente onde o dinheiro está indo — e quanto sobra para investir todo mês.
+        <p style={{ fontSize: 'clamp(15px,2vw,19px)', color: C.muted, lineHeight: 1.6, maxWidth: 560, margin: '0 auto 28px' }}>
+          Importe seu extrato bancário e veja exatamente onde o dinheiro está indo — e quanto sobra para investir todo mês.
         </p>
 
         {/* Fluxo visual */}
@@ -92,6 +92,28 @@ export default function OfertaFinancas() {
           </div>
         </div>
 
+        {/* ── CTA HERO — visível sem rolar ── */}
+        <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+          <a
+            href="/cadastro?trial=starter"
+            style={{
+              display: 'block', width: '100%', maxWidth: 400,
+              background: C.green, color: '#fff',
+              fontWeight: 800, fontSize: 18, padding: '18px 24px',
+              borderRadius: 12, textDecoration: 'none', textAlign: 'center',
+              letterSpacing: '.01em', boxShadow: '0 4px 24px rgba(34,197,94,.35)',
+            }}
+          >
+            Começar 30 dias grátis →
+          </a>
+          <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>
+            Sem cartão de crédito · Cancele quando quiser
+          </p>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', margin: 0 }}>
+            57 profissionais já utilizam a plataforma
+          </p>
+        </div>
+
       </section>
 
       {/* ── VÍDEO ─────────────────────────────────────────────────────────── */}
@@ -114,9 +136,9 @@ export default function OfertaFinancas() {
       {/* ── CTA PÓS-VÍDEO + FERRAMENTAS GRATUITAS ────────────────────────── */}
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 56px', textAlign: 'center' }}>
 
-        {/* Botão principal */}
-        <a href="/cadastro?trial=starter" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.gold, color: '#000', fontWeight: 800, fontSize: 17, padding: '18px 44px', borderRadius: 50, textDecoration: 'none', letterSpacing: '.02em' }}>
-          Acesse grátis por 30 dias
+        {/* Botão principal pós-vídeo */}
+        <a href="/cadastro?trial=starter" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: C.green, color: '#fff', fontWeight: 800, fontSize: 18, padding: '18px 48px', borderRadius: 12, textDecoration: 'none', letterSpacing: '.01em', boxShadow: '0 4px 24px rgba(34,197,94,.35)' }}>
+          Começar 30 dias grátis →
         </a>
         <p style={{ fontSize: 12, color: C.muted, marginTop: 10, marginBottom: 44 }}>Sem cartão de crédito · Sem fidelidade · Cancele quando quiser</p>
 
