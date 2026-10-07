@@ -143,18 +143,18 @@ export default function OfertaFinancas() {
         </div>
       </section>
 
-      <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 60px' }}>
-        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: 16, border: '1px solid rgba(232,160,32,.15)', boxShadow: '0 20px 60px rgba(0,0,0,.6)' }}>
-          <iframe src="https://www.youtube.com/embed/g717ENizBpY?rel=0&modestbranding=1" title="Radar Invest Pro" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-        </div>
-      </section>
-
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 32px 64px' }}>
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.12em', color: C.gold, textTransform: 'uppercase', marginBottom: 10 }}>Veja a plataforma</div>
           <h2 style={{ fontFamily: 'var(--font-space,Space Grotesk,sans-serif)', fontSize: 'clamp(20px,3vw,28px)', fontWeight: 700 }}>4 abas que mudam sua relacao com o dinheiro</h2>
         </div>
         <CarrosselApp />
+      </section>
+
+      <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 60px' }}>
+        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', borderRadius: 16, border: '1px solid rgba(232,160,32,.15)', boxShadow: '0 20px 60px rgba(0,0,0,.6)' }}>
+          <iframe src="https://www.youtube.com/embed/g717ENizBpY?rel=0&modestbranding=1" title="Radar Invest Pro" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+        </div>
       </section>
 
       <section style={{ maxWidth: 860, margin: '0 auto', padding: '0 24px 56px' }}>
