@@ -444,6 +444,7 @@ export default function CarteiraPage() {
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [corretagem, setCorretagem] = useState<number>(0)
+  const [custosB3Total, setCustosB3Total] = useState<number>(0)
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base' | 'performance'>('acoes')
@@ -649,7 +650,7 @@ export default function CarteiraPage() {
   }
 
   const _fecharImport = () => {
-    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress(''); setCorretagem(0)
+    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress(''); setCorretagem(0); setCustosB3Total(0)
   }
 
   const handleImportarNota = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -709,16 +710,13 @@ export default function CarteiraPage() {
         ? `Planilha B3 — ${importNotas[0].arquivo}`
         : `Importação manual — ${new Date().toLocaleDateString('pt-BR')}`
       const isB3 = importNotas[0]?.corretora === 'Planilha B3'
-      const payload = selecionadas.map(op => {
-        const valorTotal = Math.abs(Number(op.quantidade)) * Math.abs(Number(op.preco))
-        const taxasB3 = isB3 ? valorTotal * 0.000270 + 0.21 + corretagem : 0
-        return {
-          tipo: op.tipo, ticker: op.ticker, quantidade: op.quantidade,
-          preco: op.preco, data: op.data, notas: op.notas ?? null,
-          mercado: op.mercado ?? 'acao', vencimento: op.vencimento ?? null,
-          taxas: Math.round(taxasB3 * 10000) / 10000,
-        }
-      })
+      const b3PerOp = isB3 && selecionadas.length > 0 ? custosB3Total / selecionadas.length : 0
+      const payload = selecionadas.map(op => ({
+        tipo: op.tipo, ticker: op.ticker, quantidade: op.quantidade,
+        preco: op.preco, data: op.data, notas: op.notas ?? null,
+        mercado: op.mercado ?? 'acao', vencimento: op.vencimento ?? null,
+        taxas: Math.round((b3PerOp + corretagem) * 10000) / 10000,
+      }))
       const r = await fetch('/api/carteira/confirmar-import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -747,16 +745,20 @@ export default function CarteiraPage() {
       if (!r.ok) { setImportErro(d.error ?? 'Erro ao processar a planilha.'); return }
       if (d.avisos?.length) setImportErro(d.avisos.join('\n'))
       setImportNotas([{ corretora: 'Planilha B3', data: null, arquivo: file.name }])
-      setImportOpsAll(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (d.operacoes as any[]).map(op => ({
-          ...op, notaIdx: 0, selecionada: true,
-          // Para opções: V = lançador (vende para abrir), C = titular (compra para abrir)
-          direcao: op.mercado === 'opcao'
-            ? (op.tipo === 'V' ? 'lancador' : 'titular')
-            : undefined,
-        }))
-      )
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const opsB3 = (d.operacoes as any[]).map(op => ({
+        ...op, notaIdx: 0, selecionada: true,
+        direcao: op.mercado === 'opcao'
+          ? (op.tipo === 'V' ? 'lancador' : 'titular')
+          : undefined,
+      }))
+      setImportOpsAll(opsB3)
+      // pré-calcula custo B3 estimado (editável no modal)
+      const b3Auto = opsB3.reduce((acc: number, op: { quantidade: number; preco: number }) => {
+        const vt = Math.abs(Number(op.quantidade)) * Math.abs(Number(op.preco))
+        return acc + vt * 0.000270 + 0.21
+      }, 0)
+      setCustosB3Total(Math.round(b3Auto * 100) / 100)
     } catch { setImportErro('Erro de conexão. Tente novamente.') }
     finally { setImportProgress(''); setImportando(false); e.target.value = '' }
   }
@@ -2485,26 +2487,23 @@ export default function CarteiraPage() {
                     {totalSel === 0 && '⚠ Nenhuma operação selecionada'}
                     {totalSel > 0 && `${totalSel} operação(ões) serão importadas`}
                   </span>
-                  {/* Custos B3 estimados — só para Planilha B3 */}
+                  {/* Custos B3 + corretagem — só para Planilha B3 */}
                   {importNotas[0]?.corretora === 'Planilha B3' && (() => {
-                    const selecionadas = importOpsAll.filter(o => o.selecionada)
-                    const custosB3 = selecionadas.reduce((acc, op) => {
-                      const vt = Math.abs(Number(op.quantidade)) * Math.abs(Number(op.preco))
-                      return acc + vt * 0.000270 + 0.21
-                    }, 0)
-                    const totalCorr = corretagem * selecionadas.length
-                    const totalCustos = custosB3 + totalCorr
-                    const iStyle2 = { background:'#081120',border:'1px solid rgba(255,255,255,.15)',
+                    const iStyle2 = { background:'#081120',border:'1px solid rgba(255,255,255,.2)',
                       borderRadius:'5px',color:'#e8edf5',padding:'4px 6px',
                       fontSize:'12px',outline:'none',width:'68px' }
+                    const totalCustos = custosB3Total + corretagem * totalSel
                     return (
                       <div style={{ display:'flex',alignItems:'center',gap:'8px',fontSize:'12px',color:'#8ba0ba',
                         background:'rgba(232,160,32,.06)',border:'1px solid rgba(232,160,32,.15)',
-                        borderRadius:'8px',padding:'6px 12px',flexWrap:'wrap' }}>
-                        <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>
-                          Custos B3 est.
-                        </span>
-                        <strong style={{ color:'#e8edf5' }}>R$ {custosB3.toFixed(2)}</strong>
+                        borderRadius:'8px',padding:'6px 12px',flexWrap:'wrap',gap:'6px' }}>
+                        <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>Custos B3</span>
+                        <div style={{ display:'flex',alignItems:'center',gap:'3px' }}>
+                          <span style={{ color:'#546E7A' }}>R$</span>
+                          <input type="number" min="0" step="0.01" value={custosB3Total}
+                            onChange={e => setCustosB3Total(Math.max(0, Number(e.target.value)))}
+                            style={iStyle2} />
+                        </div>
                         <span style={{ color:'#546E7A' }}>+</span>
                         <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>Corretagem/op</span>
                         <div style={{ display:'flex',alignItems:'center',gap:'3px' }}>
