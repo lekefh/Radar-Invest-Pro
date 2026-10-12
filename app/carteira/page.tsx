@@ -2485,27 +2485,40 @@ export default function CarteiraPage() {
                     {totalSel === 0 && '⚠ Nenhuma operação selecionada'}
                     {totalSel > 0 && `${totalSel} operação(ões) serão importadas`}
                   </span>
-                  {/* Campo corretagem — só para Planilha B3 */}
-                  {importNotas[0]?.corretora === 'Planilha B3' && (
-                    <div style={{ display:'flex',alignItems:'center',gap:'8px',fontSize:'12px',color:'#8ba0ba' }}>
-                      <span style={{ whiteSpace:'nowrap' }}>
-                        Custos B3 <span style={{ color:'#546E7A',fontSize:'10px' }}>(emol.+liq. 0,027%+R$0,21)</span>
-                      </span>
-                      <span style={{ color:'#8ba0ba' }}>+ Corretagem</span>
-                      <div style={{ display:'flex',alignItems:'center',gap:'4px' }}>
-                        <span style={{ color:'#546E7A' }}>R$</span>
-                        <input
-                          type="number" min="0" step="0.01"
-                          value={corretagem}
-                          onChange={e => setCorretagem(Math.max(0, Number(e.target.value)))}
-                          style={{ background:'#081120',border:'1px solid rgba(255,255,255,.15)',
-                            borderRadius:'5px',color:'#e8edf5',padding:'4px 8px',
-                            fontSize:'12px',outline:'none',width:'72px' }}
-                        />
+                  {/* Custos B3 estimados — só para Planilha B3 */}
+                  {importNotas[0]?.corretora === 'Planilha B3' && (() => {
+                    const selecionadas = importOpsAll.filter(o => o.selecionada)
+                    const custosB3 = selecionadas.reduce((acc, op) => {
+                      const vt = Math.abs(Number(op.quantidade)) * Math.abs(Number(op.preco))
+                      return acc + vt * 0.000270 + 0.21
+                    }, 0)
+                    const totalCorr = corretagem * selecionadas.length
+                    const totalCustos = custosB3 + totalCorr
+                    const iStyle2 = { background:'#081120',border:'1px solid rgba(255,255,255,.15)',
+                      borderRadius:'5px',color:'#e8edf5',padding:'4px 6px',
+                      fontSize:'12px',outline:'none',width:'68px' }
+                    return (
+                      <div style={{ display:'flex',alignItems:'center',gap:'8px',fontSize:'12px',color:'#8ba0ba',
+                        background:'rgba(232,160,32,.06)',border:'1px solid rgba(232,160,32,.15)',
+                        borderRadius:'8px',padding:'6px 12px',flexWrap:'wrap' }}>
+                        <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>
+                          Custos B3 est.
+                        </span>
+                        <strong style={{ color:'#e8edf5' }}>R$ {custosB3.toFixed(2)}</strong>
+                        <span style={{ color:'#546E7A' }}>+</span>
+                        <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>Corretagem/op</span>
+                        <div style={{ display:'flex',alignItems:'center',gap:'3px' }}>
+                          <span style={{ color:'#546E7A' }}>R$</span>
+                          <input type="number" min="0" step="0.01" value={corretagem}
+                            onChange={e => setCorretagem(Math.max(0, Number(e.target.value)))}
+                            style={iStyle2} />
+                        </div>
+                        <span style={{ color:'#546E7A' }}>=</span>
+                        <strong style={{ color:'#e8a020' }}>R$ {totalCustos.toFixed(2)}</strong>
+                        <span style={{ color:'#546E7A',fontSize:'10px' }}>total</span>
                       </div>
-                      <span style={{ color:'#546E7A',fontSize:'10px' }}>por operação</span>
-                    </div>
-                  )}
+                    )
+                  })()}
                   <button onClick={_fecharImport}
                     style={{ background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',
                       padding:'8px 18px',borderRadius:'7px',cursor:'pointer',fontSize:'13px',fontWeight:600 }}>
