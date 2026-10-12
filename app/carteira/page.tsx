@@ -445,6 +445,8 @@ export default function CarteiraPage() {
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
   const [corretagem, setCorretagem] = useState<number>(0)
   const [custosB3Total, setCustosB3Total] = useState<number>(0)
+  const [editandoCustosB3, setEditandoCustosB3] = useState(false)
+  const [custosB3Str, setCustosB3Str] = useState('')
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base' | 'performance'>('acoes')
@@ -650,7 +652,8 @@ export default function CarteiraPage() {
   }
 
   const _fecharImport = () => {
-    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress(''); setCorretagem(0); setCustosB3Total(0)
+    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress('')
+    setCorretagem(0); setCustosB3Total(0); setEditandoCustosB3(false); setCustosB3Str('')
   }
 
   const handleImportarNota = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -2491,20 +2494,44 @@ export default function CarteiraPage() {
                   {importNotas[0]?.corretora === 'Planilha B3' && (() => {
                     const iStyle2 = { background:'#081120',border:'1px solid rgba(255,255,255,.2)',
                       borderRadius:'5px',color:'#e8edf5',padding:'4px 6px',
-                      fontSize:'12px',outline:'none',width:'68px' }
+                      fontSize:'12px',outline:'none',width:'72px' }
                     const totalCustos = custosB3Total + corretagem * totalSel
+                    const confirmarB3 = () => {
+                      const v = parseFloat(custosB3Str.replace(',', '.'))
+                      if (!isNaN(v) && v >= 0) setCustosB3Total(v)
+                      setEditandoCustosB3(false)
+                    }
                     return (
                       <div style={{ display:'flex',alignItems:'center',gap:'8px',fontSize:'12px',color:'#8ba0ba',
                         background:'rgba(232,160,32,.06)',border:'1px solid rgba(232,160,32,.15)',
-                        borderRadius:'8px',padding:'6px 12px',flexWrap:'wrap',gap:'6px' }}>
+                        borderRadius:'8px',padding:'6px 12px',flexWrap:'wrap' }}>
+                        {/* Custos B3 — display com lápis ou input */}
                         <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>Custos B3</span>
-                        <div style={{ display:'flex',alignItems:'center',gap:'3px' }}>
-                          <span style={{ color:'#546E7A' }}>R$</span>
-                          <input type="number" min="0" step="0.01" value={custosB3Total}
-                            onChange={e => setCustosB3Total(Math.max(0, Number(e.target.value)))}
-                            style={iStyle2} />
-                        </div>
+                        {editandoCustosB3 ? (
+                          <div style={{ display:'flex',alignItems:'center',gap:'3px' }}>
+                            <span style={{ color:'#546E7A' }}>R$</span>
+                            <input type="text" value={custosB3Str}
+                              onChange={e => setCustosB3Str(e.target.value)}
+                              onBlur={confirmarB3}
+                              onKeyDown={e => { if (e.key === 'Enter') confirmarB3() }}
+                              // eslint-disable-next-line jsx-a11y/no-autofocus
+                              autoFocus
+                              style={iStyle2} />
+                            <button onClick={confirmarB3}
+                              style={{ background:'#1a4a2e',border:'1px solid #22c55e',color:'#22c55e',
+                                borderRadius:'4px',padding:'2px 6px',fontSize:'11px',cursor:'pointer' }}>✓</button>
+                          </div>
+                        ) : (
+                          <div style={{ display:'flex',alignItems:'center',gap:'4px' }}>
+                            <span style={{ color:'#e8edf5',fontWeight:600 }}>R$ {custosB3Total.toFixed(2)}</span>
+                            <button onClick={() => { setCustosB3Str(custosB3Total.toFixed(2)); setEditandoCustosB3(true) }}
+                              title="Editar custos B3"
+                              style={{ background:'none',border:'none',color:'#546E7A',cursor:'pointer',
+                                fontSize:'12px',padding:'0 2px',lineHeight:1 }}>✏</button>
+                          </div>
+                        )}
                         <span style={{ color:'#546E7A' }}>+</span>
+                        {/* Corretagem — sempre editável */}
                         <span style={{ color:'#6b84a8',fontSize:'10px',whiteSpace:'nowrap' }}>Corretagem/op</span>
                         <div style={{ display:'flex',alignItems:'center',gap:'3px' }}>
                           <span style={{ color:'#546E7A' }}>R$</span>
