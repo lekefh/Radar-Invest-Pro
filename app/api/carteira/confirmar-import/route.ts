@@ -5,7 +5,7 @@ import { getSession } from '@/lib/auth'
 interface OpImport {
   tipo: string; ticker: string; quantidade: number; preco: number
   data: string; notas?: string; vencimento?: string | null; mercado?: string
-  opcao_original?: string | null
+  opcao_original?: string | null; taxas?: number
 }
 
 /**
@@ -106,14 +106,16 @@ export async function POST(req: NextRequest) {
     const pm   = Math.abs(Number(op.preco))
     const tipo = op.tipo === 'V' ? 'V' : 'C'
     const venc = op.vencimento ?? null
+    const taxas = Number(op.taxas ?? 0)
     return sql`
       INSERT INTO movimentacoes
         (user_id, data, ticker, tipo, quantidade, preco, valor_total,
-         corretora, import_batch_id, mercado, data_vencimento)
+         corretora, import_batch_id, mercado, data_vencimento, taxas)
       VALUES
         (${userId}, ${op.data}::date, ${t}, ${tipo}, ${qt}, ${pm},
          ${(qt * pm).toFixed(2)}::numeric, ${op.notas ?? null},
-         ${batchId}::uuid, ${op.mercado ?? 'acao'}, ${venc}::date)
+         ${batchId}::uuid, ${op.mercado ?? 'acao'}, ${venc}::date,
+         ${taxas.toFixed(4)}::numeric)
     `
   }))
 

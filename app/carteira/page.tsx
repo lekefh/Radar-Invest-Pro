@@ -443,6 +443,7 @@ export default function CarteiraPage() {
   }
   const [importNotas,  setImportNotas]  = useState<NotaInfo[]>([])
   const [importOpsAll, setImportOpsAll] = useState<OpImport[]>([])
+  const [corretagem, setCorretagem] = useState<number>(0)
   const [sortConfig, setSortConfig] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base' | 'performance'>('acoes')
@@ -648,7 +649,7 @@ export default function CarteiraPage() {
   }
 
   const _fecharImport = () => {
-    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress('')
+    setImportModal(false); setImportNotas([]); setImportOpsAll([]); setImportErro(''); setImportProgress(''); setCorretagem(0)
   }
 
   const handleImportarNota = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -707,11 +708,17 @@ export default function CarteiraPage() {
       const descricao = importNotas[0]?.arquivo
         ? `Planilha B3 — ${importNotas[0].arquivo}`
         : `Importação manual — ${new Date().toLocaleDateString('pt-BR')}`
-      const payload = selecionadas.map(op => ({
-        tipo: op.tipo, ticker: op.ticker, quantidade: op.quantidade,
-        preco: op.preco, data: op.data, notas: op.notas ?? null,
-        mercado: op.mercado ?? 'acao', vencimento: op.vencimento ?? null,
-      }))
+      const isB3 = importNotas[0]?.corretora === 'Planilha B3'
+      const payload = selecionadas.map(op => {
+        const valorTotal = Math.abs(Number(op.quantidade)) * Math.abs(Number(op.preco))
+        const taxasB3 = isB3 ? valorTotal * 0.000270 + 0.21 + corretagem : 0
+        return {
+          tipo: op.tipo, ticker: op.ticker, quantidade: op.quantidade,
+          preco: op.preco, data: op.data, notas: op.notas ?? null,
+          mercado: op.mercado ?? 'acao', vencimento: op.vencimento ?? null,
+          taxas: Math.round(taxasB3 * 10000) / 10000,
+        }
+      })
       const r = await fetch('/api/carteira/confirmar-import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2473,11 +2480,32 @@ export default function CarteiraPage() {
               {/* ── Footer ── */}
               {temDados && (
                 <div style={{ padding:'14px 22px',borderTop:'1px solid rgba(255,255,255,.08)',
-                  display:'flex',gap:'10px',justifyContent:'flex-end',alignItems:'center' }}>
+                  display:'flex',gap:'10px',justifyContent:'flex-end',alignItems:'center',flexWrap:'wrap' }}>
                   <span style={{ fontSize:'12px',color:'#546E7A',marginRight:'auto' }}>
                     {totalSel === 0 && '⚠ Nenhuma operação selecionada'}
                     {totalSel > 0 && `${totalSel} operação(ões) serão importadas`}
                   </span>
+                  {/* Campo corretagem — só para Planilha B3 */}
+                  {importNotas[0]?.corretora === 'Planilha B3' && (
+                    <div style={{ display:'flex',alignItems:'center',gap:'8px',fontSize:'12px',color:'#8ba0ba' }}>
+                      <span style={{ whiteSpace:'nowrap' }}>
+                        Custos B3 <span style={{ color:'#546E7A',fontSize:'10px' }}>(emol.+liq. 0,027%+R$0,21)</span>
+                      </span>
+                      <span style={{ color:'#8ba0ba' }}>+ Corretagem</span>
+                      <div style={{ display:'flex',alignItems:'center',gap:'4px' }}>
+                        <span style={{ color:'#546E7A' }}>R$</span>
+                        <input
+                          type="number" min="0" step="0.01"
+                          value={corretagem}
+                          onChange={e => setCorretagem(Math.max(0, Number(e.target.value)))}
+                          style={{ background:'#081120',border:'1px solid rgba(255,255,255,.15)',
+                            borderRadius:'5px',color:'#e8edf5',padding:'4px 8px',
+                            fontSize:'12px',outline:'none',width:'72px' }}
+                        />
+                      </div>
+                      <span style={{ color:'#546E7A',fontSize:'10px' }}>por operação</span>
+                    </div>
+                  )}
                   <button onClick={_fecharImport}
                     style={{ background:'transparent',border:'1px solid rgba(255,255,255,.12)',color:'#6b84a8',
                       padding:'8px 18px',borderRadius:'7px',cursor:'pointer',fontSize:'13px',fontWeight:600 }}>
