@@ -2520,12 +2520,14 @@ export default function CarteiraPage() {
                                 borderRadius:'4px',padding:'2px 6px',fontSize:'11px',cursor:'pointer' }}>✓</button>
                           </div>
                         ) : (
-                          <div style={{ display:'flex',alignItems:'center',gap:'4px' }}>
+                          <div style={{ display:'flex',alignItems:'center',gap:'6px' }}>
                             <span style={{ color:'#e8edf5',fontWeight:600 }}>R$ {custosB3Total.toFixed(2)}</span>
                             <button onClick={() => { setCustosB3Str(custosB3Total.toFixed(2)); setEditandoCustosB3(true) }}
-                              title="Editar custos B3"
-                              style={{ background:'none',border:'none',color:'#546E7A',cursor:'pointer',
-                                fontSize:'12px',padding:'0 2px',lineHeight:1 }}>✏</button>
+                              style={{ background:'rgba(255,255,255,.08)',border:'1px solid rgba(255,255,255,.15)',
+                                color:'#8ba0ba',cursor:'pointer',borderRadius:'4px',
+                                fontSize:'10px',padding:'1px 6px',lineHeight:'16px',whiteSpace:'nowrap' }}>
+                              editar
+                            </button>
                           </div>
                         )}
                         <span style={{ color:'#546E7A' }}>+</span>
