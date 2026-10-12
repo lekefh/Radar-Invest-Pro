@@ -2514,8 +2514,6 @@ export default function CarteiraPage() {
                               onChange={e => setCustosB3Str(e.target.value)}
                               onBlur={confirmarB3}
                               onKeyDown={e => { if (e.key === 'Enter') confirmarB3() }}
-                              // eslint-disable-next-line jsx-a11y/no-autofocus
-                              autoFocus
                               style={iStyle2} />
                             <button onClick={confirmarB3}
                               style={{ background:'#1a4a2e',border:'1px solid #22c55e',color:'#22c55e',
