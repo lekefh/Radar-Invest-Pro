@@ -1,6 +1,6 @@
 {
-  "atualizado": "09/10/2026 22:38 [auto]",
-  "total": 704,
+  "atualizado": "12/10/2026 23:58 [auto]",
+  "total": 707,
   "fontes": {
     "historico": "Yahoo Finance (18 meses) + data_pagamento via Investidor10",
     "futuros": "Investidor10 (B3/CVM, 4 meses)"
@@ -300,6 +300,39 @@
       "data_ex": "2026-10-23",
       "data_pagamento": "2026-10-30",
       "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SANB11",
+      "tipo": "JSCP",
+      "valor": 0.4,
+      "data_com": "2026-10-20",
+      "data_ex": "2026-10-21",
+      "data_pagamento": "2026-11-09",
+      "yield_pct": 1.39,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SANB3",
+      "tipo": "JSCP",
+      "valor": 0.19,
+      "data_com": "2026-10-20",
+      "data_ex": "2026-10-21",
+      "data_pagamento": "2026-11-09",
+      "yield_pct": null,
+      "status": "declarado",
+      "fonte": "investidor10"
+    },
+    {
+      "ticker": "SANB4",
+      "tipo": "JSCP",
+      "valor": 0.21,
+      "data_com": "2026-10-20",
+      "data_ex": "2026-10-21",
+      "data_pagamento": "2026-11-09",
+      "yield_pct": 1.46,
       "status": "declarado",
       "fonte": "investidor10"
     },
