@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { getDb } from '@/lib/db'
 import { getSession } from '@/lib/auth'
 
 // POST /api/admin/promo-trial-60
 // Aplica 60 dias de trial starter a todos os usuarios gratuitos ativos
-export async function POST(req: NextRequest) {
+export async function POST() {
   const session = await getSession()
   if (!session || session.sub !== '1') {
     return NextResponse.json({ error: 'Acesso restrito ao administrador.' }, { status: 403 })
