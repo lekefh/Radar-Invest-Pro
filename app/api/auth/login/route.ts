@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import {
   initUsersTable, findByEmail, findByUsername,
-  verifyPassword, createToken, downgradeExpiredTrial
+  verifyPassword, createToken, downgradeExpiredTrial, updateUltimoLogin
 } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
@@ -39,6 +39,8 @@ export async function POST(req: NextRequest) {
         : 'Confirme seu e-mail antes de fazer login.'
       return NextResponse.json({ erro: msg }, { status: 403 })
     }
+
+    await updateUltimoLogin(usuario.id)
 
     const token = await createToken({
       sub:      String(usuario.id),

@@ -60,6 +60,7 @@ export async function initUsersTable() {
   `
   await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS telefone TEXT`
   await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS plano_expira TIMESTAMPTZ`
+  await sql`ALTER TABLE usuarios_web ADD COLUMN IF NOT EXISTS ultimo_login TIMESTAMPTZ`
 }
 
 export async function countUsers(): Promise<number> {
@@ -113,6 +114,11 @@ export async function createUser(params: {
   return r[0]
 }
 
+export async function updateUltimoLogin(userId: number) {
+  const sql = db()
+  await sql`UPDATE usuarios_web SET ultimo_login = NOW() WHERE id = ${userId}`
+}
+
 export async function downgradeExpiredTrial(userId: number) {
   const sql = db()
   await sql`
@@ -144,7 +150,7 @@ export async function confirmEmail(token: string): Promise<boolean> {
 export async function listUsers() {
   const sql = db()
   return sql`
-    SELECT id, username, nome, email, plano, plano_expira, ativo, email_confirmado, telefone, criado_em
+    SELECT id, username, nome, email, plano, plano_expira, ativo, email_confirmado, telefone, criado_em, ultimo_login
     FROM usuarios_web ORDER BY id
   `
 }

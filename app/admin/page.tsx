@@ -14,6 +14,7 @@ interface Usuario {
   ativo:        number
   criado_em:    string
   telefone:     string | null
+  ultimo_login: string | null
 }
 
 function diasRestantes(expira: string | null): number | null {
@@ -515,7 +516,7 @@ export default function AdminUsuariosPage() {
             <table style={{ width: '100%', minWidth: '1100px', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
-                  {['ID', 'Nome', 'Usuário', 'E-mail', 'Telefone', 'Plano', 'Trial', 'Status', 'Cadastro', 'Ações'].map(h => (
+                  {['ID', 'Nome', 'Usuário', 'E-mail', 'Telefone', 'Plano', 'Trial', 'Status', 'Cadastro', 'Último Login', 'Ações'].map(h => (
                     <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: '#4a5d73', letterSpacing: '.8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                       {h}
                     </th>
@@ -578,6 +579,12 @@ export default function AdminUsuariosPage() {
                     </td>
                     <td style={{ ...tdStyle, fontSize: '12px', color: '#4a5d73', whiteSpace: 'nowrap' }}>
                       {u.criado_em?.slice(0, 10) || '—'}
+                    </td>
+                    <td style={{ ...tdStyle, fontSize: '12px', whiteSpace: 'nowrap' }}>
+                      {u.ultimo_login
+                        ? <span style={{ color: '#66BB6A' }}>{new Date(u.ultimo_login).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' })}</span>
+                        : <span style={{ color: '#3d4f6a' }}>—</span>
+                      }
                     </td>
                     <td style={{ ...tdStyle, whiteSpace: 'nowrap' }}>
                       <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
