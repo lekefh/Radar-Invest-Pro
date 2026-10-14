@@ -362,6 +362,8 @@ export default function AdminUsuariosPage() {
   const [msgEmail, setMsgEmail]           = useState('')
   const [downgrading, setDowngrading]     = useState(false)
   const [msgDowngrade, setMsgDowngrade]   = useState('')
+  const [promoTrial, setPromoTrial]       = useState(false)
+  const [msgPromoTrial, setMsgPromoTrial] = useState('')
 
   useEffect(() => { carregar() }, [])
 
@@ -429,6 +431,18 @@ export default function AdminUsuariosPage() {
     finally { setDowngrading(false) }
   }
 
+  async function ativarPromoTrial60() {
+    setPromoTrial(true); setMsgPromoTrial('')
+    try {
+      const r = await fetch('/api/admin/promo-trial-60', { method: 'POST' })
+      const d = await r.json()
+      if (!r.ok) { setMsgPromoTrial(`Erro: ${d.error}`); return }
+      setMsgPromoTrial(`🎁 ${d.total_atualizado} usuário(s) ativados com 60 dias de trial starter · ${d.sem_telefone} sem telefone · Expira em ${d.expira_em}`)
+      await carregar()
+    } catch { setMsgPromoTrial('Erro de conexão.') }
+    finally { setPromoTrial(false) }
+  }
+
   async function excluir(uid: number) {
     setAcao(a => ({ ...a, [uid]: 'excluindo' }))
     await fetch(`/api/admin/usuarios/${uid}`, { method: 'DELETE' })
@@ -458,13 +472,16 @@ export default function AdminUsuariosPage() {
             <button onClick={downgradeTodos} disabled={downgrading} style={{ background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)', color: '#ef5350', padding: '7px 14px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
               {downgrading ? '⏳ Processando...' : '⬇️ Downgrade expirados'}
             </button>
+            <button onClick={ativarPromoTrial60} disabled={promoTrial} style={{ background: 'rgba(99,102,241,.12)', border: '1px solid rgba(99,102,241,.35)', color: '#818cf8', padding: '7px 14px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
+              {promoTrial ? '⏳ Ativando...' : '🎁 Promo 60 dias'}
+            </button>
             <button onClick={carregar} style={{ background: '#1a2632', border: '1px solid rgba(255,255,255,.1)', color: '#6b84a8', padding: '7px 16px', borderRadius: '6px', cursor: 'pointer', fontSize: '13px' }}>
               ↻ Atualizar
             </button>
           </div>
         </div>
 
-        {(msgEmail || msgDowngrade) && (
+        {(msgEmail || msgDowngrade || msgPromoTrial) && (
           <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
             {msgEmail && (
               <div style={{ background: 'rgba(34,197,94,.08)', border: '1px solid rgba(34,197,94,.25)', color: '#22c55e', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', flex: 1 }}>
@@ -474,6 +491,11 @@ export default function AdminUsuariosPage() {
             {msgDowngrade && (
               <div style={{ background: 'rgba(232,160,32,.08)', border: '1px solid rgba(232,160,32,.25)', color: '#e8a020', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', flex: 1 }}>
                 {msgDowngrade}
+              </div>
+            )}
+            {msgPromoTrial && (
+              <div style={{ background: 'rgba(99,102,241,.08)', border: '1px solid rgba(99,102,241,.25)', color: '#818cf8', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', flex: 1 }}>
+                {msgPromoTrial}
               </div>
             )}
           </div>
