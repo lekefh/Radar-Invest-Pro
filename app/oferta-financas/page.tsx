@@ -83,6 +83,13 @@ function CarrosselApp() {
 
 export default function OfertaFinancas() {
   const [faqAberto, setFaqAberto] = useState<number | null>(null)
+  const [totalUsuarios, setTotalUsuarios] = useState(61)
+
+  useEffect(() => {
+    fetch('/api/stats/usuarios').then(r => r.json()).then(d => {
+      if (d.total) setTotalUsuarios(d.total)
+    }).catch(() => {})
+  }, [])
 
   const features = [
     { icon: 'X', titulo: 'Importacao de extratos', desc: 'OFX, CSV, PDF e XLS de qualquer banco.' },
@@ -152,7 +159,7 @@ export default function OfertaFinancas() {
             Comecar 30 dias gratis
           </a>
           <p style={{ fontSize: 12, color: C.muted, margin: 0 }}>Sem cartao de credito - Cancele quando quiser</p>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', margin: 0 }}>57 profissionais ja utilizam a plataforma</p>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,.35)', margin: 0 }}>{totalUsuarios}+ profissionais ja utilizam a plataforma</p>
         </div>
 
         <div style={{ marginTop: 48, marginBottom: 8 }}>
