@@ -38,6 +38,8 @@ const JSON_LD = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
+  // './' resolve para a própria rota de cada página → canonical sempre em https://www…
+  alternates: { canonical: './' },
   // Códigos de verificação: cadastrar em Vercel → Settings → Environment Variables
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
