@@ -160,6 +160,16 @@ export async function updateUser(id: number, plano: string, ativo: boolean) {
   await sql`UPDATE usuarios_web SET plano=${plano}, ativo=${ativo} WHERE id=${id}`
 }
 
+export async function ativarTrial(id: number, dias: number) {
+  const sql = db()
+  await sql`
+    UPDATE usuarios_web
+    SET plano = 'starter', ativo = TRUE,
+        plano_expira = NOW() + make_interval(days => ${dias})
+    WHERE id = ${id}
+  `
+}
+
 export async function deleteUser(id: number) {
   const sql = db()
   await sql`DELETE FROM usuarios_web WHERE id=${id}`

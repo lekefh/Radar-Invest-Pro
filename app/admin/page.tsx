@@ -394,6 +394,17 @@ export default function AdminUsuariosPage() {
     setAcao(a => ({ ...a, [uid]: '' }))
   }
 
+  async function ativarTrial60(uid: number) {
+    setAcao(a => ({ ...a, [uid]: 'salvando' }))
+    await fetch(`/api/admin/usuarios/${uid}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ trial_dias: 60 }),
+    })
+    await carregar()
+    setAcao(a => ({ ...a, [uid]: '' }))
+  }
+
   async function toggleAtivo(uid: number, ativo: number) {
     setAcao(a => ({ ...a, [uid]: 'salvando' }))
     await fetch(`/api/admin/usuarios/${uid}`, {
@@ -540,7 +551,9 @@ export default function AdminUsuariosPage() {
                       <select
                         value={u.plano}
                         disabled={!!acao[u.id]}
-                        onChange={e => alterarPlano(u.id, e.target.value as Plano)}
+                        onChange={e => e.target.value === 'trial60'
+                          ? ativarTrial60(u.id)
+                          : alterarPlano(u.id, e.target.value as Plano)}
                         style={{
                           background: '#1a2632', border: `1px solid ${PLANO_COLOR[u.plano]}40`,
                           color: PLANO_COLOR[u.plano], borderRadius: '5px',
@@ -549,6 +562,7 @@ export default function AdminUsuariosPage() {
                         }}
                       >
                         {PLANOS.map(p => <option key={p} value={p}>{p}</option>)}
+                        <option value="trial60">🎁 trial 60 dias</option>
                       </select>
                     </td>
                     <td style={tdStyle}>

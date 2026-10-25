@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getSession, updateUser, deleteUser } from '@/lib/auth'
+import { getSession, updateUser, deleteUser, ativarTrial } from '@/lib/auth'
 
 export async function PATCH(
   req: NextRequest,
@@ -10,7 +10,11 @@ export async function PATCH(
     return NextResponse.json({ erro: 'Sem permissão.' }, { status: 403 })
   }
   const { uid } = await params
-  const { plano, ativo } = await req.json()
+  const { plano, ativo, trial_dias } = await req.json()
+  if (trial_dias) {
+    await ativarTrial(Number(uid), Number(trial_dias))
+    return NextResponse.json({ ok: true })
+  }
   await updateUser(Number(uid), plano, ativo === 1 || ativo === true)
   return NextResponse.json({ ok: true })
 }
