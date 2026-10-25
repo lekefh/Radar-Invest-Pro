@@ -6,7 +6,45 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const space = Space_Grotesk({ subsets: ['latin'], variable: '--font-space' })
 
+const SITE = 'https://www.radarinvestpro.com.br'
+
+// Dados estruturados: ajudam Google/Bing a identificar a marca (logo, redes sociais)
+// e a separá-la de nomes parecidos nos resultados de busca
+const JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE}/#organizacao`,
+      name: 'Radar Invest Pro',
+      url: SITE,
+      logo: `${SITE}/icon.png`,
+      description: 'Plataforma de análise de ações da B3 com valuation DCF, análise fundamentalista e gestão de carteira.',
+      sameAs: [
+        'https://www.instagram.com/radar_invest_pro',
+        'https://youtube.com/@radarinvestpro',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE}/#site`,
+      name: 'Radar Invest Pro',
+      url: SITE,
+      inLanguage: 'pt-BR',
+      publisher: { '@id': `${SITE}/#organizacao` },
+    },
+  ],
+}
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE),
+  // Códigos de verificação: cadastrar em Vercel → Settings → Environment Variables
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { 'msvalidate.01': process.env.BING_SITE_VERIFICATION }
+      : undefined,
+  },
   title: 'Radar Invest Pro — Análise como um Profissional de Mercado',
   description:
     'Democratizamos a análise de ações da B3 com DCF, fundamentos e peso correto de carteira — as mesmas ferramentas que grandes profissionais de mercado utilizam.',
@@ -14,7 +52,9 @@ export const metadata: Metadata = {
     'análise de ações B3, DCF valuation, análise fundamentalista, carteira de investimentos, profissionais de mercado',
   openGraph: {
     type: 'website',
-    url: 'https://radarinvestpro.com.br/',
+    url: SITE,
+    siteName: 'Radar Invest Pro',
+    locale: 'pt_BR',
     title: 'Radar Invest Pro — Análise como um Profissional de Mercado',
     description:
       'DCF, fundamentos e peso correto de carteira — as ferramentas dos grandes profissionais de mercado, agora para o investidor individual.',
@@ -26,9 +66,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR" className={`${inter.variable} ${space.variable}`}>
       <head>
-        <link
-          rel="icon"
-          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23050d1a'/><circle cx='16' cy='16' r='4' fill='%23e8a020'/><circle cx='16' cy='16' r='8' fill='none' stroke='%23e8a020' stroke-width='1.5' opacity='.6'/><circle cx='16' cy='16' r='13' fill='none' stroke='%23e8a020' stroke-width='1' opacity='.3'/></svg>"
+        {/* Ícones: app/icon.png, app/apple-icon.png e app/favicon.ico (gerados pelo Next) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
         {/* Google Analytics 4 */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-2B5Y9F2HDJ" />
