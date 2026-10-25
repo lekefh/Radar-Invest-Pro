@@ -239,10 +239,11 @@ function ModalConfirmExclusao({ usuario, excluindo, onCancel, onConfirm }: {
 }
 
 /* ── Linha swipável (mobile) ─────────────────────────────────────────────────── */
-function LinhaSwipe({ u, idx, total, acao, onAlterarPlano, onToggleAtivo, onCarteira, onExcluir, aberto, setAberto }: {
+function LinhaSwipe({ u, idx, total, acao, onAlterarPlano, onAtivarTrial, onToggleAtivo, onCarteira, onExcluir, aberto, setAberto }: {
   u: Usuario; idx: number; total: number
   acao: Record<number, string>
   onAlterarPlano: (uid: number, plano: Plano) => void
+  onAtivarTrial:  (uid: number) => void
   onToggleAtivo:  (uid: number, ativo: number) => void
   onCarteira:     (u: Usuario) => void
   onExcluir:      (u: Usuario) => void
@@ -287,7 +288,9 @@ function LinhaSwipe({ u, idx, total, acao, onAlterarPlano, onToggleAtivo, onCart
         <select
           value={u.plano}
           disabled={saving}
-          onChange={e => onAlterarPlano(u.id, e.target.value as Plano)}
+          onChange={e => e.target.value === 'trial60'
+            ? onAtivarTrial(u.id)
+            : onAlterarPlano(u.id, e.target.value as Plano)}
           style={{
             background:'#1a2632', border:`1px solid ${PLANO_COLOR[u.plano]}55`,
             color: PLANO_COLOR[u.plano], borderRadius:'6px',
@@ -296,6 +299,7 @@ function LinhaSwipe({ u, idx, total, acao, onAlterarPlano, onToggleAtivo, onCart
           }}
         >
           {PLANOS.map(p => <option key={p} value={p}>{p}</option>)}
+          <option value="trial60">🎁 trial 60 dias</option>
         </select>
         {/* Botões */}
         <div style={{ display:'flex', gap:'6px' }}>
@@ -654,6 +658,7 @@ export default function AdminUsuariosPage() {
                 total={usuarios.length}
                 acao={acao}
                 onAlterarPlano={alterarPlano}
+                onAtivarTrial={ativarTrial60}
                 onToggleAtivo={toggleAtivo}
                 onCarteira={setCarteiraUser}
                 onExcluir={setExcluirUser}
