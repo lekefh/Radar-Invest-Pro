@@ -214,6 +214,47 @@ const CONFIGS_SETOR: Record<string, {
     ],
   },
 
+  mineracao: {
+    // VALE3 — Vale. Drivers: (1) Preço IO (USD/t) | (2) Volume produção (Mt) | (3) Custo C1 (USD/t)
+    // Campos reutilizados: pld=Preço IO USD/t | gsf=Produção Fe Mt | rap=Receita R$MM
+    // pmso=C1 finos USD/t | dl_ebitda=DL/EBITDA | lucro=EBITDA | tir_real=TIR Real vs NTN-B
+    metricas: [
+      { key: 'pld',       label: 'Preço IO (USD/t)',       unidade: 'USD/t',  verde: 105,  vermelho: 85,   sentido: 'maior' },
+      { key: 'gsf',       label: 'Produção Fe (Mt)',        unidade: 'Mt',     verde: 85,   vermelho: 70,   sentido: 'maior' },
+      { key: 'rap',       label: 'Receita líquida',         unidade: 'R$ MM',  verde: 62000,vermelho: 50000,sentido: 'maior' },
+      { key: 'pmso',      label: 'C1 finos (USD/t)',        unidade: 'USD/t',  verde: 21.0, vermelho: 24.0, sentido: 'menor' },
+      { key: 'dl_ebitda', label: 'DL/EBITDA',               unidade: 'x',      verde: 1.5,  vermelho: 2.5,  sentido: 'menor' },
+      { key: 'lucro',     label: 'EBITDA Ajustado',         unidade: 'R$ MM',  verde: 22000,vermelho: 16000,sentido: 'maior' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',       unidade: 'p.p.',   verde: 2.0,  vermelho: -1.0, sentido: 'maior' },
+    ],
+    stops: [
+      'Preço IO < USD 85/t por 2 trimestres consecutivos (China demand destruction)',
+      'C1 finos > USD 24/t por 2 trimestres (perda de vantagem competitiva de custo)',
+      'Produção Fe < 70Mt/tri por 2 trimestres (falha operacional ou regulatória)',
+      'DL/EBITDA > 2,5x por 1 trimestre (retomada de alavancagem pós-impairment)',
+    ],
+  },
+
+  petroleo: {
+    // PETR4, PRIO3 — Drivers: (1) Brent USD/bbl | (2) Produção boed | (3) Lifting cost
+    // pld=Brent USD/bbl | gsf=ROE % | rap=Receita | pmso=Lifting Cost USD/boe | dl_ebitda=DL/EBITDA | lucro=EBITDA
+    metricas: [
+      { key: 'pld',       label: 'Brent (USD/bbl)',         unidade: 'USD/bbl',verde: 80,   vermelho: 60,   sentido: 'maior' },
+      { key: 'gsf',       label: 'Produção (Mboed)',         unidade: 'Mboed',  verde: 3.2,  vermelho: 2.8,  sentido: 'maior' },
+      { key: 'rap',       label: 'Receita líquida',          unidade: 'R$ MM',  verde: 120000,vermelho: 90000,sentido: 'maior' },
+      { key: 'pmso',      label: 'Lifting cost (USD/boe)',   unidade: 'USD/boe',verde: 8.0,  vermelho: 14.0, sentido: 'menor' },
+      { key: 'dl_ebitda', label: 'DL/EBITDA',               unidade: 'x',      verde: 1.0,  vermelho: 2.5,  sentido: 'menor' },
+      { key: 'lucro',     label: 'EBITDA Ajustado',          unidade: 'R$ MM',  verde: 55000,vermelho: 40000,sentido: 'maior' },
+      { key: 'tir_real',  label: 'TIR Real vs NTN-B',        unidade: 'p.p.',   verde: 2.0,  vermelho: -1.0, sentido: 'maior' },
+    ],
+    stops: [
+      'Brent < USD 60/bbl por 2 trimestres consecutivos (FCL negativo)',
+      'Produção < 3,0 Mboed por 2 trimestres (execução E&P abaixo do plano)',
+      'DL/EBITDA > 2,5x (alavancagem em ciclo de baixo preço)',
+      'Interferência política em preço de combustíveis (PETR4 específico)',
+    ],
+  },
+
   saneamento: {
     // SBSP3 — Sabesp. Drivers: (1) Mg EBITDA adj | (2) CapEx (ciclo investimento) | (3) DL/EBITDA
     // gsf=Mg EBITDA% | pld=CapEx tri R$MM | rap=Receita adj ex-construção | pmso=Cob.Esgoto % | dl_ebitda=DL/EBITDA | lucro=LL adj
@@ -263,6 +304,7 @@ const TICKER_SETOR: Record<string, { nome: string; setor: string }> = {
   'MGLU3':  { nome: 'Magazine Luiza S.A.',           setor: 'varejo' },
   'PRIO3':  { nome: 'PRIO S.A.',                    setor: 'petroleo' },
   'PETR4':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
+  'VALE3':  { nome: 'Vale S.A.',                           setor: 'mineracao' },
   'PETR3':  { nome: 'Petróleo Brasileiro S.A. — Petrobras', setor: 'petroleo' },
   'LAVV3':  { nome: 'Lavvi Empreendimentos Imobiliários S.A.', setor: 'construcao' },
   'TAEE3': { nome: 'Transmissora Aliança de Energia Elétrica S.A.', setor: 'transmissao' },
@@ -502,6 +544,17 @@ async function ensureTables() {
       VALUES ('VLID3','1T26',
         248.6, 25.5, 447, 90.0, -37, 56, 4.3,
         'Receita R$447MM (-10,7% a/a). EBITDA R$114MM (Mg 25,5%). LL R$56MM recorrente (reportado R$73,6MM com benefício fiscal não-recorrente). Caixa Líquido R$37MM. Segmentos: ID & Gov Digital R$248,6MM (+1,7% a/a — CIN em expansão); Pay R$90MM (-31,5% a/a — pressão Argentina + digital); Mobile R$108,4MM (-13,3% a/a). EV/EBITDA LTM 3,2x (deep value — peers globais 8-12x). P/L 5,7x. DCF base R$32/ação (+83% upside vs R$17,70); Bear R$23 (+29%); Bull R$43 (+146%). TIR Real implícita ~12,3% vs NTN-B real 8,0% (+4,3pp — VERDE). Gordon DDM R$12 (Ke=18,2% — severo) / R$21 (Ke=12% mkt implícito). Graham Number R$38 (+116%). Tese: COMPRA — Valid é uma empresa de identidade digital em transição: legacy (Pay/Mobile) caindo mas Gov Digital crescendo, net cash, payout ~50%, valuation em mínimas históricas. Novos Negócios (VSoft biometria + serviços gov.) +53% a/a em 2025 já respondem por 16% da receita e 27% do EBITDA. Catalisadores: expansão CIN para todos os estados, contratos gov. digitais (SPs, RJs), estabilização Pay. Stop: Rec ID&Gov cai por 2 tri consecutivos. Fonte: Release 1T26 Valid — mai/2026.')
+    `
+  }
+
+  // Seed entrada inicial VALE3 2T26
+  const vale3Entrada = await sql`SELECT id FROM teses_entradas WHERE ticker='VALE3' AND trimestre='2T26'`
+  if (!vale3Entrada[0]) {
+    await sql`
+      INSERT INTO teses_entradas (ticker, trimestre, pld, gsf, rap, pmso, dl_ebitda, lucro, tir_real, observacoes)
+      VALUES ('VALE3','2T26',
+        95.0, 84.3, 60888, 22.5, 1.8, 23583, -3.3,
+        'Preço IO realizado US$95/t. Produção Fe 84.3Mt (+3.8% a/a). Receita R$60.888MM. EBITDA R$23.583MM (Mg 38.7%). Lucro R$7.975MM (+19% a/a recorrente). DL/EBITDA 1.8x (DL US$16.7B). C1 finos US$22.5/t (guidance 22.5-23.5/t ✓). Cobre 98kt (recorde histórico trimestral — Salobo). Níquel 36kt (pós-impairment Canadá 4T25). Destaque: Metais de Transição Energética ganha relevância — cobre caminha para +400kt/ano em 2028 (+67% vs 2021). Valuation: DCF base R$72/ação (Bear R$47 / Bull R$106; WACC BRL 17.8%, g 5.0%). EV/EBITDA 4.2x vs peers BHP/Rio Tinto 5-6x — desconto estrutural de 30%. TIR Real implícita ~4.2% vs NTN-B real 8.0% (-3.8pp — VERMELHO: cíclica não bate renda fixa no ciclo atual). Tese NEUTRA COM VIÉS DE COMPRA PARA HORIZONTE 3+ ANOS: empresa de qualidade excepcional com custo C1 mínimo global (~US$22/t vs US$40+ concorrentes), mas TIR real desfavorável vs SELIC no curto prazo. Catalisadores: (1) Estímulo infra China levando IO acima de US$110/t, (2) cobre acima de US$10.000/t em 2027-2028, (3) recompra de ações (US$2B autorizado). Stops: IO < US$85/t por 2 tri | C1 > US$24/t | DL/EBITDA > 2.5x. Fonte: Release 2T26 Vale — jul/2026 | Análise Radar Invest Pro out/2026.')
     `
   }
 
