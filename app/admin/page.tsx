@@ -369,6 +369,9 @@ export default function AdminUsuariosPage() {
   const [msgDowngrade, setMsgDowngrade]   = useState('')
   const [promoTrial, setPromoTrial]       = useState(false)
   const [msgPromoTrial, setMsgPromoTrial] = useState('')
+  const [abaAtiva, setAbaAtiva]           = useState<'usuarios' | 'atividade'>('usuarios')
+  const [atividade, setAtividade]         = useState<Record<string, unknown>[]>([])
+  const [carregandoAtiv, setCarregandoAtiv] = useState(false)
 
   useEffect(() => { carregar() }, [])
 
@@ -459,6 +462,16 @@ export default function AdminUsuariosPage() {
     finally { setPromoTrial(false) }
   }
 
+  async function carregarAtividade() {
+    setCarregandoAtiv(true)
+    try {
+      const r = await fetch('/api/admin/atividade')
+      const d = await r.json()
+      if (r.ok) setAtividade(d.atividade ?? [])
+    } catch { /* silencioso */ }
+    finally { setCarregandoAtiv(false) }
+  }
+
   async function excluir(uid: number) {
     setAcao(a => ({ ...a, [uid]: 'excluindo' }))
     await fetch(`/api/admin/usuarios/${uid}`, { method: 'DELETE' })
@@ -497,7 +510,29 @@ export default function AdminUsuariosPage() {
           </div>
         </div>
 
-        {(msgEmail || msgDowngrade || msgPromoTrial) && (
+        {/* Abas */}
+        <div style={{ display: 'flex', gap: '4px', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,.07)', paddingBottom: '0' }}>
+          {(['usuarios', 'atividade'] as const).map(aba => (
+            <button
+              key={aba}
+              onClick={() => {
+                setAbaAtiva(aba)
+                if (aba === 'atividade' && atividade.length === 0) carregarAtividade()
+              }}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                padding: '8px 18px', fontSize: '13px', fontWeight: 600,
+                color: abaAtiva === aba ? '#e8a020' : '#4a5d73',
+                borderBottom: abaAtiva === aba ? '2px solid #e8a020' : '2px solid transparent',
+                marginBottom: '-1px',
+              }}
+            >
+              {aba === 'usuarios' ? '👥 Usuários' : '📊 Atividade'}
+            </button>
+          ))}
+        </div>
+
+        {abaAtiva === 'usuarios' && (msgEmail || msgDowngrade || msgPromoTrial) && (
           <div style={{ display: 'flex', gap: '10px', marginBottom: '16px', flexWrap: 'wrap' }}>
             {msgEmail && (
               <div style={{ background: 'rgba(34,197,94,.08)', border: '1px solid rgba(34,197,94,.25)', color: '#22c55e', padding: '10px 16px', borderRadius: '8px', fontSize: '13px', flex: 1 }}>
@@ -517,13 +552,13 @@ export default function AdminUsuariosPage() {
           </div>
         )}
 
-        {erro && (
+        {abaAtiva === 'usuarios' && erro && (
           <div style={{ background: 'rgba(239,83,80,.1)', border: '1px solid rgba(239,83,80,.3)', color: '#ef5350', padding: '14px 18px', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>
             {erro}
           </div>
         )}
 
-        {carregando ? (
+        {abaAtiva === 'usuarios' && (carregando ? (
           <div style={{ color: '#6b84a8', textAlign: 'center', padding: '60px', fontSize: '14px' }}>Carregando...</div>
         ) : (
           <>
@@ -668,11 +703,94 @@ export default function AdminUsuariosPage() {
             ))}
           </div>
           </>
+        ))}
+
+        {abaAtiva === 'usuarios' && (
+          <div style={{ marginTop: '16px', fontSize: '12px', color: '#3d4f6a' }}>
+            {usuarios.length} usuário(s) · Plano altera imediatamente · Para ativar e-mails não confirmados, use &quot;Ativar&quot;
+          </div>
         )}
 
-        <div style={{ marginTop: '16px', fontSize: '12px', color: '#3d4f6a' }}>
-          {usuarios.length} usuário(s) · Plano altera imediatamente · Para ativar e-mails não confirmados, use &quot;Ativar&quot;
-        </div>
+        {abaAtiva === 'atividade' && (
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+              <span style={{ fontSize: '13px', color: '#6b84a8' }}>
+                O que cada usuário salvou no banco de dados
+              </span>
+              <button
+                onClick={carregarAtividade}
+                disabled={carregandoAtiv}
+                style={{ background: '#1a2632', border: '1px solid rgba(255,255,255,.1)', color: '#6b84a8', padding: '6px 14px', borderRadius: '6px', cursor: 'pointer', fontSize: '12px', marginLeft: 'auto' }}
+              >
+                {carregandoAtiv ? '⏳' : '↻ Recarregar'}
+              </button>
+            </div>
+
+            {carregandoAtiv ? (
+              <div style={{ color: '#6b84a8', textAlign: 'center', padding: '60px', fontSize: '14px' }}>Carregando atividade...</div>
+            ) : (
+              <div style={{ background: '#0f1923', border: '1px solid rgba(255,255,255,.07)', borderRadius: '10px', overflowX: 'auto' }}>
+                <table style={{ width: '100%', minWidth: '900px', borderCollapse: 'collapse' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}>
+                      {['Nome', 'E-mail', 'Plano', 'Último Login', 'Tickers Carteira', 'Movimentações', 'Transações Finanças', 'Meses IR'].map(h => (
+                        <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: '#4a5d73', letterSpacing: '.8px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {atividade.map((u, i) => {
+                      const tc = Number(u.tickers_carteira ?? 0)
+                      const mv = Number(u.movimentacoes ?? 0)
+                      const tf = Number(u.transacoes_financas ?? 0)
+                      const ir = Number(u.meses_ir_apurado ?? 0)
+                      const temAlgo = tc + mv + tf + ir > 0
+                      return (
+                        <tr key={String(u.id)} style={{ borderBottom: i < atividade.length - 1 ? '1px solid rgba(255,255,255,.04)' : 'none', opacity: temAlgo ? 1 : 0.45 }}>
+                          <td style={{ ...tdStyle, color: '#e0e0e0', fontWeight: 600 }}>{String(u.nome)}</td>
+                          <td style={{ ...tdStyle, color: '#6b84a8', fontSize: '12px' }}>{String(u.email)}</td>
+                          <td style={tdStyle}>
+                            <span style={{ fontSize: '11px', fontWeight: 700, color: PLANO_COLOR[(u.plano as Plano) ?? 'gratuito'] ?? '#546E7A' }}>
+                              {String(u.plano)}
+                            </span>
+                          </td>
+                          <td style={{ ...tdStyle, fontSize: '12px', whiteSpace: 'nowrap' }}>
+                            {u.ultimo_login
+                              ? <span style={{ color: '#66BB6A' }}>{new Date(String(u.ultimo_login)).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
+                              : <span style={{ color: '#3d4f6a' }}>—</span>
+                            }
+                          </td>
+                          <td style={{ ...tdStyle, textAlign: 'center' }}>
+                            <span style={{ color: tc > 0 ? '#e8a020' : '#3d4f6a', fontWeight: tc > 0 ? 700 : 400 }}>{tc || '—'}</span>
+                          </td>
+                          <td style={{ ...tdStyle, textAlign: 'center' }}>
+                            <span style={{ color: mv > 0 ? '#66BB6A' : '#3d4f6a', fontWeight: mv > 0 ? 700 : 400 }}>{mv || '—'}</span>
+                          </td>
+                          <td style={{ ...tdStyle, textAlign: 'center' }}>
+                            <span style={{ color: tf > 0 ? '#66BB6A' : '#3d4f6a', fontWeight: tf > 0 ? 700 : 400 }}>{tf || '—'}</span>
+                          </td>
+                          <td style={{ ...tdStyle, textAlign: 'center' }}>
+                            <span style={{ color: ir > 0 ? '#818cf8' : '#3d4f6a', fontWeight: ir > 0 ? 700 : 400 }}>{ir || '—'}</span>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+                {atividade.length === 0 && (
+                  <div style={{ textAlign: 'center', padding: '48px', color: '#4a5d73', fontSize: '14px' }}>
+                    Nenhum dado encontrado.
+                  </div>
+                )}
+              </div>
+            )}
+            <div style={{ marginTop: '12px', fontSize: '12px', color: '#3d4f6a' }}>
+              {atividade.length} usuário(s) · Usuários sem nenhum dado aparecem mais opacos
+            </div>
+          </div>
+        )}
       </div>
 
       {carteiraUser && (
