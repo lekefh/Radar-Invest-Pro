@@ -461,7 +461,7 @@
       "rec_franquia": 404.6,
       "rec_multimarca": 712.8
     },
-    "atualizado": "28/10/2026 15:40"
+    "atualizado": "28/10/2026 15:42"
   },
   "SOJA3": {
     "ticker": "SOJA3",
@@ -808,7 +808,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "VULC3": {
     "ticker": "VULC3",
@@ -1193,7 +1193,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "CYRE3": {
     "ticker": "CYRE3",
@@ -1553,7 +1553,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "LAVV3": {
     "ticker": "LAVV3",
@@ -1916,7 +1916,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "PSSA3": {
     "ticker": "PSSA3",
@@ -2307,7 +2307,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "GMAT3": {
     "ticker": "GMAT3",
@@ -2661,7 +2661,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "CPFE3": {
     "ticker": "CPFE3",
@@ -3045,7 +3045,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "B3SA3": {
     "ticker": "B3SA3",
@@ -3437,7 +3437,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "BBAS3": {
     "ticker": "BBAS3",
@@ -3843,7 +3843,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "BBSE3": {
     "ticker": "BBSE3",
@@ -4255,7 +4255,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "CSAN3": {
     "ticker": "CSAN3",
@@ -4599,7 +4599,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "KEPL3": {
     "ticker": "KEPL3",
@@ -5035,7 +5035,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "INTB3": {
     "ticker": "INTB3",
@@ -5459,7 +5459,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "BBDC4": {
     "ticker": "BBDC4",
@@ -5796,7 +5796,7 @@
       "metodologia": "Auto: (LTM ÷ 4) × (1 + g)"
     },
     "kpis_ltm": null,
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:42"
   },
   "AXIA3": {
     "ticker": "AXIA3",
@@ -6152,7 +6152,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "SUZB3": {
     "ticker": "SUZB3",
@@ -6495,7 +6495,7 @@
       "metodologia": "YoY+-20% media = R$10,000MM"
     },
     "kpis_ltm": null,
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "EQTL3": {
     "ticker": "EQTL3",
@@ -6838,7 +6838,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "CMIG4": {
     "ticker": "CMIG4",
@@ -7181,7 +7181,7 @@
       "metodologia": "IPCA 6.5% × vol 1.01× s/ 2T25"
     },
     "kpis_ltm": null,
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "TAEE3": {
     "ticker": "TAEE3",
@@ -7544,7 +7544,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "JHSF3": {
     "ticker": "JHSF3",
@@ -7944,7 +7944,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "CXSE3": {
     "ticker": "CXSE3",
@@ -8310,7 +8310,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "RIAA3": {
     "ticker": "RIAA3",
@@ -8670,7 +8670,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "CEAB3": {
     "ticker": "CEAB3",
@@ -9021,7 +9021,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "PETR4": {
     "ticker": "PETR4",
@@ -9384,7 +9384,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:41"
+    "atualizado": "28/10/2026 15:43"
   },
   "VALE3": {
     "ticker": "VALE3",
@@ -9747,7 +9747,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "LREN3": {
     "ticker": "LREN3",
@@ -10110,38 +10110,38 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "SBFG3": {
     "ticker": "SBFG3",
     "company": "SBFG3 — Grupo SBF",
     "nome": "Grupo SBF",
     "method": "fcff",
-    "preco_atual": 5.099999904632568,
+    "preco_atual": 5.090000152587891,
     "bear": {
-      "preco": 10.48,
-      "upside": 105.5
+      "preco": 9.42,
+      "upside": 85.1
     },
     "base": {
-      "preco": 16.32,
-      "upside": 220.0
+      "preco": 14.89,
+      "upside": 192.5
     },
     "bull": {
-      "preco": 21.7,
-      "upside": 325.5
+      "preco": 19.91,
+      "upside": 291.2
     },
-    "upside_base_legado": 219.92,
+    "upside_base_legado": 192.57,
     "ultimo_periodo_confirmado": "2T26",
     "ri_url": "https://ri.gruposbf.com.br/",
     "rec_base": 9191.7,
     "divida_liquida": 1488.0,
     "bear_factor": 0.8,
     "bull_factor": 1.25,
-    "wacc": 16.6,
-    "g_terminal": 5.0,
+    "wacc": 16.82,
+    "g_terminal": 4.0,
     "shares": 230663994,
-    "wacc_ke": 22.46,
-    "wacc_rf": 13.5,
+    "wacc_ke": 22.96,
+    "wacc_rf": 14.0,
     "wacc_beta": 1.63,
     "wacc_erp": 5.5,
     "wacc_peso_e": 44.0,
@@ -10278,7 +10278,7 @@
         "nopat": 595.6,
         "capex": 248.2,
         "fcl": 437.5,
-        "vp_fcl": 375.2
+        "vp_fcl": 374.5
       },
       {
         "ano": 2028,
@@ -10288,7 +10288,7 @@
         "nopat": 683.5,
         "capex": 268.0,
         "fcl": 520.7,
-        "vp_fcl": 383.0
+        "vp_fcl": 381.5
       },
       {
         "ano": 2029,
@@ -10298,7 +10298,7 @@
         "nopat": 774.3,
         "capex": 286.8,
         "fcl": 614.6,
-        "vp_fcl": 387.7
+        "vp_fcl": 385.5
       },
       {
         "ano": 2030,
@@ -10308,7 +10308,7 @@
         "nopat": 874.6,
         "capex": 306.9,
         "fcl": 703.6,
-        "vp_fcl": 380.7
+        "vp_fcl": 377.8
       },
       {
         "ano": 2031,
@@ -10318,7 +10318,7 @@
         "nopat": 927.0,
         "capex": 325.3,
         "fcl": 756.4,
-        "vp_fcl": 351.0
+        "vp_fcl": 347.7
       },
       {
         "ano": 2032,
@@ -10328,7 +10328,7 @@
         "nopat": 1034.4,
         "capex": 317.2,
         "fcl": 881.1,
-        "vp_fcl": 350.6
+        "vp_fcl": 346.7
       },
       {
         "ano": 2033,
@@ -10338,11 +10338,11 @@
         "nopat": 1140.4,
         "capex": 318.6,
         "fcl": 1004.6,
-        "vp_fcl": 342.8
+        "vp_fcl": 338.3
       }
     ],
     "projecoes_indicativas": false,
-    "valor_terminal": 2680.5,
+    "valor_terminal": 2370.8,
     "sensibilidade": {
       "g_cols": [
         2.0,
@@ -10435,10 +10435,10 @@
       ]
     },
     "tir": {
-      "nominal": 60.45,
-      "real": 52.81,
-      "vs_selic": 46.31,
-      "vs_ntnb": 45.51,
+      "nominal": 59.43,
+      "real": 51.84,
+      "vs_selic": 45.34,
+      "vs_ntnb": 44.54,
       "veredito": "Atrativo vs. RF"
     },
     "tir_acionista": null,
@@ -10448,7 +10448,7 @@
       "preco_formula": null,
       "eps": 1.8,
       "vpa": 13.89,
-      "upside_gn": 365.1,
+      "upside_gn": 366.0,
       "detalhe": "EPS=R$1.80 VPA=R$13.89"
     },
     "proximo_tri": {
@@ -10486,7 +10486,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "PRIO3": {
     "ticker": "PRIO3",
@@ -10837,7 +10837,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "MGLU3": {
     "ticker": "MGLU3",
@@ -11200,7 +11200,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "ABEV3": {
     "ticker": "ABEV3",
@@ -11563,7 +11563,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "VLID3": {
     "ticker": "VLID3",
@@ -11951,7 +11951,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "LEVE3": {
     "ticker": "LEVE3",
@@ -12343,7 +12343,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "SBSP3": {
     "ticker": "SBSP3",
@@ -12700,7 +12700,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "RENT3": {
     "ticker": "RENT3",
@@ -13088,7 +13088,7 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   },
   "RANI3": {
     "ticker": "RANI3",
@@ -13451,6 +13451,6 @@
       "rec_franquia": null,
       "rec_multimarca": null
     },
-    "atualizado": "28/10/2026 15:42"
+    "atualizado": "28/10/2026 15:43"
   }
 }
