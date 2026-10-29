@@ -144,9 +144,9 @@ async function buscarPrecos(tickers: string[]): Promise<Record<string, { preco: 
 }
 
 /* ── Card mobile (substitui a linha da tabela em telas pequenas) ─────────────── */
-function PosicaoCardMobile({ p, pesoAtual, pesoSug, selecionado, onSelecionar, onEditar, onToggleCalculo }: {
+function PosicaoCardMobile({ p, pesoAtual, pesoSug, selecionado, ocultarValores, onSelecionar, onEditar, onToggleCalculo }: {
   p: Posicao; pesoAtual: number; pesoSug: number
-  selecionado: boolean
+  selecionado: boolean; ocultarValores: boolean
   onSelecionar: () => void; onEditar: () => void
   onToggleCalculo: () => void
 }) {
@@ -171,14 +171,18 @@ function PosicaoCardMobile({ p, pesoAtual, pesoSug, selecionado, onSelecionar, o
       </div>
       <div className="posicao-card-stats">
         <div><span className="lbl">Qtde</span><span>{f2(p.quantidade)}</span></div>
-        <div><span className="lbl">P.Médio</span><span>{fR(p.preco_medio)}</span></div>
-        <div><span className="lbl">P.Atual</span><span>{p.preco_atual != null ? fR(p.preco_atual) : '—'}</span></div>
+        <div><span className="lbl">P.Médio</span><span>{ocultarValores ? '••••' : fR(p.preco_medio)}</span></div>
+        <div><span className="lbl">P.Atual</span><span>{p.preco_atual != null ? (ocultarValores ? '••••' : fR(p.preco_atual)) : '—'}</span></div>
       </div>
       <div className="posicao-card-res" style={{ color: corRes(resTotal) }}>
-        {resTotal != null ? `${resTotal >= 0 ? '+' : ''}${fR(resTotal)} (${resPct! >= 0 ? '+' : ''}${f2(resPct)}%)` : 'Sem cotação atual'}
+        {resTotal != null
+          ? ocultarValores
+            ? `•••• (${resPct! >= 0 ? '+' : ''}${f2(resPct)}%)`
+            : `${resTotal >= 0 ? '+' : ''}${fR(resTotal)} (${resPct! >= 0 ? '+' : ''}${f2(resPct)}%)`
+          : 'Sem cotação atual'}
       </div>
       <div className="posicao-card-stats">
-        <div><span className="lbl">Valor Atual</span><span>{fR(valorAtu)}</span></div>
+        <div><span className="lbl">Valor Atual</span><span>{ocultarValores ? '••••' : fR(valorAtu)}</span></div>
         <div><span className="lbl">Peso Atual</span><span>{f2(pesoAtual)}%</span></div>
         <div><span className="lbl">Peso Sug.</span><span style={{ color: pesoSug > pesoAtual ? '#00d4a0' : pesoSug < pesoAtual ? '#FFD54F' : '#b8c4d4' }}>{f2(pesoSug)}%</span></div>
       </div>
@@ -451,6 +455,7 @@ export default function CarteiraPage() {
   const [sortOpcoes, setSortOpcoes] = useState<{ key: string; dir: 'asc' | 'desc' } | null>(null)
   const [abaCarteira, setAbaCarteira] = useState<'acoes' | 'opcoes' | 'importacoes' | 'base' | 'performance'>('acoes')
   const [showConcentracao, setShowConcentracao] = useState(false)
+  const [ocultarValores,   setOcultarValores]   = useState(false)
 
   // Performance
   const [perfDe,      setPerfDe]      = useState(() => `${new Date().getFullYear()}-01-01`)
@@ -1177,12 +1182,12 @@ export default function CarteiraPage() {
 
         {/* BARRA P&L */}
         <div className="bar-pl">
-          <div className="pl-item">Investido: <span className="pl-val">{fR(metricas.investido)}</span></div>
-          <div className="pl-item">Atual: <span className="pl-val">{fR(metricas.atual)}</span></div>
+          <div className="pl-item">Investido: <span className="pl-val">{ocultarValores ? '••••' : fR(metricas.investido)}</span></div>
+          <div className="pl-item">Atual: <span className="pl-val">{ocultarValores ? '••••' : fR(metricas.atual)}</span></div>
           <div className="pl-item">
             P&L:
             <span className="pl-val" style={{ color: corPL(metricas.pl) }}>
-              {' '}{fR(metricas.pl)} ({metricas.pl >= 0 ? '+' : ''}{f1(metricas.plPct)})
+              {' '}{ocultarValores ? '••••' : fR(metricas.pl)} ({metricas.pl >= 0 ? '+' : ''}{f1(metricas.plPct)})
             </span>
           </div>
           <div className="nota-legend">
@@ -1191,6 +1196,13 @@ export default function CarteiraPage() {
             <span style={{ color:'#FFD54F' }}>5-7 Boa</span>
             <span style={{ color:'#EF9A9A' }}>&lt;5 Baixa</span>
           </div>
+          <button
+            onClick={() => setOcultarValores(v => !v)}
+            title={ocultarValores ? 'Mostrar valores' : 'Ocultar valores (modo vídeo)'}
+            style={{ background:'none', border:'1px solid rgba(255,255,255,.15)', borderRadius:6, color: ocultarValores ? '#e8a020' : '#6b84a8', cursor:'pointer', padding:'3px 10px', fontSize:16, lineHeight:1, transition:'all .15s', flexShrink:0 }}
+          >
+            {ocultarValores ? '👁‍🗨' : '👁'}
+          </button>
         </div>
 
         {/* ABAS */}
@@ -1584,12 +1596,12 @@ export default function CarteiraPage() {
                           </td>
                           <td title={p.nome ?? ''} style={{ maxWidth:160, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{p.nome}</td>
                           <td>{f2(p.quantidade)}</td>
-                          <td>R$ {f2(p.preco_medio)}</td>
-                          <td>{p.preco_atual != null ? <span>R$ {f2(p.preco_atual)}</span> : <span className="muted">—</span>}</td>
-                          <td style={{color:corRes(resUn)}}>{resUn!=null?'R$ '+f2(resUn):'—'}</td>
-                          <td style={{color:corRes(resTotal),fontWeight:600}}>{resTotal!=null?'R$ '+f2(resTotal):'—'}</td>
+                          <td>{ocultarValores ? '••••' : 'R$ ' + f2(p.preco_medio)}</td>
+                          <td>{p.preco_atual != null ? <span>{ocultarValores ? '••••' : 'R$ ' + f2(p.preco_atual)}</span> : <span className="muted">—</span>}</td>
+                          <td style={{color:corRes(resUn)}}>{resUn!=null?(ocultarValores?'••••':'R$ '+f2(resUn)):'—'}</td>
+                          <td style={{color:corRes(resTotal),fontWeight:600}}>{resTotal!=null?(ocultarValores?'••••':'R$ '+f2(resTotal)):'—'}</td>
                           <td style={{color:corRes(resPct),fontWeight:600}}>{resPct!=null?(resPct>=0?'+':'')+f2(resPct)+'%':'—'}</td>
-                          <td style={{fontWeight:600}}>R$ {f2(valorAtu)}</td>
+                          <td style={{fontWeight:600}}>{ocultarValores ? '••••' : 'R$ ' + f2(valorAtu)}</td>
                           <td style={{color:corNota(p.nota),fontWeight:700}}>{p.nota != null ? f2(p.nota) : '—'}</td>
                           <td style={{color:'#b8c4d4'}}>{f2(pesoAtual)}%</td>
                           <td style={{color:pesoSug>pesoAtual?'#00d4a0':pesoSug<pesoAtual?'#FFD54F':'#b8c4d4'}}>{f2(pesoSug)}%</td>
@@ -1621,24 +1633,24 @@ export default function CarteiraPage() {
                       <td style={{ padding:'9px 10px', textAlign:'right', color:'#8da3bc', fontSize:11 }}>—</td>
                       <td style={{ padding:'9px 10px', textAlign:'right', color:'#8da3bc', fontSize:11 }}>—</td>
                       <td style={{ padding:'9px 10px', textAlign:'right', fontWeight:700, color: totaisAcoes.pl >= 0 ? '#00d4a0' : '#ef4444' }}>
-                        {totaisAcoes.pl >= 0 ? '+' : ''}R$ {f2(totaisAcoes.pl)}
+                        {ocultarValores ? '••••' : (totaisAcoes.pl >= 0 ? '+' : '') + 'R$ ' + f2(totaisAcoes.pl)}
                       </td>
                       <td style={{ padding:'9px 10px', textAlign:'right', fontWeight:700, color: totaisAcoes.plPct >= 0 ? '#00d4a0' : '#ef4444' }}>
                         {totaisAcoes.plPct >= 0 ? '+' : ''}{f1(totaisAcoes.plPct)}%
                       </td>
                       <td style={{ padding:'9px 10px', textAlign:'right', fontWeight:700, color:'#e8edf5' }}>
-                        R$ {f2(totaisAcoes.atual)}
+                        {ocultarValores ? '••••' : 'R$ ' + f2(totaisAcoes.atual)}
                       </td>
                       <td colSpan={4}></td>
                     </tr>
                     <tr style={{ background:'rgba(255,255,255,.015)', borderBottom:'1px solid rgba(255,255,255,.05)' }}>
                       <td colSpan={14} style={{ padding:'5px 10px', fontSize:11, color:'#4a5d73' }}>
-                        <span style={{ color:'#8da3bc' }}>Investido: <strong style={{ color:'#e8edf5' }}>R$ {f2(totaisAcoes.investido)}</strong></span>
+                        <span style={{ color:'#8da3bc' }}>Investido: <strong style={{ color:'#e8edf5' }}>{ocultarValores ? '••••' : 'R$ ' + f2(totaisAcoes.investido)}</strong></span>
                         <span style={{ color:'#4a5d73', margin:'0 10px' }}>·</span>
-                        <span style={{ color:'#8da3bc' }}>Atual: <strong style={{ color:'#e8edf5' }}>R$ {f2(totaisAcoes.atual)}</strong></span>
+                        <span style={{ color:'#8da3bc' }}>Atual: <strong style={{ color:'#e8edf5' }}>{ocultarValores ? '••••' : 'R$ ' + f2(totaisAcoes.atual)}</strong></span>
                         <span style={{ color:'#4a5d73', margin:'0 10px' }}>·</span>
                         <span style={{ color:'#8da3bc' }}>P&L: <strong style={{ color: totaisAcoes.pl >= 0 ? '#00d4a0' : '#ef4444' }}>
-                          {totaisAcoes.pl >= 0 ? '+' : ''}R$ {f2(totaisAcoes.pl)} ({totaisAcoes.plPct >= 0 ? '+' : ''}{f1(totaisAcoes.plPct)}%)
+                          {ocultarValores ? '••••' : (totaisAcoes.pl >= 0 ? '+' : '') + 'R$ ' + f2(totaisAcoes.pl)} ({totaisAcoes.plPct >= 0 ? '+' : ''}{f1(totaisAcoes.plPct)}%)
                         </strong></span>
                       </td>
                     </tr>
@@ -1689,6 +1701,7 @@ export default function CarteiraPage() {
                         pesoAtual={pesoAtual}
                         pesoSug={pesoSug}
                         selecionado={selecionado === p.id}
+                        ocultarValores={ocultarValores}
                         onSelecionar={() => setSelecionado(p.id === selecionado ? null : p.id)}
                         onEditar={() => { setEditando(p); setModal('edit') }}
                         onToggleCalculo={async () => {
@@ -1906,6 +1919,7 @@ export default function CarteiraPage() {
               borderRadius:6, padding:'5px 13px', fontSize:12, cursor:'pointer', fontWeight: active ? 700 : 400,
             })
             const fBRL2 = (v: number) => v.toLocaleString('pt-BR', { style:'currency', currency:'BRL', minimumFractionDigits:2 })
+            const mBRL  = (v: number) => ocultarValores ? '••••' : fBRL2(v)
             const fPct  = (v: number) => (v >= 0 ? '+' : '') + v.toFixed(2) + '%'
 
             // unrealized PL das posições atuais, filtrado por tipo
@@ -1971,7 +1985,7 @@ export default function CarteiraPage() {
                       <div style={{ fontSize:10, color:'#4a5d73', textTransform:'uppercase', letterSpacing:1, marginBottom:8 }}>Resultado Realizado no Período</div>
                       <div style={{ display:'flex', alignItems:'baseline', gap:12, flexWrap:'wrap' }}>
                         <span className="perf-hero-value" style={{ color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>
-                          {fBRL2(totalRealizado)}
+                          {mBRL(totalRealizado)}
                         </span>
                         {volVendas > 0 && (
                           <span className="perf-hero-pct" style={{ color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>
@@ -2049,8 +2063,8 @@ export default function CarteiraPage() {
                     {/* Stats chips */}
                     <div className="perf-stats">
                       {([
-                        { label:'Vol. Comprado', val:fBRL2(volCompras), sub:`${perfData.operacoes.n_compras} compras` },
-                        { label:'Vol. Vendido',  val:fBRL2(volVendas),  sub:`${perfData.operacoes.n_vendas} vendas` },
+                        { label:'Vol. Comprado', val:mBRL(volCompras), sub:`${perfData.operacoes.n_compras} compras` },
+                        { label:'Vol. Vendido',  val:mBRL(volVendas),  sub:`${perfData.operacoes.n_vendas} vendas` },
                         { label:'Operações',     val:String(totalOps),  sub:'no período' },
                       ] as {label:string;val:string;sub:string}[]).map(c => (
                         <div key={c.label} className="perf-stats-card">
@@ -2068,7 +2082,7 @@ export default function CarteiraPage() {
                         <div style={{ padding:'4px 16px 4px 0', borderRight:'1px solid rgba(255,255,255,.07)' }}>
                           <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Realizado</div>
                           <div style={{ display:'flex', alignItems:'baseline', gap:6, flexWrap:'wrap' }}>
-                            <span style={{ fontSize:18, fontWeight:800, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444', fontVariantNumeric:'tabular-nums' }}>{fBRL2(totalRealizado)}</span>
+                            <span style={{ fontSize:18, fontWeight:800, color: totalRealizado >= 0 ? '#00d4a0' : '#ef4444', fontVariantNumeric:'tabular-nums' }}>{mBRL(totalRealizado)}</span>
                           </div>
                           <div style={{ fontSize:10, color:'#4a5d73', marginTop:3 }}>{realizadoFiltrado.filter(t => t.n_ops > 0).length} ativos · {perfData.operacoes.n_vendas} vendas</div>
                         </div>
@@ -2076,7 +2090,7 @@ export default function CarteiraPage() {
                         <div style={{ padding:'4px 16px', borderRight:'1px solid rgba(255,255,255,.07)' }}>
                           <div style={{ fontSize:10, color:'#4a5d73', marginBottom:4, textTransform:'uppercase', letterSpacing:.5 }}>Latente (aberto)</div>
                           <div style={{ display:'flex', alignItems:'baseline', gap:6, flexWrap:'wrap' }}>
-                            <span className="perf-latente-val" style={{ color: naoRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(naoRealizado)}</span>
+                            <span className="perf-latente-val" style={{ color: naoRealizado >= 0 ? '#00d4a0' : '#ef4444' }}>{mBRL(naoRealizado)}</span>
                             <span className="perf-latente-pct" style={{ color: naoRealizadoPct >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct(naoRealizadoPct)}</span>
                           </div>
                           <div style={{ fontSize:10, color:'#4a5d73', marginTop:3 }}>{posComTipo.length} posições abertas</div>
@@ -2085,7 +2099,7 @@ export default function CarteiraPage() {
                         <div style={{ padding:'4px 0 4px 16px' }}>
                           <div style={{ fontSize:10, color:'#eab838', marginBottom:4, textTransform:'uppercase', letterSpacing:.5, fontWeight:700 }}>Líquido Total ◆</div>
                           <div style={{ display:'flex', alignItems:'baseline', gap:6, flexWrap:'wrap' }}>
-                            <span style={{ fontSize:18, fontWeight:800, color: totalGeral >= 0 ? '#00d4a0' : '#ef4444', fontVariantNumeric:'tabular-nums' }}>{fBRL2(totalGeral)}</span>
+                            <span style={{ fontSize:18, fontWeight:800, color: totalGeral >= 0 ? '#00d4a0' : '#ef4444', fontVariantNumeric:'tabular-nums' }}>{mBRL(totalGeral)}</span>
                             {custoAtual > 0 && (
                               <span style={{ fontSize:13, fontWeight:600, color: totalGeral >= 0 ? '#00d4a0' : '#ef4444' }}>{fPct((totalGeral / custoAtual) * 100)}</span>
                             )}
@@ -2120,7 +2134,7 @@ export default function CarteiraPage() {
                                     <tr key={t.ticker} style={{ borderBottom:'1px solid rgba(255,255,255,.03)' }}>
                                       <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{t.ticker}</td>
                                       <td style={{ padding:'7px 10px' }}><span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[t.tipo] ?? t.tipo}</span></td>
-                                      <td style={{ padding:'7px 10px', fontWeight:700, color: t.pl >= 0 ? '#00d4a0' : '#ef4444' }}>{fBRL2(t.pl)}</td>
+                                      <td style={{ padding:'7px 10px', fontWeight:700, color: t.pl >= 0 ? '#00d4a0' : '#ef4444' }}>{mBRL(t.pl)}</td>
                                       <td style={{ padding:'7px 10px', color:'#4a5d73' }}>{t.n_ops}</td>
                                     </tr>
                                   ))}
@@ -2151,9 +2165,9 @@ export default function CarteiraPage() {
                                         <td style={{ padding:'7px 10px', fontWeight:700, color:'#e8edf5' }}>{p.ticker}</td>
                                         <td style={{ padding:'7px 10px' }}><span style={{ fontSize:10, background:'rgba(255,255,255,.06)', borderRadius:4, padding:'2px 6px', color:'#6b84a8' }}>{TIPO_LABEL[tipo]}</span></td>
                                         <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{p.quantidade}</td>
-                                        <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{fBRL2(p.preco_medio)}</td>
-                                        <td style={{ padding:'7px 10px', color:'#e8edf5' }}>{p.preco_atual != null ? fBRL2(p.preco_atual) : '—'}</td>
-                                        <td style={{ padding:'7px 10px', fontWeight:700, color: corPL(rt) }}>{fBRL2(rt)}</td>
+                                        <td style={{ padding:'7px 10px', color:'#6b84a8' }}>{mBRL(p.preco_medio)}</td>
+                                        <td style={{ padding:'7px 10px', color:'#e8edf5' }}>{p.preco_atual != null ? mBRL(p.preco_atual) : '—'}</td>
+                                        <td style={{ padding:'7px 10px', fontWeight:700, color: corPL(rt) }}>{mBRL(rt)}</td>
                                         <td style={{ padding:'7px 10px', fontWeight:600, color: corPL(pct) }}>{fPct(pct)}</td>
                                       </tr>
                                     )
